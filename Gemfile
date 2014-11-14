@@ -1,0 +1,46 @@
+source 'https://rubygems.org'
+
+gem 'rails', '4.2.0.beta4'
+
+# Server
+gem 'puma'
+
+# Database
+gem 'pg'
+gem 'dalli'
+
+# Templates
+gem 'slim'
+
+# Configuration
+gem 'dotenv-rails'
+
+# Serialization
+gem 'active_model_serializers', github: 'rails-api/active_model_serializers'
+gem 'oj'
+gem 'oj_mimic_json'
+
+# Ruby extensions
+gem 'handy_const'
+
+group :development, :test do
+  gem 'awesome_print'
+  gem 'pry-rails'
+  gem 'did_you_mean'
+  gem 'ruby-prof'
+end
+
+group :development do
+  gem 'guard'
+  gem 'guard-rspec', require: false
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+end

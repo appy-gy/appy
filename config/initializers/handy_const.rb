@@ -1,0 +1,1 @@
+HandyConst.extend_module!

@@ -1,0 +1,10 @@
+/.bundle
+/log
+/tmp
+/node_modules
+/bower_components
+/public/assets
+.ruby-version
+.ruby-gemset
+.env
+npm-debug.log

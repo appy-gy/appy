@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  database: <%= ENV['TOP_DB_NAME'] %>
+  pool: 5
+  timeout: 5000
+  host: <%= ENV['TOP_DB_HOST'] %>
+  username: <%= ENV['TOP_DB_USER'] %>
+  password: <%= ENV['TOP_DB_PASSWORD'] %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: <%= ENV['TOP_DB_NAME'] + '_test' %>
+
+production:
+  <<: *default
