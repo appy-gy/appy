@@ -2,6 +2,7 @@
 /log
 /tmp
 /node_modules
+/renderer/node_modules
 /bower_components
 /public/assets
 .ruby-version

@@ -23,6 +23,10 @@ gem 'oj_mimic_json'
 # Ruby extensions
 gem 'handy_const'
 
+# Server-side rendering
+gem 'connection_pool'
+gem 'httparty'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails'

@@ -1,0 +1,11 @@
+{
+  "name": "top-renderer",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.10.2",
+    "node-cjsx": "^0.1.2",
+    "react": "^0.12.0"
+  },
+  "devDependencies": {}
+}

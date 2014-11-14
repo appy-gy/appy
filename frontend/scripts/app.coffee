@@ -1,0 +1,3 @@
+setup = require './setup'
+
+setup()
