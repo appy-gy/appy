@@ -11,7 +11,7 @@ Bundler.require(*Rails.groups)
 
 module Top
   class Application < Rails::Application
-    config.autoload_paths += %W(#{config.root}/serializers #{config.root}/lib)
+    config.paths.add 'lib', eager_load: true
 
     config.time_zone = 'Moscow'
 
