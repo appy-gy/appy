@@ -1,4 +1,4 @@
 storages =
-  TestStorage: require './storages/test_storage'
+  RatingsStorage: require './storages/ratings_storage'
 
 module.exports = storages

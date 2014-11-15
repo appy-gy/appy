@@ -1,5 +1,7 @@
 require('node-cjsx').transform()
 
+require('../frontend/scripts/setup/apply_extensions')()
+
 express = require 'express'
 app = express()
 

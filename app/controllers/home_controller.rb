@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @test_data = { a: { c: 3 } }
+    @ratings = Rating::FindForHome.new.call
   end
 end

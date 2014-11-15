@@ -1,4 +1,6 @@
 components =
-  TestComp: require './components/test_comp'
+  Ratings:
+    Previews: require './components/ratings/previews'
+    Preview: require './components/ratings/preview'
 
 module.exports = components

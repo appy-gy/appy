@@ -26,7 +26,8 @@ config =
     src: "#{src}/images/**/*"
     dest: "#{dest}/images"
   styles:
-    src: "#{src}/styles/**/*.sass"
+    src: "#{src}/styles/**/app.sass"
+    srcs: "#{src}/styles/**/*.sass"
     dest: "#{dest}/css"
     name: 'app.css'
   scripts:
@@ -88,7 +89,7 @@ gulp.task 'clean', (cb) ->
 
 gulp.task 'watch', ->
   gulp.watch config.images.src, ['images']
-  gulp.watch config.styles.src, ['styles']
+  gulp.watch config.styles.srcs, ['styles']
   gulp.watch config.scripts.src, ['scripts']
 
 gulp.task 'default', ['clean'], ->
