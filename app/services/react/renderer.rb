@@ -7,12 +7,12 @@ module React
       @pool ||= ConnectionPool.new(size: pool_size, timeout: pool_timeout) { new }
     end
 
-    def self.render component, props
-      pool.with { |renderer| renderer.render component, props }
+    def self.render component, props, storages
+      pool.with { |renderer| renderer.render component, props, storages }
     end
 
-    def render component, props
-      Loader.load component, props
+    def render component, props, storages
+      Loader.load component, props, storages
     end
   end
 end

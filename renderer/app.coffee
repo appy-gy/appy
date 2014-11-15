@@ -3,14 +3,20 @@ require('node-cjsx').transform()
 express = require 'express'
 app = express()
 
+_ = require 'lodash'
 React = require 'react/addons'
 
-components = require '../frontend/scripts/components'
+getStorage = require '../frontend/scripts/helpers/get_storage'
 getComponent = require '../frontend/scripts/helpers/get_component'
 
-app.post '/', ({query: {component: componentName, props}}, res) ->
-  component = getComponent componentName
+app.post '/', ({query: {component: componentPath, props, storages}}, res) ->
+  _.each storages, (data, storagePath) ->
+    storage = getStorage storagePath
+    storage.preload JSON.parse(data)
+
+  component = getComponent componentPath
   html = React.renderToString React.createElement(component, JSON.parse(props))
+
   res.send html
 
 server = app.listen 8722, ->

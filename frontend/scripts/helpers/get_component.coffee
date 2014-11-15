@@ -1,6 +1,5 @@
 components = require '../components'
+deepGet = require './deep_get'
 
 module.exports = (path) ->
-  path.split('.').reduce (current, part) ->
-    current[part]
-  , components
+  deepGet components, path

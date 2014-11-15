@@ -1,7 +1,15 @@
 React = require 'react/addons'
+{TestStorage} = require '../storages'
 
 TestComp = React.createClass
+  getInitialState: ->
+    data = TestStorage.getData()
+    { data }
+
   render: ->
-    <div>{@props.a}</div>
+    <div>
+      <div>{@props.b}</div>
+      <div>{@state.data.a.c}</div>
+    </div>
 
 module.exports = TestComp
