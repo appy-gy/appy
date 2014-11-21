@@ -10,6 +10,7 @@ gutil = require 'gulp-util'
 autoprefixer = require 'gulp-autoprefixer'
 concat = require 'gulp-concat'
 minifyCss = require 'gulp-minify-css'
+rename = require 'gulp-rename'
 sass = require 'gulp-sass'
 uglify = require 'gulp-uglify'
 
@@ -30,6 +31,7 @@ config =
   styles:
     src: "#{src}/styles/**/app.sass"
     srcs: "#{src}/styles/**/*.sass"
+    vendor: "#{src}/styles/vendor"
     dest: "#{dest}/css"
     name: 'app.css'
   scripts:
@@ -64,11 +66,14 @@ gulp.task 'images', ->
     .pipe gulp.dest config.images.dest
 
 gulp.task 'styles', ->
+  gulp.src bowerFiles filter: /\.css$/
+    .pipe rename extname: '.scss'
+    .pipe gulp.dest config.styles.vendor
+
   gulp.src config.styles.src
     .pipe sass style: 'expanded', sourceComments: 'normal'
     .on 'error', handleError 'sass'
     .pipe autoprefixer 'last 2 versions'
-    .pipe concat config.styles.name
     .pipe onProduction minifyCss
     .pipe gulp.dest config.styles.dest
 

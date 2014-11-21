@@ -1,9 +1,10 @@
 /.bundle
 /log
 /tmp
-/node_modules
-/renderer/node_modules
 /bower_components
+/node_modules
+/frontend/styles/vendor
+/renderer/node_modules
 /public/assets
 .ruby-version
 .ruby-gemset
