@@ -1,1 +1,1 @@
-supervisor --watch ".,../frontend/scripts" --extensions "js,coffee,cjsx" app.coffee
+supervisor --watch "./,../frontend/scripts" --extensions "js,coffee,cjsx" app.coffee

@@ -1,10 +1,9 @@
 module ReactHelper
-  def react_render component, props: nil, tag: :div, prerender: true, **options
-    props = props.to_json
+  def react_render path, props: nil, tag: :div, prerender: true, **options
     options[:data] ||= {}
-    options[:data][:component] = component
-    options[:data][:props] = props
-    content = React::Renderer.render(component, props, react_storages).html_safe if prerender
+    options[:data][:path] = path
+    options[:data][:props] = props.to_json
+    content = react_context.render(path, props).html_safe if prerender
     content_tag tag, content, options
   end
 end

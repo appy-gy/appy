@@ -2,25 +2,29 @@ module ReactIntegration
   extend ActiveSupport::Concern
 
   included do
-    before_action :setup_react_storage_manager
-    helper_method :react_store, :react_storages
+    attr_reader :react_context
+
+    before_action :create_react_context
+    after_action :remove_react_context
+
+    helper_method :react_context, :react_store, :react_storages
   end
 
-  def react_store storage, data
-    add_react_storage storage, data
+  def react_store path, data
+    @react_context.store path, data
   end
 
   def react_storages
-    @react_storage_manager.storages
+    @react_context.storages
   end
 
   private
 
-  def setup_react_storage_manager
-    @react_storage_manager = React::StorageManager.new
+  def create_react_context
+    @react_context = React::Context.new
   end
 
-  def add_react_storage name, data
-    @react_storage_manager.add name, data
+  def remove_react_context
+    @react_context.remove!
   end
 end

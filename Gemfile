@@ -24,7 +24,6 @@ gem 'oj_mimic_json'
 gem 'handy_const'
 
 # Server-side rendering
-gem 'connection_pool'
 gem 'httparty'
 
 group :development, :test do
