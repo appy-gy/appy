@@ -1,9 +1,9 @@
+_ = require 'lodash'
 del = require 'del'
 browserify = require 'browserify'
+watchify = require 'watchify'
 bowerFiles = require 'main-bower-files'
 source = require 'vinyl-source-stream'
-buffer = require 'vinyl-buffer'
-merge = require 'merge-stream'
 
 gulp = require 'gulp'
 gutil = require 'gulp-util'
@@ -12,6 +12,8 @@ concat = require 'gulp-concat'
 minifyCss = require 'gulp-minify-css'
 sass = require 'gulp-sass'
 uglify = require 'gulp-uglify'
+
+{colors} = gutil
 
 {argv} = require('yargs').default(env: 'development')
 {env} = argv
@@ -31,13 +33,13 @@ config =
     dest: "#{dest}/css"
     name: 'app.css'
   scripts:
-    src: "#{src}/scripts/**/*.{coffee,cjsx}"
+    src: "#{src}/scripts/app.coffee"
+    srcs: "#{src}/scripts/**/*.{coffee,cjsx}"
     dest: "#{dest}/js"
     name: 'app.js'
-
-bundler = browserify "#{src}/scripts/app.coffee",
-  debug: false
-  extensions: ['.cjsx', '.coffee']
+  browserify:
+    debug: true
+    extensions: ['.cjsx', '.coffee']
 
 onEnv = (name, plugin) ->
   if env == name then plugin() else gutil.noop()
@@ -71,16 +73,12 @@ gulp.task 'styles', ->
     .pipe gulp.dest config.styles.dest
 
 gulp.task 'scripts', ->
-  libs = gulp.src bowerFiles filter: /\.js$/
+  bundler = browserify config.scripts.src, config.browserify
 
-  ours = bundler
+  bundler
     .bundle()
     .on 'error', handleError 'browserify'
-    .pipe source 'ours.js'
-
-  merge libs, ours
-    .pipe buffer()
-    .pipe concat config.scripts.name
+    .pipe source config.scripts.name
     .pipe onProduction uglify
     .pipe gulp.dest config.scripts.dest
 
@@ -90,7 +88,19 @@ gulp.task 'clean', (cb) ->
 gulp.task 'watch', ->
   gulp.watch config.images.src, ['images']
   gulp.watch config.styles.srcs, ['styles']
-  gulp.watch config.scripts.src, ['scripts']
+
+  bundler = browserify config.scripts.src, _.merge(config.browserify, watchify.args)
+  watcher = watchify bundler
+
+  watcher
+    .on 'update', ->
+      watcher
+        .bundle()
+        .on 'error', handleError 'watchify'
+        .pipe source config.scripts.name
+        .pipe gulp.dest config.scripts.dest
+    .on 'time', (time) ->
+      gutil.log "Finished '#{colors.cyan 'watchify'}' after #{colors.magenta "#{time} ms"}"
 
 gulp.task 'default', ['clean'], ->
   gulp.start ['fonts', 'images', 'styles', 'scripts']
