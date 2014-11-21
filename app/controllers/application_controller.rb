@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  include ReactStorages
+  include ReactIntegration
+  include EasySerialize
 
   protect_from_forgery with: :exception
 

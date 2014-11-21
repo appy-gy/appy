@@ -1,8 +1,4 @@
 module ReactHelper
-  def react_store storage, data
-    add_react_storage storage, data
-  end
-
   def react_render component, props: nil, tag: :div, prerender: true, **options
     props = props.to_json
     options[:data] ||= {}
