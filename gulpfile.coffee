@@ -71,10 +71,6 @@ gulp.task 'moveBowerDeps', ->
     .pipe gulp.dest config.styles.vendor
 
 gulp.task 'styles', ['moveBowerDeps'], ->
-  gulp.src bowerFiles filter: /\.css$/
-    .pipe rename extname: '.scss'
-    .pipe gulp.dest config.styles.vendor
-
   gulp.src config.styles.src
     .pipe sass style: 'expanded', sourceComments: 'normal'
     .on 'error', handleError 'sass'
