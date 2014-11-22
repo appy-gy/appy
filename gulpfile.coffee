@@ -65,7 +65,12 @@ gulp.task 'images', ->
   gulp.src config.images.src
     .pipe gulp.dest config.images.dest
 
-gulp.task 'styles', ->
+gulp.task 'moveBowerDeps', ->
+  gulp.src bowerFiles filter: /\.css$/
+    .pipe rename extname: '.scss'
+    .pipe gulp.dest config.styles.vendor
+
+gulp.task 'styles', ['moveBowerDeps'], ->
   gulp.src bowerFiles filter: /\.css$/
     .pipe rename extname: '.scss'
     .pipe gulp.dest config.styles.vendor
