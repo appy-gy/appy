@@ -26,6 +26,9 @@ gem 'handy_const'
 # Server-side rendering
 gem 'httparty'
 
+# Authentication
+gem "sorcery"
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails'
