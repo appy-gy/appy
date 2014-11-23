@@ -39,9 +39,11 @@ config =
     srcs: "#{src}/scripts/**/*.{coffee,cjsx}"
     dest: "#{dest}/js"
     name: 'app.js'
-  browserify:
-    debug: true
-    extensions: ['.cjsx', '.coffee']
+
+config.browserify =
+  entries: config.scripts.src
+  debug: env != 'production'
+  extensions: ['.cjsx', '.coffee']
 
 onEnv = (name, plugin) ->
   if env == name then plugin() else gutil.noop()
@@ -95,8 +97,8 @@ gulp.task 'watch', ->
   gulp.watch config.images.src, ['images']
   gulp.watch config.styles.srcs, ['styles']
 
-  bundler = browserify config.scripts.src, _.merge(config.browserify, watchify.args)
-  watcher = watchify bundler
+  bundler = browserify config.browserify
+  watcher = watchify bundler, watchify.args
 
   watcher
     .on 'update', ->
@@ -107,6 +109,8 @@ gulp.task 'watch', ->
         .pipe gulp.dest config.scripts.dest
     .on 'time', (time) ->
       gutil.log "Finished '#{colors.cyan 'watchify'}' after #{colors.magenta "#{time} ms"}"
+
+  watcher.bundle()
 
 gulp.task 'default', ['clean'], ->
   gulp.start ['fonts', 'images', 'styles', 'scripts']
