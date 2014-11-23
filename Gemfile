@@ -27,7 +27,7 @@ gem 'handy_const'
 gem 'httparty'
 
 # Authentication
-gem "sorcery"
+gem 'sorcery'
 
 group :development, :test do
   gem 'awesome_print'
@@ -37,8 +37,11 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rubocop', require: false
   gem 'guard'
-  gem 'guard-rspec', require: false
+  gem 'guard-rspec'
+  gem 'guard-rubocop'
+  gem 'guard-coffeelint', github: 'miraks/guard-coffeelint'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'better_errors'

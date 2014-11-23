@@ -69,44 +69,18 @@ CREATE TABLE schema_migrations (
 --
 
 CREATE TABLE users (
-    id integer NOT NULL,
-    email character varying NOT NULL,
-    crypted_password character varying NOT NULL,
-    salt character varying NOT NULL,
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    email text NOT NULL,
+    crypted_password text NOT NULL,
+    salt text NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    remember_me_token character varying,
+    remember_me_token text,
     remember_me_token_expires_at timestamp without time zone,
-    reset_password_token character varying,
+    reset_password_token text,
     reset_password_token_expires_at timestamp without time zone,
     reset_password_email_sent_at timestamp without time zone
 );
-
-
---
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE users_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --

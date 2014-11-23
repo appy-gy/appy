@@ -1,13 +1,13 @@
 class SorceryCore < ActiveRecord::Migration
   def change
-    create_table :users do |t|
-      t.string :email,            :null => false
-      t.string :crypted_password, :null => false
-      t.string :salt,             :null => false
+    create_table :users, id: :uuid do |t|
+      t.text :email,            null: false
+      t.text :crypted_password, null: false
+      t.text :salt,             null: false
 
       t.timestamps
-    end
 
-    add_index :users, :email, unique: true
+      t.index :email, unique: true
+    end
   end
 end
