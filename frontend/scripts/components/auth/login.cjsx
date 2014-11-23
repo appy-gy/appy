@@ -1,20 +1,22 @@
+$ = require 'jquery'
 React = require 'react/addons'
 LoginForm = require './login_form'
-$ = require 'jquery'
+{CurrentUserStorage} = require '../../storages'
+
 
 Login = React.createClass
   login: (data) ->
     $.ajax
-      url: '/api/v1/login',
+      url: '/api/private/login',
       dataType: 'json',
       type: 'POST',
-      data: data,
+      data: data
 
       beforeSend: (xhr) ->
         xhr.setRequestHeader 'X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')
 
       success: (data) ->
-        console.log 'success'
+        CurrentUserStorage.preload data
 
       error: (xhr, status, err) ->
         console.error status, err.toString()

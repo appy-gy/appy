@@ -9,5 +9,5 @@ Rails.application.routes.draw do
       delete '/logout', to:'user_sessions#destroy', as: :logout
     end
   end
-  
+
 end

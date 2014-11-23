@@ -1,5 +1,5 @@
 BaseStorage = require './base_storage'
-CurrentUser = require '../models/current_user'
+User = require '../models/user'
 
 class CurrentUserStorage extends BaseStorage
   constructor: ->
