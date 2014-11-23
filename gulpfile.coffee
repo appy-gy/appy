@@ -4,6 +4,8 @@ browserify = require 'browserify'
 watchify = require 'watchify'
 bowerFiles = require 'main-bower-files'
 source = require 'vinyl-source-stream'
+path = require 'path'
+notifier = require 'node-notifier'
 
 gulp = require 'gulp'
 gutil = require 'gulp-util'
@@ -57,6 +59,10 @@ onProduction = (plugin) ->
 handleError = (plugin) ->
   (error) ->
     console.log error
+    notifier.notify
+      title: "#{plugin} error"
+      message: error
+      icon: path.join(__dirname, 'gulp-error.png')
     @emit 'end'
 
 gulp.task 'fonts', ->
@@ -108,6 +114,10 @@ gulp.task 'watch', ->
         .pipe source config.scripts.name
         .pipe gulp.dest config.scripts.dest
     .on 'time', (time) ->
+      notifier.notify
+        title: 'Watchify'
+        message: "Build finished in #{time} ms"
+        icon: path.join(__dirname, 'gulp-success.png')
       gutil.log "Finished '#{colors.cyan 'watchify'}' after #{colors.magenta "#{time} ms"}"
 
   watcher.bundle()
