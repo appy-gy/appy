@@ -6,8 +6,8 @@ class SorceryCore < ActiveRecord::Migration
       t.text :salt,             null: false
 
       t.timestamps
-    end
 
-    add_index :users, :email, unique: true
+      t.index :email, unique: true
+    end
   end
 end
