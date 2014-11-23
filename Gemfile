@@ -41,6 +41,7 @@ group :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-rubocop'
+  gem 'guard-coffeelint', github: 'miraks/guard-coffeelint'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'better_errors'

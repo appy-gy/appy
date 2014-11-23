@@ -8,5 +8,10 @@ end
 
 guard :rubocop do
   watch(%r{.+\.rb$})
-  watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname m[0] }
+  watch('.rubocop.yml') { 'rubocop' }
+end
+
+guard :coffeelint, config_file: 'coffeelint.json' do
+  watch(%r{^frontend/(.+)\.coffee$})
+  watch(%r{^renderer/(.+)\.coffee$})
 end
