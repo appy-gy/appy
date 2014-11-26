@@ -32,6 +32,15 @@ RSpec.configure do |config|
 
   config.order = :random
 
+  config.before :all do
+    begin
+      DatabaseCleaner.start
+      FactoryGirl.ling
+    ensure
+      DatabaseCleaner.clean
+    end
+  end
+
   config.before do
     DatabaseCleaner.start
   end
