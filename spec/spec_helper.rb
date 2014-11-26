@@ -35,10 +35,14 @@ RSpec.configure do |config|
   config.before :all do
     begin
       DatabaseCleaner.start
-      FactoryGirl.ling
+      FactoryGirl.lint
     ensure
       DatabaseCleaner.clean
     end
+  end
+
+  config.after :all do
+    FakeModelFactory.cleanup
   end
 
   config.before do
@@ -47,5 +51,9 @@ RSpec.configure do |config|
 
   config.after do
     DatabaseCleaner.clean
+  end
+
+  config.before do
+    Rails.cache.clear
   end
 end

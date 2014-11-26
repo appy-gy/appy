@@ -83,5 +83,8 @@ Metrics/LineLength:
     - http
     - https
 
+Lint/AmbiguousOperator:
+  Enabled: false
+
 Lint/DefEndAlignment:
   AlignWith: def
