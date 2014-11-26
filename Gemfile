@@ -38,6 +38,7 @@ end
 
 group :development do
   gem 'rubocop', require: false
+  gem 'foreman', require: false
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-rubocop'
