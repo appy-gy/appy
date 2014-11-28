@@ -27,7 +27,7 @@
   },
   "indentation": {
     "value": 2,
-    "level": "error"
+    "level": "ignore"
   },
   "line_endings": {
     "level": "error",

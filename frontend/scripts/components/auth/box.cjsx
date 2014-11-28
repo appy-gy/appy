@@ -8,9 +8,9 @@ Box = React.createClass
     user: @getUser()
 
   componentWillMount: ->
-    CurrentUserStorage.addChangeListener @onCurrentUserChange
+    CurrentUserStorage.on 'change', @changeUser
 
-  onCurrentUserChange: ->
+  changeUser: ->
     @setState user: @getUser()
 
   getUser: ->
@@ -18,7 +18,7 @@ Box = React.createClass
 
   render: ->
     <ul className="auth-box">
-      <li>{@state.user.id}</li>
+      <li>{@state.user.email}</li>
       <li><Login /></li>
       <li><Registration /></li>
     </ul>

@@ -1,52 +1,30 @@
 $ = require 'jquery'
+BaseStorage = require './base_storage'
 User = require '../models/user'
-AppDispatcher = require '../dispatcher/app_dispatcher'
-EventEmitter = require('events').EventEmitter
-merge = require('react/lib/merge')
+Dispatcher = require '../dispatcher'
 
-user = {}
+class CurrentUserStorage extends BaseStorage
+  constructor: ->
+    super()
+    @name = 'current_user'
+    @clear()
 
-CurrentUserStorage = merge EventEmitter::,
-  getUser: ->
-    user
+    @register 'login', @login
 
   preload: (user) ->
-    user = new User user
-
-  loadUser: (data) ->
-    return unless data
-    $.ajax
-      url: '/api/private/user_sessions',
-      dataType: 'json',
-      type: 'POST',
-      data: { user_session: data }
-
-      success: (data) ->
-        user = new User data
-        CurrentUserStorage.emitChange()
-
-      error: (xhr, status, err) ->
-        console.error status, err.toString()
+    @user = new User user
 
   clear: ->
-    user = {}
+    @user = null
 
-  emitChange: ->
-    @emit 'change'
+  getUser: ->
+    @user
 
-  addChangeListener: (callback) ->
-    @on 'change', callback
+  login: (data) =>
+    $.post '/api/private/user_sessions', user_session: data
+      .done (user) =>
+        return unless user?
+        @user = new User user
+        @emit 'change'
 
-  removeChangeListener: (callback) ->
-    @removeListener 'change', callback
-
-AppDispatcher.register (payload) ->
-  action = payload.action
-
-  switch action.actionType
-    when 'LOGIN'
-      CurrentUserStorage.loadUser(action.data)
-    else
-      return true
-
-module.exports = CurrentUserStorage
+module.exports = new CurrentUserStorage

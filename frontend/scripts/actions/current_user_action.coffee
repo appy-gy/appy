@@ -1,15 +1,12 @@
-AppDispatcher = require '../dispatcher/app_dispatcher'
+Dispatcher = require '../dispatcher'
 BaseAction = require '../actions/base_action'
 
 class CurrentUserAction extends BaseAction
-  @login: (data) ->
-    AppDispatcher.handleViewAction
-      actionType: 'LOGIN',
-      data: data
+  constructor: ->
+    super()
+    @name = 'current_user'
 
-  @logout: (data) ->
-    AppDispatcher.handleViewAction
-      actionType: 'LOGOUT',
-      data: data
+    @add 'login'
+    @add 'logout'
 
-module.exports = CurrentUserAction
+module.exports = new CurrentUserAction
