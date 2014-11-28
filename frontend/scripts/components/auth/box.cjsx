@@ -18,7 +18,7 @@ Box = React.createClass
 
   render: ->
     <ul className="auth-box">
-      <li>{@state.user}</li>
+      <li>{@state.user.id}</li>
       <li><Login /></li>
       <li><Registration /></li>
     </ul>

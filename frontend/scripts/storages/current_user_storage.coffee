@@ -1,22 +1,17 @@
 $ = require 'jquery'
-BaseStorage = require './base_storage'
 User = require '../models/user'
 AppDispatcher = require '../dispatcher/app_dispatcher'
+EventEmitter = require('events').EventEmitter
+merge = require('react/lib/merge')
 
 _user = {}
 
-class CurrentUserStorage extends BaseStorage
-  constructor: ->
-    @clear()
-
+CurrentUserStorage = merge(EventEmitter::,
   getUser: ->
     _user
 
   preload: (user) ->
     _user = new User user
-
-  clear: ->
-    _user = {}
 
   loadUser: (data) ->
     return unless data
@@ -31,8 +26,28 @@ class CurrentUserStorage extends BaseStorage
 
       success: (data) ->
         _user = new User data
+        CurrentUserStorage.emitChange()
 
       error: (xhr, status, err) ->
         console.error status, err.toString()
 
-module.exports = new CurrentUserStorage
+  emitChange: ->
+    @emit 'change'
+
+  addChangeListener: (callback) ->
+    @on 'change', callback
+
+  removeChangeListener: (callback) ->
+    @removeListener 'change', callback
+)
+
+AppDispatcher.register (payload) ->
+  action = payload.action
+
+  switch action.actionType
+    when 'LOGIN'
+      CurrentUserStorage.loadUser(action.data)
+    else
+      return true
+
+module.exports = CurrentUserStorage
