@@ -3,12 +3,12 @@ class User
     extend ActiveSupport::Concern
 
     included do
-      validates :password, length: { minimum: 6 }
-      validates :password, confirmation: true
-      validates :password_confirmation, presence: true
+      authenticates_with_sorcery!
 
-      validates :email, presence: true
-      validates :email, uniqueness: true
+      validates :password, presence: true, on: :create
+      validates :password, length: { minimum: 6 }, if: :password
+
+      validates :email, presence: true, uniqueness: true
     end
   end
 end

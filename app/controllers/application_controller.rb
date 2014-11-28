@@ -4,8 +4,9 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  # TODO: replace with real code
-  def current_user
+  before_action :store_current_user
+
+  def store_current_user
+    react_store 'CurrentUserStorage', serialize(current_user, root: false)
   end
-  helper_method :current_user
 end
