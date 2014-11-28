@@ -8,7 +8,6 @@ end
 
 guard :rubocop do
   watch(%r{.+\.rb$})
-  watch('.rubocop.yml') { 'rubocop' }
 end
 
 guard :coffeelint, config_file: 'coffeelint.json' do
