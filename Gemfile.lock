@@ -6,6 +6,14 @@ GIT
       coffeelint (~> 0.2.7)
       guard (~> 2.8.2)
 
+GIT
+  remote: git://github.com/rails-api/active_model_serializers.git
+  revision: b6b01d0b7396f3deaa6e661cedf4bc5efe2f4525
+  branch: 0-8-stable
+  specs:
+    active_model_serializers (0.8.2)
+      activemodel (>= 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -28,8 +36,6 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.4)
       rails-html-sanitizer (~> 1.0, >= 1.0.1)
-    active_model_serializers (0.8.2)
-      activemodel (>= 3.0)
     activejob (4.2.0.beta4)
       activesupport (= 4.2.0.beta4)
       globalid (>= 0.3.0)
@@ -250,7 +256,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers (~> 0.8.0)
+  active_model_serializers!
   awesome_print
   better_errors
   binding_of_caller

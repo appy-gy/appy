@@ -16,7 +16,7 @@ gem 'slim'
 gem 'dotenv-rails'
 
 # Serialization
-gem 'active_model_serializers', '~> 0.8.0'
+gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-8-stable'
 gem 'oj'
 gem 'oj_mimic_json'
 

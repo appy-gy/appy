@@ -11,6 +11,7 @@ module Api
     include ActionController::StrongParameters
     include ActionController::DataStreaming
     include ActionController::RequestForgeryProtection
+    include Rails.application.routes.url_helpers
 
     include Sorcery::Controller
 
