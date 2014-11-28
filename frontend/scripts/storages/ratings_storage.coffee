@@ -3,6 +3,8 @@ Rating = require '../models/rating'
 
 class RatingsStorage extends BaseStorage
   constructor: ->
+    super()
+    @name = 'ratings'
     @clear()
 
   getRatings: ->
