@@ -4,32 +4,32 @@ AppDispatcher = require '../dispatcher/app_dispatcher'
 EventEmitter = require('events').EventEmitter
 merge = require('react/lib/merge')
 
-_user = {}
+user = {}
 
-CurrentUserStorage = merge(EventEmitter::,
+CurrentUserStorage = merge EventEmitter::,
   getUser: ->
-    _user
+    user
 
   preload: (user) ->
-    _user = new User user
+    user = new User user
 
   loadUser: (data) ->
     return unless data
     $.ajax
-      url: '/api/private/login',
+      url: '/api/private/user_sessions',
       dataType: 'json',
       type: 'POST',
-      data: data
-
-      beforeSend: (xhr) ->
-        xhr.setRequestHeader 'X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')
+      data: { user_session: data }
 
       success: (data) ->
-        _user = new User data
+        user = new User data
         CurrentUserStorage.emitChange()
 
       error: (xhr, status, err) ->
         console.error status, err.toString()
+
+  clear: ->
+    user = {}
 
   emitChange: ->
     @emit 'change'
@@ -39,7 +39,6 @@ CurrentUserStorage = merge(EventEmitter::,
 
   removeChangeListener: (callback) ->
     @removeListener 'change', callback
-)
 
 AppDispatcher.register (payload) ->
   action = payload.action

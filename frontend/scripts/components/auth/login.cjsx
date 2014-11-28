@@ -4,18 +4,18 @@ CurrentUserAction = require '../../actions/current_user_action'
 
 Login = React.createClass
   login: (data) ->
-    CurrentUserAction.login(data)
+    CurrentUserAction.login data
 
   getInitialState: ->
     show: false
 
-  handleClick: ->
+  showForm: ->
     @setState show: true
 
   render: ->
     if @state.show
       <LoginForm onLoginFormSubmit={@login}/>
     else
-      <a onClick={@handleClick}>Login</a>
+      <a onClick={@showForm}>Login</a>
 
 module.exports = Login

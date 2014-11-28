@@ -1,8 +1,7 @@
-Dispatcher = require('flux').Dispatcher
+{Dispatcher} = require 'flux'
 AppDispatcher = new Dispatcher
 
 AppDispatcher.handleViewAction = (action) ->
-  console.log action
   @dispatch
     source: 'VIEW_ACTION',
     action: action

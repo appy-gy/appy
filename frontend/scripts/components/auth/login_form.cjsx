@@ -1,19 +1,21 @@
 React = require 'react/addons'
 
 LoginForm = React.createClass
+  mixins: [React.addons.LinkedStateMixin]
+
+  getInitialState: ->
+    email: null, password: null
+
   handleSubmit: (event) ->
     event.preventDefault()
-    email = this.refs.login.getDOMNode().value.trim()
-    password = this.refs.password.getDOMNode().value.trim()
-    return unless email? && password?
-    @props.onLoginFormSubmit({email, password});
-    this.refs.login.getDOMNode().value = ''
-    this.refs.password.getDOMNode().value = ''
+    {email, password} = @state
+    return unless email? and password?
+    @props.onLoginFormSubmit { email, password }
 
   render: ->
     <form className="login-form" onSubmit={@handleSubmit}>
-      <input type="text" placeholder="email" ref="login"/>
-      <input type="password" placeholder="password" ref="password" />
+      <input type="text" placeholder="email" valueLink={@linkState 'email'} />
+      <input type="password" placeholder="password" valueLink={@linkState 'password'} />
       <input type="submit" value="Login" />
     </form>
 

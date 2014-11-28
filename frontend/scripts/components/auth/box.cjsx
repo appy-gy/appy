@@ -3,18 +3,18 @@ Login = require './login'
 Registration = require './registration'
 {CurrentUserStorage} = require '../../storages'
 
-getUser = ->
-  user: CurrentUserStorage.getUser()
-
 Box = React.createClass
   getInitialState: ->
-    getUser()
+    user: @getUser()
 
   componentWillMount: ->
-    CurrentUserStorage.addChangeListener @_onChange
+    CurrentUserStorage.addChangeListener @onCurrentUserChange
 
-  _onChange: ->
-    @setState(getUser())
+  onCurrentUserChange: ->
+    @setState user: @getUser()
+
+  getUser: ->
+    CurrentUserStorage.getUser()
 
   render: ->
     <ul className="auth-box">
