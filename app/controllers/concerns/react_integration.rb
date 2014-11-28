@@ -6,8 +6,6 @@ module ReactIntegration
 
     before_action :create_react_context
     after_action :remove_react_context
-
-    helper_method :react_context, :react_store, :react_storages
   end
 
   def react_store path, data

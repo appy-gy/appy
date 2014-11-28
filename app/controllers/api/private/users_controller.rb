@@ -1,6 +1,6 @@
 module Api
   module Private
-    class UsersController < ApplicationController
+    class UsersController < BaseController
       def create
       end
 

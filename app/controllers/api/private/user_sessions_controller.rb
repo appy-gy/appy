@@ -1,6 +1,6 @@
 module Api
   module Private
-    class UserSessionsController < ApplicationController
+    class UserSessionsController < BaseController
       def create
         @user = login *params[:user_session].values_at(:email, :password, :remember)
         render json: @user

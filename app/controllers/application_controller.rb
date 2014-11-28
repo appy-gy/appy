@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  helper_method :react_context, :react_store, :react_storages, :serialize
+
   before_action :store_current_user
 
   def store_current_user
