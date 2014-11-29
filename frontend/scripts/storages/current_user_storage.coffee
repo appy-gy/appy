@@ -22,7 +22,7 @@ class CurrentUserStorage extends BaseStorage
 
   login: (data) =>
     $.post '/api/private/user_sessions', user_session: data
-      .done (user) =>
+      .done ({user}) =>
         return unless user?
         @user = new User user
         @emit 'change'
