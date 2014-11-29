@@ -8,7 +8,7 @@ module Api
 
       def destroy
         logout
-        redirect_to root_url
+        render json: { success: true }
       end
     end
   end

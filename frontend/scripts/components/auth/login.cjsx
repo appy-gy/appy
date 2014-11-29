@@ -3,7 +3,7 @@ LoginForm = require './login_form'
 CurrentUserAction = require '../../actions/current_user_action'
 
 Login = React.createClass
-  login: (data) ->
+  signIn: (data) ->
     CurrentUserAction.login data
 
   getInitialState: ->
@@ -14,7 +14,7 @@ Login = React.createClass
 
   render: ->
     if @state.show
-      <LoginForm onLoginFormSubmit={@login}/>
+      <LoginForm onLoginFormSubmit={@signIn}/>
     else
       <a onClick={@showForm}>Login</a>
 

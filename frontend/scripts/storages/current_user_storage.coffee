@@ -10,12 +10,13 @@ class CurrentUserStorage extends BaseStorage
     @clear()
 
     @register 'login', @login
+    @register 'logout', @logout
 
   preload: (user) ->
     @user = new User user
 
   clear: ->
-    @user = null
+    @user = new User
 
   getUser: ->
     @user
@@ -26,5 +27,13 @@ class CurrentUserStorage extends BaseStorage
         return unless user?
         @user = new User user
         @emit 'change'
+
+  logout: =>
+    $.ajax(
+      url: "/api/private/user_sessions/#{@user.id}"
+      type: 'DELETE'
+    ).done =>
+      @clear()
+      @emit 'change'
 
 module.exports = new CurrentUserStorage
