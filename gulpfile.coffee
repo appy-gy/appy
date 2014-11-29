@@ -1,4 +1,8 @@
+fs = require 'fs'
+path = require 'path'
+
 _ = require 'lodash'
+_.str = require 'underscore.string'
 del = require 'del'
 browserify = require 'browserify'
 watchify = require 'watchify'
@@ -37,8 +41,13 @@ config =
     dest: "#{dest}/css"
     name: 'app.css'
   scripts:
+    folder: "#{src}/scripts"
     src: "#{src}/scripts/app.coffee"
     srcs: "#{src}/scripts/**/*.{coffee,cjsx}"
+    components: "#{src}/scripts/components/**/*.cjsx"
+    componentsPath: "#{src}/scripts/components"
+    storages: "#{src}/scripts/storages/**/*.coffee"
+    storagesPath: "#{src}/scripts/storages"
     dest: "#{dest}/js"
     name: 'app.js'
 
@@ -65,6 +74,29 @@ handleError = (plugin) ->
       icon: path.join(__dirname, 'gulp-error.png')
     @emit 'end'
 
+writeList = (listName, ext) ->
+  root = config.scripts["#{listName}Path"]
+  list = "#{listName} =\n"
+
+  writeListForDir = (dir, level) ->
+    indent = _.str.repeat '  ', level
+    content = fs.readdirSync dir
+    content.forEach (name) ->
+      fullpath = path.join dir, name
+      stat = fs.statSync fullpath
+      if stat.isFile()
+        basename = path.basename name, ext
+        requirePath = "./#{listName}" + _.str.strRight path.join(dir, basename), root.replace(/\.\//, '')
+        list += "#{indent}#{_.str.classify basename}: require '#{requirePath}'\n"
+      else
+        list += "#{indent}#{_.str.classify name}:\n"
+        writeListForDir fullpath, level + 1
+
+  writeListForDir root, 1
+  list += "\nmodule.exports = #{listName}"
+
+  fs.writeFileSync path.join(config.scripts.folder, "#{listName}.coffee"), list, flag: 'w'
+
 gulp.task 'fonts', ->
   gulp.src bowerFiles filter: /\.(eot|svg|ttf|woff)$/
     .pipe gulp.dest config.fonts.dest
@@ -86,6 +118,12 @@ gulp.task 'styles', ['moveBowerDeps'], ->
     .pipe onProduction minifyCss
     .pipe gulp.dest config.styles.dest
 
+gulp.task 'componentsList', ->
+  writeList 'components', '.cjsx'
+
+gulp.task 'storagesList', ->
+  writeList 'storages', '.coffee'
+
 gulp.task 'scripts', ->
   bundler = browserify config.scripts.src, config.browserify
 
@@ -102,6 +140,8 @@ gulp.task 'clean', (cb) ->
 gulp.task 'watch', ->
   gulp.watch config.images.src, ['images']
   gulp.watch config.styles.srcs, ['styles']
+  gulp.watch config.scripts.components, ['componentsList']
+  gulp.watch config.scripts.storages, ['storagesList']
 
   bundler = browserify config.browserify
   watcher = watchify bundler, watchify.args
@@ -123,4 +163,4 @@ gulp.task 'watch', ->
   watcher.bundle()
 
 gulp.task 'default', ['clean'], ->
-  gulp.start ['fonts', 'images', 'styles', 'scripts']
+  gulp.start ['fonts', 'images', 'styles', 'componentsList', 'storagesList', 'scripts']

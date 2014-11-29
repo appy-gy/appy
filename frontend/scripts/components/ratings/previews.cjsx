@@ -1,5 +1,5 @@
 React = require 'react/addons'
-{RatingsStorage} = require '../../storages'
+RatingsStorage = require '../../storages/ratings_storage'
 Preview = require './preview'
 
 RatingsPreviews = React.createClass

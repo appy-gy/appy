@@ -1,7 +1,7 @@
 React = require 'react/addons'
 Login = require './login'
 Registration = require './registration'
-{CurrentUserStorage} = require '../../storages'
+CurrentUserStorage = require '../../storages/current_user_storage'
 
 Box = React.createClass
   getInitialState: ->
