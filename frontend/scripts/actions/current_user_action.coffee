@@ -8,5 +8,6 @@ class CurrentUserAction extends BaseAction
 
     @add 'login'
     @add 'logout'
+    @add 'signUp'
 
 module.exports = new CurrentUserAction

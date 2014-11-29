@@ -11,6 +11,7 @@ class CurrentUserStorage extends BaseStorage
 
     @register 'login', @login
     @register 'logout', @logout
+    @register 'signUp', @signUp
 
   preload: (user) ->
     @user = new User user
@@ -35,5 +36,12 @@ class CurrentUserStorage extends BaseStorage
     ).done =>
       @clear()
       @emit 'change'
+
+  signUp: (data) =>
+    $.post '/api/private/users', user: data
+      .done ({user}) =>
+        return unless user?
+        @user = new User user
+        @emit 'change'
 
 module.exports = new CurrentUserStorage
