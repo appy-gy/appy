@@ -1,21 +1,22 @@
 React = require 'react/addons'
 LoginForm = require './login_form'
 CurrentUserAction = require '../../actions/current_user_action'
+ModalDialog = require '../dialog/modal'
 
 Login = React.createClass
   signIn: (data) ->
     CurrentUserAction.login data
 
-  getInitialState: ->
-    show: false
-
-  showForm: ->
-    @setState show: true
+  showDialog: ->
+    @refs.modalDialog.showDialog()
 
   render: ->
-    if @state.show
-      <LoginForm onLoginFormSubmit={@signIn}/>
-    else
-      <a onClick={@showForm}>Login</a>
+    <div>
+      <a onClick={@showDialog}>Login</a>
+      
+      <ModalDialog title="SignIn" ref="modalDialog">
+        <LoginForm onLoginFormSubmit={@signIn}/>
+      </ModalDialog>
+    </div>
 
 module.exports = Login

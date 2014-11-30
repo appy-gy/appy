@@ -1,21 +1,22 @@
 React = require 'react/addons'
 RegForm = require './reg_form'
 CurrentUserAction = require '../../actions/current_user_action'
+ModalDialog = require '../dialog/modal'
 
 Registration = React.createClass
   signUp: (data) ->
     CurrentUserAction.signUp data
 
-  getInitialState: ->
-    show: false
-
-  showForm: ->
-    @setState show: true
+  showDialog: ->
+    @refs.modalDialog.showDialog()
 
   render: ->
-    if @state.show
-      <RegForm onRegFormSubmit={@signUp}/>
-    else
-      <a onClick={@showForm}>Registration</a>
+    <div>
+      <a onClick={@showDialog}>Registration</a>
+
+      <ModalDialog title="SignUp" ref="modalDialog">
+        <RegForm onRegFormSubmit={@signUp}/>
+      </ModalDialog>
+    </div>
 
 module.exports = Registration
