@@ -1,7 +1,7 @@
 Dispatcher = require '../dispatcher'
 
 class BaseAction
-  add: (type, cb) ->
+  add: (type) ->
     action = [@name, type].join ':'
     @[type] = (data) ->
       Dispatcher.dispatch { action, data }
