@@ -16,5 +16,13 @@ module Api
     include Sorcery::Controller
 
     include EasySerialize
+
+    before_action :override_request_formats
+
+    private
+
+    def override_request_formats
+      request.formats = [:json]
+    end
   end
 end
