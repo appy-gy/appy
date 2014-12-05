@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
     @ratings = Rating::FindForHome.new.call
-    react_store 'RatingsStorage', serialize(@ratings)
+    react_store 'RatingsStore', serialize(@ratings)
   end
 end

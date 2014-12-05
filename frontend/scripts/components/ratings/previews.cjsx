@@ -1,10 +1,10 @@
 React = require 'react/addons'
-RatingsStorage = require '../../storages/ratings_storage'
+RatingsStore = require '../../stores/ratings_store'
 Preview = require './preview'
 
 RatingsPreviews = React.createClass
   getInitialState: ->
-    ratings = RatingsStorage.getRatings()
+    ratings = RatingsStore.getRatings()
     { ratings }
 
   render: ->

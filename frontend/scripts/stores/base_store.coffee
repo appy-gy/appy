@@ -1,7 +1,7 @@
 _ = require 'lodash'
 Dispatcher = require '../dispatcher'
 
-class BaseStorage
+class BaseStore
   constructor: ->
     @listeners = {}
     @callbacks = {}
@@ -33,4 +33,4 @@ class BaseStorage
       cb data
       remove()
 
-module.exports = BaseStorage
+module.exports = BaseStore

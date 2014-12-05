@@ -12,8 +12,8 @@ module ReactIntegration
     @react_context.store path, data
   end
 
-  def react_storages
-    @react_context.storages
+  def react_stores
+    @react_context.stores
   end
 
   private

@@ -1,30 +1,30 @@
 _ = require 'lodash'
 uuid = require 'uuid'
 
-getStorage = require '../frontend/scripts/helpers/get_storage'
+getStore = require '../frontend/scripts/helpers/get_store'
 
 class Context
   constructor: ->
     @uuid = uuid.v4()
-    @storages = {}
+    @stores = {}
 
   store: (path, data) ->
-    @storages[path] = data
+    @stores[path] = data
 
-  withFilledStorages: (fn) ->
-    @fillStorages()
+  withFilledStores: (fn) ->
+    @fillStores()
     result = fn()
-    @clearStorages()
+    @clearStores()
     result
 
-  fillStorages: ->
-    _.each @storages, (data, path) ->
-      storage = getStorage path
-      storage.preload data
+  fillStores: ->
+    _.each @stores, (data, path) ->
+      store = getStore path
+      store.preload data
 
-  clearStorages: ->
-    _.each @storages, (_, path) ->
-      storage = getStorage path
-      storage.clear()
+  clearStores: ->
+    _.each @stores, (_, path) ->
+      store = getStore path
+      store.clear()
 
 module.exports = Context

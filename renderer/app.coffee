@@ -21,7 +21,7 @@ app.delete '/contexts/:uuid', ({params: {uuid}}, res) ->
   delete contexts[uuid]
   res.send 'ok'
 
-app.post '/contexts/:uuid/storages', ({params: {uuid}, query: {path, data}}, res) ->
+app.post '/contexts/:uuid/stores', ({params: {uuid}, query: {path, data}}, res) ->
   context = contexts[uuid]
   context.store path, JSON.parse(data)
   res.send 'ok'
@@ -30,7 +30,7 @@ app.post '/contexts/:uuid/render',({params: {uuid}, query: {path, props}}, res) 
   context = contexts[uuid]
   component = getComponent path
 
-  html = context.withFilledStorages ->
+  html = context.withFilledStores ->
     React.renderToString React.createElement(component, JSON.parse(props))
 
   res.send html

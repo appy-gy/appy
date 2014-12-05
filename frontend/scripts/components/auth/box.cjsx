@@ -1,20 +1,20 @@
 React = require 'react/addons'
 Login = require './login'
 Registration = require './registration'
-CurrentUserStorage = require '../../storages/current_user_storage'
+CurrentUserStore = require '../../stores/current_user_store'
 
 Box = React.createClass
   getInitialState: ->
     user: @getUser()
 
   componentWillMount: ->
-    CurrentUserStorage.on 'change', @changeUser
+    CurrentUserStore.on 'change', @changeUser
 
   changeUser: ->
     @setState user: @getUser()
 
   getUser: ->
-    CurrentUserStorage.getUser()
+    CurrentUserStore.getUser()
 
   render: ->
     <ul className="auth-box">
