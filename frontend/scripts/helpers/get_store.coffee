@@ -1,5 +1,5 @@
-storages = require '../storages'
+stores = require '../stores'
 deepGet = require './deep_get'
 
 module.exports = (path) ->
-  deepGet storages, path
+  deepGet stores, path

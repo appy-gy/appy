@@ -1,7 +1,7 @@
-BaseStorage = require './base_storage'
+BaseStore = require './base_store'
 Rating = require '../models/rating'
 
-class RatingsStorage extends BaseStorage
+class RatingsStore extends BaseStore
   constructor: ->
     super()
     @name = 'ratings'
@@ -16,4 +16,4 @@ class RatingsStorage extends BaseStorage
   clear: ->
     @ratings = []
 
-module.exports = new RatingsStorage
+module.exports = new RatingsStore

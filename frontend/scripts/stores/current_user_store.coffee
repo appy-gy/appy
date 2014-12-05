@@ -1,9 +1,9 @@
 $ = require 'jquery'
-BaseStorage = require './base_storage'
+BaseStore = require './base_store'
 User = require '../models/user'
 Dispatcher = require '../dispatcher'
 
-class CurrentUserStorage extends BaseStorage
+class CurrentUserStore extends BaseStore
   constructor: ->
     super()
     @name = 'current_user'
@@ -30,10 +30,10 @@ class CurrentUserStorage extends BaseStorage
         @emit 'change'
 
   logout: =>
-    $.ajax(
+    $.ajax
       url: "/api/private/user_sessions/#{@user.id}"
       type: 'DELETE'
-    ).done =>
+    .done =>
       @clear()
       @emit 'change'
 
@@ -44,4 +44,4 @@ class CurrentUserStorage extends BaseStorage
         @user = new User user
         @emit 'change'
 
-module.exports = new CurrentUserStorage
+module.exports = new CurrentUserStore

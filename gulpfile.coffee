@@ -46,15 +46,14 @@ config =
     srcs: "#{src}/scripts/**/*.{coffee,cjsx}"
     components: "#{src}/scripts/components/**/*.cjsx"
     componentsPath: "#{src}/scripts/components"
-    storages: "#{src}/scripts/storages/**/*.coffee"
-    storagesPath: "#{src}/scripts/storages"
+    stores: "#{src}/scripts/stores/**/*.coffee"
+    storesPath: "#{src}/scripts/stores"
     dest: "#{dest}/js"
     name: 'app.js'
-
-config.browserify =
-  entries: config.scripts.src
-  debug: env != 'production'
-  extensions: ['.cjsx', '.coffee']
+  browserify:
+    entries: "#{src}/scripts/app.coffee"
+    debug: env != 'production'
+    extensions: ['.cjsx', '.coffee']
 
 onEnv = (name, plugin) ->
   if env == name then plugin() else gutil.noop()
@@ -121,8 +120,8 @@ gulp.task 'styles', ['moveBowerDeps'], ->
 gulp.task 'componentsList', ->
   writeList 'components', '.cjsx'
 
-gulp.task 'storagesList', ->
-  writeList 'storages', '.coffee'
+gulp.task 'storesList', ->
+  writeList 'stores', '.coffee'
 
 gulp.task 'scripts', ->
   bundler = browserify config.scripts.src, config.browserify
@@ -141,10 +140,10 @@ gulp.task 'watch', ->
   gulp.watch config.images.src, ['images']
   gulp.watch config.styles.srcs, ['styles']
   gulp.watch config.scripts.components, ['componentsList']
-  gulp.watch config.scripts.storages, ['storagesList']
+  gulp.watch config.scripts.stores, ['storesList']
 
-  bundler = browserify config.browserify
-  watcher = watchify bundler, watchify.args
+  bundler = browserify _.merge {}, config.browserify, watchify.args
+  watcher = watchify bundler
 
   watcher
     .on 'update', ->
@@ -163,4 +162,4 @@ gulp.task 'watch', ->
   watcher.bundle()
 
 gulp.task 'default', ['clean'], ->
-  gulp.start ['fonts', 'images', 'styles', 'componentsList', 'storagesList', 'scripts']
+  gulp.start ['fonts', 'images', 'styles', 'componentsList', 'storesList', 'scripts']

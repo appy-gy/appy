@@ -5,17 +5,17 @@ module React
     base_uri ENV['TOP_RENDERER_URL']
     delegate :post, :delete, to: :class
 
-    attr_reader :uuid, :storages
+    attr_reader :uuid, :stores
 
     def initialize
       @uuid = create!
-      @storages = {}
+      @stores = {}
     end
 
     def store path, data
       data = data.to_json
-      @storages[path] = data
-      post "/contexts/#{uuid}/storages", query: { path: path, data: data }
+      @stores[path] = data
+      post "/contexts/#{uuid}/stores", query: { path: path, data: data }
     end
 
     def render path, props
