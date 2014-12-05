@@ -18,12 +18,14 @@ Box = React.createClass
     CurrentUserStore.getUser()
 
   render: ->
-    <ul className="auth-box">
-      {<li>{@state.user.email}</li> if @state.user.loggedIn()}
-      {<li><Logout user={@state.user.email}/></li> if @state.user.loggedIn()}
+    {user} = @state
 
-      {<li><Login user={@state.user.email}/></li> if not @state.user.loggedIn()}
-      {<li><Registration user={@state.user.email}/></li> if not @state.user.loggedIn()}
+    <ul className="auth-box">
+      {<li>{user.email}</li> if user.loggedIn()}
+      {<li><Logout user={user.email}/></li> if user.loggedIn()}
+
+      {<li><Login user={user.email}/></li> unless user.loggedIn()}
+      {<li><Registration user={user.email}/></li> unless user.loggedIn()}
     </ul>
 
 module.exports = Box
