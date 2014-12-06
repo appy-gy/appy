@@ -1,7 +1,7 @@
 React = require 'react/addons'
-LoginForm = require './login_form'
 CurrentUserAction = require '../../actions/current_user_action'
-ModalDialog = require '../dialog/modal'
+LoginForm = require './login_form'
+Dialog = require '../modal/dialog'
 
 Login = React.createClass
   getInitialState: ->
@@ -22,9 +22,9 @@ Login = React.createClass
     <div>
       <a onClick={@showDialog}>Login</a>
 
-      <ModalDialog title="SignIn" show={showDialog} onHide={@hideDialog}>
+      <Dialog title="SignIn" show={showDialog} onHide={@hideDialog}>
         <LoginForm onLoginFormSubmit={@signIn}/>
-      </ModalDialog>
+      </Dialog>
     </div>
 
 module.exports = Login

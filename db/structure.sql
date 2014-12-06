@@ -49,9 +49,10 @@ SET default_with_oids = false;
 
 CREATE TABLE ratings (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    title text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    title text NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    section_id uuid NOT NULL
 );
 
 
@@ -65,6 +66,19 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: sections; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE sections (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    name text NOT NULL,
+    color text NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -73,8 +87,8 @@ CREATE TABLE users (
     email text NOT NULL,
     crypted_password text NOT NULL,
     salt text NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     remember_me_token text,
     remember_me_token_expires_at timestamp without time zone,
     reset_password_token text,
@@ -92,11 +106,26 @@ ALTER TABLE ONLY ratings
 
 
 --
+-- Name: sections_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY sections
+    ADD CONSTRAINT sections_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_ratings_on_section_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_ratings_on_section_id ON ratings USING btree (section_id);
 
 
 --
@@ -128,6 +157,14 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: fk_rails_ddd5f18382; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ratings
+    ADD CONSTRAINT fk_rails_ddd5f18382 FOREIGN KEY (section_id) REFERENCES sections(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -142,4 +179,8 @@ INSERT INTO schema_migrations (version) VALUES ('20141122181032');
 INSERT INTO schema_migrations (version) VALUES ('20141122195807');
 
 INSERT INTO schema_migrations (version) VALUES ('20141122195808');
+
+INSERT INTO schema_migrations (version) VALUES ('20141206185515');
+
+INSERT INTO schema_migrations (version) VALUES ('20141206185923');
 

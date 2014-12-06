@@ -1,7 +1,7 @@
 React = require 'react/addons'
-RegForm = require './reg_form'
 CurrentUserAction = require '../../actions/current_user_action'
-ModalDialog = require '../dialog/modal'
+RegForm = require './reg_form'
+Dialog = require '../modal/dialog'
 
 Registration = React.createClass
   getInitialState: ->
@@ -22,9 +22,9 @@ Registration = React.createClass
     <div>
       <a onClick={@showDialog}>Registration</a>
 
-      <ModalDialog title="SignUp" show={showDialog} onHide={@hideDialog}>
+      <Dialog title="SignUp" show={showDialog} onHide={@hideDialog}>
         <RegForm onRegFormSubmit={@signUp}/>
-      </ModalDialog>
+      </Dialog>
     </div>
 
 module.exports = Registration

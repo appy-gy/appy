@@ -1,3 +1,5 @@
 class Rating < ActiveRecord::Base
-  validates :title, presence: true
+  belongs_to :section
+
+  validates :title, :section, presence: true
 end

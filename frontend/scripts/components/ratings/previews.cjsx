@@ -11,8 +11,10 @@ RatingsPreviews = React.createClass
     {ratings} = @state
 
     previews = ratings.map (rating) ->
-      <Preview key={rating.id} rating={rating} />
+      <Preview key={rating.id} rating={rating}/>
 
-    <div>{previews}</div>
+    <div className="list">
+      {previews}
+    </div>
 
 module.exports = RatingsPreviews

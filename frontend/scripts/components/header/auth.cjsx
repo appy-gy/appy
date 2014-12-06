@@ -1,10 +1,10 @@
 React = require 'react/addons'
-Login = require './login'
-Logout = require './logout'
-Registration = require './registration'
 CurrentUserStore = require '../../stores/current_user_store'
+Login = require '../auth/login'
+Logout = require '../auth/logout'
+Registration = require '../auth/registration'
 
-Box = React.createClass
+Auth = React.createClass
   getInitialState: ->
     user: @getUser()
 
@@ -20,7 +20,7 @@ Box = React.createClass
   render: ->
     {user} = @state
 
-    <ul className="auth-box">
+    <ul>
       {<li>{user.email}</li> if user.loggedIn()}
       {<li><Logout user={user.email}/></li> if user.loggedIn()}
 
@@ -28,4 +28,4 @@ Box = React.createClass
       {<li><Registration user={user.email}/></li> unless user.loggedIn()}
     </ul>
 
-module.exports = Box
+module.exports = Auth

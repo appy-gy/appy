@@ -14,9 +14,9 @@ RegForm = React.createClass
 
   render: ->
     <form className="reg-form" onSubmit={@handleSubmit}>
-      <input type="text" placeholder="email" valueLink={@linkState 'email'} />
-      <input type="password" placeholder="password" valueLink={@linkState 'password'} />
-      <input type="submit" value="Registration" />
+      <input type="text" placeholder="email" valueLink={@linkState 'email'}/>
+      <input type="password" placeholder="password" valueLink={@linkState 'password'}/>
+      <input type="submit" value="Registration"/>
     </form>
 
 module.exports = RegForm

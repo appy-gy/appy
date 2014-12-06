@@ -4,7 +4,9 @@ html
   head
     = render 'layouts/head'
   body
-    .header
-      = render 'layouts/login'
-    = yield
-    = render 'layouts/react_stores'
+    .layout
+      = react_render 'Layout.Header'
+      .layout_body
+        = yield
+    .hidden
+      = render 'layouts/react_stores'
