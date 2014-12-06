@@ -1,10 +1,12 @@
-applyExtensions = require './setup/apply_extensions'
+require('./setup/apply_extensions')()
+
 renderReact = require './setup/render_react'
 setAjaxDefaults = require './setup/set_ajax_defaults'
+setMomentLocale = require './setup/set_moment_locale'
 
 setup = ->
-  applyExtensions()
   setAjaxDefaults()
+  setMomentLocale()
   document.addEventListener 'DOMContentLoaded', ->
     renderReact()
 

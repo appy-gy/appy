@@ -1,6 +1,7 @@
 require('node-cjsx').transform()
 
 require('../frontend/scripts/setup/apply_extensions')()
+require('../frontend/scripts/setup/set_moment_locale')()
 
 express = require 'express'
 app = express()
