@@ -4,13 +4,22 @@ camelizeKeys = require '../helpers/camelize_keys'
 
 class Base
   @dateFields: (newValue...) ->
-    return @dateFieldsValue if _.isEmpty newValue
+    return @dateFieldsValue if arguments.length == 0
     @dateFieldsValue = newValue
 
   @dateFields 'createdAt', 'updatedAt'
 
+  @hasOne: (field, model) ->
+    @assocs ||= []
+    @assocs.push { field, model, type: 'hasOne' }
+
+  @hasMany: (field, model) ->
+    @assocs ||= []
+    @assocs.push { field, model, type: 'hasMany' }
+
   constructor: (data = {}) ->
     @defineDateAccessors()
+    @defineAssocAccessors()
     _.merge @, camelizeKeys(data)
 
   defineDateAccessors: ->
@@ -23,5 +32,32 @@ class Base
 
         set: (newValue) ->
           value = moment newValue
+
+  defineAssocAccessors: ->
+    @constructor.assocs?.each (assoc) =>
+      @["define#{_.str.classify assoc.type}Accessor"](assoc)
+
+  defineHasOneAccessor: ({field, model}) ->
+    value = null
+
+    Object.defineProperty @, field,
+      get: ->
+        value
+
+      set: (newValue) ->
+        newValue = new model newValue if newValue and newValue.constructor != model
+        value = newValue
+
+  defineHasManyAccessor: ({field, model}) ->
+    value = null
+
+    Object.defineProperty @, field,
+      get: ->
+        value
+
+      set: (newValue = []) ->
+        value = newValue.map (obj) ->
+          return obj if obj.constructor == model
+          new model obj
 
 module.exports = Base
