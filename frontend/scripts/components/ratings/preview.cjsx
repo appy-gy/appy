@@ -4,6 +4,9 @@ RatingsPreview = React.createClass
   render: ->
     {rating} = @props
 
+    tags = rating.tags.map (tag) ->
+      <span key={tag.id} className="rating-preview_tag">#{tag.name}</span>
+
     <div className="list_item rating-preview">
       <img className="rating-preview_image" src="//placehold.it/300x200"/>
       <div className="rating-preview_infos">
@@ -13,10 +16,7 @@ RatingsPreview = React.createClass
       </div>
       <div className="rating-preview_section">{rating.section.name}:</div>
       <div className="rating-preview_title">{rating.title}</div>
-      <div className="rating-preview_tags">
-        <span className="rating-preview_tag">#Дизайн</span>
-        <span className="rating-preview_tag">#БЭМ</span>
-      </div>
+      <div className="rating-preview_tags">{tags}</div>
     </div>
 
 module.exports = RatingsPreview

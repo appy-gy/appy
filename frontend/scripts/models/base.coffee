@@ -57,6 +57,6 @@ class Base
         value
 
       set: (newValue) ->
-        value = AssocArray.create newValue
+        value = AssocArray.create newValue, model
 
 module.exports = Base

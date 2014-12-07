@@ -57,6 +57,16 @@ CREATE TABLE ratings (
 
 
 --
+-- Name: ratings_tags; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ratings_tags (
+    rating_id uuid NOT NULL,
+    tag_id uuid NOT NULL
+);
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -73,6 +83,18 @@ CREATE TABLE sections (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     name text NOT NULL,
     color text NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: tags; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE tags (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    name text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -114,6 +136,14 @@ ALTER TABLE ONLY sections
 
 
 --
+-- Name: tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY tags
+    ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -126,6 +156,20 @@ ALTER TABLE ONLY users
 --
 
 CREATE INDEX index_ratings_on_section_id ON ratings USING btree (section_id);
+
+
+--
+-- Name: index_ratings_tags_on_rating_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_ratings_tags_on_rating_id ON ratings_tags USING btree (rating_id);
+
+
+--
+-- Name: index_ratings_tags_on_tag_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_ratings_tags_on_tag_id ON ratings_tags USING btree (tag_id);
 
 
 --
@@ -157,11 +201,27 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: fk_rails_5bfb292fff; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ratings_tags
+    ADD CONSTRAINT fk_rails_5bfb292fff FOREIGN KEY (tag_id) REFERENCES tags(id);
+
+
+--
 -- Name: fk_rails_ddd5f18382; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ratings
     ADD CONSTRAINT fk_rails_ddd5f18382 FOREIGN KEY (section_id) REFERENCES sections(id);
+
+
+--
+-- Name: fk_rails_e285164f2a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ratings_tags
+    ADD CONSTRAINT fk_rails_e285164f2a FOREIGN KEY (rating_id) REFERENCES ratings(id);
 
 
 --
@@ -183,4 +243,8 @@ INSERT INTO schema_migrations (version) VALUES ('20141122195808');
 INSERT INTO schema_migrations (version) VALUES ('20141206185515');
 
 INSERT INTO schema_migrations (version) VALUES ('20141206185923');
+
+INSERT INTO schema_migrations (version) VALUES ('20141207110514');
+
+INSERT INTO schema_migrations (version) VALUES ('20141207110608');
 
