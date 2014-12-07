@@ -1,5 +1,13 @@
 .layout
   &_header
+    position: fixed
+    top: 0
+    background: $header-color
     height: $header-height
     display: flex
     flex-flow: row nowrap
+    z-index: 1
+
+  &_body
+    width: 960px
+    margin: $header-height + 2 * $margin auto 0
