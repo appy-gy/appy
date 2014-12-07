@@ -1,5 +1,6 @@
 _ = require 'lodash'
 moment = require 'moment'
+AssocArray = require '../helpers/assoc_array'
 camelizeKeys = require '../helpers/camelize_keys'
 
 class Base
@@ -55,9 +56,7 @@ class Base
       get: ->
         value
 
-      set: (newValue = []) ->
-        value = newValue.map (obj) ->
-          return obj if obj.constructor == model
-          new model obj
+      set: (newValue) ->
+        value = AssocArray.create newValue
 
 module.exports = Base
