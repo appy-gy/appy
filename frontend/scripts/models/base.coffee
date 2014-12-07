@@ -50,7 +50,7 @@ class Base
         value = newValue
 
   defineHasManyAccessor: ({field, model}) ->
-    value = null
+    value = AssocArray.create [], model
 
     Object.defineProperty @, field,
       get: ->
