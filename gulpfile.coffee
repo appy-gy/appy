@@ -105,8 +105,15 @@ gulp.task 'images', ->
     .pipe gulp.dest config.images.dest
 
 gulp.task 'moveBowerDeps', ->
-  gulp.src bowerFiles filter: /\.css$/
-    .pipe rename extname: '.scss'
+  paths = bowerFiles filter: /\.(css|scss)$/
+  relPaths = paths.map (path) -> _.str.strRight path, 'bower_components/'
+  gulp.src paths
+    .pipe rename (path) ->
+      name = path.basename + path.extname
+      relPath = _.find relPaths, (fld) -> _.str.endsWith fld, name
+      path.dirname += "/#{_.str.strLeft relPath, name}"
+      path.extname = '.scss'
+      path
     .pipe gulp.dest config.styles.vendor
 
 gulp.task 'styles', ['moveBowerDeps'], ->
