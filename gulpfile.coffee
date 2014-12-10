@@ -8,7 +8,6 @@ browserify = require 'browserify'
 watchify = require 'watchify'
 bowerFiles = require 'main-bower-files'
 source = require 'vinyl-source-stream'
-path = require 'path'
 notifier = require 'node-notifier'
 
 gulp = require 'gulp'
@@ -144,10 +143,10 @@ gulp.task 'clean', (cb) ->
   del dest, cb
 
 gulp.task 'watch', ->
-  gulp.watch config.images.src, ['images']
-  gulp.watch config.styles.srcs, ['styles']
-  gulp.watch config.scripts.components, ['componentsList']
-  gulp.watch config.scripts.stores, ['storesList']
+  gulp.watch path.normalize(config.images.src), ['images']
+  gulp.watch path.normalize(config.styles.srcs), ['styles']
+  gulp.watch path.normalize(config.scripts.components), ['componentsList']
+  gulp.watch path.normalize(config.scripts.stores), ['storesList']
 
   bundler = browserify _.merge {}, config.browserify, watchify.args
   watcher = watchify bundler
