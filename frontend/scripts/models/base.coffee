@@ -32,7 +32,7 @@ class Base
           value
 
         set: (newValue) ->
-          value = moment newValue
+          value = moment Date.parse newValue
 
   defineAssocAccessors: ->
     @constructor.assocs?.each (assoc) =>

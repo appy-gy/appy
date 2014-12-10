@@ -2,7 +2,7 @@
 
 * Установить node.js
 
-* Установить coffee-script, bower, gulp и supervisor глобально.
+* Установить coffee-script, bower, gulp, karma-cli и supervisor глобально.
 ```
 npm install -g coffee-script bower gulp supervisor
 ```

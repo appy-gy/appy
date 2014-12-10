@@ -14,5 +14,4 @@ AssocArray =
       array.unshift = (objs...) ->
         oldUnshift objs.map(toModel)...
 
-window.AssocArray = AssocArray if window?
 module.exports = AssocArray
