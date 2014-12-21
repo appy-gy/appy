@@ -26,11 +26,11 @@ sudo -u postgres psql
 \password top
 ```
 
-* Копируем файл .env.sample в .env и заполяем поля
+* Копируем файл .env.sample в .env и заполняем поля
 
 * Ставим гемы
 ```
-gem install
+bundle install
 ```
 
 * Создаем базу и накатываем миграции
