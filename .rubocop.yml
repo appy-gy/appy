@@ -3,6 +3,7 @@ AllCops:
     - bin/**/*
     - bower_components/**/*
     - node_modules/**/*
+    - db/schema.rb
   RunRailsCops: true
 
 Style/AlignHash:
