@@ -201,27 +201,27 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: fk_rails_5bfb292fff; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_49eba6e90d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ratings_tags
-    ADD CONSTRAINT fk_rails_5bfb292fff FOREIGN KEY (tag_id) REFERENCES tags(id);
+    ADD CONSTRAINT fk_rails_49eba6e90d FOREIGN KEY (rating_id) REFERENCES ratings(id);
 
 
 --
--- Name: fk_rails_ddd5f18382; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_c52bf3dd60; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ratings
-    ADD CONSTRAINT fk_rails_ddd5f18382 FOREIGN KEY (section_id) REFERENCES sections(id);
+    ADD CONSTRAINT fk_rails_c52bf3dd60 FOREIGN KEY (section_id) REFERENCES sections(id);
 
 
 --
--- Name: fk_rails_e285164f2a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_d97b95bb4d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ratings_tags
-    ADD CONSTRAINT fk_rails_e285164f2a FOREIGN KEY (rating_id) REFERENCES ratings(id);
+    ADD CONSTRAINT fk_rails_d97b95bb4d FOREIGN KEY (tag_id) REFERENCES tags(id);
 
 
 --
