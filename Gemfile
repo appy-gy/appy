@@ -29,6 +29,9 @@ gem 'httparty'
 # Authentication
 gem 'sorcery'
 
+# Assets
+gem 'sass'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails'

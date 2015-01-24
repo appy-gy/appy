@@ -16,13 +16,12 @@ autoprefixer = require 'gulp-autoprefixer'
 concat = require 'gulp-concat'
 minifyCss = require 'gulp-minify-css'
 rename = require 'gulp-rename'
-sass = require 'gulp-sass'
+sass = require 'gulp-ruby-sass'
 uglify = require 'gulp-uglify'
 
 {colors} = gutil
 
-{argv} = require('yargs').default(env: 'development')
-{env} = argv
+env = process.env.NODE_ENV
 
 src = './frontend'
 dest = './public/assets'
@@ -34,7 +33,7 @@ config =
     src: "#{src}/images/**/*"
     dest: "#{dest}/images"
   styles:
-    src: "#{src}/styles/**/app.sass"
+    src: "#{src}/styles/app.sass"
     srcs: "#{src}/styles/**/*.sass"
     vendor: "#{src}/styles/vendor"
     dest: "#{dest}/css"
@@ -116,10 +115,9 @@ gulp.task 'moveBowerDeps', ->
     .pipe gulp.dest config.styles.vendor
 
 gulp.task 'styles', ['moveBowerDeps'], ->
-  gulp.src config.styles.src
-    .pipe sass style: 'expanded', sourceComments: 'normal'
+  sass config.styles.src, style: 'expanded'
     .on 'error', handleError 'sass'
-    .pipe autoprefixer 'last 2 versions'
+    .pipe autoprefixer browsers: ['last 2 versions']
     .pipe onProduction minifyCss
     .pipe gulp.dest config.styles.dest
 
