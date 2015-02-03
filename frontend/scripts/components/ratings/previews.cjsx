@@ -13,7 +13,7 @@ RatingsPreviews = React.createClass
     previews = ratings.map (rating) ->
       <Preview key={rating.id} rating={rating}/>
 
-    <div className="list">
+    <div className="ratings">
       {previews}
     </div>
 

@@ -7,6 +7,7 @@ components =
     Registration: require './components/auth/registration'
   Header:
     Auth: require './components/header/auth'
+    CreateRating: require './components/header/create_rating'
     Logo: require './components/header/logo'
     Navigation: require './components/header/navigation'
     Section: require './components/header/section'

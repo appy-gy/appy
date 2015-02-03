@@ -9,9 +9,9 @@ Section = React.createClass
 
     styles = background: section.color
 
-    <div className="navigation_item" style={styles}>
-      <img src="//placehold.it/40x30"/>
-      <div>{section.name}</div>
+    <div className="site-nav_item" style={styles}>
+      <div className="site-nav_icon"></div>
+      <div className="site-nav_text">{section.name}</div>
     </div>
 
 module.exports = Section

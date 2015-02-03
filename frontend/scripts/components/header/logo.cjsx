@@ -2,8 +2,8 @@ React = require 'react/addons'
 
 Logo = React.createClass
   render: ->
-    <div className="logo">
+    <a href="/" className="logotype">
       Activelist
-    </div>
+    </a>
 
 module.exports = Logo
