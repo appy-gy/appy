@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.0.rc2'
+gem 'rails', '4.2.0'
 
 # Server
 gem 'puma'
@@ -28,6 +28,9 @@ gem 'httparty'
 
 # Authentication
 gem 'sorcery'
+
+# Assets
+gem 'sass'
 
 group :development, :test do
   gem 'awesome_print'

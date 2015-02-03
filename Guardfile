@@ -7,7 +7,7 @@ guard :rspec, cmd: 'spring rspec' do
 end
 
 guard :rubocop do
-  watch(%r{.+\.rb$})
+  watch(%r{^(app|config|lib|spec)/.+\.rb$})
 end
 
 guard :coffeelint, config_file: 'coffeelint.json' do
