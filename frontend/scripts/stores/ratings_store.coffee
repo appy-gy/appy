@@ -1,3 +1,4 @@
+_ = require 'lodash'
 RatingsApi = require '../sources/ratings_api'
 RatingsConstants = require '../constants/ratings_constants'
 Rating = require '../models/rating'
@@ -11,6 +12,13 @@ RatingsStore = Marty.createStore
 
   getInitialState: ->
     {}
+
+  show: (id) ->
+    @fetch
+      id: id
+      dependsOn: @index()
+      locally: ->
+        _.findWhere _.values @state, { id } || null
 
   index: ->
     @fetch

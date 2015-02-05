@@ -1,4 +1,6 @@
 React = require 'react/addons'
+Router = require 'react-router'
+Link = Router.Link
 
 RatingsPreview = React.createClass
   render: ->
@@ -23,7 +25,7 @@ RatingsPreview = React.createClass
       </div>
       <div className="rating_image"></div>
       <div className="rating_section-name">{rating.section.name}</div>
-      <a href="/" className="rating_title">{rating.title}</a>
+      <Link to="rating" params={rating} className="rating_title">{rating.title}</Link>
       <div className="rating_tags">
         {tags}
       </div>

@@ -11,7 +11,7 @@ App = React.createClass
       <Header/>
       <div className='main site-main'>
         <div className='grid'>
-          <RouteHandler/>
+          <RouteHandler {...@props}/>
         </div>
       </div>
     </div>

@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     namespace :private do
       resources :users, only: [:create, :update]
       resources :user_sessions, only: [:create, :destroy]
-      resources :ratings, only: [:index]
+      resources :ratings, only: [:index, :show]
     end
   end
+
+  get '/*path', to: 'home#index'
 end
