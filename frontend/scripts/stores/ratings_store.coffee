@@ -1,19 +1,28 @@
-BaseStore = require './base_store'
+RatingsApi = require '../sources/ratings_api'
+RatingsConstants = require '../constants/ratings_constants'
 Rating = require '../models/rating'
+Marty = require 'marty'
 
-class RatingsStore extends BaseStore
-  constructor: ->
-    super()
-    @name = 'ratings'
-    @clear()
+RatingsStore = Marty.createStore
+  displayName: 'Ratings'
 
-  getRatings: ->
-    @ratings
+  handlers:
+    addRatings: RatingsConstants.ADD_RATINGS
 
-  preload: (ratings) ->
-    @ratings = ratings.map (rating) -> new Rating rating
+  getInitialState: ->
+    {}
 
-  clear: ->
-    @ratings = []
+  index: ->
+    @fetch
+      id: 'get'
+      locally: ->
+        return unless @hasAlreadyFetched 'get'
+        @state
+      remotely: ->
+        RatingsApi.index()
 
-module.exports = new RatingsStore
+  addRatings: ({ratings}) ->
+    ratings.each (rating) => @state[rating.id] =  new Rating rating
+    @hasChanged()
+
+module.exports = RatingsStore
