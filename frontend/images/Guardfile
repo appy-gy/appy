@@ -1,0 +1,10 @@
+# A sample Guardfile
+# More info at https://github.com/guard/guard#readme
+
+
+guard 'coffeelint' do
+  watch %r{^app/assets/javascripts/.*\.coffee$}
+
+  watch 'config/coffeelint.json'
+end
+

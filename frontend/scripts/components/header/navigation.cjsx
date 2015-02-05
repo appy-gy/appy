@@ -15,8 +15,8 @@ Navigation = React.createClass
     items = sections.map (section) ->
       <Section key={section.id} section={section}/>
 
-    <div className="navigation">
+    <nav className="site-nav">
       {items}
-    </div>
+    </nav>
 
 module.exports = Navigation

@@ -9,8 +9,10 @@ App = React.createClass
   render: ->
     <div className='layout'>
       <Header/>
-      <div className='layout_body'>
-        <RouteHandler/>
+      <div className='main site-main'>
+        <div className='grid'>
+          <RouteHandler/>
+        </div>
       </div>
     </div>
 

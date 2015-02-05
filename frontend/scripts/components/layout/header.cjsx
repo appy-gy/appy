@@ -2,13 +2,15 @@ React = require 'react/addons'
 Logo = require '../header/logo'
 Navigation = require '../header/navigation'
 Auth = require '../header/auth'
+CreateRating = require '../header/create_rating'
 
 Header = React.createClass
   render: ->
-    <div className="layout_header">
+    <header className="site-header">
       <Logo/>
-      <Navigation/>
       <Auth/>
-    </div>
+      <CreateRating/>
+      <Navigation/>
+    </header>
 
 module.exports = Header
