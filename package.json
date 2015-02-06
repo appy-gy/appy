@@ -18,6 +18,10 @@
     ]
   },
   "dependencies": {
+    "flux": "latest",
+    "underscore.string": "latest",
+    "normalize-css": "latest",
+    "jquery": "latest",
     "lodash": "^3.0.0",
     "map-obj": "^1.0.0",
     "marty": "^0.8.8",
