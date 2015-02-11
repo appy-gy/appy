@@ -2,7 +2,7 @@ React = require 'react/addons'
 Router = require 'react-router'
 App = require '../components/app'
 Ratings = require '../components/ratings/previews'
-Rating = require '../components/ratings/rating'
+Rating = require '../components/ratings/single'
 
 {Route, DefaultRoute, HistoryLocation} = Router
 

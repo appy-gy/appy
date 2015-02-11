@@ -1,5 +1,8 @@
 *, *:before, *:after
   box-sizing: border-box
+  border: 0
+  margin: 0
+  padding: 0
 
 .hidden
   display: none
@@ -8,17 +11,20 @@ html, body
   width: 100%
   height: 100%
   position: relative
-  font: normal normal 400 15px/1.35 $sans-serif
+  font: normal normal 400 16px/1.5 $sans-serif
   background: white
   color: $black
-*
-  box-sizing: border-box
 a
   text-decoration: none
 
-input
+p
+  word-wrap: break-word
+  white-space: pre-wrap
+
+input, textarea
   outline: none
   border: 0
+
 .grid
   width: 1040px
   padding: 0 25px
@@ -37,6 +43,7 @@ input
   padding: 40px 0
   display: flex
   justify-content: center
+  background: #fafafa
 
   @media screen and (max-width: 910px)
     width: 100%
@@ -45,6 +52,64 @@ input
   @media screen and (max-width: 710px)
     padding: 20px 0
 
-  .ratings
+
+.meta
+  position: absolute
+  display: flex
+  top: 0
+  left: 0
+  width: 100%
+  height: 50px
+  z-index: 1
+  color: white
+  line-height: 20px
+  padding: 15px
+
+  &_icon
+    line-height: 20px
+    margin-right: 5px
+
+  &_text
+    font-size: 12px
+    text-transform: uppercase
+
+  &_item
     display: flex
-    flex-flow: row wrap
+    margin-right: 20px
+
+    &.like-counter .meta_icon
+      font-size: 14px
+
+    &.comments-counter .meta_icon
+      font-size: 15px
+
+    &:last-of-type
+      margin-right: 0
+.tags
+  padding: 15px 0
+  display: flex
+
+  .tag
+    display: block
+    color: $black_2
+    font-size: 13px
+    margin-right: 10px
+
+    &:before
+      content: '#'
+
+    &:last-of-type
+      margin-right: 0
+
+    &:hover
+      color: $black_3
+
+.image-select
+
+  &_text
+    display: none
+
+  &:hover
+
+    .image-select_text
+      display: block

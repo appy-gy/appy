@@ -9,11 +9,11 @@ App = React.createClass
   render: ->
     <div className='layout'>
       <Header/>
-      <div className='main site-main'>
+      <main className='main site-main'>
         <div className='grid'>
           <RouteHandler {...@props}/>
         </div>
-      </div>
+      </main>
     </div>
 
 module.exports = App

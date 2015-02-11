@@ -13,7 +13,7 @@ RatingsPreviews = React.createClass
   mixins: [RatingsStateMixin]
 
   render: ->
-    <div className="ratings">
+    <div className="previews">
       {@renderRatings()}
     </div>
 

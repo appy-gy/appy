@@ -1,34 +1,7 @@
-// .rating-preview
-//   position: relative
-//   width: 300px
-//   height: 400px
-//
-//   &_infos
-//     position: absolute
-//     top: 2 * $margin
-//     left: 2 * $margin
-//     color: white
-//
-//   &_info
-//     margin-left: 2 * $margin
-//
-//   &_section
-//     color: #ED6245
-//     text-transform: uppercase
-//
-//   &_tags
-//     position: absolute
-//     bottom: 0
-//
-//   &_tag
-//     font-size: 12px
-//     color: #585858
-//     margin-left: $margin
-//
-//     &:first-of-type
-//       margin-left: 0
-
-.rating
+.previews
+  display: flex
+  flex-flow: row wrap
+.preview
   position: relative
   width: 300px
   height: 400px
@@ -36,37 +9,14 @@
   margin: 15px
 
   &_meta
-    position: absolute
-    display: flex
+    transition: opacity 0.1s ease
     opacity: 0
-    top: 0
+  &_tags
+    position: absolute
+    bottom: 0
     left: 0
     width: 100%
     height: 50px
-    z-index: 1
-    color: white
-    line-height: 20px
-    padding: 15px
-    transition: opacity 0.1s ease
-
-    &-item
-      display: flex
-      margin-right: 20px
-      &-icon
-        line-height: 20px
-        margin-right: 5px
-      &-text
-        font-size: 12px
-        text-transform: uppercase
-      &.like
-        .meta-item-icon
-          font-size: 14px
-      &.comments
-        .rating_meta-item-icon
-          font-size: 15px
-      &:last-of-type
-        margin-right: 0
-
   &_image
     position: relative
     width: 100%
@@ -112,34 +62,15 @@
       left: 0
       width: 100%
       height: 40%
-      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%)
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fafafa 100%)
 
     &:hover
       color: $black_2
-  &_tags
-    position: absolute
-    bottom: 0
-    left: 0
-    width: 100%
-    height: 50px
-    padding: 15px 0
-    display: flex
-    .rating_tag
-      display: block
-      color: $black_2
-      font-size: 13px
-      margin-right: 10px
-      &:before
-        content: '#'
-      &:last-of-type
-        margin-right: 0
-      &:hover
-        color: $black_3
 
   &:hover
-    .rating_meta
+    .preview_meta
       opacity: 1
-    .rating_image
+    .preview_image
       &:after
         opacity: 1
   &.superbig
