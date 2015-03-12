@@ -9,7 +9,6 @@ setup = ->
   momentLocale()
 
   document.addEventListener 'DOMContentLoaded', ->
-    renderReact()
     routes()
 
 module.exports = setup

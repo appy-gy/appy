@@ -1,7 +1,7 @@
 Marty = require 'marty'
 
 RatingsConstants = Marty.createConstants [
-  'ADD_RATINGS'
+  'APPEND_RATINGS'
 ]
 
 module.exports = RatingsConstants

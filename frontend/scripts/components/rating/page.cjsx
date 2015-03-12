@@ -1,39 +1,45 @@
 React = require 'react/addons'
-RatingsStore = require '../../stores/ratings_store'
-Marty = require 'marty'
-
-RatingStateMixin = Marty.createStateMixin
-  listenTo: RatingsStore
-  getState: ->
-    rating: RatingsStore.show @props.id
+Listener = require '../mixins/listener'
+RatingsStore = require '../../stores/ratings'
 
 Rating = React.createClass
-  mixins: [RatingStateMixin]
+  mixins: [Listener]
 
-  render: ->
-    <article className="single">
-      {@renderRating()}
-    </article>
+  getInitialState: ->
+    rating: @getRating()
 
-  renderRating: ->
-    @state.rating.when
+  componentWillMount: ->
+    @addListener RatingsStore.addChangeListener(@updateRating)
+
+  getRating: ->
+    {id} = @props
+
+    RatingsStore.get id
+
+  updateRating: ->
+    @setState rating: @getRating()
+
+  rating: ->
+    {rating} = @state
+
+    rating.when
       pending: ->
         <div className='pending'>Loading rating...</div>
       failed: (error) ->
         <div className='error'>Failed to load rating. {error.message}</div>
       done: (rating) ->
         <div>
-          <header className="single_header">
-            <div className="meta single_meta">
-              <div className="meta_item single_item like-counter">
-                <div className="meta_icon single_icon ion-heart"></div>
-                <div className="meta_text single_text">433</div>
+          <header className="rating_header">
+            <div className="meta rating_meta">
+              <div className="meta_item rating_item like-counter">
+                <div className="meta_icon rating_icon ion-heart"></div>
+                <div className="meta_text rating_text">433</div>
               </div>
-              <div className="meta_item single_item comments-counter">
-                <div className="meta_icon single_icon ion-chatbubble"></div>
-                <div className="meta_text single_text">433</div>
+              <div className="meta_item rating_item comments-counter">
+                <div className="meta_icon rating_icon ion-chatbubble"></div>
+                <div className="meta_text rating_text">433</div>
               </div>
-              <div className="meta_item single_item date">
+              <div className="meta_item rating_item date">
                 <div className="meta_text">{rating.createdAt.format('D MMMM YYYY')}</div>
               </div>
             </div>
@@ -41,8 +47,8 @@ Rating = React.createClass
               <div className="image-selector_icon"></div>
               <div className="image-select_text">Загрузить изображение</div>
             </div>
-            <a href="/" className="single_section-name">Книги</a>
-            <select className="single_section-name edit">
+            <a href="/" className="rating_section-name">Книги</a>
+            <select className="rating_section-name edit">
               <option selected="selected">
                 Выберите категорию
               </option>
@@ -56,14 +62,14 @@ Rating = React.createClass
                 Кино
               </option>
             </select>
-            <h1 className="single_title">10 лучших книг этой весны</h1>
-            <textarea maxLength="50" className="single_title edit"></textarea>
+            <h1 className="rating_title">10 лучших книг этой весны</h1>
+            <textarea maxLength="50" className="rating_title edit"></textarea>
           </header>
-          <div className="single_description">
+          <div className="rating_description">
             Сразу хочу сказать, что этот рейтинг не полный, и скорее, личный. В общем,  тут несколько строк пояснения о рейтинге вообще.
           </div>
           <div>
-            <textarea className="single_description edit"></textarea>
+            <textarea className="rating_description edit"></textarea>
             <div className="cancel">
               Отменить
             </div>
@@ -71,14 +77,14 @@ Rating = React.createClass
               Сохранить
             </div>
           </div>
-          <div className="tags single_tags">
-            <span className="tag single_tag">фантазия</span>
-            <span className="tag single_tag">девушки</span>
+          <div className="tags rating_tags">
+            <span className="tag rating_tag">фантазия</span>
+            <span className="tag rating_tag">девушки</span>
           </div>
-          <a href="/" className="single_author">
+          <a href="/" className="rating_author">
             Иван Ивановввввв
           </a>
-          <div className="single_line"></div>
+          <div className="rating_line"></div>
           <section className="rating-point">
             <div className="rating-point_title">
               <span className="rating-point_number">#1 </span>
@@ -229,7 +235,7 @@ Rating = React.createClass
               <div className="rating-point_plus ion-android-add"></div>
             </div>
           </section>
-          <div className="single_line"></div>
+          <div className="rating_line"></div>
           <div className="rating-like">
             <div className="rating-like_burst-1"></div>
             <div className="rating-like_burst-2"></div>
@@ -299,5 +305,10 @@ Rating = React.createClass
             </div>
           </div>
         </div>
+
+  render: ->
+    <article className="rating">
+      {@rating()}
+    </article>
 
 module.exports = Rating

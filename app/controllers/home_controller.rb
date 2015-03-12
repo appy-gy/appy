@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   def index
-    # ratings = Rating::FindForHome.new.call
-    # react_store 'RatingsStore', serialize(ratings)
+    render file: Rails.root.join('public/index.html')
   end
 end
