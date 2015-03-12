@@ -1,0 +1,127 @@
+$avatar-size: 240px
+
+$social-size: 40px
+
+.user-profile
+  width: 100%
+  min-height: calc(100vh - 80px)
+  border: 1px solid #f2f2f2
+  background: $white
+  border-radius: $border-radius
+
+  &_header
+    position: relative
+    height: 300px
+    width: 100%
+    display: flex
+    justify-content: center
+    align-items: center
+    background: $blue
+    background: linear-gradient(to bottom, $blue, $blue_2)
+    flex-flow: column wrap
+    border-radius: $border-radius $border-radius 0 0
+    padding: 30px 60px
+
+  &_avatar
+    $size: 240px
+    width: $avatar-size
+    height: $avatar-size
+    background: $white
+    color: $blue
+    box-shadow: 0 0 0 7px $white_2
+    // border: 7px solid $white_2
+    border-radius: $size / 2
+    +ion-icon("person")
+
+  &_info
+    width: calc(100% - #{$avatar-size})
+    padding: 0 0 0 30px
+
+  &_name
+    font: 40px $serif
+    font-weight: 600
+    line-height: 1
+    color: $white
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+  &_socials
+    display: flex
+    margin-top: 20px
+
+  &_social
+    width: $social-size
+    height: $social-size
+    background: $white
+    border-radius: $border-radius * 3
+    margin-right: 10px
+    color: $blue
+
+    &:last-of-type
+      margin-right: 0
+
+    &.m-fb
+      +ion-icon("social-facebook")
+
+    &.m-insta
+      +ion-icon("social-instagram")
+
+  &_content
+    padding: 30px 60px
+
+  &_title
+    font: 28px $serif
+
+  &_tabs
+    position: relative
+
+  &_tabs-radio
+    display: none
+    position: absolute
+    top: -9999
+    left: -9999
+  &_tabs-nav
+    $height: 60px
+    position: absolute
+    top: -$height
+    left: 330px
+    display: flex
+
+    &-item
+      display: block
+      height: $height
+      line-height: $height
+      background: $white_3
+      border-radius: $border-radius * 2 $border-radius * 2 0 0
+      padding: 0 30px
+      font-size: 16px
+      font-weight: 600
+      color: $blue
+      transition: all 0.3s ease
+
+  &_tab-content
+    display: none
+    padding: 30px 60px
+
+  &_tab-title
+    font: 28px $serif
+    font-weight: 600
+    color: $blue
+    line-height: 1
+    margin: 30px 0 20px 0
+
+
+  #tab1:checked ~ .user-profile_tab-content-wrapper #content1, #tab2:checked ~ .user-profile_tab-content-wrapper #content2
+    display: block
+
+  #tab1:checked ~ .user-profile_tabs-nav #label1, #tab2:checked ~ .user-profile_tabs-nav #label2
+    background: $white
+    color: $blue
+    box-shadow: 0px -6px 8px $blue_3
+
+  #tab1:not(:checked) ~ .user-profile_tabs-nav #label1, #tab2:not(:checked) ~ .user-profile_tabs-nav #label2
+    margin-top: 10px
+    &:hover
+      height: 55px
+      margin-top: 5px

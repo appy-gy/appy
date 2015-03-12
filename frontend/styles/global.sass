@@ -20,6 +20,10 @@ a
 p
   word-wrap: break-word
   white-space: pre-wrap
+  word-break: break-all
+  margin: 0 0 20px 0
+  &:last-of-type
+    margin: 0
 
 input, textarea, select
   outline: none
@@ -41,6 +45,7 @@ input, textarea, select
 
 .site-main
   width: calc(100% - #{$site-header_width})
+  min-height: 100%
   margin-left: $site-header_width
   padding: 40px 0
   display: flex
