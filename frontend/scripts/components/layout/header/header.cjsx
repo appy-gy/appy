@@ -1,8 +1,8 @@
 React = require 'react/addons'
-Logo = require './header/logo'
-Navigation = require './header/navigation'
-Auth = require './header/auth'
-CreateRating = require './header/create_rating'
+Logo = require './logo'
+Navigation = require './navigation'
+Auth = require './auth'
+CreateRating = require './create_rating'
 
 {PureRenderMixin} = React.addons
 

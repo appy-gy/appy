@@ -1,7 +1,8 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Router = require 'react-router'
-Header = require './layout/header'
+Header = require './layout/header/header'
+Popups = require './layout/popups/popups'
 
 {RouteHandler} = Router
 
@@ -16,6 +17,7 @@ App = React.createClass
           <RouteHandler {...@props}/>
         </div>
       </main>
+      <Popups/>
     </div>
 
 module.exports = App

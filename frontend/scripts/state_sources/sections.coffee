@@ -10,7 +10,6 @@ SectionsApi = Marty.createStateSource
     @get url: ''
       .then ({body}) ->
         return unless body?
-        console.log 'load', body
         sections = body.sections.map (section) -> new Section section
         SectionsActionCreators.append sections
 

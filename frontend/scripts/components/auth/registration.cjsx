@@ -1,6 +1,7 @@
 React = require 'react/addons'
-RegForm = require './registration_form'
-Dialog = require '../modal/dialog'
+RegistrationForm = require './registration_form'
+CurrentUserApi = require '../../state_sources/current_user'
+PopupsStore = require '../../stores/popups'
 
 {PureRenderMixin} = React.addons
 
@@ -9,27 +10,22 @@ Registration = React.createClass
 
   mixins: [PureRenderMixin]
 
-  getInitialState: ->
-    showDialog: false
+  register: (data) ->
+    CurrentUserApi.register data
 
-  signUp: (data) ->
-    CurrentUserAction.signUp data
+  showPopup: ->
+    PopupsStore.append @popup()
 
-  showDialog: ->
-    @setState showDialog: true
+  hidePopup: ->
+    PopupsStore.remove @popup()
 
-  hideDialog: ->
-    @setState showDialog: false
+  popup: ->
+    @popupCache ||= <RegistrationForm onSubmit={@register}/>
 
   render: ->
-    {showDialog} = @state
 
-    <div>
-      <a onClick={@showDialog}>Registration</a>
-
-      <Dialog title="SignUp" show={showDialog} onHide={@hideDialog}>
-        <RegForm onRegFormSubmit={@signUp}/>
-      </Dialog>
+    <div onClick={@showPopup}>
+      Registration
     </div>
 
 module.exports = Registration

@@ -1,5 +1,3 @@
-_ = require 'lodash'
-React = require 'react/addons'
 Marty = require 'marty'
 HeaderSectionsConstants = require '../constants/header_sections'
 HeaderSectionsApi = require '../state_sources/header_sections'

@@ -1,7 +1,7 @@
 React = require 'react/addons'
 LoginForm = require './login_form'
-Dialog = require '../modal/dialog'
-CurrentUserStore = require '../../stores/current_user'
+CurrentUserApi = require '../../state_sources/current_user'
+PopupsActionCreators = require '../../action_creators/popups'
 
 {PureRenderMixin} = React.addons
 
@@ -10,26 +10,21 @@ Login = React.createClass
 
   mixins: [PureRenderMixin]
 
-  getInitialState: ->
-    showDialog: false
-
-  logIn: (email, password) ->
-    CurrentUserStore.logIn email, password
+  logIn: (data) ->
+    CurrentUserApi.logIn data
 
   showDialog: ->
-    @setState showDialog: true
+    PopupsActionCreators.append @popup()
 
   hideDialog: ->
-    @setState showDialog: false
+    PopupsActionCreators.remove @popup()
+
+  popup: ->
+    @popupCache ||= <LoginForm onSubmit={@logIn}/>
 
   render: ->
-    {showDialog} = @state
-
-    <div>
-      <a onClick={@showDialog}>Login</a>
-      <Dialog title="SignIn" show={showDialog} onHide={@hideDialog}>
-        <LoginForm onLoginFormSubmit={@logIn}/>
-      </Dialog>
+    <div onClick={@showDialog}>
+      Login
     </div>
 
 module.exports = Login

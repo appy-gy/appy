@@ -1,6 +1,7 @@
 React = require 'react/addons'
 CurrentUserStore = require '../../../stores/current_user'
 Listener = require '../../mixins/listener'
+Info = require '../../auth/info'
 Login = require '../../auth/login'
 Logout = require '../../auth/logout'
 Registration = require '../../auth/registration'
@@ -42,10 +43,8 @@ Auth = React.createClass
     user.when
       pending: ->
       done: (user) =>
-        if user.loggedIn()
-          @infoAndLogOut user
-        else
-          @loginAndRegistration user
+        components = if user.loggedIn() then 'infoAndLogOut' else 'loginAndRegistration'
+        @[components] user
 
   render: ->
     <div>

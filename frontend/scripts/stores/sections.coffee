@@ -23,7 +23,7 @@ SectionsStore = Marty.createStore
         SectionsApi.getAll()
 
   append: (sections) ->
-    console.log 'append', sections
+    sections = [sections] unless _.isArray sections
     @state = update @state, $push: sections
 
 module.exports = SectionsStore

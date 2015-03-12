@@ -34,6 +34,7 @@ RatingsStore = Marty.createStore
         RatingsApi.load id
 
   append: (ratings) ->
+    ratings = [ratings] unless _.isArray ratings
     @state = update @state, $push: ratings
 
 module.exports = RatingsStore

@@ -12,7 +12,7 @@ Info = React.createClass
     user: PropTypes.object.isRequired
 
   render: ->
-    {user} = @state
+    {user} = @props
 
     <div>
       {user.email}

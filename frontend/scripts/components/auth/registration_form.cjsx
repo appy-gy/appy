@@ -1,22 +1,33 @@
 React = require 'react/addons'
 
-RegForm = React.createClass
-  mixins: [React.addons.LinkedStateMixin]
+{PropTypes} = React
+{PureRenderMixin, LinkedStateMixin} = React.addons
+
+RegistrationForm = React.createClass
+  displayName: 'RegistrationForm'
+
+  mixins: [PureRenderMixin, LinkedStateMixin]
+
+  propTypes:
+    onSubmit: PropTypes.func.isRequired
 
   getInitialState: ->
-    email: null, password: null
+    email: ''
+    password: ''
 
-  handleSubmit: (event) ->
-    event.preventDefault()
+  onSubmit: (event) ->
     {email, password} = @state
+
+    event.preventDefault()
+
     return unless email? and password?
-    @props.onRegFormSubmit { email, password }
+    @props.onSubmit { email, password }
 
   render: ->
-    <form className="reg-form" onSubmit={@handleSubmit}>
+    <form onSubmit={@onSubmit}>
       <input type="text" placeholder="email" valueLink={@linkState 'email'}/>
       <input type="password" placeholder="password" valueLink={@linkState 'password'}/>
       <input type="submit" value="Registration"/>
     </form>
 
-module.exports = RegForm
+module.exports = RegistrationForm

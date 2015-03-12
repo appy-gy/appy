@@ -1,4 +1,3 @@
-_ = require 'lodash'
 React = require 'react/addons'
 Listener = require '../mixins/listener'
 Preview = require './preview'
@@ -28,7 +27,7 @@ RatingsPreviews = React.createClass
       failed: (error) ->
         <div className="error">Failed to load ratings. {error.message}</div>
       done: (ratings) ->
-        _.map ratings, (rating) ->
+        ratings.map (rating) ->
           <Preview key={rating.id} rating={rating}/>
 
   render: ->
