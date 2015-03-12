@@ -8,9 +8,8 @@ Rating = require '../components/ratings/single'
 
 routes =
   <Route handler={App} path="/">
-    <DefaultRoute handler={Ratings}/>
-    <Route name="ratings" handler={Ratings}/>
-    <Route name="rating" path="/ratings/:id" handler={Rating}/>
+    <DefaultRoute name="ratings" handler={Ratings}/>
+    <Route name="rating" path="ratings/:id" handler={Rating}/>
   </Route>
 
 module.exports = ->

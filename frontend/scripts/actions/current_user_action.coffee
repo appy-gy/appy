@@ -1,4 +1,3 @@
-Dispatcher = require '../dispatcher'
 BaseAction = require '../actions/base_action'
 
 class CurrentUserAction extends BaseAction

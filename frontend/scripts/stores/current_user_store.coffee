@@ -1,7 +1,5 @@
-$ = require 'jquery'
 BaseStore = require './base_store'
 User = require '../models/user'
-Dispatcher = require '../dispatcher'
 
 class CurrentUserStore extends BaseStore
   constructor: ->

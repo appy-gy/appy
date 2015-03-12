@@ -7,11 +7,19 @@ AssocArray =
 
     _.tap array.map(toModel), (array) ->
       oldPush = array.push.bind(array)
-      array.push = (objs...) ->
-        oldPush objs.map(toModel)...
+      Object.defineProperty array, 'push',
+        enumerable: false
+        configurable: false
+
+        value: (objs...) ->
+          oldPush objs.map(toModel)...
 
       oldUnshift = array.unshift.bind(array)
-      array.unshift = (objs...) ->
-        oldUnshift objs.map(toModel)...
+      Object.defineProperty array, 'unshift',
+        enumerable: false
+        configurable: false
+
+        value: (objs...) ->
+          oldUnshift objs.map(toModel)...
 
 module.exports = AssocArray

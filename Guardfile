@@ -5,12 +5,3 @@ guard :rspec, cmd: 'spring rspec' do
   watch(%r{^lib/(.+)\.rb$}) { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch(%r{^spec/support/(.+)\.rb$}) { 'spec' }
 end
-
-guard :rubocop do
-  watch(%r{^(app|config|lib|spec)/.+\.rb$})
-end
-
-guard :coffeelint, config_file: 'coffeelint.json' do
-  watch(%r{^frontend/(.+)\.coffee$})
-  watch(%r{^renderer/(.+)\.coffee$})
-end

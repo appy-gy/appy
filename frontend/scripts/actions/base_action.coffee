@@ -1,5 +1,3 @@
-Dispatcher = require '../dispatcher'
-
 class BaseAction
   add: (type) ->
     action = [@name, type].join ':'

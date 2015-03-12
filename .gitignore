@@ -2,12 +2,10 @@
 /.sass-cache
 /log
 /tmp
-/bower_components
 /node_modules
-/frontend/styles/vendor
-/renderer/node_modules
 /public/assets
 .ruby-version
 .ruby-gemset
 .env
+.env.coffee
 npm-debug.log

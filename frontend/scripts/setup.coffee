@@ -1,13 +1,13 @@
-require('./setup/apply_extensions')()
-
-renderReact = require './setup/render_react'
-setAjaxDefaults = require './setup/set_ajax_defaults'
-setMomentLocale = require './setup/set_moment_locale'
+arrayEach = require './setup/array_each'
+classify = require './setup/classify'
+momentLocale = require './setup/moment_locale'
 routes = require './setup/routes'
 
 setup = ->
-  setAjaxDefaults()
-  setMomentLocale()
+  arrayEach()
+  classify()
+  momentLocale()
+
   document.addEventListener 'DOMContentLoaded', ->
     renderReact()
     routes()

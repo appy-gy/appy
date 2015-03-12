@@ -1,5 +1,4 @@
 _ = require 'lodash'
-Dispatcher = require '../dispatcher'
 
 class BaseStore
   constructor: ->
