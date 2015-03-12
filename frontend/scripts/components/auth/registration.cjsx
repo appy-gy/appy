@@ -1,9 +1,14 @@
 React = require 'react/addons'
-CurrentUserAction = require '../../actions/current_user_action'
-RegForm = require './reg_form'
+RegForm = require './registration_form'
 Dialog = require '../modal/dialog'
 
+{PureRenderMixin} = React.addons
+
 Registration = React.createClass
+  displayName: 'Registration'
+
+  mixins: [PureRenderMixin]
+
   getInitialState: ->
     showDialog: false
 

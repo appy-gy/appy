@@ -1,11 +1,19 @@
 React = require 'react/addons'
-CurrentUserAction = require '../../actions/current_user_action'
+CurrentUserStore = require '../../stores/current_user'
+
+{PureRenderMixin} = React.addons
 
 Logout = React.createClass
-  signOut: ->
+  displayName: 'Logout'
+
+  mixins: [PureRenderMixin]
+
+  logOut: ->
     CurrentUserAction.logout()
 
   render: ->
-    <a onClick={@signOut}>Logout</a>
+    <a onClick={@logOut}>
+      Logout
+    </a>
 
 module.exports = Logout

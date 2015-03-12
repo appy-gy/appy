@@ -1,14 +1,20 @@
 React = require 'react/addons'
-CurrentUserAction = require '../../actions/current_user_action'
 LoginForm = require './login_form'
 Dialog = require '../modal/dialog'
+CurrentUserStore = require '../../stores/current_user'
+
+{PureRenderMixin} = React.addons
 
 Login = React.createClass
+  displayName: 'Login'
+
+  mixins: [PureRenderMixin]
+
   getInitialState: ->
     showDialog: false
 
-  signIn: (data) ->
-    CurrentUserAction.login data
+  logIn: (email, password) ->
+    CurrentUserStore.logIn email, password
 
   showDialog: ->
     @setState showDialog: true
@@ -21,9 +27,8 @@ Login = React.createClass
 
     <div>
       <a onClick={@showDialog}>Login</a>
-
       <Dialog title="SignIn" show={showDialog} onHide={@hideDialog}>
-        <LoginForm onLoginFormSubmit={@signIn}/>
+        <LoginForm onLoginFormSubmit={@logIn}/>
       </Dialog>
     </div>
 

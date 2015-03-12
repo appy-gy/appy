@@ -1,8 +1,21 @@
 React = require 'react/addons'
 
+{PropTypes} = React
+{PureRenderMixin} = React.addons
+
 Dialog = React.createClass
+  displayName: 'Dialog'
+
+  mixins: [PureRenderMixin]
+
+  propTypes:
+    title: PropTypes.string.isRequired
+    show: PropTypes.bool.isRequired
+    onHide: PropTypes.func.isRequired
+    children: PropTypes.node.isRequired
+
   render: ->
-    {title, children, show, onHide} = @props
+    {title, show, onHide, children} = @props
 
     return <div></div> unless show
 

@@ -1,7 +1,7 @@
 React = require 'react/addons'
 Logo = require './header/logo'
 Navigation = require './header/navigation'
-# Auth = require './header/auth'
+Auth = require './header/auth'
 CreateRating = require './header/create_rating'
 
 {PureRenderMixin} = React.addons
@@ -14,6 +14,7 @@ Header = React.createClass
   render: ->
     <header className="site-header">
       <Logo/>
+      <Auth/>
       <CreateRating/>
       <Navigation/>
     </header>
