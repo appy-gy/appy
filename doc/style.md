@@ -14,6 +14,7 @@
     &_element-2
       color: green
   ```
+* Для каждого блока создавай отдельный файл
 
 ## CoffeeScript
 
