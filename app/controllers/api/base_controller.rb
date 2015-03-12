@@ -15,8 +15,6 @@ module Api
 
     include Sorcery::Controller
 
-    include EasySerialize
-
     before_action :override_request_formats
 
     private
