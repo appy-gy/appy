@@ -3,8 +3,8 @@ React = require 'react/addons'
 {PropTypes} = React
 {PureRenderMixin, LinkedStateMixin} = React.addons
 
-LoginForm = React.createClass
-  displayName: 'LoginForm'
+RegistrationForm = React.createClass
+  displayName: 'RegistrationForm'
 
   mixins: [PureRenderMixin, LinkedStateMixin]
 
@@ -16,19 +16,18 @@ LoginForm = React.createClass
     password: ''
 
   onSubmit: (event) ->
-    {onSubmit} = @props
     {email, password} = @state
 
     event.preventDefault()
 
     return unless email? and password?
-    onSubmit { email, password }
+    @props.onSubmit { email, password }
 
   render: ->
-    <form className="login-form" onSubmit={@onSubmit}>
+    <form onSubmit={@onSubmit}>
       <input type="text" placeholder="email" valueLink={@linkState 'email'}/>
       <input type="password" placeholder="password" valueLink={@linkState 'password'}/>
-      <input type="submit" value="Login"/>
+      <input type="submit" value="Registration"/>
     </form>
 
-module.exports = LoginForm
+module.exports = RegistrationForm

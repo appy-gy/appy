@@ -3,7 +3,6 @@ React = require 'react/addons'
 Marty = require 'marty'
 RatingsConstants = require '../constants/ratings'
 RatingsApi = require '../state_sources/ratings'
-Rating = require '../models/rating'
 
 {update} = React.addons
 
@@ -29,14 +28,13 @@ RatingsStore = Marty.createStore
     @fetch
       id: "get-#{id}"
       locally: =>
-        console.log 'locally'
         return unless @hasAlreadyFetched "get-#{id}"
         _.find @state, (rating) -> rating.id == id
       remotely: ->
-        console.log 'remotely'
         RatingsApi.load id
 
   append: (ratings) ->
+    ratings = [ratings] unless _.isArray ratings
     @state = update @state, $push: ratings
 
 module.exports = RatingsStore

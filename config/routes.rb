@@ -3,9 +3,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :private do
+      resource  :sessions, only: [:show, :create, :destroy]
+      resources :sections, only: [:index]
       resources :users, only: [:create, :update]
-      resources :user_sessions, only: [:create, :destroy]
       resources :ratings, only: [:index, :show]
+      resources :header_sections, only: [:index]
     end
   end
 

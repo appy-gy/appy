@@ -1,9 +1,16 @@
 React = require 'react/addons'
 
-# .navigation_item style="background-color: #{section.color}"
-#   img src="//placehold.it/40x30"
-#   div = section.name
+{PropTypes} = React
+{PureRenderMixin} = React.addons
+
 Section = React.createClass
+  displayName: 'Section'
+
+  mixins: [PureRenderMixin]
+
+  propTypes:
+    section: PropTypes.object.isRequired
+
   render: ->
     {section} = @props
 

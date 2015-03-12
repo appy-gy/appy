@@ -1,22 +1,39 @@
 React = require 'react/addons'
-HeaderSectionsStore = require '../../stores/header_sections_store'
+Listener = require '../../mixins/listener'
+HeaderSectionsStore = require '../../../stores/header_sections'
 Section = require './section'
 
+{PureRenderMixin} = React.addons
+
 Navigation = React.createClass
+  displayName: 'Navigation'
+
+  mixins: [PureRenderMixin, Listener]
+
   getInitialState: ->
     sections: @getSections()
 
-  getSections: ->
-    HeaderSectionsStore.getSections()
+  componentWillMount: ->
+    @addListener HeaderSectionsStore.addChangeListener(@updateSections)
 
-  render: ->
+  getSections: ->
+    HeaderSectionsStore.getAll()
+
+  updateSections: ->
+    @setState sections: @getSections()
+
+  sections: ->
     {sections} = @state
 
-    items = sections.map (section) ->
-      <Section key={section.id} section={section}/>
+    sections.when
+      pending: ->
+      done: (sections) ->
+        sections.map (section) ->
+          <Section key={section.id} section={section}/>
 
+  render: ->
     <nav className="site-nav">
-      {items}
+      {@sections()}
     </nav>
 
 module.exports = Navigation

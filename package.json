@@ -11,6 +11,7 @@
     "build": "NODE_ENV=production webpack"
   },
   "dependencies": {
+    "classnames": "^1.1.4",
     "iconfonts": "^0.7.0",
     "lodash": "^3.5.0",
     "map-obj": "^1.0.0",

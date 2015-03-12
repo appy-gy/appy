@@ -1,30 +1,40 @@
-env = require '../env'
 Marty = require 'marty'
 User = require '../models/user'
 CurrentUserActionCreators = require '../action_creators/current_user'
 
 CurrentUserApi = Marty.createStateSource
   type: 'http'
-  baseUrl: "#{env.host}/api/mobile/sessions"
+  baseUrl: "/api/private"
 
   load: ->
-    @get url: ''
+    @get url: 'sessions'
       .then ({body}) ->
         return unless body?
-        user = new User body.current_user
+        user = new User body.user
         CurrentUserActionCreators.set user
 
-  logIn: (email, password) ->
-    body = user: { email, password }
-    @post { url: '', body }
+  logIn: ({email, password}) ->
+    body = session: { email, password }
+
+    @post { url: 'sessions', body }
       .then ({body}) ->
-        user = new User body.current_user
+        return unless body?
+        user = new User body.user
         CurrentUserActionCreators.set user
 
   logOut: ->
-    @delete url: ''
+    @delete url: 'sessions'
       .then ({body}) ->
         return unless body.success
         CurrentUserActionCreators.set null
+
+  register: ({email, password}) ->
+    body = user: { email, password }
+
+    @post { url: 'users', body }
+      .then ({body}) ->
+        return unless body?
+        user = new User body.user
+        CurrentUserActionCreators.set user
 
 module.exports = CurrentUserApi

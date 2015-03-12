@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Listener = require '../mixins/listener'
 RatingsStore = require '../../stores/ratings'
+SectionsSelect = require '../../components/sections/select_all'
 
 Rating = React.createClass
   mixins: [Listener]
@@ -13,7 +14,6 @@ Rating = React.createClass
 
   getRating: ->
     {id} = @props
-
     RatingsStore.get id
 
   updateRating: ->
@@ -47,22 +47,9 @@ Rating = React.createClass
               <div className="image-selector_icon"></div>
               <div className="image-select_text">Загрузить изображение</div>
             </div>
-            <a href="/" className="rating_section-name">Книги</a>
-            <select className="rating_section-name edit">
-              <option selected="selected">
-                Выберите категорию
-              </option>
-              <option value="книги">
-                Книги
-              </option>
-              <option value="девушки">
-                Девушки
-              </option>
-              <option value="кино">
-                Кино
-              </option>
-            </select>
-            <h1 className="rating_title">10 лучших книг этой весны</h1>
+            <a href="/" className="rating_section-name">{rating.section.name}</a>
+            <SectionsSelect />
+            <h1 className="rating_title">{rating.title}</h1>
             <textarea maxLength="50" className="rating_title edit"></textarea>
           </header>
           <div className="rating_description">

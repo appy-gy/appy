@@ -1,31 +1,54 @@
 React = require 'react/addons'
-CurrentUserStore = require '../../stores/current_user_store'
-Login = require '../auth/login'
-Logout = require '../auth/logout'
-Registration = require '../auth/registration'
+CurrentUserStore = require '../../../stores/current_user'
+Listener = require '../../mixins/listener'
+Info = require '../../auth/info'
+Login = require '../../auth/login'
+Logout = require '../../auth/logout'
+Registration = require '../../auth/registration'
+
+{PureRenderMixin} = React.addons
 
 Auth = React.createClass
+  displayName: 'Auth'
+
+  mixins: [PureRenderMixin, Listener]
+
   getInitialState: ->
     user: @getUser()
 
   componentWillMount: ->
-    CurrentUserStore.on 'change', @changeUser
-
-  changeUser: ->
-    @setState user: @getUser()
+    @addListener CurrentUserStore.addChangeListener(@updateUser)
 
   getUser: ->
-    CurrentUserStore.getUser()
+    CurrentUserStore.get()
 
-  render: ->
+  updateUser: ->
+    @setState user: @getUser()
+
+  infoAndLogOut: (user) ->
+    [
+      <Info key="info" user={user}></Info>
+      <Logout key="logout"/>
+    ]
+
+  loginAndRegistration: (user) ->
+    [
+      <Login key="login"/>
+      <Registration key="registration"/>
+    ]
+
+  auth: ->
     {user} = @state
 
-    <ul>
-      {<li>{user.email}</li> if user.loggedIn()}
-      {<li><Logout user={user.email}/></li> if user.loggedIn()}
+    user.when
+      pending: ->
+      done: (user) =>
+        components = if user.loggedIn() then 'infoAndLogOut' else 'loginAndRegistration'
+        @[components] user
 
-      {<li><Login user={user.email}/></li> unless user.loggedIn()}
-      {<li><Registration user={user.email}/></li> unless user.loggedIn()}
-    </ul>
+  render: ->
+    <div>
+      {@auth()}
+    </div>
 
 module.exports = Auth

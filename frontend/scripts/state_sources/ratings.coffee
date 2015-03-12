@@ -18,6 +18,6 @@ RatingsApi = Marty.createStateSource
       .then ({body}) ->
         return unless body?
         rating = new Rating body.rating
-        RatingsActionCreators.append [rating]
+        RatingsActionCreators.append rating
 
 module.exports = RatingsApi
