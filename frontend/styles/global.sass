@@ -21,9 +21,11 @@ p
   word-wrap: break-word
   white-space: pre-wrap
 
-input, textarea
+input, textarea, select
   outline: none
   border: 0
+  background: none
+  font: normal normal 400 16px/1.5 $sans-serif
 
 .grid
   width: 1040px
@@ -113,3 +115,17 @@ input, textarea
 
     .image-select_text
       display: block
+
+.accept, .cancel
+  display: inline-block
+  padding: 0 15px
+  height: 40px
+  text-transform: uppercase
+  color: white
+  text-align: center
+  line-height: 40px
+  border-radius: $border-radius
+.accept
+  background: $blue
+.cancel
+  background: $black_3

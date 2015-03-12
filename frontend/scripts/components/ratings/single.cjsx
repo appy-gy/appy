@@ -42,10 +42,34 @@ Rating = React.createClass
               <div className="image-select_text">Загрузить изображение</div>
             </div>
             <a href="/" className="single_section-name">Книги</a>
+            <select className="single_section-name edit">
+              <option selected="selected">
+                Выберите категорию
+              </option>
+              <option value="книги">
+                Книги
+              </option>
+              <option value="девушки">
+                Девушки
+              </option>
+              <option value="кино">
+                Кино
+              </option>
+            </select>
             <h1 className="single_title">10 лучших книг этой весны</h1>
+            <textarea maxLength="50" className="single_title edit"></textarea>
           </header>
           <div className="single_description">
             Сразу хочу сказать, что этот рейтинг не полный, и скорее, личный. В общем,  тут несколько строк пояснения о рейтинге вообще.
+          </div>
+          <div>
+            <textarea className="single_description edit"></textarea>
+            <div className="cancel">
+              Отменить
+            </div>
+            <div className="accept">
+              Сохранить
+            </div>
           </div>
           <div className="tags single_tags">
             <span className="tag single_tag">фантазия</span>
