@@ -3,8 +3,12 @@ Listener = require '../../mixins/listener'
 HeaderSectionsStore = require '../../../stores/header_sections'
 Section = require './section'
 
+{PureRenderMixin} = React.addons
+
 Navigation = React.createClass
-  mixins: [Listener]
+  displayName: 'Navigation'
+
+  mixins: [PureRenderMixin, Listener]
 
   getInitialState: ->
     sections: @getSections()
