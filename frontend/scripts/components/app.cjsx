@@ -6,6 +6,8 @@ Header = require './layout/header'
 {RouteHandler} = Router
 
 App = React.createClass
+  displayName: 'App'
+
   render: ->
     <div className='layout'>
       <Header/>
