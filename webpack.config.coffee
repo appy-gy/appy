@@ -52,7 +52,7 @@ module.exports =
     extensions: ['', '.js', '.coffee', '.cjsx']
   module:
     loaders: [
-      { test: /\.ttf$/, loader: 'file-loader' }
+      { test: /\.woff|ttf|otf|eot$/, loader: 'file-loader' }
       { test: /\.(jpe?g|png|svg)$/, loader: 'file-loader' }
       { test: /\.css$/, loader: cssLoader }
       { test: /\.s(a|c)ss$/, loader: sassLoader }
