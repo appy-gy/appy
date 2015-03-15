@@ -6,17 +6,25 @@ ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
 [debug, devtool] = if env.TOP_ENV == 'development' then [true, 'eval'] else [false, null]
 
+cssLoaders = ['css-loader', 'autoprefixer-loader']
+sassLoaders = cssLoaders.concat 'sass-loader?indentedSyntax=sass'
+loaderGenerator = if env.TOP_ENV == 'development'
+  (loaders) -> ['style-loader'].concat(loaders).join('!')
+else
+  (loaders) -> ExtractTextPlugin.extract 'style-loader', loaders
+[cssLoader, sassLoader] = [cssLoaders, sassLoaders].map loaderGenerator
+
 definePluginEnv = mapObj env, (key, value) -> [key, JSON.stringify(value)]
 definePluginEnv['process.env.NODE_ENV'] = JSON.stringify process.env.NODE_ENV
 
 plugins = [
   new webpack.PrefetchPlugin 'react'
   new webpack.PrefetchPlugin 'react/lib/ReactComponentBrowserEnvironment'
-  new ExtractTextPlugin 'app.css'
 ]
 
 if env.TOP_ENV == 'production'
   plugins.push \
+    new ExtractTextPlugin 'app.css'
     new webpack.optimize.UglifyJsPlugin compress: { warnings: false }
     new webpack.optimize.DedupePlugin()
 else
@@ -25,8 +33,6 @@ else
 plugins.push \
   new webpack.DefinePlugin definePluginEnv
   new webpack.NoErrorsPlugin()
-
-styleLoaders = ['css-loader', 'autoprefixer-loader'].join('!')
 
 module.exports =
   entry:
@@ -48,8 +54,8 @@ module.exports =
     loaders: [
       { test: /\.ttf$/, loader: 'file-loader' }
       { test: /\.(jpe?g|png|svg)$/, loader: 'file-loader' }
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', styleLoaders) }
-      { test: /\.s(a|c)ss$/, loader: ExtractTextPlugin.extract('style-loader', [styleLoaders, 'sass-loader?indentedSyntax=sass'].join('!')) }
+      { test: /\.css$/, loader: cssLoader }
+      { test: /\.s(a|c)ss$/, loader: sassLoader }
       { test: /\.coffee$/, loader: 'coffee' }
       { test: /\.cjsx$/, loaders: ['react-hot', 'coffee', 'cjsx'] }
     ]
