@@ -13,7 +13,7 @@ gem 'dalli'
 gem 'dotenv-rails'
 
 # Serialization
-gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-8-stable'
+gem 'active_model_serializers', '~> 0.8.3'
 gem 'oj'
 gem 'oj_mimic_json'
 
