@@ -19,19 +19,6 @@ AuthPopup = React.createClass
     onSubmit: PropTypes.func.isRequired
     onClose: PropTypes.func.isRequired
 
-  getInitialState: ->
-    email: ''
-    password: ''
-
-  onSubmit: (event) ->
-    {onSubmit} = @props
-    {email, password} = @state
-
-    event.preventDefault()
-
-    return unless email? and password?
-    onSubmit { email, password }
-
   render: ->
     {title, onSocialSubmit, onSubmit, onClose} = @props
 
