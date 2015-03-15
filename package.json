@@ -5,6 +5,7 @@
   "scripts": {
     "touch-sass": "coffee touch_sass.coffee",
     "dev-server": "coffee webpack_dev_server.coffee",
+    "dev": "npm run touch-sass & npm run dev-server",
     "index-html-dev": "coffee make_index_html.coffee",
     "index-html": "NODE_ENV=production coffee make_index_html.coffee",
     "build-dev": "webpack",

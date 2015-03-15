@@ -48,8 +48,7 @@ npm run index-html-dev
 * Запускаем все (каждая команда в новой вкладке консоли)
 ```sh
 rails s
-npm run dev-server
-npm run touch-sass
+npm run dev
 ```
 
 * Заходим на http://localhost:3000
