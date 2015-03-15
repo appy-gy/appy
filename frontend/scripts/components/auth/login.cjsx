@@ -1,5 +1,5 @@
 React = require 'react/addons'
-LoginForm = require './login_form'
+AuthPopup = require './auth_popup'
 CurrentUserApi = require '../../state_sources/current_user'
 PopupsActionCreators = require '../../action_creators/popups'
 
@@ -10,21 +10,24 @@ Login = React.createClass
 
   mixins: [PureRenderMixin]
 
+  socialLogIn: (type) ->
+    console.log 'social login', type
+
   logIn: (data) ->
     CurrentUserApi.logIn data
 
-  showDialog: ->
+  showPopup: ->
     PopupsActionCreators.append @popup()
 
-  hideDialog: ->
+  closePopup: ->
     PopupsActionCreators.remove @popup()
 
   popup: ->
-    @popupCache ||= <LoginForm onSubmit={@logIn}/>
+    @popupCache ||= <AuthPopup onSocialSubmit={@socialLogIn} onSubmit={@logIn} onClose={@closePopup}/>
 
   render: ->
-    <div onClick={@showDialog}>
-      Login
+    <div onClick={@showPopup}>
+      Вход
     </div>
 
 module.exports = Login

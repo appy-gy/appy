@@ -1,5 +1,5 @@
 React = require 'react/addons'
-RegistrationForm = require './registration_form'
+AuthPopup = require './auth_popup'
 CurrentUserApi = require '../../state_sources/current_user'
 PopupsStore = require '../../stores/popups'
 
@@ -10,22 +10,25 @@ Registration = React.createClass
 
   mixins: [PureRenderMixin]
 
+  socialRegister: (type) ->
+    console.log 'social register', type
+
   register: (data) ->
     CurrentUserApi.register data
 
   showPopup: ->
     PopupsStore.append @popup()
 
-  hidePopup: ->
+  closePopup: ->
     PopupsStore.remove @popup()
 
   popup: ->
-    @popupCache ||= <RegistrationForm onSubmit={@register}/>
+    @popupCache ||= <AuthPopup onSocialSubmit={@socialRegister} onSubmit={@register} onClose={@closePopup}/>
 
   render: ->
 
     <div onClick={@showPopup}>
-      Registration
+      Регистрация
     </div>
 
 module.exports = Registration

@@ -1,0 +1,97 @@
+$wrapper-margin: 3 * $margin
+
+.auth-popup
+  position: relative
+  display: flex
+  flex-flow: column nowrap
+  background: $white
+  padding: $wrapper-margin
+  border-radius: 3 * $border-radius
+
+  &_title
+    align-self: center
+    font-family: $serif
+    font-size: 25px
+    color: $blue
+    margin-bottom: 2 * $margin
+
+  &_close
+    position: absolute
+    top: $wrapper-margin
+    right: $wrapper-margin
+    font-size: 30px
+    color: $black-3
+    cursor: pointer
+
+    &:before
+      +ion-icon("android-close")
+
+  &_social-buttons
+    display: flex
+    flex-flow: row wrap
+    justify-content: space-between
+
+  &_social-button
+    color: $white
+    cursor: pointer
+    padding: 2 * $margin $margin
+    margin-bottom: $margin
+    border-radius: $border-radius
+    width: calc(50% - #{$margin / 2})
+    text-align: center
+    text-transform: uppercase
+
+    @each $type, $color in ("facebook", #3b5b98), ("vkontakte", #6484ab), ("twitter", #55aded), ("google", #d54a35)
+      &.m-#{$type}
+        background: $color
+
+  &_or
+    position: relative
+    margin: $margin
+
+    &:before
+      content: ""
+      position: absolute
+      top: 50%
+      display: block
+      background: $black-3
+      width: 100%
+      height: $border-width
+
+    &:after
+      content: attr(data-text)
+      position: absolute
+      top: 0
+      left: 50%
+      font-family: $serif
+      font-style: italic
+      background: $white
+      color: $black-3
+      padding: 0 $margin
+      text-align: center
+      transform: translateX(-50%)
+
+  &_form
+    position: relative
+    display: flex
+    flex-flow: column nowrap
+    color: $black-3
+    border: $border-width solid $black-2
+    border-radius: 2 * $border-radius
+    overflow: hidden
+
+  &_input
+    background: $black-2
+    padding: $margin
+
+    &:first-of-type
+      border-bottom: $border-width solid $black-2
+
+  &_submit
+    position: absolute
+    bottom: 3px
+    right: 1.5 * $margin
+    font-size: 30px
+
+    &:before
+      +ion-icon("arrow-right-c")

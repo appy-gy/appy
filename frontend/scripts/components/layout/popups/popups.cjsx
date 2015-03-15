@@ -1,4 +1,6 @@
+_ = require 'lodash'
 React = require 'react/addons'
+classNames = require 'classnames'
 Popup = require './popup'
 Listener = require '../../mixins/listener'
 PopupsStore = require '../../../stores/popups'
@@ -29,7 +31,11 @@ Popups = React.createClass
       <Popup key={index} popup={popup}/>
 
   render: ->
-    <div className="popups">
+    {popups} = @state
+
+    classes = classNames 'popups', 'm-empty': _.isEmpty(popups)
+
+    <div className={classes}>
       {@popups()}
     </div>
 
