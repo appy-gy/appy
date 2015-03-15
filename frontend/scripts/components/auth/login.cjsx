@@ -23,7 +23,7 @@ Login = React.createClass
     PopupsActionCreators.remove @popup()
 
   popup: ->
-    @popupCache ||= <AuthPopup onSocialSubmit={@socialLogIn} onSubmit={@logIn} onClose={@closePopup}/>
+    @popupCache ||= <AuthPopup title="Вход" onSocialSubmit={@socialLogIn} onSubmit={@logIn} onClose={@closePopup}/>
 
   render: ->
     <div onClick={@showPopup}>

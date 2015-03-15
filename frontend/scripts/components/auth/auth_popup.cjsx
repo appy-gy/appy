@@ -14,6 +14,7 @@ AuthPopup = React.createClass
   mixins: [PureRenderMixin]
 
   propTypes:
+    title: PropTypes.string.isRequired
     onSocialSubmit: PropTypes.func.isRequired
     onSubmit: PropTypes.func.isRequired
     onClose: PropTypes.func.isRequired
@@ -32,10 +33,10 @@ AuthPopup = React.createClass
     onSubmit { email, password }
 
   render: ->
-    {onSocialSubmit, onSubmit, onClose} = @props
+    {title, onSocialSubmit, onSubmit, onClose} = @props
 
     <div className="auth-popup">
-      <Title text="Вход"/>
+      <Title text={title}/>
       <Close onClick={onClose}/>
       <SocialButtons onClick={onSocialSubmit}/>
       <Or/>

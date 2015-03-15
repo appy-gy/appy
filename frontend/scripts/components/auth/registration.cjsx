@@ -23,7 +23,7 @@ Registration = React.createClass
     PopupsStore.remove @popup()
 
   popup: ->
-    @popupCache ||= <AuthPopup onSocialSubmit={@socialRegister} onSubmit={@register} onClose={@closePopup}/>
+    @popupCache ||= <AuthPopup title="Регистрация" onSocialSubmit={@socialRegister} onSubmit={@register} onClose={@closePopup}/>
 
   render: ->
 
