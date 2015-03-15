@@ -17,7 +17,7 @@ $social-size: 40px
     justify-content: center
     align-items: center
     background: $blue
-    background: linear-gradient(to bottom, $blue, $blue_2)
+    background: linear-gradient(to bottom, $blue, $blue-2)
     flex-flow: column wrap
     border-radius: $border-radius $border-radius 0 0
     padding: 30px 60px
@@ -28,8 +28,8 @@ $social-size: 40px
     height: $avatar-size
     background: $white
     color: $blue
-    box-shadow: 0 0 0 7px $white_2
-    // border: 7px solid $white_2
+    box-shadow: 0 0 0 7px $white-2
+    // border: 7px solid $white-2
     border-radius: $size / 2
     +ion-icon("person")
 
@@ -92,7 +92,7 @@ $social-size: 40px
       display: block
       height: $height
       line-height: $height
-      background: $white_3
+      background: $white-3
       border-radius: $border-radius * 2 $border-radius * 2 0 0
       padding: 0 30px
       font-size: 16px
@@ -118,7 +118,7 @@ $social-size: 40px
   #tab1:checked ~ .user-profile_tabs-nav #label1, #tab2:checked ~ .user-profile_tabs-nav #label2
     background: $white
     color: $blue
-    box-shadow: 0px -6px 8px $blue_3
+    box-shadow: 0px -6px 8px $blue-3
 
   #tab1:not(:checked) ~ .user-profile_tabs-nav #label1, #tab2:not(:checked) ~ .user-profile_tabs-nav #label2
     margin-top: 10px
