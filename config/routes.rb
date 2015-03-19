@@ -11,5 +11,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :oauth, only: [] do
+    get :callback
+    post :callback
+    get ':provider', to: :oauth
+  end
+
   get '*path', to: 'home#index'
 end

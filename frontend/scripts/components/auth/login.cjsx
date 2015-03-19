@@ -10,8 +10,8 @@ Login = React.createClass
 
   mixins: [PureRenderMixin]
 
-  socialLogIn: (type) ->
-    console.log 'social login', type
+  socialLogIn: (provider) ->
+    window.location = "/oauth/#{provider}"
 
   logIn: (data) ->
     CurrentUserApi.logIn data

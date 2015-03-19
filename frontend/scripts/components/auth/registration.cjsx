@@ -10,8 +10,8 @@ Registration = React.createClass
 
   mixins: [PureRenderMixin]
 
-  socialRegister: (type) ->
-    console.log 'social register', type
+  socialRegister: (provider) ->
+    window.location = "/oauth/#{provider}"
 
   register: (data) ->
     CurrentUserApi.register data

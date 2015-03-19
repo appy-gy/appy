@@ -14,18 +14,18 @@ SocialButtons = React.createClass
     onClick: PropTypes.func.isRequired
 
   buttons: [
-    { type: 'facebook', text: 'Facebook' }
-    { type: 'vkontakte', text: 'Вконтакте' }
-    { type: 'twitter', text: 'Twitter' }
-    { type: 'google', text: 'Google' }
+    { provider: 'facebook', text: 'Facebook' }
+    { provider: 'vkontakte', text: 'Вконтакте' }
+    { provider: 'twitter', text: 'Twitter' }
+    { provider: 'google', text: 'Google' }
   ]
 
   render: ->
     {onClick} = @props
 
-    buttons = @buttons.map ({type, text, color}) ->
-      onCl = _.partial onClick, type
-      <SocialButton key={type} type={type} text={text} onClick={onCl}/>
+    buttons = @buttons.map ({provider, text}) ->
+      onCl = _.partial onClick, provider
+      <SocialButton key={provider} provider={provider} text={text} onClick={onCl}/>
 
     <div className="auth-popup_social-buttons">
       {buttons}
