@@ -43,7 +43,7 @@ Auth = React.createClass
     user.when
       pending: ->
       done: (user) =>
-        components = if user.loggedIn() then 'infoAndLogOut' else 'loginAndRegistration'
+        components = if user.isLoggedIn() then 'infoAndLogOut' else 'loginAndRegistration'
         @[components] user
 
   render: ->

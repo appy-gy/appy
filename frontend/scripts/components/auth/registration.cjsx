@@ -15,6 +15,9 @@ Registration = React.createClass
 
   register: (data) ->
     CurrentUserApi.register data
+      .then (user) =>
+        return unless user?.isLoggedIn()
+        @closePopup()
 
   showPopup: ->
     PopupsStore.append @popup()
