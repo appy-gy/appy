@@ -10,9 +10,6 @@ Registration = React.createClass
 
   mixins: [PureRenderMixin]
 
-  socialRegister: (provider) ->
-    window.location = "/oauth/#{provider}"
-
   register: (data) ->
     CurrentUserApi.register data
       .then (user) =>
@@ -26,7 +23,7 @@ Registration = React.createClass
     PopupsStore.remove @popup()
 
   popup: ->
-    @popupCache ||= <AuthPopup title="Регистрация" onSocialSubmit={@socialRegister} onSubmit={@register} onClose={@closePopup}/>
+    @popupCache ||= <AuthPopup title="Регистрация" onSubmit={@register} onClose={@closePopup}/>
 
   render: ->
 
