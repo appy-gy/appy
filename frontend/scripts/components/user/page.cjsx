@@ -9,6 +9,13 @@ User = React.createClass
     <div className="user-profile">
       <header className="user-profile_header">
         <div className="user-profile_avatar">
+          <img className="user-profile_avatar-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/pixeliris/128.jpg"/>
+          <div className="user-profile_avatar-create">
+            Загрузить фотографию профиля
+          </div>
+          <div className="user-profile_avatar-edit">
+            Изменить фотографию профиля
+          </div>
         </div>
         <div className="user-profile_info">
           <div className="user-profile_name">
@@ -36,11 +43,11 @@ User = React.createClass
         <div className="user-profile_tab-content-wrapper">
           <div id="content1" className="user-profile_tab-content">
             <h2 className="user-profile_tab-title">Ваши рейтинги<span> (34)</span></h2>
-            <div className="">
+            <div>
               <p>
                 У вас пока нет рейтингов. Создайте свой первый рейтинг прямо сейчас!
               </p>
-              <a href='/' className="button">
+              <a href='/' className="user-profile_tab-button">
                 Создать рейтинг
               </a>
             </div>
