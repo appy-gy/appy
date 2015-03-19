@@ -11,7 +11,7 @@ SocialButtons = React.createClass
 
   buttons: [
     { provider: 'facebook', text: 'Facebook' }
-    { provider: 'vkontakte', text: 'Вконтакте' }
+    { provider: 'vk', text: 'Вконтакте' }
     { provider: 'twitter', text: 'Twitter' }
     { provider: 'google', text: 'Google' }
   ]
