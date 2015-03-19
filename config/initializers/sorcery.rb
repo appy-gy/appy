@@ -61,7 +61,7 @@ Rails.application.config.sorcery.configure do |config|
   # What providers are supported by this app, i.e. [:twitter, :facebook, :github, :linkedin] .
   # Default: `[]`
 
-  config.external_providers = [:twitter, :facebook]
+  config.external_providers = [:twitter, :facebook, :google]
 
   # You can change it by your local ca_file. i.e. '/etc/pki/tls/certs/ca-bundle.crt'
   # Path to ca_file. By default use a internal ca-bundle.crt.
@@ -108,12 +108,12 @@ Rails.application.config.sorcery.configure do |config|
   # config.github.secret = ""
   # config.github.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=github"
   # config.github.user_info_mapping = {:email => "name"}
-  #
-  # config.google.key = ""
-  # config.google.secret = ""
-  # config.google.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=google"
-  # config.google.user_info_mapping = {:email => "email", :username => "name"}
-  #
+
+  config.google.key = ENV['TOP_GOOGLE_OAUTH_KEY']
+  config.google.secret = ENV['TOP_GOOGLE_OAUTH_SECRET']
+  config.google.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=google"
+  config.google.user_info_mapping = { name: 'name', email: 'email' }
+
   # config.vk.key = ""
   # config.vk.secret = ""
   # config.vk.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=vk"
