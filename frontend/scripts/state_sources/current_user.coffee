@@ -21,6 +21,7 @@ CurrentUserApi = Marty.createStateSource
         return unless body?
         user = new User body.user
         CurrentUserActionCreators.set user
+        user
 
   logOut: ->
     @delete url: 'sessions'
@@ -36,5 +37,6 @@ CurrentUserApi = Marty.createStateSource
         return unless body?
         user = new User body.user
         CurrentUserActionCreators.set user
+        user
 
 module.exports = CurrentUserApi

@@ -1,7 +1,7 @@
 Base = require './base'
 
 class User extends Base
-  loggedIn: ->
+  isLoggedIn: ->
     @id?
 
 module.exports = User

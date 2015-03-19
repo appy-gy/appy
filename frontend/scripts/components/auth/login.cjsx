@@ -15,6 +15,9 @@ Login = React.createClass
 
   logIn: (data) ->
     CurrentUserApi.logIn data
+      .then (user) =>
+        return unless user?.isLoggedIn()
+        @closePopup()
 
   showPopup: ->
     PopupsActionCreators.append @popup()
