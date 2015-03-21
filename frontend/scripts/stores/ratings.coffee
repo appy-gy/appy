@@ -33,6 +33,12 @@ RatingsStore = Marty.createStore
       remotely: ->
         RatingsApi.load id
 
+  replace: (rating) ->
+    oldRating = _.find @state, (r) -> rating.id == r.id
+    if oldRating
+      _.extend oldRating, rating
+      @hasChanged()
+
   append: (ratings) ->
     ratings = [ratings] unless _.isArray ratings
     @state = update @state, $push: ratings

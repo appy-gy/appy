@@ -2,9 +2,12 @@ React = require 'react/addons'
 Listener = require '../mixins/listener'
 RatingsStore = require '../../stores/ratings'
 SectionsSelect = require '../../components/sections/select_all'
+RatingTitle = require '../../components/rating/title'
+
+{PureRenderMixin} = React.addons
 
 Rating = React.createClass
-  mixins: [Listener]
+  mixins: [Listener, PureRenderMixin]
 
   getInitialState: ->
     rating: @getRating()
@@ -13,8 +16,8 @@ Rating = React.createClass
     @addListener RatingsStore.addChangeListener(@updateRating)
 
   getRating: ->
-    {id} = @props
-    RatingsStore.get id
+    {rating_id} = @props
+    RatingsStore.get rating_id
 
   updateRating: ->
     @setState rating: @getRating()
@@ -27,7 +30,7 @@ Rating = React.createClass
         <div className='pending'>Loading rating...</div>
       failed: (error) ->
         <div className='error'>Failed to load rating. {error.message}</div>
-      done: (rating) ->
+      done: (rating) =>
         <div>
           <header className="rating_header">
             <div className="meta rating_meta">
@@ -49,8 +52,7 @@ Rating = React.createClass
             </div>
             <a href="/" className="rating_section-name">{rating.section.name}</a>
             <SectionsSelect />
-            <h1 className="rating_title">{rating.title}</h1>
-            <textarea maxLength="50" className="rating_title edit"></textarea>
+            <RatingTitle title={rating.title} id={rating.id}/>
           </header>
           <div className="rating_description">
             Сразу хочу сказать, что этот рейтинг не полный, и скорее, личный. В общем,  тут несколько строк пояснения о рейтинге вообще.

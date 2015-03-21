@@ -1,6 +1,7 @@
 Marty = require 'marty'
 RatingsActionCreators = require '../action_creators/ratings'
 Rating = require '../models/rating'
+snakecaseKeys = require '../helpers/snakecase_keys'
 
 RatingsApi = Marty.createStateSource
   type: 'http'
@@ -19,5 +20,12 @@ RatingsApi = Marty.createStateSource
         return unless body?
         rating = new Rating body.rating
         RatingsActionCreators.append rating
+
+  update: (rating) ->
+    console.log rating
+    @put url: rating.id, body: { rating: snakecaseKeys(rating) }
+      .then ({body}) ->
+        rating = new Rating body.user
+        RatingsActionCreators.replace rating
 
 module.exports = RatingsApi
