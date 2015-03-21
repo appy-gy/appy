@@ -14,6 +14,7 @@ html, body
   font: normal normal 400 16px/1.5 $sans-serif
   background: white
   color: $black
+
 a
   text-decoration: none
 
@@ -50,7 +51,7 @@ input, textarea, select
   padding: 40px 0
   display: flex
   justify-content: center
-  background: #fafafa
+  background: $grey
 
   @media screen and (max-width: 910px)
     width: 100%
@@ -61,20 +62,20 @@ input, textarea, select
 
 
 .meta
-  position: absolute
   display: flex
+  position: absolute
   top: 0
   left: 0
   width: 100%
   height: 50px
-  z-index: 1
-  color: white
+  color: $white
   line-height: 20px
   padding: 15px
+  z-index: 1
 
   &_icon
-    line-height: 20px
     margin-right: 5px
+    line-height: 20px
 
   &_text
     font-size: 12px
@@ -92,6 +93,7 @@ input, textarea, select
 
     &:last-of-type
       margin-right: 0
+
 .tags
   padding: 15px 0
   display: flex
@@ -112,25 +114,9 @@ input, textarea, select
       color: $black-3
 
 .image-select
-
   &_text
     display: none
 
   &:hover
-
     .image-select_text
       display: block
-
-.accept, .cancel
-  display: inline-block
-  padding: 0 15px
-  height: 40px
-  text-transform: uppercase
-  color: white
-  text-align: center
-  line-height: 40px
-  border-radius: $border-radius
-.accept
-  background: $blue
-.cancel
-  background: $black-3

@@ -11,11 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141207110608) do
+ActiveRecord::Schema.define(version: 20150319144911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "authentications", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.text     "provider",   null: false
+    t.text     "uid",        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "authentications", ["provider", "uid"], name: "index_authentications_on_provider_and_uid", using: :btree
 
   create_table "ratings", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.text     "title",      null: false
@@ -48,9 +58,9 @@ ActiveRecord::Schema.define(version: 20141207110608) do
   end
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.text     "email",                           null: false
-    t.text     "crypted_password",                null: false
-    t.text     "salt",                            null: false
+    t.text     "email"
+    t.text     "crypted_password"
+    t.text     "salt"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.text     "remember_me_token"
@@ -58,6 +68,7 @@ ActiveRecord::Schema.define(version: 20141207110608) do
     t.text     "reset_password_token"
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
+    t.text     "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

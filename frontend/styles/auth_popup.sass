@@ -41,7 +41,7 @@ $wrapper-margin: 3 * $margin
     text-align: center
     text-transform: uppercase
 
-    @each $type, $color in ("facebook", #3b5b98), ("vkontakte", #6484ab), ("twitter", #55aded), ("google", #d54a35)
+    @each $type, $color in ("facebook", #3b5b98), ("vk", #6484ab), ("twitter", #55aded), ("google", #d54a35)
       &.m-#{$type}
         background: $color
 
@@ -54,7 +54,7 @@ $wrapper-margin: 3 * $margin
       position: absolute
       top: 50%
       display: block
-      background: $black-3
+      background: $grey-3
       width: 100%
       height: $border-width
 
@@ -66,7 +66,7 @@ $wrapper-margin: 3 * $margin
       font-family: $serif
       font-style: italic
       background: $white
-      color: $black-3
+      color: $grey-3
       padding: 0 $margin
       text-align: center
       transform: translateX(-50%)
@@ -76,16 +76,16 @@ $wrapper-margin: 3 * $margin
     display: flex
     flex-flow: column nowrap
     color: $black-3
-    border: $border-width solid $black-2
+    border: $border-width solid $grey-3
     border-radius: 2 * $border-radius
     overflow: hidden
 
   &_input
-    background: $black-2
+    background: $grey-2
     padding: $margin
 
     &:first-of-type
-      border-bottom: $border-width solid $black-2
+      border-bottom: $border-width solid $grey-3
 
   &_submit
     position: absolute

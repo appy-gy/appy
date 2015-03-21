@@ -2,7 +2,6 @@ _ = require 'lodash'
 React = require 'react/addons'
 SocialButton = require './social_button'
 
-{PropTypes} = React
 {PureRenderMixin} = React.addons
 
 SocialButtons = React.createClass
@@ -10,22 +9,20 @@ SocialButtons = React.createClass
 
   mixins: [PureRenderMixin]
 
-  propTypes:
-    onClick: PropTypes.func.isRequired
-
   buttons: [
-    { type: 'facebook', text: 'Facebook' }
-    { type: 'vkontakte', text: 'Вконтакте' }
-    { type: 'twitter', text: 'Twitter' }
-    { type: 'google', text: 'Google' }
+    { provider: 'facebook', text: 'Facebook' }
+    { provider: 'vk', text: 'Вконтакте' }
+    { provider: 'twitter', text: 'Twitter' }
+    { provider: 'google', text: 'Google' }
   ]
 
-  render: ->
-    {onClick} = @props
+  auth: (provider) ->
+    window.location = "/oauth/#{provider}"
 
-    buttons = @buttons.map ({type, text, color}) ->
-      onCl = _.partial onClick, type
-      <SocialButton key={type} type={type} text={text} onClick={onCl}/>
+  render: ->
+    buttons = @buttons.map ({provider, text}) =>
+      onClick = _.partial @auth, provider
+      <SocialButton key={provider} provider={provider} text={text} onClick={onClick}/>
 
     <div className="auth-popup_social-buttons">
       {buttons}

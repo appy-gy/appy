@@ -1,0 +1,23 @@
+=button
+  display: inline-block
+  padding: 0 15px
+  height: 40px
+  text-transform: uppercase
+  color: white
+  text-align: center
+  line-height: 40px
+  border-radius: $border-radius
+  font-weight: bold
+  letter-spacing: -0.5px
+  transition: background-color 0.3s  ease
+
+=accept
+  +button
+  background-color: $blue
+  &:hover
+    background-color: darken($blue, 10%)
+=cancel
+  +button
+  background-color: $black-3
+  &:hover
+    background-color: lighten($black-3, 20%)

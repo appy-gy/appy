@@ -29,9 +29,45 @@ $social-size: 40px
     background: $white
     color: $blue
     box-shadow: 0 0 0 7px $white-2
-    // border: 7px solid $white-2
     border-radius: $size / 2
-    +ion-icon("person")
+    display: flex
+    justify-content: center
+    align-items: flex-end
+    overflow: hidden
+    position: relative
+
+    &:before
+      +ion-icon("person")
+      font-size: 280px
+      margin-bottom: -35px
+
+    &-img
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+
+    &-edit, &-edit
+      margin-bottom: -100%
+      position: absolute
+      bottom: 0
+      left: 0
+      width: 100%
+      padding: 10px 20px 20px 20px
+      text-align: center
+      color: $white
+      background: $black_3
+      transition: margin 0.3s ease
+
+    &-create
+      display: none
+
+    &:hover
+
+      .user-profile_avatar-edit
+        margin-bottom: 0
+
 
   &_info
     width: calc(100% - #{$avatar-size})
@@ -57,14 +93,19 @@ $social-size: 40px
     border-radius: $border-radius * 3
     margin-right: 10px
     color: $blue
+    font-size: 28px
+    text-align: center
+    display: flex
+    justify-content: center
+    align-items: center
 
     &:last-of-type
       margin-right: 0
 
-    &.m-fb
+    &.m-fb:before
       +ion-icon("social-facebook")
 
-    &.m-insta
+    &.m-insta:before
       +ion-icon("social-instagram")
 
   &_content
@@ -81,8 +122,9 @@ $social-size: 40px
     position: absolute
     top: -9999
     left: -9999
+
   &_tabs-nav
-    $height: 60px
+    $height: 50px
     position: absolute
     top: -$height
     left: 330px
@@ -111,6 +153,9 @@ $social-size: 40px
     line-height: 1
     margin: 30px 0 20px 0
 
+  &_tab-button
+    +accept
+    margin-top: 20px
 
   #tab1:checked ~ .user-profile_tab-content-wrapper #content1, #tab2:checked ~ .user-profile_tab-content-wrapper #content2
     display: block

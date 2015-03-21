@@ -15,17 +15,16 @@ AuthPopup = React.createClass
 
   propTypes:
     title: PropTypes.string.isRequired
-    onSocialSubmit: PropTypes.func.isRequired
     onSubmit: PropTypes.func.isRequired
     onClose: PropTypes.func.isRequired
 
   render: ->
-    {title, onSocialSubmit, onSubmit, onClose} = @props
+    {title, onSubmit, onClose} = @props
 
     <div className="auth-popup">
       <Title text={title}/>
       <Close onClick={onClose}/>
-      <SocialButtons onClick={onSocialSubmit}/>
+      <SocialButtons/>
       <Or/>
       <Form onSubmit={onSubmit}/>
     </div>

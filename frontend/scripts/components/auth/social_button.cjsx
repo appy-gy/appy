@@ -10,14 +10,14 @@ SocialButton = React.createClass
   mixins: [PureRenderMixin]
 
   propTypes:
-    type: PropTypes.string.isRequired
+    provider: PropTypes.string.isRequired
     text: PropTypes.string.isRequired
     onClick: PropTypes.func.isRequired
 
   render: ->
-    {type, text, onClick} = @props
+    {provider, text, onClick} = @props
 
-    classes = classNames 'auth-popup_social-button', "m-#{type}"
+    classes = classNames 'auth-popup_social-button', "m-#{provider}"
 
     <div className={classes} onClick={onClick}>
       {text}

@@ -2,7 +2,7 @@
 # The default is nothing which will include only core features (password encryption, login/logout).
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging, :external
-Rails.application.config.sorcery.submodules = [:remember_me, :reset_password, :session_timeout]
+Rails.application.config.sorcery.submodules = [:remember_me, :reset_password, :session_timeout, :external]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -60,8 +60,8 @@ Rails.application.config.sorcery.configure do |config|
   # -- external --
   # What providers are supported by this app, i.e. [:twitter, :facebook, :github, :linkedin] .
   # Default: `[]`
-  #
-  # config.external_providers =
+
+  config.external_providers = %i{twitter facebook google vk}
 
   # You can change it by your local ca_file. i.e. '/etc/pki/tls/certs/ca-bundle.crt'
   # Path to ca_file. By default use a internal ca-bundle.crt.
@@ -92,33 +92,33 @@ Rails.application.config.sorcery.configure do |config|
   #
   # Twitter wil not accept any requests nor redirect uri containing localhost,
   # make sure you use 0.0.0.0:3000 to access your app in development
-  #
-  # config.twitter.key = ""
-  # config.twitter.secret = ""
-  # config.twitter.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=twitter"
-  # config.twitter.user_info_mapping = {:email => "screen_name"}
-  #
-  # config.facebook.key = ""
-  # config.facebook.secret = ""
-  # config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
-  # config.facebook.user_info_mapping = {:email => "name"}
-  # config.facebook.access_permissions = ["email", "publish_stream"]
-  #
+
+  config.twitter.key = ENV['TOP_TWITTER_OAUTH_KEY']
+  config.twitter.secret = ENV['TOP_TWITTER_OAUTH_SECRET']
+  config.twitter.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=twitter"
+  config.twitter.user_info_mapping = { name: 'name' }
+
+  config.facebook.key = ENV['TOP_FACEBOOK_OAUTH_KEY']
+  config.facebook.secret = ENV['TOP_FACEBOOK_OAUTH_SECRET']
+  config.facebook.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=facebook"
+  config.facebook.user_info_mapping = { name: 'name' }
+  config.facebook.access_permissions = %w{email}
+
   # config.github.key = ""
   # config.github.secret = ""
   # config.github.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=github"
   # config.github.user_info_mapping = {:email => "name"}
-  #
-  # config.google.key = ""
-  # config.google.secret = ""
-  # config.google.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=google"
-  # config.google.user_info_mapping = {:email => "email", :username => "name"}
-  #
-  # config.vk.key = ""
-  # config.vk.secret = ""
-  # config.vk.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=vk"
-  # config.vk.user_info_mapping = {:login => "domain", :name => "full_name"}
-  #
+
+  config.google.key = ENV['TOP_GOOGLE_OAUTH_KEY']
+  config.google.secret = ENV['TOP_GOOGLE_OAUTH_SECRET']
+  config.google.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=google"
+  config.google.user_info_mapping = { name: 'name', email: 'email' }
+
+  config.vk.key = ENV['TOP_VK_OAUTH_KEY']
+  config.vk.secret = ENV['TOP_VK_OAUTH_SECRET']
+  config.vk.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=vk"
+  config.vk.user_info_mapping = { name: 'full_name', email: 'email' }
+
   # To use liveid in development mode you have to replace mydomain.com with
   # a valid domain even in development. To use a valid domain in development
   # simply add your domain in your /etc/hosts file in front of 127.0.0.1
@@ -360,8 +360,8 @@ Rails.application.config.sorcery.configure do |config|
     # -- external --
     # Class which holds the various external provider data for this user.
     # Default: `nil`
-    #
-    # user.authentications_class =
+
+    user.authentications_class = Authentication
 
     # User's identifier in authentications class.
     # Default: `:user_id`

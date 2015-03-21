@@ -10,11 +10,11 @@ Login = React.createClass
 
   mixins: [PureRenderMixin]
 
-  socialLogIn: (type) ->
-    console.log 'social login', type
-
   logIn: (data) ->
     CurrentUserApi.logIn data
+      .then (user) =>
+        return unless user?.isLoggedIn()
+        @closePopup()
 
   showPopup: ->
     PopupsActionCreators.append @popup()
@@ -23,7 +23,7 @@ Login = React.createClass
     PopupsActionCreators.remove @popup()
 
   popup: ->
-    @popupCache ||= <AuthPopup title="Вход" onSocialSubmit={@socialLogIn} onSubmit={@logIn} onClose={@closePopup}/>
+    @popupCache ||= <AuthPopup title="Вход" onSubmit={@logIn} onClose={@closePopup}/>
 
   render: ->
     <div onClick={@showPopup}>
