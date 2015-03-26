@@ -26,8 +26,7 @@ Rating = React.createClass
   changeRatingField: (field, value) ->
     {rating} = @state
 
-    changes = {}
-    changes[field] = value
+    changes = "#{field}": value
     RatingsActionCreator.change rating.result.id, changes
 
   rating: ->
