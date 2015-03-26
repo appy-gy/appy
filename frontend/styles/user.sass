@@ -1,3 +1,4 @@
+
 $avatar-size: 240px
 
 $social-size: 40px
@@ -21,15 +22,16 @@ $social-size: 40px
     flex-flow: column wrap
     border-radius: $border-radius $border-radius 0 0
     padding: 30px 60px
+    @media screen and (max-width: 1240px)
+      padding: 30px
 
   &_avatar
-    $size: 240px
     width: $avatar-size
     height: $avatar-size
     background: $white
     color: $blue
     box-shadow: 0 0 0 7px $white-2
-    border-radius: $size / 2
+    border-radius: $avatar-size / 2
     display: flex
     justify-content: center
     align-items: flex-end
@@ -76,7 +78,7 @@ $social-size: 40px
   &_name
     font: 40px $serif
     font-weight: 600
-    line-height: 1
+    line-height: 1.2
     color: $white
     white-space: nowrap
     overflow: hidden
@@ -127,8 +129,10 @@ $social-size: 40px
     $height: 50px
     position: absolute
     top: -$height
-    left: 330px
+    left: $avatar-size + 90px
     display: flex
+    @media screen and (max-width: 1240px)
+      left: $avatar-size + 60px
 
     &-item
       display: block
@@ -145,6 +149,8 @@ $social-size: 40px
   &_tab-content
     display: none
     padding: 30px 60px
+    @media screen and (max-width: 1240px)
+      padding: 15px 30px
 
   &_tab-title
     font: 28px $serif
@@ -152,7 +158,8 @@ $social-size: 40px
     color: $blue
     line-height: 1
     margin: 30px 0 20px 0
-
+    @media screen and (max-width: 1240px)
+      margin: 10px 0 20px
   &_tab-button
     +accept
     margin-top: 20px

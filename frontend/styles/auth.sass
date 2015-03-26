@@ -1,0 +1,32 @@
+=button
+  line-height: 34px
+  height: 40px
+  padding: 0 10px
+  font-size: 12px
+  font-weight: 600
+  border-radius: $border-radius
+  text-transform: uppercase
+  cursor: pointer
+  transition: all 0.3s ease
+
+.auth
+  display: flex
+  justify-content: space-between
+  padding: 15px
+  background: $color_1
+  &_login
+    +button
+    color: $white
+    border: 3px solid $white
+    &:hover
+      border-color: darken($color_1, 20%)
+      color: darken($color_1, 20%)
+  &_registration
+    +button
+    color: $color_2
+    background: $white
+    font-weight: 700
+    line-height: 40px
+    &:hover
+      background: darken($color_1, 15%)
+      color: $white

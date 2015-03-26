@@ -30,7 +30,7 @@ Registration = React.createClass
 
   render: ->
 
-    <div onClick={@showPopup}>
+    <div className="auth_registration" onClick={@showPopup}>
       Регистрация
     </div>
 

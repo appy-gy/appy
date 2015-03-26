@@ -47,7 +47,7 @@ Auth = React.createClass
         @[components] user
 
   render: ->
-    <div>
+    <div className="auth">
       {@auth()}
     </div>
 

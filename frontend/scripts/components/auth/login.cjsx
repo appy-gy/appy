@@ -29,7 +29,7 @@ Login = React.createClass
     @popupCache ||= <AuthPopup title="Вход" onSocialSubmit={@socialLogIn} onSubmit={@logIn} onClose={@closePopup}/>
 
   render: ->
-    <div onClick={@showPopup}>
+    <div className="auth_login" onClick={@showPopup}>
       Вход
     </div>
 
