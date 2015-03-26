@@ -2,7 +2,7 @@ Marty = require 'marty'
 
 RatingsConstants = Marty.createConstants [
   'APPEND_RATINGS'
-  'REPLACE_RATINGS'
+  'CHANGE_RATINGS'
 ]
 
 module.exports = RatingsConstants

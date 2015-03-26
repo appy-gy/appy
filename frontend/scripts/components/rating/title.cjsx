@@ -12,11 +12,9 @@ RatingTitle = React.createClass
 
   propTypes:
     title: PropTypes.string.isRequired
-    id: PropTypes.string.isRequired
 
   getInitialState: ->
     edit: false
-    title: @props.title
 
   startEdit: ->
     @setState edit: true
@@ -24,14 +22,12 @@ RatingTitle = React.createClass
   rollbackTitle: ->
     @setState edit: false
 
-  updateTitle: ->
-    {id} = @props
-    {title} = @state
-    RatingsApi.update { id, title }
-    @setState edit: false
+  updateTitle: (event) ->
+    @props.onChange event.target.value
 
   titleCommon: ->
-    {edit, title} = @state
+    {title} = @props
+    {edit} = @state
 
     return if edit
 
@@ -40,12 +36,13 @@ RatingTitle = React.createClass
     </h1>
 
   titleEditable: ->
-    {edit, title} = @state
+    {title} = @props
+    {edit} = @state
 
     return unless edit
 
     <div>
-      <textarea maxLength="50" className="rating_title edit" defaultValue={title} valueLink={@linkState('title')} ></textarea>
+      <textarea maxLength="50" className="rating_title edit" value={title} onChange={@updateTitle} ></textarea>
       <button onClick={@updateTitle}>сохранить</button><button onClick={@rollbackTitle}>отменить</button>
     </div>
 
