@@ -8,6 +8,8 @@ RatingTitle = require '../../components/rating/title'
 {PureRenderMixin} = React.addons
 
 Rating = React.createClass
+  displayName: 'Rating'
+
   mixins: [Listener, PureRenderMixin]
 
   getInitialState: ->
