@@ -1,10 +1,16 @@
 React = require 'react/addons'
 Listener = require '../mixins/listener'
 RatingsStore = require '../../stores/ratings'
+RatingsActionCreator = require '../../action_creators/ratings'
 SectionsSelect = require '../../components/sections/select_all'
+RatingTitle = require '../../components/rating/title'
+
+{PureRenderMixin} = React.addons
 
 Rating = React.createClass
-  mixins: [Listener]
+  displayName: 'Rating'
+
+  mixins: [Listener, PureRenderMixin]
 
   getInitialState: ->
     rating: @getRating()
@@ -13,11 +19,17 @@ Rating = React.createClass
     @addListener RatingsStore.addChangeListener(@updateRating)
 
   getRating: ->
-    {id} = @props
-    RatingsStore.get id
+    {ratingId} = @props
+    RatingsStore.get ratingId
 
   updateRating: ->
     @setState rating: @getRating()
+
+  changeRatingField: (field, value) ->
+    {rating} = @state
+
+    changes = "#{field}": value
+    RatingsActionCreator.change rating.result.id, changes
 
   rating: ->
     {rating} = @state
@@ -27,7 +39,7 @@ Rating = React.createClass
         <div className='pending'>Loading rating...</div>
       failed: (error) ->
         <div className='error'>Failed to load rating. {error.message}</div>
-      done: (rating) ->
+      done: (rating) =>
         <div>
           <header className="rating_header">
             <div className="meta rating_meta">
@@ -49,8 +61,7 @@ Rating = React.createClass
             </div>
             <a href="/" className="rating_section-name">{rating.section.name}</a>
             <SectionsSelect />
-            <h1 className="rating_title">{rating.title}</h1>
-            <textarea maxLength="50" className="rating_title edit"></textarea>
+            <RatingTitle title={rating.title} onChange={_.partial(@changeRatingField, 'title')}/>
           </header>
           <div className="rating_description">
             Сразу хочу сказать, что этот рейтинг не полный, и скорее, личный. В общем,  тут несколько строк пояснения о рейтинге вообще.

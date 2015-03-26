@@ -25,7 +25,7 @@ RatingsPreview = React.createClass
       </div>
       <div className="preview_image"></div>
       <div className="preview_section-name">{rating.section.name}</div>
-      <Link to="rating" params={rating} className="preview_title">{rating.title}</Link>
+      <Link to="rating" params={ratingId: rating.id} className="preview_title">{rating.title}</Link>
       <div className="preview_tags tags">
         {tags}
       </div>
