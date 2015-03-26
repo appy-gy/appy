@@ -8,6 +8,7 @@ RatingsApi = require '../state_sources/ratings'
 
 RatingsStore = Marty.createStore
   handlers:
+    change: RatingsConstants.CHANGE_RATINGS
     append: RatingsConstants.APPEND_RATINGS
 
   getInitialState: ->
@@ -33,11 +34,11 @@ RatingsStore = Marty.createStore
       remotely: ->
         RatingsApi.load id
 
-  replace: (rating) ->
-    oldRating = _.find @state, (r) -> rating.id == r.id
-    if oldRating
-      _.extend oldRating, rating
-      @hasChanged()
+  change: (id, changes) ->
+    rating = _.find @state, (r) -> r.id == id
+    return unless rating?
+    rating.update changes
+    @hasChanged()
 
   append: (ratings) ->
     ratings = [ratings] unless _.isArray ratings

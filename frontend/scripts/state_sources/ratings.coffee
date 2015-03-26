@@ -26,6 +26,6 @@ RatingsApi = Marty.createStateSource
     @put url: rating.id, body: { rating: snakecaseKeys(rating) }
       .then ({body}) ->
         rating = new Rating body.user
-        RatingsActionCreators.replace rating
+        RatingsActionCreators.change rating
 
 module.exports = RatingsApi

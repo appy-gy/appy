@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Listener = require '../mixins/listener'
 RatingsStore = require '../../stores/ratings'
+RatingsActionCreator = require '../../action_creators/ratings'
 SectionsSelect = require '../../components/sections/select_all'
 RatingTitle = require '../../components/rating/title'
 
@@ -21,6 +22,13 @@ Rating = React.createClass
 
   updateRating: ->
     @setState rating: @getRating()
+
+  changeRatingField: (field, value) ->
+    {rating} = @state
+
+    changes = {}
+    changes[field] = value
+    RatingsActionCreator.change rating.result.id, changes
 
   rating: ->
     {rating} = @state
@@ -52,7 +60,7 @@ Rating = React.createClass
             </div>
             <a href="/" className="rating_section-name">{rating.section.name}</a>
             <SectionsSelect />
-            <RatingTitle title={rating.title} id={rating.id}/>
+            <RatingTitle title={rating.title} onChange={_.partial(@changeRatingField, 'title')}/>
           </header>
           <div className="rating_description">
             Сразу хочу сказать, что этот рейтинг не полный, и скорее, личный. В общем,  тут несколько строк пояснения о рейтинге вообще.
