@@ -16,8 +16,8 @@ Rating = React.createClass
     @addListener RatingsStore.addChangeListener(@updateRating)
 
   getRating: ->
-    {rating_id} = @props
-    RatingsStore.get rating_id
+    {ratingId} = @props
+    RatingsStore.get ratingId
 
   updateRating: ->
     @setState rating: @getRating()
