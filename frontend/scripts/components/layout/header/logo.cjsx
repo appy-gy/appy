@@ -1,6 +1,8 @@
 React = require 'react/addons'
+Router = require 'react-router'
 
 {PureRenderMixin} = React.addons
+{Link} = Router
 
 Logo = React.createClass
   displayName: 'Logo'
@@ -8,8 +10,8 @@ Logo = React.createClass
   mixins: [PureRenderMixin]
 
   render: ->
-    <a href="/" className="logotype">
+    <Link to="ratings" className="logotype">
       Activelist
-    </a>
+    </Link>
 
 module.exports = Logo
