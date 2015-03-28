@@ -15,7 +15,7 @@ Info = React.createClass
     {user} = @props
 
     <div>
-      {user.name}
+      {user.name or user.email}
     </div>
 
 module.exports = Info
