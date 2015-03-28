@@ -2,6 +2,7 @@
   display: flex
   flex-flow: row wrap
   margin: -15px -15px 0 -15px
+
 .preview
   position: relative
   width: 310px
@@ -12,20 +13,23 @@
   &_meta
     transition: opacity 0.1s ease
     opacity: 0
+
   &_tags
     position: absolute
     bottom: 0
     left: 0
     width: 100%
     height: 50px
+
   &_image
     position: relative
     width: 100%
     height: 200px
     border-radius: 5px
     overflow: hidden
-    background: url(http://lorempixel.com/300/200) center center no-repeat
+    background: url("http://lorempixel.com/300/200") center center no-repeat
     background-size: cover
+
     &:after
       content: ''
       position: absolute
@@ -44,10 +48,13 @@
     color: $red
     font-weight: 600
     margin: 25px 0 15px 0
+
     &:after
       content: ":"
+
     &:hover
       color: $red-2
+
   &_title
     font: 20px $serif
     color: $black
@@ -56,6 +63,7 @@
     word-wrap: break-word
     white-space: pre-wrap
     height: 104px
+
     &:after
       content: ""
       position: absolute
@@ -71,52 +79,68 @@
   &:hover
     .preview_meta
       opacity: 1
+
     .preview_image
       &:after
         opacity: 1
-  &.superbig
+
+  &.m-super-large
     @media screen and (min-width: 710px)
       width: 630px
-      .rating_meta
-        justify-content: center
-      .rating_image
-        height: 100%
-        background: url(http://lorempixel.com/630/400)
-        &:after
-          content: ''
+
+      .preview
+        &_meta
+          justify-content: center
+
+        &_image
           height: 100%
-          background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.2) 100%)
-      .rating_section-name
-        position: absolute
-        top: 150px
-        width: 100%
-        text-align: center
-        padding: 0 30px
-      .rating_title
-        position: absolute
-        top: 210px
-        width: 100%
-        text-align: center
-        padding: 0 30px
-        font-size: 36px
-        font-weight: 700
-        color: $white
-      .rating_tags
-        justify-content: center
-        .rating_tag
-          color: $white-2
-          &:hover
-            color: $white-3
-  &.big
+          background: url(http://lorempixel.com/630/400)
+
+          &:after
+            content: ''
+            height: 100%
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.2) 100%)
+
+        &_section-name
+          position: absolute
+          top: 150px
+          width: 100%
+          text-align: center
+          padding: 0 30px
+
+        &_title
+          position: absolute
+          top: 210px
+          width: 100%
+          text-align: center
+          padding: 0 30px
+          font-size: 36px
+          font-weight: 700
+          color: $white
+
+        &_tags
+          justify-content: center
+
+          &_tag
+            color: $white-2
+
+            &:hover
+              color: $white-3
+
+  &.m-large
     @media screen and (min-width: 710px)
       width: 100%
+
     @media screen and (min-width: 1240px)
       width: 465px
-      .rating_image
-        background: url(http://lorempixel.com/465/300)
-        height: 230px
+
+      .preview
+        &_image
+          background: url(http://lorempixel.com/465/300)
+          height: 230px
+
 .subscription
-  background: $blue-3 url('../images/subscription.svg') center center
+  background: $blue-3 url("../images/subscription.svg") center center
   position: relative
   width: 300px
   height: 400px
@@ -129,6 +153,7 @@
     padding: 250px 15px 15px 15px
     text-align: center
     color: $blue
+
   &_input-wrapper
     width: 100%
     height: 40px
@@ -144,8 +169,10 @@
     cursor: pointer
     display: none
     color: $blue
+
     &:hover
       color: $blue-2
+
   &_input
     height: 100%
     width: 100%
@@ -154,15 +181,20 @@
     border-radius: 5px
     background: none
     transition: background 0.2s ease
+
     &::-webkit-input-placeholder
       color: $blue
       text-indent: 0px
       transition: text-indent 0.5s ease
+
     &:focus
       background: $white
+
       &::-webkit-input-placeholder
         text-indent: 500px
+
       & + .subscription_submit
         display: block
+
   @media screen and (max-width: 1240px)
     display: none

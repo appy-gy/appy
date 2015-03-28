@@ -1,10 +1,21 @@
+_ = require 'lodash'
 React = require 'react/addons'
 Listener = require '../mixins/listener'
 Preview = require './preview'
+Subscription = require './subscription'
 RatingsStore = require '../../stores/ratings'
 
-RatingsPreviews = React.createClass
-  mixins: [Listener]
+{PureRenderMixin} = React.addons
+
+Ratings = React.createClass
+  displayName: 'Ratings'
+
+  mixins: [PureRenderMixin, Listener]
+
+  previewEnds:
+    superLarge: 1
+    large: 3
+  subscriptionPosition: 1
 
   getInitialState: ->
     ratings: @getRatings()
@@ -18,7 +29,17 @@ RatingsPreviews = React.createClass
   updateRatings: ->
     @setState ratings: @getRatings()
 
-  ratings: ->
+  subscription: ->
+    <Subscription key="subscription"/>
+
+  previews: ->
+    {ratings} = @state
+
+    ratings.result.map (rating, index) =>
+      mod = _.findKey @previewEnds, (end) -> _.inRange index, end
+      <Preview key={rating.id} rating={rating} mod={_.kebabCase mod}/>
+
+  content: ->
     {ratings} = @state
 
     ratings.when
@@ -26,13 +47,13 @@ RatingsPreviews = React.createClass
         <div className="pending">Loading ratings...</div>
       failed: (error) ->
         <div className="error">Failed to load ratings. {error.message}</div>
-      done: (ratings) ->
-        ratings.map (rating) ->
-          <Preview key={rating.id} rating={rating}/>
+      done: =>
+        _.tap @previews(), (previews) =>
+          previews.splice @subscriptionPosition, 0, @subscription()
 
   render: ->
     <div className="previews">
-      {@ratings()}
+      {@content()}
     </div>
 
-module.exports = RatingsPreviews
+module.exports = Ratings
