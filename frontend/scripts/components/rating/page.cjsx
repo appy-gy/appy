@@ -1,9 +1,10 @@
 React = require 'react/addons'
 Listener = require '../mixins/listener'
+Title = require './title'
+SectionsSelect = require '../sections/select_all'
+Meta = require '../shared/ratings/meta'
 RatingsStore = require '../../stores/ratings'
 RatingsActionCreator = require '../../action_creators/ratings'
-SectionsSelect = require '../../components/sections/select_all'
-RatingTitle = require '../../components/rating/title'
 
 {PureRenderMixin} = React.addons
 
@@ -42,26 +43,14 @@ Rating = React.createClass
       done: (rating) =>
         <div>
           <header className="rating_header">
-            <div className="meta rating_meta">
-              <div className="meta_item rating_item like-counter">
-                <div className="meta_icon rating_icon ion-heart"></div>
-                <div className="meta_text rating_text">433</div>
-              </div>
-              <div className="meta_item rating_item comments-counter">
-                <div className="meta_icon rating_icon ion-chatbubble"></div>
-                <div className="meta_text rating_text">433</div>
-              </div>
-              <div className="meta_item rating_item date">
-                <div className="meta_text">{rating.createdAt.format('D MMMM YYYY')}</div>
-              </div>
-            </div>
+            <Meta rating={rating} block="rating"/>
             <div className="image-selector">
               <div className="image-selector_icon"></div>
               <div className="image-select_text">Загрузить изображение</div>
             </div>
             <a href="/" className="rating_section-name">{rating.section.name}</a>
             <SectionsSelect />
-            <RatingTitle title={rating.title} onChange={_.partial(@changeRatingField, 'title')}/>
+            <Title text={rating.title} onChange={_.partial(@changeRatingField, 'title')}/>
           </header>
           <div className="rating_description">
             Сразу хочу сказать, что этот рейтинг не полный, и скорее, личный. В общем,  тут несколько строк пояснения о рейтинге вообще.
@@ -85,7 +74,7 @@ Rating = React.createClass
           <div className="rating_line"></div>
           <section className="rating-point">
             <div className="rating-point_title">
-              <span className="rating-point_number">#1 </span>
+              <span className="rating-point_number">#1</span>
               <span>Beyonce & Nicki Minaj ‘Flawless’</span>
             </div>
             <div className="rating-point_cover">

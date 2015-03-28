@@ -3,15 +3,15 @@ RatingsStore = require '../../stores/ratings'
 RatingsApi = require '../../state_sources/ratings'
 
 {PropTypes} = React
-{PureRenderMixin, LinkedStateMixin} = React.addons
+{PureRenderMixin} = React.addons
 
 RatingTitle = React.createClass
-  displayName: 'RatingTitle'
+  displayName: 'Title'
 
-  mixins: [PureRenderMixin, LinkedStateMixin]
+  mixins: [PureRenderMixin]
 
   propTypes:
-    title: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired
 
   getInitialState: ->
     edit: false
@@ -26,24 +26,29 @@ RatingTitle = React.createClass
     @props.onChange event.target.value
 
   titleCommon: ->
-    {title} = @props
+    {text} = @props
     {edit} = @state
 
     return if edit
 
     <h1 className="rating_title" onClick={@startEdit}>
-      {title}
+      {text}
     </h1>
 
   titleEditable: ->
-    {title} = @props
+    {text} = @props
     {edit} = @state
 
     return unless edit
 
     <div>
-      <textarea maxLength="50" className="rating_title edit" value={title} onChange={@updateTitle} ></textarea>
-      <button onClick={@updateTitle}>сохранить</button><button onClick={@rollbackTitle}>отменить</button>
+      <textarea maxLength="50" className="rating_title edit" value={text} onChange={@updateTitle}></textarea>
+      <button onClick={@updateTitle}>
+        сохранить
+      </button>
+      <button onClick={@rollbackTitle}>
+        отменить
+      </button>
     </div>
 
   render: ->

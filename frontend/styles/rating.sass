@@ -1,8 +1,11 @@
 .rating
+  +rating-meta
+
   width: 100%
   border: 1px solid #f2f2f2
   background: white
   border-radius: $border-radius
+
   &_header
     position: relative
     height: 500px
@@ -16,15 +19,18 @@
     background-color: $blue
     flex-flow: column wrap
     border-radius: $border-radius $border-radius 0 0
+
     .image-selector
       position: absolute
       top: 20px
       left: 20px
+
   &_line
     width: 60%
     border-bottom: 1px solid $black-3
     margin: 0 auto 30px auto
     position: relative
+
     &:after
       position: absolute
       content: ''
@@ -33,17 +39,20 @@
       border-bottom: 1px solid $black-3
       top: 5px
       left: -10px
+
   .rating-like
     position: relative
     width: 120px
     margin: 120px auto
     cursor: pointer
+
     &_burst-1
       background: $blue
       width: 120px
       height: 120px
       position: relative
       text-align: center
+
       &:after, &:before
         content: ""
         position: absolute
@@ -52,10 +61,13 @@
         height: 120px
         width: 120px
         background: $blue
+
       &:before
         transform: rotate(30deg)
+
       &:after
         transform: rotate(60deg)
+
     &_burst-2
       background: $blue
       width: 120px
@@ -65,6 +77,7 @@
       left: 0
       text-align: center
       transform: rotate(15deg)
+
       &:after, &:before
         content: ""
         position: absolute
@@ -73,10 +86,13 @@
         height: 120px
         width: 120px
         background: $blue
+
       &:before
         transform: rotate(30deg)
+
       &:after
         transform: rotate(60deg)
+
     &_content
       position: absolute
       top: 0
@@ -96,6 +112,7 @@
     text-align: center
     font-family: $serif
     margin: 0
+
   &_section-name
     display: block
     font-size: 15px
@@ -103,18 +120,23 @@
     color: $red
     font-weight: 600
     margin: 25px 0 15px 0
+
     &:after
       content: ":"
+
     &:hover
       color: $red-2
+
   &_meta
     top: 30px
     justify-content: center
+
   &_tags
     width: 70%
     margin: 0 auto
     justify-content: center
     height: 40px
+
   &_description
     font-style: italic
     width: 70%
@@ -123,6 +145,7 @@
     text-align: center
     margin: 0 auto
     padding-top: 30px
+
   &_author
     display: block
     font-size: 12px
@@ -133,32 +156,39 @@
     width: 60%
     margin: 0 auto
     padding-bottom: 20px
-    // border-bottom: 1px solid $black-2
+
     &:before
       content: 'Автор:'
       text-transform: uppercase
       color: $black-3
       margin-right: 5px
+
   .rating-point
     padding: 30px 60px
+
     &_title
       color: $blue
       font: 20px $serif
       font-weight: 700
       text-align: center
       margin-bottom: 25px
+
     &_cover
       width: 100%
       height: auto
+
       img
         width: 100%
+
     &_description
       margin: 15px 0
+
     &_actions
       display: flex
       justify-content: center
       padding: 15px 0
       font-size: 20px
+
     &_minus, &_plus
       width: 30px
       height: 30px
@@ -168,20 +198,25 @@
       color: white
       box-shadow: 1px 2px 2px rgba($black, 0.15)
       cursor: pointer
+
     &_mark
       margin: 0 10px
       color: $black
       font-family: $serif
       font-weight: 700
       letter-spacing: 1px
+
     &_minus
       background: $red
+
     &_plus
       background: $green
+
   .rating-share
     display: flex
     justify-content: center
     padding: 0 30px 30px 30px
+
     &_icon
       width: 40px
       height: 40px
@@ -190,77 +225,99 @@
       text-align: center
       border-radius: $border-radius
       background: white
+
     &_text
       width: calc(100% - 40px)
       text-align: center
       line-height: 40px
       color: white
       font-size: 20px
+
     &_button
       width: 280px
       height: 60px
       padding: 10px
       display: flex
       cursor: pointer
+
       &:nth-of-type(2)
         margin: 0 2px
+
       &.facebook
         border-radius: $border-radius * 2 0 0 $border-radius * 2
         background: #3b5b98
+
         .rating-share_icon
           color: #3b5b98
+
         &:hover
           background: rgba(#3b5b98, 0.8)
       &.vk
         background: #6384a9
+
         .rating-share_icon
           color: #6384a9
+
         &:hover
           background: rgba(#6384a9, 0.8)
+
       &.twitter
         background: #55acee
         border-radius: 0 $border-radius * 2 $border-radius * 2 0
+
         .rating-share_icon
           color: #55acee
+
         &:hover
           background: rgba(#55acee, 0.8)
+
   .comments
     padding: 30px 40px
     background: #f2f2f2
+
     &_header
       font: 30px $serif
       color: $blue
       margin-bottom: 15px
+
   .comment
     display: flex
     margin-bottom: 30px
+
     &_userface
       width: 60px
       height: 60px
       border-radius: 30px
+
     &_content
       width: calc(100% - 60px)
       padding: 5px 0 0 10px
+
     &_text
       word-wrap: break-word
       white-space: pre-wrap
+
     &_username
       color: $blue
       font-weight: 600
       margin-right: 5px
       white-space: nowrap
+
     &_date
       font-weight: 600
       font-size: 14px
       color: $black-3
+
     &-form
       background: #e3e3e3
       border-radius: $border-radius * 2
       padding: 10px
       display: flex
       margin: 0 -10px
+
       &.focus
         background: ($blue-3, 0.1)
+
     &_textarea
       width: calc(100% - 60px)
       padding: 10px
