@@ -12,7 +12,7 @@ App = React.createClass
   render: ->
     <div className='layout'>
       <Header/>
-      <main className='main site-main'>
+      <main className='site-main'>
         <div className='grid'>
           <RouteHandler {...@props}/>
         </div>
