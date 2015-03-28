@@ -1,3 +1,5 @@
+@import "mixins/ratings"
+
 =button
   display: inline-block
   padding: 0 15px
@@ -22,37 +24,3 @@
   background-color: $black-3
   &:hover
     background-color: lighten($black-3, 20%)
-
-=rating-meta
-  &_meta
-    display: flex
-    position: absolute
-    top: 0
-    left: 0
-    width: 100%
-    height: 50px
-    color: $white
-    line-height: 20px
-    padding: 15px
-    z-index: 1
-
-  &_icon
-    margin-right: 5px
-    line-height: 20px
-
-  &_text
-    font-size: 12px
-    text-transform: uppercase
-
-  &_item
-    display: flex
-    margin-right: 20px
-
-    &.like-counter .meta_icon
-      font-size: 14px
-
-    &.comments-counter .meta_icon
-      font-size: 15px
-
-    &:last-of-type
-      margin-right: 0

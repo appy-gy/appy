@@ -16,19 +16,19 @@ Meta = React.createClass
     {rating, block} = @props
 
     <div className="#{block}_meta">
-      <div className="#{block}_item like-counter">
-        <div className="#{block}_icon ion-heart"></div>
+      <div className="#{block}_item ">
+        <div className="#{block}_icon m-likes"></div>
         <div className="#{block}_text">
           433
         </div>
       </div>
-      <div className="#{block}_item comments-counter">
-        <div className="#{block}_icon ion-chatbubble"></div>
+      <div className="#{block}_item">
+        <div className="#{block}_icon m-comments"></div>
         <div className="#{block}_text">
           433
         </div>
       </div>
-      <div className="#{block}_item date">
+      <div className="#{block}_item">
         <div className="#{block}_text">
           {rating.createdAt.format('D MMMM YYYY')}
         </div>
