@@ -14,7 +14,7 @@ Tags = React.createClass
   render: ->
     {tag} = @props
 
-    <span className="tag">
+    <span className="tags_tag">
       {tag.name}
     </span>
 
