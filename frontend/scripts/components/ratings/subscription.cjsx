@@ -15,7 +15,7 @@ Subscription = React.createClass
       </div>
       <div className="subscription_input-wrapper">
         <input className="subscription_input" type="text" placeholder="Ваш e-mail"/>
-        <div className='subscription_submit ion-arrow-right-c'>
+        <div className="subscription_submit">
         </div>
       </div>
     </div>
