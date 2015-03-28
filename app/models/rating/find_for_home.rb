@@ -1,7 +1,7 @@
 class Rating
   class FindForHome
     def call
-      Rating.last 5
+      Rating.last 10
     end
   end
 end
