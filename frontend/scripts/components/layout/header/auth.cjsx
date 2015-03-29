@@ -1,29 +1,21 @@
 React = require 'react/addons'
+Marty = require 'marty'
 CurrentUserStore = require '../../../stores/current_user'
-Listener = require '../../mixins/listener'
 Info = require '../../auth/info'
 Login = require '../../auth/login'
 Logout = require '../../auth/logout'
 Registration = require '../../auth/registration'
 
+{PropTypes} = React
 {PureRenderMixin} = React.addons
 
 Auth = React.createClass
   displayName: 'Auth'
 
-  mixins: [PureRenderMixin, Listener]
+  mixins: [PureRenderMixin]
 
-  getInitialState: ->
-    user: @getUser()
-
-  componentWillMount: ->
-    @addListener CurrentUserStore.addChangeListener(@updateUser)
-
-  getUser: ->
-    CurrentUserStore.get()
-
-  updateUser: ->
-    @setState user: @getUser()
+  propTypes:
+    user: PropTypes.object.isRequired
 
   infoAndLogOut: (user) ->
     [
@@ -38,17 +30,18 @@ Auth = React.createClass
     ]
 
   auth: ->
-    {user} = @state
+    {user} = @props
 
-    user.when
-      pending: ->
-      done: (user) =>
-        components = if user.isLoggedIn() then 'infoAndLogOut' else 'loginAndRegistration'
-        @[components] user
+    components = if user.isLoggedIn() then 'infoAndLogOut' else 'loginAndRegistration'
+    @[components] user
 
   render: ->
     <div className="auth">
       {@auth()}
     </div>
 
-module.exports = Auth
+module.exports = Marty.createContainer Auth,
+  listenTo: CurrentUserStore
+
+  fetch: ->
+    user: CurrentUserStore.get()

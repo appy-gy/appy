@@ -1,33 +1,33 @@
 React = require 'react/addons'
+Marty = require 'marty'
 SectionsStore = require '../../stores/sections'
-Listener = require '../mixins/listener'
+
+{PropTypes} = React
+{PureRenderMixin} = React.addons
 
 SelectAll = React.createClass
-  mixins: [Listener]
+  displayName: 'SelectAll'
 
-  getInitialState: ->
-    sections: @getSections()
+  mixins: [PureRenderMixin]
 
-  componentWillMount: ->
-    @addListener SectionsStore.addChangeListener @updateSections
+  propTypes:
+    sections: PropTypes.arrayOf(PropTypes.object).isRequired
 
-  getSections: ->
-    SectionsStore.getAll()
+  sections: ->
+    {sections} = @props
 
-  updateSections: ->
-    @setState sections: @getSections()
+    sections.map (section) ->
+      <option value={section.id}>
+        {section.name}
+      </option>
 
   render: ->
-    {sections} = @state
+    <select className="rating_section-name edit">
+      {@sections()}
+    </select>
 
-    sections.when
-      pending: ->
-        <div className='pending'>Loading section...</div>
-      failed: (error) ->
-        <div className='error'>Failed to load section. {error.message}</div>
-      done: (sections) ->
-        <select className="rating_section-name edit">
-          {sections.map (section) -> <option value={section.id}>{section.name}</option>}
-        </select>
+module.exports = Marty.createContainer SelectAll,
+  listenTo: SectionsStore
 
-module.exports = SelectAll
+  fetch: ->
+    sections: SectionsStore.getAll()

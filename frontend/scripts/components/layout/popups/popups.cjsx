@@ -1,37 +1,29 @@
 _ = require 'lodash'
 React = require 'react/addons'
+Marty = require 'marty'
 classNames = require 'classnames'
 Popup = require './popup'
-Listener = require '../../mixins/listener'
 PopupsStore = require '../../../stores/popups'
 
+{PropTypes} = React
 {PureRenderMixin} = React.addons
 
 Popups = React.createClass
   displayName: 'Popups'
 
-  mixins: [PureRenderMixin, Listener]
+  mixins: [PureRenderMixin]
 
-  getInitialState: ->
-    popups: @getPopups()
-
-  componentWillMount: ->
-    @addListener PopupsStore.addChangeListener(@updatePopups)
-
-  getPopups: ->
-    PopupsStore.getAll()
-
-  updatePopups: ->
-    @setState popups: @getPopups()
+  propTypes:
+    popups: PropTypes.arrayOf(PropTypes.object).isRequired
 
   popups: ->
-    {popups} = @state
+    {popups} = @props
 
     popups.map (popup, index) ->
       <Popup key={index} popup={popup}/>
 
   render: ->
-    {popups} = @state
+    {popups} = @props
 
     classes = classNames 'popups', 'm-empty': _.isEmpty(popups)
 
@@ -39,4 +31,8 @@ Popups = React.createClass
       {@popups()}
     </div>
 
-module.exports = Popups
+module.exports = Marty.createContainer Popups,
+  listenTo: PopupsStore
+
+  fetch: ->
+    popups: PopupsStore.getAll()

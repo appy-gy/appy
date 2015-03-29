@@ -1,5 +1,5 @@
 React = require 'react/addons'
-RatingsStore = require '../../stores/ratings'
+RatingActionCreators = require '../../action_creators/ratings'
 
 {PropTypes} = React
 {PureRenderMixin} = React.addons
@@ -10,7 +10,7 @@ RatingTitle = React.createClass
   mixins: [PureRenderMixin]
 
   propTypes:
-    text: PropTypes.string.isRequired
+    rating: PropTypes.object.isRequired
 
   getInitialState: ->
     edit: false
@@ -22,26 +22,28 @@ RatingTitle = React.createClass
     @setState edit: false
 
   updateTitle: (event) ->
-    @props.onChange event.target.value
+    {rating} = @props
+
+    RatingActionCreators.change rating.id, title: event.target.value
 
   titleCommon: ->
-    {text} = @props
+    {rating} = @props
     {edit} = @state
 
     return if edit
 
     <h1 className="rating_title" onClick={@startEdit}>
-      {text}
+      {rating.title}
     </h1>
 
   titleEditable: ->
-    {text} = @props
+    {rating} = @props
     {edit} = @state
 
     return unless edit
 
     <div>
-      <textarea maxLength="50" className="rating_title edit" value={text} onChange={@updateTitle}></textarea>
+      <textarea maxLength="50" className="rating_title edit" value={rating.title} onChange={@updateTitle}></textarea>
       <button onClick={@updateTitle}>
         сохранить
       </button>

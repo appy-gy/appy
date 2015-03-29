@@ -3,7 +3,7 @@ toArray = require '../helpers/to_array'
 React = require 'react/addons'
 Marty = require 'marty'
 SectionConstants = require '../constants/sections'
-SectionsQueries = require '../queries/sections'
+SectionQueries = require '../queries/sections'
 
 {update} = React.addons
 

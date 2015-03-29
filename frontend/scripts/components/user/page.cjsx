@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Router = require 'react-router'
-Link = Router.Link
+
+{Link} = Router
 
 User = React.createClass
   render: ->
