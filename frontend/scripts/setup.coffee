@@ -1,7 +1,7 @@
 arrayEach = require './setup/array_each'
 classify = require './setup/classify'
 momentLocale = require './setup/moment_locale'
-routes = require './setup/routes'
+router = require './router'
 
 setup = ->
   arrayEach()
@@ -9,6 +9,6 @@ setup = ->
   momentLocale()
 
   document.addEventListener 'DOMContentLoaded', ->
-    routes()
+    router()
 
 module.exports = setup

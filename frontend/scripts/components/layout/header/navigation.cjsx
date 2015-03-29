@@ -29,4 +29,4 @@ module.exports = Marty.createContainer Navigation,
   listenTo: HeaderSectionsStore
 
   fetch: ->
-    sections: HeaderSectionsStore.getAll()
+    sections: HeaderSectionsStore.for(@).getAll()

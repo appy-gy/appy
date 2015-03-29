@@ -21,7 +21,7 @@ class SectionsStore extends Marty.Store
         return unless @hasAlreadyFetched 'getAll'
         @state
       remotely: ->
-        SectionQueries.getAll()
+        SectionQueries.for(@).getAll()
 
   append: (sections) ->
     @state = update @state, $push: toArray(sections)

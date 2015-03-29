@@ -30,4 +30,4 @@ module.exports = Marty.createContainer SelectAll,
   listenTo: SectionsStore
 
   fetch: ->
-    sections: SectionsStore.getAll()
+    sections: SectionsStore.for(@).getAll()

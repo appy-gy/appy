@@ -24,7 +24,7 @@ class RatingsStore extends Marty.Store
         return unless @hasAlreadyFetched id
         @state
       remotely: ->
-        RatingQueries.getPage page
+        RatingQueries.for(@).getPage(page)
 
   get: (id) ->
     @fetch
@@ -32,7 +32,7 @@ class RatingsStore extends Marty.Store
       locally: ->
         _.find @state, (rating) -> rating.id == id
       remotely: ->
-        RatingQueries.get id
+        RatingQueries.for(@).get(id)
 
   change: (id, changes) ->
     index = _.findIndex @state, (rating) -> rating.id == id

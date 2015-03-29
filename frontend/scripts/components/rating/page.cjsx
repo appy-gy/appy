@@ -282,4 +282,4 @@ module.exports = Marty.createContainer Rating,
   fetch: ->
     {ratingId} = @props
 
-    rating: RatingsStore.get ratingId
+    rating: RatingsStore.for(@).get ratingId

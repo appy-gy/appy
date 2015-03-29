@@ -4,7 +4,6 @@
 /tmp
 /node_modules
 /public/assets
-/public/index.html
 .ruby-version
 .ruby-gemset
 .env

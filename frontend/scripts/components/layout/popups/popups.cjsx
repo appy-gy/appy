@@ -35,4 +35,4 @@ module.exports = Marty.createContainer Popups,
   listenTo: PopupsStore
 
   fetch: ->
-    popups: PopupsStore.getAll()
+    popups: PopupsStore.for(@).getAll()

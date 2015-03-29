@@ -1,20 +1,22 @@
-env = require './.env.coffee'
+dotenv = require 'dotenv'
 path = require 'path'
 mapObj = require 'map-obj'
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
-[debug, devtool] = if env.TOP_ENV == 'development' then [true, 'eval'] else [false, null]
+dotenv.load()
+
+[debug, devtool] = if process.env.TOP_ENV == 'development' then [true, 'eval'] else [false, null]
 
 cssLoaders = ['css-loader', 'autoprefixer-loader']
 sassLoaders = cssLoaders.concat 'sass-loader?indentedSyntax=sass'
-loaderGenerator = if env.TOP_ENV == 'development'
+loaderGenerator = if process.env.TOP_ENV == 'development'
   (loaders) -> ['style-loader'].concat(loaders).join('!')
 else
   (loaders) -> ExtractTextPlugin.extract 'style-loader', loaders
 [cssLoader, sassLoader] = [cssLoaders, sassLoaders].map loaderGenerator
 
-definePluginEnv = mapObj env, (key, value) -> [key, JSON.stringify(value)]
+definePluginEnv = {}
 definePluginEnv['process.env.NODE_ENV'] = JSON.stringify process.env.NODE_ENV
 
 plugins = [
@@ -22,7 +24,7 @@ plugins = [
   new webpack.PrefetchPlugin 'react/lib/ReactComponentBrowserEnvironment'
 ]
 
-if env.TOP_ENV == 'production'
+if process.env.TOP_ENV == 'production'
   plugins.push \
     new ExtractTextPlugin 'app.css'
     new webpack.optimize.UglifyJsPlugin compress: { warnings: false }
@@ -37,14 +39,14 @@ plugins.push \
 module.exports =
   entry:
     app: [
-      "webpack-dev-server/client?http://#{env.WEBPACK_HOST}:#{env.WEBPACK_PORT}"
+      "webpack-dev-server/client?#{process.env.TOP_WEBPACK_HOST}"
       'webpack/hot/dev-server'
       './frontend/app'
     ]
   output:
     path: path.join(__dirname, 'public/assets')
     filename: 'app.js'
-    publicPath: "http://#{env.WEBPACK_HOST}:#{env.WEBPACK_PORT}/"
+    publicPath: "#{process.env.TOP_WEBPACK_HOST}/"
   debug: debug
   devtool: devtool
   plugins: plugins

@@ -17,7 +17,7 @@ class CurrentUserStore extends Marty.Store
         return unless @hasAlreadyFetched 'get'
         @state
       remotely: ->
-        CurrentUserQueries.get()
+        CurrentUserQueries.for(@).get()
 
   set: (user) ->
     user = new User unless user?

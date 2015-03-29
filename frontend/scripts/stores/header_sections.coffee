@@ -16,7 +16,7 @@ class HeaderSectionsStore extends Marty.Store
         return unless @hasAlreadyFetched 'getAll'
         @state
       remotely: ->
-        HeaderSectionQueries.getAll()
+        HeaderSectionQueries.for(@).getAll()
 
   set: (sections) ->
     @state = sections

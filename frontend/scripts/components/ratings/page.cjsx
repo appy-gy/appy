@@ -46,4 +46,4 @@ module.exports = Marty.createContainer Ratings,
   listenTo: RatingsStore
 
   fetch: ->
-    ratings: RatingsStore.getPage()
+    ratings: RatingsStore.for(@).getPage()

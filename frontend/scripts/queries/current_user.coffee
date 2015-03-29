@@ -5,7 +5,7 @@ User = require '../models/user'
 
 class CurrentUserQueries extends Marty.Queries
   get: ->
-    CurrentUserApi.load().then ({body}) =>
+    CurrentUserApi.for(@).load().then ({body}) =>
       return unless body?
       user = new User body.user
       @dispatch CurrentUserConstants.SET_CURRENT_USER, user

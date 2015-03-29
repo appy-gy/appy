@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  root 'home#index'
-
   namespace :api do
     namespace :private do
       resource  :sessions, only: [:show, :create, :destroy]
@@ -14,8 +12,6 @@ Rails.application.routes.draw do
   resource :oauth, only: [] do
     get :callback
     post :callback
-    get ':provider', to: :oauth
+    get ':provider', action: :oauth
   end
-
-  get '*path', to: 'home#index'
 end

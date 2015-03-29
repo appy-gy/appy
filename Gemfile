@@ -31,6 +31,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rack-reverse-proxy', require: false
   gem 'guard'
   gem 'guard-rspec'
   gem 'spring'

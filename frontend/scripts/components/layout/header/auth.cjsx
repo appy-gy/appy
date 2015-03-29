@@ -44,4 +44,4 @@ module.exports = Marty.createContainer Auth,
   listenTo: CurrentUserStore
 
   fetch: ->
-    user: CurrentUserStore.get()
+    user: CurrentUserStore.for(@).get()

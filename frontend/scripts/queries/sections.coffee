@@ -5,7 +5,7 @@ Section = require '../models/section'
 
 class SectionQueries extends Marty.Queries
   getAll: ->
-    SectionsApi.loadAll().then ({body}) =>
+    SectionsApi.for(@).loadAll().then ({body}) =>
       return unless body?
       sections = body.sections.map (section) -> new Section section
       @dispatch SectionConstants.APPEND_SECTIONS, sections

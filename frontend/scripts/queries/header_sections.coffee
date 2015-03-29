@@ -5,7 +5,7 @@ Section = require '../models/section'
 
 class HeaderSectionQueries extends Marty.Queries
   getAll: ->
-    HeaderSectionsApi.loadAll().then ({body}) =>
+    HeaderSectionsApi.for(@).loadAll().then ({body}) =>
       return unless body?
       sections = body.sections.map (section) -> new Section section
       @dispatch HeaderSectionConstants.SET_HEADER_SECTIONS, sections
