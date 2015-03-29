@@ -5,7 +5,8 @@
   "scripts": {
     "touch-sass": "coffee touch_sass.coffee",
     "dev-server": "coffee webpack_dev_server.coffee",
-    "dev": "npm run touch-sass & npm run dev-server",
+    "prerender-server": "coffee prerender/app.coffee",
+    "dev": "npm run touch-sass & npm run dev-server & npm run prerender-server",
     "build-dev": "webpack",
     "build": "NODE_ENV=production webpack"
   },

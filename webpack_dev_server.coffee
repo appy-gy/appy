@@ -10,7 +10,6 @@ compiler = webpack config
 
 server = new WebpackDevServer compiler,
   hot: true
-  contentBase: "#{process.env.TOP_WEBPACK_HOST}/public/assets"
   inline: true
 
 [host, port] = _.last(process.env.TOP_WEBPACK_HOST.split('/')).split(':')
