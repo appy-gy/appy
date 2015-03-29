@@ -1,42 +1,21 @@
+_ = require 'lodash'
 Marty = require 'marty'
-User = require '../models/user'
-CurrentUserActionCreators = require '../action_creators/current_user'
 
-CurrentUserApi = Marty.createStateSource
-  type: 'http'
-  baseUrl: "/api/private"
+class CurrentUserApi extends Marty.HttpStateSource
+  baseUrl: '/api/private'
 
   load: ->
-    @get url: 'sessions'
-      .then ({body}) ->
-        return unless body?
-        user = new User body.user
-        CurrentUserActionCreators.set user
+    @get 'sessions'
 
-  logIn: ({email, password}) ->
-    body = session: { email, password }
-
+  logIn: (data) ->
+    body = session: _.pick(data, 'email', 'password')
     @post { url: 'sessions', body }
-      .then ({body}) ->
-        return unless body?
-        user = new User body.user
-        CurrentUserActionCreators.set user
-        user
 
   logOut: ->
-    @delete url: 'sessions'
-      .then ({body}) ->
-        return unless body.success
-        CurrentUserActionCreators.set null
+    @delete 'sessions'
 
-  register: ({email, password}) ->
-    body = user: { email, password }
-
+  register: (data) ->
+    body = user: _.pick(data, 'email', 'password')
     @post { url: 'users', body }
-      .then ({body}) ->
-        return unless body?
-        user = new User body.user
-        CurrentUserActionCreators.set user
-        user
 
-module.exports = CurrentUserApi
+module.exports = Marty.register CurrentUserApi

@@ -1,7 +1,7 @@
 Marty = require 'marty'
 
-HeaderSectionsConstants = Marty.createConstants [
+HeaderSectionConstants = Marty.createConstants [
   'SET_HEADER_SECTIONS'
 ]
 
-module.exports = HeaderSectionsConstants
+module.exports = HeaderSectionConstants

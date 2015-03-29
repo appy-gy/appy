@@ -1,13 +1,13 @@
 Marty = require 'marty'
-HeaderSectionsConstants = require '../constants/header_sections'
-HeaderSectionsApi = require '../state_sources/header_sections'
+HeaderSectionConstants = require '../constants/header_sections'
+HeaderSectionQueries = require '../queries/header_sections'
 
-HeaderSectionsStore = Marty.createStore
-  handlers:
-    set: HeaderSectionsConstants.SET_HEADER_SECTIONS
-
-  getInitialState: ->
-    []
+class HeaderSectionsStore extends Marty.Store
+  constructor: ->
+    super
+    @state = []
+    @handlers =
+      set: HeaderSectionConstants.SET_HEADER_SECTIONS
 
   getAll: ->
     @fetch
@@ -16,9 +16,9 @@ HeaderSectionsStore = Marty.createStore
         return unless @hasAlreadyFetched 'getAll'
         @state
       remotely: ->
-        HeaderSectionsApi.loadAll()
+        HeaderSectionQueries.getAll()
 
   set: (sections) ->
     @state = sections
 
-module.exports = HeaderSectionsStore
+module.exports = Marty.register HeaderSectionsStore

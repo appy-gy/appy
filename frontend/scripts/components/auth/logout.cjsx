@@ -1,5 +1,5 @@
 React = require 'react/addons'
-CurrentUserApi = require '../../state_sources/current_user'
+CurrentUserActionCreators = require '../../action_creators/current_user'
 
 {PureRenderMixin} = React.addons
 
@@ -9,7 +9,7 @@ Logout = React.createClass
   mixins: [PureRenderMixin]
 
   logOut: ->
-    CurrentUserApi.logOut()
+    CurrentUserActionCreators.logOut()
 
   render: ->
     <div onClick={@logOut}>

@@ -1,6 +1,5 @@
 React = require 'react/addons'
 RatingsStore = require '../../stores/ratings'
-RatingsApi = require '../../state_sources/ratings'
 
 {PropTypes} = React
 {PureRenderMixin} = React.addons

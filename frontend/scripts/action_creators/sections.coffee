@@ -1,8 +1,8 @@
 Marty = require 'marty'
-SectionsConstants = require '../constants/sections'
+autoDispatch = require 'marty/autoDispatch'
+SectionConstants = require '../constants/sections'
 
-SectionsActionCreators = Marty.createActionCreators
-  append: SectionsConstants.APPEND_SECTIONS (sections) ->
-    @dispatch sections
+class SectionActionCreators extends Marty.ActionCreators
+  append: autoDispatch SectionConstants.APPEND_SECTIONS
 
-module.exports = SectionsActionCreators
+module.exports = Marty.register SectionActionCreators

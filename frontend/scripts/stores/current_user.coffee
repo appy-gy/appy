@@ -1,14 +1,14 @@
 Marty = require 'marty'
 CurrentUserConstants = require '../constants/current_user'
-CurrentUserApi = require '../state_sources/current_user'
+CurrentUserQueries = require '../queries/current_user'
 User = require '../models/user'
 
-CurrentUserStore = Marty.createStore
-  handlers:
-    set: CurrentUserConstants.SET_CURRENT_USER
-
-  getInitialState: ->
-    new User
+class CurrentUserStore extends Marty.Store
+  constructor: ->
+    super
+    @state = new User
+    @handlers =
+      set: CurrentUserConstants.SET_CURRENT_USER
 
   get: ->
     @fetch
@@ -17,10 +17,10 @@ CurrentUserStore = Marty.createStore
         return unless @hasAlreadyFetched 'get'
         @state
       remotely: ->
-        CurrentUserApi.load()
+        CurrentUserQueries.get()
 
   set: (user) ->
     user = new User unless user?
     @state = user
 
-module.exports = CurrentUserStore
+module.exports = Marty.register CurrentUserStore

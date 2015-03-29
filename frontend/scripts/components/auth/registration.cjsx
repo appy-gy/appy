@@ -1,6 +1,6 @@
 React = require 'react/addons'
 AuthPopup = require './auth_popup'
-CurrentUserApi = require '../../state_sources/current_user'
+CurrentUserActionCreators = require '../../action_creators/current_user'
 PopupsStore = require '../../stores/popups'
 
 {PureRenderMixin} = React.addons
@@ -11,7 +11,7 @@ Registration = React.createClass
   mixins: [PureRenderMixin]
 
   register: (data) ->
-    CurrentUserApi.register data
+    CurrentUserActionCreators.register data
       .then (user) =>
         return unless user?.isLoggedIn()
         @closePopup()

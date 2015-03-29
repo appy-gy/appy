@@ -56,6 +56,7 @@ module.exports =
       { test: /\.(jpe?g|png|svg)$/, loader: 'file-loader' }
       { test: /\.css$/, loader: cssLoader }
       { test: /\.s(a|c)ss$/, loader: sassLoader }
-      { test: /\.coffee$/, loader: 'coffee' }
-      { test: /\.cjsx$/, loaders: ['react-hot', 'coffee', 'cjsx'] }
+      { test: /\.js$/, include: /node_modules\/marty/, loader: 'babel-loader' }
+      { test: /\.coffee$/, exclude: /node_modules/, loader: 'coffee' }
+      { test: /\.cjsx$/, exclude: /node_modules/, loaders: ['react-hot', 'coffee', 'cjsx'] }
     ]

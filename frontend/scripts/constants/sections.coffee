@@ -1,7 +1,7 @@
 Marty = require 'marty'
 
-SectionsConstants = Marty.createConstants [
+SectionConstants = Marty.createConstants [
   'APPEND_SECTIONS'
 ]
 
-module.exports = SectionsConstants
+module.exports = SectionConstants

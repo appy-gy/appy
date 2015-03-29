@@ -1,8 +1,27 @@
 Marty = require 'marty'
+autoDispatch = require 'marty/autoDispatch'
 CurrentUserConstants = require '../constants/current_user'
+CurrentUserApi = require '../state_sources/current_user'
+User = require '../models/user'
 
-CurrentUserActionCreators = Marty.createActionCreators
-  set: CurrentUserConstants.SET_CURRENT_USER (user) ->
-    @dispatch user
+class CurrentUserActionCreators extends Marty.ActionCreators
+  set: autoDispatch CurrentUserConstants.SET_CURRENT_USER
 
-module.exports = CurrentUserActionCreators
+  logIn: (data) ->
+    CurrentUserApi.logIn(data).then ({body}) =>
+      return unless body?
+      user = new User body.user
+      @dispatch CurrentUserConstants.SET_CURRENT_USER, user
+
+  logOut: ->
+    CurrentUserApi.logOut().then ({body}) =>
+      return unless body.success
+      @dispatch CurrentUserConstants.SET_CURRENT_USER, null
+
+  register: ->
+    CurrentUserApi.register.then ({body}) =>
+      return unless body?
+      user = new User body.user
+      @dispatch CurrentUserConstants.SET_CURRENT_USER, user
+
+module.exports = Marty.register CurrentUserActionCreators

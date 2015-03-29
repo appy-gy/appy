@@ -1,11 +1,9 @@
 Marty = require 'marty'
-RatingsConstants = require '../constants/ratings'
+autoDispatch = require 'marty/autoDispatch'
+RatingConstants = require '../constants/ratings'
 
-RatingsActionCreators = Marty.createActionCreators
-  append: RatingsConstants.APPEND_RATINGS (ratings) ->
-    @dispatch ratings
+class RatingActionCreators extends Marty.ActionCreators
+  append: autoDispatch RatingConstants.APPEND_RATINGS
+  change: autoDispatch RatingConstants.CHANGE_RATING
 
-  change: RatingsConstants.CHANGE_RATINGS (id, changes) ->
-    @dispatch id, changes
-
-module.exports = RatingsActionCreators
+module.exports = Marty.register RatingActionCreators

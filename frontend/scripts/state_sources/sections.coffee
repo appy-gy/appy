@@ -1,16 +1,9 @@
 Marty = require 'marty'
-SectionsActionCreators = require '../action_creators/sections'
-Section = require '../models/section'
 
-SectionsApi = Marty.createStateSource
-  type: 'http'
+class SectionsApi extends Marty.HttpStateSource
   baseUrl: '/api/private/sections'
 
-  getAll: (page) ->
-    @get url: ''
-      .then ({body}) ->
-        return unless body?
-        sections = body.sections.map (section) -> new Section section
-        SectionsActionCreators.append sections
+  loadAll: (page) ->
+    @get ''
 
-module.exports = SectionsApi
+module.exports = Marty.register SectionsApi

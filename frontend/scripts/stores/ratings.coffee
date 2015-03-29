@@ -1,18 +1,19 @@
 _ = require 'lodash'
+toArray = require '../helpers/to_array'
 React = require 'react/addons'
 Marty = require 'marty'
-RatingsConstants = require '../constants/ratings'
-RatingsApi = require '../state_sources/ratings'
+RatingConstants = require '../constants/ratings'
+RatingQueries = require '../queries/ratings'
 
 {update} = React.addons
 
-RatingsStore = Marty.createStore
-  handlers:
-    change: RatingsConstants.CHANGE_RATINGS
-    append: RatingsConstants.APPEND_RATINGS
-
-  getInitialState: ->
-    []
+class RatingsStore extends Marty.Store
+  constructor: ->
+    super
+    @state = []
+    @handlers =
+      change: RatingConstants.CHANGE_RATING
+      append: RatingConstants.APPEND_RATINGS
 
   getPage: (page) ->
     id = "getPage-#{page}"
@@ -23,16 +24,15 @@ RatingsStore = Marty.createStore
         return unless @hasAlreadyFetched id
         @state
       remotely: ->
-        RatingsApi.loadPage page
+        RatingQueries.getPage page
 
   get: (id) ->
     @fetch
       id: "get-#{id}"
-      locally: =>
-        return unless @hasAlreadyFetched "get-#{id}"
+      locally: ->
         _.find @state, (rating) -> rating.id == id
       remotely: ->
-        RatingsApi.load id
+        RatingQueries.get id
 
   change: (id, changes) ->
     rating = _.find @state, (r) -> r.id == id
@@ -41,7 +41,6 @@ RatingsStore = Marty.createStore
     @hasChanged()
 
   append: (ratings) ->
-    ratings = [ratings] unless _.isArray ratings
-    @state = update @state, $push: ratings
+    @state = update @state, $push: toArray(ratings)
 
-module.exports = RatingsStore
+module.exports = Marty.register RatingsStore

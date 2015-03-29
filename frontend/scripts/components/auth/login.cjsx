@@ -1,7 +1,7 @@
 React = require 'react/addons'
 AuthPopup = require './auth_popup'
-CurrentUserApi = require '../../state_sources/current_user'
-PopupsActionCreators = require '../../action_creators/popups'
+CurrentUserActionCreators = require '../../action_creators/current_user'
+PopupActionCreators = require '../../action_creators/popups'
 
 {PureRenderMixin} = React.addons
 
@@ -11,16 +11,16 @@ Login = React.createClass
   mixins: [PureRenderMixin]
 
   logIn: (data) ->
-    CurrentUserApi.logIn data
+    CurrentUserActionCreators.logIn data
       .then (user) =>
         return unless user?.isLoggedIn()
         @closePopup()
 
   showPopup: ->
-    PopupsActionCreators.append @popup()
+    PopupActionCreators.append @popup()
 
   closePopup: ->
-    PopupsActionCreators.remove @popup()
+    PopupActionCreators.remove @popup()
 
   popup: ->
     @popupCache ||= <AuthPopup title="Вход" onSubmit={@logIn} onClose={@closePopup}/>

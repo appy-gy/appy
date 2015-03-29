@@ -1,29 +1,29 @@
 _ = require 'lodash'
+toArray = require '../helpers/to_array'
 React = require 'react/addons'
 Marty = require 'marty'
-SectionsConstants = require '../constants/sections'
-SectionsApi = require '../state_sources/sections'
+SectionConstants = require '../constants/sections'
+SectionsQueries = require '../queries/sections'
 
 {update} = React.addons
 
-SectionsStore = Marty.createStore
-  handlers:
-    append: SectionsConstants.APPEND_SECTIONS
-
-  getInitialState: ->
-    []
+class SectionsStore extends Marty.Store
+  constructor: ->
+    super
+    @state = []
+    @handlers =
+      append: SectionConstants.APPEND_SECTIONS
 
   getAll: ->
     @fetch
-      id: 'all-sections'
+      id: 'getAll'
       locally: ->
-        return unless @hasAlreadyFetched 'all-sections'
+        return unless @hasAlreadyFetched 'getAll'
         @state
       remotely: ->
-        SectionsApi.getAll()
+        SectionQueries.getAll()
 
   append: (sections) ->
-    sections = [sections] unless _.isArray sections
-    @state = update @state, $push: sections
+    @state = update @state, $push: toArray(sections)
 
-module.exports = SectionsStore
+module.exports = Marty.register SectionsStore
