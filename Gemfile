@@ -23,6 +23,9 @@ gem 'handy_const'
 # Authentication
 gem 'sorcery'
 
+# Procfile manager
+gem 'foreman'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails'
