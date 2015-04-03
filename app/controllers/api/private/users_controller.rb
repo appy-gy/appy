@@ -1,9 +1,10 @@
 module Api
   module Private
     class UsersController < BaseController
+      find :user, only: [:show, :update]
+
       def show
-        user = User.find params[:id]
-        render json: user
+        render json: @user
       end
 
       def create
@@ -13,14 +14,14 @@ module Api
       end
 
       def update
-        user = Users::Update.new.call user, user_params
+        user = Users::Update.new(@user, user_params).call
         render json: user
       end
 
       private
 
       def user_params
-        params.require(:user).permit(:email, :password, :avatar)
+        params.require(:user).permit(:email, :password, :name, :avatar)
       end
     end
   end

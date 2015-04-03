@@ -29,6 +29,12 @@ class Base
   update: (data) ->
     _.merge @, camelcaseKeys(data)
 
+  isPersisted: ->
+    @id?
+
+  isNewRecord: ->
+    not @isPersisted()
+
   defineDateAccessors: ->
     @constructor.dateFields().forEach (field) =>
       value = null

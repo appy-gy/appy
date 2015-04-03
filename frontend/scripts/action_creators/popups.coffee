@@ -1,9 +1,9 @@
 Marty = require 'marty'
 autoDispatch = require 'marty/autoDispatch'
-PopupsConstants = require '../constants/popups'
+PopupConstants = require '../constants/popups'
 
 class PopupActionCreators extends Marty.ActionCreators
-  append: autoDispatch PopupsConstants.APPEND_POPUPS
-  remove: autoDispatch PopupsConstants.REMOVE_POPUPS
+  append: autoDispatch PopupConstants.APPEND_POPUPS
+  remove: autoDispatch PopupConstants.REMOVE_POPUPS
 
 module.exports = Marty.register PopupActionCreators

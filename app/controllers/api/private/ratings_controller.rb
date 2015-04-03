@@ -1,7 +1,7 @@
 module Api
   module Private
     class RatingsController < BaseController
-      before_action :find_rating, only: [:show, :update]
+      find :rating, only: [:show, :update]
 
       def index
         render json: Rating::FindForHome.new.call
@@ -16,10 +16,6 @@ module Api
       end
 
       private
-
-      def find_rating
-        @rating = Rating.find params[:id]
-      end
 
       def rating_params
         params.require(:rating).permit(:title, :section_id)

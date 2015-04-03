@@ -1,12 +1,10 @@
 _ = require 'lodash'
+mapObj = require 'map-obj'
 
 camelcaseKeys = (obj, deep = false) ->
-  _.each obj, (value, key) ->
-    camelcasedKey = _.camelCase key
-    camelcaseKeys value if deep and _.isObject value
-    return true if key == camelcasedKey
-    obj[camelcasedKey] = value
-    delete obj[key]
-    true
+  mapObj obj, (key, value) ->
+    key = _.camelCase key
+    value = snakecaseKeys value if deep and _.isObject value
+    [key, value]
 
 module.exports = camelcaseKeys

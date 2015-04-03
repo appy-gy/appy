@@ -40,10 +40,10 @@ class RatingsStore extends Marty.Store
         RatingQueries.for(@).get(id)
 
   change: (id, changes) ->
-    index = _.findIndex @state, (rating) -> rating.id == id
-    return if index < 0
-    newRating = @state[index].clone().update(changes)
-    @state = update @state, $splice: [[index, 1, newRating]]
+    rating = _.find @state, (rating) -> rating.id == id
+    return unless rating?
+    rating.update changes
+    @hasChanged()
 
   append: (ratings) ->
     @state = update @state, $push: toArray(ratings)

@@ -1,7 +1,9 @@
 Marty = require 'marty'
 
-UsersConstants = Marty.createConstants [
+UserConstants = Marty.createConstants [
   'APPEND_USERS'
+  'CHANGE_USER'
+  'REPLACE_USER'
 ]
 
-module.exports = UsersConstants
+module.exports = UserConstants

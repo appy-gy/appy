@@ -15,6 +15,8 @@ module Api
 
     include Sorcery::Controller
 
+    include CustomFinder
+
     before_action :override_request_formats
 
     private
