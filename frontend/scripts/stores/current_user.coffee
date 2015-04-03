@@ -10,6 +10,10 @@ class CurrentUserStore extends Marty.Store
     @handlers =
       set: CurrentUserConstants.SET_CURRENT_USER
 
+  rehydrate: (state) ->
+    user = new User state
+    @set user
+
   get: ->
     @fetch
       id: 'get'

@@ -4,6 +4,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 RatingConstants = require '../constants/ratings'
 RatingQueries = require '../queries/ratings'
+Rating = require '../models/rating'
 
 {update} = React.addons
 
@@ -14,6 +15,10 @@ class RatingsStore extends Marty.Store
     @handlers =
       change: RatingConstants.CHANGE_RATING
       append: RatingConstants.APPEND_RATINGS
+
+  rehydrate: (state) ->
+    ratings = state.map (rating) -> new Rating rating
+    @append ratings
 
   getPage: (page) ->
     id = "getPage-#{page}"
