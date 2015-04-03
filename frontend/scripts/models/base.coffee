@@ -8,6 +8,10 @@ class Base
     return @dateFieldsValue if arguments.length == 0
     @dateFieldsValue = newValue
 
+  @imageFields: (newValue...) ->
+    return @imageFieldsValue if arguments.length == 0
+    @imageFieldsValue = newValue
+
   @dateFields 'createdAt', 'updatedAt'
 
   @hasOne: (field, model) ->
@@ -20,6 +24,7 @@ class Base
 
   constructor: (data = {}) ->
     @defineDateAccessors()
+    @defineImageAccessors()
     @defineAssocAccessors()
     @update data
 
@@ -47,6 +52,26 @@ class Base
 
         set: (newValue) ->
           value = moment new Date newValue
+
+  defineImageAccessors: ->
+    @constructor.imageFields()?.forEach (field) =>
+      value = null
+
+      urlFor = (size) =>
+        return value unless value? or size?
+        value.replace /\/([^\/]+)$/, (match, submatch) ->
+          "/#{size}_#{submatch}"
+
+      Object.defineProperty @, field,
+        enumerable: true
+
+        get: ->
+          urlFor()
+
+        set: (newValue) ->
+          value = newValue
+
+      @["#{field}Url"] = urlFor
 
   defineAssocAccessors: ->
     @constructor.assocs?.forEach (assoc) =>
