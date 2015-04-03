@@ -95,6 +95,9 @@ GEM
     handy_const (0.1.1)
     hike (1.2.3)
     hitimes (1.2.2)
+    httparty (0.13.3)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     interception (0.5)
     json (1.8.2)
@@ -234,6 +237,7 @@ DEPENDENCIES
   guard
   guard-rspec
   handy_const
+  httparty
   mini_magick
   oj
   oj_mimic_json

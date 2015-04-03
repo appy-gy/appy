@@ -30,6 +30,9 @@ gem 'carrierwave-processing'
 # Image processing
 gem 'mini_magick'
 
+# HTTP requests
+gem 'httparty'
+
 # Procfile managment
 gem 'foreman'
 

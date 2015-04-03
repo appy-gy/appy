@@ -8,7 +8,7 @@ module Api
       end
 
       def create
-        user = User.create user_params
+        user = Users::Create.new(user_params).call
         auto_login user
         render json: user
       end
