@@ -3,11 +3,12 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, Users::AvatarUploader
 
-  before_create :generate_avatar, unless: :avatar
+  after_create :generate_avatar, unless: :avatar?
 
   private
 
   def generate_avatar
     Users::AvatarGenerator.new.generate { |avatar| self.avatar = avatar }
+    save
   end
 end

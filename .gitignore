@@ -5,6 +5,7 @@
 /node_modules
 /public/assets
 /public/system
+/public/uploads
 .ruby-version
 .ruby-gemset
 .env

@@ -1,4 +1,4 @@
-class Section
+module Sections
   class FindForHeader
     def call
       Section.all
