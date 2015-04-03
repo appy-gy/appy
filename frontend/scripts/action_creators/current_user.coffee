@@ -12,6 +12,7 @@ class CurrentUserActionCreators extends Marty.ActionCreators
       return unless body?
       user = new User body.user
       @dispatch CurrentUserConstants.SET_CURRENT_USER, user
+      user
 
   logOut: ->
     CurrentUserApi.logOut().then ({body}) =>
