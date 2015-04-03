@@ -11,7 +11,7 @@ routes =
   <Route handler={App} path="/">
     <DefaultRoute name="ratings" handler={Ratings}/>
     <Route name="rating" path="ratings/:ratingId" handler={Rating}/>
-    <Route name="user" path="users/vasya" handler={User}/>
+    <Route name="user" path="users/:userId" handler={User}/>
   </Route>
 
 module.exports = routes

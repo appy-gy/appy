@@ -23,7 +23,14 @@ gem 'handy_const'
 # Authentication
 gem 'sorcery'
 
-# Procfile manager
+# Files upload
+gem 'carrierwave'
+gem 'carrierwave-processing'
+
+# Image processing
+gem 'mini_magick'
+
+# Procfile managment
 gem 'foreman'
 
 group :development, :test do

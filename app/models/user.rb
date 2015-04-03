@@ -1,3 +1,5 @@
 class User < ActiveRecord::Base
-  include User::Auth
+  include Users::Auth
+
+  mount_uploader :avatar, Users::AvatarUploader
 end

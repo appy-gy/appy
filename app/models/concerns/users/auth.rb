@@ -1,4 +1,4 @@
-class User
+module Users
   module Auth
     extend ActiveSupport::Concern
 

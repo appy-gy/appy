@@ -1,9 +1,21 @@
 React = require 'react/addons'
 Router = require 'react-router'
+Marty = require 'marty'
+Name = require './name'
+UsersStore = require '../../stores/users'
 
+{PropTypes} = React
 {Link} = Router
 
 User = React.createClass
+  childContextTypes:
+    user: PropTypes.object.isRequired
+
+  getChildContext: ->
+    {user} = @props
+
+    { user }
+
   render: ->
     {user} = @props
 
@@ -19,9 +31,7 @@ User = React.createClass
           </div>
         </div>
         <div className="user-profile_info">
-          <div className="user-profile_name">
-            Александра Билялетдинова
-          </div>
+          <Name/>
           <div className="user-profile_socials">
             <div className="user-profile_social m-fb">
             </div>
@@ -60,4 +70,10 @@ User = React.createClass
       </section>
     </div>
 
-module.exports = User
+module.exports = Marty.createContainer User,
+  listenTo: UsersStore
+
+  fetch: ->
+    {userId} = @props
+
+    user: UsersStore.for(@).get(userId)

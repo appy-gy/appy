@@ -19,7 +19,7 @@ class CurrentUserActionCreators extends Marty.ActionCreators
       @dispatch CurrentUserConstants.SET_CURRENT_USER, null
 
   register: ->
-    CurrentUserApi.register.then ({body}) =>
+    CurrentUserApi.register().then ({body}) =>
       return unless body?
       user = new User body.user
       @dispatch CurrentUserConstants.SET_CURRENT_USER, user

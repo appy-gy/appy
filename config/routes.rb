@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :private do
       resource  :sessions, only: [:show, :create, :destroy]
       resources :sections, only: [:index]
-      resources :users, only: [:create, :update]
+      resources :users, only: [:show, :create, :update]
       resources :ratings, only: [:index, :show, :update]
       resources :header_sections, only: [:index]
     end
