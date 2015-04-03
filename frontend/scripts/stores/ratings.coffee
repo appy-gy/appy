@@ -4,6 +4,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 RatingConstants = require '../constants/ratings'
 RatingQueries = require '../queries/ratings'
+Rating = require '../models/rating'
 
 {update} = React.addons
 
@@ -14,6 +15,10 @@ class RatingsStore extends Marty.Store
     @handlers =
       change: RatingConstants.CHANGE_RATING
       append: RatingConstants.APPEND_RATINGS
+
+  rehydrate: (state) ->
+    ratings = state.map (rating) -> new Rating rating
+    @append ratings
 
   getPage: (page) ->
     id = "getPage-#{page}"
@@ -37,7 +42,7 @@ class RatingsStore extends Marty.Store
   change: (id, changes) ->
     index = _.findIndex @state, (rating) -> rating.id == id
     return if index < 0
-    newRating =  @state[index].clone().update(changes)
+    newRating = @state[index].clone().update(changes)
     @state = update @state, $splice: [[index, 1, newRating]]
 
   append: (ratings) ->

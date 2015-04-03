@@ -11,10 +11,16 @@ RatingsStore = require '../../stores/ratings'
 Rating = React.createClass
   displayName: 'Rating'
 
-  mixins: [PureRenderMixin]
+  # mixins: [PureRenderMixin]
 
   propTypes:
     rating: PropTypes.object.isRequired
+
+  childContextTypes:
+    rating: PropTypes.object.isRequired
+
+  getChildContext: ->
+    { rating: @props.rating }
 
   rating: ->
     {rating} = @props
@@ -28,7 +34,7 @@ Rating = React.createClass
         </div>
         <a href="/" className="rating_section-name">{rating.section.name}</a>
         <SectionsSelect />
-        <Title rating={rating}/>
+        <Title />
       </header>
       <div className="rating_description">
         Сразу хочу сказать, что этот рейтинг не полный, и скорее, личный. В общем,  тут несколько строк пояснения о рейтинге вообще.
