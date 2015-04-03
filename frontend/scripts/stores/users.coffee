@@ -42,6 +42,6 @@ class UsersStore extends Marty.Store
   replace: (user) ->
     index = _.findIndex @state, (u) -> u.id == user.id
     return if index < 0
-    @state = update @state, [index, 1, user]
+    @state = update @state, $splice: [[index, 1, user]]
 
 module.exports = Marty.register UsersStore

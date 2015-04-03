@@ -55,23 +55,11 @@ class Base
 
   defineImageAccessors: ->
     @constructor.imageFields()?.forEach (field) =>
-      value = null
-
-      urlFor = (size) =>
-        return value unless value? or size?
-        value.replace /\/([^\/]+)$/, (match, submatch) ->
+      @["#{field}Url"] = (size) =>
+        return @[field] unless @[field]? or size?
+        return @[field] if _.startsWith @[field], 'blob:'
+        @[field].replace /\/([^\/]+)$/, (match, submatch) ->
           "/#{size}_#{submatch}"
-
-      Object.defineProperty @, field,
-        enumerable: true
-
-        get: ->
-          urlFor()
-
-        set: (newValue) ->
-          value = newValue
-
-      @["#{field}Url"] = urlFor
 
   defineAssocAccessors: ->
     @constructor.assocs?.forEach (assoc) =>

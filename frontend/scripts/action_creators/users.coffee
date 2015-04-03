@@ -8,8 +8,8 @@ class UserActionCreators extends Marty.ActionCreators
   append: autoDispatch UserConstants.APPEND_USERS
   change: autoDispatch UserConstants.CHANGE_USER
 
-  update: (user) ->
-    UsersApi.update(user).then ({body}) =>
+  update: (id, changes) ->
+    UsersApi.update(id, changes).then ({body}) =>
       return unless body?
       user = new User body.user
       @dispatch UserConstants.REPLACE_USER, user

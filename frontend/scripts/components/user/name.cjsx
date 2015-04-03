@@ -18,13 +18,12 @@ Name = React.createClass
   saveUser: ->
     {user} = @context
 
-    UserActionCreators.update user
+    UserActionCreators.update user.id, name: user.name
 
   changeName: (event) ->
     {user} = @context
 
-    changes = name: event.target.value
-    UserActionCreators.change user.id, changes
+    UserActionCreators.change user.id, name: event.target.value
 
   contentView: ->
     {edit} = @state

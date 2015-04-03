@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Router = require 'react-router'
 Marty = require 'marty'
+Avatar = require './avatar'
 Name = require './name'
 UsersStore = require '../../stores/users'
 
@@ -21,15 +22,7 @@ User = React.createClass
 
     <div className="user-profile">
       <header className="user-profile_header">
-        <div className="user-profile_avatar">
-          <img className="user-profile_avatar-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/pixeliris/128.jpg"/>
-          <div className="user-profile_avatar-create">
-            Загрузить фотографию профиля
-          </div>
-          <div className="user-profile_avatar-edit">
-            Изменить фотографию профиля
-          </div>
-        </div>
+        <Avatar/>
         <div className="user-profile_info">
           <Name/>
           <div className="user-profile_socials">

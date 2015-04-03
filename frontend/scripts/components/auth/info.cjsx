@@ -17,7 +17,7 @@ Info = React.createClass
     {user} = @props
 
     <Link to="user" params={{userId: user.id}}>
-      <img width="50" height="50" src={user.avatarUrl('normal')}/>
+      <img width="50" height="50" src={user.avatarUrl('small')}/>
       {user.name or user.email}
     </Link>
 
