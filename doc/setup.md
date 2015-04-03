@@ -2,9 +2,9 @@
 
 * Установить node.js
 
-* Установить coffee-script глобально.
+* Установить глобальные зависимости.
 ```sh
-npm install -g coffee-script
+npm install -g coffee-script nodemon webpack webpack-dev-server
 ```
 
 * Установить npm зависимости
@@ -24,11 +24,6 @@ sudo -u postgres psql
 cp .env.sample .env
 ```
 
-* Копируем файл .env.sample.coffee в .env.coffee и заполняем поля
-```sh
-cp .env.sample.coffee .env.coffee
-```
-
 * Ставим гемы
 ```sh
 bundle install
@@ -40,15 +35,9 @@ rake db:create
 rake db:migrate
 ```
 
-* Компилируем index.html
+* Запускаем
 ```sh
-npm run index-html-dev
+foreman start
 ```
 
-* Запускаем все (каждая команда в новой вкладке консоли)
-```sh
-rails s
-npm run dev
-```
-
-* Заходим на http://localhost:3000
+* Заходим на http://localhost:9292
