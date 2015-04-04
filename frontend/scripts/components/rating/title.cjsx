@@ -23,12 +23,17 @@ RatingTitle = React.createClass
   startEdit: ->
     @setState edit: true
 
-  rollbackTitle: ->
+  stopEdit: ->
     @setState edit: false
 
   updateTitle: (event) ->
     {rating} = @context
     RatingsActionCreator.change rating.id, { title: event.target.value }
+
+  saveTitle: ->
+    {rating} = @context
+    RatingsActionCreator.update rating.id, { title: rating.title }
+    @stopEdit()
 
   titleCommon: ->
     {title} = @context.rating
@@ -48,10 +53,10 @@ RatingTitle = React.createClass
 
     <div>
       <textarea maxLength="50" className="rating_title edit" value={title} onChange={@updateTitle}></textarea>
-      <button onClick={@updateTitle}>
+      <button onClick={@saveTitle}>
         сохранить
       </button>
-      <button onClick={@rollbackTitle}>
+      <button onClick={@stopEdit}>
         отменить
       </button>
     </div>
