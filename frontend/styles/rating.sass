@@ -131,17 +131,13 @@
     justify-content: flex-end
 
   &_title-button
-    height: 40px
-    padding: 0 10px
-    border-radius: 4px
-    text-transform: uppercase
-    font-weight: 600
-    transition: all 0.3s
 
     &.accept
+      +accept
       background-color: $white
       color: $green
       border: 2px solid rgba($white, 0)
+      line-height: 36px
 
       &:hover
         background-color: $green
@@ -149,12 +145,8 @@
         border-color: $white
 
     &.cancel
-      background: none
-      color: $black-3
-      margin-left: 15px
+      +cancel
 
-      &:hover
-        color: $black-2
 
   &_section-name
     display: block
@@ -180,14 +172,35 @@
     justify-content: center
     height: 40px
 
+  &_description-wrapper
+    width: 100%
+    padding: 0 15%
+
   &_description
     font-style: italic
-    width: 70%
     font-size: 20px
     font-weight: 600
     text-align: center
     margin: 0 auto
     padding-top: 30px
+    width: 100%
+
+    &.edit
+      min-height: 120px
+
+  &_description-buttons
+    padding-top: 15px
+    width: 100%
+    display: flex
+    justify-content: flex-end
+
+  &_description-button
+
+    &.accept
+      +accept
+
+    &.cancel
+      +cancel
 
   &_author
     display: block

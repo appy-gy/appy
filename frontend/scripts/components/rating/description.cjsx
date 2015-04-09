@@ -51,16 +51,18 @@ RatingDescription = React.createClass
 
     <div>
       <textarea autoFocus={true} className="rating_description edit" value={description} onChange={@updateDescription} placeholder="Введи описание рейтинга"></textarea>
-      <button onClick={@saveDescription}>
-        сохранить
-      </button>
-      <button onClick={@stopEdit}>
-        отменить
-      </button>
+      <div className="rating_description-buttons">
+        <button className="rating_description-button accept" onClick={@saveDescription}>
+          сохранить
+        </button>
+        <button className="rating_description-button cancel" onClick={@stopEdit}>
+          отменить
+        </button>
+      </div>
     </div>
 
   render: ->
-    <div>
+    <div className="rating_description-wrapper">
       {@descriptionCommon()}
       {@descriptionEditable()}
     </div>
