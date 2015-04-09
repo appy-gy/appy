@@ -26,7 +26,8 @@ RatingTitle = React.createClass
     @setState edit: true
 
   stopEdit: ->
-    @setState edit: false
+    {rating} = @context
+    @setState edit: false unless isBlank(rating.title)
 
   updateTitle: (event) ->
     {rating} = @context
