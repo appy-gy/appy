@@ -1,4 +1,6 @@
+_ = require 'lodash'
 React = require 'react/addons'
+isBlank = require '../../helpers/is_blank'
 UserActionCreators = require '../../action_creators/users'
 
 {PropTypes} = React
@@ -10,7 +12,9 @@ Name = React.createClass
     user: PropTypes.object.isRequired
 
   getInitialState: ->
-    edit: false
+    {user} = @context
+
+    edit: isBlank(user.name)
 
   startEdit: ->
     @setState edit: true
@@ -22,8 +26,11 @@ Name = React.createClass
 
   changeName: (event) ->
     {user} = @context
+    {value} = event.target
 
-    UserActionCreators.change user.id, name: event.target.value
+    return if isBlank value
+
+    UserActionCreators.change user.id, name: value
 
   contentView: ->
     {edit} = @state
@@ -41,7 +48,7 @@ Name = React.createClass
 
     return unless edit
 
-    <input autoFocus={true} type="text" value={user.name} onChange={@changeName} onBlur={@saveUser}/>
+    <input type="text" autoFocus={true} placeholder="Введи свое имя" value={user.name} onChange={@changeName} onBlur={@saveUser}/>
 
   render: ->
     {user} = @context
