@@ -119,9 +119,12 @@
     line-height: 1.2
     font-family: $serif
     margin: 0
+    word-break: break-word
 
     &.edit
       resize: none
+      height: 220px
+      // overflow: hidden
 
   &_title-buttons
     display: flex
@@ -129,20 +132,29 @@
 
   &_title-button
     height: 40px
-    padding: 0 15px
+    padding: 0 10px
     border-radius: 4px
     text-transform: uppercase
     font-weight: 600
+    transition: all 0.3s
 
     &.accept
-      background-color: $green
-      color: $white
-      border: 2px solid $white
+      background-color: $white
+      color: $green
+      border: 2px solid rgba($white, 0)
+
+      &:hover
+        background-color: $green
+        color: $white
+        border-color: $white
 
     &.cancel
       background: none
       color: $black-3
-      margin-right: 15px
+      margin-left: 15px
+
+      &:hover
+        color: $black-2
 
   &_section-name
     display: block
