@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Marty = require 'marty'
 Title = require './title'
+Description = require './description'
 SectionsSelect = require '../sections/select_all'
 Meta = require '../shared/ratings/meta'
 RatingsStore = require '../../stores/ratings'
@@ -36,18 +37,7 @@ Rating = React.createClass
         <SectionsSelect />
         <Title />
       </header>
-      <div className="rating_description">
-        Сразу хочу сказать, что этот рейтинг не полный, и скорее, личный. В общем,  тут несколько строк пояснения о рейтинге вообще.
-      </div>
-      <div>
-        <textarea className="rating_description edit"></textarea>
-        <div className="cancel">
-          Отменить
-        </div>
-        <div className="accept">
-          Сохранить
-        </div>
-      </div>
+      <Description />
       <div className="tags rating_tags">
         <span className="tag rating_tag">фантазия</span>
         <span className="tag rating_tag">девушки</span>
