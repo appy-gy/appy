@@ -43,7 +43,7 @@ Rating = React.createClass
         <span className="tag rating_tag">девушки</span>
       </div>
       <a href="/" className="rating_author">
-        Иван Ивановввввв
+        {rating.user.name}
       </a>
       <div className="rating_line"></div>
       <section className="rating-point">

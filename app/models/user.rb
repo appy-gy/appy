@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
 
   after_create :generate_avatar, unless: :avatar?
 
+  has_many :ratings
+
   private
 
   def generate_avatar
