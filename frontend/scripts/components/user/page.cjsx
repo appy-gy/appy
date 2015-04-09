@@ -3,6 +3,7 @@ Router = require 'react-router'
 Marty = require 'marty'
 Avatar = require './avatar'
 Name = require './name'
+Ratings = require './ratings'
 UsersStore = require '../../stores/users'
 
 {PropTypes} = React
@@ -46,15 +47,7 @@ User = React.createClass
         </div>
         <div className="user-profile_tab-content-wrapper">
           <div id="content1" className="user-profile_tab-content">
-            <h2 className="user-profile_tab-title">Ваши рейтинги<span> (34)</span></h2>
-            <div>
-              <p>
-                У вас пока нет рейтингов. Создайте свой первый рейтинг прямо сейчас!
-              </p>
-              <a href='/' className="user-profile_tab-button">
-                Создать рейтинг
-              </a>
-            </div>
+            <Ratings/>
           </div>
           <div id="content2" className="user-profile_tab-content">
             <h2 className="user-profile_tab-title">Ваши комментарии<span> (323424)</span></h2>

@@ -10,6 +10,12 @@ class RatingQueries extends Marty.Queries
       ratings = body.ratings.map (rating) -> new Rating rating
       @dispatch RatingConstants.APPEND_RATINGS, ratings
 
+  getForUser: (userId) ->
+    RatingsApi.for(@).loadForUser(userId).then ({body}) =>
+      return unless body?
+      ratings = body.ratings.map (rating) -> new Rating rating
+      @dispatch RatingConstants.APPEND_RATINGS, ratings
+
   get: (id) ->
     RatingsApi.for(@).load(id).then ({body}) =>
       return unless body?

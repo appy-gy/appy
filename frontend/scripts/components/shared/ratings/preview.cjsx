@@ -1,8 +1,8 @@
 React = require 'react/addons'
 Router = require 'react-router'
 classNames = require 'classnames'
-Meta = require '../shared/ratings/meta'
-Tags = require '../shared/ratings/tags'
+Meta = require './meta'
+Tags = require './tags'
 
 {PropTypes} = React
 {PureRenderMixin} = React.addons

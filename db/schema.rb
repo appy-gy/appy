@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20150409141218) do
     t.text     "image"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "rating_id",               null: false
+    t.uuid     "rating_id",               null: false
   end
 
   create_table "ratings", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|

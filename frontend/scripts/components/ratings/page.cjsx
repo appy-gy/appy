@@ -1,8 +1,8 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-Preview = require './preview'
 Subscription = require './subscription'
+Preview = require '../shared/ratings/preview'
 RatingsStore = require '../../stores/ratings'
 
 {PropTypes} = React
