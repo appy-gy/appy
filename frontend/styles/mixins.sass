@@ -11,16 +11,18 @@
   border-radius: $border-radius
   font-weight: bold
   letter-spacing: -0.5px
-  transition: background-color 0.3s ease
+  transition: all 0.3s
 
 =accept
   +button
-  background-color: $blue
+  background-color: $green
   &:hover
-    background-color: darken($blue, 10%)
+    background-color: darken($green, 5%)
 
 =cancel
   +button
-  background-color: $black-3
+  background: none
+  color: $black-3
+  margin-left: 15px
   &:hover
-    background-color: lighten($black-3, 20%)
+    color: $black-2
