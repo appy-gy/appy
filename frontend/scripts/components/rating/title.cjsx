@@ -52,7 +52,7 @@ RatingTitle = React.createClass
     return unless edit
 
     <div>
-      <textarea maxLength="50" className="rating_title edit" value={title} onChange={@updateTitle} autofocus></textarea>
+      <textarea maxLength="50" className="rating_title edit" value={title} onChange={@updateTitle}></textarea>
       <div className="rating_title-buttons">
         <button className="rating_title-button accept" onClick={@saveTitle}>
           сохранить
