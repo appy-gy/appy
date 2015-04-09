@@ -2,6 +2,7 @@ React = require 'react/addons'
 RatingsStore = require '../../stores/ratings'
 RatingsApi = require '../../state_sources/ratings'
 RatingsActionCreator = require '../../action_creators/ratings'
+isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
 {PureRenderMixin} = React.addons
@@ -18,7 +19,8 @@ RatingTitle = React.createClass
     rating: PropTypes.object.isRequired
 
   getInitialState: ->
-    edit: false
+    {rating} = @context
+    edit: isBlank(rating.title)
 
   startEdit: ->
     @setState edit: true
@@ -52,7 +54,7 @@ RatingTitle = React.createClass
     return unless edit
 
     <div>
-      <textarea maxLength="50" className="rating_title edit" value={title} onChange={@updateTitle} autofocus></textarea>
+      <textarea autoFocus={true} maxLength="50" className="rating_title edit" value={title} onChange={@updateTitle} placeholder="Введи заголовок рейтинга"></textarea>
       <div className="rating_title-buttons">
         <button className="rating_title-button accept" onClick={@saveTitle}>
           сохранить
