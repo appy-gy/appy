@@ -4,4 +4,5 @@ class RatingSerializer < ActiveModel::Serializer
   has_one :user
   has_one :section
   has_many :tags
+  has_many :items
 end
