@@ -13,8 +13,6 @@ RatingsStore = require '../../stores/ratings'
 Rating = React.createClass
   displayName: 'Rating'
 
-  # mixins: [PureRenderMixin]
-
   propTypes:
     rating: PropTypes.object.isRequired
 

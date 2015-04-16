@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416120226) do
+ActiveRecord::Schema.define(version: 20150416131857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20150416120226) do
 
   create_table "rating_items", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer  "position",                null: false
-    t.integer  "rating",      default: 0, null: false
+    t.integer  "mark",        default: 0, null: false
     t.text     "title"
     t.text     "description"
     t.text     "image"
