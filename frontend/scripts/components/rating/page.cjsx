@@ -1,10 +1,12 @@
 React = require 'react/addons'
 Marty = require 'marty'
 Title = require './title'
+Item = require './item'
 Description = require './description'
 SectionsSelect = require '../sections/select_all'
 Meta = require '../shared/ratings/meta'
 RatingsStore = require '../../stores/ratings'
+RatingsActionCreator = require '../../action_creators/ratings'
 
 {PropTypes} = React
 {PureRenderMixin} = React.addons
@@ -12,16 +14,14 @@ RatingsStore = require '../../stores/ratings'
 Rating = React.createClass
   displayName: 'Rating'
 
-  # mixins: [PureRenderMixin]
-
   propTypes:
     rating: PropTypes.object.isRequired
 
-  childContextTypes:
-    rating: PropTypes.object.isRequired
+  items: ->
+    {rating} = @props
 
-  getChildContext: ->
-    { rating: @props.rating }
+    rating.items.map (item, index) =>
+      <Item item={item} />
 
   rating: ->
     {rating} = @props
@@ -35,9 +35,9 @@ Rating = React.createClass
         </div>
         <a href="/" className="rating_section-name">{rating.section.name}</a>
         <SectionsSelect />
-        <Title />
+        <Title object={rating} actionCreator={RatingsActionCreator} />
       </header>
-      <Description />
+      <Description object={rating} actionCreator={RatingsActionCreator} />
       <div className="tags rating_tags">
         <span className="tag rating_tag">фантазия</span>
         <span className="tag rating_tag">девушки</span>
@@ -46,156 +46,7 @@ Rating = React.createClass
         {rating.user.name}
       </a>
       <div className="rating_line"></div>
-      <section className="rating-point">
-        <div className="rating-point_title">
-          <span className="rating-point_number">#1</span>
-          <span>Beyonce & Nicki Minaj ‘Flawless’</span>
-        </div>
-        <div className="rating-point_cover">
-          <img src="http://lorempixel.com/870/400"/>
-        </div>
-        <div className="rating-point_description">
-          <p>
-            Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца.
-          </p>
-          <p>
-            Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.
-          </p>
-          <p>
-            Я так счастлив, мой друг, так упоен ощущением покоя, что искусство мое страдает от этого. Ни одного штриха не мог бы я сделать, а никогда не был таким большим художником, как в эти минуты. Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.
-          </p>
-        </div>
-        <div className="rating-point_actions">
-          <div className="rating-point_minus ion-android-remove"></div>
-          <div className="rating-point_mark">1234</div>
-          <div className="rating-point_plus ion-android-add"></div>
-        </div>
-      </section>
-      <section className="rating-point">
-        <div className="rating-point_title">
-          <span className="rating-point_number">#1 </span>
-          <span>Beyonce & Nicki Minaj ‘Flawless’</span>
-        </div>
-        <div className="rating-point_cover">
-          <img src="http://lorempixel.com/870/400"/>
-        </div>
-        <div className="rating-point_description">
-          <p>
-            Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца.
-          </p>
-          <p>
-            Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.
-          </p>
-          <p>
-            Я так счастлив, мой друг, так упоен ощущением покоя, что искусство мое страдает от этого. Ни одного штриха не мог бы я сделать, а никогда не был таким большим художником, как в эти минуты. Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.
-          </p>
-        </div>
-        <div className="rating-point_actions">
-          <div className="rating-point_minus ion-android-remove"></div>
-          <div className="rating-point_mark">1234</div>
-          <div className="rating-point_plus ion-android-add"></div>
-        </div>
-      </section>
-      <section className="rating-point">
-        <div className="rating-point_title">
-          <span className="rating-point_number">#1 </span>
-          <span>Beyonce & Nicki Minaj ‘Flawless’</span>
-        </div>
-        <div className="rating-point_cover">
-          <img src="http://lorempixel.com/870/400"/>
-        </div>
-        <div className="rating-point_description">
-          <p>
-            Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца.
-          </p>
-          <p>
-            Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.
-          </p>
-          <p>
-            Я так счастлив, мой друг, так упоен ощущением покоя, что искусство мое страдает от этого. Ни одного штриха не мог бы я сделать, а никогда не был таким большим художником, как в эти минуты. Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.
-          </p>
-        </div>
-        <div className="rating-point_actions">
-          <div className="rating-point_minus ion-android-remove"></div>
-          <div className="rating-point_mark">1234</div>
-          <div className="rating-point_plus ion-android-add"></div>
-        </div>
-      </section>
-      <section className="rating-point">
-        <div className="rating-point_title">
-          <span className="rating-point_number">#1 </span>
-          <span>Beyonce & Nicki Minaj ‘Flawless’</span>
-        </div>
-        <div className="rating-point_cover">
-          <img src="http://lorempixel.com/870/400"/>
-        </div>
-        <div className="rating-point_description">
-          <p>
-            Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца.
-          </p>
-          <p>
-            Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.
-          </p>
-          <p>
-            Я так счастлив, мой друг, так упоен ощущением покоя, что искусство мое страдает от этого. Ни одного штриха не мог бы я сделать, а никогда не был таким большим художником, как в эти минуты. Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.
-          </p>
-        </div>
-        <div className="rating-point_actions">
-          <div className="rating-point_minus ion-android-remove"></div>
-          <div className="rating-point_mark">1234</div>
-          <div className="rating-point_plus ion-android-add"></div>
-        </div>
-      </section>
-      <section className="rating-point">
-        <div className="rating-point_title">
-          <span className="rating-point_number">#1 </span>
-          <span>Beyonce & Nicki Minaj ‘Flawless’</span>
-        </div>
-        <div className="rating-point_cover">
-          <img src="http://lorempixel.com/870/400"/>
-        </div>
-        <div className="rating-point_description">
-          <p>
-            Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца.
-          </p>
-          <p>
-            Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.
-          </p>
-          <p>
-            Я так счастлив, мой друг, так упоен ощущением покоя, что искусство мое страдает от этого. Ни одного штриха не мог бы я сделать, а никогда не был таким большим художником, как в эти минуты. Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.
-          </p>
-        </div>
-        <div className="rating-point_actions">
-          <div className="rating-point_minus ion-android-remove"></div>
-          <div className="rating-point_mark">1234</div>
-          <div className="rating-point_plus ion-android-add"></div>
-        </div>
-      </section>
-      <section className="rating-point">
-        <div className="rating-point_title">
-          <span className="rating-point_number">#1 </span>
-          <span>Beyonce & Nicki Minaj ‘Flawless’</span>
-        </div>
-        <div className="rating-point_cover">
-          <img src="http://lorempixel.com/870/400"/>
-        </div>
-        <div className="rating-point_description">
-          <p>
-            Душа моя озарена неземной радостью, как эти чудесные весенние утра, которыми я наслаждаюсь от всего сердца.
-          </p>
-          <p>
-            Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.
-          </p>
-          <p>
-            Я так счастлив, мой друг, так упоен ощущением покоя, что искусство мое страдает от этого. Ни одного штриха не мог бы я сделать, а никогда не был таким большим художником, как в эти минуты. Я совсем один и блаженствую в здешнем краю, словно созданном для таких, как я.
-          </p>
-        </div>
-        <div className="rating-point_actions">
-          <div className="rating-point_minus ion-android-remove"></div>
-          <div className="rating-point_mark">1234</div>
-          <div className="rating-point_plus ion-android-add"></div>
-        </div>
-      </section>
+      {@items()}
       <div className="rating_line"></div>
       <div className="rating-like">
         <div className="rating-like_burst-1"></div>

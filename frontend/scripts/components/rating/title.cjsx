@@ -1,45 +1,35 @@
 React = require 'react/addons'
-RatingsStore = require '../../stores/ratings'
-RatingsApi = require '../../state_sources/ratings'
-RatingsActionCreator = require '../../action_creators/ratings'
 isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
 {PureRenderMixin} = React.addons
 
-RatingTitle = React.createClass
-  displayName: 'Title'
-
-  # mixins: [PureRenderMixin]
-
-  # propTypes:
-  #   rating: PropTypes.object.isRequired
-
-  contextTypes:
-    rating: PropTypes.object.isRequired
+ObjectTitle = React.createClass
+  displayName: "Title"
 
   getInitialState: ->
-    {rating} = @context
-    edit: isBlank(rating.title)
+    {object} = @props
+    edit: isBlank(object.title)
 
   startEdit: ->
     @setState edit: true
 
   stopEdit: ->
-    {rating} = @context
-    @setState edit: false unless isBlank(rating.title)
+    {object} = @props
+    @setState edit: false unless isBlank(object.title)
 
   updateTitle: (event) ->
-    {rating} = @context
-    RatingsActionCreator.change rating.id, { title: event.target.value }
+    {object, actionCreator} = @props
+    console.log object
+    actionCreator.change object.id, { title: event.target.value }
 
   saveTitle: ->
-    {rating} = @context
-    RatingsActionCreator.update rating.id, { title: rating.title }
+    {object, actionCreator} = @props
+    actionCreator.update object.id, { title: object.title }
     @stopEdit()
 
   titleCommon: ->
-    {title} = @context.rating
+    {title} = @props.object
     {edit} = @state
 
     return if edit
@@ -49,7 +39,7 @@ RatingTitle = React.createClass
     </h1>
 
   titleEditable: ->
-    {title} = @context.rating
+    {title} = @props.object
     {edit} = @state
 
     return unless edit
@@ -72,4 +62,4 @@ RatingTitle = React.createClass
       {@titleEditable()}
     </div>
 
-module.exports = RatingTitle
+module.exports = ObjectTitle
