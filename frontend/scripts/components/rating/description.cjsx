@@ -1,40 +1,34 @@
 React = require 'react/addons'
-RatingsStore = require '../../stores/ratings'
-RatingsApi = require '../../state_sources/ratings'
-RatingsActionCreator = require '../../action_creators/ratings'
 isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
 {PureRenderMixin} = React.addons
 
-RatingDescription = React.createClass
+ObjectDescription = React.createClass
   displayName: 'Description'
 
-  contextTypes:
-    rating: PropTypes.object.isRequired
-
   getInitialState: ->
-    {rating} = @context
-    edit: isBlank(rating.description)
+    {object} = @props
+    edit: isBlank(object.description)
 
   startEdit: ->
     @setState edit: true
 
   stopEdit: ->
-    {rating} = @context
-    @setState edit: false unless isBlank(rating.description)
+    {object} = @props
+    @setState edit: false unless isBlank(object.description)
 
   updateDescription: (event) ->
-    {rating} = @context
-    RatingsActionCreator.change rating.id, { description: event.target.value }
+    {object, actionCreator} = @props
+    actionCreator.change object.id, { description: event.target.value }
 
   saveDescription: ->
-    {rating} = @context
-    RatingsActionCreator.update rating.id, { description: rating.description }
+    {object, actionCreator} = @props
+    actionCreator.update object.id, { description: object.description }
     @stopEdit()
 
   descriptionCommon: ->
-    {description} = @context.rating
+    {description} = @props.object
     {edit} = @state
 
     return if edit
@@ -44,7 +38,7 @@ RatingDescription = React.createClass
     </h1>
 
   descriptionEditable: ->
-    {description} = @context.rating
+    {description} = @props.object
     {edit} = @state
 
     return unless edit
@@ -67,4 +61,4 @@ RatingDescription = React.createClass
       {@descriptionEditable()}
     </div>
 
-module.exports = RatingDescription
+module.exports = ObjectDescription

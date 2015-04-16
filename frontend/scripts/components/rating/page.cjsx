@@ -6,6 +6,7 @@ Description = require './description'
 SectionsSelect = require '../sections/select_all'
 Meta = require '../shared/ratings/meta'
 RatingsStore = require '../../stores/ratings'
+RatingsActionCreator = require '../../action_creators/ratings'
 
 {PropTypes} = React
 {PureRenderMixin} = React.addons
@@ -15,12 +16,6 @@ Rating = React.createClass
 
   propTypes:
     rating: PropTypes.object.isRequired
-
-  childContextTypes:
-    rating: PropTypes.object.isRequired
-
-  getChildContext: ->
-    { rating: @props.rating }
 
   items: ->
     {rating} = @props
@@ -40,9 +35,9 @@ Rating = React.createClass
         </div>
         <a href="/" className="rating_section-name">{rating.section.name}</a>
         <SectionsSelect />
-        <Title />
+        <Title object={rating} actionCreator={RatingsActionCreator} />
       </header>
-      <Description />
+      <Description object={rating} actionCreator={RatingsActionCreator} />
       <div className="tags rating_tags">
         <span className="tag rating_tag">фантазия</span>
         <span className="tag rating_tag">девушки</span>
