@@ -1,15 +1,15 @@
 React = require 'react/addons'
 Marty = require 'marty'
-Title = require './title'
 Item = require './item'
+Title = require './title'
 Description = require './description'
 SectionsSelect = require '../sections/select_all'
 Meta = require '../shared/ratings/meta'
 RatingsStore = require '../../stores/ratings'
+RatingItemsStore = require '../../stores/rating_items'
 RatingsActionCreator = require '../../action_creators/ratings'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 Rating = React.createClass
   displayName: 'Rating'

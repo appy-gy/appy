@@ -33,7 +33,7 @@ ObjectDescription = React.createClass
 
     return if edit
 
-    <h1 className="rating_description" onClick={@startEdit}>
+    <h1 className="description" onClick={@startEdit}>
       {description}
     </h1>
 
@@ -44,19 +44,19 @@ ObjectDescription = React.createClass
     return unless edit
 
     <div>
-      <textarea autoFocus={true} className="rating_description edit" value={description} onChange={@updateDescription} placeholder="Введи описание рейтинга"></textarea>
-      <div className="rating_description-buttons">
-        <button className="rating_description-button accept" onClick={@saveDescription}>
+      <textarea autoFocus={true} className="description edit" value={description} onChange={@updateDescription} placeholder="Введи описание рейтинга"></textarea>
+      <div className="description-buttons">
+        <button className="description-button accept" onClick={@saveDescription}>
           сохранить
         </button>
-        <button className="rating_description-button cancel" onClick={@stopEdit}>
+        <button className="description-button cancel" onClick={@stopEdit}>
           отменить
         </button>
       </div>
     </div>
 
   render: ->
-    <div className="rating_description-wrapper">
+    <div className="description-wrapper">
       {@descriptionCommon()}
       {@descriptionEditable()}
     </div>
