@@ -5,7 +5,14 @@ path = require 'path'
 dotenv = require 'dotenv'
 Router = require 'react-router'
 express = require 'express'
+marty = require 'marty'
 martyExpress = require 'marty-express'
+
+# Marty uses isomorphic-fetch 1.6 which can't set cookies even on server-side
+# So we replace it with isomorphic-fetch 2.0
+delete global.fetch
+require 'isomorphic-fetch'
+
 setup = require '../frontend/scripts/setup'
 routes = require '../frontend/scripts/routes'
 
@@ -32,6 +39,7 @@ app.use (req, res, next) ->
   next()
 
 app.use martyExpress
+  marty: marty
   routes: routes
   error: (req, res, next, error) ->
     console.error error.message, error.stack
