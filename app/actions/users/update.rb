@@ -3,7 +3,8 @@ module Users
     attr_reader :user, :params
 
     def initialize user, params
-      @user, @params = user, params
+      @user = user
+      @params = params
     end
 
     def call

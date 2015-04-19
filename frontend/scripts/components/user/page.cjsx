@@ -12,11 +12,16 @@ UsersStore = require '../../stores/users'
 User = React.createClass
   childContextTypes:
     user: PropTypes.object.isRequired
+    edit: PropTypes.bool.isRequired
+
+  getInitialState: ->
+    edit: false
 
   getChildContext: ->
     {user} = @props
+    {edit} = @state
 
-    { user }
+    { user, edit }
 
   render: ->
     {user} = @props
