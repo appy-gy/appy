@@ -1,3 +1,4 @@
+_ = require 'lodash'
 dotenv = require 'dotenv'
 path = require 'path'
 mapObj = require 'map-obj'
@@ -16,8 +17,9 @@ else
   (loaders) -> ExtractTextPlugin.extract 'style-loader', loaders
 [cssLoader, sassLoader] = [cssLoaders, sassLoaders].map loaderGenerator
 
-definePluginEnv = {}
-definePluginEnv['process.env.NODE_ENV'] = JSON.stringify process.env.NODE_ENV
+env = _.pick process.env, 'NODE_ENV'
+definePluginEnv = mapObj env, (key, value) ->
+  ["process.env.#{key}", JSON.stringify(value)]
 
 plugins = [
   new webpack.PrefetchPlugin 'react'

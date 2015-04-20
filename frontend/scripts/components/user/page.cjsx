@@ -3,6 +3,7 @@ Router = require 'react-router'
 Marty = require 'marty'
 Avatar = require './avatar'
 Name = require './name'
+SocialButtons = require './social_buttons'
 EditButtons = require './edit_buttons'
 Ratings = require './ratings'
 UserActionCreators = require '../../action_creators/users'
@@ -55,12 +56,7 @@ User = React.createClass
         <Avatar/>
         <div className="user-profile_info">
           <Name/>
-          <div className="user-profile_socials">
-            <div className="user-profile_social m-fb">
-            </div>
-            <div className="user-profile_social m-insta">
-            </div>
-          </div>
+          <SocialButtons/>
         </div>
         <EditButtons start={@startEdit} save={@saveUser} cancel={@cancelEdit}/>
       </header>

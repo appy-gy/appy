@@ -22,7 +22,8 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:email, :password, :name, :avatar)
+        params.require(:user).permit(:email, :password, :name, :avatar,
+          :facebook_link, :instagram_link)
       end
 
       def policy
