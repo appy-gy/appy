@@ -3,6 +3,7 @@ Router = require 'react-router'
 Marty = require 'marty'
 Avatar = require './avatar'
 Name = require './name'
+EditButtons = require './edit_buttons'
 Ratings = require './ratings'
 UsersStore = require '../../stores/users'
 
@@ -10,9 +11,14 @@ UsersStore = require '../../stores/users'
 {Link} = Router
 
 User = React.createClass
+  displayName: 'User'
+
   childContextTypes:
     user: PropTypes.object.isRequired
     edit: PropTypes.bool.isRequired
+    startEdit: PropTypes.func.isRequired
+    saveUser: PropTypes.func.isRequired
+    cancelEdit: PropTypes.func.isRequired
 
   getInitialState: ->
     edit: false
@@ -20,8 +26,17 @@ User = React.createClass
   getChildContext: ->
     {user} = @props
     {edit} = @state
+    {startEdit, saveUser, cancelEdit} = @
 
-    { user, edit }
+    { user, edit, startEdit, saveUser, cancelEdit }
+
+  startEdit: ->
+    @setState edit: true
+
+  saveUser: ->
+
+  cancelEdit: ->
+    @setState edit: false
 
   render: ->
     {user} = @props
@@ -38,6 +53,7 @@ User = React.createClass
             </div>
           </div>
         </div>
+        <EditButtons/>
       </header>
       <section className="user-profile_tabs">
         <input id="tab1" name="radio" className="user-profile_tabs-radio" type="radio" defaultChecked/>
