@@ -4,7 +4,7 @@ module Api
       find :user, only: [:show, :update]
 
       def show
-        render json: @user #, serializer: UserForProfileSerializer
+        render json: @user, serializer: UserForProfileSerializer
       end
 
       def create
