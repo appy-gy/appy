@@ -1,4 +1,5 @@
 React = require 'react/addons'
+classNames = require 'classnames'
 Nothing = require '../shared/nothing'
 
 {PropTypes} = React
@@ -6,33 +7,31 @@ Nothing = require '../shared/nothing'
 EditButtons = React.createClass
   displayName: 'EditButtons'
 
+  propTypes:
+    start: PropTypes.func.isRequired
+    save: PropTypes.func.isRequired
+    cancel: PropTypes.func.isRequired
+
   contextTypes:
     user: PropTypes.object.isRequired
     edit: PropTypes.bool.isRequired
-    startEdit: PropTypes.func.isRequired
-    saveUser: PropTypes.func.isRequired
-    cancelEdit: PropTypes.func.isRequired
 
-  startButton: ->
-    {edit, startEdit} = @context
+  buttonTypes: [
+    { action: 'start', onEdit: false }
+    { action: 'cancel', onEdit: true }
+    { action: 'save', onEdit: true }
+  ]
 
-    return if edit
+  buttons: ->
+    {edit} = @context
 
-    <div className="user-profile_edit-button m-start" onClick={startEdit}></div>
+    @buttonTypes.map ({action, onEdit}) =>
+      return unless edit == onEdit
 
-  cancelButton: ->
-    {edit, cancelEdit} = @context
+      classes = classNames 'user-profile_edit-button', "m-#{action}"
+      onClick = @props[action]
 
-    return unless edit
-
-    <div className="user-profile_edit-button m-cancel" onClick={cancelEdit}></div>
-
-  saveButton: ->
-    {edit, saveUser} = @context
-
-    return unless edit
-
-    <div className="user-profile_edit-button m-save" onClick={saveUser}></div>
+      <div key={action} className={classes} onClick={onClick}></div>
 
   render: ->
     {user} = @context
@@ -40,9 +39,7 @@ EditButtons = React.createClass
     return <Nothing/> unless user.canEdit
 
     <div className="user-profile_edit-buttons">
-      {@startButton()}
-      {@cancelButton()}
-      {@saveButton()}
+      {@buttons()}
     </div>
 
 module.exports = EditButtons
