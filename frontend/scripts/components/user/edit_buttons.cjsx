@@ -9,6 +9,9 @@ EditButtons = React.createClass
   contextTypes:
     user: PropTypes.object.isRequired
     edit: PropTypes.bool.isRequired
+    startEdit: PropTypes.func.isRequired
+    saveUser: PropTypes.func.isRequired
+    cancelEdit: PropTypes.func.isRequired
 
   startButton: ->
     {edit, startEdit} = @context

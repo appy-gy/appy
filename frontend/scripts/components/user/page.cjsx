@@ -5,7 +5,9 @@ Avatar = require './avatar'
 Name = require './name'
 EditButtons = require './edit_buttons'
 Ratings = require './ratings'
+UserActionCreators = require '../../action_creators/users'
 UsersStore = require '../../stores/users'
+Snapshot = require '../../helpers/snapshot'
 
 {PropTypes} = React
 {Link} = Router
@@ -31,11 +33,22 @@ User = React.createClass
     { user, edit, startEdit, saveUser, cancelEdit }
 
   startEdit: ->
+    {user} = @props
+
+    @snapshot = Snapshot.create user
     @setState edit: true
 
   saveUser: ->
+    {user} = @props
+
+    changes = Snapshot.diff user, @snapshot
+    UserActionCreators.update user.id, changes
+    @setState edit: false
 
   cancelEdit: ->
+    {user} = @props
+
+    Snapshot.restore user, @snapshot
     @setState edit: false
 
   render: ->

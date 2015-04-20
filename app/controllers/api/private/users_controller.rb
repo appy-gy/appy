@@ -8,14 +8,14 @@ module Api
       end
 
       def create
-        user = Users::Create.new(user_params).call
+        user = ::Users::Create.new(user_params).call
         auto_login user
         render json: user
       end
 
       def update
         return render nothing: true, status: 400 unless policy.edit?
-        user = Users::Update.new(@user, user_params).call
+        user = ::Users::Update.new(@user, user_params).call
         render json: user, serializer: UserForProfileSerializer
       end
 
@@ -26,7 +26,7 @@ module Api
       end
 
       def policy
-        @policy ||= UserPolicy.new current_user, user
+        @policy ||= UserPolicy.new current_user, @user
       end
     end
   end
