@@ -2,7 +2,7 @@ module Comments
   class FindForRating
     attr_reader :rating
 
-    def initalizer rating
+    def initialize rating
       @rating = rating
     end
 

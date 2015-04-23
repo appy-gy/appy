@@ -4,6 +4,7 @@ Marty = require 'marty'
 Item = require './item'
 Title = require './title'
 Description = require './description'
+Comments = require './comments'
 SectionsSelect = require '../sections/select_all'
 Meta = require '../shared/ratings/meta'
 RatingsStore = require '../../stores/ratings'
@@ -18,6 +19,14 @@ Rating = React.createClass
 
   propTypes:
     rating: PropTypes.object.isRequired
+
+  childContextTypes:
+    rating: PropTypes.object.isRequired
+
+  getChildContext: ->
+    {rating} = @props
+
+    { rating }
 
   newRatingItem: ->
     {ratingId} = @props
@@ -73,55 +82,7 @@ Rating = React.createClass
           <div className="rating-share_text">Твитнуть</div>
         </div>
       </div>
-      <div className="comments">
-        <div className="comments_header">
-          Комментарии
-        </div>
-        <div className="comment">
-          <img className="comment_userface" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"/>
-          <div className="comment_content">
-            <span className="comment_username">Роман Оганесян</span>
-            <span className="comment_text">Проснувшись однажды утром после беспокойного сна</span>
-            <div className="comment_date">28 минут назад</div>
-          </div>
-        </div>
-        <div className="comment">
-          <img className="comment_userface" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"/>
-          <div className="comment_content">
-            <span className="comment_username">Роман Оганесян</span>
-            <span className="comment_text">Проснувшись однажды утром после беспокойного сна, Грегор Замза дваоывдало длвыоад</span>
-            <div className="comment_date">28 минут назад</div>
-          </div>
-        </div>
-        <div className="comment">
-          <img className="comment_userface" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"/>
-          <div className="comment_content">
-            <span className="comment_username">Роман Оганесян</span>
-            <span className="comment_text">ПроснувшисьоднаждыПроснувшисьоднаждыутромпослебеспокойногоснаГрегоЗамзадваоывдалодлвыоадПроснувшисьоднаждыутромпослебеспокойного</span>
-            <div className="comment_date">28 минут назад</div>
-          </div>
-        </div>
-        <div className="comment">
-          <img className="comment_userface" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"/>
-          <div className="comment_content">
-            <span className="comment_username">Роман Оганесян</span>
-            <span className="comment_text">ПроснувшисьоднаждыутромпослебеспокойногоснаГрегоЗамзадваоывдалодлвыоадПроснувшисьоднаждыутромпослебеспокойного сна,<br/> Грегор Замза дваоывдало<br/><br/> длвыоад Проснувшись однажды утром после беспокойного сна, Грегор Замза дваоывдало длвыоад Проснувшись однажды утром после беспокойного сна, Грегор Замза дваоывдало длвыоад</span>
-            <div className="comment_date">28 минут назад</div>
-          </div>
-        </div>
-        <div className="comment">
-          <img className="comment_userface" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"/>
-          <div className="comment_content">
-            <span className="comment_username">Роман Оганесян</span>
-            <span className="comment_text">Проснувшись однажды утром после беспокойного сна, Грегор Замза дваоывдало длвыоад</span>
-            <div className="comment_date">28 минут назад</div>
-          </div>
-        </div>
-        <div className="comment-form">
-          <img className="comment_userface" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"/>
-          <textarea className="comment_textarea"></textarea>
-        </div>
-      </div>
+      <Comments/>
     </div>
 
   render: ->
