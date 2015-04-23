@@ -59,10 +59,9 @@ class RatingsStore extends Marty.Store
     rating.update changes
     @hasChanged()
 
-  replace: (ratingOrId) ->
-    index = findIndexInStore @, ratingOrId
+  replace: (rating) ->
+    index = findIndexInStore @, rating
     return if index < 0
-    rating = @state[index]
     @state = update @state, $splice: [[index, 1, rating]]
 
   append: (ratings) ->

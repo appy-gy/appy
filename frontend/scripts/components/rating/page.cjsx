@@ -30,12 +30,14 @@ Rating = React.createClass
 
   newRatingItem: ->
     {ratingId} = @props
+
     RatingItemsActionCreator.new(ratingId)
 
-  items: ->
-    {ratingItems, ratingId} = @props
+  ratingItems: ->
+    {ratingItems} = @props
 
-    ratingItems.map (ratingItem) -> <RatingItem key={ratingItem.id || ratingItem.cid} ratingItem={ratingItem} ratingId={ratingId}/>
+    ratingItems.map (ratingItem) ->
+      <RatingItem key={ratingItem.id || ratingItem.cid} ratingItem={ratingItem}/>
 
   rating: ->
     {rating} = @props
@@ -61,7 +63,7 @@ Rating = React.createClass
       </a>
       <h1 onClick={@newRatingItem}>New</h1>
       <div className="rating_line"></div>
-      {@items()}
+      {@ratingItems()}
       <div className="rating_line"></div>
       <div className="rating-like">
         <div className="rating-like_burst-1"></div>

@@ -11,10 +11,9 @@ RatingItem = React.createClass
 
   propTypes:
     ratingItem: PropTypes.object.isRequired
-    ratingId: PropTypes.string.isRequired
 
   render: ->
-    {ratingItem, ratingId} = @props
+    {ratingItem} = @props
 
     <section className="rating-point">
       <div className="rating-point_title">
