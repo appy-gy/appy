@@ -29,6 +29,7 @@ CommentForm = React.createClass
     {rating} = @context
 
     CommentActionCreators.create rating.id, body
+      .then => @setState body: ''
 
   render: ->
     {user} = @props
