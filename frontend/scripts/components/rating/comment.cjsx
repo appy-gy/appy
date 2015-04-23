@@ -1,8 +1,7 @@
 React = require 'react/addons'
-Router = require 'react-router'
+UserLink = require '../shared/links/user'
 
 {PropTypes} = React
-{Link} = Router
 
 Comment = React.createClass
   displayName: 'Comment'
@@ -14,11 +13,13 @@ Comment = React.createClass
     {comment} = @props
 
     <div className="comment">
-      <img className="comment_userface" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"/>
+      <UserLink className="comment_username" user={comment.user}>
+        <img className="comment_userface" src={comment.user.avatarUrl('small')}/>
+      </UserLink>
       <div className="comment_content">
-        <Link className="comment_username" to="user" params={userId: comment.user.id}>
+        <UserLink className="comment_username" user={comment.user}>
           {comment.user.name}
-        </Link>
+        </UserLink>
         <span className="comment_text">
           {comment.body}
         </span>

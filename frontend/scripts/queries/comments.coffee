@@ -1,7 +1,7 @@
 Marty = require 'marty'
 CommentConstants = require '../constants/comments'
 CommentsApi = require '../state_sources/comments'
-Comment = require '../models/rating'
+Comment = require '../models/comment'
 
 class CommentQueries extends Marty.Queries
   getForRating: (ratingId) ->
