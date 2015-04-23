@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150423114220) do
     t.datetime "updated_at", null: false
     t.uuid     "user_id",    null: false
     t.uuid     "rating_id",  null: false
-    t.uuid     "parent_id",  null: false
+    t.uuid     "parent_id"
   end
 
   add_index "comments", ["parent_id"], name: "index_comments_on_parent_id", using: :btree

@@ -7,7 +7,7 @@ class CreateComments < ActiveRecord::Migration
 
       t.belongs_to :user, type: :uuid, index: true, null: false
       t.belongs_to :rating, type: :uuid, index: true, null: false
-      t.uuid :parent_id, null: false
+      t.uuid :parent_id
 
       t.index :parent_id
     end

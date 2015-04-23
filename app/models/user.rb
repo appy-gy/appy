@@ -3,9 +3,10 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, Users::AvatarUploader
 
-  after_create :generate_avatar, unless: :avatar?
+  has_many :ratings, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
-  has_many :ratings
+  after_create :generate_avatar, unless: :avatar?
 
   private
 

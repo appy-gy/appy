@@ -4,6 +4,7 @@ class Rating < ActiveRecord::Base
   has_many :ratings_tags, dependent: :destroy
   has_many :tags, through: :ratings_tags
   has_many :items, class_name: 'RatingItem', dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :title, :section, presence: true
 end
