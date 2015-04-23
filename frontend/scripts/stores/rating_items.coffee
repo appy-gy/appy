@@ -20,8 +20,8 @@ class RatingItemsStore extends Marty.Store
     ratingItems = state.map (item) -> new RatingItem item
     @append ratingItems
 
-  change: (id, changes) ->
-    ratingItem = _.find @state, (ratingItem) -> ratingItem.id == id
+  change: (item, changes) ->
+    ratingItem = _.find @state, (ratingItem) -> if ratingItem.id then item.id == ratingItem.id else item.cid == ratingItem.cid
     return unless ratingItem?
     ratingItem.update changes
     @hasChanged()
@@ -39,7 +39,7 @@ class RatingItemsStore extends Marty.Store
     @state = update @state, $push: toArray(ratingItems)
 
   replace: (rating) ->
-    index = _.findIndex @state, (r) -> if rating.id then r.id == rating.id else r.cid == r.cid
+    index = _.findIndex @state, (r) -> if rating.id then r.id == rating.id else r.cid == rating.cid
     return if index < 0
     @state = update @state, $splice: [[index, 1, rating]]
 

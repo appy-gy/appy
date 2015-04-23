@@ -20,7 +20,7 @@ ObjectTitle = React.createClass
 
   changeTitle: (event) ->
     {object, actionCreator} = @props
-    actionCreator.change object.id, title: event.target.value
+    actionCreator.change object, title: event.target.value
 
   updateTitle: ->
     {object, actionCreator} = @props

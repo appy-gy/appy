@@ -35,7 +35,7 @@ Rating = React.createClass
   items: ->
     {ratingItems, ratingId} = @props
 
-    ratingItems.map (item) -> <Item key={item.id} item={item} ratingId={ratingId}/>
+    ratingItems.map (item) -> <Item key={item.id || item.cid} item={item} ratingId={ratingId}/>
 
   rating: ->
     {rating} = @props
