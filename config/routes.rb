@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       end
       resources :ratings, module: :ratings, only: [:index, :show, :update] do
         resources :rating_items, only: [:index, :update]
-        resources :comments, only: [:index]
+        resources :comments, only: [:index, :create]
       end
       resources :header_sections, only: [:index]
     end

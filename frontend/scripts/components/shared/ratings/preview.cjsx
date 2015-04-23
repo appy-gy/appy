@@ -5,17 +5,22 @@ Meta = require './meta'
 Tags = require './tags'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 {Link} = Router
 
 Preview = React.createClass
   displayName: 'Preview'
 
-  mixins: [PureRenderMixin]
-
   propTypes:
     rating: PropTypes.object.isRequired
     mods: PropTypes.string
+
+  childContextTypes:
+    rating: PropTypes.object.isRequired
+
+  getChildContext: ->
+    {rating} = @props
+
+    { rating }
 
   getDefaultProps: ->
     mod: null

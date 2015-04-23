@@ -1,19 +1,19 @@
 React = require 'react/addons'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 Meta = React.createClass
   displayName: 'Meta'
 
-  mixins: [PureRenderMixin]
-
   propTypes:
-    rating: PropTypes.object.isRequired
     block: PropTypes.string.isRequired
 
+  contextTypes:
+    rating: PropTypes.object.isRequired
+
   render: ->
-    {rating, block} = @props
+    {block} = @props
+    {rating} = @context
 
     <div className="#{block}_meta">
       <div className="#{block}_item ">

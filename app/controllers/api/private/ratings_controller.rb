@@ -4,7 +4,7 @@ module Api
       find :rating, only: [:show, :update]
 
       def index
-        render json: Ratings::FindForHome.new.call
+        render json: ::Ratings::FindForHome.new.call
       end
 
       def show

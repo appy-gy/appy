@@ -17,7 +17,7 @@ SelectAll = React.createClass
     {sections} = @props
 
     sections.map (section) ->
-      <option value={section.id}>
+      <option key={section.id} value={section.id}>
         {section.name}
       </option>
 

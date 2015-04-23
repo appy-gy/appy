@@ -1,30 +1,25 @@
+toArray = require '../helpers/to_array'
 Marty = require 'marty'
+React = require 'react/addons'
+CommentConstants = require '../constants/comments'
+CommentQueries = require '../queries/comments'
+Comment = require '../models/comment'
+
+{update} = React.addons
 
 class CommentsStore extends Marty.Store
   constructor: ->
     super
     @state = []
     @handlers =
-      change: RatingConstants.CHANGE_RATING
-      append: RatingConstants.APPEND_RATINGS
+      append: CommentConstants.APPEND_COMMENTS
 
   rehydrate: (state) ->
-    ratings = state.map (rating) -> new Rating rating
-    @append ratings
+    comments = state.map (comment) -> new Comment comment
+    @append comments
 
-  getPage: (page) ->
-    id = "getPage-#{page}"
-
-    @fetch
-      id: id
-      locally: ->
-        return unless @hasAlreadyFetched id
-        @state
-      remotely: ->
-        RatingQueries.for(@).getPage(page)
-
-  getForUser: (userId) ->
-    id = "getForUser-#{userId}"
+  getForRating: (ratingId) ->
+    id = "getForRating-#{ratingId}"
 
     @fetch
       id: id
@@ -32,17 +27,9 @@ class CommentsStore extends Marty.Store
         return unless @hasAlreadyFetched id
         @state
       remotely: ->
-        RatingQueries.for(@).getForUser(userId)
+        CommentQueries.for(@).getForRating(ratingId)
 
-  get: (id) ->
-    @fetch
-      id: "get-#{id}"
-      locally: ->
-        _.find @state, (rating) -> rating.id == id
-      remotely: ->
-        RatingQueries.for(@).get(id)
-
-  append: (ratings) ->
-    @state = update @state, $push: toArray(ratings)
+  append: (comments) ->
+    @state = update @state, $push: toArray(comments)
 
 module.exports = Marty.register CommentsStore
