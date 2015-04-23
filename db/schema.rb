@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420213236) do
+ActiveRecord::Schema.define(version: 20150423114220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,19 @@ ActiveRecord::Schema.define(version: 20150420213236) do
 
   add_index "authentications", ["provider", "uid"], name: "index_authentications_on_provider_and_uid", using: :btree
 
+  create_table "comments", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.text     "body",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid     "user_id",    null: false
+    t.uuid     "rating_id",  null: false
+    t.uuid     "parent_id",  null: false
+  end
+
+  add_index "comments", ["parent_id"], name: "index_comments_on_parent_id", using: :btree
+  add_index "comments", ["rating_id"], name: "index_comments_on_rating_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
   create_table "rating_items", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer  "position",                null: false
     t.integer  "mark",        default: 0, null: false
@@ -38,6 +51,8 @@ ActiveRecord::Schema.define(version: 20150420213236) do
     t.uuid     "rating_id",               null: false
   end
 
+  add_index "rating_items", ["rating_id"], name: "index_rating_items_on_rating_id", using: :btree
+
   create_table "ratings", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.text     "title",       null: false
     t.datetime "created_at",  null: false
@@ -48,6 +63,7 @@ ActiveRecord::Schema.define(version: 20150420213236) do
   end
 
   add_index "ratings", ["section_id"], name: "index_ratings_on_section_id", using: :btree
+  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
   create_table "ratings_tags", id: false, force: :cascade do |t|
     t.uuid "rating_id", null: false
@@ -91,7 +107,11 @@ ActiveRecord::Schema.define(version: 20150420213236) do
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
 
+  add_foreign_key "comments", "comments", column: "parent_id"
+  add_foreign_key "comments", "ratings"
+  add_foreign_key "comments", "users"
   add_foreign_key "ratings", "sections"
+  add_foreign_key "ratings", "users"
   add_foreign_key "ratings_tags", "ratings"
   add_foreign_key "ratings_tags", "tags"
 end

@@ -9,7 +9,7 @@ class CreateOptions < ActiveRecord::Migration
 
       t.timestamps null: false
 
-      t.belongs_to :rating, type: :uuid, null: false
+      t.belongs_to :rating, type: :uuid, null: false, index: true
     end
   end
 end

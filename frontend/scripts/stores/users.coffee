@@ -3,7 +3,7 @@ Marty = require 'marty'
 React = require 'react/addons'
 toArray = require '../helpers/to_array'
 UserConstants = require '../constants/users'
-UsersQueries = require '../queries/users'
+UserQueries = require '../queries/users'
 User = require '../models/user'
 
 {update} = React.addons
@@ -28,7 +28,7 @@ class UsersStore extends Marty.Store
         return unless @hasAlreadyFetched "get-#{id}"
         _.find @state, (user) -> user.id == id
       remotely: ->
-        UsersQueries.for(@).get(id)
+        UserQueries.for(@).get(id)
 
   append: (users) ->
     @state = update @state, $push: toArray(users)
