@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         resources :ratings, only: [:index]
       end
       resources :ratings, module: :ratings, only: [:index, :show, :update] do
-        resources :rating_items, only: [:index, :update]
+        resources :rating_items, only: [:index, :create, :update]
         resources :comments, only: [:index, :create]
       end
       resources :header_sections, only: [:index]

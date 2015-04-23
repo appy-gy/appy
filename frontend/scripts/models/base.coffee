@@ -1,4 +1,5 @@
 _ = require 'lodash'
+uuid = require 'node-uuid'
 moment = require 'moment'
 AssocArray = require '../helpers/assoc_array'
 camelcaseKeys = require '../helpers/camelcase_keys'
@@ -27,6 +28,7 @@ class Base
     @defineImageAccessors()
     @defineAssocAccessors()
     @update data
+    @cid = uuid.v4()
 
   clone: ->
     new @constructor @

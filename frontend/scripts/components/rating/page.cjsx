@@ -1,3 +1,4 @@
+_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 Item = require './item'
@@ -9,6 +10,7 @@ Meta = require '../shared/ratings/meta'
 RatingsStore = require '../../stores/ratings'
 RatingItemsStore = require '../../stores/rating_items'
 RatingsActionCreator = require '../../action_creators/ratings'
+RatingItemsActionCreator = require '../../action_creators/rating_items'
 
 {PropTypes} = React
 
@@ -26,10 +28,14 @@ Rating = React.createClass
 
     { rating }
 
+  newRatingItem: ->
+    {ratingId} = @props
+    RatingItemsActionCreator.new(ratingId)
+
   items: ->
     {ratingItems, ratingId} = @props
 
-    ratingItems.map (item) -> <Item key={item.id} item={item} ratingId={ratingId}/>
+    ratingItems.map (item) -> <Item key={item.id || item.cid} item={item} ratingId={ratingId}/>
 
   rating: ->
     {rating} = @props
@@ -53,6 +59,7 @@ Rating = React.createClass
       <a href="/" className="rating_author">
         {rating.user.name}
       </a>
+      <h1 onClick={@newRatingItem}>New</h1>
       <div className="rating_line"></div>
       {@items()}
       <div className="rating_line"></div>
