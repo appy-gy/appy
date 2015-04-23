@@ -14,8 +14,8 @@ class RatingsApi extends Marty.HttpStateSource
   load: (id) ->
     @get "ratings/#{id}"
 
-  update: (rating, changes) ->
-    url = "ratings/#{rating.id}"
+  update: (id, changes) ->
+    url = "ratings/#{id}"
     body = toFormData rating: snakecaseKeys(changes)
     @put { url, body }
 

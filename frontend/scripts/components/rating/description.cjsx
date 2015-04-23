@@ -9,6 +9,7 @@ ObjectDescription = React.createClass
 
   getInitialState: ->
     {object} = @props
+
     edit: isBlank(object.description)
 
   startEdit: ->
@@ -16,18 +17,21 @@ ObjectDescription = React.createClass
 
   stopEdit: ->
     {object} = @props
+
     @setState edit: false unless isBlank(object.description)
 
   changeDescription: (event) ->
     {object, actionCreator} = @props
-    actionCreator.change object.id, description: event.target.value
+
+    actionCreator.change object, description: event.target.value
 
   updateDescription: ->
     {object, actionCreator} = @props
-    actionCreator.update object, description: object.description
+
+    actionCreator.save object, description: object.description
     @stopEdit()
 
-  descriptionCommon: ->
+  descriptionView: ->
     {description} = @props.object
     {edit} = @state
 
@@ -37,7 +41,7 @@ ObjectDescription = React.createClass
       {description}
     </h1>
 
-  descriptionEditable: ->
+  descriptionEdit: ->
     {description} = @props.object
     {edit} = @state
 
@@ -57,8 +61,8 @@ ObjectDescription = React.createClass
 
   render: ->
     <div className="description-wrapper">
-      {@descriptionCommon()}
-      {@descriptionEditable()}
+      {@descriptionView()}
+      {@descriptionEdit()}
     </div>
 
 module.exports = ObjectDescription

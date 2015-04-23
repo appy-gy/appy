@@ -10,29 +10,26 @@ RatingItem = React.createClass
   displayName: 'RatingItem'
 
   propTypes:
-    item: PropTypes.object.isRequired
-    ratingId: PropTypes.oneOfType [
-      PropTypes.number
-      PropTypes.string
-    ]
+    ratingItem: PropTypes.object.isRequired
+    ratingId: PropTypes.string.isRequired
 
   render: ->
-    {item, ratingId} = @props
+    {ratingItem, ratingId} = @props
 
     <section className="rating-point">
       <div className="rating-point_title">
-        <span className="rating-point_number">{item.position}</span>
-        <Title object={item} actionCreator={RatingItemsActionCreator}/>
+        <span className="rating-point_number">{ratingItem.position}</span>
+        <Title object={ratingItem} actionCreator={RatingItemsActionCreator}/>
       </div>
       <div className="rating-point_cover">
         <img src="http://lorempixel.com/870/400"/>
       </div>
       <div className="rating-point_description">
-        <Description object={item} actionCreator={RatingItemsActionCreator}/>
+        <Description object={ratingItem} actionCreator={RatingItemsActionCreator}/>
       </div>
       <div className="rating-point_actions">
         <div className="rating-point_minus ion-android-remove"></div>
-        <div className="rating-point_mark">{item.mark}</div>
+        <div className="rating-point_mark">{ratingItem.mark}</div>
         <div className="rating-point_plus ion-android-add"></div>
       </div>
     </section>

@@ -1,15 +1,15 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-Item = require './item'
 Title = require './title'
 Description = require './description'
+RatingItem = require './rating_item'
 Comments = require './comments'
 SectionsSelect = require '../sections/select_all'
 Meta = require '../shared/ratings/meta'
 RatingsStore = require '../../stores/ratings'
 RatingItemsStore = require '../../stores/rating_items'
-RatingsActionCreator = require '../../action_creators/ratings'
+RatingActionCreators = require '../../action_creators/ratings'
 RatingItemsActionCreator = require '../../action_creators/rating_items'
 
 {PropTypes} = React
@@ -35,7 +35,7 @@ Rating = React.createClass
   items: ->
     {ratingItems, ratingId} = @props
 
-    ratingItems.map (item) -> <Item key={item.id || item.cid} item={item} ratingId={ratingId}/>
+    ratingItems.map (ratingItem) -> <RatingItem key={ratingItem.id || ratingItem.cid} ratingItem={ratingItem} ratingId={ratingId}/>
 
   rating: ->
     {rating} = @props
@@ -48,10 +48,10 @@ Rating = React.createClass
           <div className="image-select_text">Загрузить изображение</div>
         </div>
         <a href="/" className="rating_section-name">{rating.section.name}</a>
-        <SectionsSelect />
-        <Title object={rating} actionCreator={RatingsActionCreator} />
+        <SectionsSelect/>
+        <Title object={rating} actionCreator={RatingActionCreators}/>
       </header>
-      <Description object={rating} actionCreator={RatingsActionCreator} />
+      <Description object={rating} actionCreator={RatingActionCreators}/>
       <div className="tags rating_tags">
         <span className="tag rating_tag">фантазия</span>
         <span className="tag rating_tag">девушки</span>

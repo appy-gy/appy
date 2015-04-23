@@ -5,10 +5,11 @@ isBlank = require '../../helpers/is_blank'
 {PropTypes} = React
 
 ObjectTitle = React.createClass
-  displayName: "Title"
+  displayName: 'Title'
 
   getInitialState: ->
     {object} = @props
+
     edit: isBlank(object.title)
 
   startEdit: ->
@@ -16,18 +17,21 @@ ObjectTitle = React.createClass
 
   stopEdit: ->
     {object} = @props
+
     @setState edit: false unless isBlank(object.title)
 
   changeTitle: (event) ->
     {object, actionCreator} = @props
+
     actionCreator.change object, title: event.target.value
 
   updateTitle: ->
     {object, actionCreator} = @props
-    actionCreator.update object, title: object.title
+
+    actionCreator.save object, title: object.title
     @stopEdit()
 
-  titleCommon: ->
+  titleView: ->
     {title} = @props.object
     {edit} = @state
 
@@ -37,7 +41,7 @@ ObjectTitle = React.createClass
       {title}
     </h1>
 
-  titleEditable: ->
+  titleEdit: ->
     {title} = @props.object
     {edit} = @state
 
@@ -57,8 +61,8 @@ ObjectTitle = React.createClass
 
   render: ->
     <div className="title-wrapper">
-      {@titleCommon()}
-      {@titleEditable()}
+      {@titleView()}
+      {@titleEdit()}
     </div>
 
 module.exports = ObjectTitle

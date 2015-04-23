@@ -1,5 +1,7 @@
 _ = require 'lodash'
 toArray = require '../helpers/to_array'
+findInStore = require '../helpers/find_in_store'
+findIndexInStore = require '../helpers/find_index_in_store'
 React = require 'react/addons'
 Marty = require 'marty'
 RatingConstants = require '../constants/ratings'
@@ -14,6 +16,7 @@ class RatingsStore extends Marty.Store
     @state = []
     @handlers =
       change: RatingConstants.CHANGE_RATING
+      replace: RatingConstants.REPLACE_RATING
       append: RatingConstants.APPEND_RATINGS
 
   rehydrate: (state) ->
@@ -50,11 +53,17 @@ class RatingsStore extends Marty.Store
       remotely: ->
         RatingQueries.for(@).get(id)
 
-  change: (id, changes) ->
-    rating = _.find @state, (rating) -> rating.id == id
+  change: (ratingOrId, changes) ->
+    rating = findInStore @, ratingOrId
     return unless rating?
     rating.update changes
     @hasChanged()
+
+  replace: (ratingOrId) ->
+    index = findIndexInStore @, ratingOrId
+    return if index < 0
+    rating = @state[index]
+    @state = update @state, $splice: [[index, 1, rating]]
 
   append: (ratings) ->
     @state = update @state, $push: toArray(ratings)
