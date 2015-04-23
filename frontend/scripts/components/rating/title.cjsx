@@ -23,9 +23,8 @@ ObjectTitle = React.createClass
     actionCreator.change object.id, title: event.target.value
 
   updateTitle: ->
-    {object, actionCreator, parentId} = @props
-    args = _.compact [object.id, parentId]
-    actionCreator.update args..., title: object.title
+    {object, actionCreator} = @props
+    actionCreator.update object, title: object.title
     @stopEdit()
 
   titleCommon: ->

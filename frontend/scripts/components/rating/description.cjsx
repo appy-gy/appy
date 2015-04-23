@@ -23,9 +23,8 @@ ObjectDescription = React.createClass
     actionCreator.change object.id, description: event.target.value
 
   updateDescription: ->
-    {object, actionCreator, parentId} = @props
-    args = _.compact [object.id, parentId]
-    actionCreator.update args..., description: object.description
+    {object, actionCreator} = @props
+    actionCreator.update object, description: object.description
     @stopEdit()
 
   descriptionCommon: ->

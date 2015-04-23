@@ -38,4 +38,9 @@ class RatingItemsStore extends Marty.Store
   append: (ratingItems) ->
     @state = update @state, $push: toArray(ratingItems)
 
+  replace: (rating) ->
+    index = _.findIndex @state, (r) -> if rating.id then r.id == rating.id else r.cid == r.cid
+    return if index < 0
+    @state = update @state, $splice: [[index, 1, rating]]
+
 module.exports = Marty.register RatingItemsStore
