@@ -8,8 +8,8 @@ class RatingItemActionCreators extends Marty.ActionCreators
   append: autoDispatch RatingItemConstants.APPEND_RATING_ITEMS
   change: autoDispatch RatingItemConstants.CHANGE_RATING_ITEM
 
-  update: (id, changes) ->
-    RatingItemsApi.update(id, changes).then ({body}) =>
+  update: (id, ratingId, changes) ->
+    RatingItemsApi.update(id, ratingId, changes).then ({body}) =>
       return unless body?
       ratingItem = new RatingItem body.rating_item
       @dispatch RatingItemConstants.REPLACE_RATING_ITEM, ratingItem

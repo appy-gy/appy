@@ -9,19 +9,23 @@ RatingItemsStore = require '../../stores/rating_items'
 RatingItem = React.createClass
   displayName: 'RatingItem'
 
+  propTypes:
+    item: PropTypes.object.isRequired
+    ratingId: PropTypes.number.isRequired
+
   render: ->
-    {item} = @props
+    {item, ratingId} = @props
 
     <section className="rating-point">
       <div className="rating-point_title">
         <span className="rating-point_number">{item.position}</span>
-        <Title object={item} actionCreator={RatingItemsActionCreator} />
+        <Title object={item} actionCreator={RatingItemsActionCreator} parentId={ratingId}/>
       </div>
       <div className="rating-point_cover">
         <img src="http://lorempixel.com/870/400"/>
       </div>
       <div className="rating-point_description">
-        <Description object={item} actionCreator={RatingItemsActionCreator} />
+        <Description object={item} actionCreator={RatingItemsActionCreator} parentId={ratingId}/>
       </div>
       <div className="rating-point_actions">
         <div className="rating-point_minus ion-android-remove"></div>

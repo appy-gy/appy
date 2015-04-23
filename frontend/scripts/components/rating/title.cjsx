@@ -1,3 +1,4 @@
+_ = require 'lodash'
 React = require 'react/addons'
 isBlank = require '../../helpers/is_blank'
 
@@ -17,13 +18,14 @@ ObjectTitle = React.createClass
     {object} = @props
     @setState edit: false unless isBlank(object.title)
 
-  updateTitle: (event) ->
+  changeTitle: (event) ->
     {object, actionCreator} = @props
-    actionCreator.change object.id, { title: event.target.value }
+    actionCreator.change object.id, title: event.target.value
 
-  saveTitle: ->
-    {object, actionCreator} = @props
-    actionCreator.update object.id, { title: object.title }
+  updateTitle: ->
+    {object, actionCreator, parentId} = @props
+    args = _.compact [object.id, parentId]
+    actionCreator.update args..., title: object.title
     @stopEdit()
 
   titleCommon: ->
@@ -43,9 +45,9 @@ ObjectTitle = React.createClass
     return unless edit
 
     <div>
-      <textarea autoFocus={true} maxLength="50" className="title edit" value={title} onChange={@updateTitle} placeholder="Введи заголовок рейтинга"></textarea>
+      <textarea autoFocus={true} maxLength="50" className="title edit" value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></textarea>
       <div className="title-buttons">
-        <button className="title-button accept" onClick={@saveTitle}>
+        <button className="title-button accept" onClick={@updateTitle}>
           сохранить
         </button>
         <button className="title-button cancel" onClick={@stopEdit}>

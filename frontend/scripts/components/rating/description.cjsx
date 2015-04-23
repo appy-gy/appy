@@ -1,8 +1,8 @@
+_ = require 'lodash'
 React = require 'react/addons'
 isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 ObjectDescription = React.createClass
   displayName: 'Description'
@@ -18,13 +18,14 @@ ObjectDescription = React.createClass
     {object} = @props
     @setState edit: false unless isBlank(object.description)
 
-  updateDescription: (event) ->
+  changeDescription: (event) ->
     {object, actionCreator} = @props
-    actionCreator.change object.id, { description: event.target.value }
+    actionCreator.change object.id, description: event.target.value
 
-  saveDescription: ->
-    {object, actionCreator} = @props
-    actionCreator.update object.id, { description: object.description }
+  updateDescription: ->
+    {object, actionCreator, parentId} = @props
+    args = _.compact [object.id, parentId]
+    actionCreator.update args..., description: object.description
     @stopEdit()
 
   descriptionCommon: ->
@@ -44,9 +45,9 @@ ObjectDescription = React.createClass
     return unless edit
 
     <div>
-      <textarea autoFocus={true} className="description edit" value={description} onChange={@updateDescription} placeholder="Введи описание рейтинга"></textarea>
+      <textarea autoFocus={true} className="description edit" value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></textarea>
       <div className="description-buttons">
-        <button className="description-button accept" onClick={@saveDescription}>
+        <button className="description-button accept" onClick={@updateDescription}>
           сохранить
         </button>
         <button className="description-button cancel" onClick={@stopEdit}>

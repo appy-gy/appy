@@ -18,10 +18,10 @@ Rating = React.createClass
     rating: PropTypes.object.isRequired
 
   items: ->
-    {rating} = @props
+    {ratingItems, ratingId} = @props
 
-    rating.items.map (item, index) =>
-      <Item item={item} />
+    ratingItems.map (item) -> <Item key={item.id} item={item} ratingId={ratingId}/>
+
 
   rating: ->
     {rating} = @props
@@ -124,9 +124,10 @@ Rating = React.createClass
     </article>
 
 module.exports = Marty.createContainer Rating,
-  listenTo: RatingsStore
+  listenTo: [RatingsStore, RatingItemsStore]
 
   fetch: ->
     {ratingId} = @props
 
     rating: RatingsStore.for(@).get ratingId
+    ratingItems: RatingItemsStore.for(@).getForRating(ratingId)
