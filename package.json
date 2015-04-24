@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build-dev": "webpack",
-    "build": "NODE_ENV=production webpack"
+    "build-dev": "./node_modules/.bin/webpack",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack"
   },
   "dependencies": {
     "classnames": "^1.1.4",
