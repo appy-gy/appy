@@ -1,4 +1,5 @@
 React = require 'react/addons'
+CommentActions = require './comment_actions'
 UserLink = require '../shared/links/user'
 
 {PropTypes} = React
@@ -8,6 +9,14 @@ Comment = React.createClass
 
   propTypes:
     comment: PropTypes.object.isRequired
+
+  childContextTypes:
+    comment: PropTypes.object.isRequired
+
+  getChildContext: ->
+    {comment} = @props
+
+    { comment }
 
   render: ->
     {comment} = @props
@@ -27,6 +36,7 @@ Comment = React.createClass
           {comment.createdAt.fromNow()}
         </div>
       </div>
+      <CommentActions/>
     </div>
 
 module.exports = Comment

@@ -1,26 +1,28 @@
 React = require 'react/addons'
 Marty = require 'marty'
-Comment = require './comment'
+CommentsTree = require './comments_tree'
 CommentForm = require './comment_form'
 CommentsStore = require '../../stores/comments'
+CommentTreesBuilder = require '../../helpers/comments/trees_builder'
 
 {PropTypes} = React
 
 Comments = React.createClass
   displayName: 'Comments'
 
-  comments: ->
+  trees: ->
     {comments} = @props
 
-    comments.map (comment) ->
-      <Comment key={comment.id} comment={comment}/>
+    trees = CommentTreesBuilder.build comments
+    trees.map (tree) ->
+      <CommentsTree key={tree.root.id} tree={tree} level={1}/>
 
   render: ->
     <div className="comments">
       <div className="comments_header">
         Комментарии
       </div>
-      {@comments()}
+      {@trees()}
       <CommentForm/>
     </div>
 

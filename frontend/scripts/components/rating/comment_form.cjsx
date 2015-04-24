@@ -9,8 +9,14 @@ CurrentUserStore = require '../../stores/current_user'
 CommentForm = React.createClass
   displayName: 'CommentForm'
 
+  propTypes:
+    parent: PropTypes.object
+
   contextTypes:
     rating: PropTypes.object.isRequired
+
+  getDefaultProps: ->
+    parent: null
 
   getInitialState: ->
     body: ''
@@ -25,10 +31,11 @@ CommentForm = React.createClass
     @createComment()
 
   createComment: ->
+    {parent} = @props
     {body} = @state
     {rating} = @context
 
-    CommentActionCreators.create rating.id, body
+    CommentActionCreators.create rating.id, { body, parentId: parent?.id }
       .then => @setState body: ''
 
   render: ->
@@ -38,7 +45,7 @@ CommentForm = React.createClass
 
     <div className="comment-form">
       <img className="comment_userface" src={user.avatarUrl 'small'}/>
-      <Textarea className="comment_textarea" value={body} onChange={@changeBody} onKeyDown={@onKeyDown}></Textarea>
+      <Textarea className="comment_textarea" value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
     </div>
 
 module.exports = Marty.createContainer CommentForm,
