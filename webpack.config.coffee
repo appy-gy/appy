@@ -17,7 +17,7 @@ else
   (loaders) -> ExtractTextPlugin.extract 'style-loader', loaders
 [cssLoader, sassLoader] = [cssLoaders, sassLoaders].map loaderGenerator
 
-env = _.pick process.env, 'NODE_ENV'
+env = _.pick process.env, 'NODE_ENV', 'TOP_INSTAGRAM_KEY'
 definePluginEnv = mapObj env, (key, value) ->
   ["process.env.#{key}", JSON.stringify(value)]
 

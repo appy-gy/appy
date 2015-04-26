@@ -1,5 +1,6 @@
 React = require 'react/addons'
 FacebookButton = require './facebook_button'
+InstagramButton = require './instagram_button'
 
 SocialButtons = React.createClass
   displayName: 'SocialButtons'
@@ -7,8 +8,7 @@ SocialButtons = React.createClass
   render: ->
     <div className="user-profile_socials">
       <FacebookButton/>
-      <div className="user-profile_social m-insta">
-      </div>
+      <InstagramButton/>
     </div>
 
 module.exports = SocialButtons

@@ -10,7 +10,7 @@ FacebookButton = React.createClass
     user: PropTypes.object.isRequired
     edit: PropTypes.bool.isRequired
 
-  getFacebookId: (event) ->
+  getFacebookLink: (event) ->
     {user, edit} = @context
 
     return unless edit
@@ -25,6 +25,6 @@ FacebookButton = React.createClass
   render: ->
     {user} = @context
 
-    <a href={user.facebookLink} target="_blank" className="user-profile_social m-fb" onClick={@getFacebookId}></a>
+    <a href={user.facebookLink} target="_blank" className="user-profile_social m-fb" onClick={@getFacebookLink}></a>
 
 module.exports = FacebookButton
