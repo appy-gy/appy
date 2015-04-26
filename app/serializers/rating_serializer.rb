@@ -1,5 +1,5 @@
 class RatingSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :created_at
+  attributes :id, :title, :description, :created_at, :status
 
   has_one :user
   has_one :section

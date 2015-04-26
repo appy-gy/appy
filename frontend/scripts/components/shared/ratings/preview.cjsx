@@ -34,10 +34,10 @@ Preview = React.createClass
       <Meta rating={rating} block="preview"/>
       <div className="preview_image"></div>
       <div className="preview_section-name">
-        {rating.section.name}
+        {rating.section.name if rating.section}
       </div>
       <Link to="rating" params={ratingId: rating.id} className="preview_title">
-        {rating.title}
+        {rating.title || 'Чероновик-' + rating.createdAt}
       </Link>
       <Tags tags={rating.tags} block="preview"/>
     </div>

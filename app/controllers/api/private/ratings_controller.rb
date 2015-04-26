@@ -15,6 +15,10 @@ module Api
         render json: @rating.update(rating_params)
       end
 
+      def create
+        render json: current_user.ratings.create
+      end
+
       private
 
       def rating_params

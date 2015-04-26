@@ -49,8 +49,7 @@ Rating = React.createClass
           <div className="image-selector_icon"></div>
           <div className="image-select_text">Загрузить изображение</div>
         </div>
-        <a href="/" className="rating_section-name">{rating.section.name}</a>
-        <SectionsSelect/>
+        <SectionsSelect object={rating} actionCreator={RatingActionCreators}/>
         <Title object={rating} actionCreator={RatingActionCreators}/>
       </header>
       <Description object={rating} actionCreator={RatingActionCreators}/>
@@ -84,7 +83,6 @@ Rating = React.createClass
           <div className="rating-share_text">Твитнуть</div>
         </div>
       </div>
-      <Comments/>
     </div>
 
   render: ->

@@ -9,6 +9,9 @@ Rating = require '../models/rating'
 class RatingActionCreators extends Marty.ActionCreators
   append: autoDispatch RatingConstants.APPEND_RATINGS
 
+  create: ->
+    RatingsApi.create()
+
   change: (ratingOrId, changes) ->
     rating = findInStore RatingsStore, ratingOrId
     @dispatch RatingConstants.CHANGE_RATING, rating, changes

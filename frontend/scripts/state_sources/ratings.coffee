@@ -6,7 +6,7 @@ class RatingsApi extends Marty.HttpStateSource
   baseUrl: '/api/private'
 
   loadPage: (page) ->
-    @get 'ratings'
+    @get "ratings"
 
   loadForUser: (userId) ->
     @get "users/#{userId}/ratings"
@@ -18,5 +18,8 @@ class RatingsApi extends Marty.HttpStateSource
     url = "ratings/#{id}"
     body = toFormData rating: snakecaseKeys(changes)
     @put { url, body }
+
+  create: ->
+    @post "ratings"
 
 module.exports = Marty.register RatingsApi

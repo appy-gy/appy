@@ -3,15 +3,18 @@ Marty = require 'marty'
 SectionsStore = require '../../stores/sections'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 SelectAll = React.createClass
   displayName: 'SelectAll'
 
-  mixins: [PureRenderMixin]
-
   propTypes:
     sections: PropTypes.arrayOf(PropTypes.object).isRequired
+    object: PropTypes.object.isRequired
+
+  updateSection: (event) ->
+    {object, actionCreator} = @props
+
+    actionCreator.save object, sectionId: event.target.value
 
   sections: ->
     {sections} = @props
@@ -22,7 +25,7 @@ SelectAll = React.createClass
       </option>
 
   render: ->
-    <select className="rating_section-name edit">
+    <select className="rating_section-name edit" onChange={@updateSection}>
       {@sections()}
     </select>
 
