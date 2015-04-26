@@ -7,10 +7,18 @@ isBlank = require '../../helpers/is_blank'
 ObjectTitle = React.createClass
   displayName: 'Title'
 
+  propTypes:
+    object: PropTypes.object.isRequired
+    actionCreator: PropTypes.object.isRequired
+
   getInitialState: ->
     {object} = @props
 
     edit: isBlank(object.title)
+
+  classes: ->
+    {classes} = @props
+    classes || ''
 
   startEdit: ->
     @setState edit: true
@@ -37,7 +45,7 @@ ObjectTitle = React.createClass
 
     return if edit
 
-    <h1 className="title" onClick={@startEdit}>
+    <h1 className={"title " + @classes()} onClick={@startEdit}>
       {title}
     </h1>
 
@@ -48,7 +56,7 @@ ObjectTitle = React.createClass
     return unless edit
 
     <div>
-      <textarea autoFocus={true} maxLength="50" className="title edit" value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></textarea>
+      <textarea autoFocus={true} maxLength="50" className={"title edit " + @classes()} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></textarea>
       <div className="title-buttons">
         <button className="title-button accept" onClick={@updateTitle}>
           сохранить
