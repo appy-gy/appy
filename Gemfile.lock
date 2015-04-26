@@ -140,8 +140,6 @@ GEM
     puma (2.11.0)
       rack (>= 1.1, < 2.0)
     rack (1.6.0)
-    rack-reverse-proxy (0.4.4)
-      rack (>= 1.0.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.1)
@@ -242,7 +240,6 @@ DEPENDENCIES
   pg
   pry-rails
   puma
-  rack-reverse-proxy
   rails (= 4.2.1)
   rspec-rails
   ruby-prof
