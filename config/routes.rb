@@ -7,10 +7,12 @@ Rails.application.routes.draw do
         resources :ratings, only: [:index]
       end
       resources :ratings, module: :ratings, only: [:index, :show, :update, :create] do
+        resource :tags, only: [:create, :destroy]
         resources :rating_items, only: [:index, :create, :update]
         resources :comments, only: [:index, :create]
       end
       resources :header_sections, only: [:index]
+      resources :tags, only: [:index]
     end
   end
 

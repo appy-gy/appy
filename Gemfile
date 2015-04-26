@@ -1,12 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.1'
 
 # Server
 gem 'puma'
 
 # Database
 gem 'pg'
+gem 'pg_search'
 gem 'dalli'
 
 # Configuration
@@ -44,7 +45,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'rack-reverse-proxy', require: false
   gem 'guard'
   gem 'guard-rspec'
   gem 'spring'

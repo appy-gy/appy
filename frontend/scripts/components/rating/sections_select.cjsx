@@ -4,8 +4,8 @@ SectionsStore = require '../../stores/sections'
 
 {PropTypes} = React
 
-SelectAll = React.createClass
-  displayName: 'SelectAll'
+SectionsSelect = React.createClass
+  displayName: 'SectionsSelect'
 
   propTypes:
     sections: PropTypes.arrayOf(PropTypes.object).isRequired
@@ -29,7 +29,7 @@ SelectAll = React.createClass
       {@sections()}
     </select>
 
-module.exports = Marty.createContainer SelectAll,
+module.exports = Marty.createContainer SectionsSelect,
   listenTo: SectionsStore
 
   fetch: ->

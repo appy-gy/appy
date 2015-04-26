@@ -18,6 +18,8 @@ class RatingsStore extends Marty.Store
       change: RatingConstants.CHANGE_RATING
       replace: RatingConstants.REPLACE_RATING
       append: RatingConstants.APPEND_RATINGS
+      addTag: RatingConstants.ADD_TAG_TO_RATING
+      removeTag: RatingConstants.REMOVE_TAG_FROM_RATING
 
   rehydrate: (state) ->
     ratings = state.map (rating) -> new Rating rating
@@ -66,5 +68,13 @@ class RatingsStore extends Marty.Store
 
   append: (ratings) ->
     @state = update @state, $push: toArray(ratings)
+
+  addTag: (rating, tag) ->
+    rating.tags.push tag
+    @hasChanged()
+
+  removeTag: (rating, tag) ->
+    _.remove rating.tags, (t) -> t.name == tag.name
+    @hasChanged()
 
 module.exports = Marty.register RatingsStore
