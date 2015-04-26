@@ -13,7 +13,8 @@ module Api
       end
 
       def update
-        render json: @rating_item.update(rating_item_params)
+        @rating_item.update(rating_item_params)
+        render json: @rating_item
       end
 
       private
