@@ -7,8 +7,7 @@ module Tags
     end
 
     def call
-      # TODO
-      Tag.all
+      Tag.search query
     end
   end
 end

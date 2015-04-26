@@ -7,6 +7,7 @@ gem 'puma'
 
 # Database
 gem 'pg'
+gem 'pg_search'
 gem 'dalli'
 
 # Configuration

@@ -17,7 +17,7 @@ TagsSelect = React.createClass
       value: tag.name, label: tag.name
 
   loadOptions: (query, callback) ->
-    TagsApi.autocomplete query
+    TagsApi.for(@).autocomplete query
       .then ({body}) =>
         callback null, options: @toOptions(body.tags)
 
