@@ -7,10 +7,18 @@ isBlank = require '../../helpers/is_blank'
 ObjectDescription = React.createClass
   displayName: 'Description'
 
+  propTypes:
+    object: PropTypes.object.isRequired
+    actionCreator: PropTypes.object.isRequired
+
   getInitialState: ->
     {object} = @props
 
     edit: isBlank(object.description)
+
+  classes: ->
+    {classes} = @props
+    classes || ''
 
   startEdit: ->
     @setState edit: true
@@ -37,7 +45,7 @@ ObjectDescription = React.createClass
 
     return if edit
 
-    <h1 className="description" onClick={@startEdit}>
+    <h1 className={"description " + @classes()} onClick={@startEdit}>
       {description}
     </h1>
 
@@ -48,7 +56,7 @@ ObjectDescription = React.createClass
     return unless edit
 
     <div>
-      <textarea autoFocus={true} className="description edit" value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></textarea>
+      <textarea autoFocus={true} className={"description edit " + @classes()} value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></textarea>
       <div className="description-buttons">
         <button className="description-button accept" onClick={@updateDescription}>
           сохранить
