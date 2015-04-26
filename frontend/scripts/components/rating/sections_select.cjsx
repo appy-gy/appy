@@ -5,8 +5,8 @@ SectionsStore = require '../../stores/sections'
 {PropTypes} = React
 {PureRenderMixin} = React.addons
 
-SelectAll = React.createClass
-  displayName: 'SelectAll'
+SectionsSelect = React.createClass
+  displayName: 'SectionsSelect'
 
   mixins: [PureRenderMixin]
 
@@ -26,7 +26,7 @@ SelectAll = React.createClass
       {@sections()}
     </select>
 
-module.exports = Marty.createContainer SelectAll,
+module.exports = Marty.createContainer SectionsSelect,
   listenTo: SectionsStore
 
   fetch: ->

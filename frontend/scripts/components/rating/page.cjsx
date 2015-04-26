@@ -3,9 +3,10 @@ React = require 'react/addons'
 Marty = require 'marty'
 Title = require './title'
 Description = require './description'
+SectionsSelect = require './sections_select'
+TagsSelect = require './tags_select'
 RatingItem = require './rating_item'
 Comments = require './comments'
-SectionsSelect = require '../sections/select_all'
 Meta = require '../shared/ratings/meta'
 RatingsStore = require '../../stores/ratings'
 RatingItemsStore = require '../../stores/rating_items'
@@ -51,6 +52,7 @@ Rating = React.createClass
         </div>
         <a href="/" className="rating_section-name">{rating.section.name}</a>
         <SectionsSelect/>
+        <TagsSelect/>
         <Title object={rating} actionCreator={RatingActionCreators}/>
       </header>
       <Description object={rating} actionCreator={RatingActionCreators}/>
