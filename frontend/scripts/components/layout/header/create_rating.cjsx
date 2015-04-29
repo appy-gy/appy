@@ -1,17 +1,22 @@
 React = require 'react/addons'
-Router = require 'react-router'
 RatingActionCreators = require '../../../action_creators/ratings'
 
+{PropTypes} = React
 {PureRenderMixin} = React.addons
 
 CreateRating = React.createClass
   displayName: 'CreateRating'
 
-  mixins: [PureRenderMixin, Router.Navigation]
+  mixins: [PureRenderMixin]
+
+  contextTypes:
+    router: React.PropTypes.func
 
   createRating: ->
+    {router} = @context
+
     RatingActionCreators.create().then ({body}) =>
-      @transitionTo 'rating', ratingId: body.rating.id
+      router.transitionTo 'rating', ratingId: body.rating.id
 
   render: ->
     <a className="new-rating-button">

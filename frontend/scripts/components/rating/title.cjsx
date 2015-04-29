@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react/addons'
+classNames = require 'classnames'
 isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
@@ -15,10 +16,6 @@ ObjectTitle = React.createClass
     {object} = @props
 
     edit: isBlank(object.title)
-
-  classes: ->
-    {classes} = @props
-    classes || ''
 
   startEdit: ->
     @setState edit: true
@@ -40,23 +37,29 @@ ObjectTitle = React.createClass
     @stopEdit()
 
   titleView: ->
-    {title} = @props.object
+    {object, className} = @props
     {edit} = @state
+    {title} = object
 
     return if edit
 
-    <h1 className={"title " + @classes()} onClick={@startEdit}>
+    classes = classNames 'title', className
+
+    <h1 className={classes} onClick={@startEdit}>
       {title}
     </h1>
 
   titleEdit: ->
-    {title} = @props.object
+    {object, className} = @props
     {edit} = @state
+    {title} = object
 
     return unless edit
 
+    classes = classNames 'title', 'edit', className
+
     <div>
-      <textarea autoFocus={true} maxLength="50" className={"title edit " + @classes()} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></textarea>
+      <textarea autoFocus={true} maxLength="50" className={classes} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></textarea>
       <div className="title-buttons">
         <button className="title-button accept" onClick={@updateTitle}>
           сохранить

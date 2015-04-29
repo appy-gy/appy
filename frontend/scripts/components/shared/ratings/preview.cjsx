@@ -25,6 +25,18 @@ Preview = React.createClass
   getDefaultProps: ->
     mod: null
 
+  sectionName: ->
+    {rating} = @props
+
+    return unless rating.section?
+
+    rating.section.name
+
+  title: ->
+    {rating} = @props
+
+    rating.title or "Черновик-#{rating.createdAt}"
+
   render: ->
     {rating, mod} = @props
 
@@ -34,10 +46,10 @@ Preview = React.createClass
       <Meta rating={rating} block="preview"/>
       <div className="preview_image"></div>
       <div className="preview_section-name">
-        {rating.section.name if rating.section}
+        {@sectionName()}
       </div>
       <Link to="rating" params={ratingId: rating.id} className="preview_title">
-        {rating.title || 'Чероновик-' + rating.createdAt}
+        {@title()}
       </Link>
       <Tags tags={rating.tags} block="preview"/>
     </div>

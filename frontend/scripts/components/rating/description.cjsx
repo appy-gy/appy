@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react/addons'
+classNames = require 'classnames'
 isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
@@ -15,10 +16,6 @@ ObjectDescription = React.createClass
     {object} = @props
 
     edit: isBlank(object.description)
-
-  classes: ->
-    {classes} = @props
-    classes || ''
 
   startEdit: ->
     @setState edit: true
@@ -40,23 +37,29 @@ ObjectDescription = React.createClass
     @stopEdit()
 
   descriptionView: ->
-    {description} = @props.object
+    {object, className} = @props
     {edit} = @state
+    {description} = object
 
     return if edit
 
-    <h1 className={"description " + @classes()} onClick={@startEdit}>
+    classes = classNames 'description', className
+
+    <h1 className={classes} onClick={@startEdit}>
       {description}
     </h1>
 
   descriptionEdit: ->
-    {description} = @props.object
+    {object, className} = @props
     {edit} = @state
+    {description} = object
 
     return unless edit
 
+    classes = classNames 'description', 'edit', className
+
     <div>
-      <textarea autoFocus={true} className={"description edit " + @classes()} value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></textarea>
+      <textarea autoFocus={true} className={classes} value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></textarea>
       <div className="description-buttons">
         <button className="description-button accept" onClick={@updateDescription}>
           сохранить

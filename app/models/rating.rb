@@ -5,8 +5,6 @@ class Rating < ActiveRecord::Base
   has_many :tags, through: :ratings_tags
   has_many :items, class_name: 'RatingItem', dependent: :destroy
   has_many :comments, dependent: :destroy
-  
-  enum status: %w{draft published}
 
-  scope :published, -> { where status: statuses[:published] }
+  enum status: %w{draft published}
 end
