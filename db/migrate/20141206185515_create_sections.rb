@@ -1,6 +1,6 @@
 class CreateSections < ActiveRecord::Migration
   def change
-    create_table :sections, id: :uuid do |t|
+    create_table :sections do |t|
       t.text :name, null: false
       t.text :color, null: false
 

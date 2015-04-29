@@ -1,6 +1,6 @@
 class CreateOptions < ActiveRecord::Migration
   def change
-    create_table :options, id: :uuid do |t|
+    create_table :options do |t|
       t.integer :position, null: false
       t.integer :rating, null: false, default: 0
       t.text :title
@@ -9,7 +9,8 @@ class CreateOptions < ActiveRecord::Migration
 
       t.timestamps null: false
 
-      t.belongs_to :rating, type: :uuid, null: false, index: true
+      t.belongs_to :rating, null: false, index: true
     end
+    add_foreign_key :options, :ratings
   end
 end
