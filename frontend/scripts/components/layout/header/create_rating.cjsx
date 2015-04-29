@@ -19,9 +19,11 @@ CreateRating = React.createClass
       router.transitionTo 'rating', ratingId: body.rating.id
 
   render: ->
-    <a className="new-rating-button">
-      <span className="new-rating-button_icon">+</span>
-      <span className="new-rating-button_text" onClick={@createRating}>Создать</span>
-    </a>
+    <div className="header_rating-button" onClick={@createRating}>
+      <span className="header_rating-button-icon">+</span>
+      <span className="header_rating-button-text">
+        Создать
+      </span>
+    </div>
 
 module.exports = CreateRating

@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 Qs = require 'qs'
+Layout = require '../layout/layout'
 UserActionCreators = require '../../action_creators/users'
 CurrentUserStore = require '../../stores/current_user'
 
@@ -42,7 +43,9 @@ Instagram = React.createClass
     router.transitionTo 'user', userId: user.id
 
   render: ->
-    <div className="g-hidden"></div>
+    <Layout>
+      <div className="g-hidden"></div>
+    </Layout>
 
 module.exports = Marty.createContainer Instagram,
   listenTo: CurrentUserStore

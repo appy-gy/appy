@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 Subscription = require './subscription'
+Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
 RatingsStore = require '../../stores/ratings'
 
@@ -38,9 +39,11 @@ Ratings = React.createClass
       previews.splice @subscriptionPosition, 0, @subscription()
 
   render: ->
-    <div className="previews">
-      {@content()}
-    </div>
+    <Layout>
+      <div className="previews">
+        {@content()}
+      </div>
+    </Layout>
 
 module.exports = Marty.createContainer Ratings,
   listenTo: RatingsStore

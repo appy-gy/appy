@@ -23,6 +23,7 @@ p
   white-space: pre-wrap
   word-break: break-all
   margin: 0 0 20px 0
+
   &:last-of-type
     margin: 0
 
@@ -30,34 +31,6 @@ input, textarea, select
   outline: none
   border: 0
   background: none
-
-.grid
-  width: 1040px
-  padding: 0 25px
-
-  @media screen and (max-width: 1240px)
-    width: 690px
-    padding: 0 15px
-
-  @media screen and (max-width: 710px)
-    width: 320px
-    padding: 10px
-
-.site-main
-  width: calc(100% - #{$header-width})
-  min-height: 100vh
-  margin-left: $header-width
-  padding: 40px 0
-  display: flex
-  justify-content: center
-  background: $grey
-
-  @media screen and (max-width: 910px)
-    width: 100%
-    margin-left: 0
-
-  @media screen and (max-width: 710px)
-    padding: 20px 0
 
 .image-select
   &_text

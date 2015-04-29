@@ -29,12 +29,12 @@ class RatingActionCreators extends Marty.ActionCreators
     rating = findInStore RatingsStore, ratingOrId
     tag = new Tag { name }
     @dispatch RatingConstants.ADD_TAG_TO_RATING, rating, tag
-    TagsApi.addToRating rating.id, name
+    TagsApi.for(@).addToRating rating.id, name
 
   removeTag: (ratingOrId, name) ->
     rating = findInStore RatingsStore, ratingOrId
     tag = new Tag { name }
     @dispatch RatingConstants.REMOVE_TAG_FROM_RATING, rating, tag
-    TagsApi.removeFromRating rating.id, name
+    TagsApi.for(@).removeFromRating rating.id, name
 
 module.exports = Marty.register RatingActionCreators

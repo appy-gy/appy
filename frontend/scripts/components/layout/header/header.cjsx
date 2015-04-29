@@ -1,9 +1,6 @@
 React = require 'react/addons'
-Logo = require './logo'
-Navigation = require './navigation'
-Auth = require './auth'
-CreateRating = require './create_rating'
 
+{PropTypes} = React
 {PureRenderMixin} = React.addons
 
 Header = React.createClass
@@ -11,12 +8,14 @@ Header = React.createClass
 
   mixins: [PureRenderMixin]
 
+  propTypes:
+    children: PropTypes.node.isRequired
+
   render: ->
-    <header className="site-header">
-      <Logo/>
-      <Auth/>
-      <CreateRating/>
-      <Navigation/>
+    {children} = @props
+
+    <header className="layout_header header">
+      {children}
     </header>
 
 module.exports = Header

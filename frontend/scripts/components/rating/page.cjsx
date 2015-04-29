@@ -7,6 +7,7 @@ SectionsSelect = require './sections_select'
 TagsSelect = require './tags_select'
 RatingItem = require './rating_item'
 Comments = require './comments'
+Layout = require '../layout/layout'
 Meta = require '../shared/ratings/meta'
 RatingsStore = require '../../stores/ratings'
 RatingItemsStore = require '../../stores/rating_items'
@@ -43,7 +44,7 @@ Rating = React.createClass
   rating: ->
     {rating} = @props
 
-    <div>
+    <Layout>
       <header className="rating_header">
         <Meta rating={rating} block="rating"/>
         <div className="image-selector">
@@ -85,7 +86,7 @@ Rating = React.createClass
           <div className="rating-share_text">Твитнуть</div>
         </div>
       </div>
-    </div>
+    </Layout>
 
   render: ->
     <article className="rating">

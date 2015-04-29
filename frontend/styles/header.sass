@@ -1,29 +1,24 @@
-.site-header
-  width: $header-width
-  height: 100%
-  position: fixed
-  top: 0
-  left: 0
-  background: $color-2
-
-  .logotype
+.header
+  &_logotype
+    display: block
+    font-weight: 700
+    font-size: 42px
+    color: white
     padding: 0 0 10px 0
     margin: 20px
 
-  .new-rating-button
+  &_rating-button
     display: block
-    height: 40px
-    line-height: 40px
-    text-align: center
+    cursor: pointer
     background: $white
     color: $color-1
-    text-transform: uppercase
     font-weight: 600
     margin: 15px
     border-radius: $border-radius
-    .new-rationg-button_icon
-      margin-right: 5px
-    .new-rationg-button_text
+    line-height: 40px
+    height: 40px
+    text-align: center
+    text-transform: uppercase
 
-  @media screen and (max-width: 910px)
-    display: none
+  &_rating-button-icon
+    margin-right: 5px
