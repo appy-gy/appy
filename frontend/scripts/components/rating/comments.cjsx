@@ -1,3 +1,4 @@
+_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 CommentsTree = require './comments_tree'
@@ -12,6 +13,8 @@ Comments = React.createClass
 
   trees: ->
     {comments} = @props
+
+    return if _.isEmpty comments
 
     trees = CommentTreesBuilder.build comments
     trees.map (tree) ->
