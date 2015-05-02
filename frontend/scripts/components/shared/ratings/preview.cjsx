@@ -16,11 +16,12 @@ Preview = React.createClass
 
   childContextTypes:
     rating: PropTypes.object.isRequired
+    block: PropTypes.string.isRequired
 
   getChildContext: ->
     {rating} = @props
 
-    { rating }
+    { rating, block: 'preview' }
 
   getDefaultProps: ->
     mod: null
@@ -43,7 +44,7 @@ Preview = React.createClass
     classes = classNames 'preview', "m-#{mod}"
 
     <div className={classes}>
-      <Meta rating={rating} block="preview"/>
+      <Meta rating={rating}/>
       <div className="preview_image"></div>
       <div className="preview_section-name">
         {@sectionName()}
@@ -51,7 +52,7 @@ Preview = React.createClass
       <Link to="rating" params={ratingId: rating.id} className="preview_title">
         {@title()}
       </Link>
-      <Tags tags={rating.tags} block="preview"/>
+      <Tags tags={rating.tags}/>
     </div>
 
 module.exports = Preview

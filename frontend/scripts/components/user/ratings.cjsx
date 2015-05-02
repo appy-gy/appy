@@ -18,7 +18,7 @@ Ratings = React.createClass
     {ratings} = @props
 
     <div>
-      <h2 className="user-profile_tab-title">Ваши рейтинги<span> (34)</span></h2>
+      <h2 className="user-profile_tab-header">Ваши рейтинги<span> (34)</span></h2>
       <p>
         У вас пока нет рейтингов. Создайте свой первый рейтинг прямо сейчас!
       </p>

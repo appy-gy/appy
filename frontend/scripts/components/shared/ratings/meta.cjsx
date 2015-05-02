@@ -5,15 +5,12 @@ React = require 'react/addons'
 Meta = React.createClass
   displayName: 'Meta'
 
-  propTypes:
-    block: PropTypes.string.isRequired
-
   contextTypes:
+    block: PropTypes.string.isRequired
     rating: PropTypes.object.isRequired
 
   render: ->
-    {block} = @props
-    {rating} = @context
+    {block, rating} = @context
 
     <div className="#{block}_meta">
       <div className="#{block}_item ">

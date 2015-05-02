@@ -24,11 +24,12 @@ Rating = React.createClass
 
   childContextTypes:
     rating: PropTypes.object.isRequired
+    block: PropTypes.string.isRequired
 
   getChildContext: ->
     {rating} = @props
 
-    { rating }
+    { rating, block: 'rating' }
 
   createRatingItem: ->
     {ratingId} = @props
@@ -49,7 +50,7 @@ Rating = React.createClass
 
     <Layout header="rating">
       <header className="rating_header">
-        <Meta rating={rating} block="rating"/>
+        <Meta rating={rating}/>
         <div className="image-selector">
           <div className="image-selector_icon"></div>
           <div className="image-select_text">Загрузить изображение</div>

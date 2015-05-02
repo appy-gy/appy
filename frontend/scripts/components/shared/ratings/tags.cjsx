@@ -11,6 +11,8 @@ Tags = React.createClass
 
   propTypes:
     tags: PropTypes.arrayOf(PropTypes.object).isRequired
+
+  contextTypes:
     block: PropTypes.string.isRequired
 
   tags: ->
@@ -20,7 +22,7 @@ Tags = React.createClass
       <Tag key={tag.id} tag={tag}/>
 
   render: ->
-    {block} = @props
+    {block} = @context
 
     <div className="#{block}_tags tags">
       {@tags()}
