@@ -27,9 +27,7 @@ module Api
       private
 
       def rating_item_params
-        fields = %i{title description position}
-        fields << :id if action_name == 'create'
-        params.require(:rating_item).permit(*fields)
+        params.require(:rating_item).permit(:title, :description, :position)
       end
     end
   end
