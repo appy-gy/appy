@@ -28,12 +28,12 @@ ObjectDescription = React.createClass
   changeDescription: (event) ->
     {object, actionCreator} = @props
 
-    actionCreator.change object, description: event.target.value
+    actionCreator.change object.id, description: event.target.value
 
   updateDescription: ->
     {object, actionCreator} = @props
 
-    actionCreator.save object, description: object.description
+    actionCreator.update object.id, description: object.description
     @stopEdit()
 
   descriptionView: ->

@@ -1,6 +1,5 @@
 Marty = require 'marty'
 autoDispatch = require 'marty/autoDispatch'
-findInStore = require '../helpers/find_in_store'
 RatingConstants = require '../constants/ratings'
 RatingsApi = require '../state_sources/ratings'
 RatingsStore = require '../stores/ratings'
@@ -14,27 +13,23 @@ class RatingActionCreators extends Marty.ActionCreators
   create: ->
     RatingsApi.create()
 
-  change: (ratingOrId, changes) ->
-    rating = findInStore RatingsStore, ratingOrId
-    @dispatch RatingConstants.CHANGE_RATING, rating, changes
+  change: (ratingId, changes) ->
+    @dispatch RatingConstants.CHANGE_RATING, ratingId, changes
 
-  save: (ratingOrId, changes) ->
-    rating = findInStore RatingsStore, ratingOrId
-    RatingsApi.update(rating.id, changes).then ({body}) =>
+  update: (ratingId, changes) ->
+    RatingsApi.update(ratingId, changes).then ({body}) =>
       return unless body?
       rating = new Rating body.rating
       @dispatch RatingConstants.REPLACE_RATING, rating
 
-  addTag: (ratingOrId, name) ->
-    rating = findInStore RatingsStore, ratingOrId
+  addTag: (ratingId, name) ->
     tag = new Tag { name }
-    @dispatch RatingConstants.ADD_TAG_TO_RATING, rating, tag
-    TagsApi.for(@).addToRating rating.id, name
+    @dispatch RatingConstants.ADD_TAG_TO_RATING, ratingId, tag
+    TagsApi.for(@).addToRating ratingId, name
 
-  removeTag: (ratingOrId, name) ->
-    rating = findInStore RatingsStore, ratingOrId
+  removeTag: (ratingId, name) ->
     tag = new Tag { name }
-    @dispatch RatingConstants.REMOVE_TAG_FROM_RATING, rating, tag
-    TagsApi.for(@).removeFromRating rating.id, name
+    @dispatch RatingConstants.REMOVE_TAG_FROM_RATING, ratingId, tag
+    TagsApi.for(@).removeFromRating ratingId, name
 
 module.exports = Marty.register RatingActionCreators

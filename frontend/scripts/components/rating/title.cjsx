@@ -28,12 +28,12 @@ ObjectTitle = React.createClass
   changeTitle: (event) ->
     {object, actionCreator} = @props
 
-    actionCreator.change object, title: event.target.value
+    actionCreator.change object.id, title: event.target.value
 
   updateTitle: ->
     {object, actionCreator} = @props
 
-    actionCreator.save object, title: object.title
+    actionCreator.update object.id, title: object.title
     @stopEdit()
 
   titleView: ->

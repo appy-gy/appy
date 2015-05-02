@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Main = require './main'
 CommonHeader = require './header/common'
+RatingHeader = require './header/rating'
 Popups = require './popups/popups'
 
 {PropTypes} = React
@@ -14,6 +15,7 @@ Layout = React.createClass
 
   headers:
     common: CommonHeader
+    rating: RatingHeader
 
   getDefaultProps: ->
     header: 'common'

@@ -12,7 +12,7 @@ Meta = require '../shared/ratings/meta'
 RatingsStore = require '../../stores/ratings'
 RatingItemsStore = require '../../stores/rating_items'
 RatingActionCreators = require '../../action_creators/ratings'
-RatingItemsActionCreator = require '../../action_creators/rating_items'
+RatingItemActionCreators = require '../../action_creators/rating_items'
 
 {PropTypes} = React
 
@@ -30,21 +30,24 @@ Rating = React.createClass
 
     { rating }
 
-  newRatingItem: ->
+  createRatingItem: ->
     {ratingId} = @props
 
-    RatingItemsActionCreator.new(ratingId)
+    RatingItemActionCreators.create ratingId
 
   ratingItems: ->
     {ratingItems} = @props
 
-    ratingItems.map (ratingItem) ->
-      <RatingItem key={ratingItem.id || ratingItem.cid} ratingItem={ratingItem}/>
+    _ ratingItems
+      .sortBy 'position'
+      .map (ratingItem) ->
+        <RatingItem key={ratingItem.id} ratingItem={ratingItem}/>
+      .value()
 
   rating: ->
     {rating} = @props
 
-    <Layout>
+    <Layout header="rating">
       <header className="rating_header">
         <Meta rating={rating} block="rating"/>
         <div className="image-selector">
@@ -63,7 +66,7 @@ Rating = React.createClass
       <a href="/" className="rating_author">
         {rating.user.name}
       </a>
-      <h1 onClick={@newRatingItem}>New</h1>
+      <h1 onClick={@createRatingItem}>New</h1>
       <div className="rating_line"></div>
       {@ratingItems()}
       <div className="rating_line"></div>
@@ -99,5 +102,5 @@ module.exports = Marty.createContainer Rating,
   fetch: ->
     {ratingId} = @props
 
-    rating: RatingsStore.for(@).get ratingId
+    rating: RatingsStore.for(@).get(ratingId)
     ratingItems: RatingItemsStore.for(@).getForRating(ratingId)

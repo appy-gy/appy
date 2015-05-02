@@ -14,7 +14,7 @@ SectionsSelect = React.createClass
   updateSection: (event) ->
     {object, actionCreator} = @props
 
-    actionCreator.save object, sectionId: event.target.value
+    actionCreator.update object.id, sectionId: event.target.value
 
   sections: ->
     {sections} = @props

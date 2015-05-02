@@ -18,6 +18,7 @@ class RatingItemsStore extends Marty.Store
       change: RatingItemConstants.CHANGE_RATING_ITEM
       replace: RatingItemConstants.REPLACE_RATING_ITEM
       append: RatingItemConstants.APPEND_RATING_ITEMS
+      changePositions: RatingItemConstants.CHANGE_RATING_ITEM_POSITIONS
 
   rehydrate: (state) ->
     ratingItems = state.map (ratingItem) -> new RatingItem ratingItem
@@ -30,12 +31,12 @@ class RatingItemsStore extends Marty.Store
       id: id
       locally: ->
         return unless @hasAlreadyFetched id
-        @state
+        @state.filter (ratingItem) -> ratingItem.ratingId == ratingId
       remotely: ->
         RatingItemQueries.for(@).getForRating(ratingId)
 
-  change: (ratingItemOrId, changes) ->
-    ratingItem = findInStore @, ratingItemOrId
+  change: (ratingItemId, changes) ->
+    ratingItem = findInStore @, ratingItemId
     return unless ratingItem?
     ratingItem.update changes
     @hasChanged()
@@ -47,5 +48,11 @@ class RatingItemsStore extends Marty.Store
 
   append: (ratingItems) ->
     @state = update @state, $push: toArray(ratingItems)
+
+  changePositions: (positions) ->
+    @state.each (ratingItem) ->
+      position = positions[ratingItem.id]
+      ratingItem.position = position if position?
+    @hasChanged()
 
 module.exports = Marty.register RatingItemsStore

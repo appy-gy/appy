@@ -55,8 +55,8 @@ class RatingsStore extends Marty.Store
       remotely: ->
         RatingQueries.for(@).get(id)
 
-  change: (ratingOrId, changes) ->
-    rating = findInStore @, ratingOrId
+  change: (ratingId, changes) ->
+    rating = findInStore @, ratingId
     return unless rating?
     rating.update changes
     @hasChanged()
@@ -69,11 +69,13 @@ class RatingsStore extends Marty.Store
   append: (ratings) ->
     @state = update @state, $push: toArray(ratings)
 
-  addTag: (rating, tag) ->
+  addTag: (ratingId, tag) ->
+    rating = findInStore @, ratingId
     rating.tags.push tag
     @hasChanged()
 
-  removeTag: (rating, tag) ->
+  removeTag: (ratingId, tag) ->
+    rating = findInStore @, ratingId
     _.remove rating.tags, (t) -> t.name == tag.name
     @hasChanged()
 

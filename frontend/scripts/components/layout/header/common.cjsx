@@ -9,7 +9,6 @@ CommonHeader = React.createClass
   displayName: 'CommonHeader'
 
   render: ->
-    console.log 'render header'
     <Header>
       <Logo/>
       <Auth/>

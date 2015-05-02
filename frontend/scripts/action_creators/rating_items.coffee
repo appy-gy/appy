@@ -1,6 +1,5 @@
 _ = require 'lodash'
 Marty = require 'marty'
-autoDispatch = require 'marty/autoDispatch'
 findInStore = require '../helpers/find_in_store'
 RatingItemConstants = require '../constants/rating_items'
 RatingItemsApi = require '../state_sources/rating_items'
@@ -8,30 +7,47 @@ RatingItemsStore = require '../stores/rating_items'
 RatingItem = require '../models/rating_item'
 
 class RatingItemActionCreators extends Marty.ActionCreators
-  append: autoDispatch RatingItemConstants.APPEND_RATING_ITEMS
+  create: (ratingId) ->
+    @getRatingItemsFor ratingId, (ratingItems) =>
+      position = (_.max(ratingItems, 'position')?.position or 0) + 1
+      data = { ratingId, position }
 
-  new: (ratingId) ->
-    ratingItems = RatingItemsStore.getState()
-    position = (_.max(ratingItems, 'position')?.position or 0) + 1
+      RatingItemsApi.create(ratingId, data).then ({body}) =>
+        return unless body?
+        ratingItem = new RatingItem body.rating_item
+        @dispatch RatingItemConstants.APPEND_RATING_ITEMS, ratingItem
 
-    ratingItem =  new RatingItem { ratingId, position }
-    @dispatch RatingItemConstants.APPEND_RATING_ITEMS, ratingItem
+  change: (ratingItemId, changes) ->
+    @dispatch RatingItemConstants.CHANGE_RATING_ITEM, ratingItemId, changes
 
-  change: (ratingItemOrId, changes) ->
-    ratingItem = findInStore RatingItemsStore, ratingItemOrId
-    @dispatch RatingItemConstants.CHANGE_RATING_ITEM, ratingItem, changes
+  update: (ratingItemId, changes) ->
+    ratingItem = findInStore RatingItemsStore, ratingItemId
 
-  save: (ratingItemOrId, changes) ->
-    ratingItem = findInStore RatingItemsStore, ratingItemOrId
-    method = if ratingItem.isPersisted() then 'update' else 'create'
-    ids = [ratingItem.ratingId]
-    ids.unshift ratingItem.id if ratingItem.isPersisted()
-    _.merge changes, _.pick(ratingItem, 'position') if ratingItem.isNewRecord()
-
-    RatingItemsApi[method](ids..., changes).then ({body}) =>
+    RatingItemsApi.update(ratingItem.id, ratingItem.ratingId, changes).then ({body}) =>
       return unless body?
-      newRatingItem = new RatingItem body.rating_item
-      newRatingItem.cid = ratingItem.cid
-      @dispatch RatingItemConstants.REPLACE_RATING_ITEM, newRatingItem
+      ratingItem = new RatingItem body.rating_item
+      @dispatch RatingItemConstants.REPLACE_RATING_ITEM, ratingItem
+
+  updatePosition: (ratingItemId, newPosition) ->
+    ratingItem = findInStore RatingItemsStore, ratingItemId
+    @getRatingItemsFor ratingItem.ratingId, (ratingItems) =>
+      max = _.max(ratingItems, 'position').position
+      return unless 0 <= newPosition <= max
+
+      ratingItems = _.without ratingItems, ratingItem
+      index = _.findIndex ratingItems, (item) -> item.position == newPosition
+      index += 1 if ratingItem.position < newPosition
+      ratingItems.splice index, 0, ratingItem
+
+      positions = _.transform ratingItems, (result, ratingItem, index) ->
+        result[ratingItem.id] = index
+      , {}
+
+      RatingItemsApi.updatePositions(ratingItem.ratingId, positions).then ({body}) =>
+        return unless body?
+        @dispatch RatingItemConstants.CHANGE_RATING_ITEM_POSITIONS, body.positions
+
+  getRatingItemsFor: (ratingId, cb) ->
+    RatingItemsStore.getForRating(ratingId).toPromise().then(cb)
 
 module.exports = Marty.register RatingItemActionCreators

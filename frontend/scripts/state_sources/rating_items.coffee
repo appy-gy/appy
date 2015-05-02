@@ -5,9 +5,13 @@ toFormData = require '../helpers/to_form_data'
 class RatingItemsApi extends Marty.HttpStateSource
   baseUrl: '/api/private/ratings'
 
-  create: (ratingId, changes) ->
+  loadForRating: (ratingId) ->
     url = "#{ratingId}/rating_items"
-    body = toFormData rating_item: snakecaseKeys(changes)
+    @get url
+
+  create: (ratingId, data) ->
+    url = "#{ratingId}/rating_items"
+    body = toFormData rating_item: snakecaseKeys(data)
     @post { url, body }
 
   update: (id, ratingId, changes) ->
@@ -15,8 +19,9 @@ class RatingItemsApi extends Marty.HttpStateSource
     body = toFormData rating_item: snakecaseKeys(changes)
     @put { url, body }
 
-  loadForRating: (ratingId) ->
-    url = "#{ratingId}/rating_items"
-    @get url
+  updatePositions: (ratingId, positions) ->
+    url = "#{ratingId}/rating_items/positions"
+    body = { positions }
+    @put { url, body }
 
 module.exports = Marty.register RatingItemsApi
