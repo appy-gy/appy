@@ -89,6 +89,7 @@ Rating = React.createClass
           <div className="rating-share_text">Твитнуть</div>
         </div>
       </div>
+      <Comments/>
     </Layout>
 
   render: ->
