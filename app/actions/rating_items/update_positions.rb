@@ -8,11 +8,18 @@ module RatingItems
     end
 
     def call
-      rating.items.each_with_object({}) do |rating_item, new_positions|
-        position = positions[rating_item.id]
-        rating_item.update position: position
-        new_positions[rating_item.id] = rating_item.position
-      end
+      Queries::BulkUpdate.new(RatingItem, changes).call
+      RatingItem.where(id: ids).pluck(:id, :position).to_h
+    end
+
+    private
+
+    def changes
+      positions.transform_values { |position| { position: position } }
+    end
+
+    def ids
+      positions.keys
     end
   end
 end
