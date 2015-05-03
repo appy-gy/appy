@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 Preview = require '../shared/ratings/preview'
+CreateRating = require '../shared/ratings/create'
 RatingsStore = require '../../stores/ratings'
 
 {PropTypes} = React
@@ -28,11 +29,14 @@ Ratings = React.createClass
     {ratings} = @props
 
     <div>
-      <h2 className="user-profile_tab-header">Ваши рейтинги<span> (34)</span></h2>
+      <h2 className="user-profile_tab-header">
+        Ваши рейтинги
+        <span> ({ratings.length})</span>
+      </h2>
       {@noRatings()}
-      <a href='/' className="user-profile_tab-button">
+      <CreateRating className="user-profile_tab-button">
         Создать рейтинг
-      </a>
+      </CreateRating>
       {@ratings()}
     </div>
 

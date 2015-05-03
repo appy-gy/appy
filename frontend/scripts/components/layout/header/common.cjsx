@@ -3,7 +3,7 @@ Header = require './header'
 Logo = require './logo'
 Navigation = require './navigation'
 Auth = require './auth'
-CreateRating = require './create_rating'
+CreateRatingButton = require './create_rating_button'
 
 CommonHeader = React.createClass
   displayName: 'CommonHeader'
@@ -12,7 +12,7 @@ CommonHeader = React.createClass
     <Header>
       <Logo/>
       <Auth/>
-      <CreateRating/>
+      <CreateRatingButton/>
       <Navigation/>
     </Header>
 
