@@ -2,7 +2,7 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 CommentsTree = require './comments_tree'
-CommentForm = require './comment_form'
+CommentForm = require '../shared/comments/form'
 CommentsStore = require '../../stores/comments'
 CommentTreesBuilder = require '../../helpers/comments/trees_builder'
 

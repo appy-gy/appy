@@ -1,12 +1,12 @@
 React = require 'react/addons'
 Marty = require 'marty'
 Textarea = require 'react-textarea-autosize'
-CommentActionCreators = require '../../action_creators/comments'
-CurrentUserStore = require '../../stores/current_user'
+CommentActionCreators = require '../../../action_creators/comments'
+CurrentUserStore = require '../../../stores/current_user'
 
 {PropTypes} = React
 
-CommentForm = React.createClass
+Form = React.createClass
   displayName: 'CommentForm'
 
   propTypes:
@@ -48,7 +48,7 @@ CommentForm = React.createClass
       <Textarea className="comment_textarea" value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
     </div>
 
-module.exports = Marty.createContainer CommentForm,
+module.exports = Marty.createContainer Form,
   listenTo: CurrentUserStore
 
   fetch: ->

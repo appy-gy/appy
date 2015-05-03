@@ -7,6 +7,9 @@ class CommentsApi extends Marty.HttpStateSource
   loadForRating: (ratingId) ->
     @get "ratings/#{ratingId}/comments"
 
+  loadForUser: (userId) ->
+    @get "users/#{userId}/comments"
+
   create: (ratingId, data) ->
     url = "ratings/#{ratingId}/comments"
     body = comment: snakecaseKeys(data)

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :sections, only: [:index]
       resources :users, module: :users, only: [:show, :create, :update] do
         resources :ratings, only: [:index]
+        resources :comments, only: [:index]
       end
       resources :ratings, module: :ratings, only: [:index, :show, :update, :create] do
         resource :tags, only: [:create, :destroy]

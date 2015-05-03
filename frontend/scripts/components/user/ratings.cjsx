@@ -10,6 +10,9 @@ RatingsStore = require '../../stores/ratings'
 Ratings = React.createClass
   displayName: 'Ratings'
 
+  propTypes:
+    ratings: PropTypes.arrayOf(PropTypes.object).isRequired
+
   noRatings: ->
     {ratings} = @props
 
@@ -30,8 +33,7 @@ Ratings = React.createClass
 
     <div>
       <h2 className="user-profile_tab-header">
-        Ваши рейтинги
-        <span> ({ratings.length})</span>
+        Ваши рейтинги ({ratings.length})
       </h2>
       {@noRatings()}
       <CreateRating className="user-profile_tab-button">

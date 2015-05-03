@@ -1,6 +1,6 @@
 React = require 'react/addons'
-CommentActions = require './comment_actions'
-UserLink = require '../shared/links/user'
+Actions = require './actions'
+UserLink = require '../links/user'
 
 {PropTypes} = React
 
@@ -36,7 +36,7 @@ Comment = React.createClass
           {comment.createdAt.fromNow()}
         </div>
       </div>
-      <CommentActions/>
+      <Actions/>
     </div>
 
 module.exports = Comment

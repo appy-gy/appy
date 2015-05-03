@@ -1,9 +1,9 @@
 React = require 'react/addons'
-CommentForm = require './comment_form'
+Form = require './form'
 
 {PropTypes} = React
 
-CommentActions = React.createClass
+Actions = React.createClass
   displayName: 'CommentActions'
 
   contextTypes:
@@ -23,7 +23,7 @@ CommentActions = React.createClass
 
     return unless showForm
 
-    <CommentForm parent={comment}/>
+    <Form parent={comment}/>
 
   render: ->
     <div className="comment_actions">
@@ -33,4 +33,4 @@ CommentActions = React.createClass
       {@form()}
     </div>
 
-module.exports = CommentActions
+module.exports = Actions

@@ -1,6 +1,6 @@
 React = require 'react/addons'
 classNames = require 'classnames'
-Comment = require './comment'
+Comment = require '../shared/comments/comment'
 
 {PropTypes} = React
 

@@ -6,6 +6,7 @@ Name = require './name'
 SocialButtons = require './social_buttons'
 EditButtons = require './edit_buttons'
 Ratings = require './ratings'
+Comments = require './comments'
 Layout = require '../layout/layout'
 Tabs = require '../shared/tabs/tabs'
 Tab = require '../shared/tabs/tab'
@@ -70,7 +71,7 @@ User = React.createClass
             <Ratings/>
           </Tab>
           <Tab key="comments" id="comments" title="Комментарии">
-            <h2 className="user-profile_tab-title">Ваши комментарии<span> (323424)</span></h2>
+            <Comments/>
           </Tab>
         </Tabs>
       </div>
