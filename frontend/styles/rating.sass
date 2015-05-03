@@ -1,6 +1,5 @@
 .rating
   +rating-meta
-
   width: 100%
   border: 1px solid #f2f2f2
   background: white
@@ -41,68 +40,7 @@
       left: -10px
 
   .rating-like
-    position: relative
-    width: 120px
-    margin: 120px auto
-    cursor: pointer
-
-    &_burst-1
-      background: $blue
-      width: 120px
-      height: 120px
-      position: relative
-      text-align: center
-
-      &:after, &:before
-        content: ""
-        position: absolute
-        top: 0
-        left: 0
-        height: 120px
-        width: 120px
-        background: $blue
-
-      &:before
-        transform: rotate(30deg)
-
-      &:after
-        transform: rotate(60deg)
-
-    &_burst-2
-      background: $blue
-      width: 120px
-      height: 120px
-      position: absolute
-      top: 0
-      left: 0
-      text-align: center
-      transform: rotate(15deg)
-
-      &:after, &:before
-        content: ""
-        position: absolute
-        top: 0
-        left: 0
-        height: 120px
-        width: 120px
-        background: $blue
-
-      &:before
-        transform: rotate(30deg)
-
-      &:after
-        transform: rotate(60deg)
-
-    &_content
-      position: absolute
-      top: 0
-      left: 0
-      width: 120px
-      height: 120px
-      color: white
-      font-size: 90px
-      line-height: 120px
-      text-align: center
+    +like-burst(120px)
 
   &_title-wrapper
     width: 90%

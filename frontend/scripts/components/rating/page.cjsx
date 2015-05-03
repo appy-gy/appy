@@ -6,6 +6,7 @@ Description = require './description'
 SectionsSelect = require './sections_select'
 TagsSelect = require './tags_select'
 RatingItem = require './rating_item'
+Like = require './like'
 Comments = require './comments'
 Layout = require '../layout/layout'
 Meta = require '../shared/ratings/meta'
@@ -71,11 +72,7 @@ Rating = React.createClass
       <div className="rating_line"></div>
       {@ratingItems()}
       <div className="rating_line"></div>
-      <div className="rating-like">
-        <div className="rating-like_burst-1"></div>
-        <div className="rating-like_burst-2"></div>
-        <div className="rating-like_content ion-thumbsup"></div>
-      </div>
+      <Like/>
       <div className="rating-share">
         <div className="rating-share_button facebook">
           <div className="rating-share_icon ion-social-facebook"></div>

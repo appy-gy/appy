@@ -13,6 +13,7 @@ Rails.application.routes.draw do
           put :positions, on: :collection
         end
         resources :comments, only: [:index, :create]
+        resources :likes, only: [:create]
       end
       resources :header_sections, only: [:index]
       resources :tags, only: [:index]

@@ -1,0 +1,45 @@
+=like-burst-item($size)
+  position: absolute
+  top: 0
+  left: 0
+  width: $size
+  height: $size
+  text-align: center
+
+=like-subburst($size)
+  +like-burst-item($size)
+  background: $blue
+
+  &:before, &:after
+    +like-burst-item($size)
+    content: ""
+    background: $blue
+
+  &:before
+    transform: rotate(30deg)
+
+  &:after
+    transform: rotate(60deg)
+
+=like-burst($size)
+  cursor: pointer
+  position: relative
+  margin: $size auto
+  width: $size
+  height: $size
+
+  &-burst-1
+    +like-subburst($size)
+
+  &-burst-2
+    +like-subburst($size)
+    transform: rotate(15deg)
+
+  &-content
+    +like-burst-item($size)
+
+    &:before
+      +ion-icon("thumbsup")
+      color: white
+      font-size: 90px
+      line-height: $size

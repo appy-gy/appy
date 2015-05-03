@@ -6,6 +6,7 @@ RatingsStore = require '../stores/ratings'
 Rating = require '../models/rating'
 TagsApi = require '../state_sources/tags'
 Tag = require '../models/tag'
+LikesApi = require '../state_sources/likes'
 
 class RatingActionCreators extends Marty.ActionCreators
   append: autoDispatch RatingConstants.APPEND_RATINGS
@@ -31,5 +32,11 @@ class RatingActionCreators extends Marty.ActionCreators
     tag = new Tag { name }
     @dispatch RatingConstants.REMOVE_TAG_FROM_RATING, ratingId, tag
     TagsApi.for(@).removeFromRating ratingId, name
+
+  like: (ratingId) ->
+    LikesApi.create(ratingId).then ({body}) =>
+      return unless body?
+      likesCount = body.likes_count
+      @dispatch RatingConstants.CHANGE_RATING, ratingId, { likesCount }
 
 module.exports = Marty.register RatingActionCreators
