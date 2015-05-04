@@ -5,6 +5,7 @@ Header = require './header'
 Description = require './description'
 RatingItem = require './rating_item'
 Like = require './like'
+ShareButtons = require './share_buttons'
 RatingsStore = require '../../stores/ratings'
 RatingItemsStore = require '../../stores/rating_items'
 RatingActionCreators = require '../../action_creators/ratings'
@@ -58,20 +59,7 @@ Rating = React.createClass
       {@ratingItems()}
       <div className="rating_line"></div>
       <Like/>
-      <div className="rating-share">
-        <div className="rating-share_button facebook">
-          <div className="rating-share_icon ion-social-facebook"></div>
-          <div className="rating-share_text">Нравится</div>
-        </div>
-        <div className="rating-share_button vk">
-          <div className="rating-share_icon"></div>
-          <div className="rating-share_text">Поделиться</div>
-        </div>
-        <div className="rating-share_button twitter">
-          <div className="rating-share_icon ion-social-twitter"></div>
-          <div className="rating-share_text">Твитнуть</div>
-        </div>
-      </div>
+      <ShareButtons/>
     </article>
 
 module.exports = Marty.createContainer Rating,
