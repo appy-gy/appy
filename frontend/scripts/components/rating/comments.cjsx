@@ -31,11 +31,11 @@ Comments = React.createClass
 
 module.exports = Marty.createContainer Comments,
   contextTypes:
-    rating: PropTypes.object.isRequired
+    ratingId: PropTypes.string.isRequired
 
   listenTo: CommentsStore
 
   fetch: ->
-    {rating} = @context
+    {ratingId} = @context
 
-    comments: CommentsStore.for(@).getForRating(rating.id)
+    comments: CommentsStore.for(@).getForRating(ratingId)

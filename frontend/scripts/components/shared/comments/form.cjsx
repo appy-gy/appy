@@ -13,7 +13,7 @@ Form = React.createClass
     parent: PropTypes.object
 
   contextTypes:
-    rating: PropTypes.object.isRequired
+    ratingId: PropTypes.string.isRequired
 
   getDefaultProps: ->
     parent: null
@@ -33,15 +33,14 @@ Form = React.createClass
   createComment: ->
     {parent} = @props
     {body} = @state
-    {rating} = @context
+    {ratingId} = @context
 
-    CommentActionCreators.create rating.id, { body, parentId: parent?.id }
+    CommentActionCreators.create ratingId, { body, parentId: parent?.id }
       .then => @setState body: ''
 
   render: ->
     {user} = @props
     {body} = @state
-    {rating} = @context
 
     <div className="comment-form">
       <img className="comment_userface" src={user.avatarUrl 'small'}/>
