@@ -2,6 +2,7 @@ module Api
   module Private
     class UsersController < BaseController
       find :user, only: [:show, :update]
+      check 'Users::CanEdit', :@user, only: [:update]
 
       def show
         render json: @user, serializer: UserForProfileSerializer
@@ -14,7 +15,6 @@ module Api
       end
 
       def update
-        return render nothing: true, status: 400 unless policy.edit?
         user = ::Users::Update.new(@user, user_params).call
         render json: user, serializer: UserForProfileSerializer
       end
@@ -24,10 +24,6 @@ module Api
       def user_params
         params.require(:user).permit(:email, :password, :name, :avatar,
           :facebook_link, :instagram_link)
-      end
-
-      def policy
-        @policy ||= UserPolicy.new current_user, @user
       end
     end
   end
