@@ -7,6 +7,8 @@ RatingItemsStore = require '../stores/rating_items'
 RatingItem = require '../models/rating_item'
 
 class RatingItemActionCreators extends Marty.ActionCreators
+  @id: 'RatingItemActionCreators'
+
   create: (ratingId) ->
     @getRatingItemsFor ratingId, (ratingItems) =>
       position = (_.max(ratingItems, 'position')?.position or 0) + 1

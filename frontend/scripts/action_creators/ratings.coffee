@@ -9,6 +9,8 @@ Tag = require '../models/tag'
 LikesApi = require '../state_sources/likes'
 
 class RatingActionCreators extends Marty.ActionCreators
+  @id: 'RatingActionCreators'
+
   append: autoDispatch RatingConstants.APPEND_RATINGS
 
   create: ->

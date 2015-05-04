@@ -4,6 +4,8 @@ HeaderSectionQueries = require '../queries/header_sections'
 Section = require '../models/section'
 
 class HeaderSectionsStore extends Marty.Store
+  @id: 'HeaderSectionsStore'
+
   constructor: ->
     super
     @state = []

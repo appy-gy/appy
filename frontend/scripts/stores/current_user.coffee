@@ -4,6 +4,8 @@ CurrentUserQueries = require '../queries/current_user'
 User = require '../models/user'
 
 class CurrentUserStore extends Marty.Store
+  @id: 'CurrentUserStore'
+
   constructor: ->
     super
     @state = new User

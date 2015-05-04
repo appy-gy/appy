@@ -1,6 +1,8 @@
 Marty = require 'marty'
 
 class LikesApi extends Marty.HttpStateSource
+  @id: 'LikesApi'
+
   baseUrl: '/api/private'
 
   create: (ratingId) ->

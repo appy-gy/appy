@@ -5,6 +5,8 @@ CurrentUserApi = require '../state_sources/current_user'
 User = require '../models/user'
 
 class CurrentUserActionCreators extends Marty.ActionCreators
+  @id: 'CurrentUserActionCreators'
+
   set: autoDispatch CurrentUserConstants.SET_CURRENT_USER
 
   logIn: (data) ->

@@ -7,6 +7,8 @@ PopupConstants = require '../constants/popups'
 {update} = React.addons
 
 class PopupsStore extends Marty.Store
+  @id: 'PopupsStore'
+
   constructor: ->
     super
     @state = []

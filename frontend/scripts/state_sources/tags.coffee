@@ -2,6 +2,8 @@ Marty = require 'marty'
 Qs = require 'qs'
 
 class TagsApi extends Marty.HttpStateSource
+  @id: 'TagsApi'
+
   baseUrl: '/api/private'
 
   autocomplete: (query) ->

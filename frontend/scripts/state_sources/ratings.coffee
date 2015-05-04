@@ -3,6 +3,8 @@ snakecaseKeys = require '../helpers/snakecase_keys'
 toFormData = require '../helpers/to_form_data'
 
 class RatingsApi extends Marty.HttpStateSource
+  @id: 'RatingsApi'
+
   baseUrl: '/api/private'
 
   loadPage: (page) ->

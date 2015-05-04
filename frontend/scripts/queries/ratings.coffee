@@ -4,6 +4,8 @@ RatingsApi = require '../state_sources/ratings'
 Rating = require '../models/rating'
 
 class RatingQueries extends Marty.Queries
+  @id: 'RatingQueries'
+
   getPage: (page) ->
     RatingsApi.for(@).loadPage(page).then ({body}) =>
       return unless body?

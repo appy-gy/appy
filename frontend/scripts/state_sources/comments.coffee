@@ -2,6 +2,8 @@ Marty = require 'marty'
 snakecaseKeys = require '../helpers/snakecase_keys'
 
 class CommentsApi extends Marty.HttpStateSource
+  @id: 'CommentsApi'
+
   baseUrl: '/api/private'
 
   loadForRating: (ratingId) ->

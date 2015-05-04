@@ -1,6 +1,8 @@
 Marty = require 'marty'
 
 class SectionsApi extends Marty.HttpStateSource
+  @id: 'SectionsApi'
+
   baseUrl: '/api/private/sections'
 
   loadAll: (page) ->

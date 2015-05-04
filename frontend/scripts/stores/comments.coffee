@@ -8,6 +8,8 @@ Comment = require '../models/comment'
 {update} = React.addons
 
 class CommentsStore extends Marty.Store
+  @id: 'CommentsStore'
+
   constructor: ->
     super
     @state = []

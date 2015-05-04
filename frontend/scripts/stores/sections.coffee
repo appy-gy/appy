@@ -9,6 +9,8 @@ Section = require '../models/section'
 {update} = React.addons
 
 class SectionsStore extends Marty.Store
+  @id: 'SectionsStore'
+
   constructor: ->
     super
     @state = []

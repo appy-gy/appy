@@ -11,6 +11,8 @@ RatingItemQueries = require '../queries/rating_items'
 {update} = React.addons
 
 class RatingItemsStore extends Marty.Store
+  @id: 'RatingItemsStore'
+
   constructor: ->
     super
     @state = []

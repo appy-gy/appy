@@ -4,6 +4,8 @@ CommentsApi = require '../state_sources/comments'
 Comment = require '../models/comment'
 
 class CommentQueries extends Marty.Queries
+  @id: 'CommentQueries'
+
   getForRating: (ratingId) ->
     CommentsApi.for(@).loadForRating(ratingId).then ({body}) =>
       return unless body?

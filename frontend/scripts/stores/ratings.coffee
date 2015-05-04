@@ -11,6 +11,8 @@ Rating = require '../models/rating'
 {update} = React.addons
 
 class RatingsStore extends Marty.Store
+  @id: 'RatingsStore'
+
   constructor: ->
     super
     @state = []

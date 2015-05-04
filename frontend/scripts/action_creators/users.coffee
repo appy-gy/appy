@@ -5,6 +5,8 @@ UsersApi = require '../state_sources/users'
 User = require '../models/user'
 
 class UserActionCreators extends Marty.ActionCreators
+  @id: 'UserActionCreators'
+
   append: autoDispatch UserConstants.APPEND_USERS
   change: autoDispatch UserConstants.CHANGE_USER
 

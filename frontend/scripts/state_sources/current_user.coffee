@@ -2,6 +2,8 @@ _ = require 'lodash'
 Marty = require 'marty'
 
 class CurrentUserApi extends Marty.HttpStateSource
+  @id: 'CurrentUserApi'
+
   baseUrl: '/api/private'
 
   load: ->
