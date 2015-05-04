@@ -3,7 +3,7 @@ module CheckPolicy
 
   class_methods do
     def check policy, *variables, **opts
-      CustomPolicyDefiner.new(self, policy, variables, opts).define
+      CheckPolicyDefiner.new(self, policy, variables, opts).define
     end
   end
 

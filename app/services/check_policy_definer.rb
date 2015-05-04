@@ -1,4 +1,4 @@
-class CustomPolicyDefiner
+class CheckPolicyDefiner
   attr_reader :controller, :policy, :variables, :opts
 
   def initialize controller, policy, variables, **opts
