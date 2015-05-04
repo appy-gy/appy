@@ -1,13 +1,10 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-Title = require './title'
+Header = require './header'
 Description = require './description'
-SectionsSelect = require './sections_select'
-TagsSelect = require './tags_select'
 RatingItem = require './rating_item'
 Like = require './like'
-Meta = require '../shared/ratings/meta'
 RatingsStore = require '../../stores/ratings'
 RatingItemsStore = require '../../stores/rating_items'
 RatingActionCreators = require '../../action_creators/ratings'
@@ -47,16 +44,7 @@ Rating = React.createClass
     {rating} = @props
 
     <article className="rating">
-      <header className="rating_header">
-        <Meta rating={rating}/>
-        <div className="image-selector">
-          <div className="image-selector_icon"></div>
-          <div className="image-select_text">Загрузить изображение</div>
-        </div>
-        <SectionsSelect object={rating} actionCreator={RatingActionCreators}/>
-        <TagsSelect/>
-        <Title object={rating} actionCreator={RatingActionCreators}/>
-      </header>
+      <Header/>
       <Description object={rating} actionCreator={RatingActionCreators}/>
       <div className="tags rating_tags">
         <span className="tag rating_tag">фантазия</span>

@@ -44,7 +44,7 @@ Preview = React.createClass
     classes = classNames 'preview', "m-#{mod}"
 
     <div className={classes}>
-      <Meta rating={rating}/>
+      <Meta/>
       <div className="preview_image"></div>
       <div className="preview_section-name">
         {@sectionName()}
