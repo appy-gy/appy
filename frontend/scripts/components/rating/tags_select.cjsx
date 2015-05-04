@@ -17,9 +17,8 @@ TagsSelect = React.createClass
       value: tag.name, label: tag.name
 
   loadOptions: (query, callback) ->
-    TagsApi.for(@).autocomplete query
-      .then ({body}) =>
-        callback null, options: @toOptions(body.tags)
+    TagsApi.for(@).autocomplete(query).then ({body}) =>
+      callback null, options: @toOptions(body.tags)
 
   value: ->
     {rating} = @context
@@ -34,6 +33,6 @@ TagsSelect = React.createClass
     RatingActionCreators["#{action}Tag"] rating, name
 
   render: ->
-    <Select multi={true} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} onChange={@updateTags}/>
+    <Select autoload={false} multi={true} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} onChange={@updateTags}/>
 
 module.exports = TagsSelect
