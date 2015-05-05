@@ -5,10 +5,9 @@ class SorceryExternal < ActiveRecord::Migration
 
       t.timestamps null: false
 
-      t.belongs_to :user, null: false
+      t.belongs_to :user, null: false, foreign_key: true
 
       t.index [:provider, :uid]
     end
-    add_foreign_key :authentications, :users
   end
 end

@@ -1,6 +1,5 @@
 class AddUserToRatings < ActiveRecord::Migration
   def change
-    add_belongs_to :ratings, :user, index: true
-    add_foreign_key :ratings, :users
+    add_belongs_to :ratings, :user, index: true, foreign_key: true
   end
 end
