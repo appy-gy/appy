@@ -16,7 +16,7 @@
     "lodash": "^3.7.0",
     "map-obj": "^1.0.0",
     "marty": "^0.9.7",
-    "marty-express": "martyjs/marty-express",
+    "marty-express": "^0.3.0",
     "moment": "^2.9.0",
     "node-uuid": "^1.4.3",
     "normalize.css": "^3.0.2",
