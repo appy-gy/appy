@@ -2,6 +2,7 @@ React = require 'react/addons'
 AuthPopup = require './auth_popup'
 CurrentUserActionCreators = require '../../action_creators/current_user'
 PopupActionCreators = require '../../action_creators/popups'
+Popup = require '../../models/popup'
 
 {PureRenderMixin} = React.addons
 
@@ -23,7 +24,7 @@ Login = React.createClass
     PopupActionCreators.remove @popup()
 
   popup: ->
-    @popupCache ||= <AuthPopup title="Вход" onSubmit={@logIn} onClose={@closePopup}/>
+    @popupCache ||= new Popup <AuthPopup title="Вход" onSubmit={@logIn} onClose={@closePopup}/>
 
   render: ->
     <div className="auth_login" onClick={@showPopup}>

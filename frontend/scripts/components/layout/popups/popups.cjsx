@@ -19,8 +19,8 @@ Popups = React.createClass
   popups: ->
     {popups} = @props
 
-    popups.map (popup, index) ->
-      <Popup key={index} popup={popup}/>
+    popups.map (popup) ->
+      <Popup key={popup.cid} popup={popup}/>
 
   render: ->
     {popups} = @props

@@ -15,7 +15,7 @@ Popup = React.createClass
     {popup} = @props
 
     <div className="popups_popup">
-      {popup}
+      {popup.content}
     </div>
 
 module.exports = Popup

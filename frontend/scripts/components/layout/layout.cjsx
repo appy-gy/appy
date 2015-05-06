@@ -3,6 +3,7 @@ Main = require './main'
 CommonHeader = require './header/common'
 RatingHeader = require './header/rating'
 Popups = require './popups/popups'
+Toastr = require './toastr/toastr'
 
 {PropTypes} = React
 
@@ -35,6 +36,7 @@ Layout = React.createClass
         {children}
       </Main>
       <Popups/>
+      <Toastr/>
     </div>
 
 module.exports = Layout
