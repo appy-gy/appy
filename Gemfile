@@ -37,6 +37,9 @@ gem 'httparty'
 # Procfile managment
 gem 'foreman'
 
+# I18n
+gem 'russian'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails'

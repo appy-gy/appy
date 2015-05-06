@@ -15,8 +15,8 @@ Login = React.createClass
 
   logIn: (data) ->
     CurrentUserActionCreators.logIn data
-      .then (user) =>
-        return @showFailToast() unless user?
+      .then ({error}) =>
+        return @showFailToast() if error?
         @closePopup()
 
   showPopup: ->

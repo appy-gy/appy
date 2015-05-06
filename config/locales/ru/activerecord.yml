@@ -1,0 +1,6 @@
+ru:
+  activerecord:
+    attributes:
+      user:
+        email: Email
+        password: Пароль

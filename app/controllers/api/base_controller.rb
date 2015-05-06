@@ -15,6 +15,7 @@ module Api
 
     include Sorcery::Controller
 
+    include RenderError
     include CustomFinder
     include CheckPolicy
 

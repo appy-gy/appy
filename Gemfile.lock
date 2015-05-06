@@ -195,6 +195,8 @@ GEM
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
     ruby-prof (0.15.3)
+    russian (0.6.0)
+      i18n (>= 0.5.0)
     slop (3.6.0)
     sorcery (0.9.1)
       bcrypt (~> 3.1)
@@ -248,6 +250,7 @@ DEPENDENCIES
   rails (= 4.2.1)
   rspec-rails
   ruby-prof
+  russian
   sorcery
   spring
   spring-commands-rspec

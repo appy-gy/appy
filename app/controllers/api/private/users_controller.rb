@@ -10,6 +10,7 @@ module Api
 
       def create
         user = ::Users::Create.new(user_params).call
+        return render_error user.errors unless user.persisted?
         auto_login user
         render json: user
       end
