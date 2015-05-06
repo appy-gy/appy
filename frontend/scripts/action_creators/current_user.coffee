@@ -10,8 +10,8 @@ class CurrentUserActionCreators extends Marty.ActionCreators
   set: autoDispatch CurrentUserConstants.SET_CURRENT_USER
 
   logIn: (data) ->
-    CurrentUserApi.logIn(data).then ({body}) =>
-      return unless body?
+    CurrentUserApi.logIn(data).then ({body, status}) =>
+      return if status == 400
       user = new User body.user
       @dispatch CurrentUserConstants.SET_CURRENT_USER, user
       user

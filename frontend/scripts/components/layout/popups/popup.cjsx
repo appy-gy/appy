@@ -9,7 +9,7 @@ Popup = React.createClass
   mixins: [PureRenderMixin]
 
   propTypes:
-    popup: PropTypes.node.isRequired
+    popup: PropTypes.object.isRequired
 
   render: ->
     {popup} = @props

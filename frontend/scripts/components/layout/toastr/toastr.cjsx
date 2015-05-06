@@ -15,7 +15,7 @@ Toastr = React.createClass
     {toasts} = @props
 
     toasts.map (toast) ->
-      <Toast key={toast.cid} toast={toast}
+      <Toast key={toast.cid} toast={toast}/>
 
   render: ->
     <div className="toastr">

@@ -7,7 +7,7 @@ module CheckPolicy
     end
   end
 
-  def render_error error
+  def render_error error = nil
     render json: error, status: 400
   end
 end
