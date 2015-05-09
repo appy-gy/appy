@@ -4,6 +4,7 @@ CommonHeader = require './header/common'
 RatingHeader = require './header/rating'
 Popups = require './popups/popups'
 Toastr = require './toastr/toastr'
+FbRoot = require './fb_root'
 
 {PropTypes} = React
 
@@ -37,6 +38,7 @@ Layout = React.createClass
       </Main>
       <Popups/>
       <Toastr/>
+      <FbRoot/>
     </div>
 
 module.exports = Layout
