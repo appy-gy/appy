@@ -1,4 +1,6 @@
 class Rating < ActiveRecord::Base
+  attr_accessor :like
+
   belongs_to :user
   belongs_to :section
   has_many :ratings_tags, dependent: :destroy

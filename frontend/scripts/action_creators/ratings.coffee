@@ -7,6 +7,7 @@ Rating = require '../models/rating'
 TagsApi = require '../state_sources/tags'
 Tag = require '../models/tag'
 LikesApi = require '../state_sources/likes'
+Like = require '../models/like'
 
 class RatingActionCreators extends Marty.ActionCreators
   @id: 'RatingActionCreators'
@@ -36,9 +37,10 @@ class RatingActionCreators extends Marty.ActionCreators
     TagsApi.for(@).removeFromRating ratingId, name
 
   like: (ratingId) ->
-    LikesApi.create(ratingId).then ({body}) =>
-      return unless body?
-      likesCount = body.likes_count
-      @dispatch RatingConstants.CHANGE_RATING, ratingId, { likesCount }
+    LikesApi.create(ratingId).then ({body, status}) =>
+      return if status == 400
+      like = new Like body.like
+      likesCount = body.meta.likes_count
+      @dispatch RatingConstants.CHANGE_RATING, ratingId, { like, likesCount }
 
 module.exports = Marty.register RatingActionCreators

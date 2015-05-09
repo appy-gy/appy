@@ -1,5 +1,5 @@
-module Likes
-  class Create
+module Ratings
+  class SetLike
     attr_reader :rating, :user
 
     def initialize rating, user
@@ -8,7 +8,7 @@ module Likes
     end
 
     def call
-      rating.likes.create user: user
+      @rating.like = rating.likes.of(user).first
     end
   end
 end

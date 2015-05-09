@@ -21,6 +21,10 @@
   &:after
     transform: rotate(60deg)
 
+  &.m-active
+    &, &:before, &:after
+      background: $blue-2
+
 =like-burst($size)
   cursor: pointer
   position: relative
@@ -28,11 +32,10 @@
   width: $size
   height: $size
 
-  &-burst-1
+  &-burst-1, &-burst-2
     +like-subburst($size)
 
   &-burst-2
-    +like-subburst($size)
     transform: rotate(15deg)
 
   &-content

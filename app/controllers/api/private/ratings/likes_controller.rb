@@ -5,8 +5,8 @@ module Api
         find :rating
 
         def create
-          likes_count = Likes::Create.new(@rating, current_user).call
-          render json: { likes_count: likes_count }
+          like = Likes::Create.new(@rating, current_user).call
+          render json: like, meta: { likes_count: like.rating.likes_count }
         end
       end
     end

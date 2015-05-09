@@ -4,4 +4,6 @@ class Like < ActiveRecord::Base
 
   validates :user, :rating, presence: true
   validates :user, uniqueness: { scope: :rating }
+
+  scope :of, -> user { where user: user }
 end

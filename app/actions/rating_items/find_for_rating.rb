@@ -20,7 +20,7 @@ module RatingItems
     end
 
     def votes
-      @votes ||= user.votes.for(items).group_by(&:rating_item_id)
+      @votes ||= user.votes.for(items).group_by(&:rating_item_id).transform_values(&:first)
     end
   end
 end
