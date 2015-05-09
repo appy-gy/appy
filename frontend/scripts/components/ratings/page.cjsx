@@ -50,3 +50,6 @@ module.exports = Marty.createContainer Ratings,
 
   fetch: ->
     ratings: RatingsStore.for(@).getPage()
+
+  pending: ->
+    @done ratings: []

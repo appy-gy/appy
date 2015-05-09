@@ -13,11 +13,12 @@ Tab = require '../shared/tabs/tab'
 Snapshot = require '../../helpers/snapshot'
 UserActionCreators = require '../../action_creators/users'
 UsersStore = require '../../stores/users'
+User = require '../../models/user'
 
 {PropTypes} = React
 {Link} = Router
 
-User = React.createClass
+UserPage = React.createClass
   displayName: 'User'
 
   childContextTypes:
@@ -77,10 +78,13 @@ User = React.createClass
       </div>
     </Layout>
 
-module.exports = Marty.createContainer User,
+module.exports = Marty.createContainer UserPage,
   listenTo: UsersStore
 
   fetch: ->
     {userId} = @props
 
     user: UsersStore.for(@).get(userId)
+
+  pending: ->
+    @done user: new User
