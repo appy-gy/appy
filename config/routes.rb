@@ -15,6 +15,9 @@ Rails.application.routes.draw do
         resources :comments, only: [:index, :create]
         resources :likes, only: [:create]
       end
+      resources :rating_items, module: :rating_items, only: [] do
+        resources :votes, only: [:create]
+      end
       resources :header_sections, only: [:index]
       resources :tags, only: [:index]
     end

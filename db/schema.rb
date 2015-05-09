@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150503184433) do
+ActiveRecord::Schema.define(version: 20150509102440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,17 @@ ActiveRecord::Schema.define(version: 20150503184433) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
 
+  create_table "votes", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.integer  "kind",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.uuid     "user_id",        null: false
+    t.uuid     "rating_item_id", null: false
+  end
+
+  add_index "votes", ["rating_item_id"], name: "index_votes_on_rating_item_id", using: :btree
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
+
   add_foreign_key "authentications", "users"
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "ratings"
@@ -126,4 +137,6 @@ ActiveRecord::Schema.define(version: 20150503184433) do
   add_foreign_key "ratings", "users"
   add_foreign_key "ratings_tags", "ratings"
   add_foreign_key "ratings_tags", "tags"
+  add_foreign_key "votes", "rating_items"
+  add_foreign_key "votes", "users"
 end

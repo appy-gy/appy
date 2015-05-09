@@ -5,22 +5,22 @@ module Api
       find :rating_item, only: [:update]
 
       def index
-        rating_items = RatingItems::FindForRating.new(@rating).call
+        rating_items = ::RatingItems::FindForRating.new(@rating, current_user).call
         render json: rating_items
       end
 
       def create
-        rating_item = RatingItems::Create.new(@rating, rating_item_params).call
+        rating_item = ::RatingItems::Create.new(@rating, rating_item_params).call
         render json: rating_item
       end
 
       def update
-        rating_item = RatingItems::Update.new(@rating_item, rating_item_params).call
+        rating_item = ::RatingItems::Update.new(@rating_item, rating_item_params).call
         render json: rating_item
       end
 
       def positions
-        positions = RatingItems::UpdatePositions.new(@rating, params[:positions]).call
+        positions = ::RatingItems::UpdatePositions.new(@rating, params[:positions]).call
         render json: { positions: positions }
       end
 

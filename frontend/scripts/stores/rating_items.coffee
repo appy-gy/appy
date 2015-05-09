@@ -5,8 +5,8 @@ findIndexInStore = require '../helpers/find_index_in_store'
 React = require 'react/addons'
 Marty = require 'marty'
 RatingItemConstants = require '../constants/rating_items'
-RatingItem = require '../models/rating_item'
 RatingItemQueries = require '../queries/rating_items'
+RatingItem = require '../models/rating_item'
 
 {update} = React.addons
 
