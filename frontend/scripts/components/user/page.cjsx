@@ -84,6 +84,14 @@ UserPage = React.createClass
 module.exports = Marty.createContainer UserPage,
   listenTo: UsersStore
 
+  childContextTypes:
+    userId: PropTypes.string.isRequired
+
+  getChildContext: ->
+    {userId} = @props
+
+    { userId }
+
   fetch: ->
     {userId} = @props
 
