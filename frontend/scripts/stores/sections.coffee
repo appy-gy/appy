@@ -13,9 +13,11 @@ class SectionsStore extends Marty.Store
 
   constructor: ->
     super
-    @state = []
     @handlers =
       append: SectionConstants.APPEND_SECTIONS
+
+  getInitialState: ->
+    []
 
   rehydrate: (state) ->
     sections = state.map (section) -> new Section section

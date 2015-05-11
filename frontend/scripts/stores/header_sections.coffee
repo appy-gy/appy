@@ -8,9 +8,11 @@ class HeaderSectionsStore extends Marty.Store
 
   constructor: ->
     super
-    @state = []
     @handlers =
       set: HeaderSectionConstants.SET_HEADER_SECTIONS
+
+  getInitialState: ->
+    []
 
   rehydrate: (state) ->
     sections = state.map (section) -> new Section section

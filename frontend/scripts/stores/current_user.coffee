@@ -8,9 +8,11 @@ class CurrentUserStore extends Marty.Store
 
   constructor: ->
     super
-    @state = new User
     @handlers =
       set: CurrentUserConstants.SET_CURRENT_USER
+
+  getInitialState: ->
+    new User
 
   rehydrate: (state) ->
     user = new User state

@@ -12,9 +12,11 @@ class CommentsStore extends Marty.Store
 
   constructor: ->
     super
-    @state = []
     @handlers =
       append: CommentConstants.APPEND_COMMENTS
+
+  getInitialState: ->
+    []
 
   rehydrate: (state) ->
     comments = state.map (comment) -> new Comment comment
