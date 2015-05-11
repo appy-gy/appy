@@ -26,7 +26,7 @@ Ratings = React.createClass
     {ratings} = @props
 
     ratings.map (rating) ->
-      <Preview key={rating.key} rating={rating}/>
+      <Preview key={rating.id} rating={rating}/>
 
   render: ->
     {ratings} = @props
