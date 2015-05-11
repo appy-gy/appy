@@ -14,19 +14,54 @@
   justify-content: space-between
   padding: 15px
   background: $color_1
+
   &_login
     +button
     color: $white
     border: 3px solid $white
+
     &:hover
       border-color: darken($color_1, 20%)
       color: darken($color_1, 20%)
+
   &_registration
     +button
     color: $color_2
     background: $white
     font-weight: 700
     line-height: 40px
+
     &:hover
       background: darken($color_1, 15%)
       color: $white
+
+  &_user-profile-link
+    display: flex
+    align-items: center
+
+    &:hover
+
+      .auth_user-avatar
+        border-color: $white
+
+  &_user-avatar
+    $avatar-size: 50px
+    width: $avatar-size
+    height: $avatar-size
+    margin-right: 6px
+    flex-shrink: 0
+    border-radius: 50%
+    box-sizing: content-box
+    border: 2px solid rgba($white, 0)
+    transition: border-color 0.1s ease
+
+  &_user-name
+    line-height: 20px
+    color: $white
+    font-size: 14px
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
+
+  .logout
+    +ion-icon("power")

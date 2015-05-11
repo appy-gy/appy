@@ -16,9 +16,11 @@ Info = React.createClass
   render: ->
     {user} = @props
 
-    <Link to="user" params={{userId: user.id}}>
-      <img width="50" height="50" src={user.avatarUrl('small')}/>
-      {user.name or user.email}
+    <Link className="auth_user-profile-link" to="user" params={{userId: user.id}}>
+      <img className="auth_user-avatar" width="50" height="50" src={user.avatarUrl('small')}/>
+      <div className="auth_user-name">
+        {user.name or user.email}
+      </div>
     </Link>
 
 module.exports = Info

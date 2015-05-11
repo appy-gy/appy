@@ -12,8 +12,7 @@ Logout = React.createClass
     CurrentUserActionCreators.logOut()
 
   render: ->
-    <div onClick={@logOut}>
-      Logout
+    <div className="logout" onClick={@logOut}>
     </div>
 
 module.exports = Logout
