@@ -1,4 +1,5 @@
 React = require 'react/addons'
+ClearStores = require '../mixins/clear_stores'
 Rating = require './rating'
 Comments = require './comments'
 Layout = require '../layout/layout'
@@ -7,6 +8,8 @@ Layout = require '../layout/layout'
 
 RatingPage = React.createClass
   displayName: 'RatingPage'
+
+  mixins: [ClearStores]
 
   childContextTypes:
     ratingId: PropTypes.string.isRequired

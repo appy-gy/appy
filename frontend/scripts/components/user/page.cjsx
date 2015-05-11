@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Router = require 'react-router'
 Marty = require 'marty'
+ClearStores = require '../mixins/clear_stores'
 Avatar = require './avatar'
 Name = require './name'
 SocialButtons = require './social_buttons'
@@ -20,6 +21,8 @@ User = require '../../models/user'
 
 UserPage = React.createClass
   displayName: 'User'
+
+  mixins: [ClearStores]
 
   childContextTypes:
     user: PropTypes.object.isRequired
