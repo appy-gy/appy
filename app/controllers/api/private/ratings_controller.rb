@@ -2,6 +2,7 @@ module Api
   module Private
     class RatingsController < BaseController
       find :rating, only: [:show, :update]
+      check 'Ratings::CanEdit', :@rating, only: [:update]
 
       def index
         render json: ::Ratings::FindForHome.new.call
