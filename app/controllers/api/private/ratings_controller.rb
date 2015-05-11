@@ -8,11 +8,17 @@ module Api
       end
 
       def show
+        ::Ratings::SetLike.new(@rating, current_user).call
         render json: @rating
       end
 
       def update
-        render json: @rating.update(rating_params)
+        rating = ::Ratings::Update.new(@rating, rating_params).call
+        render json: rating
+      end
+
+      def create
+        render json: current_user.ratings.create
       end
 
       private

@@ -4,8 +4,10 @@ CommentsApi = require '../state_sources/comments'
 Comment = require '../models/comment'
 
 class CommentActionCreators extends Marty.ActionCreators
-  create: (ratingId, body) ->
-    CommentsApi.create(ratingId, { body }).then ({body}) =>
+  @id: 'CommentActionCreators'
+
+  create: (ratingId, data) ->
+    CommentsApi.create(ratingId, data).then ({body}) =>
       return unless body?
       comment = new Comment body.comment
       @dispatch CommentConstants.APPEND_COMMENTS, comment

@@ -1,0 +1,17 @@
+.toastr
+  position: fixed
+  top: 0
+  right: 0
+  z-index: 2
+
+  &_toast
+    cursor: pointer
+    background: $grey-3
+    color: $white
+    padding: $margin
+    margin: $margin
+    border-radius: $border-radius
+
+    @each $type, $color in (success, $green), (error, $red)
+      &.m-#{$type}
+        background: $color

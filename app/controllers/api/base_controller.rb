@@ -15,7 +15,9 @@ module Api
 
     include Sorcery::Controller
 
+    include RenderError
     include CustomFinder
+    include CheckPolicy
 
     before_action :override_request_formats
 

@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react/addons'
+classNames = require 'classnames'
 isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
@@ -7,8 +8,13 @@ isBlank = require '../../helpers/is_blank'
 ObjectDescription = React.createClass
   displayName: 'Description'
 
+  propTypes:
+    object: PropTypes.object.isRequired
+    actionCreator: PropTypes.object.isRequired
+
   getInitialState: ->
     {object} = @props
+
     edit: isBlank(object.description)
 
   startEdit: ->
@@ -16,36 +22,44 @@ ObjectDescription = React.createClass
 
   stopEdit: ->
     {object} = @props
+
     @setState edit: false unless isBlank(object.description)
 
   changeDescription: (event) ->
     {object, actionCreator} = @props
+
     actionCreator.change object.id, description: event.target.value
 
   updateDescription: ->
-    {object, actionCreator, parentId} = @props
-    args = _.compact [object.id, parentId]
-    actionCreator.update args..., description: object.description
+    {object, actionCreator} = @props
+
+    actionCreator.update object.id, description: object.description
     @stopEdit()
 
-  descriptionCommon: ->
-    {description} = @props.object
+  descriptionView: ->
+    {object, className} = @props
     {edit} = @state
+    {description} = object
 
     return if edit
 
-    <h1 className="description" onClick={@startEdit}>
+    classes = classNames 'description', className
+
+    <h1 className={classes} onClick={@startEdit}>
       {description}
     </h1>
 
-  descriptionEditable: ->
-    {description} = @props.object
+  descriptionEdit: ->
+    {object, className} = @props
     {edit} = @state
+    {description} = object
 
     return unless edit
 
+    classes = classNames 'description', 'edit', className
+
     <div>
-      <textarea autoFocus={true} className="description edit" value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></textarea>
+      <textarea autoFocus={true} className={classes} value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></textarea>
       <div className="description-buttons">
         <button className="description-button accept" onClick={@updateDescription}>
           сохранить
@@ -58,8 +72,8 @@ ObjectDescription = React.createClass
 
   render: ->
     <div className="description-wrapper">
-      {@descriptionCommon()}
-      {@descriptionEditable()}
+      {@descriptionView()}
+      {@descriptionEdit()}
     </div>
 
 module.exports = ObjectDescription

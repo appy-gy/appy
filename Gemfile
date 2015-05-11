@@ -1,12 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.1'
 
 # Server
 gem 'puma'
 
 # Database
 gem 'pg'
+gem 'pg_search'
 gem 'dalli'
 
 # Configuration
@@ -36,6 +37,9 @@ gem 'httparty'
 # Procfile managment
 gem 'foreman'
 
+# I18n
+gem 'russian'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails'
@@ -44,13 +48,14 @@ group :development, :test do
 end
 
 group :development do
-  gem 'rack-reverse-proxy', require: false
   gem 'guard'
   gem 'guard-rspec'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'sys-proctable', require: false
+  gem 'colorize', require: false
 end
 
 group :test do

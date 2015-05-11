@@ -1,11 +1,19 @@
 Marty = require 'marty'
 CommentConstants = require '../constants/comments'
 CommentsApi = require '../state_sources/comments'
-Comment = require '../models/rating'
+Comment = require '../models/comment'
 
 class CommentQueries extends Marty.Queries
+  @id: 'CommentQueries'
+
   getForRating: (ratingId) ->
     CommentsApi.for(@).loadForRating(ratingId).then ({body}) =>
+      return unless body?
+      comments = body.comments.map (comment) -> new Comment comment
+      @dispatch CommentConstants.APPEND_COMMENTS, comments
+
+  getForUser: (userId) ->
+    CommentsApi.for(@).loadForUser(userId).then ({body}) =>
       return unless body?
       comments = body.comments.map (comment) -> new Comment comment
       @dispatch CommentConstants.APPEND_COMMENTS, comments

@@ -41,8 +41,5 @@ app.use (req, res, next) ->
 app.use martyExpress
   marty: marty
   routes: routes
-  error: (req, res, next, error) ->
-    console.error error.message, error.stack
-    res.sendStatus(500).end()
 
 app.listen port

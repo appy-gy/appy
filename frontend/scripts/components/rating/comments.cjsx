@@ -1,36 +1,41 @@
+_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-Comment = require './comment'
-CommentForm = require './comment_form'
+CommentsTree = require './comments_tree'
+CommentForm = require '../shared/comments/form'
 CommentsStore = require '../../stores/comments'
+CommentTreesBuilder = require '../../helpers/comments/trees_builder'
 
 {PropTypes} = React
 
 Comments = React.createClass
   displayName: 'Comments'
 
-  comments: ->
+  trees: ->
     {comments} = @props
 
-    comments.map (comment) ->
-      <Comment key={comment.id} comment={comment}/>
+    return if _.isEmpty comments
+
+    trees = CommentTreesBuilder.build comments
+    trees.map (tree) ->
+      <CommentsTree key={tree.root.id} tree={tree} level={1}/>
 
   render: ->
     <div className="comments">
       <div className="comments_header">
         Комментарии
       </div>
-      {@comments()}
+      {@trees()}
       <CommentForm/>
     </div>
 
 module.exports = Marty.createContainer Comments,
   contextTypes:
-    rating: PropTypes.object.isRequired
+    ratingId: PropTypes.string.isRequired
 
   listenTo: CommentsStore
 
   fetch: ->
-    {rating} = @context
+    {ratingId} = @context
 
-    comments: CommentsStore.for(@).getForRating(rating.id)
+    comments: CommentsStore.for(@).getForRating(ratingId)

@@ -9,6 +9,8 @@ User = require '../models/user'
 {update} = React.addons
 
 class UsersStore extends Marty.Store
+  @id: 'UsersStore'
+
   constructor: ->
     super
     @state = []

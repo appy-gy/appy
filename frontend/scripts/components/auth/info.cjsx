@@ -1,14 +1,10 @@
 React = require 'react/addons'
-Router = require 'react-router'
+UserLink = require '../shared/links/user'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
-{Link} = Router
 
 Info = React.createClass
   displayName: 'Info'
-
-  mixins: [PureRenderMixin]
 
   propTypes:
     user: PropTypes.object.isRequired
@@ -16,11 +12,10 @@ Info = React.createClass
   render: ->
     {user} = @props
 
-    <Link className="auth_user-profile-link" to="user" params={{userId: user.id}}>
+    <UserLink className="auth_user-profile-link" user={user}>
       <img className="auth_user-avatar" width="50" height="50" src={user.avatarUrl('small')}/>
       <div className="auth_user-name">
         {user.name or user.email}
       </div>
-    </Link>
-
+    </UserLink>
 module.exports = Info

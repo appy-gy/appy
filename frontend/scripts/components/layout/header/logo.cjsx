@@ -10,7 +10,7 @@ Logo = React.createClass
   mixins: [PureRenderMixin]
 
   render: ->
-    <Link to="ratings" className="logotype">
+    <Link to="ratings" className="header_logotype">
       Activelist
     </Link>
 

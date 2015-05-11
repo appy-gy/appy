@@ -1,4 +1,5 @@
 _ = require 'lodash'
+uuid = require 'node-uuid'
 moment = require 'moment'
 AssocArray = require '../helpers/assoc_array'
 camelcaseKeys = require '../helpers/camelcase_keys'
@@ -27,6 +28,7 @@ class Base
     @defineImageAccessors()
     @defineAssocAccessors()
     @update data
+    @cid = uuid.v4()
 
   clone: ->
     new @constructor @
@@ -56,7 +58,7 @@ class Base
   defineImageAccessors: ->
     @constructor.imageFields()?.forEach (field) =>
       @["#{field}Url"] = (size) =>
-        return @[field] unless @[field]? or size?
+        return @[field] unless @[field]? and size?
         return @[field] if _.startsWith @[field], 'blob:'
         @[field].replace /\/([^\/]+)$/, (match, submatch) ->
           "/#{size}_#{submatch}"

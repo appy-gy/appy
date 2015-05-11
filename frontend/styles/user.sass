@@ -1,5 +1,6 @@
 $avatar-size: 240px
 $icon-button-size: 40px
+$tab-title-height: 50px
 
 =icon-button
   display: flex
@@ -135,62 +136,52 @@ $icon-button-size: 40px
   &_tabs
     position: relative
 
-  &_tabs-radio
-    display: none
+  &_tab-titles
     position: absolute
-    top: -9999
-    left: -9999
-
-  &_tabs-nav
-    $height: 50px
-    position: absolute
-    top: -$height
+    top: -$tab-title-height
     left: $avatar-size + 90px
     display: flex
     @media screen and (max-width: 1240px)
       left: $avatar-size + 60px
 
-    &-item
-      display: block
-      height: $height
-      line-height: $height
-      background: $white-3
-      border-radius: $border-radius * 2 $border-radius * 2 0 0
-      padding: 0 3 * $margin
-      font-size: 16px
-      font-weight: 600
+  &_tab-title
+    display: block
+    font-size: 16px
+    font-weight: 600
+    cursor: pointer
+    background: $white-3
+    color: $blue
+    padding: 0 3 * $margin
+    margin-top: $margin
+    border-radius: $border-radius * 2 $border-radius * 2 0 0
+    line-height: $tab-title-height
+    height: $tab-title-height
+    transition: all 0.3s ease
+
+    &:hover
+      margin-top: $margin / 2
+
+    &.m-active
+      cursor: default
+      background: $white
       color: $blue
-      transition: all 0.3s ease
+      box-shadow: 0px -6px 8px $blue-3
+      margin-top: 0
 
   &_tab-content
-    display: none
     padding: 30px 60px
     @media screen and (max-width: 1240px)
       padding: 15px 30px
 
-  &_tab-title
+  &_tab-header
     font: 28px $serif
     font-weight: 600
     color: $blue
     line-height: 1
-    margin: 30px 0 20px 0
+    margin: 3 * $margin 0 2 * $margin 0
     @media screen and (max-width: 1240px)
-      margin: 10px 0 20px
+      margin: $margin 0 2 * $margin
 
   &_tab-button
     +accept
     margin-top: 20px
-
-  #tab1:checked ~ .user-profile_tab-content-wrapper #content1, #tab2:checked ~ .user-profile_tab-content-wrapper #content2
-    display: block
-
-  #tab1:checked ~ .user-profile_tabs-nav #label1, #tab2:checked ~ .user-profile_tabs-nav #label2
-    background: $white
-    color: $blue
-    box-shadow: 0px -6px 8px $blue-3
-
-  #tab1:not(:checked) ~ .user-profile_tabs-nav #label1, #tab2:not(:checked) ~ .user-profile_tabs-nav #label2
-    margin-top: 10px
-    &:hover
-      height: 55px
-      margin-top: 5px

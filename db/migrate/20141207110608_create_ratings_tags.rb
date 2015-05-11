@@ -1,11 +1,9 @@
 class CreateRatingsTags < ActiveRecord::Migration
   def up
-    create_table :ratings_tags, id: false do |t|
-      t.belongs_to :rating, type: :uuid, null: false, index: true
-      t.belongs_to :tag, type: :uuid, null: false, index: true
+    create_table :ratings_tags do |t|
+      t.belongs_to :rating, null: false, index: true, foreign_key: true
+      t.belongs_to :tag, null: false, index: true, foreign_key: true
     end
-    add_foreign_key :ratings_tags, :ratings
-    add_foreign_key :ratings_tags, :tags
   end
 
   def down

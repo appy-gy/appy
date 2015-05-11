@@ -1,14 +1,29 @@
 .layout
   min-height: 100%
+
+  &_main
+    width: calc(100% - #{$header-width})
+    min-height: 100vh
+    margin-left: $header-width
+    padding: 40px 0
+    display: flex
+    justify-content: center
+    background: $grey
+
+    @media screen and (max-width: 910px)
+      width: 100%
+      margin-left: 0
+
+    @media screen and (max-width: 710px)
+      padding: 20px 0
+
   &_header
+    width: $header-width
+    height: 100%
     position: fixed
     top: 0
-    background: $color-1
-    height: $header-height
-    display: flex
-    flex-flow: row nowrap
-    z-index: 1
+    left: 0
+    background: $color-2
 
-  &_body
-    width: 960px
-    margin: $header-height + 2 * $margin auto 0
+    @media screen and (max-width: 910px)
+      display: none

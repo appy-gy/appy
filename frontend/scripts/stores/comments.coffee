@@ -8,6 +8,8 @@ Comment = require '../models/comment'
 {update} = React.addons
 
 class CommentsStore extends Marty.Store
+  @id: 'CommentsStore'
+
   constructor: ->
     super
     @state = []
@@ -28,6 +30,17 @@ class CommentsStore extends Marty.Store
         @state
       remotely: ->
         CommentQueries.for(@).getForRating(ratingId)
+
+  getForUser: (userId) ->
+    id = "getForuser-#{userId}"
+
+    @fetch
+      id: id
+      locally: ->
+        return unless @hasAlreadyFetched id
+        @state
+      remotely: ->
+        CommentQueries.for(@).getForUser(userId)
 
   append: (comments) ->
     @state = update @state, $push: toArray(comments)

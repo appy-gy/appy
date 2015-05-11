@@ -4,6 +4,8 @@ HeaderSectionsApi = require '../state_sources/header_sections'
 Section = require '../models/section'
 
 class HeaderSectionQueries extends Marty.Queries
+  @id: 'HeaderSectionQueries'
+
   getAll: ->
     HeaderSectionsApi.for(@).loadAll().then ({body}) =>
       return unless body?

@@ -30,3 +30,6 @@ module.exports = Marty.createContainer Navigation,
 
   fetch: ->
     sections: HeaderSectionsStore.for(@).getAll()
+
+  pending: ->
+    @done sections: []

@@ -1,10 +1,11 @@
 class SorceryExternal < ActiveRecord::Migration
   def change
     create_table :authentications do |t|
-      t.integer :user_id, null: false
       t.text :provider, :uid, null: false
 
       t.timestamps null: false
+
+      t.belongs_to :user, null: false, foreign_key: true
 
       t.index [:provider, :uid]
     end

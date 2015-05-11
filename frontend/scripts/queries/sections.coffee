@@ -4,6 +4,8 @@ SectionsApi = require '../state_sources/sections'
 Section = require '../models/section'
 
 class SectionQueries extends Marty.Queries
+  @id: 'SectionQueries'
+
   getAll: ->
     SectionsApi.for(@).loadAll().then ({body}) =>
       return unless body?
