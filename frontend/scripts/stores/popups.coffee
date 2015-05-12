@@ -11,10 +11,12 @@ class PopupsStore extends Marty.Store
 
   constructor: ->
     super
-    @state = []
     @handlers =
       append: PopupConstants.APPEND_POPUPS
       remove: PopupConstants.REMOVE_POPUPS
+
+  getInitialState: ->
+    []
 
   getAll: ->
     @state

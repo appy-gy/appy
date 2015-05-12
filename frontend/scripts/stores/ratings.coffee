@@ -15,13 +15,15 @@ class RatingsStore extends Marty.Store
 
   constructor: ->
     super
-    @state = []
     @handlers =
       change: RatingConstants.CHANGE_RATING
       replace: RatingConstants.REPLACE_RATING
       append: RatingConstants.APPEND_RATINGS
       addTag: RatingConstants.ADD_TAG_TO_RATING
       removeTag: RatingConstants.REMOVE_TAG_FROM_RATING
+
+  getInitialState: ->
+    []
 
   rehydrate: (state) ->
     ratings = state.map (rating) -> new Rating rating

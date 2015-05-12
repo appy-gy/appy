@@ -18,6 +18,9 @@ ObjectDescription = React.createClass
     edit: isBlank(object.description)
 
   startEdit: ->
+    {object} = @props
+
+    return unless object.canEdit
     @setState edit: true
 
   stopEdit: ->

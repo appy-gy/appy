@@ -26,7 +26,7 @@ Ratings = React.createClass
     {ratings} = @props
 
     ratings.map (rating) ->
-      <Preview key={rating.key} rating={rating}/>
+      <Preview key={rating.id} rating={rating}/>
 
   render: ->
     {ratings} = @props
@@ -48,9 +48,9 @@ module.exports = Marty.createContainer Ratings,
   listenTo: RatingsStore
 
   contextTypes:
-    user: PropTypes.object.isRequired
+    userId: PropTypes.string.isRequired
 
   fetch: ->
-    {user} = @context
+    {userId} = @context
 
-    ratings: RatingsStore.for(@).getForUser(user.id)
+    ratings: RatingsStore.for(@).getForUser(userId)

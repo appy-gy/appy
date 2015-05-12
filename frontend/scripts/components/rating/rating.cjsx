@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
+Nothing = require '../shared/nothing'
 Header = require './header'
 Description = require './description'
 RatingItem = require './rating_item'
@@ -54,7 +55,7 @@ Rating = React.createClass
       <a href="/" className="rating_author">
         {rating.user.name}
       </a>
-      <h1 onClick={@createRatingItem}>New</h1>
+      {<h1 onClick={@createRatingItem}>New</h1> if rating.canEdit}
       <div className="rating_line"></div>
       {@ratingItems()}
       <div className="rating_line"></div>

@@ -11,10 +11,12 @@ class ToastsStore extends Marty.Store
 
   constructor: ->
     super
-    @state = []
     @handlers =
       append: ToastConstants.APPEND_TOASTS
       remove: ToastConstants.REMOVE_TOASTS
+
+  getInitialState: ->
+    []
 
   getAll: ->
     @state

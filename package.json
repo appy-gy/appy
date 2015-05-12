@@ -9,6 +9,7 @@
   "dependencies": {
     "classnames": "^1.1.4",
     "coffee-react": "^3.0.1",
+    "es6-set": "^0.1.1",
     "express": "^4.12.3",
     "iconfonts": "^0.7.0",
     "isomorphic-fetch": "^2.0.2",
@@ -25,7 +26,8 @@
     "react-dnd": "^0.9.8",
     "react-router": "^0.13.2",
     "react-select": "^0.4.8",
-    "react-textarea-autosize": "^1.1.0"
+    "react-textarea-autosize": "^1.1.0",
+    "setimmediate": "^1.0.2"
   },
   "devDependencies": {
     "autoprefixer-loader": "~1.1.0",

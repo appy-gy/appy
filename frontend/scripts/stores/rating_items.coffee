@@ -15,12 +15,14 @@ class RatingItemsStore extends Marty.Store
 
   constructor: ->
     super
-    @state = []
     @handlers =
       change: RatingItemConstants.CHANGE_RATING_ITEM
       replace: RatingItemConstants.REPLACE_RATING_ITEM
       append: RatingItemConstants.APPEND_RATING_ITEMS
       changePositions: RatingItemConstants.CHANGE_RATING_ITEM_POSITIONS
+
+  getInitialState: ->
+    []
 
   rehydrate: (state) ->
     ratingItems = state.map (ratingItem) -> new RatingItem ratingItem

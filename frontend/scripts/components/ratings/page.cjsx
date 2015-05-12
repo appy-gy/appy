@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
+ClearStores = require '../mixins/clear_stores'
 Subscription = require './subscription'
 Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
@@ -12,7 +13,7 @@ RatingsStore = require '../../stores/ratings'
 Ratings = React.createClass
   displayName: 'Ratings'
 
-  mixins: [PureRenderMixin]
+  mixins: [PureRenderMixin, ClearStores]
 
   propTypes:
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired

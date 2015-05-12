@@ -13,11 +13,13 @@ class UsersStore extends Marty.Store
 
   constructor: ->
     super
-    @state = []
     @handlers =
       append: UserConstants.APPEND_USERS
       change: UserConstants.CHANGE_USER
       replace: UserConstants.REPLACE_USER
+
+  getInitialState: ->
+    []
 
   rehydrate: (state) ->
     users = state.map (user) -> new User user
