@@ -42,11 +42,12 @@
   &_like
     +like-burst(120px)
 
+  &_meta
+    justify-content: center
+
   &_title-wrapper
-    width: 90%
-    position: absolute
-    top: 200px
-    left: 5%
+    width: 100%
+    padding: 20px
 
   &_title
     width: 100%
@@ -62,8 +63,13 @@
     &.edit
       resize: none
       height: 220px
+      border-radius: $border-radius
 
   &_title-buttons
+    position: absolute
+    bottom: 0
+    right: 0
+    padding: 20px
     display: flex
     justify-content: flex-end
 
@@ -84,6 +90,8 @@
     &.cancel
       +cancel
 
+  .Select
+    display: none
   &_section-name
     display: block
     font-size: 15px
@@ -91,6 +99,8 @@
     color: $red
     font-weight: 600
     margin: 25px 0 15px 0
+    position: absolute
+    top: 100px
 
     &:after
       content: ":"
@@ -98,31 +108,26 @@
     &:hover
       color: $red-2
 
-  &_meta
-    top: 30px
-    justify-content: center
-
   &_tags
-    width: 70%
-    margin: 0 auto
+    position: absolute
+    top: 120px
     justify-content: center
-    height: 40px
 
   &_description-wrapper
     width: 100%
-    padding: 0 15%
+    padding: 20px
 
   &_description
     font-style: italic
     font-size: 20px
     font-weight: 600
     text-align: center
-    margin: 0 auto
-    padding-top: 30px
     width: 100%
+    word-break: break-word
 
     &.edit
-      min-height: 120px
+      min-height: 200px
+      resize: none
 
   &_description-buttons
     padding-top: 15px

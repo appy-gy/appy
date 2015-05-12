@@ -1,16 +1,20 @@
 .previews
   display: flex
   flex-flow: row wrap
-  margin: -15px -15px 0 -15px
+
+  @media screen and (min-width: $small)
+    margin: -15px -15px 0 -15px
 
 .preview
   +rating-meta
 
   position: relative
-  width: 310px
+  width: 300px
   height: 400px
   border-radius: 5px
-  margin: 15px
+  margin: 10px
+  @media screen and (min-width: $small)
+    margin: 15px
 
   &_meta
     transition: opacity 0.1s ease
@@ -87,7 +91,7 @@
         opacity: 1
 
   &.m-super-large
-    @media screen and (min-width: 710px)
+    @media screen and (min-width: $small)
       width: 630px
 
       .preview
@@ -131,10 +135,8 @@
               color: $white-3
 
   &.m-large
-    @media screen and (min-width: 710px)
-      width: 100%
 
-    @media screen and (min-width: 1240px)
+    @media screen and (min-width: $big)
       width: 465px
 
       .preview

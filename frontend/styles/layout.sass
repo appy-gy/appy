@@ -2,20 +2,14 @@
   min-height: 100%
 
   &_main
-    width: calc(100% - #{$header-width})
+    // width: calc(100% - #{$header-width})
     min-height: 100vh
-    margin-left: $header-width
     padding: 40px 0
     display: flex
     justify-content: center
     background: $grey
-
-    @media screen and (max-width: 910px)
-      width: 100%
-      margin-left: 0
-
-    @media screen and (max-width: 710px)
-      padding: 20px 0
+    @media screen and (min-width: $medium)
+      margin-left: $header-width
 
   &_header
     width: $header-width
@@ -24,6 +18,7 @@
     top: 0
     left: 0
     background: $color-2
+    display: none
 
-    @media screen and (max-width: 910px)
-      display: none
+    @media screen and (min-width: $medium)
+      display: block

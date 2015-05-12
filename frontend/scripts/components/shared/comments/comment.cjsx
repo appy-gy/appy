@@ -35,8 +35,8 @@ Comment = React.createClass
         <div className="comment_date">
           {comment.createdAt.fromNow()}
         </div>
+        <Actions/>
       </div>
-      <Actions/>
     </div>
 
 module.exports = Comment

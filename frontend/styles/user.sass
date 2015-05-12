@@ -23,9 +23,13 @@ $tab-title-height: 50px
   background: $white
   border-radius: $border-radius
 
+  $avatar-margin: 7px
+  $padding: 20px
+
   &_header
+
     position: relative
-    height: 300px
+    height: $avatar-size + 2 * $padding + 2 * $margin
     width: 100%
     display: flex
     justify-content: center
@@ -34,22 +38,21 @@ $tab-title-height: 50px
     background: linear-gradient(to bottom, $blue, $blue-2)
     flex-flow: column wrap
     border-radius: $border-radius $border-radius 0 0
-    padding: 30px 60px
-    @media screen and (max-width: 1240px)
-      padding: 30px
+    padding: $padding
 
   &_avatar
     width: $avatar-size
     height: $avatar-size
     background: $white
     color: $blue
-    box-shadow: 0 0 0 7px $white-2
+    box-shadow: 0 0 0 $avatar-margin $white-2
     border-radius: $avatar-size / 2
     display: flex
     justify-content: center
     align-items: flex-end
     overflow: hidden
     position: relative
+    margin: $avatar-margin
 
     &:before
       +ion-icon("person")
@@ -85,7 +88,7 @@ $tab-title-height: 50px
 
   &_info
     width: calc(100% - #{$avatar-size})
-    padding: 0 0 0 30px
+    padding: 0 0 0 $padding
 
   &_name
     font: 40px $serif
@@ -139,10 +142,9 @@ $tab-title-height: 50px
   &_tab-titles
     position: absolute
     top: -$tab-title-height
-    left: $avatar-size + 90px
     display: flex
-    @media screen and (max-width: 1240px)
-      left: $avatar-size + 60px
+
+    left: $avatar-size + $avatar-margin * 2 + $padding * 2
 
   &_tab-title
     display: block
@@ -169,19 +171,21 @@ $tab-title-height: 50px
       margin-top: 0
 
   &_tab-content
-    padding: 30px 60px
-    @media screen and (max-width: 1240px)
-      padding: 15px 30px
+    padding: 30px 20px
+
+    // @media screen and (max-width: 1240px)
+    //   padding: 15px 30px
 
   &_tab-header
     font: 28px $serif
     font-weight: 600
     color: $blue
     line-height: 1
-    margin: 3 * $margin 0 2 * $margin 0
-    @media screen and (max-width: 1240px)
-      margin: $margin 0 2 * $margin
+    margin: $margin 0 3 * $margin
+
 
   &_tab-button
     +accept
-    margin-top: 20px
+
+  .preview
+    width: 286px
