@@ -1,12 +1,14 @@
 _ = require 'lodash'
 React = require 'react/addons'
-classNames = require 'classnames'
+Classes = require '../mixins/classes'
 isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
 
 ObjectDescription = React.createClass
   displayName: 'Description'
+
+  mixins: [Classes]
 
   propTypes:
     object: PropTypes.object.isRequired
@@ -46,35 +48,34 @@ ObjectDescription = React.createClass
 
     return if edit
 
-    classes = classNames 'description', className
-
-    <h1 className={classes} onClick={@startEdit}>
+    <h1 className={@classes("#{block}_description")} onClick={@startEdit}>
       {description}
     </h1>
 
   descriptionEdit: ->
     {object, className} = @props
     {edit} = @state
+    {block} = @context
     {description} = object
 
     return unless edit
 
-    classes = classNames 'description', 'edit', className
-
     <div>
-      <textarea autoFocus={true} className={classes} value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></textarea>
-      <div className="rating_description-buttons">
-        <button className="rating_description-button accept" onClick={@updateDescription}>
+      <textarea autoFocus={true} className={@classes("#{block}_description", 'm-edit')} value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></textarea>
+      <div className="#{block}_description-buttons">
+        <button className="#{block}_description-button accept" onClick={@updateDescription}>
           сохранить
         </button>
-        <button className="rating_description-button cancel" onClick={@stopEdit}>
+        <button className="#{block}_description-button cancel" onClick={@stopEdit}>
           отменить
         </button>
       </div>
     </div>
 
   render: ->
-    <div className="rating_description-wrapper">
+    {block} = @context
+
+    <div className="#{block}_description-wrapper">
       {@descriptionView()}
       {@descriptionEdit()}
     </div>

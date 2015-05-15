@@ -1,12 +1,14 @@
 _ = require 'lodash'
 React = require 'react/addons'
-classNames = require 'classnames'
+Classes = require '../mixins/classes'
 isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
 
 ObjectTitle = React.createClass
   displayName: 'Title'
+
+  mixins: [Classes]
 
   propTypes:
     object: PropTypes.object.isRequired
@@ -50,9 +52,7 @@ ObjectTitle = React.createClass
 
     return if edit
 
-    classes = classNames "#{block}_title", className
-
-    <h1 className={classes} onClick={@startEdit}>
+    <h1 className={@classes("#{block}_title")} onClick={@startEdit}>
       {title}
     </h1>
 
@@ -64,10 +64,8 @@ ObjectTitle = React.createClass
 
     return unless edit
 
-    classes = classNames "#{block}_title", 'm-edit', className
-
     <div>
-      <textarea autoFocus={true} maxLength="50" className={classes} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></textarea>
+      <textarea autoFocus={true} maxLength="50" className={@classes("#{block}_title", 'm-edit')} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></textarea>
       <div className="#{block}_title-buttons">
         <button className="#{block}_title-button m-accept" onClick={@updateTitle}>
           сохранить
@@ -79,7 +77,9 @@ ObjectTitle = React.createClass
     </div>
 
   render: ->
-    <div>
+    {block} = @context
+
+    <div className="#{block}_title-wrapper">
       {@titleView()}
       {@titleEdit()}
     </div>
