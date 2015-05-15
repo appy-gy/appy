@@ -15,11 +15,12 @@ RatingItem = React.createClass
 
   childContextTypes:
     ratingItem: PropTypes.object.isRequired
+    block: PropTypes.string.isRequired
 
   getChildContext: ->
     {ratingItem} = @props
 
-    { ratingItem }
+    { ratingItem, block: 'rating-item' }
 
   render: ->
     {ratingItem} = @props

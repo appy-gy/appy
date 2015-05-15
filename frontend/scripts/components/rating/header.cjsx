@@ -24,7 +24,7 @@ Header = React.createClass
       </div>
       <SectionsSelect object={rating} actionCreator={RatingActionCreators}/>
       <TagsSelect/>
-      <Title object={rating} className="rating_title" actionCreator={RatingActionCreators}/>
+      <Title object={rating} actionCreator={RatingActionCreators}/>
     </header>
 
 module.exports = Header

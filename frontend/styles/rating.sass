@@ -60,22 +60,21 @@
     margin: 0
     word-break: break-word
 
-    &.edit
+    &.m-edit
       resize: none
       height: 220px
       border-radius: $border-radius
 
   &_title-buttons
+    display: flex
+    justify-content: flex-end
     position: absolute
     bottom: 0
     right: 0
     padding: 20px
-    display: flex
-    justify-content: flex-end
 
   &_title-button
-
-    &.accept
+    &.m-accept
       +accept
       background-color: $white
       color: $green
@@ -87,11 +86,12 @@
         color: $white
         border-color: $white
 
-    &.cancel
+    &.m-cancel
       +cancel
 
   .Select
     display: none
+
   &_section-name
     display: block
     font-size: 15px

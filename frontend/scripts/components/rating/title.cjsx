@@ -12,6 +12,9 @@ ObjectTitle = React.createClass
     object: PropTypes.object.isRequired
     actionCreator: PropTypes.object.isRequired
 
+  contextTypes:
+    block: PropTypes.string.isRequired
+
   getInitialState: ->
     {object} = @props
 
@@ -42,11 +45,12 @@ ObjectTitle = React.createClass
   titleView: ->
     {object, className} = @props
     {edit} = @state
+    {block} = @context
     {title} = object
 
     return if edit
 
-    classes = classNames 'title', className
+    classes = classNames "#{block}_title", className
 
     <h1 className={classes} onClick={@startEdit}>
       {title}
@@ -55,26 +59,27 @@ ObjectTitle = React.createClass
   titleEdit: ->
     {object, className} = @props
     {edit} = @state
+    {block} = @context
     {title} = object
 
     return unless edit
 
-    classes = classNames 'title', 'edit', className
+    classes = classNames "#{block}_title", 'm-edit', className
 
     <div>
       <textarea autoFocus={true} maxLength="50" className={classes} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></textarea>
-      <div className="rating_title-buttons">
-        <button className="rating_title-button accept" onClick={@updateTitle}>
+      <div className="#{block}_title-buttons">
+        <button className="#{block}_title-button m-accept" onClick={@updateTitle}>
           сохранить
         </button>
-        <button className="rating_title-button cancel" onClick={@stopEdit}>
+        <button className="#{block}_title-button m-cancel" onClick={@stopEdit}>
           отменить
         </button>
       </div>
     </div>
 
   render: ->
-    <div className="title-wrapper">
+    <div>
       {@titleView()}
       {@titleEdit()}
     </div>
