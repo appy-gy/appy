@@ -9,12 +9,12 @@ dotenv.load()
 
 [debug, devtool] = if process.env.TOP_ENV == 'development' then [true, 'eval'] else [false, null]
 
-cssLoaders = ['css-loader', 'autoprefixer-loader']
-sassLoaders = cssLoaders.concat 'sass-loader?indentedSyntax=sass'
+cssLoaders = ['css', 'autoprefixer']
+sassLoaders = cssLoaders.concat 'sass'
 loaderGenerator = if process.env.TOP_ENV == 'development'
-  (loaders) -> ['style-loader'].concat(loaders).join('!')
+  (loaders) -> ['style'].concat(loaders).join('!')
 else
-  (loaders) -> ExtractTextPlugin.extract 'style-loader', loaders
+  (loaders) -> ExtractTextPlugin.extract 'style', loaders
 [cssLoader, sassLoader] = [cssLoaders, sassLoaders].map loaderGenerator
 
 env = _.pick process.env, 'NODE_ENV', 'TOP_INSTAGRAM_KEY'
@@ -56,11 +56,12 @@ module.exports =
     extensions: ['', '.js', '.coffee', '.cjsx']
   module:
     loaders: [
-      { test: /\.woff|ttf|otf|eot((\?|#).*)?|svg((\?|#).*)$/, loader: 'file-loader' }
-      { test: /\.(jpe?g|gif|png|svg)$/, loader: 'file-loader' }
+      { test: /\.woff|ttf|otf|eot((\?|#).*)?|svg((\?|#).*)$/, loader: 'file' }
+      { test: /\.(jpe?g|gif|png|svg)$/, loader: 'file' }
       { test: /\.css$/, loader: cssLoader }
-      { test: /\.s(a|c)ss$/, loader: sassLoader }
-      { test: /\.js$/, include: /node_modules\/marty/, loader: 'babel-loader' }
+      { test: /\.sass$/, loader: sassLoader + '?indentedSyntax' }
+      { test: /\.scss$/, loader: sassLoader }
+      { test: /\.js$/, include: /node_modules\/marty/, loader: 'babel' }
       { test: /\.coffee$/, exclude: /node_modules/, loader: 'coffee' }
       { test: /\.cjsx$/, exclude: /node_modules/, loaders: ['react-hot', 'coffee', 'cjsx'] }
     ]
