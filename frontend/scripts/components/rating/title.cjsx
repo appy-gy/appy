@@ -18,6 +18,9 @@ ObjectTitle = React.createClass
     edit: isBlank(object.title)
 
   startEdit: ->
+    {object} = @props
+
+    return unless object.canEdit
     @setState edit: true
 
   stopEdit: ->
@@ -60,11 +63,11 @@ ObjectTitle = React.createClass
 
     <div>
       <textarea autoFocus={true} maxLength="50" className={classes} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></textarea>
-      <div className="title-buttons">
-        <button className="title-button accept" onClick={@updateTitle}>
+      <div className="rating_title-buttons">
+        <button className="rating_title-button accept" onClick={@updateTitle}>
           сохранить
         </button>
-        <button className="title-button cancel" onClick={@stopEdit}>
+        <button className="rating_title-button cancel" onClick={@stopEdit}>
           отменить
         </button>
       </div>

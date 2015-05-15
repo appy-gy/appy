@@ -3,6 +3,7 @@ module Api
     class RatingItemsController < BaseController
       find :rating, only: [:index, :create, :positions]
       find :rating_item, only: [:update]
+      check 'RatingItems::CanEdit', :@rating_item, only: [:update]
 
       def index
         rating_items = ::RatingItems::FindForRating.new(@rating, current_user).call

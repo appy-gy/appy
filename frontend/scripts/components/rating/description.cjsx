@@ -18,6 +18,9 @@ ObjectDescription = React.createClass
     edit: isBlank(object.description)
 
   startEdit: ->
+    {object} = @props
+
+    return unless object.canEdit
     @setState edit: true
 
   stopEdit: ->
@@ -60,18 +63,18 @@ ObjectDescription = React.createClass
 
     <div>
       <textarea autoFocus={true} className={classes} value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></textarea>
-      <div className="description-buttons">
-        <button className="description-button accept" onClick={@updateDescription}>
+      <div className="rating_description-buttons">
+        <button className="rating_description-button accept" onClick={@updateDescription}>
           сохранить
         </button>
-        <button className="description-button cancel" onClick={@stopEdit}>
+        <button className="rating_description-button cancel" onClick={@stopEdit}>
           отменить
         </button>
       </div>
     </div>
 
   render: ->
-    <div className="description-wrapper">
+    <div className="rating_description-wrapper">
       {@descriptionView()}
       {@descriptionEdit()}
     </div>

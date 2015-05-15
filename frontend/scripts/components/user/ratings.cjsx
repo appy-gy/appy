@@ -39,7 +39,9 @@ Ratings = React.createClass
       <CreateRating className="user-profile_tab-button">
         Создать рейтинг
       </CreateRating>
-      {@ratings()}
+      <div className="previews">
+        {@ratings()}
+      </div>
     </div>
 
 module.exports = Marty.createContainer Ratings,
