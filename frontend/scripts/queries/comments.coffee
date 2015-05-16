@@ -7,8 +7,8 @@ class CommentQueries extends Marty.Queries
   @id: 'CommentQueries'
 
   getForRating: (ratingId) ->
-    CommentsApi.for(@).loadForRating(ratingId).then ({body}) =>
-      return unless body?
+    CommentsApi.for(@).loadForRating(ratingId).then ({body, status}) =>
+      return if status == 400
       comments = body.comments.map (comment) -> new Comment comment
       @dispatch CommentConstants.APPEND_COMMENTS, comments
 

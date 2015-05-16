@@ -33,6 +33,13 @@ Rating = React.createClass
 
     RatingItemActionCreators.create rating.id
 
+  addRatingItemButton: ->
+    {rating} = @props
+
+    return unless rating.canEdit
+
+    <h1 onClick={@createRatingItem}>New</h1>
+
   ratingItems: ->
     {ratingItems} = @props
 
@@ -55,7 +62,7 @@ Rating = React.createClass
       <a href="/" className="rating_author">
         {rating.user.name}
       </a>
-      {<h1 onClick={@createRatingItem}>New</h1> if rating.canEdit}
+      {@addRatingItemButton()}
       <div className="rating_line"></div>
       {@ratingItems()}
       <div className="rating_line"></div>
