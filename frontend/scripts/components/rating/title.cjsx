@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react/addons'
+Textarea = require 'react-textarea-autosize'
 Classes = require '../mixins/classes'
 isBlank = require '../../helpers/is_blank'
 
@@ -65,7 +66,7 @@ ObjectTitle = React.createClass
     return unless edit
 
     <div>
-      <textarea autoFocus={true} maxLength="50" className={@classes("#{block}_title", 'm-edit')} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></textarea>
+      <Textarea autoFocus={true} maxLength="50" className={@classes("#{block}_title", 'm-edit')} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></Textarea>
       <div className="#{block}_title-buttons">
         <button className="#{block}_title-button m-accept" onClick={@updateTitle}>
           сохранить
