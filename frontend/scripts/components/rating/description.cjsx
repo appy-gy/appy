@@ -45,6 +45,7 @@ ObjectDescription = React.createClass
   descriptionView: ->
     {object, className} = @props
     {edit} = @state
+    {block} = @context
     {description} = object
 
     return if edit
