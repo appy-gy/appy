@@ -9,12 +9,11 @@ storeName = (path) ->
   path.match(/\/(.*?)\./)[1]
 
 ClearStores =
-  componentWillUnmount: ->
+  componentWillMount: ->
     return unless stores?
-    setImmediate ->
-      stores.keys().each (path) ->
-        return if storesToSkip.has storeName(path)
-        store = stores path
-        store.for(@).clear()
+    stores.keys().each (path) ->
+      return if storesToSkip.has storeName(path)
+      store = stores path
+      store.for(@).clear()
 
 module.exports = ClearStores

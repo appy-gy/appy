@@ -22,8 +22,6 @@ User = require '../../models/user'
 UserPage = React.createClass
   displayName: 'User'
 
-  mixins: [ClearStores]
-
   childContextTypes:
     user: PropTypes.object.isRequired
     edit: PropTypes.bool.isRequired
@@ -83,6 +81,8 @@ UserPage = React.createClass
 
 module.exports = Marty.createContainer UserPage,
   listenTo: UsersStore
+
+  mixins: [ClearStores]
 
   childContextTypes:
     userId: PropTypes.string.isRequired

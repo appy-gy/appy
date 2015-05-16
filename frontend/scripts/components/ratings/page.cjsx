@@ -8,12 +8,9 @@ Preview = require '../shared/ratings/preview'
 RatingsStore = require '../../stores/ratings'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 Ratings = React.createClass
   displayName: 'Ratings'
-
-  mixins: [PureRenderMixin, ClearStores]
 
   propTypes:
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
@@ -48,6 +45,8 @@ Ratings = React.createClass
 
 module.exports = Marty.createContainer Ratings,
   listenTo: RatingsStore
+
+  mixins: [ClearStores]
 
   fetch: ->
     ratings: RatingsStore.for(@).getPage()
