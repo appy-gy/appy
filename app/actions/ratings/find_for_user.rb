@@ -8,7 +8,7 @@ module Ratings
     end
 
     def call
-      ratings = user.ratings
+      ratings = user.ratings.includes(:tags)
       ratings = ratings.published unless Users::CanSeeDrafts.new(current_user, user).call
       ratings
     end
