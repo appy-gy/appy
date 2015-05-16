@@ -71,10 +71,10 @@ UserPage = React.createClass
           <EditButtons start={@startEdit} save={@saveUser} cancel={@cancelEdit}/>
         </header>
         <Tabs>
-          <Tab key="ratings" id="ratings" title="Рейтинги">
+          <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
             <Ratings/>
           </Tab>
-          <Tab key="comments" id="comments" title="Комментарии">
+          <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
             <Comments/>
           </Tab>
         </Tabs>

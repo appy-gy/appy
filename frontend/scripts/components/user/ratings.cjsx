@@ -1,4 +1,3 @@
-_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 Preview = require '../shared/ratings/preview'
@@ -13,10 +12,13 @@ Ratings = React.createClass
   propTypes:
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
 
-  noRatings: ->
-    {ratings} = @props
+  contextTypes:
+    user: PropTypes.object.isRequired
 
-    return unless _.isEmpty ratings
+  noRatings: ->
+    {user} = @context
+
+    return if user.ratingsCount > 0
 
     <div>
       У вас пока нет рейтингов. Создайте свой первый рейтинг прямо сейчас!
@@ -29,11 +31,11 @@ Ratings = React.createClass
       <Preview key={rating.id} rating={rating}/>
 
   render: ->
-    {ratings} = @props
+    {user} = @context
 
     <div>
       <h2 className="user-profile_tab-header">
-        Ваши рейтинги ({ratings.length})
+        Ваши рейтинги ({user.ratingsCount})
       </h2>
       {@noRatings()}
       <CreateRating className="user-profile_tab-button">

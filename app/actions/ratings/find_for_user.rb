@@ -1,13 +1,16 @@
 module Ratings
   class FindForUser
-    attr_reader :user
+    attr_reader :current_user, :user
 
-    def initialize user
+    def initialize current_user, user
+      @current_user = current_user
       @user = user
     end
 
     def call
-      user.ratings
+      ratings = user.ratings
+      ratings = ratings.published unless Users::CanSeeDrafts.new(current_user, user).call
+      ratings
     end
   end
 end

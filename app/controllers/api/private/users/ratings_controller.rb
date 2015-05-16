@@ -5,7 +5,7 @@ module Api
         find :user
 
         def index
-          ratings = ::Ratings::FindForUser.new(@user).call
+          ratings = ::Ratings::FindForUser.new(current_user, @user).call
           render json: ratings
         end
       end

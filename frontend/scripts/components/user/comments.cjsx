@@ -1,4 +1,3 @@
-_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 Comment = require '../shared/comments/comment'
@@ -12,10 +11,13 @@ Comments = React.createClass
   propTypes:
     comments: PropTypes.arrayOf(PropTypes.object).isRequired
 
-  noComments: ->
-    {comments} = @props
+  contextTypes:
+    user: PropTypes.object.isRequired
 
-    return unless _.isEmpty comments
+  noComments: ->
+    {user} = @context
+
+    return if user.commentsCount > 0
 
     <div>
       У вас пока нет комментариев.
@@ -28,11 +30,11 @@ Comments = React.createClass
       <Comment key={comment.id} comment={comment}/>
 
   render: ->
-    {comments} = @props
+    {user} = @context
 
     <div>
       <h2 className="user-profile_tab-header">
-        Ваши комментарии ({comments.length})
+        Ваши комментарии ({user.commentsCount})
       </h2>
       {@noComments}
       {@comments()}
