@@ -1,23 +1,23 @@
 .header
   &_logotype
     display: block
-    font-weight: 700
     font-size: 42px
+    font-weight: 700
     color: white
     padding: 0 0 10px 0
     margin: 20px
 
   &_rating-button
     display: block
-    cursor: pointer
+    font-weight: 600
     background: $white
     color: $color-1
-    font-weight: 600
+    cursor: pointer
     margin: 15px
     border-radius: $border-radius
     line-height: 40px
-    height: 40px
     text-align: center
+    height: 40px
     text-transform: uppercase
 
   &_rating-button-icon
@@ -26,31 +26,31 @@
   &_rating-items
 
   &_rating-item
-    margin: 10px 15px
-    height: 30px
-    line-height: 20px
+    display: flex
     background: $color-2
     color: $white
-    padding: 5px
-    display: flex
-    transition: all 0.3s
     cursor: move
+    padding: 5px
+    margin: 10px 15px
+    line-height: 20px
+    height: 30px
+    transition: all 0.3s
     &:hover
       transform: scale(1.1)
 
   &_rating-item-title
     font-size: 12px
-    width: 100%
     margin-right: 5px
     overflow: hidden
+    width: 100%
     text-overflow: ellipsis
 
   &_rating-item-options
     display: flex
 
   &_rating-item-up
-    margin-right: 5px
     cursor: pointer
+    margin-right: 5px
     &:before
       +ion-icon("arrow-up-c")
 

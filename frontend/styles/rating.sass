@@ -1,23 +1,23 @@
 .rating
   +rating-meta
-  width: 100%
-  border: 1px solid #f2f2f2
   background: white
+  border: 1px solid #f2f2f2
   border-radius: $border-radius
+  width: 100%
 
   &_header
-    position: relative
-    height: 500px
-    width: 100%
     display: flex
-    justify-content: center
     align-items: center
+    justify-content: center
+    flex-flow: column wrap
+    position: relative
+    background-color: $blue
     background-position: center center
     background-repeat: no-repeat
     background-size: cover
-    background-color: $blue
-    flex-flow: column wrap
     border-radius: $border-radius $border-radius 0 0
+    width: 100%
+    height: 500px
 
     .image-selector
       position: absolute
@@ -25,19 +25,19 @@
       left: 20px
 
   &_line
-    width: 60%
-    border-bottom: 1px solid $black-3
-    margin: 0 auto 30px auto
     position: relative
+    margin: 0 auto 30px auto
+    border-bottom: 1px solid $black-3
+    width: 60%
 
     &:after
-      position: absolute
       content: ''
       display: block
-      width: 100%
-      border-bottom: 1px solid $black-3
+      position: absolute
       top: 5px
       left: -10px
+      border-bottom: 1px solid $black-3
+      width: 100%
 
   &_like
     +like-burst(120px)
@@ -46,24 +46,24 @@
     justify-content: center
 
   &_title-wrapper
-    width: 100%
     padding: 20px
+    width: 100%
 
   &_title
-    width: 100%
-    color: $white
+    font-family: $serif
     font-size: 60px
     font-weight: 400
-    text-align: center
-    line-height: 1.2
-    font-family: $serif
+    color: $white
     margin: 0
+    line-height: 1.2
+    text-align: center
+    width: 100%
     word-break: break-word
 
     &.m-edit
-      resize: none
-      height: 220px
       border-radius: $border-radius
+      height: 220px
+      resize: none
 
   &_title-buttons
     display: flex
@@ -94,13 +94,13 @@
 
   &_section-name
     display: block
-    font-size: 15px
-    text-transform: uppercase
-    color: $red
-    font-weight: 600
-    margin: 25px 0 15px 0
     position: absolute
     top: 100px
+    font-size: 15px
+    font-weight: 600
+    color: $red
+    margin: 25px 0 15px 0
+    text-transform: uppercase
 
     &:after
       content: ":"
@@ -109,17 +109,17 @@
       color: $red-2
 
   &_tags
+    justify-content: center
     position: absolute
     top: 120px
-    justify-content: center
 
   &_description-wrapper
-    width: 100%
     padding: 20px
+    width: 100%
 
   &_description
-    font-style: italic
     font-size: 20px
+    font-style: italic
     font-weight: 600
     text-align: center
     width: 100%
@@ -130,10 +130,10 @@
       resize: none
 
   &_description-buttons
-    padding-top: 15px
-    width: 100%
     display: flex
     justify-content: flex-end
+    padding-top: 15px
+    width: 100%
 
   &_description-button
     &.accept
@@ -146,47 +146,47 @@
     display: block
     font-size: 12px
     font-weight: 600
-    text-transform: uppercase
     color: $blue
+    padding-bottom: 20px
+    margin: 0 auto
     text-align: center
     width: 60%
-    margin: 0 auto
-    padding-bottom: 20px
+    text-transform: uppercase
 
     &:before
       content: 'Автор:'
-      text-transform: uppercase
       color: $black-3
       margin-right: 5px
+      text-transform: uppercase
 
   &_share
     display: flex
-    flex-flow: row nowrap
     justify-content: center
+    flex-flow: row nowrap
     padding: 0 3 * $margin 3 * $margin 3 * $margin
 
     &-icon
+      font-size: 30px
+      background: white
+      border-radius: $border-radius
+      line-height: 40px
+      text-align: center
       width: 40px
       height: 40px
-      line-height: 40px
-      font-size: 30px
-      text-align: center
-      border-radius: $border-radius
-      background: white
 
     &-text
-      width: calc(100% - 40px)
-      text-align: center
-      line-height: 40px
-      color: white
       font-size: 20px
+      color: white
+      line-height: 40px
+      text-align: center
+      width: calc(100% - 40px)
 
     &-button
       display: flex
       cursor: pointer
-      border-radius: 2 * $border-radius
-      margin: 0 2px
       padding: $margin
+      margin: 0 2px
+      border-radius: 2 * $border-radius
       width: 100%
       height: 60px
 

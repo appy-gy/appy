@@ -1,9 +1,9 @@
 $wrapper-margin: 3 * $margin
 
 .auth-popup
-  position: relative
   display: flex
   flex-flow: column nowrap
+  position: relative
   background: $white
   padding: $wrapper-margin
   border-radius: 10 * $border-radius
@@ -28,8 +28,8 @@ $wrapper-margin: 3 * $margin
 
   &_social-buttons
     display: flex
-    flex-flow: row wrap
     justify-content: space-between
+    flex-flow: row wrap
 
   &_social-button
     color: $white
@@ -37,8 +37,8 @@ $wrapper-margin: 3 * $margin
     padding: 2 * $margin $margin
     margin-bottom: $margin
     border-radius: $border-radius
-    width: calc(50% - #{$margin / 2})
     text-align: center
+    width: calc(50% - #{$margin / 2})
     text-transform: uppercase
 
     @each $type, $color in ("facebook", #3b5b98), ("vk", #6484ab), ("twitter", #55aded), ("google", #d54a35)
@@ -51,9 +51,9 @@ $wrapper-margin: 3 * $margin
 
     &:before
       content: ""
+      display: block
       position: absolute
       top: 50%
-      display: block
       background: $grey-3
       width: 100%
       height: $border-width
@@ -72,9 +72,9 @@ $wrapper-margin: 3 * $margin
       transform: translateX(-50%)
 
   &_form
-    position: relative
     display: flex
     flex-flow: column nowrap
+    position: relative
     color: $black-3
     border: $border-width solid $grey-3
     border-radius: 2 * $border-radius

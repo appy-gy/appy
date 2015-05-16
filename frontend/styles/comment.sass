@@ -3,47 +3,47 @@
   margin-bottom: 30px
 
   &_userface
+    border-radius: 30px
     width: 60px
     height: 60px
-    border-radius: 30px
 
   &_content
-    width: calc(100% - 60px)
     padding: 5px 0 0 10px
+    width: calc(100% - 60px)
 
   &_text
-    word-wrap: break-word
     white-space: pre-wrap
+    word-wrap: break-word
 
   &_username
-    color: $blue
     font-weight: 600
+    color: $blue
     margin-right: 5px
     white-space: nowrap
     &:hover
       color: $blue-2
 
   &_date
-    font-weight: 600
     font-size: 14px
+    font-weight: 600
     color: $black-3
 
   &_textarea
-    width: calc(100% - 60px)
-    padding: 10px
-    border-radius: $border-radius
-    margin-left: 10px
     font-size: 16px
-    resize: none
     background: $white
+    padding: 10px
+    margin-left: 10px
+    border-radius: $border-radius
+    width: calc(100% - 60px)
+    resize: none
 
   &_actions
     // opacity: 0
 
   &_action
     font-size: 13px
-    cursor: pointer
     color: $black-3
+    cursor: pointer
     &:hover
       color: $blue
 

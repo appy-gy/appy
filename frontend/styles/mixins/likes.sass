@@ -2,9 +2,9 @@
   position: absolute
   top: 0
   left: 0
+  text-align: center
   width: $size
   height: $size
-  text-align: center
 
 =like-subburst($size)
   +like-burst-item($size)
@@ -26,8 +26,8 @@
       background: $blue-2
 
 =like-burst($size)
-  cursor: pointer
   position: relative
+  cursor: pointer
   margin: $size auto
   width: $size
   height: $size
@@ -43,6 +43,6 @@
 
     &:before
       +ion-icon("thumbsup")
-      color: white
       font-size: 90px
+      color: white
       line-height: $size
