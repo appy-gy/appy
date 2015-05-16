@@ -16,13 +16,25 @@ Ratings = React.createClass
     user: PropTypes.object.isRequired
 
   noRatings: ->
-    {user} = @context
-
-    return if user.ratingsCount > 0
+    return if @hasRatings()
 
     <div>
       У вас пока нет рейтингов. Создайте свой первый рейтинг прямо сейчас!
     </div>
+
+  createRating: ->
+    {user} = @context
+
+    return if @hasRatings()
+
+    <CreateRating className="user-profile_tab-button">
+      Создать рейтинг
+    </CreateRating>
+
+  hasRatings: ->
+    {user} = @context
+
+    user.ratingsCount > 0
 
   ratings: ->
     {ratings} = @props
@@ -38,9 +50,7 @@ Ratings = React.createClass
         Ваши рейтинги ({user.ratingsCount})
       </h2>
       {@noRatings()}
-      <CreateRating className="user-profile_tab-button">
-        Создать рейтинг
-      </CreateRating>
+      {@createRating()}
       <div className="previews">
         {@ratings()}
       </div>
