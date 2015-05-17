@@ -2,7 +2,9 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 classNames = require 'classnames'
+OnEsc = require '../../mixins/on_esc'
 Popup = require './popup'
+PopupActionCreators = require '../../../action_creators/popups'
 PopupsStore = require '../../../stores/popups'
 
 {PropTypes} = React
@@ -11,10 +13,18 @@ PopupsStore = require '../../../stores/popups'
 Popups = React.createClass
   displayName: 'Popups'
 
-  mixins: [PureRenderMixin]
+  mixins: [PureRenderMixin, OnEsc]
 
   propTypes:
     popups: PropTypes.arrayOf(PropTypes.object).isRequired
+
+  componentWillMount: ->
+    @onEsc @closeLastPopup
+
+  closeLastPopup: ->
+    {popups} = @props
+
+    PopupActionCreators.remove _.last(popups)
 
   popups: ->
     {popups} = @props
