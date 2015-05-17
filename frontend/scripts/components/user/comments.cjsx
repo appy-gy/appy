@@ -26,8 +26,10 @@ Comments = React.createClass
   comments: ->
     {comments} = @props
 
+    actionTypes = open: {}, answer: { inline: false }
+
     comments.map (comment) ->
-      <Comment key={comment.id} comment={comment}/>
+      <Comment key={comment.id} comment={comment} actionTypes={actionTypes}/>
 
   render: ->
     {user} = @context

@@ -15,7 +15,7 @@ Instagram = React.createClass
   mixins: [PureRenderMixin]
 
   contextTypes:
-    router: React.PropTypes.func
+    router: PropTypes.func.isRequired
 
   componentDidMount: ->
     {user} = @props

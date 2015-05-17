@@ -11,7 +11,7 @@ CreateRating = React.createClass
     children: PropTypes.node.isRequired
 
   contextTypes:
-    router: React.PropTypes.func
+    router: PropTypes.func.isRequired
 
   create: ->
     {router} = @context

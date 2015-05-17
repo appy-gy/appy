@@ -9,6 +9,7 @@ Comment = React.createClass
 
   propTypes:
     comment: PropTypes.object.isRequired
+    actionTypes: PropTypes.object.isRequired
 
   childContextTypes:
     comment: PropTypes.object.isRequired
@@ -18,8 +19,11 @@ Comment = React.createClass
 
     { comment }
 
+  getDefaultProps: ->
+    inlineForm: false
+
   render: ->
-    {comment} = @props
+    {comment, actionTypes} = @props
 
     <div className="comment">
       <UserLink className="comment_username" user={comment.user}>
@@ -35,7 +39,7 @@ Comment = React.createClass
         <div className="comment_date">
           {comment.createdAt.fromNow()}
         </div>
-        <Actions/>
+        <Actions types={actionTypes}/>
       </div>
     </div>
 

@@ -1,36 +1,32 @@
+_ = require 'lodash'
 React = require 'react/addons'
 Form = require './form'
+Open = require './open'
+Answer = require './answer'
 
 {PropTypes} = React
 
 Actions = React.createClass
   displayName: 'CommentActions'
 
-  contextTypes:
-    comment: PropTypes.object.isRequired
+  propTypes:
+    types: PropTypes.object.isRequired
 
-  getInitialState: ->
-    showForm: false
+  types:
+    open: Open
+    answer: Answer
 
-  triggerForm: ->
-    {showForm} = @state
+  actions: ->
+    {types} = @props
 
-    @setState showForm: not showForm
+    _.map types, (props, type) =>
+      Comp = @types[type]
 
-  form: ->
-    {showForm} = @state
-    {comment} = @context
-
-    return unless showForm
-
-    <Form parent={comment}/>
+      <Comp key={type} {...props}/>
 
   render: ->
     <div className="comment_actions">
-      <div className="comment_action" onClick={@triggerForm}>
-        Ответить
-      </div>
-      {@form()}
+      {@actions()}
     </div>
 
 module.exports = Actions
