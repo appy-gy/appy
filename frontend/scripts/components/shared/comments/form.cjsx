@@ -15,6 +15,8 @@ Form = React.createClass
   contextTypes:
     ratingId: PropTypes.string.isRequired
 
+  placeholder: 'Нажмите Shift + Enter для отправки. Для перехода на новую строку нажмите Enter'
+
   getDefaultProps: ->
     parent: null
 
@@ -25,7 +27,7 @@ Form = React.createClass
     @setState body: event.target.value
 
   onKeyDown: (event) ->
-    return if event.key != 'Enter' or event.shiftKey
+    return unless event.shiftKey and event.key == 'Enter'
 
     event.preventDefault()
     @createComment()
@@ -44,7 +46,7 @@ Form = React.createClass
 
     <div className="comment-form">
       <img className="comment_userface" src={user.avatarUrl 'small'}/>
-      <Textarea className="comment_textarea" value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
+      <Textarea className="comment_textarea" placeholder={@placeholder} value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
     </div>
 
 module.exports = Marty.createContainer Form,
