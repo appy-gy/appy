@@ -12,6 +12,7 @@ RatingItem = React.createClass
 
   propTypes:
     ratingItem: PropTypes.object.isRequired
+    index: PropTypes.number.isRequired
 
   childContextTypes:
     ratingItem: PropTypes.object.isRequired
@@ -23,11 +24,11 @@ RatingItem = React.createClass
     { ratingItem, block: 'rating-item' }
 
   render: ->
-    {ratingItem} = @props
+    {ratingItem, index} = @props
 
     <section className="rating-item">
       <div className="rating-item_title">
-        <span className="rating-item_number">{ratingItem.position}</span>
+        <span className="rating-item_number">{index}</span>
         <Title object={ratingItem} actionCreator={RatingItemActionCreators}/>
       </div>
       <div className="rating-item_cover">
