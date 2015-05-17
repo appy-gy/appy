@@ -28,7 +28,7 @@ Comment = React.createClass
       </UserLink>
       <div className="comment_content">
         <UserLink className="comment_username" user={comment.user}>
-          {comment.user.name}
+          {comment.user.name or comment.user.email}
         </UserLink>
         <span className="comment_text">
           {comment.body}
