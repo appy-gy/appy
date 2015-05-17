@@ -2,6 +2,7 @@ _ = require 'lodash'
 Marty = require 'marty'
 React = require 'react/addons'
 toArray = require '../helpers/to_array'
+findInStore = require '../helpers/find_in_store'
 UserConstants = require '../constants/users'
 UserQueries = require '../queries/users'
 User = require '../models/user'
@@ -25,14 +26,14 @@ class UsersStore extends Marty.Store
     users = state.map (user) -> new User user
     @append users
 
-  get: (id) ->
+  get: (idOrSlug) ->
     @fetch
-      id: "get-#{id}"
+      id: "get-#{idOrSlug}"
       locally: ->
-        return unless @hasAlreadyFetched "get-#{id}"
-        _.find @state, (user) -> user.id == id
+        return unless @hasAlreadyFetched "get-#{idOrSlug}"
+        findInStore @, idOrSlug
       remotely: ->
-        UserQueries.for(@).get(id)
+        UserQueries.for(@).get(idOrSlug)
 
   append: (users) ->
     @state = update @state, $push: toArray(users)

@@ -85,17 +85,17 @@ module.exports = Marty.createContainer UserPage,
   mixins: [ClearStores]
 
   childContextTypes:
-    userId: PropTypes.string.isRequired
+    userSlug: PropTypes.string.isRequired
 
   getChildContext: ->
-    {userId} = @props
+    {userSlug} = @props
 
-    { userId }
+    { userSlug }
 
   fetch: ->
-    {userId} = @props
+    {userSlug} = @props
 
-    user: UsersStore.for(@).get(userId)
+    user: UsersStore.for(@).get(userSlug)
 
   pending: ->
     @done user: new User

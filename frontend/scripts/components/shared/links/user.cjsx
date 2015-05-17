@@ -17,7 +17,7 @@ UserLink = React.createClass
 
     props = _.omit @props, 'user', 'children'
 
-    <Link className="comment_username" to="user" params={userId: user.id} {...props}>
+    <Link className="comment_username" to="user" params={userSlug: user.slug} {...props}>
       {children}
     </Link>
 

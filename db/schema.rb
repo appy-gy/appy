@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150509102440) do
+ActiveRecord::Schema.define(version: 20150517143042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,10 +110,12 @@ ActiveRecord::Schema.define(version: 20150509102440) do
     t.text     "avatar"
     t.text     "facebook_link"
     t.text     "instagram_link"
+    t.text     "slug",                            null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
+  add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
 
   create_table "votes", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer  "kind",           null: false

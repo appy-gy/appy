@@ -6,8 +6,8 @@ User = require '../models/user'
 class UserQueries extends Marty.Queries
   @id: 'UserQueries'
 
-  get: (id) ->
-    UsersApi.for(@).load(id).then ({body}) =>
+  get: (idOrSlug) ->
+    UsersApi.for(@).load(idOrSlug).then ({body}) =>
       return unless body?
       user = new User body.user
       @dispatch UserConstants.APPEND_USERS, user
