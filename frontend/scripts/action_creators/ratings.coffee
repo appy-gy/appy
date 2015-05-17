@@ -43,4 +43,10 @@ class RatingActionCreators extends Marty.ActionCreators
       likesCount = body.meta.likes_count
       @dispatch RatingConstants.CHANGE_RATING, ratingId, { like, likesCount }
 
+  unlike: (ratingId) ->
+    LikesApi.destroy(ratingId).then ({body}) =>
+      return unless body.success
+      likesCount = body.meta.likes_count
+      @dispatch RatingConstants.CHANGE_RATING, ratingId, { like: null, likesCount }
+
 module.exports = Marty.register RatingActionCreators

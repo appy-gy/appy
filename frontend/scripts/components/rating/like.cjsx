@@ -10,12 +10,11 @@ Like = React.createClass
   contextTypes:
     rating: PropTypes.object.isRequired
 
-  like: ->
+  triggerLike: ->
     {rating} = @context
 
-    return if rating.like?
-
-    RatingActionCreators.like rating.id
+    action = if rating.like? then 'unlike' else 'like'
+    RatingActionCreators[action] rating.id
 
   subbursts: ->
     {rating} = @context
@@ -27,8 +26,7 @@ Like = React.createClass
   render: ->
     {rating} = @context
 
-
-    <div className="rating_like" onClick={@like}>
+    <div className="rating_like" onClick={@triggerLike}>
       {@subbursts()}
       <div className="rating_like-content"></div>
     </div>
