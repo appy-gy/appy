@@ -21,14 +21,21 @@ Avatar = React.createClass
     UserActionCreators.change user.id, avatar: url
     UserActionCreators.update user.id, { avatar }
 
+  fileInput: ->
+    {user} = @context
+
+    return unless user.canEdit
+
+    <FileInput className="user-profile_avatar-edit" onChange={@updateAvatar}>
+      Изменить фотографию профиля
+    </FileInput>
+
   render: ->
     {user} = @context
 
     <div className="user-profile_avatar">
       <img className="user-profile_avatar-img" src={user.avatarUrl('normal')}/>
-      <FileInput className="user-profile_avatar-edit" onChange={@updateAvatar}>
-        Изменить фотографию профиля
-      </FileInput>
+      {@fileInput()}
     </div>
 
 module.exports = Avatar
