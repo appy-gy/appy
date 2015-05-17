@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517153913) do
+ActiveRecord::Schema.define(version: 20150517180554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "authentications", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "authentications", force: :cascade do |t|
+    t.integer  "user_id",    null: false
     t.text     "provider",   null: false
     t.text     "uid",        null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid     "user_id",    null: false
   end
 
   add_index "authentications", ["provider", "uid"], name: "index_authentications_on_provider_and_uid", using: :btree
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150517153913) do
     t.uuid     "parent_id"
   end
 
+  add_index "comments", ["parent_id"], name: "index_comments_on_parent_id", using: :btree
   add_index "comments", ["rating_id"], name: "index_comments_on_rating_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
@@ -68,7 +69,7 @@ ActiveRecord::Schema.define(version: 20150517153913) do
     t.uuid     "section_id"
     t.text     "description"
     t.uuid     "user_id"
-    t.integer  "status",         default: 0, null: false
+    t.integer  "status",         default: 0
     t.integer  "comments_count", default: 0, null: false
     t.integer  "likes_count",    default: 0, null: false
     t.text     "slug",                       null: false
@@ -78,7 +79,7 @@ ActiveRecord::Schema.define(version: 20150517153913) do
   add_index "ratings", ["slug"], name: "index_ratings_on_slug", unique: true, using: :btree
   add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
-  create_table "ratings_tags", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "ratings_tags", id: false, force: :cascade do |t|
     t.uuid "rating_id", null: false
     t.uuid "tag_id",    null: false
   end
@@ -91,7 +92,10 @@ ActiveRecord::Schema.define(version: 20150517153913) do
     t.text     "color",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "slug",       null: false
   end
+
+  add_index "sections", ["slug"], name: "index_sections_on_slug", unique: true, using: :btree
 
   create_table "tags", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.text     "name",       null: false
@@ -130,13 +134,11 @@ ActiveRecord::Schema.define(version: 20150517153913) do
   add_index "votes", ["rating_item_id"], name: "index_votes_on_rating_item_id", using: :btree
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
-  add_foreign_key "authentications", "users"
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "ratings"
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "ratings"
   add_foreign_key "likes", "users"
-  add_foreign_key "rating_items", "ratings"
   add_foreign_key "ratings", "sections"
   add_foreign_key "ratings", "users"
   add_foreign_key "ratings_tags", "ratings"
