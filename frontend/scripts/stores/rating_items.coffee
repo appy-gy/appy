@@ -35,7 +35,7 @@ class RatingItemsStore extends Marty.Store
       id: id
       locally: ->
         return unless @hasAlreadyFetched id
-        @state.filter (ratingItem) -> ratingItem.ratingId == ratingId
+        findInStore @, ratingId, all: true, fields: ['ratingId', 'ratingSlug']
       remotely: ->
         RatingItemQueries.for(@).getForRating(ratingId)
 

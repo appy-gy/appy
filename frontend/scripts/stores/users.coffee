@@ -26,14 +26,14 @@ class UsersStore extends Marty.Store
     users = state.map (user) -> new User user
     @append users
 
-  get: (idOrSlug) ->
+  get: (id) ->
     @fetch
-      id: "get-#{idOrSlug}"
+      id: "get-#{id}"
       locally: ->
-        return unless @hasAlreadyFetched "get-#{idOrSlug}"
-        findInStore @, idOrSlug
+        return unless @hasAlreadyFetched "get-#{id}"
+        findInStore @, id
       remotely: ->
-        UserQueries.for(@).get(idOrSlug)
+        UserQueries.for(@).get(id)
 
   append: (users) ->
     @state = update @state, $push: toArray(users)

@@ -31,6 +31,6 @@ module.exports = Marty.createContainer RatingItems,
 
   fetch: ->
     {router} = @context
-    {ratingId} = router.getCurrentParams()
+    {ratingSlug} = router.getCurrentParams()
 
-    ratingItems: RatingItemsStore.for(@).getForRating(ratingId)
+    ratingItems: RatingItemsStore.for(@).getForRating(ratingSlug)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517143042) do
+ActiveRecord::Schema.define(version: 20150517153913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,9 +71,11 @@ ActiveRecord::Schema.define(version: 20150517143042) do
     t.integer  "status",         default: 0, null: false
     t.integer  "comments_count", default: 0, null: false
     t.integer  "likes_count",    default: 0, null: false
+    t.text     "slug",                       null: false
   end
 
   add_index "ratings", ["section_id"], name: "index_ratings_on_section_id", using: :btree
+  add_index "ratings", ["slug"], name: "index_ratings_on_slug", unique: true, using: :btree
   add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
   create_table "ratings_tags", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|

@@ -55,7 +55,7 @@ class RatingsStore extends Marty.Store
     @fetch
       id: "get-#{id}"
       locally: ->
-        _.find @state, (rating) -> rating.id == id
+        findInStore @, id
       remotely: ->
         RatingQueries.for(@).get(id)
 

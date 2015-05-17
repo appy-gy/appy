@@ -12,13 +12,13 @@ RatingPage = React.createClass
   mixins: [ClearStores]
 
   childContextTypes:
-    ratingId: PropTypes.string.isRequired
+    ratingSlug: PropTypes.string.isRequired
     block: PropTypes.string.isRequired
 
   getChildContext: ->
-    {ratingId} = @props
+    {ratingSlug} = @props
 
-    { ratingId, block: 'rating' }
+    { ratingSlug, block: 'rating' }
 
   render: ->
     <Layout header="rating">

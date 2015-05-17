@@ -72,12 +72,12 @@ Rating = React.createClass
 
 module.exports = Marty.createContainer Rating,
   contextTypes:
-    ratingId: PropTypes.string.isRequired
+    ratingSlug: PropTypes.string.isRequired
 
   listenTo: [RatingsStore, RatingItemsStore]
 
   fetch: ->
-    {ratingId} = @context
+    {ratingSlug} = @context
 
-    rating: RatingsStore.for(@).get(ratingId)
-    ratingItems: RatingItemsStore.for(@).getForRating(ratingId)
+    rating: RatingsStore.for(@).get(ratingSlug)
+    ratingItems: RatingItemsStore.for(@).getForRating(ratingSlug)

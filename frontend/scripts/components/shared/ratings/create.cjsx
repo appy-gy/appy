@@ -17,7 +17,7 @@ CreateRating = React.createClass
     {router} = @context
 
     RatingActionCreators.create().then ({body}) =>
-      router.transitionTo 'rating', ratingId: body.rating.id
+      router.transitionTo 'rating', ratingSlug: body.rating.slug
 
   render: ->
     {children} = @props

@@ -1,8 +1,7 @@
 React = require 'react/addons'
-Router = require 'react-router'
+RatingLink = require '../links/rating'
 
 {PropTypes} = React
-{Link} = Router
 
 Open = React.createClass
   displayName: 'CommentOpen'
@@ -13,8 +12,8 @@ Open = React.createClass
   render: ->
     {comment} = @context
 
-    <Link className="comment_action" to="rating" params={ratingId: comment.ratingId}>
+    <RatingLink className="comment_action" slug={comment.ratingSlug}>
       Показать
-    </Link>
+    </RatingLink>
 
 module.exports = Open

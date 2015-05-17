@@ -9,15 +9,21 @@ UserLink = React.createClass
   displayName: 'UserLink'
 
   propTypes:
-    user: PropTypes.object.isRequired
+    user: PropTypes.object
+    slug: PropTypes.string
     children: PropTypes.node.isRequired
 
+  slug: ->
+    {user, slug} = @props
+
+    slug or user.slug
+
   render: ->
-    {user, children} = @props
+    {children} = @props
 
-    props = _.omit @props, 'user', 'children'
+    props = _.omit @props, 'user', 'slug', 'children'
 
-    <Link className="comment_username" to="user" params={userSlug: user.slug} {...props}>
+    <Link to="user" params={userSlug: @slug()} {...props}>
       {children}
     </Link>
 

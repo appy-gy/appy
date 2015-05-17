@@ -1,11 +1,10 @@
 React = require 'react/addons'
-Router = require 'react-router'
 classNames = require 'classnames'
 Meta = require './meta'
 Tags = require './tags'
+RatingLink = require '../links/rating'
 
 {PropTypes} = React
-{Link} = Router
 
 Preview = React.createClass
   displayName: 'Preview'
@@ -49,9 +48,9 @@ Preview = React.createClass
       <div className="preview_section-name">
         {@sectionName()}
       </div>
-      <Link to="rating" params={ratingId: rating.id} className="preview_title">
+      <RatingLink className="preview_title" rating={rating}>
         {@title()}
-      </Link>
+      </RatingLink>
       <Tags tags={rating.tags}/>
     </div>
 

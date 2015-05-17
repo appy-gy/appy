@@ -1,6 +1,7 @@
-toArray = require '../helpers/to_array'
 Marty = require 'marty'
 React = require 'react/addons'
+toArray = require '../helpers/to_array'
+findInStore = require '../helpers/find_in_store'
 CommentConstants = require '../constants/comments'
 CommentQueries = require '../queries/comments'
 Comment = require '../models/comment'
@@ -29,7 +30,7 @@ class CommentsStore extends Marty.Store
       id: id
       locally: ->
         return unless @hasAlreadyFetched id
-        @state
+        findInStore @, ratingId, all: true, fields: ['ratingId', 'ratingSlug']
       remotely: ->
         CommentQueries.for(@).getForRating(ratingId)
 

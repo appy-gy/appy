@@ -1,5 +1,4 @@
 React = require 'react/addons'
-Router = require 'react-router'
 Marty = require 'marty'
 ClearStores = require '../mixins/clear_stores'
 Avatar = require './avatar'
@@ -17,7 +16,6 @@ UsersStore = require '../../stores/users'
 User = require '../../models/user'
 
 {PropTypes} = React
-{Link} = Router
 
 UserPage = React.createClass
   displayName: 'User'

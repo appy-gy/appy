@@ -11,7 +11,7 @@ Instagram = require './components/instagram/page'
 routes =
   <Route handler={App} path="/">
     <DefaultRoute name="ratings" handler={Ratings}/>
-    <Route name="rating" path="ratings/:ratingId" handler={Rating}/>
+    <Route name="rating" path="ratings/:ratingSlug" handler={Rating}/>
     <Route name="user" path="users/:userSlug" handler={User}/>
     <Route name="instagram" path="instagram" handler={Instagram}/>
   </Route>
