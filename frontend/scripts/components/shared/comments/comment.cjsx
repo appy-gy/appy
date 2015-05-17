@@ -19,9 +19,6 @@ Comment = React.createClass
 
     { comment }
 
-  getDefaultProps: ->
-    inlineForm: false
-
   render: ->
     {comment, actionTypes} = @props
 
