@@ -5,6 +5,7 @@ Marty = require 'marty'
 SectionConstants = require '../constants/sections'
 SectionQueries = require '../queries/sections'
 Section = require '../models/section'
+findInStore = require '../helpers/find_in_store'
 
 {update} = React.addons
 
@@ -31,6 +32,15 @@ class SectionsStore extends Marty.Store
         @state
       remotely: ->
         SectionQueries.for(@).getAll()
+
+  get: (id) ->
+    @fetch
+      id: "get-#{id}"
+      locally: ->
+        return unless @hasAlreadyFetched "get-#{id}"
+        findInStore @, id
+      remotely: ->
+        SectionQueries.for(@).get(id)
 
   append: (sections) ->
     @state = update @state, $push: toArray(sections)
