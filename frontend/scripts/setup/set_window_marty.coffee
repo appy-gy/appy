@@ -1,4 +1,6 @@
 Marty = require 'marty'
+isClient = require '../helpers/is_client'
 
 module.exports = ->
-  window?.Marty = Marty
+  return unless isClient()
+  window.Marty = Marty

@@ -1,6 +1,7 @@
 _ = require 'lodash'
+isClient = require '../../helpers/is_client'
 
-if window?
+if isClient()
   stores = require.context '../../stores', false, /\.coffee$/
 
 firstLoad = true
