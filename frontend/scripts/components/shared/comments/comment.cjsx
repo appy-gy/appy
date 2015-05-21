@@ -1,4 +1,5 @@
 React = require 'react/addons'
+ScrollTo = require '../../mixins/scroll_to'
 Actions = require './actions'
 UserLink = require '../links/user'
 
@@ -7,9 +8,14 @@ UserLink = require '../links/user'
 Comment = React.createClass
   displayName: 'Comment'
 
+  mixins: [ScrollTo]
+
   propTypes:
     comment: PropTypes.object.isRequired
     actionTypes: PropTypes.object.isRequired
+
+  contextTypes:
+    router: PropTypes.func.isRequired
 
   childContextTypes:
     comment: PropTypes.object.isRequired
@@ -18,6 +24,13 @@ Comment = React.createClass
     {comment} = @props
 
     { comment }
+
+  componentDidMount: ->
+    {comment} = @props
+    {router} = @context
+
+    return unless comment.shortId() == router.getCurrentQuery().comment
+    @scrollTo()
 
   render: ->
     {comment, actionTypes} = @props

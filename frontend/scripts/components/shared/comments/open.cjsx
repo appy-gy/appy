@@ -12,7 +12,7 @@ Open = React.createClass
   render: ->
     {comment} = @context
 
-    <RatingLink className="comment_action" slug={comment.ratingSlug}>
+    <RatingLink className="comment_action" slug={comment.ratingSlug} query={comment: comment.shortId()}>
       Показать
     </RatingLink>
 
