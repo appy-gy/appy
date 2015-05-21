@@ -15,6 +15,9 @@ ObjectDescription = React.createClass
     object: PropTypes.object.isRequired
     actionCreator: PropTypes.object.isRequired
 
+  contextTypes:
+    block: PropTypes.string.isRequired
+
   getInitialState: ->
     {object} = @props
 
