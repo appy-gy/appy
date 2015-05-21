@@ -30,7 +30,7 @@ TagsSelect = React.createClass
 
     name = _.xor(_.map(rating.tags, 'name'), _.map(options, 'value'))[0]
     action = if options.length > rating.tags.length then 'add' else 'remove'
-    RatingActionCreators["#{action}Tag"] rating, name
+    RatingActionCreators["#{action}Tag"] rating.id, name
 
   render: ->
     <Select autoload={false} multi={true} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} onChange={@updateTags}/>
