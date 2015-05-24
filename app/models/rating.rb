@@ -5,6 +5,8 @@ class Rating < ActiveRecord::Base
 
   friendly_id :slug_candidates
 
+  mount_uploader :image, Ratings::RatingImageUploader
+
   belongs_to :user
   belongs_to :section
   has_many :ratings_tags, dependent: :destroy

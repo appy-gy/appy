@@ -1,5 +1,5 @@
 class RatingSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :created_at, :status, :slug,
+  attributes :id, :title, :description, :created_at, :status, :slug, :image,
     :comments_count, :likes_count, :can_edit, :can_comment, :can_see_comments
 
   has_one :user
@@ -17,5 +17,9 @@ class RatingSerializer < ActiveModel::Serializer
 
   def can_see_comments
     Ratings::CanSeeComments.new(scope, object).call
+  end
+
+  def image
+    object.image.url
   end
 end
