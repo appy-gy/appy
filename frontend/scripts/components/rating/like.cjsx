@@ -10,6 +10,11 @@ Like = React.createClass
   contextTypes:
     rating: PropTypes.object.isRequired
 
+  childClasses: (klass) ->
+    {rating} = @context
+
+    classNames klass, 'm-active': rating.like?
+
   triggerLike: ->
     {rating} = @context
 
@@ -19,16 +24,13 @@ Like = React.createClass
   subbursts: ->
     {rating} = @context
 
-    [1, 2].map (index) ->
-      classes = classNames "rating_like-burst-#{index}", 'm-active': rating.like?
-      <div key={index} className={classes}/>
+    [1, 2].map (index) =>
+      <div key={index} className={@childClasses("rating_like-burst-#{index}")}/>
 
   render: ->
-    {rating} = @context
-
     <div className="rating_like" onClick={@triggerLike}>
       {@subbursts()}
-      <div className="rating_like-content"></div>
+      <div className={@childClasses('rating_like-content')}></div>
     </div>
 
 module.exports = Like
