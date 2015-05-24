@@ -44,7 +44,7 @@ Preview = React.createClass
 
     <div className={classes}>
       <Meta/>
-      <div className="preview_image"></div>
+      <div className="preview_image" style={backgroundImage: "url(#{rating.imageUrl('small')})"}></div>
       <div className="preview_section-name">
         {@sectionName()}
       </div>
