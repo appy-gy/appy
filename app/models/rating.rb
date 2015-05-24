@@ -1,5 +1,9 @@
 class Rating < ActiveRecord::Base
+  extend FriendlyId
+
   attr_accessor :like
+
+  friendly_id :slug_candidates
 
   belongs_to :user
   belongs_to :section
@@ -10,4 +14,14 @@ class Rating < ActiveRecord::Base
   has_many :likes, dependent: :destroy
 
   enum status: %w{draft published}
+
+  private
+
+  def slug_candidates
+    [:title, :id]
+  end
+
+  def should_generate_new_friendly_id?
+    not slug? or (status_changed? and status == 'published')
+  end
 end

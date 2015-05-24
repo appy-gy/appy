@@ -1,3 +1,3 @@
 class SectionSerializer < ActiveModel::Serializer
-  attributes :id, :name, :color
+  attributes :id, :slug, :name, :color
 end

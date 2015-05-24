@@ -44,8 +44,7 @@ Ratings = React.createClass
     </Layout>
 
 module.exports = Marty.createContainer Ratings,
-  listenTo: RatingsStore
-
+  listenTo: [RatingsStore]
   mixins: [ClearStores]
 
   fetch: ->

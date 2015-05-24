@@ -7,7 +7,7 @@ module Comments
     end
 
     def call
-      user.comments
+      user.comments.includes(:rating)
     end
   end
 end

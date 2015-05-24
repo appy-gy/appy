@@ -13,7 +13,7 @@ Form = React.createClass
     parent: PropTypes.object
 
   contextTypes:
-    ratingId: PropTypes.string.isRequired
+    ratingSlug: PropTypes.string.isRequired
 
   placeholder: 'Нажмите Shift + Enter для отправки. Для перехода на новую строку нажмите Enter'
 
@@ -35,9 +35,9 @@ Form = React.createClass
   createComment: ->
     {parent} = @props
     {body} = @state
-    {ratingId} = @context
+    {ratingSlug} = @context
 
-    CommentActionCreators.create ratingId, { body, parentId: parent?.id }
+    CommentActionCreators.create ratingSlug, { body, parentId: parent?.id }
       .then => @setState body: ''
 
   render: ->

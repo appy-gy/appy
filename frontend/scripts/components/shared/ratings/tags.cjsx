@@ -2,23 +2,18 @@ React = require 'react/addons'
 Tag = require './tag'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 Tags = React.createClass
   displayName: 'Tags'
 
-  mixins: [PureRenderMixin]
-
-  propTypes:
-    tags: PropTypes.arrayOf(PropTypes.object).isRequired
-
   contextTypes:
+    rating: PropTypes.object.isRequired
     block: PropTypes.string.isRequired
 
   tags: ->
-    {tags} = @props
+    {rating} = @context
 
-    tags.map (tag) ->
+    rating.tags.map (tag) ->
       <Tag key={tag.id} tag={tag}/>
 
   render: ->

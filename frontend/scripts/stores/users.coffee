@@ -2,6 +2,7 @@ _ = require 'lodash'
 Marty = require 'marty'
 React = require 'react/addons'
 toArray = require '../helpers/to_array'
+findInStore = require '../helpers/find_in_store'
 UserConstants = require '../constants/users'
 UserQueries = require '../queries/users'
 User = require '../models/user'
@@ -30,7 +31,7 @@ class UsersStore extends Marty.Store
       id: "get-#{id}"
       locally: ->
         return unless @hasAlreadyFetched "get-#{id}"
-        _.find @state, (user) -> user.id == id
+        findInStore @, id
       remotely: ->
         UserQueries.for(@).get(id)
 

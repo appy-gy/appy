@@ -1,8 +1,28 @@
 _ = require 'lodash'
 
-findIndexInStore = (store, recordOrId) ->
-  ids = _.compact if _.isObject(recordOrId) then [recordOrId.id, recordOrId.cid] else [recordOrId]
+idFields = ['id', 'cid', 'slug']
+
+defaultOpts =
+  all: false
+  fields: idFields
+
+extractIds = (obj, fields) ->
+  _(obj).pick(fields).values().compact().value()
+
+findIndexInStore = (store, data, opts = {}) ->
+  return unless data?
+
+  {all, fields} = _.defaults opts, defaultOpts
+  ids = _ if _.isObject(data) then extractIds(data, fields) else [data]
   state = store.getState()
-  _.findIndex state, (record) -> _.includes(ids, record.id) or _.includes(ids, record.cid)
+  filter = (record) ->
+    not ids.intersection(extractIds(record, fields)).isEmpty()
+
+  return _.findIndex state, filter unless all
+
+  _ state
+    .map (record, index) -> if filter(record) then index else null
+    .compact()
+    .value()
 
 module.exports = findIndexInStore

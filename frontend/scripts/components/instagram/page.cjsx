@@ -40,7 +40,7 @@ Instagram = React.createClass
     {user} = @props
     {router} = @context
 
-    router.transitionTo 'user', userId: user.id
+    router.transitionTo 'user', userSlug: user.slug
 
   render: ->
     <Layout>

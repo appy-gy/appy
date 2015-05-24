@@ -40,6 +40,10 @@ gem 'foreman'
 # I18n
 gem 'russian'
 
+# Friendly urls
+gem 'babosa'
+gem 'friendly_id'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails'

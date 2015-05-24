@@ -1,9 +1,8 @@
 React = require 'react/addons'
-Router = require 'react-router'
 Form = require './form'
+RatingLink = require '../links/rating'
 
 {PropTypes} = React
-{Link} = Router
 
 Answer = React.createClass
   displayName: 'CommentAnswer'
@@ -12,10 +11,15 @@ Answer = React.createClass
     inline: PropTypes.bool.isRequired
 
   contextTypes:
+    router: PropTypes.func.isRequired
     comment: PropTypes.object.isRequired
 
   getInitialState: ->
-    showForm: false
+    {router, comment} = @context
+
+    query = router.getCurrentQuery()
+
+    showForm: query.reply and comment.shortId() == query.comment
 
   triggerForm: ->
     {inline} = @props
@@ -28,7 +32,7 @@ Answer = React.createClass
   root: ->
     {inline} = @props
 
-    if inline then 'div' else Link
+    if inline then 'div' else RatingLink
 
   form: ->
     {showForm} = @state
@@ -43,8 +47,10 @@ Answer = React.createClass
 
     Root = @root()
 
-    <Root className="comment_action" to="rating" params={ratingId: comment.ratingId} onClick={@triggerForm}>
-      Ответить
+    <Root className="comment_action" slug={comment.ratingSlug} query={comment: comment.shortId(), reply: true}>
+      <div onClick={@triggerForm}>
+        Ответить
+      </div>
       {@form()}
     </Root>
 

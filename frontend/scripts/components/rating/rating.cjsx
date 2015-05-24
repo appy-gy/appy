@@ -4,6 +4,7 @@ Marty = require 'marty'
 Nothing = require '../shared/nothing'
 Header = require './header'
 Description = require './description'
+Tags = require '../shared/ratings/tags'
 RatingItem = require './rating_item'
 Like = require './like'
 ShareButtons = require './share_buttons'
@@ -55,10 +56,7 @@ Rating = React.createClass
     <article className="rating">
       <Header/>
       <Description object={rating} actionCreator={RatingActionCreators}/>
-      <div className="tags rating_tags">
-        <span className="tag rating_tag">фантазия</span>
-        <span className="tag rating_tag">девушки</span>
-      </div>
+      <Tags/>
       <a href="/" className="rating_author">
         {rating.user.name}
       </a>
@@ -72,12 +70,12 @@ Rating = React.createClass
 
 module.exports = Marty.createContainer Rating,
   contextTypes:
-    ratingId: PropTypes.string.isRequired
+    ratingSlug: PropTypes.string.isRequired
 
   listenTo: [RatingsStore, RatingItemsStore]
 
   fetch: ->
-    {ratingId} = @context
+    {ratingSlug} = @context
 
-    rating: RatingsStore.for(@).get(ratingId)
-    ratingItems: RatingItemsStore.for(@).getForRating(ratingId)
+    rating: RatingsStore.for(@).get(ratingSlug)
+    ratingItems: RatingItemsStore.for(@).getForRating(ratingSlug)

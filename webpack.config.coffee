@@ -10,12 +10,13 @@ dotenv.load()
 [debug, devtool] = if process.env.TOP_ENV == 'development' then [true, 'eval'] else [false, null]
 
 cssLoaders = ['css', 'autoprefixer']
+lessLoaders = cssLoaders.concat 'less'
 sassLoaders = cssLoaders.concat 'sass'
 loaderGenerator = if process.env.TOP_ENV == 'development'
   (loaders) -> ['style'].concat(loaders).join('!')
 else
   (loaders) -> ExtractTextPlugin.extract 'style', loaders
-[cssLoader, sassLoader] = [cssLoaders, sassLoaders].map loaderGenerator
+[cssLoader, lessLoader, sassLoader] = [cssLoaders, lessLoaders, sassLoaders].map loaderGenerator
 
 env = _.pick process.env, 'NODE_ENV', 'TOP_INSTAGRAM_KEY'
 definePluginEnv = mapObj env, (key, value) ->
@@ -59,6 +60,7 @@ module.exports =
       { test: /\.woff|ttf|otf|eot((\?|#).*)?|svg((\?|#).*)$/, loader: 'file' }
       { test: /\.(jpe?g|gif|png|svg)$/, loader: 'file' }
       { test: /\.css$/, loader: cssLoader }
+      { test: /\.less$/, loader: lessLoader }
       { test: /\.sass$/, loader: sassLoader + '?indentedSyntax' }
       { test: /\.scss$/, loader: sassLoader }
       { test: /\.js$/, include: /node_modules\/marty/, loader: 'babel' }

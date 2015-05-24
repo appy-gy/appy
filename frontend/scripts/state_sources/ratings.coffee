@@ -13,6 +13,9 @@ class RatingsApi extends Marty.HttpStateSource
   loadForUser: (userId) ->
     @get "users/#{userId}/ratings"
 
+  loadForSection: (sectionId) ->
+    @get "sections/#{sectionId}/ratings"
+
   load: (id) ->
     @get "ratings/#{id}"
 

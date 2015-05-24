@@ -8,4 +8,8 @@ class Comment extends Base
   @hasOne 'parent', Comment
   @hasMany 'comments', Comment
 
+  shortId: ->
+    return unless @id?
+    @id.split('-')[0]
+
 module.exports = Comment

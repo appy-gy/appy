@@ -60,9 +60,9 @@ module.exports = Marty.createContainer Ratings,
   listenTo: RatingsStore
 
   contextTypes:
-    userId: PropTypes.string.isRequired
+    userSlug: PropTypes.string.isRequired
 
   fetch: ->
-    {userId} = @context
+    {userSlug} = @context
 
-    ratings: RatingsStore.for(@).getForUser(userId)
+    ratings: RatingsStore.for(@).getForUser(userSlug)
