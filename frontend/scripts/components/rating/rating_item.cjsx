@@ -27,7 +27,7 @@ RatingItem = React.createClass
     {ratingItem, index} = @props
 
     <section className="rating-item">
-      <div className="rating-item_title">
+      <div className="rating-item_header">
         <span className="rating-item_number">{index}</span>
         <Title object={ratingItem} actionCreator={RatingItemActionCreators}/>
       </div>
