@@ -39,7 +39,11 @@ Rating = React.createClass
 
     return unless rating.canEdit
 
-    <h1 onClick={@createRatingItem}>New</h1>
+    <div className="rating_new-item-button-wrapper">
+      <div className="rating_new-item-button" onClick={@createRatingItem}>
+        <div className="rating_new-item-button-icon"></div><div className="rating_new-item-button-text">Добавить новый пункт в рейтинг</div>
+      </div>
+    </div>
 
   ratingItems: ->
     {ratingItems} = @props
@@ -60,9 +64,9 @@ Rating = React.createClass
       <a href="/" className="rating_author">
         {rating.user.name}
       </a>
-      {@addRatingItemButton()}
       <div className="rating_line"></div>
       {@ratingItems()}
+      {@addRatingItemButton()}
       <div className="rating_line"></div>
       <Like/>
       <ShareButtons/>

@@ -63,13 +63,13 @@ ActiveRecord::Schema.define(version: 20150517180554) do
   add_index "rating_items", ["rating_id"], name: "index_rating_items_on_rating_id", using: :btree
 
   create_table "ratings", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.text     "title"
+    t.text     "title",                      null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.uuid     "section_id"
+    t.uuid     "section_id",                 null: false
     t.text     "description"
     t.uuid     "user_id"
-    t.integer  "status",         default: 0
+    t.integer  "status",         default: 0, null: false
     t.integer  "comments_count", default: 0, null: false
     t.integer  "likes_count",    default: 0, null: false
     t.text     "slug",                       null: false

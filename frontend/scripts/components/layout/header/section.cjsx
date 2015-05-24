@@ -18,11 +18,9 @@ Section = React.createClass
 
     styles = background: section.color
 
-    <div className="site-nav_item" style={styles}>
-      <Link to="section" params={sectionSlug: section.slug}>
-        <div className="site-nav_icon"></div>
-        <div className="site-nav_text">{section.name}</div>
-      </Link>
-    </div>
+    <Link to="section" params={sectionSlug: section.slug} className="site-nav_item" style={styles}>
+      <div className="site-nav_icon"></div>
+      <div className="site-nav_text">{section.name}</div>
+    </Link>
 
 module.exports = Section
