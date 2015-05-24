@@ -39,8 +39,42 @@
       border-bottom: 1px solid $black-3
       width: 100%
 
+  &_new-item-button
+    display: inline-flex
+    line-height: 40px
+    cursor: pointer
+    margin-bottom: 30px
+
+    &-wrapper
+      display: flex
+      justify-content: center
+
+    &-icon
+      font-size: 32px
+      color: $green
+      line-height: inherit
+      margin-right: 10px
+      margin-top: -2px
+      transition: transform 0.1s
+
+      &:before
+        line-height: inherit
+        +ion-icon("android-add-circle")
+
+    &:hover
+      .rating_new-item-button-icon
+        transform: scale(1.2)
+
+    &-text
+      color: $blue
+      line-height: inherit
+      font-family: $serif
+      font-size: 18px
+
   &_like
     +like-burst(120px)
+    &.m-active
+      background red
 
   &_meta
     justify-content: center
@@ -187,8 +221,6 @@
       width: 100%
       height: 60px
 
-      &:last-of-type
-        margin: 0
 
       @each $type, $icon, $color in (facebook, social-facebook, #3b5b98), (google, social-googleplus, #d54a35), (twitter social-twitter #55acee)
         &.m-#{$type}

@@ -1,12 +1,24 @@
 .rating-item
   padding: 30px 60px
 
-  &_title
+  &_header
     font: 20px $serif
     font-weight: 700
     color: $blue
     margin-bottom: 25px
     text-align: center
+    display: flex
+    justify-content: center
+
+  &_number
+    margin-right: 5px
+
+    &:before
+      content: '#'
+
+
+  &_title
+    font-size: inherit
 
   &_cover
     width: 100%
@@ -61,3 +73,5 @@
     color: $black
     margin: 0 10px
     letter-spacing: 1px
+    min-width: 20px
+    text-align: center

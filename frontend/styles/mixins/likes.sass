@@ -40,9 +40,20 @@
 
   &-content
     +like-burst-item($size)
+    transition: transform 0.1s
+    line-height: $size
 
     &:before
-      +ion-icon("thumbsup")
+      +ion-icon("ios-heart-outline")
       font-size: 90px
       color: white
-      line-height: $size
+      line-height: $size + 10px
+
+    &.m-active
+
+      &:before
+        +ion-icon("ios-heart")
+
+  &:hover
+    .rating_like-content
+      transform: scale(1.2)

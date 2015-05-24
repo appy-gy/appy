@@ -24,7 +24,16 @@ FacebookButton = React.createClass
 
   render: ->
     {user} = @context
-
-    <a href={user.facebookLink} target="_blank" className="user-profile_social m-fb" onClick={@getFacebookLink}></a>
+    <div>
+      <div className="user-profile_social m-add">
+        <a className="user-profile_social-button m-fb" target="_blank"></a>
+        <a href={user.facebookLink} target="_blank"  onClick={@getFacebookLink} className="user-profile_social-link">Привязать</a>
+      </div>
+      <div className="user-profile_social m-remove">
+        <a className="user-profile_social-button m-fb" target="_blank"></a>
+        <span className="user-profile_social-caption">Привязано</span>
+        <a className="user-profile_social-link">Отвязать</a>
+      </div>
+    </div>
 
 module.exports = FacebookButton
