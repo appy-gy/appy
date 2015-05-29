@@ -15,6 +15,7 @@ module Api
 
     include Sorcery::Controller
 
+    include ProcessFormDataNulls
     include RenderError
     include CustomFinder
     include CheckPolicy
