@@ -33,6 +33,6 @@ TagsSelect = React.createClass
     RatingActionCreators["#{action}Tag"] rating.id, name
 
   render: ->
-    <Select autoload={false} multi={true} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} onChange={@updateTags}/>
+    <Select placeholder="Задать теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" autoload={false} multi={true} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} onChange={@updateTags}/>
 
 module.exports = TagsSelect

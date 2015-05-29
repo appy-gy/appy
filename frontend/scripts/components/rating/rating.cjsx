@@ -4,7 +4,6 @@ Marty = require 'marty'
 Nothing = require '../shared/nothing'
 Header = require './header'
 Description = require './description'
-Tags = require '../shared/ratings/tags'
 RatingItem = require './rating_item'
 Like = require './like'
 isBlank = require '../../helpers/is_blank'
@@ -91,7 +90,6 @@ Rating = React.createClass
       {@publishConditionsList()}
       <Header/>
       <Description object={rating} actionCreator={RatingActionCreators}/>
-      <Tags/>
       <a href="/" className="rating_author">
         {rating.user.name || rating.user.email}
       </a>
