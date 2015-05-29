@@ -1,0 +1,70 @@
+.Select
+  min-width: 200px
+
+  &-control
+    position: relative
+    background-color: transparent
+    border: 2px solid $white-2
+    border-radius: $border-radius * 2
+    color: $blue
+    cursor: pointer
+    padding: 8px 52px 8px 10px
+
+  &-placeholder
+    color: $white-2
+
+  &-input
+
+    & > input
+
+  &-arrow
+    border-top-color: $white-2
+    top: 17px
+
+  &-clear
+    color: $white-2
+    padding-top: 7px
+
+    &:hover
+      color: $red
+
+  &.is-multi
+
+  &.is-focused:not(.is-open) > .Select-control
+    border-color: $white
+    box-shadow: none
+  &-menu-outer
+    border-bottom-right-radius: $border-radius * 2
+    border-bottom-left-radius: $border-radius * 2
+    background-color: white
+    border: 2px solid $white
+    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.2)
+    margin-top: 0px
+
+  &-item
+    background-color: $white
+    border-radius: $border-radius
+    border: 1px solid $blue-2
+    color: $blue
+    display: inline-block
+    font-size: 1em
+    margin: 2px
+
+    &-icon
+      border-right-color: $blue-2
+
+  &:hover
+
+    .Select-control
+      border-color: $white
+
+    .Select-placeholder
+      color: $white
+
+    .Select-arrow
+      border-top-color: $white
+
+
+.is-open > .Select-control
+  background: white
+  border: 2px solid $white

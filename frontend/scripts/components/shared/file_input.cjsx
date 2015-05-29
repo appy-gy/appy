@@ -1,13 +1,13 @@
 _ = require 'lodash'
 React = require 'react/addons'
+Classes = require '../mixins/classes'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 FileInput = React.createClass
   displayName: 'FileInput'
 
-  mixins: [PureRenderMixin]
+  mixins: [Classes]
 
   propTypes:
     onChange: PropTypes.func.isRequired
@@ -21,10 +21,10 @@ FileInput = React.createClass
   render: ->
     {children} = @props
 
-    props = _.omit @props, 'onChange', 'children'
+    props = _.omit @props, 'className', 'onChange', 'children'
 
-    <div {...props}>
-      <input type="file" className="file-input" onChange={@onChange}/>
+    <div className={@classes('file-input')} {...props}>
+      <input type="file" className="file-input_input" onChange={@onChange}/>
       {children}
     </div>
 

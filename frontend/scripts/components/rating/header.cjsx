@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Title = require './title'
 SectionsSelect = require './sections_select'
+Tags = require '../shared/ratings/tags'
 TagsSelect = require './tags_select'
 Meta = require '../shared/ratings/meta'
 RatingActionCreators = require '../../action_creators/ratings'
@@ -19,8 +20,7 @@ Header = React.createClass
 
     return unless rating.canEdit
 
-    <FileInput style={position: 'relative'} onChange={@updateImage}>
-      Загрузить изображение
+    <FileInput className="rating_add-image" onChange={@updateImage}>
     </FileInput>
 
   updateImage: (files) ->
@@ -40,9 +40,14 @@ Header = React.createClass
     <header className="rating_header" style={backgroundImage: "url(#{rating.imageUrl('normal')})"}>
       <Meta/>
       {@ratingImageButton()}
-      <SectionsSelect object={rating} actionCreator={RatingActionCreators}/>
-      <TagsSelect/>
+      <div className="rating_section-name-wrapper">
+        <SectionsSelect object={rating} actionCreator={RatingActionCreators}/>
+      </div>
+      <div className="rating_tags-select">
+        <TagsSelect/>
+      </div>
       <Title object={rating} actionCreator={RatingActionCreators}/>
+      <Tags/>
     </header>
 
 module.exports = Header
