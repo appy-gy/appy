@@ -97,6 +97,19 @@ $tab-title-height: 50px
     text-overflow: ellipsis
     white-space: nowrap
 
+    &-buttons
+      display: flex
+      flex-flow: row nowrap
+
+    &-button
+      font-size: 16px
+
+      &.m-accept
+        +alt-accept(30px)
+
+      &.m-cancel
+        +cancel(30px)
+
   &_socials
     display: flex
     margin-top: 2 * $margin
