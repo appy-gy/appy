@@ -10,14 +10,13 @@ class RatingItemActionCreators extends Marty.ActionCreators
   @id: 'RatingItemActionCreators'
 
   create: (ratingId) ->
-    @getRatingItemsFor ratingId, (ratingItems) =>
-      position = (_.max(ratingItems, 'position')?.position or 0) + 1
-      data = { ratingId, position }
+    position = (_.max(RatingItemsStore.getState(), 'position')?.position or 0) + 1
+    data = { ratingId, position }
 
-      RatingItemsApi.create(ratingId, data).then ({body}) =>
-        return unless body?
-        ratingItem = new RatingItem body.rating_item
-        @dispatch RatingItemConstants.APPEND_RATING_ITEMS, ratingItem
+    RatingItemsApi.create(ratingId, data).then ({body}) =>
+      return unless body?
+      ratingItem = new RatingItem body.rating_item
+      @dispatch RatingItemConstants.APPEND_RATING_ITEMS, ratingItem
 
   change: (ratingItemId, changes) ->
     @dispatch RatingItemConstants.CHANGE_RATING_ITEM, ratingItemId, changes
@@ -32,24 +31,21 @@ class RatingItemActionCreators extends Marty.ActionCreators
 
   updatePosition: (ratingItemId, newPosition) ->
     ratingItem = findInStore RatingItemsStore, ratingItemId
-    @getRatingItemsFor ratingItem.ratingId, (ratingItems) =>
-      max = _.max(ratingItems, 'position').position
-      return unless 0 <= newPosition <= max
+    ratingItems = RatingItemsStore.getState()
+    max = _.max(ratingItems, 'position').position
+    return unless 0 <= newPosition <= max
 
-      ratingItems = _.without ratingItems, ratingItem
-      index = _.findIndex ratingItems, (item) -> item.position == newPosition
-      index += 1 if ratingItem.position < newPosition
-      ratingItems.splice index, 0, ratingItem
+    ratingItems = _.without ratingItems, ratingItem
+    index = _.findIndex ratingItems, (item) -> item.position == newPosition
+    index += 1 if ratingItem.position < newPosition
+    ratingItems.splice index, 0, ratingItem
 
-      positions = _.transform ratingItems, (result, ratingItem, index) ->
-        result[ratingItem.id] = index
-      , {}
+    positions = _.transform ratingItems, (result, ratingItem, index) ->
+      result[ratingItem.id] = index
+    , {}
 
-      RatingItemsApi.updatePositions(ratingItem.ratingId, positions).then ({body}) =>
-        return unless body?
-        @dispatch RatingItemConstants.CHANGE_RATING_ITEM_POSITIONS, body.positions
-
-  getRatingItemsFor: (ratingId, cb) ->
-    RatingItemsStore.getForRating(ratingId).toPromise().then(cb)
+    RatingItemsApi.updatePositions(ratingItem.ratingId, positions).then ({body}) =>
+      return unless body?
+      @dispatch RatingItemConstants.CHANGE_RATING_ITEM_POSITIONS, body.positions
 
 module.exports = Marty.register RatingItemActionCreators

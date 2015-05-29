@@ -1,14 +1,18 @@
 React = require 'react/addons'
-FacebookButton = require './facebook_button'
-InstagramButton = require './instagram_button'
+SocialButton = require './social_button'
 
 SocialButtons = React.createClass
   displayName: 'SocialButtons'
 
+  networks: ['facebook', 'instagram']
+
+  buttons: ->
+    @networks.map (network) ->
+      <SocialButton key={network} network={network}/>
+
   render: ->
     <div className="user-profile_socials">
-      <FacebookButton/>
-      <InstagramButton/>
+      {@buttons()}
     </div>
 
 module.exports = SocialButtons

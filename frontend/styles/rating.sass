@@ -83,8 +83,6 @@
 
   &_like
     +like-burst(120px)
-    &.m-active
-      background red
 
   &_meta
     justify-content: center
@@ -127,16 +125,8 @@
 
   &_title-button
     &.m-accept
-      +accept
-      background-color: $white
-      color: $green
-      border: 2px solid rgba($white, 0)
+      +alt-accept
       line-height: 36px
-
-      &:hover
-        background-color: $green
-        color: $white
-        border-color: $white
 
     &.m-cancel
       +cancel

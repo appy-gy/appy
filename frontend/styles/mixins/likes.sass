@@ -40,7 +40,6 @@
 
   &-content
     +like-burst-item($size)
-    transition: transform 0.1s
     line-height: $size
 
     &:before
@@ -50,10 +49,9 @@
       line-height: $size + 10px
 
     &.m-active
-
       &:before
         +ion-icon("ios-heart")
 
   &:hover
     .rating_like-content
-      transform: scale(1.2)
+      animation: heart-beat 1s linear

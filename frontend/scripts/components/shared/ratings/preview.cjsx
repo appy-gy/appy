@@ -42,9 +42,15 @@ Preview = React.createClass
 
     classes = classNames 'preview', "m-#{mod}"
 
+    imageStyles = {}
+    if rating.image
+      imageStyles.backgroundImage = "url(#{rating.imageUrl('small')})"
+    else
+      imageStyles.backgroundColor = 'rgba(33, 172, 208, 1)'
+
     <div className={classes}>
       <Meta/>
-      <div className="preview_image" style={backgroundImage: "url(#{rating.imageUrl('small')})"}></div>
+      <div className="preview_image" style={imageStyles}></div>
       <div className="preview_section-name">
         {@sectionName()}
       </div>

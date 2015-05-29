@@ -1,7 +1,7 @@
 @import "mixins/ratings"
 @import "mixins/likes"
 
-=button
+=button($size: 40px)
   display: inline-block
   font-weight: bold
   color: white
@@ -9,20 +9,31 @@
   padding: 0 15px
   border-radius: $border-radius
   letter-spacing: -0.5px
-  line-height: 40px
+  line-height: $size
   text-align: center
-  height: 40px
+  height: $size
   transition: all 0.3s
   text-transform: uppercase
 
-=accept
-  +button
+=accept($size: 40px)
+  +button($size)
   background-color: $green
   &:hover
     background-color: darken($green, 5%)
 
-=cancel
-  +button
+=alt-accept($size: 40px)
+  +button($size)
+  background-color: $white
+  color: $green
+  border: 2px solid rgba($white, 0)
+
+  &:hover
+    background-color: $green
+    color: $white
+    border-color: $white
+
+=cancel($size: 40px)
+  +button($size)
   background: none
   color: $black-3
   margin-left: 15px

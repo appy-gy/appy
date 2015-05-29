@@ -97,6 +97,19 @@ $tab-title-height: 50px
     text-overflow: ellipsis
     white-space: nowrap
 
+    &-buttons
+      display: flex
+      flex-flow: row nowrap
+
+    &-button
+      font-size: 16px
+
+      &.m-accept
+        +alt-accept(30px)
+
+      &.m-cancel
+        +cancel(30px)
+
   &_socials
     display: flex
     margin-top: 2 * $margin
@@ -104,21 +117,25 @@ $tab-title-height: 50px
 
   &_social
     display: flex
+    margin-right: $margin
 
     &-button
       +icon-button
 
-      &.m-fb:before
+      &.m-facebook:before
         +ion-icon("social-facebook")
 
-      &.m-insta:before
+      &.m-instagram:before
         +ion-icon("social-instagram")
 
     &-link
+      cursor: pointer
       padding: 0 10px
 
+    &:last-of-type
+      margin-right: 0
+
     &.m-add
-      display: none
       background: $white
       border-radius: $border-radius * 3
       line-height: $icon-button-size
@@ -127,31 +144,30 @@ $tab-title-height: 50px
       &:hover
         color: $blue
 
-      .user-profile_social-link
-        border-left: 1px solid $blue-2
+      .user-profile
+        &_social-link
+          border-left: 1px solid $blue-2
 
     &.m-remove
       display: flex
       flex-flow: column wrap
       height: 40px
 
-      .user-profile_social-link
-        font-size: 12px
-        color: $white-2
-        line-height: 14px
+      .user-profile
+        &_social-link
+          font-size: 12px
+          color: $white-2
+          line-height: 14px
 
-        &:hover
+          &:hover
+            color: $white
+
+        &_social-caption
+          margin-top: 2px
+          font-size: 14px
           color: $white
-
-      .user-profile_social-caption
-        margin-top: 2px
-        font-size: 14px
-        color: $white
-        line-height: 22px
-        padding: 0 10px
-
-
-
+          line-height: 22px
+          padding: 0 10px
 
   &_edit-buttons
     display: flex

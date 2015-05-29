@@ -57,7 +57,7 @@ Rating = React.createClass
   publish: ->
     {rating} = @props
 
-    return unless isBlank publishConditions
+    return unless isBlank @publishConditions()
 
     RatingActionCreators.update rating.id, status: 'published'
 
