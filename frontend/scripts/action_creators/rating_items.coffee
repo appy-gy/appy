@@ -31,21 +31,21 @@ class RatingItemActionCreators extends Marty.ActionCreators
 
   updatePosition: (ratingItemId, newPosition) ->
     ratingItem = findInStore RatingItemsStore, ratingItemId
-    @getRatingItemsFor ratingItem.ratingId, (ratingItems) =>
-      max = _.max(ratingItems, 'position').position
-      return unless 0 <= newPosition <= max
+    ratingItems = RatingItemsStore.getState()
+    max = _.max(ratingItems, 'position').position
+    return unless 0 <= newPosition <= max
 
-      ratingItems = _.without ratingItems, ratingItem
-      index = _.findIndex ratingItems, (item) -> item.position == newPosition
-      index += 1 if ratingItem.position < newPosition
-      ratingItems.splice index, 0, ratingItem
+    ratingItems = _.without ratingItems, ratingItem
+    index = _.findIndex ratingItems, (item) -> item.position == newPosition
+    index += 1 if ratingItem.position < newPosition
+    ratingItems.splice index, 0, ratingItem
 
-      positions = _.transform ratingItems, (result, ratingItem, index) ->
-        result[ratingItem.id] = index
-      , {}
+    positions = _.transform ratingItems, (result, ratingItem, index) ->
+      result[ratingItem.id] = index
+    , {}
 
-      RatingItemsApi.updatePositions(ratingItem.ratingId, positions).then ({body}) =>
-        return unless body?
-        @dispatch RatingItemConstants.CHANGE_RATING_ITEM_POSITIONS, body.positions
+    RatingItemsApi.updatePositions(ratingItem.ratingId, positions).then ({body}) =>
+      return unless body?
+      @dispatch RatingItemConstants.CHANGE_RATING_ITEM_POSITIONS, body.positions
 
 module.exports = Marty.register RatingItemActionCreators
