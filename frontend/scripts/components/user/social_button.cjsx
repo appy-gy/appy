@@ -79,9 +79,9 @@ SocialButton = React.createClass
 
     text = if @link()? then 'Отвязать' else 'Привязать'
 
-    <a className="user-profile_social-link" onClick={@triggerLink}>
+    <div className="user-profile_social-link" onClick={@triggerLink}>
       {text}
-    </a>
+    </div>
 
   render: ->
     {network} = @props

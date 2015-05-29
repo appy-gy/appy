@@ -104,6 +104,7 @@ $tab-title-height: 50px
 
   &_social
     display: flex
+    margin-right: $margin
 
     &-button
       +icon-button
@@ -115,7 +116,11 @@ $tab-title-height: 50px
         +ion-icon("social-instagram")
 
     &-link
+      cursor: pointer
       padding: 0 10px
+
+    &:last-of-type
+      margin-right: 0
 
     &.m-add
       background: $white
