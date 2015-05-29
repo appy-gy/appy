@@ -10,14 +10,13 @@ class RatingItemActionCreators extends Marty.ActionCreators
   @id: 'RatingItemActionCreators'
 
   create: (ratingId) ->
-    @getRatingItemsFor ratingId, (ratingItems) =>
-      position = (_.max(ratingItems, 'position')?.position or 0) + 1
-      data = { ratingId, position }
+    position = (_.max(RatingItemsStore.getState(), 'position')?.position or 0) + 1
+    data = { ratingId, position }
 
-      RatingItemsApi.create(ratingId, data).then ({body}) =>
-        return unless body?
-        ratingItem = new RatingItem body.rating_item
-        @dispatch RatingItemConstants.APPEND_RATING_ITEMS, ratingItem
+    RatingItemsApi.create(ratingId, data).then ({body}) =>
+      return unless body?
+      ratingItem = new RatingItem body.rating_item
+      @dispatch RatingItemConstants.APPEND_RATING_ITEMS, ratingItem
 
   change: (ratingItemId, changes) ->
     @dispatch RatingItemConstants.CHANGE_RATING_ITEM, ratingItemId, changes
@@ -48,8 +47,5 @@ class RatingItemActionCreators extends Marty.ActionCreators
       RatingItemsApi.updatePositions(ratingItem.ratingId, positions).then ({body}) =>
         return unless body?
         @dispatch RatingItemConstants.CHANGE_RATING_ITEM_POSITIONS, body.positions
-
-  getRatingItemsFor: (ratingId, cb) ->
-    RatingItemsStore.getForRating(ratingId).toPromise().then(cb)
 
 module.exports = Marty.register RatingItemActionCreators
