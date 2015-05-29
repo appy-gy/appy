@@ -19,7 +19,7 @@ Header = React.createClass
 
     return unless rating.canEdit
 
-    <FileInput onChange={@updateImage}>
+    <FileInput style={position: 'relative'} onChange={@updateImage}>
       Загрузить изображение
     </FileInput>
 

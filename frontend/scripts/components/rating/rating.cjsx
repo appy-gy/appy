@@ -7,6 +7,7 @@ Description = require './description'
 Tags = require '../shared/ratings/tags'
 RatingItem = require './rating_item'
 Like = require './like'
+isBlank = require '../../helpers/is_blank'
 ShareButtons = require './share_buttons'
 RatingsStore = require '../../stores/ratings'
 RatingItemsStore = require '../../stores/rating_items'
@@ -54,20 +55,51 @@ Rating = React.createClass
         <RatingItem key={ratingItem.id} ratingItem={ratingItem} index={index + 1}/>
       .value()
 
+  publish: ->
+    {rating} = @props
+
+    return unless isBlank publishConditions
+
+    RatingActionCreators.update rating.id, status: 'published'
+
+  publishButton: ->
+    {rating} = @props
+
+    return <Nothing/> if rating.status == 'published'
+
+    <h1 onClick={@publish} >Опубликовать</h1>
+
+  publishConditions: ->
+    {rating} = @props
+    {ratingItems} = @props
+
+    conditions = []
+
+    conditions.push 'добавьте заголовок рейтинга' unless rating.title
+    conditions.push 'добавьте описание рейтинга' unless rating.description
+    conditions.push 'добавьте хотя бы два рейтинга' if ratingItems.length < 2
+
+    conditions.map (condition) -> <li>{condition}</li>
+
+  publishConditionsList: ->
+    <ul>{@publishConditions()}</ul>
+
   render: ->
     {rating} = @props
 
     <article className="rating">
+      {@publishConditionsList()}
       <Header/>
       <Description object={rating} actionCreator={RatingActionCreators}/>
       <Tags/>
       <a href="/" className="rating_author">
-        {rating.user.name}
+        {rating.user.name || rating.user.email}
       </a>
       <div className="rating_line"></div>
       {@ratingItems()}
       {@addRatingItemButton()}
       <div className="rating_line"></div>
+      {@publishButton()}
       <Like/>
       <ShareButtons/>
     </article>
