@@ -1,18 +1,16 @@
 _ = require 'lodash'
 React = require 'react/addons'
+Marty = require 'marty'
 ReactDnd = require 'react-dnd'
 findInStore = require '../../../helpers/find_in_store'
-RatingItemActionCreators = require '../../../action_creators/rating_items'
-RatingItemsStore = require '../../../stores/rating_items'
-
-{DragDropMixin} = ReactDnd
 
 {PropTypes} = React
+{DragDropMixin} = ReactDnd
 
 RatingItem = React.createClass
   displayName: 'RatingItem'
 
-  mixins: [DragDropMixin]
+  mixins: [Marty.createAppMixin(), DragDropMixin]
 
   propTypes:
     ratingItem: PropTypes.object.isRequired
@@ -32,13 +30,13 @@ RatingItem = React.createClass
 
     change = if direction == 'up' then -1 else 1
     newPosition = ratingItem.position + change
-    RatingItemActionCreators.updatePosition ratingItem.id, newPosition
+    @app.ratingItemsActions.updatePosition ratingItem.id, newPosition
 
   updatePosition: (ratingItemId) ->
     {ratingItem} = @props
 
-    newPosition = findInStore(RatingItemsStore, ratingItemId).position
-    RatingItemActionCreators.updatePosition ratingItem.id, newPosition
+    newPosition = findInStore(@app.ratingItemsStore, ratingItemId).position
+    @app.ratingItemsActions.updatePosition ratingItem.id, newPosition
 
   render: ->
     {ratingItem} = @props

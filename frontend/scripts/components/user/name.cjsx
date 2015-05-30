@@ -1,12 +1,14 @@
 _ = require 'lodash'
 React = require 'react/addons'
+Marty = require 'marty'
 isBlank = require '../../helpers/is_blank'
-UserActionCreators = require '../../action_creators/users'
 
 {PropTypes} = React
 
 Name = React.createClass
   displayName: 'Name'
+
+  mixins: [Marty.createAppMixin()]
 
   contextTypes:
     user: PropTypes.object.isRequired
@@ -20,14 +22,14 @@ Name = React.createClass
     {user} = @context
     {value} = event.target
 
-    UserActionCreators.change user.id, name: value
+    @app.usersActions.change user.id, name: value
 
   saveName: ->
     {user} = @context
 
     @setState edit: false
-    return UserActionCreators.change user.id, name: @prevName if isBlank user.name
-    UserActionCreators.update user.id, name: user.name
+    return @app.usersActions.change user.id, name: @prevName if isBlank user.name
+    @app.usersActions.update user.id, name: user.name
 
   startEdit: ->
     {user} = @context
@@ -38,7 +40,7 @@ Name = React.createClass
   cancelEdit: ->
     {user} = @context
 
-    UserActionCreators.change user.id, name: @prevName
+    @app.usersActions.change user.id, name: @prevName
     @setState edit: false
 
   contentView: ->

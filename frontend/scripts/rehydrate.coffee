@@ -1,7 +1,7 @@
-Marty = require 'marty'
+app = require './application'
 
 rehydrate = ->
-  Marty.rehydrate()
+  app.rehydrate()
   document.querySelector('#__marty-state').remove()
 
 module.exports = rehydrate

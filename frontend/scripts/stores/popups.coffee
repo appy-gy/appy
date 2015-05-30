@@ -2,18 +2,16 @@ _ = require 'lodash'
 toArray = require '../helpers/to_array'
 React = require 'react/addons'
 Marty = require 'marty'
-PopupConstants = require '../constants/popups'
+Constants = require '../constants'
 
 {update} = React.addons
 
 class PopupsStore extends Marty.Store
-  @id: 'PopupsStore'
-
   constructor: ->
     super
     @handlers =
-      append: PopupConstants.APPEND_POPUPS
-      remove: PopupConstants.REMOVE_POPUPS
+      append: Constants.APPEND_POPUPS
+      remove: Constants.REMOVE_POPUPS
 
   getInitialState: ->
     []
@@ -27,4 +25,4 @@ class PopupsStore extends Marty.Store
   remove: (popups) ->
     @state = _.without @state, toArray(popups)...
 
-module.exports = Marty.register PopupsStore
+module.exports = PopupsStore

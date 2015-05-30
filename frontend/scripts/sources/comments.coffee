@@ -2,8 +2,6 @@ Marty = require 'marty'
 snakecaseKeys = require '../helpers/snakecase_keys'
 
 class CommentsApi extends Marty.HttpStateSource
-  @id: 'CommentsApi'
-
   baseUrl: '/api/private'
 
   loadForRating: (ratingId) ->
@@ -17,4 +15,4 @@ class CommentsApi extends Marty.HttpStateSource
     body = comment: snakecaseKeys(data)
     @post { url, body }
 
-module.exports = Marty.register CommentsApi
+module.exports = CommentsApi

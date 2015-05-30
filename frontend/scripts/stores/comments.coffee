@@ -2,19 +2,16 @@ Marty = require 'marty'
 React = require 'react/addons'
 toArray = require '../helpers/to_array'
 findInStore = require '../helpers/find_in_store'
-CommentConstants = require '../constants/comments'
-CommentQueries = require '../queries/comments'
+Constants = require '../constants'
 Comment = require '../models/comment'
 
 {update} = React.addons
 
 class CommentsStore extends Marty.Store
-  @id: 'CommentsStore'
-
   constructor: ->
     super
     @handlers =
-      append: CommentConstants.APPEND_COMMENTS
+      append: Constants.APPEND_COMMENTS
 
   getInitialState: ->
     []
@@ -32,7 +29,7 @@ class CommentsStore extends Marty.Store
         return unless @hasAlreadyFetched id
         findInStore @, ratingId, all: true, fields: ['ratingId', 'ratingSlug']
       remotely: ->
-        CommentQueries.for(@).getForRating(ratingId)
+        @app.commentsQueries.getForRating(ratingId)
 
   getForUser: (userId) ->
     id = "getForuser-#{userId}"
@@ -43,9 +40,9 @@ class CommentsStore extends Marty.Store
         return unless @hasAlreadyFetched id
         @state
       remotely: ->
-        CommentQueries.for(@).getForUser(userId)
+        @app.commentsQueries.getForUser(userId)
 
   append: (comments) ->
     @state = update @state, $push: toArray(comments)
 
-module.exports = Marty.register CommentsStore
+module.exports = CommentsStore

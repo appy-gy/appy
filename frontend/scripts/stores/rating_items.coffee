@@ -4,22 +4,19 @@ findInStore = require '../helpers/find_in_store'
 findIndexInStore = require '../helpers/find_index_in_store'
 React = require 'react/addons'
 Marty = require 'marty'
-RatingItemConstants = require '../constants/rating_items'
-RatingItemQueries = require '../queries/rating_items'
+Constants = require '../constants'
 RatingItem = require '../models/rating_item'
 
 {update} = React.addons
 
 class RatingItemsStore extends Marty.Store
-  @id: 'RatingItemsStore'
-
   constructor: ->
     super
     @handlers =
-      change: RatingItemConstants.CHANGE_RATING_ITEM
-      replace: RatingItemConstants.REPLACE_RATING_ITEM
-      append: RatingItemConstants.APPEND_RATING_ITEMS
-      changePositions: RatingItemConstants.CHANGE_RATING_ITEM_POSITIONS
+      change: Constants.CHANGE_RATING_ITEM
+      replace: Constants.REPLACE_RATING_ITEM
+      append: Constants.APPEND_RATING_ITEMS
+      changePositions: Constants.CHANGE_RATING_ITEM_POSITIONS
 
   getInitialState: ->
     []
@@ -37,7 +34,7 @@ class RatingItemsStore extends Marty.Store
         return unless @hasAlreadyFetched id
         findInStore @, ratingId, all: true, fields: ['ratingId', 'ratingSlug']
       remotely: ->
-        RatingItemQueries.for(@).getForRating(ratingId)
+        @app.ratingItemsQueries.getForRating(ratingId)
 
   change: (ratingItemId, changes) ->
     ratingItem = findInStore @, ratingItemId
@@ -59,4 +56,4 @@ class RatingItemsStore extends Marty.Store
       ratingItem.position = position if position?
     @hasChanged()
 
-module.exports = Marty.register RatingItemsStore
+module.exports = RatingItemsStore

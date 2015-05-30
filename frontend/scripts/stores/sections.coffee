@@ -2,20 +2,17 @@ _ = require 'lodash'
 toArray = require '../helpers/to_array'
 React = require 'react/addons'
 Marty = require 'marty'
-SectionConstants = require '../constants/sections'
-SectionQueries = require '../queries/sections'
+Constants = require '../constants'
 Section = require '../models/section'
 findInStore = require '../helpers/find_in_store'
 
 {update} = React.addons
 
 class SectionsStore extends Marty.Store
-  @id: 'SectionsStore'
-
   constructor: ->
     super
     @handlers =
-      append: SectionConstants.APPEND_SECTIONS
+      append: Constants.APPEND_SECTIONS
 
   getInitialState: ->
     []
@@ -31,7 +28,7 @@ class SectionsStore extends Marty.Store
         return unless @hasAlreadyFetched 'getAll'
         @state
       remotely: ->
-        SectionQueries.for(@).getAll()
+        @app.sectionsQueries.getAll()
 
   get: (id) ->
     @fetch
@@ -40,9 +37,9 @@ class SectionsStore extends Marty.Store
         return unless @hasAlreadyFetched "get-#{id}"
         findInStore @, id
       remotely: ->
-        SectionQueries.for(@).get(id)
+        @app.sectionsQueries.get(id)
 
   append: (sections) ->
     @state = update @state, $push: toArray(sections)
 
-module.exports = Marty.register SectionsStore
+module.exports = SectionsStore

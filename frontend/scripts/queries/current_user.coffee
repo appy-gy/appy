@@ -1,15 +1,12 @@
 Marty = require 'marty'
-CurrentUserConstants = require '../constants/current_user'
-CurrentUserApi = require '../state_sources/current_user'
+Constants = require '../constants'
 User = require '../models/user'
 
 class CurrentUserQueries extends Marty.Queries
-  @id: 'CurrentUserQueries'
-
   get: ->
-    CurrentUserApi.for(@).load().then ({body}) =>
+    @app.currentUserApi.load().then ({body}) =>
       return unless body?
       user = new User body.user
-      @dispatch CurrentUserConstants.SET_CURRENT_USER, user
+      @dispatch Constants.SET_CURRENT_USER, user
 
-module.exports = Marty.register CurrentUserQueries
+module.exports = CurrentUserQueries

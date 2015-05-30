@@ -1,4 +1,3 @@
-_ = require 'lodash'
 React = require 'react/addons'
 Router = require 'react-router'
 

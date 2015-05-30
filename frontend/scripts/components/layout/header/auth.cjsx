@@ -1,6 +1,5 @@
 React = require 'react/addons'
 Marty = require 'marty'
-CurrentUserStore = require '../../../stores/current_user'
 Info = require '../../auth/info'
 Login = require '../../auth/login'
 Logout = require '../../auth/logout'
@@ -41,7 +40,7 @@ Auth = React.createClass
     </div>
 
 module.exports = Marty.createContainer Auth,
-  listenTo: CurrentUserStore
+  listenTo: 'currentUserStore'
 
   fetch: ->
-    user: CurrentUserStore.for(@).get()
+    user: @app.currentUserStore.get()

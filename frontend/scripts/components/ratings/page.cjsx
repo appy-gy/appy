@@ -5,7 +5,6 @@ ClearStores = require '../mixins/clear_stores'
 Subscription = require './subscription'
 Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
-RatingsStore = require '../../stores/ratings'
 
 {PropTypes} = React
 
@@ -44,11 +43,12 @@ Ratings = React.createClass
     </Layout>
 
 module.exports = Marty.createContainer Ratings,
-  listenTo: [RatingsStore]
+  listenTo: 'ratingsStore'
+
   mixins: [ClearStores]
 
   fetch: ->
-    ratings: RatingsStore.for(@).getPage()
+    ratings: @app.ratingsStore.getPage()
 
   pending: ->
     @done ratings: []

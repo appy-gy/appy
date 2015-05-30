@@ -1,16 +1,18 @@
 React = require 'react/addons'
+Marty = require 'marty'
 Title = require './title'
 SectionsSelect = require './sections_select'
 Tags = require '../shared/ratings/tags'
 TagsSelect = require './tags_select'
 Meta = require '../shared/ratings/meta'
-RatingActionCreators = require '../../action_creators/ratings'
 FileInput = require '../shared/file_input'
 
 {PropTypes} = React
 
 Header = React.createClass
   displayName: 'Header'
+
+  mixins: [Marty.createAppMixin()]
 
   contextTypes:
     rating: PropTypes.object.isRequired
@@ -31,8 +33,8 @@ Header = React.createClass
 
     url = URL.createObjectURL image
 
-    RatingActionCreators.change rating.id, image: url
-    RatingActionCreators.update rating.id, { image }
+    @app.RatingsActions.change rating.id, image: url
+    @app.RatingsActions.update rating.id, { image }
 
   render: ->
     {rating} = @context
@@ -41,12 +43,12 @@ Header = React.createClass
       <Meta/>
       {@ratingImageButton()}
       <div className="rating_section-name-wrapper">
-        <SectionsSelect object={rating} actionCreator={RatingActionCreators}/>
+        <SectionsSelect object={rating} actions="ratingsActions"/>
       </div>
       <div className="rating_tags-select">
         <TagsSelect/>
       </div>
-      <Title object={rating} actionCreator={RatingActionCreators}/>
+      <Title object={rating} actions="ratingsActions"/>
       <Tags/>
     </header>
 

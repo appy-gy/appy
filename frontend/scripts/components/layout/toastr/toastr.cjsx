@@ -1,7 +1,6 @@
 React = require 'react/addons'
 Marty = require 'marty'
 Toast = require './toast'
-ToastsStore = require '../../../stores/toasts'
 
 {PropTypes} = React
 
@@ -23,7 +22,7 @@ Toastr = React.createClass
     </div>
 
 module.exports = Marty.createContainer Toastr,
-  listenTo: ToastsStore
+  listenTo: 'toastsStore'
 
   fetch: ->
-    toasts: ToastsStore.for(@).getAll()
+    toasts: @app.toastsStore.getAll()

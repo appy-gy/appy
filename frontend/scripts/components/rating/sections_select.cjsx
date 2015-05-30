@@ -1,6 +1,5 @@
 React = require 'react/addons'
 Marty = require 'marty'
-SectionsStore = require '../../stores/sections'
 
 {PropTypes} = React
 
@@ -30,7 +29,7 @@ SectionsSelect = React.createClass
     </select>
 
 module.exports = Marty.createContainer SectionsSelect,
-  listenTo: SectionsStore
+  listenTo: 'sectionsStore'
 
   fetch: ->
-    sections: SectionsStore.for(@).getAll()
+    sections: @app.sectionsStore.getAll()

@@ -1,21 +1,18 @@
 Marty = require 'marty'
-SectionConstants = require '../constants/sections'
-SectionsApi = require '../state_sources/sections'
+Constants = require '../constants'
 Section = require '../models/section'
 
-class SectionQueries extends Marty.Queries
-  @id: 'SectionQueries'
-
+class SectionsQueries extends Marty.Queries
   get: (id) ->
-    SectionsApi.for(@).load(id).then ({body}) =>
+    @app.sectionsApi.load(id).then ({body}) =>
       return unless body?
       section = new Section body.section
-      @dispatch SectionConstants.APPEND_SECTIONS, section
+      @dispatch Constants.APPEND_SECTIONS, section
 
   getAll: ->
-    SectionsApi.for(@).loadAll().then ({body}) =>
+    @app.sectionsApi.loadAll().then ({body}) =>
       return unless body?
       sections = body.sections.map (section) -> new Section section
-      @dispatch SectionConstants.APPEND_SECTIONS, sections
+      @dispatch Constants.APPEND_SECTIONS, sections
 
-module.exports = Marty.register SectionQueries
+module.exports = SectionsQueries

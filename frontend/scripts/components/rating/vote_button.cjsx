@@ -1,11 +1,13 @@
 React = require 'react/addons'
+Marty = require 'marty'
 classNames = require 'classnames'
-VoteActionCreators = require '../../action_creators/votes'
 
 {PropTypes} = React
 
 VoteButton = React.createClass
   displayName: 'VoteButton'
+
+  mixins: [Marty.createAppMixin()]
 
   propTypes:
     kind: PropTypes.string.isRequired
@@ -17,7 +19,7 @@ VoteButton = React.createClass
     {kind} = @props
     {ratingItem} = @context
 
-    VoteActionCreators.create ratingItem.id, kind
+    @app.votesActions.create ratingItem.id, kind
 
   render: ->
     {kind} = @props

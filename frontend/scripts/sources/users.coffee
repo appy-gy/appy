@@ -3,8 +3,6 @@ snakecaseKeys = require '../helpers/snakecase_keys'
 toFormData = require '../helpers/to_form_data'
 
 class UsersApi extends Marty.HttpStateSource
-  @id: 'UsersApi'
-
   baseUrl: '/api/private/users'
 
   load: (id) ->
@@ -14,4 +12,4 @@ class UsersApi extends Marty.HttpStateSource
     body = toFormData(user: snakecaseKeys(changes))
     @put { url: id, body }
 
-module.exports = Marty.register UsersApi
+module.exports = UsersApi

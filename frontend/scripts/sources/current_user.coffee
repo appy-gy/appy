@@ -2,8 +2,6 @@ _ = require 'lodash'
 Marty = require 'marty'
 
 class CurrentUserApi extends Marty.HttpStateSource
-  @id: 'CurrentUserApi'
-
   baseUrl: '/api/private'
 
   load: ->
@@ -20,4 +18,4 @@ class CurrentUserApi extends Marty.HttpStateSource
     body = user: _.pick(data, 'email', 'password')
     @post { url: 'users', body }
 
-module.exports = Marty.register CurrentUserApi
+module.exports = CurrentUserApi

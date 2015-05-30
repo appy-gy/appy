@@ -8,15 +8,13 @@ RatingItem = require './rating_item'
 Like = require './like'
 isBlank = require '../../helpers/is_blank'
 ShareButtons = require './share_buttons'
-RatingsStore = require '../../stores/ratings'
-RatingItemsStore = require '../../stores/rating_items'
-RatingActionCreators = require '../../action_creators/ratings'
-RatingItemActionCreators = require '../../action_creators/rating_items'
 
 {PropTypes} = React
 
 Rating = React.createClass
   displayName: 'Rating'
+
+  mixins: [Marty.createAppMixin()]
 
   propTypes:
     rating: PropTypes.object.isRequired
@@ -32,7 +30,7 @@ Rating = React.createClass
   createRatingItem: ->
     {rating} = @props
 
-    RatingItemActionCreators.create rating.id
+    @app.ratingItemsActions.create rating.id
 
   addRatingItemButton: ->
     {rating} = @props
@@ -59,7 +57,7 @@ Rating = React.createClass
 
     return unless isBlank @publishConditions()
 
-    RatingActionCreators.update rating.id, status: 'published'
+    @app.ratingsActions.update rating.id, status: 'published'
 
   publishButton: ->
     {rating} = @props
@@ -89,7 +87,7 @@ Rating = React.createClass
     <article className="rating">
       {@publishConditionsList()}
       <Header/>
-      <Description object={rating} actionCreator={RatingActionCreators}/>
+      <Description object={rating} actions="ratingsActions"/>
       <a href="/" className="rating_author">
         {rating.user.name || rating.user.email}
       </a>
@@ -106,10 +104,10 @@ module.exports = Marty.createContainer Rating,
   contextTypes:
     ratingSlug: PropTypes.string.isRequired
 
-  listenTo: [RatingsStore, RatingItemsStore]
+  listenTo: ['ratingsStore', 'ratingItemsStore']
 
   fetch: ->
     {ratingSlug} = @context
 
-    rating: RatingsStore.for(@).get(ratingSlug)
-    ratingItems: RatingItemsStore.for(@).getForRating(ratingSlug)
+    rating: @app.ratingsStore.get(ratingSlug)
+    ratingItems: @app.ratingItemsStore.getForRating(ratingSlug)

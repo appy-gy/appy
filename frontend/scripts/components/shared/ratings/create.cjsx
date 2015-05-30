@@ -1,11 +1,13 @@
 _ = require 'lodash'
 React = require 'react/addons'
-RatingActionCreators = require '../../../action_creators/ratings'
+Marty = require 'marty'
 
 {PropTypes} = React
 
 CreateRating = React.createClass
   displayName: 'CreateRating'
+
+  mixins: [Marty.createAppMixin()]
 
   propTypes:
     children: PropTypes.node.isRequired
@@ -16,7 +18,7 @@ CreateRating = React.createClass
   create: ->
     {router} = @context
 
-    RatingActionCreators.create().then ({body}) =>
+    @app.ratingsActions.create().then ({body}) =>
       router.transitionTo 'rating', ratingSlug: body.rating.slug
 
   render: ->

@@ -1,8 +1,6 @@
 Marty = require 'marty'
 
 class VotesApi extends Marty.HttpStateSource
-  @id: 'VotesApi'
-
   baseUrl: '/api/private'
 
   create: (ratingItemId, kind) ->
@@ -10,4 +8,4 @@ class VotesApi extends Marty.HttpStateSource
     body = vote: { kind }
     @post { url, body }
 
-module.exports = Marty.register VotesApi
+module.exports = VotesApi

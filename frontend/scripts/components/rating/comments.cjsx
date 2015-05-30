@@ -5,8 +5,6 @@ isBlank = require '../../helpers/is_blank'
 CommentsTree = require './comments_tree'
 CommentForm = require '../shared/comments/form'
 Nothing = require '../shared/nothing'
-RatingsStore = require '../../stores/ratings'
-CommentsStore = require '../../stores/comments'
 CommentTreesBuilder = require '../../helpers/comments/trees_builder'
 
 {PropTypes} = React
@@ -51,10 +49,10 @@ module.exports = Marty.createContainer Comments,
   contextTypes:
     ratingSlug: PropTypes.string.isRequired
 
-  listenTo: [RatingsStore, CommentsStore]
+  listenTo: ['ratingsStore', 'commentsStore']
 
   fetch: ->
     {ratingSlug} = @context
 
-    rating: RatingsStore.for(@).get(ratingSlug)
-    comments: CommentsStore.for(@).getForRating(ratingSlug)
+    rating: @app.ratingsStore.get(ratingSlug)
+    comments: @app.commentsStore.getForRating(ratingSlug)

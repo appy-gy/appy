@@ -4,23 +4,20 @@ findInStore = require '../helpers/find_in_store'
 findIndexInStore = require '../helpers/find_index_in_store'
 React = require 'react/addons'
 Marty = require 'marty'
-RatingConstants = require '../constants/ratings'
-RatingQueries = require '../queries/ratings'
+Constants = require '../constants'
 Rating = require '../models/rating'
 
 {update} = React.addons
 
 class RatingsStore extends Marty.Store
-  @id: 'RatingsStore'
-
   constructor: ->
     super
     @handlers =
-      change: RatingConstants.CHANGE_RATING
-      replace: RatingConstants.REPLACE_RATING
-      append: RatingConstants.APPEND_RATINGS
-      addTag: RatingConstants.ADD_TAG_TO_RATING
-      removeTag: RatingConstants.REMOVE_TAG_FROM_RATING
+      change: Constants.CHANGE_RATING
+      replace: Constants.REPLACE_RATING
+      append: Constants.APPEND_RATINGS
+      addTag: Constants.ADD_TAG_TO_RATING
+      removeTag: Constants.REMOVE_TAG_FROM_RATING
 
   getInitialState: ->
     []
@@ -38,7 +35,7 @@ class RatingsStore extends Marty.Store
         return unless @hasAlreadyFetched id
         @state
       remotely: ->
-        RatingQueries.for(@).getPage(page)
+        @app.ratingsQueries.getPage(page)
 
   getForUser: (userId) ->
     id = "getForUser-#{userId}"
@@ -49,7 +46,7 @@ class RatingsStore extends Marty.Store
         return unless @hasAlreadyFetched id
         @state
       remotely: ->
-        RatingQueries.for(@).getForUser(userId)
+        @app.ratingsQueries.getForUser(userId)
 
   getForSection: (sectionId) ->
     id = "getForSection-#{sectionId}"
@@ -60,7 +57,7 @@ class RatingsStore extends Marty.Store
         return unless @hasAlreadyFetched id
         @state
       remotely: ->
-        RatingQueries.for(@).getForSection(sectionId)
+        @app.ratingsQueries.getForSection(sectionId)
 
   get: (id) ->
     @fetch
@@ -68,7 +65,7 @@ class RatingsStore extends Marty.Store
       locally: ->
         findInStore @, id
       remotely: ->
-        RatingQueries.for(@).get(id)
+        @app.ratingsQueries.get(id)
 
   change: (ratingId, changes) ->
     rating = findInStore @, ratingId
@@ -94,4 +91,4 @@ class RatingsStore extends Marty.Store
     _.remove rating.tags, (t) -> t.name == tag.name
     @hasChanged()
 
-module.exports = Marty.register RatingsStore
+module.exports = RatingsStore

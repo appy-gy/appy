@@ -3,21 +3,18 @@ Marty = require 'marty'
 React = require 'react/addons'
 toArray = require '../helpers/to_array'
 findInStore = require '../helpers/find_in_store'
-UserConstants = require '../constants/users'
-UserQueries = require '../queries/users'
+Constants = require '../constants'
 User = require '../models/user'
 
 {update} = React.addons
 
 class UsersStore extends Marty.Store
-  @id: 'UsersStore'
-
   constructor: ->
     super
     @handlers =
-      append: UserConstants.APPEND_USERS
-      change: UserConstants.CHANGE_USER
-      replace: UserConstants.REPLACE_USER
+      append: Constants.APPEND_USERS
+      change: Constants.CHANGE_USER
+      replace: Constants.REPLACE_USER
 
   getInitialState: ->
     []
@@ -33,7 +30,7 @@ class UsersStore extends Marty.Store
         return unless @hasAlreadyFetched "get-#{id}"
         findInStore @, id
       remotely: ->
-        UserQueries.for(@).get(id)
+        @app.usersQueries.get(id)
 
   append: (users) ->
     @state = update @state, $push: toArray(users)
@@ -49,4 +46,4 @@ class UsersStore extends Marty.Store
     return if index < 0
     @state = update @state, $splice: [[index, 1, user]]
 
-module.exports = Marty.register UsersStore
+module.exports = UsersStore

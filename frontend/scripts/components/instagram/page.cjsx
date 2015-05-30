@@ -3,8 +3,6 @@ React = require 'react/addons'
 Marty = require 'marty'
 Qs = require 'qs'
 Layout = require '../layout/layout'
-UserActionCreators = require '../../action_creators/users'
-CurrentUserStore = require '../../stores/current_user'
 
 {PropTypes} = React
 {PureRenderMixin} = React.addons
@@ -12,7 +10,7 @@ CurrentUserStore = require '../../stores/current_user'
 Instagram = React.createClass
   displayName: 'Instagram'
 
-  mixins: [PureRenderMixin]
+  mixins: [PureRenderMixin, Marty.createAppMixin()]
 
   contextTypes:
     router: PropTypes.func.isRequired
@@ -25,7 +23,7 @@ Instagram = React.createClass
 
     window.instagramCallback = ({data}) =>
       link = "https://instagram.com/#{data.username}"
-      UserActionCreators.update user.id, instagramLink: link
+      @app.usersActions.update user.id, instagramLink: link
       @redirect()
       delete window.instagramCallback
 
@@ -48,7 +46,7 @@ Instagram = React.createClass
     </Layout>
 
 module.exports = Marty.createContainer Instagram,
-  listenTo: CurrentUserStore
+  listenTo: 'currentUserStore'
 
   fetch: ->
-    user: CurrentUserStore.for(@).get()
+    user: @app.currentUserStore.get()

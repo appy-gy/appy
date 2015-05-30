@@ -1,36 +1,32 @@
 React = require 'react/addons'
+Marty = require 'marty'
 AuthPopup = require './auth_popup'
-CurrentUserActionCreators = require '../../action_creators/current_user'
-PopupActionCreators = require '../../action_creators/popups'
 Popup = require '../../models/popup'
-ToastActionCreators = require '../../action_creators/toasts'
 Toast = require '../../models/toast'
-
-{PureRenderMixin} = React.addons
 
 Registration = React.createClass
   displayName: 'Registration'
 
-  mixins: [PureRenderMixin]
+  mixins: [Marty.createAppMixin()]
 
   register: (data) ->
-    CurrentUserActionCreators.register data
+    @app.currentUserActions.register data
       .then ({error}) =>
         return @showFailToast error if error?
         @closePopup()
 
   showPopup: ->
-    PopupActionCreators.append @popup()
+    @app.popupsActions.append @popup()
 
   closePopup: ->
-    PopupActionCreators.remove @popup()
+    @app.popupsActions.remove @popup()
 
   popup: ->
     @popupCache ||= new Popup <AuthPopup title="Регистрация" onSubmit={@register} onClose={@closePopup}/>
 
   showFailToast: (error) ->
     toast = new Toast error, type: 'error'
-    ToastActionCreators.append toast
+    @app.toastsActions.append toast
 
   render: ->
     <div className="auth_registration" onClick={@showPopup}>

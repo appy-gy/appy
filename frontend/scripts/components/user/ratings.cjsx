@@ -2,7 +2,6 @@ React = require 'react/addons'
 Marty = require 'marty'
 Preview = require '../shared/ratings/preview'
 CreateRating = require '../shared/ratings/create'
-RatingsStore = require '../../stores/ratings'
 
 {PropTypes} = React
 
@@ -57,7 +56,7 @@ Ratings = React.createClass
     </div>
 
 module.exports = Marty.createContainer Ratings,
-  listenTo: RatingsStore
+  listenTo: 'ratingsStore'
 
   contextTypes:
     userSlug: PropTypes.string.isRequired
@@ -65,4 +64,4 @@ module.exports = Marty.createContainer Ratings,
   fetch: ->
     {userSlug} = @context
 
-    ratings: RatingsStore.for(@).getForUser(userSlug)
+    ratings: @app.ratingsStore.getForUser(userSlug)

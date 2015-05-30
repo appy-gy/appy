@@ -1,10 +1,12 @@
 React = require 'react/addons'
-ToastActionCreators = require '../../../action_creators/toasts'
+Marty = require 'marty'
 
 {PropTypes} = React
 
 Toast = React.createClass
   displayName: 'Toast'
+
+  mixins: [Marty.createAppMixin()]
 
   propTypes:
     toast: PropTypes.object.isRequired
@@ -15,7 +17,7 @@ Toast = React.createClass
   remove: ->
     {toast} = @props
 
-    ToastActionCreators.remove toast
+    @app.toastsActions.remove toast
 
   queueRemove: ->
     {toast} = @props

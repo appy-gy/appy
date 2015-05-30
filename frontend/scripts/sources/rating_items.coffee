@@ -3,8 +3,6 @@ snakecaseKeys = require '../helpers/snakecase_keys'
 toFormData = require '../helpers/to_form_data'
 
 class RatingItemsApi extends Marty.HttpStateSource
-  @id: 'RatingItemsApi'
-
   baseUrl: '/api/private/ratings'
 
   loadForRating: (ratingId) ->
@@ -26,4 +24,4 @@ class RatingItemsApi extends Marty.HttpStateSource
     body = { positions }
     @put { url, body }
 
-module.exports = Marty.register RatingItemsApi
+module.exports = RatingItemsApi

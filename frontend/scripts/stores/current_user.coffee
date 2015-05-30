@@ -1,15 +1,12 @@
 Marty = require 'marty'
-CurrentUserConstants = require '../constants/current_user'
-CurrentUserQueries = require '../queries/current_user'
+Constants = require '../constants'
 User = require '../models/user'
 
 class CurrentUserStore extends Marty.Store
-  @id: 'CurrentUserStore'
-
   constructor: ->
     super
     @handlers =
-      set: CurrentUserConstants.SET_CURRENT_USER
+      set: Constants.SET_CURRENT_USER
 
   getInitialState: ->
     new User
@@ -25,10 +22,10 @@ class CurrentUserStore extends Marty.Store
         return unless @hasAlreadyFetched 'get'
         @state
       remotely: ->
-        CurrentUserQueries.for(@).get()
+        @app.currentUserQueries.get()
 
   set: (user) ->
     user = new User unless user?
     @state = user
 
-module.exports = Marty.register CurrentUserStore
+module.exports = CurrentUserStore

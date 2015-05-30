@@ -11,7 +11,7 @@ FileInput = React.createClass
 
   propTypes:
     onChange: PropTypes.func.isRequired
-    children: PropTypes.node.isRequired
+    children: PropTypes.node
 
   onChange: (event) ->
     {onChange} = @props

@@ -4,8 +4,6 @@ Marty = require 'marty'
 ClearStores = require '../mixins/clear_stores'
 Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
-RatingsStore = require '../../stores/ratings'
-SectionsStore = require '../../stores/sections'
 Section = require '../../models/section'
 
 {PropTypes} = React
@@ -33,11 +31,12 @@ Ratings = React.createClass
     </Layout>
 
 module.exports = Marty.createContainer Ratings,
-  listenTo: [RatingsStore, SectionsStore]
+  listenTo: ['ratingsStore', 'sectionsStore']
+
   mixins: [ClearStores]
 
   fetch: ->
     {sectionSlug} = @props
 
-    section: SectionsStore.for(@).get(sectionSlug)
-    ratings: RatingsStore.for(@).getForSection(sectionSlug)
+    section: @app.sectionsStore.get(sectionSlug)
+    ratings: @app.ratingsStore.getForSection(sectionSlug)

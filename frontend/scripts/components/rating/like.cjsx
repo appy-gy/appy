@@ -1,11 +1,13 @@
 React = require 'react/addons'
+Marty = require 'marty'
 classNames = require 'classnames'
-RatingActionCreators = require '../../action_creators/ratings'
 
 {PropTypes} = React
 
 Like = React.createClass
   displayName: 'Like'
+
+  mixins: [Marty.createAppMixin()]
 
   contextTypes:
     rating: PropTypes.object.isRequired
@@ -19,7 +21,7 @@ Like = React.createClass
     {rating} = @context
 
     action = if rating.like? then 'unlike' else 'like'
-    RatingActionCreators[action] rating.id
+    @app.ratingsActions[action] rating.id
 
   subbursts: ->
     {rating} = @context

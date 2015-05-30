@@ -1,12 +1,14 @@
 _ = require 'lodash'
 React = require 'react/addons'
+Marty = require 'marty'
 classNames = require 'classnames'
-UserActionCreators = require '../../action_creators/users'
 
 {PropTypes} = React
 
 SocialButton = React.createClass
   displayName: 'SocialButton'
+
+  mixins: [Marty.createAppMixin()]
 
   propTypes:
     network: PropTypes.string.isRequired
@@ -35,10 +37,10 @@ SocialButton = React.createClass
   getFacebookLink: ->
     {user} = @context
 
-    FB.login ({status}) ->
+    FB.login ({status}) =>
       return unless status == 'connected'
-      FB.api '/me', fields: 'link', ({link}) ->
-        UserActionCreators.update user.id, facebookLink: link
+      FB.api '/me', fields: 'link', ({link}) =>
+        @app.usersActions.update user.id, facebookLink: link
 
   getInstagramLink: ->
     {user} = @context
@@ -51,7 +53,7 @@ SocialButton = React.createClass
     {network} = @props
     {user} = @context
 
-    UserActionCreators.update user.id, "#{network}Link": null
+    @app.usersActions.update user.id, "#{network}Link": null
 
   button: ->
     {network} = @props

@@ -1,13 +1,13 @@
 React = require 'react/addons'
 Marty = require 'marty'
 Textarea = require 'react-textarea-autosize'
-CommentActionCreators = require '../../../action_creators/comments'
-CurrentUserStore = require '../../../stores/current_user'
 
 {PropTypes} = React
 
 Form = React.createClass
   displayName: 'CommentForm'
+
+  mixins: [Marty.createAppMixin()]
 
   propTypes:
     parent: PropTypes.object
@@ -37,7 +37,7 @@ Form = React.createClass
     {body} = @state
     {ratingSlug} = @context
 
-    CommentActionCreators.create ratingSlug, { body, parentId: parent?.id }
+    @app.commentsActions.create ratingSlug, { body, parentId: parent?.id }
       .then => @setState body: ''
 
   render: ->
@@ -50,7 +50,7 @@ Form = React.createClass
     </div>
 
 module.exports = Marty.createContainer Form,
-  listenTo: CurrentUserStore
+  listenTo: 'currentUserStore'
 
   fetch: ->
-    user: CurrentUserStore.for(@).get()
+    user: @app.currentUserStore.get()

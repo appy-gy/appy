@@ -1,15 +1,13 @@
 React = require 'react/addons'
-CurrentUserActionCreators = require '../../action_creators/current_user'
-
-{PureRenderMixin} = React.addons
+Marty = require 'marty'
 
 Logout = React.createClass
   displayName: 'Logout'
 
-  mixins: [PureRenderMixin]
+  mixins: [Marty.createAppMixin()]
 
   logOut: ->
-    CurrentUserActionCreators.logOut()
+    @app.currentUserActions.logOut()
 
   render: ->
     <div className="logout" onClick={@logOut}>

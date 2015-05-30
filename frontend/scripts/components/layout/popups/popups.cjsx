@@ -4,16 +4,13 @@ Marty = require 'marty'
 classNames = require 'classnames'
 OnEsc = require '../../mixins/on_esc'
 Popup = require './popup'
-PopupActionCreators = require '../../../action_creators/popups'
-PopupsStore = require '../../../stores/popups'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 Popups = React.createClass
   displayName: 'Popups'
 
-  mixins: [PureRenderMixin, OnEsc]
+  mixins: [Marty.createAppMixin(), OnEsc]
 
   propTypes:
     popups: PropTypes.arrayOf(PropTypes.object).isRequired
@@ -24,7 +21,7 @@ Popups = React.createClass
   closeLastPopup: ->
     {popups} = @props
 
-    PopupActionCreators.remove _.last(popups)
+    @app.popupsActions.remove _.last(popups)
 
   popups: ->
     {popups} = @props
@@ -42,7 +39,7 @@ Popups = React.createClass
     </div>
 
 module.exports = Marty.createContainer Popups,
-  listenTo: PopupsStore
+  listenTo: 'popupsStore'
 
   fetch: ->
-    popups: PopupsStore.for(@).getAll()
+    popups: @app.popupsStore.getAll()

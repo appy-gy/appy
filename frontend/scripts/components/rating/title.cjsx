@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react/addons'
+Marty = require 'marty'
 Textarea = require 'react-textarea-autosize'
 Classes = require '../mixins/classes'
 isBlank = require '../../helpers/is_blank'
@@ -9,11 +10,11 @@ isBlank = require '../../helpers/is_blank'
 ObjectTitle = React.createClass
   displayName: 'Title'
 
-  mixins: [Classes]
+  mixins: [Marty.createAppMixin(), Classes]
 
   propTypes:
     object: PropTypes.object.isRequired
-    actionCreator: PropTypes.object.isRequired
+    actions: PropTypes.string.isRequired
 
   contextTypes:
     block: PropTypes.string.isRequired
@@ -35,14 +36,14 @@ ObjectTitle = React.createClass
     @setState edit: false unless isBlank(object.title)
 
   changeTitle: (event) ->
-    {object, actionCreator} = @props
+    {object, actions} = @props
 
-    actionCreator.change object.id, title: event.target.value
+    @app[actions].change object.id, title: event.target.value
 
   updateTitle: ->
-    {object, actionCreator} = @props
+    {object, actions} = @props
 
-    actionCreator.update object.id, title: object.title
+    @app[actions].update object.id, title: object.title
     @stopEdit()
 
   titleView: ->

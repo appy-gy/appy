@@ -2,8 +2,6 @@ Marty = require 'marty'
 Qs = require 'qs'
 
 class TagsApi extends Marty.HttpStateSource
-  @id: 'TagsApi'
-
   baseUrl: '/api/private'
 
   autocomplete: (query) ->
@@ -17,4 +15,4 @@ class TagsApi extends Marty.HttpStateSource
   removeFromRating: (ratingId, name) ->
     @delete url: "ratings/#{ratingId}/tags", body: { name }
 
-module.exports = Marty.register TagsApi
+module.exports = TagsApi

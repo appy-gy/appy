@@ -1,20 +1,33 @@
 require 'coffee-react/register'
 
 _ = require 'lodash'
+fs = require 'fs'
 path = require 'path'
 dotenv = require 'dotenv'
 Router = require 'react-router'
 express = require 'express'
-marty = require 'marty'
+Marty = require 'marty'
 martyExpress = require 'marty-express'
 
 setup = require '../frontend/scripts/setup'
 routes = require '../frontend/scripts/routes'
-
-{RouteHander} = Router
+typesMap = require '../frontend/scripts/helpers/marty/types_map'
 
 dotenv.load()
 setup()
+
+class Application extends Marty.Application
+  constructor: (options) ->
+    super options
+
+    ['actions', 'queries', 'sources', 'stores'].each (dir) =>
+      files = fs.readdirSync "./frontend/scripts/#{dir}"
+      files.each (file) =>
+        type = typesMap[dir] || dir
+        name = file.split('.')[0]
+        fullname = "#{name}_#{type}"
+        object = require "../frontend/scripts/#{dir}/#{name}"
+        @register _.camelCase(fullname), object
 
 assetsHost = if process.env.TOP_ENV == 'development' then "#{process.env.TOP_WEBPACK_HOST}/" else '/'
 port = _.parseInt _.last process.env.TOP_PRERENDER_HOST.split(':')
@@ -34,7 +47,7 @@ app.use (req, res, next) ->
   next()
 
 app.use martyExpress
-  marty: marty
   routes: routes
+  application: Application
 
 app.listen port

@@ -1,7 +1,6 @@
 React = require 'react/addons'
 Marty = require 'marty'
 Comment = require '../shared/comments/comment'
-CommentsStore = require '../../stores/comments'
 
 {PropTypes} = React
 
@@ -46,9 +45,9 @@ module.exports = Marty.createContainer Comments,
   contextTypes:
     user: PropTypes.object.isRequired
 
-  listenTo: CommentsStore
+  listenTo: 'commentsStore'
 
   fetch: ->
     {user} = @context
 
-    comments: CommentsStore.for(@).getForUser(user.id)
+    comments: @app.commentsStore.getForUser(user.id)

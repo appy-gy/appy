@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react/addons'
+Marty = require 'marty'
 Textarea = require 'react-textarea-autosize'
 Classes = require '../mixins/classes'
 isBlank = require '../../helpers/is_blank'
@@ -9,11 +10,11 @@ isBlank = require '../../helpers/is_blank'
 ObjectDescription = React.createClass
   displayName: 'Description'
 
-  mixins: [Classes]
+  mixins: [Marty.createAppMixin(), Classes]
 
   propTypes:
     object: PropTypes.object.isRequired
-    actionCreator: PropTypes.object.isRequired
+    actions: PropTypes.string.isRequired
 
   contextTypes:
     block: PropTypes.string.isRequired
@@ -35,14 +36,14 @@ ObjectDescription = React.createClass
     @setState edit: false unless isBlank(object.description)
 
   changeDescription: (event) ->
-    {object, actionCreator} = @props
+    {object, actions} = @props
 
-    actionCreator.change object.id, description: event.target.value
+    @app[actions].change object.id, description: event.target.value
 
   updateDescription: ->
-    {object, actionCreator} = @props
+    {object, actions} = @props
 
-    actionCreator.update object.id, description: object.description
+    @app[actions].update object.id, description: object.description
     @stopEdit()
 
   descriptionView: ->

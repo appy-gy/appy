@@ -9,7 +9,6 @@ Comments = require './comments'
 Layout = require '../layout/layout'
 Tabs = require '../shared/tabs/tabs'
 Tab = require '../shared/tabs/tab'
-UsersStore = require '../../stores/users'
 User = require '../../models/user'
 
 {PropTypes} = React
@@ -50,7 +49,7 @@ UserPage = React.createClass
     </Layout>
 
 module.exports = Marty.createContainer UserPage,
-  listenTo: UsersStore
+  listenTo: 'usersStore'
 
   mixins: [ClearStores]
 
@@ -65,7 +64,7 @@ module.exports = Marty.createContainer UserPage,
   fetch: ->
     {userSlug} = @props
 
-    user: UsersStore.for(@).get(userSlug)
+    user: @app.usersStore.get(userSlug)
 
   pending: ->
     @done user: new User

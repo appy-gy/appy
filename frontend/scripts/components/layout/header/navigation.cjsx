@@ -1,6 +1,5 @@
 React = require 'react/addons'
 Marty = require 'marty'
-HeaderSectionsStore = require '../../../stores/header_sections'
 Section = require './section'
 
 {PropTypes} = React
@@ -26,10 +25,10 @@ Navigation = React.createClass
     </nav>
 
 module.exports = Marty.createContainer Navigation,
-  listenTo: HeaderSectionsStore
+  listenTo: 'headerSectionsStore'
 
   fetch: ->
-    sections: HeaderSectionsStore.for(@).getAll()
+    sections: @app.headerSectionsStore.getAll()
 
   pending: ->
     @done sections: []

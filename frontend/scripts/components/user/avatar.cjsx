@@ -1,11 +1,13 @@
 React = require 'react/addons'
+Marty = require 'marty'
 FileInput = require '../shared/file_input'
-UserActionCreators = require '../../action_creators/users'
 
 {PropTypes} = React
 
 Avatar = React.createClass
   displayName: 'Avatar'
+
+  mixins: [Marty.createAppMixin()]
 
   contextTypes:
     user: PropTypes.object.isRequired
@@ -18,8 +20,8 @@ Avatar = React.createClass
 
     url = URL.createObjectURL avatar
 
-    UserActionCreators.change user.id, avatar: url
-    UserActionCreators.update user.id, { avatar }
+    @app.usersActions.change user.id, avatar: url
+    @app.usersActions.update user.id, { avatar }
 
   fileInput: ->
     {user} = @context

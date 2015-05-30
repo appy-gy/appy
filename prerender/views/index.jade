@@ -11,4 +11,6 @@ html
     link(href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css")
     script(src=host + "app.js" type="text/javascript")
     include ./_facebook.jade
-  body!= body
+  body
+    != body
+    != state

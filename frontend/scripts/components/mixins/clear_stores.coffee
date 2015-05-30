@@ -1,22 +1,14 @@
 _ = require 'lodash'
 isClient = require '../../helpers/is_client'
 
-if isClient()
-  stores = require.context '../../stores', false, /\.coffee$/
-
 firstLoad = true
-storesToSkip = new Set ['current_user', 'header_sections', 'popups', 'toasts']
-
-storeName = (path) ->
-  path.match(/\/(.*?)\./)[1]
+storesToSkip = new Set ['currentUser', 'headerSections', 'popups', 'toasts']
 
 ClearStores =
   componentWillMount: ->
-    return unless stores?
     return firstLoad = false if firstLoad
-    stores.keys().each (path) ->
-      return if storesToSkip.has storeName(path)
-      store = stores path
-      store.for(@).clear()
+    _.each @app.__types.Store, (store, name) ->
+      store.clear() unless storesToSkip.has name.replace(/Store$/, '')
+      true
 
 module.exports = ClearStores
