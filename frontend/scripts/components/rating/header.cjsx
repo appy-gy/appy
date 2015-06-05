@@ -33,8 +33,8 @@ Header = React.createClass
 
     url = URL.createObjectURL image
 
-    @app.RatingsActions.change rating.id, image: url
-    @app.RatingsActions.update rating.id, { image }
+    @app.ratingsActions.change rating.id, image: url
+    @app.ratingsActions.update rating.id, { image }
 
   render: ->
     {rating} = @context
