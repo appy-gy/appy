@@ -15,8 +15,8 @@ class RatingsQueries extends Marty.Queries
       ratings = body.ratings.map (rating) -> new Rating rating
       @dispatch Constants.APPEND_RATINGS, ratings
 
-  getForSection: (sectionId) ->
-    @app.ratingsApi.loadForSection(sectionId).then ({body}) =>
+  getForSection: (sectionSlug) ->
+    @app.ratingsApi.loadForSection(sectionSlug).then ({body}) =>
       return unless body?
       ratings = body.ratings.map (rating) -> new Rating rating
       @dispatch Constants.APPEND_RATINGS, ratings
