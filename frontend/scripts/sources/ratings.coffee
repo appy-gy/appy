@@ -17,12 +17,17 @@ class RatingsApi extends Marty.HttpStateSource
   load: (id) ->
     @get "ratings/#{id}"
 
+  create: ->
+    @post "ratings"
+
   update: (id, changes) ->
     url = "ratings/#{id}"
     body = toFormData rating: snakecaseKeys(changes)
     @put { url, body }
 
-  create: ->
-    @post "ratings"
+  updatePositions: (id, positions) ->
+    url = "ratings/#{id}/rating_items/positions"
+    body = { positions }
+    @put { url, body }
 
 module.exports = RatingsApi

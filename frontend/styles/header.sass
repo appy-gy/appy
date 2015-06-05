@@ -27,8 +27,6 @@
   &_rating-button-icon
     margin-right: 5px
 
-  &_rating-items
-
   &_rating-item
     display: flex
     background: $color-2
@@ -38,9 +36,13 @@
     margin: 10px 15px
     line-height: 20px
     height: 30px
-    transition: all 0.3s
+    transition: transform 0.3s
+
     &:hover
       transform: scale(1.1)
+
+    &.m-dragging
+      opacity: 0
 
   &_rating-item-title
     font-size: 12px

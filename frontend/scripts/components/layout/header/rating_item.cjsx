@@ -2,20 +2,34 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 ReactDnd = require 'react-dnd'
-findInStore = require '../../../helpers/find_in_store'
+classNames = require 'classnames'
 
 {PropTypes} = React
 {DragSource, DropTarget} = ReactDnd
 
 ratingItemSource =
-  beginDrag: (props) ->
+  beginDrag: (props, monitor, component) ->
     ratingItemId: props.ratingItem.id
+    changePosition: component.changePosition
+    updatePositions: component.updatePositions
 
 ratingItemTarget =
-  drop: (props, monitor) ->
+  hover: (props, monitor) ->
+    {ratingItem} = props
+    {ratingItemId, changePosition} = monitor.getItem()
 
-collectSource = (connect) ->
+    return if ratingItem.id == ratingItemId
+    changePosition ratingItem.position
+
+  drop: (props, monitor) ->
+    {updatePositions} = monitor.getItem()
+
+    updatePositions()
+    return
+
+collectSource = (connect, monitor) ->
   connectDragSource: connect.dragSource()
+  isDragging: monitor.isDragging()
 
 collectTarget = (connect) ->
   connectDropTarget: connect.dropTarget()
@@ -29,16 +43,7 @@ RatingItem = React.createClass
     ratingItem: PropTypes.object.isRequired
     connectDragSource: PropTypes.func.isRequired
     connectDropTarget: PropTypes.func.isRequired
-
-  # statics:
-  #   configureDragDrop: (register) ->
-  #     register 'RatingItem',
-  #       dragSource:
-  #         beginDrag: (component) ->
-  #           item: { ratingItemId: component.props.ratingItem.id }
-  #       dropTarget:
-  #         acceptDrop: (component, {ratingItemId}) ->
-  #           component.updatePosition ratingItemId
+    isDragging: PropTypes.bool.isRequired
 
   move: (direction) ->
     {ratingItem} = @props
@@ -47,16 +52,22 @@ RatingItem = React.createClass
     newPosition = ratingItem.position + change
     @app.ratingItemsActions.updatePosition ratingItem.id, newPosition
 
-  updatePosition: (ratingItemId) ->
+  changePosition: (newPosition) ->
     {ratingItem} = @props
 
-    newPosition = findInStore(@app.ratingItemsStore, ratingItemId).position
-    @app.ratingItemsActions.updatePosition ratingItem.id, newPosition
+    @app.ratingItemsActions.changePosition ratingItem.id, newPosition
+
+  updatePositions: ->
+    {ratingItem} = @props
+
+    @app.ratingsActions.updatePositions ratingItem.ratingId
 
   render: ->
-    {ratingItem, connectDragSource, connectDropTarget} = @props
+    {ratingItem, connectDragSource, connectDropTarget, isDragging} = @props
 
-    connectDropTarget connectDragSource <div className="header_rating-item">
+    classes = classNames 'header_rating-item', 'm-dragging': isDragging
+
+    connectDropTarget connectDragSource <div className={classes}>
       <div className="header_rating-item-title">
         {ratingItem.title}
       </div>
