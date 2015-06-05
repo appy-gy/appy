@@ -1,5 +1,6 @@
 Marty = require 'marty'
 
+# Use alphabet order
 Constants = Marty.createConstants [
   'APPEND_COMMENTS'
 
