@@ -25,7 +25,7 @@ Ratings = React.createClass
     {sectionSlug, section} = @props
 
     <Layout>
-      <div className="previews section-#{section.name} #{section.color}">
+      <div style={ backgroundColor: section.color } className="previews section-#{section.name} #{section.color}">
         {@previews()}
       </div>
     </Layout>
