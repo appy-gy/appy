@@ -5,25 +5,40 @@ ReactDnd = require 'react-dnd'
 findInStore = require '../../../helpers/find_in_store'
 
 {PropTypes} = React
-{DragDropMixin} = ReactDnd
+{DragSource, DropTarget} = ReactDnd
+
+ratingItemSource =
+  beginDrag: (props) ->
+    ratingItemId: props.ratingItem.id
+
+ratingItemTarget =
+  drop: (props, monitor) ->
+
+collectSource = (connect) ->
+  connectDragSource: connect.dragSource()
+
+collectTarget = (connect) ->
+  connectDropTarget: connect.dropTarget()
 
 RatingItem = React.createClass
   displayName: 'RatingItem'
 
-  mixins: [Marty.createAppMixin(), DragDropMixin]
+  mixins: [Marty.createAppMixin()]
 
   propTypes:
     ratingItem: PropTypes.object.isRequired
+    connectDragSource: PropTypes.func.isRequired
+    connectDropTarget: PropTypes.func.isRequired
 
-  statics:
-    configureDragDrop: (register) ->
-      register 'RatingItem',
-        dragSource:
-          beginDrag: (component) ->
-            item: { ratingItemId: component.props.ratingItem.id }
-        dropTarget:
-          acceptDrop: (component, {ratingItemId}) ->
-            component.updatePosition ratingItemId
+  # statics:
+  #   configureDragDrop: (register) ->
+  #     register 'RatingItem',
+  #       dragSource:
+  #         beginDrag: (component) ->
+  #           item: { ratingItemId: component.props.ratingItem.id }
+  #       dropTarget:
+  #         acceptDrop: (component, {ratingItemId}) ->
+  #           component.updatePosition ratingItemId
 
   move: (direction) ->
     {ratingItem} = @props
@@ -39,9 +54,9 @@ RatingItem = React.createClass
     @app.ratingItemsActions.updatePosition ratingItem.id, newPosition
 
   render: ->
-    {ratingItem} = @props
+    {ratingItem, connectDragSource, connectDropTarget} = @props
 
-    <div className="header_rating-item" {...@dragSourceFor('RatingItem')} {...@dropTargetFor('RatingItem')}>
+    connectDropTarget connectDragSource <div className="header_rating-item">
       <div className="header_rating-item-title">
         {ratingItem.title}
       </div>
@@ -51,4 +66,4 @@ RatingItem = React.createClass
       </div>
     </div>
 
-module.exports = RatingItem
+module.exports = DropTarget('RatingItem', ratingItemTarget, collectTarget)(DragSource('RatingItem', ratingItemSource, collectSource)(RatingItem))
