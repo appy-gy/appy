@@ -10,7 +10,7 @@ module Ratings
     def call
       ratings = user.ratings.includes(:tags)
       ratings = ratings.published unless Users::CanSeeDrafts.new(current_user, user).call
-      ratings
+      ratings.order 'updated_at DESC'
     end
   end
 end
