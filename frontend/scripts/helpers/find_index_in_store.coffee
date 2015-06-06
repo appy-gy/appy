@@ -7,7 +7,7 @@ defaultOpts =
   fields: idFields
 
 extractIds = (obj, fields) ->
-  _(obj).pick(fields).values().compact().value()
+  _(fields).map(_.propertyOf(obj)).compact().value()
 
 findIndexInStore = (store, data, opts = {}) ->
   return unless data?
@@ -22,7 +22,7 @@ findIndexInStore = (store, data, opts = {}) ->
 
   _ state
     .map (record, index) -> if filter(record) then index else null
-    .compact()
+    .filter (index) -> index?
     .value()
 
 module.exports = findIndexInStore

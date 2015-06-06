@@ -1,4 +1,6 @@
+_ = require 'lodash'
 Marty = require 'marty'
+findInStore = require '../helpers/find_in_store'
 Constants = require '../constants'
 Rating = require '../models/rating'
 Tag = require '../models/tag'
@@ -43,5 +45,15 @@ class RatingsActions extends Marty.ActionCreators
       return unless body.success
       likesCount = body.meta.likes_count
       @dispatch Constants.CHANGE_RATING, ratingId, { like: null, likesCount }
+
+  updatePositions: (ratingId) ->
+    ratingItems = findInStore @app.ratingItemsStore, ratingId, all: true, fields: ['ratingId', 'ratingSlug']
+    positions = _.transform ratingItems, (result, {id, position}) ->
+      result[id] = position
+    , {}
+
+    @app.ratingsApi.updatePositions(ratingId, positions).then ({body}) =>
+      return unless body?
+      @dispatch Constants.CHANGE_RATING_ITEM_POSITIONS, body.positions
 
 module.exports = RatingsActions

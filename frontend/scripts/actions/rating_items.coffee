@@ -1,8 +1,11 @@
 _ = require 'lodash'
+React = require 'react/addons'
 Marty = require 'marty'
 findInStore = require '../helpers/find_in_store'
 Constants = require '../constants'
 RatingItem = require '../models/rating_item'
+
+{update} = React.addons
 
 class RatingItemsActions extends Marty.ActionCreators
   create: (ratingId) ->
@@ -25,23 +28,24 @@ class RatingItemsActions extends Marty.ActionCreators
       ratingItem = new RatingItem body.rating_item
       @dispatch Constants.REPLACE_RATING_ITEM, ratingItem
 
-  updatePosition: (ratingItemId, newPosition) ->
+  changePosition: (ratingItemId, newPosition) ->
+    positions = @computePositions ratingItemId, newPosition
+    @dispatch Constants.CHANGE_RATING_ITEM_POSITIONS, positions
+
+  computePositions: (ratingItemId, newPosition) ->
     ratingItem = findInStore @app.ratingItemsStore, ratingItemId
-    ratingItems = @app.ratingItemsStore.getState()
-    max = _.max(ratingItems, 'position').position
-    return unless 0 <= newPosition <= max
+    ratingItems = _.sortBy @app.ratingItemsStore.getState(), 'position'
+    index = _.findIndex ratingItems, ratingItem
+    afterIndex = _.findIndex ratingItems, ({position}) -> position == newPosition
 
-    ratingItems = _.without ratingItems, ratingItem
-    index = _.findIndex ratingItems, (item) -> item.position == newPosition
-    index += 1 if ratingItem.position < newPosition
-    ratingItems.splice index, 0, ratingItem
+    newRatingItems = update ratingItems,
+      $splice: [
+        [index, 1]
+        [afterIndex, 0, ratingItem]
+      ]
 
-    positions = _.transform ratingItems, (result, ratingItem, index) ->
+    positions = _.transform newRatingItems, (result, ratingItem, index) ->
       result[ratingItem.id] = index
     , {}
-
-    @app.ratingItemsApi.updatePositions(ratingItem.ratingId, positions).then ({body}) =>
-      return unless body?
-      @dispatch Constants.CHANGE_RATING_ITEM_POSITIONS, body.positions
 
 module.exports = RatingItemsActions

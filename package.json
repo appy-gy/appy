@@ -22,7 +22,7 @@
     "normalize.css": "^3.0.2",
     "qs": "^2.3.3",
     "react": "^0.13.3",
-    "react-dnd": "^1.1.1",
+    "react-dnd": "^1.1.2",
     "react-router": "^0.13.3",
     "react-select": "^0.4.9",
     "react-textarea-autosize": "^1.1.0",
