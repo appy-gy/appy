@@ -52,7 +52,7 @@ Ratings = React.createClass
   render: ->
     {page} = @context
 
-    pagesCount = @app.pageCountsStore.get('ratings')
+    pagesCount = @app.pageCountsStore.get('ratings') || 0
 
     <Layout>
       <div className="previews">

@@ -56,7 +56,7 @@ Pagination = React.createClass
     range.map (page) ->
       isActive = page == currentPage
 
-      <Link block={block} page={page} isActive={isActive}/>
+      <Link key={page} block={block} page={page} isActive={isActive}/>
 
   render: ->
     {block} = @props
