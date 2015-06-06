@@ -8,6 +8,7 @@ RatingItem = require './rating_item'
 Like = require './like'
 isBlank = require '../../helpers/is_blank'
 ShareButtons = require './share_buttons'
+RatingMenu = require './menu'
 
 {PropTypes} = React
 
@@ -76,16 +77,25 @@ Rating = React.createClass
     conditions.push 'добавьте описание рейтинга' unless rating.description
     conditions.push 'добавьте хотя бы два рейтинга' if ratingItems.length < 2
 
-    conditions.map (condition) -> <li>{condition}</li>
+    conditions.map (condition) -> <div className="rating_menu-notification-list-item">{condition}</div>
 
-  publishConditionsList: ->
-    <ul>{@publishConditions()}</ul>
+  notificationCounter: ->
+    return <Nothing/> if @publishConditions().length == 0
+    counter = "+#{@publishConditions().length}"
+
+    <div className="rating_menu-notification-icon-counter">{counter}</div>
 
   render: ->
     {rating} = @props
 
     <article className="rating">
-      {@publishConditionsList()}
+      <RatingMenu>
+        <div className="rating_menu-notification">
+          <div className="rating_menu-notification-icon">{@notificationCounter()}</div>
+          <div className="rating_menu-notification-list">{@publishConditions()}</div>
+        </div>
+      </RatingMenu>
+
       <Header/>
       <Description object={rating} actions="ratingsActions"/>
       <a href="/" className="rating_author">

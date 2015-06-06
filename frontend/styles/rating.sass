@@ -4,6 +4,67 @@
   border: 1px solid #f2f2f2
   border-radius: $border-radius
   width: 100%
+  margin-top: $rating-menu
+
+  &_menu
+    position: fixed
+    left: 0
+    top: 0
+    z-index: 100
+    background-color: $color-1
+    height: $rating-menu
+    width: 100%
+
+    @media screen and (min-width: $medium)
+      left: $header-width
+
+    &-notification
+      display: flex
+      flex-flow: column nowrap
+      align-items: center
+      width: 40px
+      margin-top: 5px
+
+      &-icon
+        position: relative
+        width: 40px
+        height: 40px
+        background-color: #DDD
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+        &:before
+          +ion-icon('ios-bell')
+          font-size: 30px
+          color: #444
+
+        &-counter
+          color: #fff
+          width: 20px
+          height: 20px
+          background-color: $red
+          font-size: 10px
+          position: absolute
+          top: -3px
+          right: -3px
+          border-radius: 4px
+          display: flex
+          align-items: center
+          justify-content: center
+
+      &-list
+        display: none
+        padding: 10px
+        background-color: #fff
+        border-radius: 4px
+        width: 300px
+
+      &-list:hover
+        display: block
+
+      &-icon:hover + &-list
+        display: block
 
   &_header
     display: flex
