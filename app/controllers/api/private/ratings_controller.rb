@@ -5,7 +5,8 @@ module Api
       check 'Ratings::CanEdit', :@rating, only: [:update]
 
       def index
-        render json: ::Ratings::FindForHome.new.call
+        ratings = ::Ratings::FindForHome.new(@page).call
+        render json: ratings, meta: { pages_count: ratings.total_pages }
       end
 
       def show

@@ -33,7 +33,7 @@ class RatingsStore extends Marty.Store
       id: id
       locally: ->
         return unless @hasAlreadyFetched id
-        @state
+        findInStore @, page, all: true, fields: ['page']
       remotely: ->
         @app.ratingsQueries.getPage(page)
 

@@ -1,3 +1,4 @@
+_ = require 'lodash'
 Marty = require 'marty'
 Constants = require '../constants'
 Rating = require '../models/rating'
@@ -6,8 +7,9 @@ class RatingsQueries extends Marty.Queries
   getPage: (page) ->
     @app.ratingsApi.loadPage(page).then ({body}) =>
       return unless body?
-      ratings = body.ratings.map (rating) -> new Rating rating
+      ratings = body.ratings.map (rating) -> new Rating _.merge(rating, { page })
       @dispatch Constants.APPEND_RATINGS, ratings
+      @dispatch Constants.SET_PAGES_COUNT, 'ratings', body.meta.pages_count
 
   getForUser: (userId) ->
     @app.ratingsApi.loadForUser(userId).then ({body}) =>
