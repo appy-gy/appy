@@ -1,11 +1,12 @@
 _ = require 'lodash'
-isClient = require '../../helpers/is_client'
+Marty = require 'marty'
 
 firstLoad = true
 storesToSkip = new Set ['currentUser', 'headerSections', 'popups', 'toasts']
 
 ClearStores =
   componentWillMount: ->
+    return if Marty.isServer
     return firstLoad = false if firstLoad
     @clearStores()
 
