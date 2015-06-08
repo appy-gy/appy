@@ -28,11 +28,6 @@ Ratings = React.createClass
     large: 3
   subscriptionPosition: 1
 
-  changePage: ({selected}) ->
-    {router} = @context
-
-    router.transitionTo 'ratings', page: selected
-
   subscription: ->
     <Subscription key="subscription"/>
 

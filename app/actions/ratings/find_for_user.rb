@@ -1,16 +1,19 @@
 module Ratings
   class FindForUser
-    attr_reader :current_user, :user
+    attr_reader :current_user, :user, :page
 
-    def initialize current_user, user
+    const :per_page, 12
+
+    def initialize current_user, user, page
       @current_user = current_user
       @user = user
+      @page = page
     end
 
     def call
-      ratings = user.ratings.includes(:tags)
+      ratings = user.ratings.includes(:tags).order(updated_at: :desc)
       ratings = ratings.published unless Users::CanSeeDrafts.new(current_user, user).call
-      ratings.order updated_at: :desc
+      ratings.page(page).per(per_page)
     end
   end
 end

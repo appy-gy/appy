@@ -4,7 +4,7 @@ module Ratings
 
     const :per_page, 15
 
-    def initialize page = 1
+    def initialize page
       @page = page
     end
 

@@ -1,6 +1,8 @@
+_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 ClearStores = require '../mixins/clear_stores'
+ParsePage = require '../mixins/parse_page'
 Avatar = require './avatar'
 Name = require './name'
 SocialButtons = require './social_buttons'
@@ -16,14 +18,29 @@ User = require '../../models/user'
 UserPage = React.createClass
   displayName: 'User'
 
+  mixins: [ParsePage]
+
+  contextTypes:
+    router: PropTypes.func.isRequired
+
   childContextTypes:
     user: PropTypes.object.isRequired
+    page: PropTypes.number.isRequired
     block: PropTypes.string.isRequired
 
   getChildContext: ->
     {user} = @props
 
-    { user, block: 'user-profile' }
+    { user, page: @currentPage(), block: 'user-profile' }
+
+  currentPage: ->
+    {router} = @context
+
+    @parsePage router.getCurrentQuery().page
+
+  resetPage: (query) ->
+    delete query.page
+    query
 
   render: ->
     {user} = @props
@@ -37,12 +54,12 @@ UserPage = React.createClass
             <SocialButtons/>
           </div>
         </header>
-        <Tabs defaultTab="ratings">
+        <Tabs defaultTab="ratings" queryModificator={@resetPage}>
           <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
-            <Ratings/>
+            <Ratings page={@currentPage()}/>
           </Tab>
           <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
-            <Comments/>
+            <Comments page={@currentPage()}/>
           </Tab>
         </Tabs>
       </div>

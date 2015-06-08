@@ -1,6 +1,8 @@
 React = require 'react/addons'
 Marty = require 'marty'
+PaginationLink = require './pagination_link'
 Comment = require '../shared/comments/comment'
+Pagination = require '../shared/pagination/pagination'
 
 {PropTypes} = React
 
@@ -12,6 +14,7 @@ Comments = React.createClass
 
   contextTypes:
     user: PropTypes.object.isRequired
+    page: PropTypes.number.isRequired
 
   noComments: ->
     {user} = @context
@@ -31,7 +34,9 @@ Comments = React.createClass
       <Comment key={comment.id} comment={comment} actionTypes={actionTypes}/>
 
   render: ->
-    {user} = @context
+    {user, page} = @context
+
+    pagesCount = @app.pageCountsStore.get('userComments') || 0
 
     <div>
       <h2 className="user-profile_tab-header">
@@ -39,15 +44,20 @@ Comments = React.createClass
       </h2>
       {@noComments}
       {@comments()}
+      <Pagination currentPage={page} pagesCount={pagesCount} link={PaginationLink}/>
     </div>
 
 module.exports = Marty.createContainer Comments,
+  propTypes:
+    page: PropTypes.number.isRequired
+
   contextTypes:
     user: PropTypes.object.isRequired
 
   listenTo: 'commentsStore'
 
   fetch: ->
+    {page} = @props
     {user} = @context
 
-    comments: @app.commentsStore.getForUser(user.id)
+    comments: @app.commentsStore.getForUser(user.id, page)

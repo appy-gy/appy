@@ -31,16 +31,16 @@ class CommentsStore extends Marty.Store
       remotely: ->
         @app.commentsQueries.getForRating(ratingId)
 
-  getForUser: (userId) ->
-    id = "getForuser-#{userId}"
+  getForUser: (userId, page) ->
+    id = "getForuser-#{userId}-#{page}"
 
     @fetch
       id: id
       locally: ->
         return unless @hasAlreadyFetched id
-        @state
+        findInStore @, page, all: true, fields: ['page']
       remotely: ->
-        @app.commentsQueries.getForUser(userId)
+        @app.commentsQueries.getForUser(userId, page)
 
   append: (comments) ->
     @state = update @state, $push: toArray(comments)

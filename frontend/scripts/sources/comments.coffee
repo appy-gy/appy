@@ -1,4 +1,5 @@
 Marty = require 'marty'
+Qs = require 'qs'
 snakecaseKeys = require '../helpers/snakecase_keys'
 
 class CommentsApi extends Marty.HttpStateSource
@@ -7,8 +8,9 @@ class CommentsApi extends Marty.HttpStateSource
   loadForRating: (ratingId) ->
     @get "ratings/#{ratingId}/comments"
 
-  loadForUser: (userId) ->
-    @get "users/#{userId}/comments"
+  loadForUser: (userId, page) ->
+    query = Qs.stringify { page }
+    @get "users/#{userId}/comments?#{query}"
 
   create: (ratingId, data) ->
     url = "ratings/#{ratingId}/comments"

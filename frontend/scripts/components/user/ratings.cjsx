@@ -1,18 +1,24 @@
 React = require 'react/addons'
 Marty = require 'marty'
+PaginationLink = require './pagination_link'
 Preview = require '../shared/ratings/preview'
 CreateRating = require '../shared/ratings/create'
+Pagination = require '../shared/pagination/pagination'
 
 {PropTypes} = React
 
 Ratings = React.createClass
   displayName: 'Ratings'
 
+  mixins: [Marty.createAppMixin()]
+
   propTypes:
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
 
   contextTypes:
+    router: PropTypes.func.isRequired
     user: PropTypes.object.isRequired
+    page: PropTypes.number.isRequired
 
   noRatings: ->
     return if @hasRatings()
@@ -42,7 +48,9 @@ Ratings = React.createClass
       <Preview key={rating.id} rating={rating}/>
 
   render: ->
-    {user} = @context
+    {user, page} = @context
+
+    pagesCount = @app.pageCountsStore.get('userRatings') || 0
 
     <div>
       <h2 className="user-profile_tab-header">
@@ -53,15 +61,20 @@ Ratings = React.createClass
       <div className="previews">
         {@ratings()}
       </div>
+      <Pagination currentPage={page} pagesCount={pagesCount} link={PaginationLink}/>
     </div>
 
 module.exports = Marty.createContainer Ratings,
   listenTo: 'ratingsStore'
 
+  propTypes:
+    page: PropTypes.number.isRequired
+
   contextTypes:
     userSlug: PropTypes.string.isRequired
 
   fetch: ->
+    {page} = @props
     {userSlug} = @context
 
-    ratings: @app.ratingsStore.getForUser(userSlug)
+    ratings: @app.ratingsStore.getForUser(userSlug, page)
