@@ -8,17 +8,23 @@ Tabs = React.createClass
   displayName: 'Tabs'
 
   propTypes:
+    defaultTab: PropTypes.string.isRequired
     children: PropTypes.node.isRequired
 
   contextTypes:
+    router: PropTypes.func.isRequired
     block: PropTypes.string.isRequired
 
   getInitialState: ->
-    {children} = @props
+    {defaultTab, children} = @props
+    {router} = @context
 
-    activeTab: children[0].props.id
+    activeTab: router.getCurrentQuery().tab || defaultTab
 
   activateTab: (id) ->
+    {router} = @context
+
+    router.replaceWith router.getCurrentPathname(), {}, tab: id
     @setState activeTab: id
 
   titles: ->

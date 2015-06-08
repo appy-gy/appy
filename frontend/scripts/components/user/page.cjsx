@@ -37,7 +37,7 @@ UserPage = React.createClass
             <SocialButtons/>
           </div>
         </header>
-        <Tabs>
+        <Tabs defaultTab="ratings">
           <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
             <Ratings/>
           </Tab>
