@@ -1,4 +1,5 @@
 Marty = require 'marty'
+Qs = require 'qs'
 snakecaseKeys = require '../helpers/snakecase_keys'
 toFormData = require '../helpers/to_form_data'
 
@@ -6,7 +7,8 @@ class RatingsApi extends Marty.HttpStateSource
   baseUrl: '/api/private'
 
   loadPage: (page) ->
-    @get "ratings"
+    query = Qs.stringify { page }
+    @get "ratings?#{query}"
 
   loadForUser: (userId) ->
     @get "users/#{userId}/ratings"

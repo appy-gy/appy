@@ -8,6 +8,8 @@ Constants = Marty.createConstants [
 
   'SET_HEADER_SECTIONS'
 
+  'SET_PAGES_COUNT'
+
   'APPEND_POPUPS'
   'REMOVE_POPUPS'
 

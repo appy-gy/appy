@@ -28,6 +28,9 @@ gem 'sorcery'
 gem 'carrierwave'
 gem 'carrierwave-processing'
 
+# Pagination
+gem 'kaminari'
+
 # Image processing
 gem 'mini_magick'
 

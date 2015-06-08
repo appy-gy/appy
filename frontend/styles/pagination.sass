@@ -1,0 +1,19 @@
+.pagination
+  display: flex
+  flex-flow: row nowrap
+  list-style: none
+
+  &_window
+    display: flex
+    flex-flow: row nowrap
+    list-style: none
+
+    &.m-left:after, &.m-right:before
+      content: '...'
+
+  &_link
+    margin: 0 $margin / 2
+
+    &.m-active
+      cursor: default
+      color: $black

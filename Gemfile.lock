@@ -105,6 +105,9 @@ GEM
     interception (0.5)
     json (1.8.2)
     jwt (1.4.1)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     listen (2.8.5)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -245,6 +248,7 @@ DEPENDENCIES
   guard-rspec
   handy_const
   httparty
+  kaminari
   mini_magick
   oj
   oj_mimic_json
