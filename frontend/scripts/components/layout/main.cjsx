@@ -9,9 +9,9 @@ Main = React.createClass
     children: PropTypes.node.isRequired
 
   render: ->
-    {children} = @props
+    {children, sectionSlug} = @props
 
-    <main className='layout_main'>
+    <main className="layout_main section_#{sectionSlug}">
       <div className='grid'>
         {children}
       </div>

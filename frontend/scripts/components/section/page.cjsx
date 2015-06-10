@@ -1,4 +1,3 @@
-_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 ClearStores = require '../mixins/clear_stores'
@@ -22,10 +21,10 @@ Ratings = React.createClass
       <Preview key={rating.id} rating={rating} />
 
   render: ->
-    {sectionSlug, section} = @props
-
-    <Layout>
-      <div style={ backgroundColor: section.color } className="previews section-#{section.name} #{section.color}">
+    {sectionSlug} = @props
+    
+    <Layout sectionSlug={sectionSlug}>
+      <div className="previews">
         {@previews()}
       </div>
     </Layout>

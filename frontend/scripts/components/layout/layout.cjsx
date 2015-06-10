@@ -29,11 +29,11 @@ Layout = React.createClass
     <Header/>
 
   render: ->
-    {children} = @props
+    {children, sectionSlug} = @props
 
     <div className='layout'>
       {@header()}
-      <Main>
+      <Main sectionSlug={sectionSlug}>
         {children}
       </Main>
       <Popups/>

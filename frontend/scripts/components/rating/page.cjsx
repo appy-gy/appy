@@ -1,6 +1,5 @@
 React = require 'react/addons'
 Marty = require 'marty'
-ClearStores = require '../mixins/clear_stores'
 Rating = require './rating'
 Comments = require './comments'
 Layout = require '../layout/layout'
@@ -10,7 +9,7 @@ Layout = require '../layout/layout'
 RatingPage = React.createClass
   displayName: 'RatingPage'
 
-  mixins: [Marty.createAppMixin(), ClearStores]
+  mixins: [Marty.createAppMixin()]
 
   childContextTypes:
     ratingSlug: PropTypes.string.isRequired
@@ -22,9 +21,16 @@ RatingPage = React.createClass
     { ratingSlug, block: 'rating' }
 
   render: ->
-    <Layout header="rating">
+    {ratingSlug, rating} = @props
+
+    <Layout header="rating" sectionSlug={rating.section.slug}>
       <Rating/>
-      <Comments/>
     </Layout>
 
-module.exports = RatingPage
+module.exports = Marty.createContainer RatingPage,
+  listenTo: ['ratingsStore']
+
+  fetch: ->
+    {ratingSlug} = @props
+
+    rating: @app.ratingsStore.get(ratingSlug)
