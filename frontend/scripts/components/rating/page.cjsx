@@ -1,3 +1,4 @@
+_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 Rating = require './rating'
@@ -22,8 +23,9 @@ RatingPage = React.createClass
 
   render: ->
     {ratingSlug, rating} = @props
+    sectionSlug = _.get rating, 'section.slug', 'default'
 
-    <Layout header="rating" sectionSlug={rating.section.slug}>
+    <Layout header="rating" sectionSlug={sectionSlug}>
       <Rating/>
     </Layout>
 
