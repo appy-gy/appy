@@ -58,6 +58,7 @@ class Base
   defineImageAccessors: ->
     @constructor.imageFields()?.forEach (field) =>
       @["#{field}Url"] = (size) =>
+        return '' unless @[field]?
         return @[field] unless @[field]? and size?
         return @[field] if _.startsWith @[field], 'blob:'
         @[field].replace /\/([^\/]+)$/, (match, submatch) ->
