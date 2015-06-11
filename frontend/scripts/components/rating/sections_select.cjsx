@@ -11,9 +11,9 @@ SectionsSelect = React.createClass
     object: PropTypes.object.isRequired
 
   updateSection: (event) ->
-    {object, actionCreator} = @props
+    {object, actions} = @props
 
-    actionCreator.update object.id, sectionId: event.target.value
+    @app[actions].update object.id, sectionId: event.target.value
 
   sections: ->
     {sections} = @props

@@ -1,16 +1,18 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
+ClearStores = require '../mixins/clear_stores'
 Rating = require './rating'
 Comments = require './comments'
 Layout = require '../layout/layout'
+findInStore = require '../../helpers/find_in_store'
 
 {PropTypes} = React
 
 RatingPage = React.createClass
   displayName: 'RatingPage'
 
-  mixins: [Marty.createAppMixin()]
+  mixins: [Marty.createAppMixin(), ClearStores]
 
   childContextTypes:
     ratingSlug: PropTypes.string.isRequired
@@ -21,19 +23,19 @@ RatingPage = React.createClass
 
     { ratingSlug, block: 'rating' }
 
-  render: ->
-    {ratingSlug, rating} = @props
-    sectionSlug = _.get rating, 'section.slug', 'default'
+  sectionSlug: ->
+    {ratingSlug} = @props
 
-    <Layout header="rating" sectionSlug={sectionSlug}>
+    rating = findInStore @app.ratingsStore, ratingSlug
+    _.get rating, 'section.slug', 'default'
+
+  render: ->
+    {ratingSlug} = @props
+
+    <Layout header="rating" sectionSlug={@sectionSlug()}>
       <Rating/>
       <Comments/>
     </Layout>
 
 module.exports = Marty.createContainer RatingPage,
   listenTo: ['ratingsStore']
-
-  fetch: ->
-    {ratingSlug} = @props
-
-    rating: @app.ratingsStore.get(ratingSlug)
