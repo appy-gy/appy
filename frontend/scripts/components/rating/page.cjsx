@@ -27,6 +27,7 @@ RatingPage = React.createClass
 
     <Layout header="rating" sectionSlug={sectionSlug}>
       <Rating/>
+      <Comments/>
     </Layout>
 
 module.exports = Marty.createContainer RatingPage,
