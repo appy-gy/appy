@@ -39,7 +39,7 @@ CustomSelect = React.createClass
     {block} = @context
 
     items.map (item) =>
-      <div className="#{block}_select-options-item" key={item.id} onClick={_.partial onChange, item}>
+      <div className="#{block}_select-option" key={item.id} onClick={_.partial onChange, item}>
         {item.name}
       </div>
 

@@ -7,9 +7,36 @@
   margin-top: $rating-menu
 
   &_select
-    height: 40px
+    display: flex
+    flex-flow: column nowrap
+    cursor: pointer
+    width: 200px
+    
+    &-selected-value
+      color: $white-2
+      border: $border-width solid
+      border-radius: 10px
+      height: 40px
+      display: flex
+      justify-content: center
+      align-items: center
+      padding: 0 $margin
+      transition: color .2s ease
+
+      &:after
+        +ion-icon("arrow-down-b")
+        font-size: 11px
+
+      &:hover
+        color: $white
+
     &-options
-      &-item
+      z-index: 2
+
+    &-option
+      color: $black
+      background-color: $white
+      text-align: center
 
   &_menu
     position: fixed
