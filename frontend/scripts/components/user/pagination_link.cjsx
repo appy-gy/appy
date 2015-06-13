@@ -9,6 +9,8 @@ Classes = require '../mixins/classes'
 PaginationLink = React.createClass
   displayName: 'PaginationLink'
 
+  mixins: [Classes]
+
   propTypes:
     block: PropTypes.string.isRequired
     page: PropTypes.number.isRequired
