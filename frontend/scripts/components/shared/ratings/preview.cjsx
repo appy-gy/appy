@@ -37,6 +37,11 @@ Preview = React.createClass
 
     rating.title or "Черновик-#{rating.createdAt}"
 
+  description: ->
+    {rating} = @props
+
+    rating.description
+
   render: ->
     {rating, mod} = @props
 
@@ -50,14 +55,23 @@ Preview = React.createClass
 
     <div className={classes}>
       <Meta/>
-      <div className="preview_image" style={imageStyles}></div>
-      <div className="preview_section-name">
-        {@sectionName()}
-      </div>
-      <RatingLink className="preview_title" rating={rating}>
-        {@title()}
+      <RatingLink rating={rating}>
+        <div className="preview_image" style={imageStyles}></div>
       </RatingLink>
-      <Tags tags={rating.tags}/>
+      <div className="preview_content">
+        <div className="preview_section-name">
+          {@sectionName()}
+        </div>
+        <RatingLink rating={rating}>
+          <div className="preview_title">
+            {@title()}
+          </div>
+          <div className="preview_description">
+            {@description()}
+          </div>
+        </RatingLink>
+        <Tags tags={rating.tags}/>
+      </div>
     </div>
 
 module.exports = Preview
