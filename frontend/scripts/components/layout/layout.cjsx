@@ -14,7 +14,7 @@ Layout = React.createClass
   propTypes:
     header: PropTypes.string
     children: PropTypes.node.isRequired
-    sectionSlug: PropTypes.string.isRequired
+    sectionSlug: PropTypes.string
 
   headers:
     common: CommonHeader
@@ -22,6 +22,7 @@ Layout = React.createClass
 
   getDefaultProps: ->
     header: 'common'
+    sectionSlug: ''
 
   header: ->
     {header} = @props
