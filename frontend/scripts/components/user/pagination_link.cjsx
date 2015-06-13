@@ -1,7 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Router = require 'react-router'
-classNames = require 'classnames'
+Classes = require '../mixins/classes'
 
 {PropTypes} = React
 {Link} = Router
@@ -12,10 +12,14 @@ PaginationLink = React.createClass
   propTypes:
     block: PropTypes.string.isRequired
     page: PropTypes.number.isRequired
-    isActive: PropTypes.bool.isRequired
+    isActive: PropTypes.bool
+    children: PropTypes.node.isRequired
 
   contextTypes:
     router: PropTypes.func.isRequired
+
+  getDefaultProps: ->
+    isActive: false
 
   linkProps: ->
     {page} = @props
@@ -28,7 +32,7 @@ PaginationLink = React.createClass
   render: ->
     {block, page, isActive} = @props
 
-    classes = classNames "#{block}_link", 'm-active': isActive
+    classes = @classes "#{block}_link", 'm-active': isActive
 
     <Link className={classes} {...@linkProps()}>
       {page}
