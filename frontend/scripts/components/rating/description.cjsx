@@ -69,11 +69,10 @@ ObjectDescription = React.createClass
     <div>
       <Textarea autoFocus={true} className={@classes("#{block}_description", 'm-edit')} value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></Textarea>
       <div className="#{block}_description-buttons">
-        <button className="#{block}_description-button accept" onClick={@updateDescription}>
-          сохранить
+        <button className="#{block}_description-button m-accept" onClick={@updateDescription}>
+          Cохранить
         </button>
-        <button className="#{block}_description-button cancel" onClick={@stopEdit}>
-          отменить
+        <button className="#{block}_description-button m-cancel" onClick={@stopEdit}>
         </button>
       </div>
     </div>

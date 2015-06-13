@@ -39,7 +39,9 @@ Header = React.createClass
   render: ->
     {rating} = @context
 
-    <header className="rating_header" style={backgroundImage: "url(#{rating.imageUrl('normal')})"}>
+    <header className="rating_header">
+      <div className="rating_cover" style={backgroundImage: "url(#{rating.imageUrl('normal')})"}>
+      </div>
       <Meta/>
       {@ratingImageButton()}
       <div className="rating_section-name-wrapper">

@@ -40,27 +40,34 @@
   align-items: center
   margin-left: 10px
   cursor: pointer
+  background-color: transparent
 
   &:before
     +ion-icon("android-close")
 
   &:hover
     color: $white
+=alt-cancel($size: 30px)
+  +cancel($size)
+  color: $black-2
+  &:hover
+    color: $black
+
 
 =add-image
   z-index: 2
-  font-size: 48px
+  font-size: 32px
   color: $white
   transition: transform 0.1s
-  width: 40px
-  height: 40px
-  // width: 40px
-  // height: 40px
+  width: 30px
+  height: 30px
+  cursor: pointer
+  display: flex
+  justify-content: center
+  align-items: center
 
   &:before
     +ion-icon("camera")
-    position: absolute
-    line-height: 40px
 
   &:hover
     transform: scale(1.2)

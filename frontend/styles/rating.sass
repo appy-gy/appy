@@ -11,7 +11,7 @@
     flex-flow: column nowrap
     cursor: pointer
     width: 200px
-    
+
     &-selected-value
       color: $white-2
       border: $border-width solid
@@ -25,18 +25,30 @@
 
       &:after
         +ion-icon("arrow-down-b")
-        font-size: 11px
+        font-size: 13px
+        margin-left: 10px
 
       &:hover
         color: $white
 
     &-options
       z-index: 2
+      background: $white
+      color: $black
+      margin-top: 10px
+      border-radius: $border-radius
+      overflow: hidden
+      text-align: center
 
     &-option
-      color: $black
-      background-color: $white
-      text-align: center
+      height: 40px
+      line-height: 40px
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+
+      &:hover
+        background: $blue-3
 
   &_menu
     position: fixed
@@ -105,12 +117,10 @@
     flex-flow: column wrap
     position: relative
     background-color: $blue
-    background-position: center center
-    background-repeat: no-repeat
-    background-size: cover
     border-radius: $border-radius $border-radius 0 0
     width: 100%
     height: 500px
+    overflow: hidden
 
     &.m-with-image
       &:after
@@ -126,6 +136,31 @@
       position: absolute
       top: 20px
       left: 20px
+
+    &:hover
+
+      .rating_cover:after
+        display: block
+
+  &_cover
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: cover
+
+    &:after
+      content: ''
+      display: none
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background: $black-3
 
   &_line
     position: relative
@@ -218,8 +253,7 @@
 
   &_title-button
     &.m-accept
-      +alt-accept
-      line-height: 36px
+      +accept
 
     &.m-cancel
       +cancel
@@ -289,11 +323,11 @@
     width: 100%
 
   &_description-button
-    &.accept
+    &.m-accept
       +accept
 
-    &.cancel
-      +cancel
+    &.m-cancel
+      +alt-cancel
 
   &_author
     display: block
