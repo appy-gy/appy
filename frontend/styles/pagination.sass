@@ -2,6 +2,7 @@
   display: flex
   flex-flow: row nowrap
   list-style: none
+  justify-content: center
 
   &_window
     display: flex
@@ -12,8 +13,19 @@
       content: '...'
 
   &_link
-    margin: 0 $margin / 2
+    line-height: 26px
+    width: 30px
+    height: 30px
+    margin: 0 3px
+    font-family: $sans-serif
+    font-weight: 600
+    font-size: 18px
+    color: $blue
+    border-radius: 12px
+    text-align: center
+    border: 2px solid rgba(0, 0, 0, 0)
 
     &.m-active
       cursor: default
       color: $black
+      border-color: $black

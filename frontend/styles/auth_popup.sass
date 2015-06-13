@@ -3,28 +3,29 @@ $wrapper-margin: 3 * $margin
 .auth-popup
   display: flex
   flex-flow: column nowrap
-  position: relative
-  background: $white
   padding: $wrapper-margin
-  border-radius: 10 * $border-radius
+  width: 320px
 
   &_title
     align-self: center
     font-family: $serif
     font-size: 25px
     color: $blue
-    margin-bottom: 2 * $margin
+    margin-bottom: 4 * $margin
 
   &_close
     position: absolute
     top: $wrapper-margin
     right: $wrapper-margin
-    font-size: 30px
-    color: $black-3
+    font-size: 40px
+    color: $white-2
     cursor: pointer
 
     &:before
       +ion-icon("android-close")
+
+    &:hover
+      color: $white
 
   &_social-buttons
     display: flex
@@ -34,12 +35,19 @@ $wrapper-margin: 3 * $margin
   &_social-button
     color: $white
     cursor: pointer
-    padding: 2 * $margin $margin
-    margin-bottom: $margin
-    border-radius: $border-radius
+    padding: $margin
+    border-radius: 10px
     text-align: center
     width: calc(50% - #{$margin / 2})
     text-transform: uppercase
+    opacity: 0.9
+
+    &:first-of-type,
+    &:nth-of-type(2)
+      margin-bottom: $margin
+
+    &:hover
+      opacity: 1
 
     @each $type, $color in ("facebook", #3b5b98), ("vk", #6484ab), ("twitter", #55aded), ("google", #d54a35)
       &.m-#{$type}
@@ -47,51 +55,64 @@ $wrapper-margin: 3 * $margin
 
   &_or
     position: relative
-    margin: $margin
+    padding: 30px 0
+    width: 100%
+    color: $white-3
+    display: flex
+
+    &:before,
+    &:after
+      content: ''
+      width: 110px
+      border-bottom: 1px solid $white-3
+      position: relative
+      top: -10px
 
     &:before
-      content: ""
-      display: block
-      position: absolute
-      top: 50%
-      background: $grey-3
-      width: 100%
-      height: $border-width
-
+      margin-right: 2%
     &:after
-      content: attr(data-text)
-      position: absolute
-      top: 0
-      left: 50%
-      font-family: $serif
-      font-style: italic
-      background: $white
-      color: $grey-3
-      padding: 0 $margin
-      text-align: center
-      transform: translateX(-50%)
+      margin-left: 2%
 
   &_form
     display: flex
     flex-flow: column nowrap
     position: relative
-    color: $black-3
-    border: $border-width solid $grey-3
-    border-radius: 2 * $border-radius
-    overflow: hidden
+    color: $black
+    align-items: center
 
   &_input
-    background: $grey-2
+    background-color: #BDBCBC
     padding: $margin
+    width: 100%
+    border-radius: 0 0 10px 10px
+
+    &::placeholder
+      color: $black
+
+    &:focus
+      background-color: $white
 
     &:first-of-type
-      border-bottom: $border-width solid $grey-3
+      border-radius: 10px 10px 0 0
 
   &_submit
-    position: absolute
-    bottom: 3px
-    right: 1.5 * $margin
-    font-size: 30px
+    $size: 40px
+    width: $size
+    height: $size
+    line-height: $size
+    border-radius: $size / 2
+    border: 2px solid rgba($white, 0.9)
+    margin-top: $size / 2
+    display: flex
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    font-size: $size / 2
+    color: rgba($white, 0.9)
 
     &:before
-      +ion-icon("arrow-right-c")
+      +ion-icon("android-arrow-forward")
+
+    &:hover
+      border-color: $blue
+      color: $blue

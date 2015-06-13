@@ -8,8 +8,6 @@ Or = React.createClass
   mixins: [PureRenderMixin]
 
   render: ->
-    <div className="auth-popup_or" data-text="или">
-      &nbsp;
-    </div>
+    <div className="auth-popup_or">или</div>
 
 module.exports = Or

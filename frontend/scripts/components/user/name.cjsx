@@ -49,7 +49,7 @@ Name = React.createClass
 
     return if edit
 
-    <div onClick={@startEdit}>
+    <div className="user-profile_name-value" onClick={@startEdit}>
       {user.name}
     </div>
 
@@ -60,13 +60,12 @@ Name = React.createClass
     return unless edit
 
     <div>
-      <input type="text" autoFocus={true} placeholder="Введи свое имя" value={user.name} onChange={@changeName}/>
+      <input className="user-profile_name-value" type="text" autoFocus={true} placeholder="Введи свое имя" value={user.name} onChange={@changeName}/>
       <div className="user-profile_name-buttons">
         <div className="user-profile_name-button m-accept" onClick={@saveName}>
           Cохранить
         </div>
         <div className="user-profile_name-button m-cancel" onClick={@cancelEdit}>
-          Отменить
         </div>
       </div>
     </div>

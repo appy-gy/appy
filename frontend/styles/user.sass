@@ -27,16 +27,14 @@ $tab-title-height: 50px
 
   &_header
     display: flex
-    align-items: center
     justify-content: center
-    flex-flow: column wrap
     position: relative
     background: $blue
     background: linear-gradient(to bottom, $blue, $blue-2)
-    padding: $padding
+    padding: 50px $padding $padding $padding
     border-radius: $border-radius $border-radius 0 0
     width: 100%
-    height: $avatar-size + 2 * $padding + 2 * $margin
+    min-height: 360px
 
 
   &_avatar
@@ -87,17 +85,23 @@ $tab-title-height: 50px
   &_info
     padding: 0 0 0 $padding
     width: calc(100% - #{$avatar-size})
+    margin-top: 50px
 
   &_name
-    font: 40px $serif
-    font-weight: 600
-    color: $white
-    line-height: 1.2
-    overflow: hidden
-    text-overflow: ellipsis
-    white-space: nowrap
+
+    &-value
+      font: 40px $serif
+      font-weight: 600
+      color: $white
+      line-height: 50px
+      height: 50px
+      width: 100%
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
 
     &-buttons
+      margin-top: 20px
       display: flex
       flex-flow: row nowrap
 
@@ -105,7 +109,7 @@ $tab-title-height: 50px
       font-size: 16px
 
       &.m-accept
-        +alt-accept(30px)
+        +accept(40px)
 
       &.m-cancel
         +cancel(30px)
@@ -131,13 +135,14 @@ $tab-title-height: 50px
     &-link
       cursor: pointer
       padding: 0 10px
+      font-size: 14px
 
     &:last-of-type
       margin-right: 0
 
     &.m-add
       background: $white
-      border-radius: $border-radius * 3
+      border-radius: $border-radius
       line-height: $icon-button-size
       color: $blue-2
 
@@ -208,7 +213,7 @@ $tab-title-height: 50px
     cursor: pointer
     padding: 0 3 * $margin
     margin-top: $margin
-    border-radius: $border-radius * 2 $border-radius * 2 0 0
+    border-radius: $border-radius $border-radius 0 0
     line-height: $tab-title-height
     height: $tab-title-height
     transition: all 0.3s ease
