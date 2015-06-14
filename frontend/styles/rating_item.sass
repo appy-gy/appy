@@ -8,6 +8,7 @@
     margin-bottom: 25px
     text-align: center
     display: flex
+    padding: 0 30px
     justify-content: center
 
   &_number
@@ -19,16 +20,49 @@
   &_title
     font-size: inherit
 
+
+    &-buttons
+      display: flex
+      justify-content: flex-end
+
+    &-button
+      &.m-accept
+        +accept
+      &.m-cancel
+        +alt-cancel
+
   &_cover
     width: 100%
-    height: auto
+    min-height: 300px
     position: relative
+    background: linear-gradient(to bottom, $blue, $blue-2)
+
+  &_add-image
+    +add-image
+    position: absolute
+    top: 10px
+    left: 20px
 
   &_cover-image
     width: 100%
+    display: block
 
   &_description
     margin: 15px 0
+    width: 100%
+
+    &.m-edit
+      resize: none
+
+    &-buttons
+      display: flex
+      justify-content: flex-end
+
+    &-button
+      &.m-accept
+        +accept
+      &.m-cancel
+        +alt-cancel
 
   &_actions
     display: flex

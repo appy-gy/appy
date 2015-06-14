@@ -30,8 +30,7 @@ RatingItem = React.createClass
 
     return unless ratingItem.canEdit
 
-    <FileInput onChange={@updateImage}>
-      Загрузить изображение
+    <FileInput className="rating-item_add-image" onChange={@updateImage}>
     </FileInput>
 
   updateImage: (files) ->
@@ -57,7 +56,7 @@ RatingItem = React.createClass
         {@imageButton()}
         <img className="rating-item_cover-image" src={ratingItem.imageUrl('normal')}/>
       </div>
-      <div className="rating-item_description">
+      <div className="rating-item_description-wrapper">
         <Description object={ratingItem} actions="ratingItemsActions"/>
       </div>
       <Votes/>

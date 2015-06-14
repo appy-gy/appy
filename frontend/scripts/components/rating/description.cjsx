@@ -54,9 +54,9 @@ ObjectDescription = React.createClass
 
     return if edit
 
-    <h1 className={@classes("#{block}_description")} onClick={@startEdit}>
+    <div className={@classes("#{block}_description")} onClick={@startEdit}>
       {description}
-    </h1>
+    </div>
 
   descriptionEdit: ->
     {object, className} = @props
