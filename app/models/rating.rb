@@ -17,6 +17,8 @@ class Rating < ActiveRecord::Base
 
   enum status: %w{draft published}
 
+  after_create :generate_slug
+
   private
 
   def slug_candidates
@@ -24,6 +26,11 @@ class Rating < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    not slug? or (status_changed? and status == 'published')
+    persisted? and (not slug? or (status_changed? and status == 'published'))
+  end
+
+  def generate_slug
+    set_slug
+    save
   end
 end

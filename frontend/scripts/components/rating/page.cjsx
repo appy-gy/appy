@@ -14,6 +14,9 @@ RatingPage = React.createClass
 
   mixins: [Marty.createAppMixin(), ClearStores]
 
+  contextTypes:
+    router: PropTypes.func.isRequired
+
   childContextTypes:
     ratingSlug: PropTypes.string.isRequired
     block: PropTypes.string.isRequired
@@ -23,11 +26,24 @@ RatingPage = React.createClass
 
     { ratingSlug, block: 'rating' }
 
+  rating: ->
+    {ratingSlug} = @props
+
+    findInStore @app.ratingsStore, ratingSlug
+
+  componentWillUpdate: ->
+    {ratingSlug} = @props
+    {router} = @context
+    rating = @rating()
+
+    return if not rating? or ratingSlug == rating.slug or router.getCurrentParams().ratingSlug == rating.slug
+
+    setImmediate -> router.replaceWith 'rating', ratingSlug: rating.slug
+
   sectionSlug: ->
     {ratingSlug} = @props
 
-    rating = findInStore @app.ratingsStore, ratingSlug
-    _.get rating, 'section.slug', 'default'
+    _.get @rating(), 'section.slug', 'default'
 
   render: ->
     {ratingSlug} = @props
