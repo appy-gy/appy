@@ -27,7 +27,7 @@ PaginationLink = React.createClass
     isActive: false
 
   render: ->
-    {block, page, to, query, params, isActive, children} = @props
+    {block, to, query, params, isActive, children} = @props
 
     classes = @classes "#{block}_link", 'm-active': isActive
 
