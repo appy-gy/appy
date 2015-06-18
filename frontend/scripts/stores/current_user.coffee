@@ -7,6 +7,7 @@ class CurrentUserStore extends Marty.Store
     super
     @handlers =
       set: Constants.SET_CURRENT_USER
+      maybeSet: Constants.REPLACE_USER
 
   getInitialState: ->
     new User
@@ -27,5 +28,9 @@ class CurrentUserStore extends Marty.Store
   set: (user) ->
     user = new User unless user?
     @state = user
+
+  maybeSet: (user) ->
+    return unless user.id == @state.id
+    @set user
 
 module.exports = CurrentUserStore
