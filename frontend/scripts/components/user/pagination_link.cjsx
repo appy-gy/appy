@@ -32,12 +32,12 @@ PaginationLink = React.createClass
     query: _.defaults { page }, router.getCurrentQuery()
 
   render: ->
-    {block, page, isActive} = @props
+    {block, page, isActive, children} = @props
 
     classes = @classes "#{block}_link", 'm-active': isActive
 
     <Link className={classes} {...@linkProps()}>
-      {page}
+      {children}
     </Link>
 
 
