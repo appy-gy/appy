@@ -26,6 +26,8 @@ SectionsSelect = React.createClass
   render: ->
     {object} = @props
 
+    return <div>{object.section?.name}</div> unless object.canEdit
+
     <Select placeholder="Рубрика" value={object.section?.id} options={@options()} searchable={false} onChange={@updateSection}/>
 
 module.exports = Marty.createContainer SectionsSelect,

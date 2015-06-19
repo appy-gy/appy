@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 Select = require 'react-select'
+Nothing = require '../shared/nothing'
 
 {PropTypes} = React
 
@@ -34,6 +35,10 @@ TagsSelect = React.createClass
     @app.ratingsActions["#{action}Tag"] rating.id, name
 
   render: ->
+    {rating} = @context
+
+    return <Nothing/> unless rating.canEdit
+
     <Select placeholder="Задать теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" autoload={false} multi={true} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} onChange={@updateTags}/>
 
 module.exports = TagsSelect
