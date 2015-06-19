@@ -4,20 +4,20 @@
 =button($size: 40px)
   display: inline-block
   font-weight: bold
-  color: white
   cursor: pointer
   padding: 0 15px
   border-radius: $border-radius
-  letter-spacing: -0.5px
+  font-family: $sans-serif
+  font-size: 14px
   line-height: $size
   text-align: center
   height: $size
   transition: all 0.3s
-  text-transform: uppercase
 
 =accept($size: 40px)
   +button($size)
   background-color: $green
+  color: $white
   &:hover
     background-color: darken($green, 5%)
 
@@ -32,28 +32,42 @@
     color: $white
     border-color: $white
 
-=cancel($size: 40px)
-  +button($size)
-  background: none
-  color: $black-3
-  margin-left: 15px
+=cancel($size: 30px)
+  font-size: $size
+  color: $white-2
+  display: flex
+  justify-content: center
+  align-items: center
+  margin-left: 10px
+  cursor: pointer
+  background-color: transparent
+
+  &:before
+    +ion-icon("android-close")
+
   &:hover
-    color: $black-2
+    color: $white
+=alt-cancel($size: 30px)
+  +cancel($size)
+  color: $black-2
+  &:hover
+    color: $black
+
 
 =add-image
   z-index: 2
-  font-size: 48px
+  font-size: 32px
   color: $white
   transition: transform 0.1s
-  width: 40px
-  height: 40px
-  // width: 40px
-  // height: 40px
+  width: 30px
+  height: 30px
+  cursor: pointer
+  display: flex
+  justify-content: center
+  align-items: center
 
   &:before
     +ion-icon("camera")
-    position: absolute
-    line-height: 40px
 
   &:hover
     transform: scale(1.2)

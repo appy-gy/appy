@@ -2,7 +2,7 @@ module Ratings
   class FindForHome
     attr_reader :page
 
-    const :per_page, 15
+    const :per_page, 18
 
     def initialize page
       @page = page

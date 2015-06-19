@@ -17,14 +17,17 @@ Pagination = React.createClass
 
   getDefaultProps: ->
     block: 'pagination'
-    centralWindowSize: 5
-    sideWindowsSize: 3
+    centralWindowSize: 7
+    sideWindowsSize: 1
 
   windowRanges: ->
     {currentPage, pagesCount, centralWindowSize, sideWindowsSize} = @props
 
-    leftWindow = [1..sideWindowsSize]
-    rightWindow = [(pagesCount - sideWindowsSize)..pagesCount]
+    leftWindowEnd = Math.min pagesCount, sideWindowsSize
+    leftWindow = [1..leftWindowEnd]
+
+    rightWindowStart = Math.max 1, pagesCount - sideWindowsSize + 1
+    rightWindow = [rightWindowStart..pagesCount]
 
     centralWindowSideSize = (centralWindowSize - 1) / 2
     centralWindowStart = Math.max 1, currentPage - centralWindowSideSize
@@ -50,19 +53,41 @@ Pagination = React.createClass
         {@links range}
       </div>
 
+  prevPageLink: ->
+    {link: Link, block, currentPage} = @props
+
+    return if currentPage == 1
+
+    <Link className="m-prev" block={block} page={currentPage - 1}>
+      Предидущая
+    </Link>
+
+  nextPageLink: ->
+    {link: Link, block, currentPage, pagesCount} = @props
+
+    return if currentPage == pagesCount
+
+    <Link className="m-next" block={block} page={currentPage + 1}>
+      Следующая
+    </Link>
+
   links: (range) ->
     {link: Link, block, currentPage} = @props
 
     range.map (page) ->
       isActive = page == currentPage
 
-      <Link key={page} block={block} page={page} isActive={isActive}/>
+      <Link key={page} block={block} page={page} isActive={isActive}>
+        {page}
+      </Link>
 
   render: ->
     {block} = @props
 
     <div className={block}>
+      {@prevPageLink()}
       {@windows()}
+      {@nextPageLink()}
     </div>
 
 module.exports = Pagination

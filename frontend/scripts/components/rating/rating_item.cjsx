@@ -16,6 +16,9 @@ RatingItem = React.createClass
     ratingItem: PropTypes.object.isRequired
     index: PropTypes.number.isRequired
 
+  contextTypes:
+    canEdit: PropTypes.bool.isRequired
+
   childContextTypes:
     ratingItem: PropTypes.object.isRequired
     block: PropTypes.string.isRequired
@@ -27,11 +30,11 @@ RatingItem = React.createClass
 
   imageButton: ->
     {ratingItem} = @props
+    {canEdit} = @context
 
-    return unless ratingItem.canEdit
+    return unless canEdit
 
-    <FileInput onChange={@updateImage}>
-      Загрузить изображение
+    <FileInput className="rating-item_add-image" onChange={@updateImage}>
     </FileInput>
 
   updateImage: (files) ->
@@ -50,14 +53,13 @@ RatingItem = React.createClass
 
     <section className="rating-item">
       <div className="rating-item_header">
-        <span className="rating-item_number">{index}</span>
         <Title object={ratingItem} actions="ratingItemsActions"/>
       </div>
       <div className="rating-item_cover">
         {@imageButton()}
         <img className="rating-item_cover-image" src={ratingItem.imageUrl('normal')}/>
       </div>
-      <div className="rating-item_description">
+      <div className="rating-item_description-wrapper">
         <Description object={ratingItem} actions="ratingItemsActions"/>
       </div>
       <Votes/>

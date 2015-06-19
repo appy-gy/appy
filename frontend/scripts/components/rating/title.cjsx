@@ -16,9 +16,11 @@ ObjectTitle = React.createClass
   propTypes:
     object: PropTypes.object.isRequired
     actions: PropTypes.string.isRequired
+    maxRows: PropTypes.number
 
   contextTypes:
     block: PropTypes.string.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   getInitialState: ->
     {object} = @props
@@ -26,9 +28,9 @@ ObjectTitle = React.createClass
     edit: isBlank(object.title)
 
   startEdit: ->
-    {object} = @props
+    {canEdit} = @context
 
-    return unless object.canEdit
+    return unless canEdit
     @setState edit: true
 
   stopEdit: ->
@@ -48,7 +50,7 @@ ObjectTitle = React.createClass
     @stopEdit()
 
   titleView: ->
-    {object, className} = @props
+    {object} = @props
     {edit} = @state
     {block} = @context
     {title} = object
@@ -60,7 +62,7 @@ ObjectTitle = React.createClass
     </h1>
 
   titleEdit: ->
-    {object, className} = @props
+    {object, maxRows} = @props
     {edit} = @state
     {block} = @context
     {title} = object
@@ -68,13 +70,12 @@ ObjectTitle = React.createClass
     return unless edit
 
     withIndexKeys [
-      <Textarea autoFocus={true} maxLength="50" className={@classes("#{block}_title", 'm-edit')} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></Textarea>
+      <Textarea autoFocus={true} maxLength="90" className={@classes("#{block}_title", 'm-edit')} value={title} onChange={@changeTitle} maxRows={maxRows} placeholder="Введи заголовок рейтинга"></Textarea>
       <div className="#{block}_title-buttons">
         <button className="#{block}_title-button m-accept" onClick={@updateTitle}>
-          сохранить
+          Сохранить
         </button>
         <button className="#{block}_title-button m-cancel" onClick={@stopEdit}>
-          отменить
         </button>
       </div>
     ]

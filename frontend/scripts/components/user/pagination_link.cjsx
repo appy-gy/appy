@@ -1,18 +1,14 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Router = require 'react-router'
-classNames = require 'classnames'
+Link = require '../shared/pagination/link'
 
 {PropTypes} = React
-{Link} = Router
 
 PaginationLink = React.createClass
   displayName: 'PaginationLink'
 
   propTypes:
-    block: PropTypes.string.isRequired
     page: PropTypes.number.isRequired
-    isActive: PropTypes.bool.isRequired
 
   contextTypes:
     router: PropTypes.func.isRequired
@@ -26,13 +22,8 @@ PaginationLink = React.createClass
     query: _.defaults { page }, router.getCurrentQuery()
 
   render: ->
-    {block, page, isActive} = @props
+    props = _.merge @linkProps(), @props
 
-    classes = classNames "#{block}_link", 'm-active': isActive
-
-    <Link className={classes} {...@linkProps()}>
-      {page}
-    </Link>
-
+    <Link  {...props}/>
 
 module.exports = PaginationLink

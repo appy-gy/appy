@@ -19,6 +19,7 @@ ObjectDescription = React.createClass
 
   contextTypes:
     block: PropTypes.string.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   getInitialState: ->
     {object} = @props
@@ -27,8 +28,9 @@ ObjectDescription = React.createClass
 
   startEdit: ->
     {object} = @props
+    {canEdit} = @context
 
-    return unless object.canEdit
+    return unless canEdit
     @setState edit: true
 
   stopEdit: ->
@@ -55,9 +57,9 @@ ObjectDescription = React.createClass
 
     return if edit
 
-    <h1 className={@classes("#{block}_description")} onClick={@startEdit}>
+    <div className={@classes("#{block}_description")} onClick={@startEdit}>
       {description}
-    </h1>
+    </div>
 
   descriptionEdit: ->
     {object, className} = @props
@@ -70,11 +72,10 @@ ObjectDescription = React.createClass
     withIndexKeys [
       <Textarea autoFocus={true} className={@classes("#{block}_description", 'm-edit')} value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></Textarea>
       <div className="#{block}_description-buttons">
-        <button className="#{block}_description-button accept" onClick={@updateDescription}>
-          сохранить
+        <button className="#{block}_description-button m-accept" onClick={@updateDescription}>
+          Cохранить
         </button>
-        <button className="#{block}_description-button cancel" onClick={@stopEdit}>
-          отменить
+        <button className="#{block}_description-button m-cancel" onClick={@stopEdit}>
         </button>
       </div>
     ]

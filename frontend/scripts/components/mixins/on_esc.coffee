@@ -8,11 +8,13 @@ OnEsc =
   onEsc: (cb) ->
     return unless document?
 
-    document.body.addEventListener 'keydown', (event) ->
+    onKeydown = (event) ->
       return unless event.keyCode == 27
       cb event
 
+    document.body.addEventListener 'keydown', onKeydown
+
     @escListeners.push dispose: ->
-      document.body.removeEventListener 'keydown', cb
+      document.body.removeEventListener 'keydown', onKeydown
 
 module.exports = OnEsc

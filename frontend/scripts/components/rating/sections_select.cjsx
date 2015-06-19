@@ -1,5 +1,7 @@
+_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
+Select = require 'react-select'
 
 {PropTypes} = React
 
@@ -10,23 +12,27 @@ SectionsSelect = React.createClass
     sections: PropTypes.arrayOf(PropTypes.object).isRequired
     object: PropTypes.object.isRequired
 
-  updateSection: (event) ->
-    {object, actionCreator} = @props
+  contextTypes:
+    canEdit: PropTypes.bool.isRequired
 
-    actionCreator.update object.id, sectionId: event.target.value
+  updateSection: (sectionId) ->
+    {object, actions} = @props
 
-  sections: ->
+    @app[actions].update object.id, { sectionId }
+
+  options: ->
     {sections} = @props
 
     sections.map (section) ->
-      <option key={section.id} value={section.id}>
-        {section.name}
-      </option>
+      value: section.id, label: section.name
 
   render: ->
-    <select className="rating_section-name edit" onChange={@updateSection}>
-      {@sections()}
-    </select>
+    {object} = @props
+    {canEdit} = @context
+
+    return <div>{object.section?.name}</div> unless canEdit
+
+    <Select placeholder="Рубрика" value={object.section?.id} options={@options()} searchable={false} onChange={@updateSection}/>
 
 module.exports = Marty.createContainer SectionsSelect,
   listenTo: 'sectionsStore'

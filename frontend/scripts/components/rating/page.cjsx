@@ -1,9 +1,11 @@
+_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 ClearStores = require '../mixins/clear_stores'
 Rating = require './rating'
 Comments = require './comments'
 Layout = require '../layout/layout'
+findInStore = require '../../helpers/find_in_store'
 
 {PropTypes} = React
 
@@ -12,19 +14,55 @@ RatingPage = React.createClass
 
   mixins: [Marty.createAppMixin(), ClearStores]
 
+  contextTypes:
+    router: PropTypes.func.isRequired
+
   childContextTypes:
     ratingSlug: PropTypes.string.isRequired
     block: PropTypes.string.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   getChildContext: ->
     {ratingSlug} = @props
 
-    { ratingSlug, block: 'rating' }
+    { ratingSlug, block: 'rating', canEdit: @canEdit() }
+
+  canEdit: ->
+    {user} = @props
+    rating = @rating()
+    return false unless user.isLoggedIn()
+    return false unless rating?.user.id == user.id
+    true
+
+  rating: ->
+    {ratingSlug} = @props
+
+    findInStore @app.ratingsStore, ratingSlug
+
+  componentWillUpdate: ->
+    {ratingSlug} = @props
+    {router} = @context
+    rating = @rating()
+
+    return if not rating? or ratingSlug == rating.slug or router.getCurrentParams().ratingSlug == rating.slug
+
+    setImmediate -> router.replaceWith 'rating', ratingSlug: rating.slug
+
+  sectionSlug: ->
+    {ratingSlug} = @props
+
+    _.get @rating(), 'section.slug', 'default'
 
   render: ->
-    <Layout header="rating">
+    {ratingSlug} = @props
+
+    <Layout header="rating" sectionSlug={@sectionSlug()}>
       <Rating/>
       <Comments/>
     </Layout>
 
-module.exports = RatingPage
+module.exports = Marty.createContainer RatingPage,
+  listenTo: ['ratingsStore', 'currentUserStore']
+
+  fetch: ->
+    user: @app.currentUserStore.get()

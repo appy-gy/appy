@@ -16,11 +16,12 @@ Header = React.createClass
 
   contextTypes:
     rating: PropTypes.object.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   ratingImageButton: ->
-    {rating} = @context
+    {rating, canEdit} = @context
 
-    return unless rating.canEdit
+    return unless canEdit
 
     <FileInput className="rating_add-image" onChange={@updateImage}>
     </FileInput>
@@ -39,7 +40,9 @@ Header = React.createClass
   render: ->
     {rating} = @context
 
-    <header className="rating_header" style={backgroundImage: "url(#{rating.imageUrl('normal')})"}>
+    <header className="rating_header">
+      <div className="rating_cover" style={backgroundImage: "url(#{rating.imageUrl('normal')})"}>
+      </div>
       <Meta/>
       {@ratingImageButton()}
       <div className="rating_section-name-wrapper">
@@ -48,7 +51,7 @@ Header = React.createClass
       <div className="rating_tags-select">
         <TagsSelect/>
       </div>
-      <Title object={rating} actions="ratingsActions"/>
+      <Title object={rating} actions="ratingsActions" maxRows={3}/>
       <Tags/>
     </header>
 

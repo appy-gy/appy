@@ -8,11 +8,11 @@
   height: 40px
   transition: all 0.3s ease
   text-transform: uppercase
+  text-align: center
 
 .auth
   display: flex
   justify-content: space-between
-  background: $color-1
   padding: 15px
   margin-top: 60px
 
@@ -20,6 +20,8 @@
     +button
     color: $white
     border: 3px solid $white
+    flex: 1
+    margin-right: 10px
 
     &:hover
       color: darken($color-1, 20%)
@@ -31,6 +33,7 @@
     background: $white
     color: $color-2
     line-height: 40px
+    flex: 2
 
     &:hover
       background: darken($color-1, 15%)

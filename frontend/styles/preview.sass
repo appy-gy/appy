@@ -21,11 +21,8 @@
     transition: opacity 0.1s ease
 
   &_tags
-    position: absolute
-    bottom: 0
-    left: 0
     width: 100%
-    height: 50px
+    padding-top: 5px
 
   &_image
     position: relative
@@ -51,7 +48,7 @@
     font-size: 15px
     font-weight: 600
     color: $red
-    margin: 25px 0 15px 0
+    margin: 10px 0 5px 0
     text-transform: uppercase
 
     &:after
@@ -65,21 +62,15 @@
     position: relative
     font: 20px $serif
     color: $black
-    height: 104px
     white-space: pre-wrap
     word-wrap: break-word
 
-    &:after
-      content: ""
-      position: absolute
-      bottom: 0
-      left: 0
-      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fafafa 100%)
-      width: 100%
-      height: 40%
-
-    &:hover
-      color: $black-2
+  &_description
+    font: 14px $sans-serif
+    white-space: pre-wrap
+    word-wrap: break-word
+    color: $black-2
+    margin-top: 5px
 
   &:hover
     .preview_meta
@@ -88,6 +79,10 @@
     .preview_image
       &:after
         opacity: 1
+
+    &_title
+      color: $black_2
+
 
   &.m-super-large
     @media screen and (min-width: $small)
@@ -98,7 +93,6 @@
           justify-content: center
 
         &_image
-          background: url(http://lorempixel.com/630/400)
           height: 100%
 
           &:after
@@ -106,32 +100,38 @@
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.2) 100%)
             height: 100%
 
-        &_section-name
+        &_content
           position: absolute
-          top: 150px
-          padding: 0 30px
+          top: 0px
+          left: 0px
+          right: 0px
+          bottom: 0px
+          display: flex
+          justify-content: center
+          align-items: center
+          flex-flow: column wrap
           text-align: center
           width: 100%
+          padding: 30px
+
+        &_section-name
 
         &_title
-          position: absolute
-          top: 210px
           font-size: 36px
           font-weight: 700
           color: $white
-          padding: 0 30px
-          text-align: center
-          width: 100%
 
+        &_description
+          font-size: 20px
+          color: $white
 
         &_tags
           justify-content: center
+          position: absolute
+          bottom: 20px
 
-          &_tag
-            color: $white-2
-
-            &:hover
-              color: $white-3
+          .tag
+            color: white
 
   &.m-large
 
@@ -140,5 +140,4 @@
 
       .preview
         &_image
-          background: url(http://lorempixel.com/465/300)
           height: 230px
