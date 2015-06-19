@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 isBlank = require '../../helpers/is_blank'
+withIndexKeys = require '../../helpers/react/with_index_keys'
 
 {PropTypes} = React
 
@@ -59,7 +60,7 @@ Name = React.createClass
 
     return unless edit
 
-    <div>
+    withIndexKeys [
       <input type="text" autoFocus={true} placeholder="Введи свое имя" value={user.name} onChange={@changeName}/>
       <div className="user-profile_name-buttons">
         <div className="user-profile_name-button m-accept" onClick={@saveName}>
@@ -69,7 +70,7 @@ Name = React.createClass
           Отменить
         </div>
       </div>
-    </div>
+    ]
 
   render: ->
     <div className="user-profile_name">

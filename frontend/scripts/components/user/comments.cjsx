@@ -42,7 +42,7 @@ Comments = React.createClass
       <h2 className="user-profile_tab-header">
         Ваши комментарии ({user.commentsCount})
       </h2>
-      {@noComments}
+      {@noComments()}
       {@comments()}
       <Pagination currentPage={page} pagesCount={pagesCount} link={PaginationLink}/>
     </div>

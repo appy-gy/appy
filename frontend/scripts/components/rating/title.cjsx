@@ -4,6 +4,7 @@ Marty = require 'marty'
 Textarea = require 'react-textarea-autosize'
 Classes = require '../mixins/classes'
 isBlank = require '../../helpers/is_blank'
+withIndexKeys = require '../../helpers/react/with_index_keys'
 
 {PropTypes} = React
 
@@ -66,7 +67,7 @@ ObjectTitle = React.createClass
 
     return unless edit
 
-    <div>
+    withIndexKeys [
       <Textarea autoFocus={true} maxLength="50" className={@classes("#{block}_title", 'm-edit')} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></Textarea>
       <div className="#{block}_title-buttons">
         <button className="#{block}_title-button m-accept" onClick={@updateTitle}>
@@ -76,7 +77,7 @@ ObjectTitle = React.createClass
           отменить
         </button>
       </div>
-    </div>
+    ]
 
   render: ->
     {block} = @context

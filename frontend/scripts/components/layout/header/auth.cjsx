@@ -4,6 +4,7 @@ Info = require '../../auth/info'
 Login = require '../../auth/login'
 Logout = require '../../auth/logout'
 Registration = require '../../auth/registration'
+withIndexKeys = require '../../../helpers/react/with_index_keys'
 
 {PropTypes} = React
 {PureRenderMixin} = React.addons
@@ -17,15 +18,15 @@ Auth = React.createClass
     user: PropTypes.object.isRequired
 
   infoAndLogOut: (user) ->
-    [
-      <Info key="info" user={user}></Info>
-      <Logout key="logout"/>
+    withIndexKeys [
+      <Info user={user}/>
+      <Logout/>
     ]
 
   loginAndRegistration: (user) ->
-    [
-      <Login key="login"/>
-      <Registration key="registration"/>
+    withIndexKeys [
+      <Login/>
+      <Registration/>
     ]
 
   auth: ->
