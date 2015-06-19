@@ -16,6 +16,9 @@ RatingItem = React.createClass
     ratingItem: PropTypes.object.isRequired
     index: PropTypes.number.isRequired
 
+  contextTypes:
+    canEdit: PropTypes.bool.isRequired
+
   childContextTypes:
     ratingItem: PropTypes.object.isRequired
     block: PropTypes.string.isRequired
@@ -27,8 +30,9 @@ RatingItem = React.createClass
 
   imageButton: ->
     {ratingItem} = @props
+    {canEdit} = @context
 
-    return unless ratingItem.canEdit
+    return unless canEdit
 
     <FileInput className="rating-item_add-image" onChange={@updateImage}>
     </FileInput>

@@ -16,11 +16,12 @@ Header = React.createClass
 
   contextTypes:
     rating: PropTypes.object.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   ratingImageButton: ->
-    {rating} = @context
+    {rating, canEdit} = @context
 
-    return unless rating.canEdit
+    return unless canEdit
 
     <FileInput className="rating_add-image" onChange={@updateImage}>
     </FileInput>

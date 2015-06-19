@@ -12,6 +12,9 @@ SectionsSelect = React.createClass
     sections: PropTypes.arrayOf(PropTypes.object).isRequired
     object: PropTypes.object.isRequired
 
+  contextTypes:
+    canEdit: PropTypes.bool.isRequired
+
   updateSection: (sectionId) ->
     {object, actions} = @props
 
@@ -25,8 +28,9 @@ SectionsSelect = React.createClass
 
   render: ->
     {object} = @props
+    {canEdit} = @context
 
-    return <div>{object.section?.name}</div> unless object.canEdit
+    return <div>{object.section?.name}</div> unless canEdit
 
     <Select placeholder="Рубрика" value={object.section?.id} options={@options()} searchable={false} onChange={@updateSection}/>
 

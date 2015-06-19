@@ -19,6 +19,7 @@ ObjectTitle = React.createClass
 
   contextTypes:
     block: PropTypes.string.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   getInitialState: ->
     {object} = @props
@@ -26,9 +27,9 @@ ObjectTitle = React.createClass
     edit: isBlank(object.title)
 
   startEdit: ->
-    {object} = @props
+    {canEdit} = @context
 
-    return unless object.canEdit
+    return unless canEdit
     @setState edit: true
 
   stopEdit: ->
