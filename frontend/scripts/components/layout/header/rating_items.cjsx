@@ -12,10 +12,16 @@ Nothing = require '../../shared/nothing'
 RatingItems = React.createClass
   displayName: 'RatingItems'
 
-  ratingItems: ->
-    {ratingItems, rating} = @props
+  canEdit: ->
+    {user, rating} = @props
+    return false unless user.isLoggedIn()
+    return false unless rating?.user.id == user.id
+    true
 
-    return <Nothing/> unless rating.canEdit
+  ratingItems: ->
+    {ratingItems} = @props
+
+    return <Nothing/> unless @canEdit()
 
     _ ratingItems
       .sortBy 'position'
@@ -32,12 +38,13 @@ Container = Marty.createContainer RatingItems,
   contextTypes:
     router: PropTypes.func.isRequired
 
-  listenTo: ['ratingItemsStore', 'ratingsStore']
+  listenTo: ['ratingItemsStore', 'ratingsStore', 'currentUserStore']
 
   fetch: ->
     {router} = @context
     {ratingSlug} = router.getCurrentParams()
 
+    user: @app.currentUserStore.get()
     rating: @app.ratingsStore.get(ratingSlug)
     ratingItems: @app.ratingItemsStore.getForRating(ratingSlug)
 

@@ -20,6 +20,9 @@ Rating = React.createClass
   propTypes:
     rating: PropTypes.object.isRequired
 
+  contextTypes:
+    canEdit: PropTypes.bool.isRequired
+
   childContextTypes:
     rating: PropTypes.object.isRequired
 
@@ -35,8 +38,9 @@ Rating = React.createClass
 
   addRatingItemButton: ->
     {rating} = @props
+    {canEdit} = @context
 
-    return unless rating.canEdit
+    return unless canEdit
 
     <div className="rating_new-item-button-wrapper">
       <div className="rating_new-item-button" onClick={@createRatingItem}>

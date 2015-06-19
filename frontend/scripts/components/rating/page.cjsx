@@ -20,11 +20,19 @@ RatingPage = React.createClass
   childContextTypes:
     ratingSlug: PropTypes.string.isRequired
     block: PropTypes.string.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   getChildContext: ->
     {ratingSlug} = @props
 
-    { ratingSlug, block: 'rating' }
+    { ratingSlug, block: 'rating', canEdit: @canEdit() }
+
+  canEdit: ->
+    {user} = @props
+    rating = @rating()
+    return false unless user.isLoggedIn()
+    return false unless rating?.user.id == user.id
+    true
 
   rating: ->
     {ratingSlug} = @props
@@ -54,4 +62,7 @@ RatingPage = React.createClass
     </Layout>
 
 module.exports = Marty.createContainer RatingPage,
-  listenTo: ['ratingsStore']
+  listenTo: ['ratingsStore', 'currentUserStore']
+
+  fetch: ->
+    user: @app.currentUserStore.get()

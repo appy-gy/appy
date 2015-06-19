@@ -18,6 +18,7 @@ ObjectDescription = React.createClass
 
   contextTypes:
     block: PropTypes.string.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   getInitialState: ->
     {object} = @props
@@ -26,8 +27,9 @@ ObjectDescription = React.createClass
 
   startEdit: ->
     {object} = @props
+    {canEdit} = @context
 
-    return unless object.canEdit
+    return unless canEdit
     @setState edit: true
 
   stopEdit: ->

@@ -13,6 +13,7 @@ TagsSelect = React.createClass
 
   contextTypes:
     rating: PropTypes.object.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   toOptions: (tags) ->
     tags.map (tag) ->
@@ -35,9 +36,9 @@ TagsSelect = React.createClass
     @app.ratingsActions["#{action}Tag"] rating.id, name
 
   render: ->
-    {rating} = @context
+    {canEdit} = @context
 
-    return <Nothing/> unless rating.canEdit
+    return <Nothing/> unless canEdit
 
     <Select placeholder="Задать теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" autoload={false} multi={true} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} onChange={@updateTags}/>
 
