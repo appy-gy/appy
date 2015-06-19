@@ -8,7 +8,6 @@
     margin-bottom: 25px
     text-align: center
     display: flex
-    padding: 0 30px
     justify-content: center
 
   &_number
@@ -19,17 +18,29 @@
 
   &_title
     font-size: inherit
+    max-width: 100%
+    +word-break
 
+    &-wrapper
+      width: 100%
 
     &-buttons
       display: flex
       justify-content: flex-end
 
     &-button
+
       &.m-accept
         +accept
+
       &.m-cancel
         +alt-cancel
+
+    &.m-edit
+      width: 100%
+      resize: none
+      text-align: center
+
 
   &_cover
     width: 100%
@@ -91,6 +102,7 @@
 
       &.m-active
         background: $red-2
+        cursor: default
 
     &.m-up
       background: $green
@@ -100,6 +112,7 @@
 
       &.m-active
         background: $green-2
+        cursor: default
 
   &_mark
     font-family: $serif

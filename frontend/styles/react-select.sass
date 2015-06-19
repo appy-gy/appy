@@ -64,7 +64,12 @@
     .Select-arrow
       border-top-color: $white
 
+.has-value > .Select-control > .Select-placeholder
+  color: $white
 
-.is-open > .Select-control
+.has-value.is-open > .Select-control
   background: white
   border: 2px solid $white
+
+  & > .Select-placeholder
+    color: $blue

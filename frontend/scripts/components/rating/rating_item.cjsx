@@ -49,7 +49,6 @@ RatingItem = React.createClass
 
     <section className="rating-item">
       <div className="rating-item_header">
-        <span className="rating-item_number">{index}</span>
         <Title object={ratingItem} actions="ratingItemsActions"/>
       </div>
       <div className="rating-item_cover">
