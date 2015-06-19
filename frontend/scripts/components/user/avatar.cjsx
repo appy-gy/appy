@@ -35,8 +35,10 @@ Avatar = React.createClass
   render: ->
     {user} = @context
 
+    imageStyles = backgroundImage: "url(#{user.avatarUrl('normal')})"
+
     <div className="user-profile_avatar">
-      <img className="user-profile_avatar-img" src={user.avatarUrl('normal')}/>
+      <div className="user-profile_avatar-img" style={imageStyles}></div>
       {@fileInput()}
     </div>
 
