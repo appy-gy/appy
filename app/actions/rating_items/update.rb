@@ -8,7 +8,7 @@ module RatingItems
     end
 
     def call
-      rating_item.update params
+      rating_item.tap { |item| item.update params }
     end
   end
 end

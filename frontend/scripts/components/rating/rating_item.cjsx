@@ -2,8 +2,8 @@ React = require 'react/addons'
 Marty = require 'marty'
 Title = require './title'
 Description = require './description'
+Image = require './rating_item_image'
 Votes = require './votes'
-FileInput = require '../shared/file_input'
 
 {PropTypes} = React
 
@@ -28,17 +28,6 @@ RatingItem = React.createClass
 
     { ratingItem, block: 'rating-item' }
 
-  updateImage: (files) ->
-    {ratingItem} = @props
-
-    image = files[0]
-    return unless image?
-
-    url = URL.createObjectURL image
-
-    @app.ratingItemsActions.change ratingItem.id, image: url
-    @app.ratingItemsActions.update ratingItem.id, { image }
-
   removeItem: ->
     {ratingItem} = @props
 
@@ -53,14 +42,6 @@ RatingItem = React.createClass
       Удалить
     </div>
 
-  imageButton: ->
-    {canEdit} = @context
-
-    return unless canEdit
-
-    <FileInput className="rating-item_add-image" onChange={@updateImage}>
-    </FileInput>
-
   render: ->
     {ratingItem, index} = @props
 
@@ -69,10 +50,7 @@ RatingItem = React.createClass
       <div className="rating-item_header">
         <Title object={ratingItem} actions="ratingItemsActions"/>
       </div>
-      <div className="rating-item_cover">
-        {@imageButton()}
-        <img className="rating-item_cover-image" src={ratingItem.imageUrl('normal')}/>
-      </div>
+      <Image/>
       <div className="rating-item_description-wrapper">
         <Description object={ratingItem} actions="ratingItemsActions"/>
       </div>
