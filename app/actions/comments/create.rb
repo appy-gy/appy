@@ -8,7 +8,15 @@ module Comments
     end
 
     def call
-      rating.comments.create params
+      collapse_newlines!
+      comment = rating.comments.create params
+    end
+
+    private
+
+    def collapse_newlines!
+      return unless params[:body]
+      params[:body].gsub! /\n{2,}/, "\n"
     end
   end
 end
