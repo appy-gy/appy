@@ -17,7 +17,7 @@ Name = React.createClass
   getInitialState: ->
     {user} = @context
 
-    edit: isBlank(user)
+    edit: user.canEdit and isBlank(user.name)
 
   changeName: (event) ->
     {user} = @context
@@ -34,6 +34,8 @@ Name = React.createClass
 
   startEdit: ->
     {user} = @context
+
+    return unless user.canEdit
 
     @prevName = user.name
     @setState edit: true
