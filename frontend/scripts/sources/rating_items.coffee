@@ -19,4 +19,8 @@ class RatingItemsApi extends Marty.HttpStateSource
     body = toFormData rating_item: snakecaseKeys(changes)
     @put { url, body }
 
+  remove: (id, ratingId) ->
+    url = "#{ratingId}/rating_items/#{id}"
+    @delete { url }
+
 module.exports = RatingItemsApi

@@ -16,6 +16,7 @@ class RatingItemsStore extends Marty.Store
       change: Constants.CHANGE_RATING_ITEM
       replace: Constants.REPLACE_RATING_ITEM
       append: Constants.APPEND_RATING_ITEMS
+      remove: Constants.REMOVE_RATING_ITEM
       changePositions: Constants.CHANGE_RATING_ITEM_POSITIONS
 
   getInitialState: ->
@@ -49,6 +50,11 @@ class RatingItemsStore extends Marty.Store
 
   append: (ratingItems) ->
     @state = update @state, $push: toArray(ratingItems)
+
+  remove: (ratingItem) ->
+    index = findIndexInStore @, ratingItem
+    return if index < 0
+    @state = update @state, $splice: [[index, 1]]
 
   changePositions: (positions) ->
     @state.each (ratingItem) ->

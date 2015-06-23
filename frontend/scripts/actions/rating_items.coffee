@@ -28,6 +28,13 @@ class RatingItemsActions extends Marty.ActionCreators
       ratingItem = new RatingItem body.rating_item
       @dispatch Constants.REPLACE_RATING_ITEM, ratingItem
 
+  remove: (ratingItemId) ->
+    ratingItem = findInStore @app.ratingItemsStore, ratingItemId
+
+    @app.ratingItemsApi.remove(ratingItem.id, ratingItem.ratingId).then ({body}) =>
+      return unless body.success
+      @dispatch Constants.REMOVE_RATING_ITEM, ratingItem
+
   changePosition: (ratingItemId, newPosition) ->
     positions = @computePositions ratingItemId, newPosition
     @dispatch Constants.CHANGE_RATING_ITEM_POSITIONS, positions

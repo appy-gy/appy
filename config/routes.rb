@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       end
       resources :ratings, module: :ratings, only: [:index, :show, :update, :create] do
         resource :tags, only: [:create, :destroy]
-        resources :rating_items, only: [:index, :create, :update] do
+        resources :rating_items, only: [:index, :create, :update, :destroy] do
           put :positions, on: :collection
         end
         resources :comments, only: [:index, :create]

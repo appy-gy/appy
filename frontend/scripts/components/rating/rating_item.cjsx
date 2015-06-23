@@ -28,15 +28,6 @@ RatingItem = React.createClass
 
     { ratingItem, block: 'rating-item' }
 
-  imageButton: ->
-    {ratingItem} = @props
-    {canEdit} = @context
-
-    return unless canEdit
-
-    <FileInput className="rating-item_add-image" onChange={@updateImage}>
-    </FileInput>
-
   updateImage: (files) ->
     {ratingItem} = @props
 
@@ -48,10 +39,33 @@ RatingItem = React.createClass
     @app.ratingItemsActions.change ratingItem.id, image: url
     @app.ratingItemsActions.update ratingItem.id, { image }
 
+  removeItem: ->
+    {ratingItem} = @props
+
+    @app.ratingItemsActions.remove ratingItem.id
+
+  removeButton: ->
+    {canEdit} = @context
+
+    return unless canEdit
+
+    <div className="rating-item_remove" onClick={@removeItem}>
+      Удалить
+    </div>
+
+  imageButton: ->
+    {canEdit} = @context
+
+    return unless canEdit
+
+    <FileInput className="rating-item_add-image" onChange={@updateImage}>
+    </FileInput>
+
   render: ->
     {ratingItem, index} = @props
 
     <section className="rating-item">
+      {@removeButton()}
       <div className="rating-item_header">
         <Title object={ratingItem} actions="ratingItemsActions"/>
       </div>
