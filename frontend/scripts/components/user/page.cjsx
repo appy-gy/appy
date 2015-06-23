@@ -3,6 +3,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 ClearStores = require '../mixins/clear_stores'
 ParsePage = require '../mixins/parse_page'
+SyncSlug = require '../mixins/sync_slug'
 Avatar = require './avatar'
 Name = require './name'
 SocialButtons = require './social_buttons'
@@ -18,20 +19,21 @@ User = require '../../models/user'
 UserPage = React.createClass
   displayName: 'User'
 
-  mixins: [ParsePage]
+  mixins: [ParsePage, SyncSlug('user')]
 
   contextTypes:
     router: PropTypes.func.isRequired
 
   childContextTypes:
     user: PropTypes.object.isRequired
+    userSlug: PropTypes.string.isRequired
     page: PropTypes.number.isRequired
     block: PropTypes.string.isRequired
 
   getChildContext: ->
-    {user} = @props
+    {user, userSlug} = @props
 
-    { user, page: @currentPage(), block: 'user-profile' }
+    { user, userSlug, page: @currentPage(), block: 'user-profile' }
 
   currentPage: ->
     {router} = @context
@@ -69,14 +71,6 @@ module.exports = Marty.createContainer UserPage,
   listenTo: 'usersStore'
 
   mixins: [ClearStores]
-
-  childContextTypes:
-    userSlug: PropTypes.string.isRequired
-
-  getChildContext: ->
-    {userSlug} = @props
-
-    { userSlug }
 
   fetch: ->
     {userSlug} = @props

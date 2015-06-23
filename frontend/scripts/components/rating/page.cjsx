@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 ClearStores = require '../mixins/clear_stores'
+SyncSlug = require '../mixins/sync_slug'
 Rating = require './rating'
 Comments = require './comments'
 Layout = require '../layout/layout'
@@ -12,7 +13,7 @@ findInStore = require '../../helpers/find_in_store'
 RatingPage = React.createClass
   displayName: 'RatingPage'
 
-  mixins: [Marty.createAppMixin(), ClearStores]
+  mixins: [Marty.createAppMixin(), ClearStores, SyncSlug('rating')]
 
   contextTypes:
     router: PropTypes.func.isRequired
@@ -30,23 +31,11 @@ RatingPage = React.createClass
   canEdit: ->
     {user} = @props
     rating = @rating()
-    return false unless user.isLoggedIn()
-    return false unless rating?.user.id == user.id
-    true
 
-  rating: ->
-    {ratingSlug} = @props
+    user.isLoggedIn() and rating?.user.id == user.id
 
+  rating: (ratingSlug = @props.ratingSlug) ->
     findInStore @app.ratingsStore, ratingSlug
-
-  componentWillUpdate: ->
-    {ratingSlug} = @props
-    {router} = @context
-    rating = @rating()
-
-    return if not rating? or ratingSlug == rating.slug or router.getCurrentParams().ratingSlug == rating.slug
-
-    setImmediate -> router.replaceWith 'rating', ratingSlug: rating.slug
 
   sectionSlug: ->
     {ratingSlug} = @props
