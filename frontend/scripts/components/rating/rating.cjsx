@@ -1,7 +1,6 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-Nothing = require '../shared/nothing'
 Header = require './header'
 Description = require './description'
 RatingItem = require './rating_item'
@@ -68,7 +67,7 @@ Rating = React.createClass
   publishButton: ->
     {rating} = @props
 
-    return <Nothing/> if rating.status == 'published'
+    return if rating.status == 'published'
 
     <h1 onClick={@publish}>Опубликовать</h1>
 
@@ -85,7 +84,7 @@ Rating = React.createClass
     conditions.map (condition) -> <div className="rating_menu-notification-list-item">{condition}</div>
 
   notificationCounter: ->
-    return <Nothing/> if @publishConditions().length == 0
+    return if @publishConditions().length == 0
     counter = "+#{@publishConditions().length}"
 
     <div className="rating_menu-notification-icon-counter">{counter}</div>
