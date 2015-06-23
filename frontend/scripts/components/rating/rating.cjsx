@@ -5,9 +5,10 @@ Header = require './header'
 Description = require './description'
 RatingItem = require './rating_item'
 Like = require './like'
-isBlank = require '../../helpers/is_blank'
 ShareButtons = require './share_buttons'
 RatingMenu = require './menu'
+UserLink = require '../shared/links/user'
+isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
 
@@ -102,9 +103,9 @@ Rating = React.createClass
 
       <Header/>
       <Description object={rating} actions="ratingsActions"/>
-      <a href="/" className="rating_author">
+      <UserLink user={rating.user} className="rating_author">
         {rating.user.name || rating.user.email}
-      </a>
+      </UserLink>
       <div className="rating_line"></div>
       {@ratingItems()}
       {@addRatingItemButton()}
