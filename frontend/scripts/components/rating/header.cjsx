@@ -1,5 +1,6 @@
 React = require 'react/addons'
 Marty = require 'marty'
+classNames = require 'classnames'
 Title = require './title'
 SectionsSelect = require './sections_select'
 Tags = require '../shared/ratings/tags'
@@ -40,7 +41,9 @@ Header = React.createClass
   render: ->
     {rating} = @context
 
-    <header className="rating_header">
+    classes = classNames 'rating_header', 'm-with-image': rating.image?
+
+    <header className={classes}>
       <div className="rating_cover" style={backgroundImage: "url(#{rating.imageUrl('normal')})"}>
       </div>
       <Meta/>
