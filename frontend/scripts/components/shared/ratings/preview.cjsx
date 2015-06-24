@@ -53,25 +53,21 @@ Preview = React.createClass
     else
       imageStyles.backgroundColor = 'rgba(33, 172, 208, 1)'
 
-    <div className={classes}>
+    <RatingLink rating={rating} className={classes}>
       <Meta/>
-      <RatingLink rating={rating}>
-        <div className="preview_image" style={imageStyles}></div>
-      </RatingLink>
+      <div className="preview_image" style={imageStyles}></div>
       <div className="preview_content">
         <div className="preview_section-name">
           {@sectionName()}
         </div>
-        <RatingLink rating={rating}>
-          <div className="preview_title">
-            {@title()}
-          </div>
-          <div className="preview_description">
-            {@description()}
-          </div>
-        </RatingLink>
+        <div className="preview_title">
+          {@title()}
+        </div>
+        <div className="preview_description">
+          {@description()}
+        </div>
         <Tags tags={rating.tags}/>
       </div>
-    </div>
+    </RatingLink>
 
 module.exports = Preview
