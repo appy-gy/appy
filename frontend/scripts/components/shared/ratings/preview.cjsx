@@ -55,6 +55,15 @@ Preview = React.createClass
 
     @app.ratingsActions.remove rating.id
 
+  deleteButton: ->
+    {showDelete} = @props
+
+    return unless showDelete
+
+    <div className="preview_delete" onClick={@delete}>
+      Удалить
+    </div>
+
   render: ->
     {rating, imageSize, mod} = @props
 
@@ -70,9 +79,7 @@ Preview = React.createClass
       <Meta/>
       <div className="preview_image" style={imageStyles}></div>
       <div className="preview_content">
-        <div className="preview_delete" onClick={@delete}>
-          Удалить
-        </div>
+        {@deleteButton()}
         <div className="preview_section-name">
           {@sectionName()}
         </div>
