@@ -6,50 +6,6 @@
   width: 100%
   margin-top: $rating-menu
 
-  &_select
-    display: flex
-    flex-flow: column nowrap
-    cursor: pointer
-    width: 200px
-
-    &-selected-value
-      color: $white-2
-      border: $border-width solid
-      border-radius: 10px
-      height: 40px
-      display: flex
-      justify-content: center
-      align-items: center
-      padding: 0 $margin
-      transition: color .2s ease
-
-      &:after
-        +ion-icon("arrow-down-b")
-        font-size: 13px
-        margin-left: 10px
-
-      &:hover
-        color: $white
-
-    &-options
-      z-index: 2
-      background: $white
-      color: $black
-      margin-top: 10px
-      border-radius: $border-radius
-      overflow: hidden
-      text-align: center
-
-    &-option
-      height: 40px
-      line-height: 40px
-      overflow: hidden
-      white-space: nowrap
-      text-overflow: ellipsis
-
-      &:hover
-        background: $blue-3
-
   &_menu
     position: fixed
     left: 0
