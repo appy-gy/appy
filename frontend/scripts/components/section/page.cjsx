@@ -22,7 +22,7 @@ Ratings = React.createClass
 
   render: ->
     {sectionSlug} = @props
-    
+
     <Layout sectionSlug={sectionSlug}>
       <div className="previews">
         {@previews()}
@@ -32,7 +32,7 @@ Ratings = React.createClass
 module.exports = Marty.createContainer Ratings,
   listenTo: ['ratingsStore', 'sectionsStore']
 
-  mixins: [ClearStores]
+  mixins: [ClearStores()]
 
   fetch: ->
     {sectionSlug} = @props

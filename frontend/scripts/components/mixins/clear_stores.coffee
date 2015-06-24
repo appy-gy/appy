@@ -1,18 +1,28 @@
 _ = require 'lodash'
-Marty = require 'marty'
+isClient = require '../../helpers/is_client'
+app = require '../../application' if isClient()
 
 firstLoad = true
 storesToSkip = new Set ['currentUser', 'headerSections', 'popups', 'toasts']
 
-ClearStores =
+ClearStores = (auto = true) ->
   componentWillMount: ->
-    return if Marty.isServer
-    return firstLoad = false if firstLoad
+    return unless auto
+
     @clearStores()
 
   clearStores: ->
-    _.each @app.__types.Store, (store, name) ->
+    return unless app? and isClient()
+    return firstLoad = false if firstLoad
+
+    _.each app.getAllStores(), (store, name) ->
       store.clear() unless storesToSkip.has name.replace(/Store$/, '')
       true
+
+  clearStoresOnce: ->
+    return if @clearedStores
+
+    @clearedStores = true
+    @clearStores()
 
 module.exports = ClearStores

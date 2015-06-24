@@ -70,7 +70,7 @@ UserPage = React.createClass
 module.exports = Marty.createContainer UserPage,
   listenTo: 'usersStore'
 
-  mixins: [ClearStores]
+  mixins: [ClearStores()]
 
   fetch: ->
     {userSlug} = @props

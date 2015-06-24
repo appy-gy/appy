@@ -13,7 +13,7 @@ findInStore = require '../../helpers/find_in_store'
 RatingPage = React.createClass
   displayName: 'RatingPage'
 
-  mixins: [Marty.createAppMixin(), ClearStores, SyncSlug('rating')]
+  mixins: [Marty.createAppMixin(), ClearStores(), SyncSlug('rating')]
 
   contextTypes:
     router: PropTypes.func.isRequired

@@ -59,7 +59,7 @@ Ratings = React.createClass
 module.exports = Marty.createContainer Ratings,
   listenTo: 'ratingsStore'
 
-  mixins: [ClearStores, ParsePage]
+  mixins: [ClearStores(false), ParsePage]
 
   childContextTypes:
     page: PropTypes.number.isRequired
@@ -68,6 +68,7 @@ module.exports = Marty.createContainer Ratings,
     page: @page()
 
   fetch: ->
+    @clearStoresOnce()
     ratings: @app.ratingsStore.getPage(@page())
 
   pending: ->
