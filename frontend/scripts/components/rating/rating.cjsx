@@ -62,8 +62,7 @@ Rating = React.createClass
 
     return unless isBlank @publishConditions()
 
-    @app.ratingsActions.update(rating.id, status: 'published').then ->
-      window.history.replaceState {} , rating.title, "/ratings/#{rating.slug}"
+    @app.ratingsActions.update(rating.id, status: 'published')
 
   publishButton: ->
     {rating} = @props
