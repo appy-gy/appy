@@ -1,8 +1,8 @@
 module Api
   module Private
     class RatingsController < BaseController
-      find :rating, only: [:show, :update]
-      check 'Ratings::CanEdit', :@rating, only: [:update]
+      find :rating, only: [:show, :update, :destroy]
+      check 'Ratings::CanEdit', :@rating, only: [:update, :destroy]
 
       def index
         ratings = ::Ratings::FindForHome.new(@page).call
@@ -14,13 +14,18 @@ module Api
         render json: @rating
       end
 
+      def create
+        render json: current_user.ratings.create
+      end
+
       def update
         rating = ::Ratings::Update.new(@rating, rating_params).call
         render json: rating
       end
 
-      def create
-        render json: current_user.ratings.create
+      def destroy
+        rating = ::Ratings::Destroy.new(@rating).call
+        render json: { success: rating.deleted? }
       end
 
       private

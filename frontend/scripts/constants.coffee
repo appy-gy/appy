@@ -22,6 +22,7 @@ Constants = Marty.createConstants [
   'APPEND_RATINGS'
   'CHANGE_RATING'
   'REPLACE_RATING'
+  'REMOVE_RATING'
   'ADD_TAG_TO_RATING'
   'REMOVE_TAG_FROM_RATING'
 

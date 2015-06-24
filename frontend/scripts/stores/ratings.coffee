@@ -16,6 +16,7 @@ class RatingsStore extends Marty.Store
       change: Constants.CHANGE_RATING
       replace: Constants.REPLACE_RATING
       append: Constants.APPEND_RATINGS
+      remove: Constants.REMOVE_RATING
       addTag: Constants.ADD_TAG_TO_RATING
       removeTag: Constants.REMOVE_TAG_FROM_RATING
 
@@ -80,6 +81,11 @@ class RatingsStore extends Marty.Store
 
   append: (ratings) ->
     @state = update @state, $push: toArray(ratings)
+
+  remove: (ratingId) ->
+    index = findIndexInStore @, ratingId
+    return if index < 0
+    @state = update @state, $splice: [[index, 1]]
 
   addTag: (ratingId, tag) ->
     rating = findInStore @, ratingId

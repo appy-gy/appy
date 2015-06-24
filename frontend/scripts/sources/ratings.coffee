@@ -28,6 +28,9 @@ class RatingsApi extends Marty.HttpStateSource
     body = toFormData rating: snakecaseKeys(changes)
     @put { url, body }
 
+  remove: (id) ->
+    @delete "ratings/#{id}"
+
   updatePositions: (id, positions) ->
     url = "ratings/#{id}/rating_items/positions"
     body = { positions }

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
         resources :ratings, only: [:index]
         resources :comments, only: [:index]
       end
-      resources :ratings, module: :ratings, only: [:index, :show, :update, :create] do
+      resources :ratings, module: :ratings, only: [:index, :show, :create, :update, :destroy] do
         resource :tags, only: [:create, :destroy]
         resources :rating_items, only: [:index, :create, :update, :destroy] do
           put :positions, on: :collection

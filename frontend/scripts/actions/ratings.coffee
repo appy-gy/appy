@@ -23,6 +23,11 @@ class RatingsActions extends Marty.ActionCreators
       rating = new Rating body.rating
       @dispatch Constants.REPLACE_RATING, rating
 
+  remove: (ratingId) ->
+    @app.ratingsApi.remove(ratingId).then ({body}) =>
+      return unless body.success
+      @dispatch Constants.REMOVE_RATING, ratingId
+
   addTag: (ratingId, name) ->
     tag = new Tag { name }
     @dispatch Constants.ADD_TAG_TO_RATING, ratingId, tag

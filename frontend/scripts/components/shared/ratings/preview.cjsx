@@ -1,4 +1,5 @@
 React = require 'react/addons'
+Marty = require 'marty'
 classNames = require 'classnames'
 Meta = require './meta'
 Tags = require './tags'
@@ -9,9 +10,12 @@ RatingLink = require '../links/rating'
 Preview = React.createClass
   displayName: 'Preview'
 
+  mixins: [Marty.createAppMixin()]
+
   propTypes:
     rating: PropTypes.object.isRequired
     imageSize: PropTypes.string.isRequired
+    showDelete: PropTypes.bool
     mods: PropTypes.string
 
   childContextTypes:
@@ -24,6 +28,7 @@ Preview = React.createClass
     { rating, block: 'preview' }
 
   getDefaultProps: ->
+    showDelete: false
     mod: null
 
   sectionName: ->
@@ -43,6 +48,13 @@ Preview = React.createClass
 
     rating.description
 
+  delete: (event) ->
+    {rating} = @props
+
+    event.preventDefault()
+
+    @app.ratingsActions.remove rating.id
+
   render: ->
     {rating, imageSize, mod} = @props
 
@@ -58,6 +70,9 @@ Preview = React.createClass
       <Meta/>
       <div className="preview_image" style={imageStyles}></div>
       <div className="preview_content">
+        <div className="preview_delete" onClick={@delete}>
+          Удалить
+        </div>
         <div className="preview_section-name">
           {@sectionName()}
         </div>
