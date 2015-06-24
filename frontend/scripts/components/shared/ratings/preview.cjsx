@@ -36,7 +36,7 @@ Preview = React.createClass
   title: ->
     {rating} = @props
 
-    rating.title or "Черновик-#{rating.createdAt}"
+    rating.title or "Ваш рейтинг от #{rating.createdAt.format('HH:MM DD.MM.YYYY')}"
 
   description: ->
     {rating} = @props
