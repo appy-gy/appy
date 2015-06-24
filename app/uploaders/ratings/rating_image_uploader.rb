@@ -3,7 +3,8 @@ module Ratings
     process convert: 'jpg'
 
     image :normal, [950, 500]
-    image :small, [300, 200]
+    image :large_preview, [630, 400]
+    image :preview, [300, 200]
 
     def filename
       return unless super.present?

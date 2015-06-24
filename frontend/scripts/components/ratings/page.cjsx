@@ -35,8 +35,10 @@ Ratings = React.createClass
     {ratings} = @props
 
     ratings.map (rating, index) =>
-      mod = _.findKey @previewEnds, (end) -> _.inRange index, end
-      <Preview key={rating.id} rating={rating} mod={_.kebabCase mod}/>
+      type = _.findKey(@previewEnds, (end) -> _.inRange index, end) || 'normal'
+      mod = _.kebabCase type
+      imageSize = if type == 'normal' then 'preview' else 'large_preview'
+      <Preview key={rating.id} rating={rating} mod={mod} imageSize={imageSize}/>
 
   content: ->
     {ratings} = @props

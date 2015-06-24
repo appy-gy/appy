@@ -18,6 +18,7 @@ class Rating < ActiveRecord::Base
   enum status: %w{draft published}
 
   after_create :generate_slug
+  before_save :set_published_at, if: :publishing?
 
   private
 
@@ -26,11 +27,19 @@ class Rating < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    persisted? and (not slug? or (status_changed? and status == 'published'))
+    persisted? and (not slug? or publishing?)
   end
 
   def generate_slug
     set_slug
     save
+  end
+
+  def set_published_at
+    self.published_at = Time.current
+  end
+
+  def publishing?
+    status_changed? and status == 'published'
   end
 end

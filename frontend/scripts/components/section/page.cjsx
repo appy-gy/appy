@@ -18,7 +18,7 @@ Ratings = React.createClass
     {ratings} = @props
 
     ratings.map (rating, index) =>
-      <Preview key={rating.id} rating={rating} />
+      <Preview key={rating.id} rating={rating} imageSize="preview"/>
 
   render: ->
     {sectionSlug} = @props

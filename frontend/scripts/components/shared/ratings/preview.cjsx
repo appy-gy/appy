@@ -11,6 +11,7 @@ Preview = React.createClass
 
   propTypes:
     rating: PropTypes.object.isRequired
+    imageSize: PropTypes.string.isRequired
     mods: PropTypes.string
 
   childContextTypes:
@@ -43,13 +44,13 @@ Preview = React.createClass
     rating.description
 
   render: ->
-    {rating, mod} = @props
+    {rating, imageSize, mod} = @props
 
     classes = classNames 'preview', "m-#{mod}"
 
     imageStyles = {}
     if rating.image
-      imageStyles.backgroundImage = "url(#{rating.imageUrl('small')})"
+      imageStyles.backgroundImage = "url(#{rating.imageUrl(imageSize)})"
     else
       imageStyles.backgroundColor = 'rgba(33, 172, 208, 1)'
 

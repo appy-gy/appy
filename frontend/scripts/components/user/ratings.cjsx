@@ -45,7 +45,7 @@ Ratings = React.createClass
     {ratings} = @props
 
     ratings.map (rating) ->
-      <Preview key={rating.id} rating={rating}/>
+      <Preview key={rating.id} rating={rating} imageSize="preview"/>
 
   render: ->
     {user, page} = @context

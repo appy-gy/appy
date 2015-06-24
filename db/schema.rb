@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617135717) do
+ActiveRecord::Schema.define(version: 20150624190927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20150617135717) do
     t.integer  "likes_count",    default: 0, null: false
     t.text     "slug"
     t.text     "image"
+    t.datetime "published_at"
   end
 
   add_index "ratings", ["section_id"], name: "index_ratings_on_section_id", using: :btree
