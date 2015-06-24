@@ -40,6 +40,12 @@ UserPage = React.createClass
 
     @parsePage router.getCurrentQuery().page
 
+  isSlugChanged: ->
+    {user} = @props
+    {router} = @context
+
+    user?.slug? and router.getCurrentParams().userSlug != user.slug
+
   resetPage: (query) ->
     delete query.page
     query
