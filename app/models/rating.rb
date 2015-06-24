@@ -3,6 +3,8 @@ class Rating < ActiveRecord::Base
 
   attr_accessor :like
 
+  acts_as_paranoid
+
   friendly_id :slug_candidates
 
   mount_uploader :image, Ratings::RatingImageUploader

@@ -31,6 +31,9 @@ gem 'carrierwave-processing'
 # Pagination
 gem 'kaminari'
 
+# Soft delete
+gem 'paranoia'
+
 # Image processing
 gem 'mini_magick'
 
