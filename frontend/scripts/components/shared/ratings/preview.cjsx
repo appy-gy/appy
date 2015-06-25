@@ -3,9 +3,8 @@ Marty = require 'marty'
 classNames = require 'classnames'
 Meta = require './meta'
 Tags = require './tags'
+Delete = require './delete'
 RatingLink = require '../links/rating'
-ConfirmationPopup = require '../popups/confirmation'
-Popup = require '../../../models/popup'
 
 {PropTypes} = React
 
@@ -67,13 +66,11 @@ Preview = React.createClass
     @app.popupsActions.append popup
 
   deleteButton: ->
-    {showDelete} = @props
+    {rating, showDelete} = @props
 
     return unless showDelete
 
-    <div className="preview_delete" onClick={@showDeleteConfirmation}>
-      Удалить
-    </div>
+    <Delete rating={rating}/>
 
   render: ->
     {rating, imageSize, mod} = @props

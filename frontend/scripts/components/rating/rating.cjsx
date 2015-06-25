@@ -8,6 +8,7 @@ Like = require './like'
 ShareButtons = require './share_buttons'
 RatingMenu = require './menu'
 UserLink = require '../shared/links/user'
+DeleteRating = require '../shared/ratings/delete'
 isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
@@ -21,6 +22,7 @@ Rating = React.createClass
     rating: PropTypes.object.isRequired
 
   contextTypes:
+    router: PropTypes.func.isRequired
     canEdit: PropTypes.bool.isRequired
 
   childContextTypes:
@@ -35,6 +37,12 @@ Rating = React.createClass
     {rating} = @props
 
     @app.ratingItemsActions.create rating.id
+
+  redirectToProfile: ->
+    {router} = @context
+    {slug} = @app.currentUserStore.getState()
+
+    router.replaceWith 'user', userSlug: slug
 
   addRatingItemButton: ->
     {rating} = @props
@@ -101,6 +109,7 @@ Rating = React.createClass
       </RatingMenu>
 
       <Header/>
+      <DeleteRating rating={rating} onDelete={@redirectToProfile}/>
       <Description object={rating} actions="ratingsActions"/>
       <UserLink user={rating.user} className="rating_author">
         {rating.user.name || rating.user.email}
