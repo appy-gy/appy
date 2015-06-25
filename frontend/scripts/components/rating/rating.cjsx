@@ -89,7 +89,7 @@ Rating = React.createClass
     conditions.push 'добавьте описание рейтинга' unless rating.description
     conditions.push 'добавьте хотя бы два рейтинга' if ratingItems.length < 2
 
-    conditions.map (condition) -> <div className="rating_menu-notification-list-item">{condition}</div>
+    conditions.map (condition) -> <div key={condition} className="rating_menu-notification-list-item">{condition}</div>
 
   notificationCounter: ->
     return if @publishConditions().length == 0
