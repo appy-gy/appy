@@ -1,5 +1,6 @@
 React = require 'react/addons'
 Main = require './main'
+Loader = require './loader'
 CommonHeader = require './header/common'
 RatingHeader = require './header/rating'
 Popups = require './popups/popups'
@@ -12,8 +13,8 @@ Layout = React.createClass
   displayName: 'Layout'
 
   propTypes:
-    header: PropTypes.string
     children: PropTypes.node.isRequired
+    header: PropTypes.string
     sectionSlug: PropTypes.string
 
   headers:
@@ -33,13 +34,14 @@ Layout = React.createClass
   render: ->
     {children, sectionSlug} = @props
 
-    <div className='layout'>
+    <div className="layout">
       {@header()}
       <Main sectionSlug={sectionSlug}>
         {children}
       </Main>
       <Popups/>
       <Toastr/>
+      <Loader/>
       <FbRoot/>
     </div>
 
