@@ -4,6 +4,8 @@ classNames = require 'classnames'
 Meta = require './meta'
 Tags = require './tags'
 RatingLink = require '../links/rating'
+ConfirmationPopup = require '../popups/confirmation'
+Popup = require '../../../models/popup'
 
 {PropTypes} = React
 
@@ -48,19 +50,28 @@ Preview = React.createClass
 
     rating.description
 
-  delete: (event) ->
+  showDeleteConfirmation: (event) ->
     {rating} = @props
 
     event.preventDefault()
 
-    @app.ratingsActions.remove rating.id
+    removePopup = => @app.popupsActions.remove popup
+    popupProps =
+      text: 'Вы уверены, что хотите удалить этот рейтинг?'
+      onConfirm: =>
+        @app.ratingsActions.remove rating.id
+        removePopup()
+      onCancel: removePopup
+    popup = new Popup <ConfirmationPopup {...popupProps}/>
+
+    @app.popupsActions.append popup
 
   deleteButton: ->
     {showDelete} = @props
 
     return unless showDelete
 
-    <div className="preview_delete" onClick={@delete}>
+    <div className="preview_delete" onClick={@showDeleteConfirmation}>
       Удалить
     </div>
 

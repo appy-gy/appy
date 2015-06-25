@@ -1,5 +1,6 @@
 @import "mixins/ratings"
 @import "mixins/likes"
+@import "mixins/word_break"
 
 =button($size: 40px)
   display: inline-block
@@ -18,6 +19,7 @@
   +button($size)
   background-color: $green
   color: $white
+
   &:hover
     background-color: darken($green, 5%)
 
@@ -47,12 +49,13 @@
 
   &:hover
     color: $white
+
 =alt-cancel($size: 30px)
   +cancel($size)
   color: $black-2
+
   &:hover
     color: $black
-
 
 =add-image
   z-index: 2
