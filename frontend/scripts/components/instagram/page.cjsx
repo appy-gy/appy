@@ -2,15 +2,16 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 Qs = require 'qs'
+Loading = require '../mixins/loading'
 Layout = require '../layout/layout'
+Nothing = require '../shared/nothing'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 Instagram = React.createClass
   displayName: 'Instagram'
 
-  mixins: [PureRenderMixin, Marty.createAppMixin()]
+  mixins: [Marty.createAppMixin(), Loading]
 
   contextTypes:
     router: PropTypes.func.isRequired
@@ -34,6 +35,9 @@ Instagram = React.createClass
     script.async = true
     @getDOMNode().appendChild script
 
+  shouldShowLoader: ->
+    true
+
   redirect: ->
     {user} = @props
     {router} = @context
@@ -42,7 +46,7 @@ Instagram = React.createClass
 
   render: ->
     <Layout>
-      <div className="g-hidden"></div>
+      <Nothing/>
     </Layout>
 
 module.exports = Marty.createContainer Instagram,

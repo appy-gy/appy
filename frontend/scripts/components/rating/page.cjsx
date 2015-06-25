@@ -3,6 +3,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 ClearStores = require '../mixins/clear_stores'
 SyncSlug = require '../mixins/sync_slug'
+Loading = require '../mixins/loading'
 Rating = require './rating'
 Comments = require './comments'
 Layout = require '../layout/layout'
@@ -13,7 +14,7 @@ findInStore = require '../../helpers/find_in_store'
 RatingPage = React.createClass
   displayName: 'RatingPage'
 
-  mixins: [Marty.createAppMixin(), ClearStores(), SyncSlug('rating')]
+  mixins: [Marty.createAppMixin(), ClearStores(), SyncSlug('rating'), Loading]
 
   contextTypes:
     router: PropTypes.func.isRequired
@@ -27,6 +28,9 @@ RatingPage = React.createClass
     {ratingSlug} = @props
 
     { ratingSlug, block: 'rating', canEdit: @canEdit() }
+
+  shouldShowLoader: ->
+    not @rating()?
 
   canEdit: ->
     {user} = @props

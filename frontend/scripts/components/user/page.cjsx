@@ -4,6 +4,7 @@ Marty = require 'marty'
 ClearStores = require '../mixins/clear_stores'
 ParsePage = require '../mixins/parse_page'
 SyncSlug = require '../mixins/sync_slug'
+Loading = require '../mixins/loading'
 Avatar = require './avatar'
 Name = require './name'
 SocialButtons = require './social_buttons'
@@ -19,7 +20,7 @@ User = require '../../models/user'
 UserPage = React.createClass
   displayName: 'User'
 
-  mixins: [ParsePage, SyncSlug('user')]
+  mixins: [ParsePage, SyncSlug('user'), Loading]
 
   contextTypes:
     router: PropTypes.func.isRequired
@@ -45,6 +46,11 @@ UserPage = React.createClass
     {router} = @context
 
     user?.slug? and router.getCurrentParams().userSlug != user.slug
+
+  shouldShowLoader: ->
+    {user} =  @props
+
+    not user?.id?
 
   resetPage: (query) ->
     delete query.page

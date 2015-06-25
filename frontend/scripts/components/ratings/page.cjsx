@@ -3,6 +3,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 ClearStores = require '../mixins/clear_stores'
 ParsePage = require '../mixins/parse_page'
+Loading = require '../mixins/loading'
 Subscription = require './subscription'
 PaginationLink = require './pagination_link'
 Layout = require '../layout/layout'
@@ -14,7 +15,7 @@ Pagination = require '../shared/pagination/pagination'
 Ratings = React.createClass
   displayName: 'Ratings'
 
-  mixins: [Marty.createAppMixin()]
+  mixins: [Marty.createAppMixin(), Loading]
 
   propTypes:
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
@@ -27,6 +28,11 @@ Ratings = React.createClass
     superLarge: 1
     large: 3
   subscriptionPosition: 1
+
+  shouldShowLoader: ->
+    {ratings} = @props
+
+    _.isEmpty ratings
 
   subscription: ->
     <Subscription key="subscription"/>
