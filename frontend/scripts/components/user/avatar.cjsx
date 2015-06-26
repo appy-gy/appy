@@ -1,19 +1,18 @@
 React = require 'react/addons'
 Marty = require 'marty'
+WithFileInput = require '../mixins/with_file_input'
 FileInput = require '../shared/file_input'
+withIndexKeys = require '../../helpers/react/with_index_keys'
 
 {PropTypes} = React
 
 Avatar = React.createClass
   displayName: 'Avatar'
 
-  mixins: [Marty.createAppMixin()]
+  mixins: [Marty.createAppMixin(), WithFileInput]
 
   contextTypes:
     user: PropTypes.object.isRequired
-
-  componentWillMount: ->
-    @fileInputFns = {}
 
   updateAvatar: (files) ->
     {user} = @context
@@ -24,9 +23,6 @@ Avatar = React.createClass
     @app.usersActions.change user.id, avatar: avatar.preview
     @app.usersActions.update user.id, { avatar }
 
-  openSelect: ->
-    @fileInputFns.open()
-
   fileInput: ->
     {user} = @context
 
@@ -36,14 +32,25 @@ Avatar = React.createClass
       Изменить фотографию профиля
     </div>
 
-  render: ->
+  children: ->
     {user} = @context
 
     imageStyles = backgroundImage: "url(#{user.avatarUrl('normal')})"
 
-    <FileInput ref="input" className="user-profile_avatar" utilFns={@fileInputFns} onSelect={@updateAvatar}>
+    withIndexKeys [
       <div className="user-profile_avatar-img" style={imageStyles}></div>
-      {@fileInput()}
+      @fileInput()
+    ]
+
+  render: ->
+    {user} = @context
+
+    classes = 'user-profile_avatar'
+
+    return <div className={classes}>{@children()}</div> unless user.canEdit
+
+    <FileInput className={classes} onSelect={@updateAvatar} {...@fileInputProps()}>
+      {@children()}
     </FileInput>
 
 module.exports = Avatar
