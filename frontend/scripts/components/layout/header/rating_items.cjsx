@@ -1,14 +1,11 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-ReactDnd = require 'react-dnd'
-HTML5Backend = require 'react-dnd/modules/backends/HTML5'
 RatingItem = require './rating_item'
 Nothing = require '../../shared/nothing'
 canEditRating = require '../../../helpers/ratings/can_edit'
 
 {PropTypes} = React
-{DragDropContext} = ReactDnd
 
 RatingItems = React.createClass
   displayName: 'RatingItems'
@@ -49,4 +46,4 @@ Container = Marty.createContainer RatingItems,
     rating: @app.ratingsStore.get(ratingSlug)
     ratingItems: @app.ratingItemsStore.getForRating(ratingSlug)
 
-module.exports = DragDropContext(HTML5Backend)(Container)
+module.exports = Container

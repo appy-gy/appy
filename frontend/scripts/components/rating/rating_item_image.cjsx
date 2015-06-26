@@ -1,13 +1,15 @@
 React = require 'react/addons'
 Marty = require 'marty'
+WithFileInput = require '../mixins/with_file_input'
 FileInput = require '../shared/file_input'
+withIndexKeys = require '../../helpers/react/with_index_keys'
 
 {PropTypes} = React
 
 RatingItemImage = React.createClass
   displayName: 'RatingItemImage'
 
-  mixins: [Marty.createAppMixin()]
+  mixins: [Marty.createAppMixin(), WithFileInput]
 
   contextTypes:
     ratingItem: PropTypes.object.isRequired
@@ -28,9 +30,7 @@ RatingItemImage = React.createClass
     image = files[0]
     return unless image?
 
-    url = URL.createObjectURL image
-
-    @app.ratingItemsActions.change ratingItem.id, image: url
+    @app.ratingItemsActions.change ratingItem.id, image: image.preview
     @app.ratingItemsActions.update ratingItem.id, { image }
 
   removeImage: ->
@@ -39,8 +39,7 @@ RatingItemImage = React.createClass
     @app.ratingItemsActions.update ratingItem.id, removeImage: true
 
   updateImageButton: ->
-    <FileInput key="image" className="rating-item_add-image" onChange={@updateImage}>
-    </FileInput>
+    <div className="rating-item_add-image" onClick={@openSelect}></div>
 
   removeImageButton: ->
     {ratingItem} = @context
@@ -51,12 +50,23 @@ RatingItemImage = React.createClass
       Удалить изображение
     </div>
 
-  render: ->
+  children: ->
     {ratingItem} = @context
 
-    <div className="rating-item_cover">
-      {@buttons()}
+    withIndexKeys [
+      @buttons()...
       <img className="rating-item_cover-image" src={ratingItem.imageUrl('normal')}/>
-    </div>
+    ]
+
+  render: ->
+    {canEdit} = @context
+
+    classes = 'rating-item_cover'
+
+    return <div className={classes}>{@children()}</div> unless canEdit
+
+    <FileInput className={classes} onSelect={@updateImage} {...@fileInputProps()}>
+      {@children()}
+    </FileInput>
 
 module.exports = RatingItemImage

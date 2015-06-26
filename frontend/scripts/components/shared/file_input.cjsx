@@ -3,10 +3,9 @@ React = require 'react/addons'
 ReactDnd = require 'react-dnd'
 Classes = require '../mixins/classes'
 HTML5Backend = require 'react-dnd/modules/backends/HTML5'
-{DropTarget} = require 'react-dnd'
 
 {PropTypes} = React
-{DragDropContext, DropTarget} = ReactDnd
+{DropTarget} = ReactDnd
 {NativeTypes} = HTML5Backend
 
 fileTarget =
@@ -69,4 +68,4 @@ FileInput = React.createClass
       {children}
     </div>
 
-module.exports = DragDropContext(HTML5Backend)(DropTarget(NativeTypes.FILE, fileTarget, collectTarget)(FileInput))
+module.exports = DropTarget(NativeTypes.FILE, fileTarget, collectTarget)(FileInput)
