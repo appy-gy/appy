@@ -5,6 +5,7 @@ ReactDnd = require 'react-dnd'
 HTML5Backend = require 'react-dnd/modules/backends/HTML5'
 RatingItem = require './rating_item'
 Nothing = require '../../shared/nothing'
+canEditRating = require '../../../helpers/ratings/can_edit'
 
 {PropTypes} = React
 {DragDropContext} = ReactDnd
@@ -19,9 +20,9 @@ RatingItems = React.createClass
     true
 
   ratingItems: ->
-    {ratingItems} = @props
+    {user, rating, ratingItems} = @props
 
-    return <Nothing/> unless @canEdit()
+    return unless canEditRating user, rating
 
     _ ratingItems
       .sortBy 'position'

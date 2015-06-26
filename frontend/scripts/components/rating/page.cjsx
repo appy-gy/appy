@@ -8,6 +8,7 @@ Rating = require './rating'
 Comments = require './comments'
 Layout = require '../layout/layout'
 findInStore = require '../../helpers/find_in_store'
+canEditRating = require '../../helpers/ratings/can_edit'
 
 {PropTypes} = React
 
@@ -25,9 +26,9 @@ RatingPage = React.createClass
     canEdit: PropTypes.bool.isRequired
 
   getChildContext: ->
-    {ratingSlug} = @props
+    {ratingSlug, user} = @props
 
-    { ratingSlug, block: 'rating', canEdit: @canEdit() }
+    { ratingSlug, block: 'rating', canEdit: canEditRating(user, @rating()) }
 
   shouldShowLoader: ->
     not @rating()?

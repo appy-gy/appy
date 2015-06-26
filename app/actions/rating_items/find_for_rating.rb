@@ -8,7 +8,7 @@ module RatingItems
     end
 
     def call
-      return items unless @user
+      return items unless user
       items.each { |item| set_vote item }
     end
 
@@ -21,7 +21,7 @@ module RatingItems
     end
 
     def votes
-      @votes ||= @user.votes.for(items).group_by(&:rating_item_id).transform_values(&:first)
+      @votes ||= user.votes.for(items).group_by(&:rating_item_id).transform_values(&:first)
     end
   end
 end
