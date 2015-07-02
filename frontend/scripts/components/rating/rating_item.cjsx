@@ -4,6 +4,7 @@ Title = require './title'
 Description = require './description'
 Image = require './rating_item_image'
 Votes = require './votes'
+Waypoint = require 'react-waypoint'
 
 {PropTypes} = React
 
@@ -42,10 +43,22 @@ RatingItem = React.createClass
       Удалить пункт рейтинга
     </div>
 
+  handleWaypointEnter: ->
+    {ratingItem} = @props
+
+    @app.waypointsActions.append ratingItem
+
+  handleWaypointLeave: ->
+    {ratingItem} = @props
+
+    @app.waypointsActions.remove ratingItem
+
   render: ->
     {ratingItem, index} = @props
 
     <section className="rating-item">
+      <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} threshold={0}/>
+      <a name={ratingItem.position}></a>
       <div className="rating-item_header">
         <Title object={ratingItem} actions="ratingItemsActions"/>
       </div>
