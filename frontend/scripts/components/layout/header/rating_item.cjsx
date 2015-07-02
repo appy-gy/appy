@@ -29,9 +29,9 @@ RatingItem = React.createClass
     "##{ratingItem.id}"
 
   render: ->
-    {ratingItem} = @props
+    {ratingItem, waypoints} = @props
 
-    classes = classNames 'header_rating-item'
+    classes = classNames 'header_rating-item', 'm-reached': _.includes(waypoints, ratingItem)
 
     <div className={classes}>
       <div className="header_rating-item-title">
@@ -44,4 +44,8 @@ RatingItem = React.createClass
       </div>
     </div>
 
-module.exports = RatingItem
+module.exports = Marty.createContainer RatingItem,
+  listenTo: ['waypointsStore']
+
+  fetch: ->
+    waypoints: @app.waypointsStore.getAll()
