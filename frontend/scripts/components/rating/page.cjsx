@@ -33,14 +33,13 @@ RatingPage = React.createClass
   shouldShowLoader: ->
     not @rating()?
 
-  canEdit: ->
-    {user} = @props
-    rating = @rating()
-
-    user.isLoggedIn() and rating?.user.id == user.id
-
   rating: (ratingSlug = @props.ratingSlug) ->
     findInStore @app.ratingsStore, ratingSlug
+
+  header: ->
+    {user} = @props
+    
+    if canEditRating(user, @rating()) then 'editRating' else 'rating'
 
   sectionSlug: ->
     {ratingSlug} = @props
@@ -50,7 +49,7 @@ RatingPage = React.createClass
   render: ->
     {ratingSlug} = @props
 
-    <Layout header="rating" sectionSlug={@sectionSlug()}>
+    <Layout header={@header()} sectionSlug={@sectionSlug()}>
       <Rating/>
       <Comments/>
     </Layout>

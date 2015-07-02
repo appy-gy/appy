@@ -74,3 +74,21 @@
 
   &:hover
     transform: scale(1.2)
+
+=remove-image
+  z-index: 2
+  font-size: 32px
+  color: $white
+  transition: transform 0.1s
+  width: 30px
+  height: 30px
+  cursor: pointer
+  display: flex
+  justify-content: center
+  align-items: center
+
+  &:before
+    +ion-icon("android-close")
+
+  &:hover
+    transform: scale(1.2)

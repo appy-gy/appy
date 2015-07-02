@@ -50,7 +50,7 @@ Header = React.createClass
       <div className="rating_tags-select">
         <TagsSelect/>
       </div>
-      <Title object={rating} actions="ratingsActions" maxRows={3}/>
+      <Title object={rating} actions="ratingsActions"/>
       <Tags/>
     ]
 

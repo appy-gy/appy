@@ -3,6 +3,7 @@ Main = require './main'
 Loader = require './loader'
 CommonHeader = require './header/common'
 RatingHeader = require './header/rating'
+EditRatingHeader = require './header/edit_rating'
 Popups = require './popups/popups'
 Toastr = require './toastr/toastr'
 FbRoot = require './fb_root'
@@ -19,6 +20,7 @@ Layout = React.createClass
 
   headers:
     common: CommonHeader
+    editRating: EditRatingHeader
     rating: RatingHeader
 
   getDefaultProps: ->
