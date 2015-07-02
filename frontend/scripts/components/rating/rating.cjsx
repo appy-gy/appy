@@ -11,6 +11,7 @@ UserLink = require '../shared/links/user'
 DeleteRating = require '../shared/ratings/delete'
 isBlank = require '../../helpers/is_blank'
 prepublishValidation = require '../../helpers/ratings/prepublish_validation'
+isClient = require '../../helpers/is_client'
 
 {PropTypes} = React
 
@@ -128,6 +129,7 @@ Rating = React.createClass
 
 module.exports = Marty.createContainer Rating,
   contextTypes:
+    router: PropTypes.func.isRequired
     ratingSlug: PropTypes.string.isRequired
 
   listenTo: ['ratingsStore', 'ratingItemsStore']
@@ -137,3 +139,15 @@ module.exports = Marty.createContainer Rating,
 
     rating: @app.ratingsStore.get(ratingSlug)
     ratingItems: @app.ratingItemsStore.getForRating(ratingSlug)
+
+  done: (results) ->
+    @checkAccess results
+
+    <Rating ref="innerComponent" {...this.props} {...results} app={@app}/>
+
+  checkAccess: ({rating}) ->
+    {router} = @context
+
+    return if not isClient() or rating.status == 'published' or rating.canEdit
+
+    setImmediate -> router.replaceWith 'root'
