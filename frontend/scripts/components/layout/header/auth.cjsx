@@ -1,9 +1,9 @@
 React = require 'react/addons'
 Marty = require 'marty'
-Info = require '../../auth/info'
-Login = require '../../auth/login'
-Logout = require '../../auth/logout'
-Registration = require '../../auth/registration'
+Info = require '../../shared/auth/info'
+Login = require '../../shared/auth/login'
+Logout = require '../../shared/auth/logout'
+Registration = require '../../shared/auth/registration'
 withIndexKeys = require '../../../helpers/react/with_index_keys'
 
 {PropTypes} = React
@@ -17,6 +17,12 @@ Auth = React.createClass
   propTypes:
     user: PropTypes.object.isRequired
 
+  childContextTypes:
+    block: PropTypes.string.isRequired
+
+  getChildContext: ->
+    block: 'auth'
+
   infoAndLogOut: (user) ->
     withIndexKeys [
       <Info user={user}/>
@@ -25,7 +31,7 @@ Auth = React.createClass
 
   loginAndRegistration: (user) ->
     withIndexKeys [
-      <Login/>
+      <Login>Вход</Login>
       <Registration/>
     ]
 

@@ -1,13 +1,18 @@
 React = require 'react/addons'
 Marty = require 'marty'
 AuthPopup = require './auth_popup'
-Popup = require '../../models/popup'
-Toast = require '../../models/toast'
+Popup = require '../../../models/popup'
+Toast = require '../../../models/toast'
+
+{PropTypes} = React
 
 Registration = React.createClass
   displayName: 'Registration'
 
   mixins: [Marty.createAppMixin()]
+
+  contextTypes:
+    block: PropTypes.string.isRequired
 
   register: (data) ->
     @app.currentUserActions.register data
@@ -29,7 +34,9 @@ Registration = React.createClass
     @app.toastsActions.append toast
 
   render: ->
-    <div className="auth_registration" onClick={@showPopup}>
+    {block} = @context
+
+    <div className="#{block}_registration" onClick={@showPopup}>
       Регистрация
     </div>
 

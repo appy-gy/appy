@@ -20,7 +20,7 @@ RatingItemImage = React.createClass
   buttons: ->
     {canEdit} = @context
 
-    return unless canEdit
+    return [] unless canEdit
 
     @buttonTypes.map (type) => @["#{type}Button"]()
 

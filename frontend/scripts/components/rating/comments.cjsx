@@ -3,6 +3,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 isBlank = require '../../helpers/is_blank'
 CommentsTree = require './comments_tree'
+AuthToComment = require './auth_to_comment'
 CommentForm = require '../shared/comments/form'
 Nothing = require '../shared/nothing'
 CommentTreesBuilder = require '../../helpers/comments/trees_builder'
@@ -16,6 +17,12 @@ Comments = React.createClass
     rating: PropTypes.object.isRequired
     comments: PropTypes.arrayOf(PropTypes.object).isRequired
 
+  childContextTypes:
+    block: PropTypes.string.isRequired
+
+  getChildContext: ->
+    block: 'comments'
+
   trees: ->
     {comments} = @props
 
@@ -28,7 +35,7 @@ Comments = React.createClass
   commentForm: ->
     {rating} = @props
 
-    return unless rating.canComment
+    return <AuthToComment/> unless rating.canComment
 
     <CommentForm/>
 
