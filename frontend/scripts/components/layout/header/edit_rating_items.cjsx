@@ -26,7 +26,7 @@ EditRatingItems = React.createClass
       {@ratingItems()}
     </div>
 
-Container = Marty.createContainer EditRatingItems,
+module.exports = Marty.createContainer EditRatingItems,
   contextTypes:
     router: PropTypes.func.isRequired
 
@@ -38,5 +38,3 @@ Container = Marty.createContainer EditRatingItems,
 
     rating: @app.ratingsStore.get(ratingSlug)
     ratingItems: @app.ratingItemsStore.getForRating(ratingSlug)
-
-module.exports = DragDropContext(HTML5Backend)(Container)
