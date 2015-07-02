@@ -10,6 +10,7 @@ RatingMenu = require './menu'
 UserLink = require '../shared/links/user'
 DeleteRating = require '../shared/ratings/delete'
 isBlank = require '../../helpers/is_blank'
+prepublishValidation = require '../../helpers/ratings/prepublish_validation'
 
 {PropTypes} = React
 
@@ -79,23 +80,25 @@ Rating = React.createClass
 
     <h1 onClick={@publish}>Опубликовать</h1>
 
-  publishConditions: ->
-    {rating} = @props
-    {ratingItems} = @props
+  publishErrors: ->
+    {rating, ratingItems} = @props
 
-    conditions = []
+    prepublishValidation rating, ratingItems
 
-    conditions.push 'добавьте заголовок рейтинга' unless rating.title
-    conditions.push 'добавьте описание рейтинга' unless rating.description
-    conditions.push 'добавьте хотя бы два рейтинга' if ratingItems.length < 2
+  publishErrorItems: ->
+    @publishErrors().map (condition) ->
+      <div key={condition} className="rating_menu-notification-list-item">
+        {condition}publishErrors
+      </div>
 
-    conditions.map (condition) -> <div key={condition} className="rating_menu-notification-list-item">{condition}</div>
+  publishErrorsCounter: ->
+    errors = @publishErrors()
+    return if _.isEmpty errors
+    counter = "+#{errors.length}"
 
-  notificationCounter: ->
-    return if @publishConditions().length == 0
-    counter = "+#{@publishConditions().length}"
-
-    <div className="rating_menu-notification-icon-counter">{counter}</div>
+    <div className="rating_menu-notification-icon-counter">
+      {counter}
+    </div>
 
   render: ->
     {rating} = @props
@@ -103,8 +106,8 @@ Rating = React.createClass
     <article className="rating">
       <RatingMenu>
         <div className="rating_menu-notification">
-          <div className="rating_menu-notification-icon">{@notificationCounter()}</div>
-          <div className="rating_menu-notification-list">{@publishConditions()}</div>
+          <div className="rating_menu-notification-icon">{@publishErrorsCounter()}</div>
+          <div className="rating_menu-notification-list">{@publishErrorItems()}</div>
         </div>
       </RatingMenu>
 
