@@ -71,10 +71,6 @@ RatingItem = React.createClass
       <div className="header_rating-item-title">
         {ratingItem.title}
       </div>
-      <div className="header_rating-item-options">
-        <div className="header_rating-item-up" onClick={_.partial @move, 'up'}></div>
-        <div className="header_rating-item-down" onClick={_.partial @move, 'down'}></div>
-      </div>
     </div>
 
 module.exports = DropTarget('RatingItem', ratingItemTarget, collectTarget)(DragSource('RatingItem', ratingItemSource, collectSource)(RatingItem))

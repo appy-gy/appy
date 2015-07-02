@@ -47,7 +47,6 @@ RatingItemImage = React.createClass
     return unless ratingItem.image?
 
     <div className="rating-item_remove-image" onClick={@removeImage}>
-      Удалить изображение
     </div>
 
   children: ->
