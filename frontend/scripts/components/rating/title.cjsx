@@ -16,7 +16,6 @@ ObjectTitle = React.createClass
   propTypes:
     object: PropTypes.object.isRequired
     actions: PropTypes.string.isRequired
-    maxRows: PropTypes.number
 
   contextTypes:
     block: PropTypes.string.isRequired
@@ -62,7 +61,7 @@ ObjectTitle = React.createClass
     </h1>
 
   titleEdit: ->
-    {object, maxRows} = @props
+    {object} = @props
     {edit} = @state
     {block} = @context
     {title} = object
@@ -70,7 +69,7 @@ ObjectTitle = React.createClass
     return unless edit
 
     withIndexKeys [
-      <Textarea autoFocus={true} maxLength="90" className={@classes("#{block}_title", 'm-edit')} value={title} onChange={@changeTitle} maxRows={maxRows} placeholder="Введи заголовок рейтинга"></Textarea>
+      <Textarea autoFocus={true} maxLength="90" className={@classes("#{block}_title", 'm-edit')} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></Textarea>
       <div className="#{block}_title-buttons">
         <button className="#{block}_title-button m-accept" onClick={@updateTitle}>
           Сохранить
