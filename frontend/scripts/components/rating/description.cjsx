@@ -70,7 +70,7 @@ ObjectDescription = React.createClass
     return unless edit
 
     withIndexKeys [
-      <Textarea className={@classes("#{block}_description", 'm-edit')} value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></Textarea>
+      <Textarea className={@classes("#{block}_description", 'm-edit')} maxLength="90" value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></Textarea>
       <div className="#{block}_description-buttons">
         <button className="#{block}_description-button m-accept" onClick={@updateDescription}>
           Cохранить
