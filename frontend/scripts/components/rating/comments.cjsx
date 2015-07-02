@@ -3,6 +3,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 isBlank = require '../../helpers/is_blank'
 CommentsTree = require './comments_tree'
+NoComments = require './no_comments'
 AuthToComment = require './auth_to_comment'
 CommentForm = require '../shared/comments/form'
 Nothing = require '../shared/nothing'
@@ -26,7 +27,7 @@ Comments = React.createClass
   trees: ->
     {comments} = @props
 
-    return if isBlank comments
+    return <NoComments/> if isBlank comments
 
     trees = CommentTreesBuilder.build comments
     trees.map (tree) ->
