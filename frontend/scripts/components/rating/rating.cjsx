@@ -143,7 +143,7 @@ module.exports = Marty.createContainer Rating,
   done: (results) ->
     @checkAccess results
 
-    <Rating ref="innerComponent" {...this.props} {...results} app={@app}/>
+    <Rating ref="innerComponent" {...@props} {...results} app={@app}/>
 
   checkAccess: ({rating}) ->
     {router} = @context
