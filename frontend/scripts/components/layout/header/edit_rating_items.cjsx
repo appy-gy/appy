@@ -1,13 +1,16 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-RatingItem = require './rating_item'
+ReactDnd = require 'react-dnd'
+HTML5Backend = require 'react-dnd/modules/backends/HTML5'
+RatingItem = require './edit_rating_item'
 Nothing = require '../../shared/nothing'
 
 {PropTypes} = React
+{DragDropContext} = ReactDnd
 
-RatingItems = React.createClass
-  displayName: 'RatingItems'
+EditRatingItems = React.createClass
+  displayName: 'EditRatingItems'
 
   ratingItems: ->
     {rating, ratingItems} = @props
@@ -23,7 +26,7 @@ RatingItems = React.createClass
       {@ratingItems()}
     </div>
 
-module.exports = Marty.createContainer RatingItems,
+Container = Marty.createContainer EditRatingItems,
   contextTypes:
     router: PropTypes.func.isRequired
 
@@ -35,3 +38,5 @@ module.exports = Marty.createContainer RatingItems,
 
     rating: @app.ratingsStore.get(ratingSlug)
     ratingItems: @app.ratingItemsStore.getForRating(ratingSlug)
+
+module.exports = DragDropContext(HTML5Backend)(Container)

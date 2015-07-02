@@ -31,15 +31,16 @@
     display: flex
     background: $color-2
     color: $white
-    cursor: move
     padding: 5px
     margin: 10px 15px
     line-height: 20px
     height: 30px
     transition: transform 0.3s
 
-    &:hover
-      transform: scale(1.1)
+    &.m-edit
+      cursor: move
+      &:hover
+        transform: scale(1.1)
 
     &.m-dragging
       opacity: 0
