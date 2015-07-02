@@ -23,6 +23,11 @@ RatingItem = React.createClass
 
     @app.ratingsActions.updatePositions ratingItem.ratingId
 
+  ratingItemAnchor: ->
+    {ratingItem} = @props
+
+    "##{ratingItem.id}"
+
   render: ->
     {ratingItem} = @props
 
@@ -30,7 +35,9 @@ RatingItem = React.createClass
 
     <div className={classes}>
       <div className="header_rating-item-title">
-        {ratingItem.title}
+        <a href={@ratingItemAnchor()} >
+          {ratingItem.title}
+        </a>
       </div>
       <div className="header_rating-item-options">
         {ratingItem.mark}
