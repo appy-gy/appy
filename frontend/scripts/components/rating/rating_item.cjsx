@@ -58,7 +58,7 @@ RatingItem = React.createClass
 
     <section className="rating-item">
       <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} threshold={0}/>
-      <a name={ratingItem.id}></a>
+      <a name={ratingItem.position}></a>
       <div className="rating-item_header">
         <Title object={ratingItem} actions="ratingItemsActions"/>
       </div>

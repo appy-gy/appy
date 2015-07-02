@@ -26,7 +26,7 @@ RatingItem = React.createClass
   ratingItemAnchor: ->
     {ratingItem} = @props
 
-    "##{ratingItem.id}"
+    "##{ratingItem.position}"
 
   render: ->
     {ratingItem, waypoints} = @props
