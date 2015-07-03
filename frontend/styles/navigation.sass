@@ -1,5 +1,6 @@
 .site-nav
   margin-bottom: 20px
+  background-color: $white
   &_icon
     display: inline-block
     margin-bottom: 2px
@@ -17,19 +18,22 @@
     text-align: center
     position: relative
 
-    &:before
-      content: ''
-      display: none
-      position: absolute
-      top: 0
-      left: 0
-      width: 5px
-      height: 100%
-      background: rgba($black, 0.5)
-
     &:hover
-      &:before
-        display: block
+      opacity: 0.8
+
+    // &:before
+    //   content: ''
+    //   position: absolute
+    //   top: 0
+    //   left: -5px
+    //   width: 5px
+    //   height: 100%
+    //   background: rgba($black, 0.5)
+    //   transition: all 0.1s
+    //
+    // &:hover
+    //   &:before
+    //     left: 0
 
     &:first-of-type
       .site-nav_icon

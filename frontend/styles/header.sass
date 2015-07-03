@@ -9,7 +9,6 @@
     width: 240px
     height: 60px
     position: fixed
-    background: $color-1
 
   &_rating-button
     display: block
@@ -23,6 +22,11 @@
     text-align: center
     height: 40px
     text-transform: uppercase
+    transition: 0.2s ease
+
+    &:hover
+      color: $white
+      background: darken($color-1, 15%)
 
   &_rating-button-icon
     margin-right: 5px

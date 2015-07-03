@@ -1,5 +1,6 @@
 React = require 'react/addons'
 UserLink = require '../links/user'
+Logout = require '../../shared/auth/logout'
 
 {PropTypes} = React
 
@@ -18,8 +19,11 @@ Info = React.createClass
 
     <UserLink className="#{block}_user-profile-link" user={user}>
       <img className="#{block}_user-avatar" width="50" height="50" src={user.avatarUrl('small')}/>
-      <div className="#{block}_user-name">
-        {user.name or user.email}
+      <div className="#{block}_user-info">
+        <div className="#{block}_user-name">
+          {user.name or user.email}
+        </div>
+        <Logout/>
       </div>
     </UserLink>
 module.exports = Info

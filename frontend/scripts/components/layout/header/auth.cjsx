@@ -2,7 +2,6 @@ React = require 'react/addons'
 Marty = require 'marty'
 Info = require '../../shared/auth/info'
 Login = require '../../shared/auth/login'
-Logout = require '../../shared/auth/logout'
 Registration = require '../../shared/auth/registration'
 withIndexKeys = require '../../../helpers/react/with_index_keys'
 
@@ -26,7 +25,6 @@ Auth = React.createClass
   infoAndLogOut: (user) ->
     withIndexKeys [
       <Info user={user}/>
-      <Logout/>
     ]
 
   loginAndRegistration: (user) ->

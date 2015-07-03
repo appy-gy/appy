@@ -1,10 +1,19 @@
 $wrapper-margin: 3 * $margin
 
+@keyframes increase-from-the-center
+  0%
+    transform: scale(0)
+  90%
+    transform: scale(1.05)
+  100%
+    transform: scale(1)
+
 .auth-popup
   display: flex
   flex-flow: column nowrap
   padding: $wrapper-margin
   width: 320px
+  animation: increase-from-the-center 0.25s ease-in-out
 
   &_title
     align-self: center
@@ -81,7 +90,7 @@ $wrapper-margin: 3 * $margin
     align-items: center
 
   &_input
-    background-color: #BDBCBC
+    background-color: $white-3
     padding: $margin
     width: 100%
     border-radius: 0 0 10px 10px
@@ -116,3 +125,13 @@ $wrapper-margin: 3 * $margin
     &:hover
       border-color: $blue
       color: $blue
+
+  &_link
+    color: $green-2
+    margin-top: 15px
+    font-size: 14px
+    text-decoration: underline
+    text-align: center
+
+    &:hover
+      text-decoration: none

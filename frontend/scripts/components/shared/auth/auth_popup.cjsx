@@ -27,6 +27,7 @@ AuthPopup = React.createClass
       <SocialButtons/>
       <Or/>
       <Form onSubmit={onSubmit}/>
+      <a className="auth-popup_link">Регистрация</a>
     </div>
 
 module.exports = AuthPopup
