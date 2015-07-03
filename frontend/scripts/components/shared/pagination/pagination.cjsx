@@ -44,7 +44,9 @@ Pagination = React.createClass
     _.pick left: leftWindow, central: centralWindow, right: rightWindow, _.isArray
 
   windows: ->
-    {block} = @props
+    {block, pagesCount} = @props
+
+    return if pagesCount <= 1
 
     _.map @windowRanges(), (range, position) =>
       classes = classNames "#{block}_window", "m-#{position}"

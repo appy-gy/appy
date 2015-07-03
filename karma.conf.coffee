@@ -4,7 +4,7 @@ webpackConfig = require './webpack.config'
 module.exports = (config) ->
   config.set
     basePath: ''
-    frameworks: ['mocha']
+    frameworks: ['mocha', 'sinon-chai']
     files: [
       'frontend/tests/run.coffee'
     ]
@@ -24,5 +24,6 @@ module.exports = (config) ->
     plugins: [
       require 'karma-webpack'
       require 'karma-mocha'
+      require 'karma-sinon-chai'
       require 'karma-spec-reporter'
     ]

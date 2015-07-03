@@ -1,5 +1,6 @@
 React = require 'react/addons'
 Marty = require 'marty'
+classNames = require 'classnames'
 WithFileInput = require '../mixins/with_file_input'
 FileInput = require '../shared/file_input'
 withIndexKeys = require '../../helpers/react/with_index_keys'
@@ -58,9 +59,9 @@ RatingItemImage = React.createClass
     ]
 
   render: ->
-    {canEdit} = @context
+    {ratingItem, canEdit} = @context
 
-    classes = 'rating-item_cover'
+    classes = classNames 'rating-item_cover', 'm-with-image': ratingItem.image?
 
     return <div className={classes}>{@children()}</div> unless canEdit
 

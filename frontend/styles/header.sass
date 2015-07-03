@@ -33,15 +33,18 @@
 
   &_rating-item
     display: flex
-    background: $white-3
+    background-color: $white-3
     color: $white
     padding: 5px 10px
     margin: 5px 15px
     border-radius: 2px
     line-height: 20px
     height: 30px
-    transition: transform 0.3s
+    transition: all 0.5s
     position: relative
+
+    &.m-waypoint-enter
+      background-color: tomato
 
     &.m-edit
       cursor: move
