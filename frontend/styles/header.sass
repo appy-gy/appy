@@ -29,7 +29,7 @@
 
   &_rating-item
     display: flex
-    background: $white-3
+    background-color: $white-3
     color: $white
     padding: 5px 10px
     margin: 5px 15px
@@ -39,8 +39,10 @@
     transition: all 0.5s
     position: relative
 
-    &.m-reached
+    &.m-waypoint-enter
       background-color: tomato
+
+    &.m-waypoint-leave
 
     &.m-edit
       cursor: move

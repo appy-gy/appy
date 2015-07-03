@@ -1,4 +1,3 @@
-_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 classNames = require 'classnames'
@@ -31,7 +30,7 @@ RatingItem = React.createClass
   render: ->
     {ratingItem, waypoints} = @props
 
-    classes = classNames 'header_rating-item', 'm-reached': _.includes(waypoints, ratingItem)
+    classes = classNames 'header_rating-item', ratingItem.waypointClass
 
     <div className={classes}>
       <div className="header_rating-item-title">
@@ -44,8 +43,4 @@ RatingItem = React.createClass
       </div>
     </div>
 
-module.exports = Marty.createContainer RatingItem,
-  listenTo: ['waypointsStore']
-
-  fetch: ->
-    waypoints: @app.waypointsStore.getAll()
+module.exports = RatingItem

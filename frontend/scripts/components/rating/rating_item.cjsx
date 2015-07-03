@@ -46,12 +46,12 @@ RatingItem = React.createClass
   handleWaypointEnter: ->
     {ratingItem} = @props
 
-    @app.waypointsActions.append ratingItem
+    @app.ratingItemsActions.change ratingItem.id, waypointClass: 'm-waypoint-enter'
 
   handleWaypointLeave: ->
     {ratingItem} = @props
 
-    @app.waypointsActions.remove ratingItem
+    @app.ratingItemsActions.change ratingItem.id, waypointClass: 'm-waypoint-leave'
 
   render: ->
     {ratingItem, index} = @props
