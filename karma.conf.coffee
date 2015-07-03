@@ -13,7 +13,9 @@ module.exports = (config) ->
     webpack: webpackConfig
     webpackMiddleware:
       noInfo: true
-    reporters: ['spec']
+    reporters: ['spec', 'notify']
+    notifyReporter:
+      reportSuccess: false
     port: parseInt process.env.TOP_KARMA_PORT
     colors: true
     logLevel: config.LOG_INFO
@@ -26,4 +28,5 @@ module.exports = (config) ->
       require 'karma-mocha'
       require 'karma-sinon-chai'
       require 'karma-spec-reporter'
+      require 'karma-notify-reporter'
     ]

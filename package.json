@@ -45,6 +45,7 @@
     "http-proxy": "^1.11.1",
     "karma": "^0.12.37",
     "karma-mocha": "^0.2.0",
+    "karma-notify-reporter": "^0.1.1",
     "karma-sinon-chai": "^1.0.0",
     "karma-spec-reporter": "0.0.19",
     "karma-webpack": "^1.5.1",
