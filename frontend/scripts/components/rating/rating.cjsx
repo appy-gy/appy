@@ -9,7 +9,6 @@ ShareButtons = require './share_buttons'
 RatingMenu = require './menu'
 UserLink = require '../shared/links/user'
 DeleteRating = require '../shared/ratings/delete'
-isBlank = require '../../helpers/is_blank'
 prepublishValidation = require '../../helpers/ratings/prepublish_validation'
 isClient = require '../../helpers/is_client'
 
@@ -70,7 +69,7 @@ Rating = React.createClass
   publish: ->
     {rating} = @props
 
-    return unless isBlank @publishConditions()
+    return unless _.isEmpty @publishErrors()
 
     @app.ratingsActions.update(rating.id, status: 'published')
 
