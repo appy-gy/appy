@@ -19,6 +19,7 @@ RatingItem = React.createClass
 
   contextTypes:
     canEdit: PropTypes.bool.isRequired
+    rating: PropTypes.object.isRequired
 
   childContextTypes:
     ratingItem: PropTypes.object.isRequired
@@ -34,15 +35,6 @@ RatingItem = React.createClass
 
     @app.ratingItemsActions.remove ratingItem.id
 
-  removeButton: ->
-    {canEdit} = @context
-
-    return unless canEdit
-
-    <div className="rating-item_remove" onClick={@removeItem}>
-      Удалить пункт рейтинга
-    </div>
-
   handleWaypointEnter: ->
     {ratingItem} = @props
 
@@ -52,6 +44,22 @@ RatingItem = React.createClass
     {ratingItem} = @props
 
     @app.waypointsActions.remove ratingItem
+
+  removeButton: ->
+    {canEdit} = @context
+
+    return unless canEdit
+
+    <div className="rating-item_remove" onClick={@removeItem}>
+      Удалить пункт рейтинга
+    </div>
+
+  votes: ->
+    {rating} = @context
+
+    return unless rating.status == 'published'
+
+    <Votes/>
 
   render: ->
     {ratingItem, index} = @props
@@ -69,7 +77,7 @@ RatingItem = React.createClass
       <div className="rating_item_button-wrapper">
         {@removeButton()}
       </div>
-      <Votes/>
+      {@votes()}
     </section>
 
 module.exports = RatingItem

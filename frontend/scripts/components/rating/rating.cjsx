@@ -58,6 +58,29 @@ Rating = React.createClass
       </div>
     </div>
 
+  userLink: ->
+    {rating} = @props
+
+    return unless rating.status == 'published'
+
+    <UserLink user={rating.user} className="rating_author">
+      {rating.user.name || rating.user.email}
+    </UserLink>
+
+  like: ->
+    {rating} = @props
+
+    return unless rating.status == 'published'
+
+    <Like/>
+
+  shareButtons: ->
+    {rating} = @props
+
+    return unless rating.status == 'published'
+
+    <ShareButtons/>
+
   ratingItems: ->
     {ratingItems} = @props
 
@@ -115,16 +138,14 @@ Rating = React.createClass
       <Header/>
       <DeleteRating rating={rating} onDelete={@redirectToProfile}/>
       <Description object={rating} actions="ratingsActions"/>
-      <UserLink user={rating.user} className="rating_author">
-        {rating.user.name || rating.user.email}
-      </UserLink>
+      {@userLink()}
       <div className="rating_line"></div>
       {@ratingItems()}
       {@addRatingItemButton()}
       <div className="rating_line"></div>
       {@publishButton()}
-      <Like/>
-      <ShareButtons/>
+      {@like()}
+      {@shareButtons()}
     </article>
 
 module.exports = Marty.createContainer Rating,
