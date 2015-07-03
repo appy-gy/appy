@@ -22,10 +22,8 @@ Auth = React.createClass
   getChildContext: ->
     block: 'auth'
 
-  infoAndLogOut: (user) ->
-    withIndexKeys [
-      <Info user={user}/>
-    ]
+  info: (user) ->
+    <Info user={user}/>
 
   loginAndRegistration: (user) ->
     withIndexKeys [
@@ -36,7 +34,7 @@ Auth = React.createClass
   auth: ->
     {user} = @props
 
-    components = if user.isLoggedIn() then 'infoAndLogOut' else 'loginAndRegistration'
+    components = if user.isLoggedIn() then 'info' else 'loginAndRegistration'
     @[components] user
 
   render: ->

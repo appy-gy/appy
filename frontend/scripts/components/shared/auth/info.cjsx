@@ -1,6 +1,6 @@
 React = require 'react/addons'
 UserLink = require '../links/user'
-Logout = require '../../shared/auth/logout'
+Logout = require './logout'
 
 {PropTypes} = React
 
