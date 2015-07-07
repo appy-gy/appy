@@ -22,6 +22,10 @@ UserPage = React.createClass
 
   mixins: [ParsePage, SyncSlug('user'), Loading]
 
+  propTypes:
+    user: PropTypes.object.isRequired
+    currentUser: PropTypes.object.isRequired
+
   contextTypes:
     router: PropTypes.func.isRequired
 
@@ -29,12 +33,18 @@ UserPage = React.createClass
     user: PropTypes.object.isRequired
     userSlug: PropTypes.string.isRequired
     page: PropTypes.number.isRequired
+    isOwnPage: PropTypes.bool.isRequired
     block: PropTypes.string.isRequired
 
   getChildContext: ->
     {user, userSlug} = @props
 
-    { user, userSlug, page: @currentPage(), block: 'user-profile' }
+    { user, userSlug, page: @currentPage(), isOwnPage: @isOwnPage(), block: 'user-profile' }
+
+  isOwnPage: ->
+    {user, currentUser} = @props
+
+    currentUser?.id == user.id
 
   currentPage: ->
     {router} = @context
@@ -88,6 +98,7 @@ module.exports = Marty.createContainer UserPage,
     {userSlug} = @props
 
     user: @app.usersStore.get(userSlug)
+    currentUser: @app.currentUserStore.get()
 
   pending: ->
     @done user: new User

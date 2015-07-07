@@ -19,18 +19,23 @@ Ratings = React.createClass
     router: PropTypes.func.isRequired
     user: PropTypes.object.isRequired
     page: PropTypes.number.isRequired
+    isOwnPage: PropTypes.bool.isRequired
 
   noRatings: ->
+    {isOwnPage} = @context
+
     return if @hasRatings()
 
+    text = if isOwnPage then 'У вас пока нет рейтингов. Создайте свой первый рейтинг прямо сейчас!' else 'У пользователя нет рейтингов.'
+
     <div>
-      У вас пока нет рейтингов. Создайте свой первый рейтинг прямо сейчас!
+      {text}
     </div>
 
   createRating: ->
-    {user} = @context
+    {user, isOwnPage} = @context
 
-    return if @hasRatings()
+    return if @hasRatings() or not isOwnPage
 
     <CreateRating className="user-profile_tab-button">
       Создать рейтинг
