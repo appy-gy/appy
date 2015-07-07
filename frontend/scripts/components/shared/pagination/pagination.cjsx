@@ -56,9 +56,9 @@ Pagination = React.createClass
       </div>
 
   prevPageLink: ->
-    {link: Link, block, currentPage} = @props
+    {link: Link, block, currentPage, pagesCount} = @props
 
-    return if currentPage == 1
+    return if pagesCount <= 1 or currentPage == 1
 
     <Link className="m-prev" block={block} page={currentPage - 1}>
       Предидущая
@@ -67,7 +67,7 @@ Pagination = React.createClass
   nextPageLink: ->
     {link: Link, block, currentPage, pagesCount} = @props
 
-    return if currentPage == pagesCount
+    return if pagesCount <= 1 or currentPage == pagesCount
 
     <Link className="m-next" block={block} page={currentPage + 1}>
       Следующая

@@ -43,9 +43,17 @@ describe 'Pagination', ->
       expect(_.last(pagination.props.children)).not.to.be.undefined
 
   context 'zero pages', ->
-    it 'should not be visible', ->
-      pagination = createPagination currentPage: 1, pagesCount: 0
-      expect(getPages(pagination)).to.be.empty
+    before ->
+      @pagination = createPagination currentPage: 1, pagesCount: 0
+
+    it 'pages should not be visible', ->
+      expect(getPages(@pagination)).to.be.empty
+
+    it 'prev should not be visible', ->
+      expect(@pagination.props.children[0]).to.be.undefined
+
+    it 'next should not be visible', ->
+      expect(@pagination.props.children[2]).to.be.undefined
 
   context 'only one page', ->
     it 'should not be visible', ->
