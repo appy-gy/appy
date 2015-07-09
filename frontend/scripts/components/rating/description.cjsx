@@ -36,7 +36,7 @@ ObjectDescription = React.createClass
   stopEdit: ->
     {object} = @props
 
-    @setState edit: false
+    @setState edit: false unless isBlank(object.description)
 
   changeDescription: (event) ->
     {object, actions} = @props
