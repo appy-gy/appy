@@ -79,5 +79,5 @@ module.exports = Marty.createContainer Ratings,
     @clearStoresOnce()
     ratings: @app.ratingsStore.getPage(@page())
 
-  pending: ->
-    @done ratings: []
+  pending: (props) ->
+    @done _.defaults({}, props, ratings: [])
