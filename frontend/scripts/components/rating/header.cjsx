@@ -21,13 +21,6 @@ Header = React.createClass
     rating: PropTypes.object.isRequired
     canEdit: PropTypes.bool.isRequired
 
-  ratingImageButton: ->
-    {rating, canEdit} = @context
-
-    return unless canEdit
-
-    <div className="rating_add-image" onClick={@openSelect}></div>
-
   updateImage: (files) ->
     {rating} = @context
 
@@ -36,6 +29,20 @@ Header = React.createClass
 
     @app.ratingsActions.change rating.id, image: image.preview
     @app.ratingsActions.update rating.id, { image }
+
+  ratingImageButton: ->
+    {rating, canEdit} = @context
+
+    return unless canEdit
+
+    <div className="rating_add-image" onClick={@openSelect}></div>
+
+  tags: ->
+    {rating} = @context
+
+    return unless rating.status == 'published'
+
+    <Tags/>
 
   children: ->
     {rating} = @context
@@ -51,7 +58,7 @@ Header = React.createClass
         <TagsSelect/>
       </div>
       <Title object={rating} actions="ratingsActions"/>
-      <Tags/>
+      @tags()
     ]
 
   render: ->
