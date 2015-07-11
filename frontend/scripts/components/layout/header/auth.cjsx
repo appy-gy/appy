@@ -29,8 +29,8 @@ Auth = React.createClass
 
   loginAndRegistration: (user) ->
     withIndexKeys [
-      <Login>Вход</Login>
-      <Registration/>
+      <Login className="auth_login">Вход</Login>
+      <Registration className="auth_registration">Регистрация</Registration>
     ]
 
   auth: ->

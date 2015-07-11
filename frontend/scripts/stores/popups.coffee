@@ -1,5 +1,6 @@
 _ = require 'lodash'
 toArray = require '../helpers/to_array'
+findInStore = require '../helpers/find_in_store'
 React = require 'react/addons'
 Marty = require 'marty'
 Constants = require '../constants'
@@ -18,6 +19,9 @@ class PopupsStore extends Marty.Store
 
   getAll: ->
     @state
+
+  getOfType: (type) ->
+    findInStore @, type, all: true, fields: ['type']
 
   append: (popups) ->
     @state = update @state, $push: toArray(popups)

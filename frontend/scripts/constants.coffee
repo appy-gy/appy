@@ -2,6 +2,8 @@ Marty = require 'marty'
 
 # Use alphabet order
 Constants = Marty.createConstants [
+  'SET_AUTH_POPUP'
+
   'APPEND_COMMENTS'
 
   'SET_CURRENT_USER'

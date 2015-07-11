@@ -1,7 +1,9 @@
+_ = require 'lodash'
 uuid = require 'node-uuid'
 
 class Popup
-  constructor: (@content) ->
+  constructor: (data = {}) ->
+    _.merge @, data
     @cid = uuid.v4()
 
 module.exports = Popup
