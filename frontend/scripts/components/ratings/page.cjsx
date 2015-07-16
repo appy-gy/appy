@@ -49,8 +49,9 @@ Ratings = React.createClass
   content: ->
     {ratings} = @props
 
-    _.tap @previews(), (previews) =>
-      previews.splice @subscriptionPosition, 0, @subscription()
+    @previews()
+    # _.tap @previews(), (previews) =>
+    #   previews.splice @subscriptionPosition, 0, @subscription()
 
   render: ->
     {page} = @context
