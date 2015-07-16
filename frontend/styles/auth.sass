@@ -9,34 +9,27 @@
   transition: all 0.3s ease
   text-transform: uppercase
   text-align: center
+  color: $color-1
+  border: 3px solid $color-1
+
+  &:hover
+    border-color: darken($color-1, 15%)
+    background: darken($color-1, 15%)
+    color: $white
 
 .auth
   display: flex
   justify-content: space-between
-  margin: 75px 15px 15px 15px
+  margin: 15px
 
   &_login
     +button
-    color: $white
-    border: 3px solid $white
     flex: 1
     margin-right: 10px
 
-    &:hover
-      color: darken($color-1, 20%)
-      border-color: darken($color-1, 20%)
-
   &_registration
     +button
-    font-weight: 700
-    background: $white
-    color: $color-2
-    line-height: 40px
     flex: 2
-
-    &:hover
-      background: darken($color-1, 15%)
-      color: $white
 
   &_user-profile-link
     display: flex

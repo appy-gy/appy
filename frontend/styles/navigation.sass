@@ -17,7 +17,6 @@
     padding: 10px 20px
     text-align: center
     position: relative
-
     &:hover
       opacity: 0.8
 
@@ -35,60 +34,34 @@
     //   &:before
     //     left: 0
 
+    &:not(:first-of-type)
+      font-size: 18px
+
     &:first-of-type
       .site-nav_icon
-        width: 12px
-        height: 12px
-        border-radius: 6px
-        background: $white
+        &:before
+          +ion-icon("disc")
 
     &:nth-of-type(2)
       .site-nav_icon
-        width: 0
-        height: 0
-        border-left: 7px solid transparent
-        border-right: 7px solid transparent
-        border-top: 10px solid $white
+        &:before
+          +ion-icon("play")
 
     &:nth-of-type(3)
       .site-nav_icon
-        width: 10px
-        height: 10px
-        background: $white
+        &:before
+          +ion-icon("egg")
+
 
     &:nth-of-type(4)
       .site-nav_icon
-        position: relative
-        width: 14px
-        border-width: 7px 3px 0
-        border-style: solid
-        border-color: $white transparent
-
         &:before
-          content: ""
-          position: absolute
-          height: 0
-          width: 0
-          top: -13px
-          left: -3px
-          border-width: 0 7px 6px
-          border-style: solid
-          border-color: transparent transparent $white
+          +ion-icon("android-star")
+
     &:nth-of-type(5)
       .site-nav_icon
-        width: 2px
-        height: 12px
-        background: $white
-        position: relative
-        &:after
-          content: ''
-          display: block
-          position: absolute
-          width: 12px
-          height: 2px
-          background: $white
-          top: 5px
-          left: -5px
+        &:before
+          +ion-icon("android-favorite")
 
     &:nth-of-type(6)
       .site-nav_icon
