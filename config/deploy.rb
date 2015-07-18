@@ -43,7 +43,7 @@ namespace :webpack do
   desc 'Compile assets'
   task compile: :environment do
     queue %{echo "-----> Compiling assets"}
-    in_directory "#{deploy_to}/#{current_path}" do
+    in_directory "#{deploy_to}/$build_path" do
       queue! %{node_modules/.bin/webpack}
     end
   end
