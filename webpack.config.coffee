@@ -18,6 +18,13 @@ env = _.pick process.env, 'NODE_ENV', 'TOP_ENV', 'TOP_INSTAGRAM_KEY'
 definePluginEnv = mapObj env, (key, value) ->
   ["process.env.#{key}", JSON.stringify(value)]
 
+app = ['./frontend/app']
+
+if process.env.TOP_ENV == 'development'
+  app.unshift \
+    "webpack-dev-server/client?#{process.env.TOP_WEBPACK_HOST}"
+    'webpack/hot/dev-server'
+
 plugins = [
   new webpack.PrefetchPlugin 'react'
   new webpack.PrefetchPlugin 'react/lib/ReactComponentBrowserEnvironment'
@@ -36,11 +43,7 @@ plugins.push \
 
 module.exports =
   entry:
-    app: [
-      "webpack-dev-server/client?#{process.env.TOP_WEBPACK_HOST}"
-      'webpack/hot/dev-server'
-      './frontend/app'
-    ]
+    app: app
   output:
     path: path.join(__dirname, 'public/assets')
     filename: 'app.js'
