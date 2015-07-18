@@ -49,5 +49,8 @@ app.use (req, res, next) ->
 app.use martyExpress
   routes: routes
   application: Application
+  error: (req, res, next, error) ->
+    console.error 'Failed to render', error, error.stack
+    res.sendStatus(500).end()
 
 app.listen port
