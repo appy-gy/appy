@@ -3,7 +3,6 @@ dotenv = require 'dotenv'
 path = require 'path'
 mapObj = require 'map-obj'
 webpack = require 'webpack'
-ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
 dotenv.load()
 
@@ -12,11 +11,8 @@ dotenv.load()
 cssLoaders = ['css', 'autoprefixer']
 lessLoaders = cssLoaders.concat 'less'
 sassLoaders = cssLoaders.concat 'sass'
-loaderGenerator = if process.env.TOP_ENV == 'development'
-  (loaders) -> ['style'].concat(loaders).join('!')
-else
-  (loaders) -> ExtractTextPlugin.extract 'style', loaders
-[cssLoader, lessLoader, sassLoader] = [cssLoaders, lessLoaders, sassLoaders].map loaderGenerator
+[cssLoader, lessLoader, sassLoader] = [cssLoaders, lessLoaders, sassLoaders].map (loaders) ->
+  ['style'].concat(loaders).join('!')
 
 env = _.pick process.env, 'NODE_ENV', 'TOP_ENV', 'TOP_INSTAGRAM_KEY'
 definePluginEnv = mapObj env, (key, value) ->
@@ -29,7 +25,6 @@ plugins = [
 
 if process.env.TOP_ENV == 'production'
   plugins.push \
-    new ExtractTextPlugin 'app.css'
     new webpack.optimize.UglifyJsPlugin compress: { warnings: false }
     new webpack.optimize.DedupePlugin()
 else

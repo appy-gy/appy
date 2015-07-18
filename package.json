@@ -40,7 +40,6 @@
     "coffee-script": "^1.9.3",
     "css-loader": "^0.9.1",
     "dotenv": "^1.0.0",
-    "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.1",
     "forever": "^0.14.2",
     "http-proxy": "^1.11.1",

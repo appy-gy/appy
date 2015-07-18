@@ -29,7 +29,7 @@ class Application extends Marty.Application
         object = require "../frontend/scripts/#{dir}/#{name}"
         @register _.camelCase(fullname), object
 
-assetsHost = if process.env.TOP_ENV == 'development' then "#{process.env.TOP_WEBPACK_HOST}/" else '/'
+assetsHost = if process.env.TOP_ENV == 'development' then "#{process.env.TOP_WEBPACK_HOST}/" else '/assets/'
 port = _.parseInt _.last process.env.TOP_PRERENDER_HOST.split(':')
 
 app = express()
