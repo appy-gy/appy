@@ -2,10 +2,6 @@
   "name": "top",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "build-dev": "./node_modules/.bin/webpack",
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack"
-  },
   "dependencies": {
     "classnames": "^2.1.2",
     "coffee-react": "^3.0.1",
