@@ -86,6 +86,7 @@ task deploy: :environment do
     invoke :'bundle:install'
     invoke :'npm:install'
     invoke :'rails:db_migrate'
+    invoke :'rails:assets_precompile'
     invoke :'webpack:compile'
     invoke :'deploy:cleanup'
 
