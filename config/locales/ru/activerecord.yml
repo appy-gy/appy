@@ -1,6 +1,5 @@
 ru:
-  activerecord:
-    attributes:
-      user:
-        email: Email
-        password: Пароль
+  attributes:
+    created_at: Дата создание
+    updated_at: Дата обновления
+    slug: Значение в url

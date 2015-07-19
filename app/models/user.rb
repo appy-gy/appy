@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
 
   after_create :generate_avatar, unless: :avatar?
 
+  def to_s
+    name or id
+  end
+
   private
 
   def slug_candidates

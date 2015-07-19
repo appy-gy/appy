@@ -50,6 +50,9 @@ gem 'russian'
 gem 'babosa'
 gem 'friendly_id'
 
+# Administration
+gem 'activeadmin', '~> 1.0.0.pre1'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails'

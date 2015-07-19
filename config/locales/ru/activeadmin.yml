@@ -1,0 +1,7 @@
+ru:
+  formtastic:
+    create: Создать
+    update: Обновить
+    save: Сохранить
+    "yes": Да
+    "no": Нет

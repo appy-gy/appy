@@ -45,7 +45,7 @@ module.exports =
   entry:
     app: app
   output:
-    path: path.join(__dirname, 'public/assets')
+    path: path.join(__dirname, 'public/static')
     filename: 'app.js'
     publicPath: "#{process.env.TOP_WEBPACK_HOST}/"
   debug: debug
