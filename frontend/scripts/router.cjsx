@@ -7,7 +7,7 @@ routes = require './routes'
 {ApplicationContainer} = Marty
 
 module.exports = ->
-  app = require './application'
+  app = require './app'
 
   Router.run routes, HistoryLocation, (Handler, state) ->
     container = \

@@ -25,7 +25,7 @@ AuthPopup = React.createClass
       <Close onClick={onClose}/>
       <SocialButtons/>
       <Or/>
-      <Form onSubmit={onSubmit}/>
+      <Form ref="form" onSubmit={onSubmit}/>
       {switcher}
     </div>
 

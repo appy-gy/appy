@@ -8,7 +8,7 @@ Link = require '../../../../scripts/components/shared/pagination/link'
 {expect} = chai
 
 createPagination = (props) ->
-  createComponent Pagination, _.merge(link: Link, props)
+  createComponent Pagination, props: _.merge(link: Link, props)
 
 getPages = (pagination) ->
   windows = pagination.props.children[1]

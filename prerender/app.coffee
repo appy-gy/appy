@@ -9,6 +9,7 @@ express = require 'express'
 Marty = require 'marty'
 martyExpress = require 'marty-express'
 
+AbstractApplication = require '../frontend/scripts/abstract_application'
 setup = require '../frontend/scripts/setup'
 routes = require '../frontend/scripts/routes'
 typesMap = require '../frontend/scripts/helpers/marty/types_map'
@@ -16,7 +17,7 @@ typesMap = require '../frontend/scripts/helpers/marty/types_map'
 dotenv.load()
 setup()
 
-class Application extends Marty.Application
+class Application extends AbstractApplication
   constructor: (options) ->
     super options
 

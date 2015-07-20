@@ -24,7 +24,7 @@ AuthPopupButton =
     @app.currentUserActions[@submitAction] data
       .then ({error}) =>
         return @showFailToast() if error?
-        @closePopup()
+        @closeAuthPopups()
 
   showFailToast: (error) ->
     toast = new Toast @failToastContent(error), type: 'error'
