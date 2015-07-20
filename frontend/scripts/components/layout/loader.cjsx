@@ -21,4 +21,4 @@ module.exports = Marty.createContainer Loader,
   listenTo: 'loaderVisibilityStore'
 
   fetch: ->
-    visible: @app.loaderVisibilityStore.get()
+    visible: @app.loaderVisibilityStore.get().visible
