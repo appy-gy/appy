@@ -3,7 +3,7 @@ ActiveAdmin.register Section do
 
   actions :all, except: [:show]
 
-  permit_params :name, :color
+  permit_params :name, :color, :slug
 
   filter :name
 
@@ -20,6 +20,7 @@ ActiveAdmin.register Section do
     f.inputs do
       f.input :name, as: :string
       f.input :color, as: :color
+      f.input :slug, as: :string
     end
     f.actions
   end
