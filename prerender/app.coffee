@@ -9,6 +9,7 @@ express = require 'express'
 Marty = require 'marty'
 martyExpress = require 'marty-express'
 
+AbstractApplication = require '../frontend/scripts/abstract_application'
 setup = require '../frontend/scripts/setup'
 routes = require '../frontend/scripts/routes'
 typesMap = require '../frontend/scripts/helpers/marty/types_map'
@@ -16,7 +17,7 @@ typesMap = require '../frontend/scripts/helpers/marty/types_map'
 dotenv.load()
 setup()
 
-class Application extends Marty.Application
+class Application extends AbstractApplication
   constructor: (options) ->
     super options
 
@@ -29,7 +30,7 @@ class Application extends Marty.Application
         object = require "../frontend/scripts/#{dir}/#{name}"
         @register _.camelCase(fullname), object
 
-assetsHost = if process.env.TOP_ENV == 'development' then "#{process.env.TOP_WEBPACK_HOST}/" else '/'
+assetsHost = if process.env.TOP_ENV == 'development' then "#{process.env.TOP_WEBPACK_HOST}/" else '/static/'
 port = _.parseInt _.last process.env.TOP_PRERENDER_HOST.split(':')
 
 app = express()
@@ -49,5 +50,8 @@ app.use (req, res, next) ->
 app.use martyExpress
   routes: routes
   application: Application
+  error: (req, res, next, error) ->
+    console.error 'Failed to render', error, error.stack
+    res.sendStatus(500).end()
 
 app.listen port

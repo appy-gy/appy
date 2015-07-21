@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624195501) do
+ActiveRecord::Schema.define(version: 20150719180710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,8 +110,8 @@ ActiveRecord::Schema.define(version: 20150624195501) do
     t.text     "email"
     t.text     "crypted_password"
     t.text     "salt"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.text     "reset_password_token"
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
@@ -119,7 +119,8 @@ ActiveRecord::Schema.define(version: 20150624195501) do
     t.text     "avatar"
     t.text     "facebook_link"
     t.text     "instagram_link"
-    t.text     "slug",                            null: false
+    t.text     "slug",                                        null: false
+    t.integer  "role",                            default: 0, null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

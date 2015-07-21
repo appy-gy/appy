@@ -1,10 +1,10 @@
 _ = require 'lodash'
-Marty = require 'marty'
+AbstractApplication = require './abstract_application'
 typesMap = require './helpers/marty/types_map'
 
 context = require.context './', true, /(actions|queries|sources|stores)\/(.*?)\.coffee$/
 
-class Application extends Marty.Application
+class Application extends AbstractApplication
   constructor: (options) ->
     super options
 
@@ -16,4 +16,4 @@ class Application extends Marty.Application
       @register _.camelCase(fullname), context(key)
       true
 
-module.exports = new Application
+module.exports = Application

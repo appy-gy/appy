@@ -1,6 +1,7 @@
 _ = require 'lodash'
 chai = require 'chai'
-createComponent = require '../../../helpers/create_component'
+React = require 'react/addons'
+testTree = require 'react-test-tree'
 mockComponent = require '../../../helpers/mock_component'
 Pagination = require '../../../../scripts/components/shared/pagination/pagination'
 Link = require '../../../../scripts/components/shared/pagination/link'
@@ -8,13 +9,14 @@ Link = require '../../../../scripts/components/shared/pagination/link'
 {expect} = chai
 
 createPagination = (props) ->
-  createComponent Pagination, _.merge(link: Link, props)
+  testTree <Pagination link={Link} {...props}/>
 
 getPages = (pagination) ->
-  windows = pagination.props.children[1]
-  _.transform windows, (result, {key, props}) ->
-    pages = props.children.map _.property('props.children')
-    result[key] = pages
+  _.transform ['left', 'central', 'right'], (result, position) ->
+    window = pagination["#{position}Window"]
+    return unless window?
+    pages = window.map (link) -> link.getProp 'page'
+    result[position] = pages
   , {}
 
 describe 'Pagination', ->
@@ -27,20 +29,20 @@ describe 'Pagination', ->
   describe 'previous page link', ->
     it 'should not show on a first page', ->
       pagination = createPagination currentPage: 1, pagesCount: 10
-      expect(pagination.props.children[0]).to.be.undefined
+      expect(pagination.prevPageLink).to.be.undefined
 
     it 'should show on other pages', ->
       pagination = createPagination currentPage: 5, pagesCount: 10
-      expect(pagination.props.children[0]).not.to.be.undefined
+      expect(pagination.prevPageLink).not.to.be.undefined
 
   describe 'next page link', ->
     it 'should not show on a last page', ->
       pagination = createPagination currentPage: 10, pagesCount: 10
-      expect(_.last(pagination.props.children)).to.be.undefined
+      expect(pagination.nextPageLink).to.be.undefined
 
     it 'should show on other pages', ->
       pagination = createPagination currentPage: 5, pagesCount: 10
-      expect(_.last(pagination.props.children)).not.to.be.undefined
+      expect(pagination.nextPageLink).not.to.be.undefined
 
   context 'zero pages', ->
     before ->
@@ -50,10 +52,10 @@ describe 'Pagination', ->
       expect(getPages(@pagination)).to.be.empty
 
     it 'prev should not be visible', ->
-      expect(@pagination.props.children[0]).to.be.undefined
+      expect(@pagination.prevPageLink).to.be.undefined
 
     it 'next should not be visible', ->
-      expect(@pagination.props.children[2]).to.be.undefined
+      expect(@pagination.nextPageLink).to.be.undefined
 
   context 'only one page', ->
     it 'should not be visible', ->

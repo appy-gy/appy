@@ -1,0 +1,21 @@
+ru:
+  activerecord:
+    models:
+      user:
+        one: Пользователь
+        few: Пользователя
+        many: Пользователей
+        other: Пользователи
+    attributes:
+      user:
+        email: Email
+        password: Пароль
+        name: Имя
+        avatar: Аватар
+        facebook_link: Профиль в Facebook
+        instagram_link: Профиль в Instagram
+        role: Роль
+  users:
+    roles:
+      member: Пользователь
+      admin: Администратор

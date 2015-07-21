@@ -1,6 +1,6 @@
 _ = require 'lodash'
 isClient = require '../../helpers/is_client'
-app = require '../../application' if isClient()
+app = require '../../app' if isClient()
 
 firstLoad = true
 storesToSkip = new Set ['currentUser', 'headerSections', 'popups', 'toasts']

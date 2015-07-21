@@ -7,4 +7,8 @@ class Section < ActiveRecord::Base
 
   validates :name, :color, presence: true
   validates :name, uniqueness: true
+
+  def to_s
+    name
+  end
 end
