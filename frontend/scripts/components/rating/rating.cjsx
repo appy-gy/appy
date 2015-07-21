@@ -128,13 +128,6 @@ Rating = React.createClass
     {rating} = @props
 
     <article className="rating">
-      <RatingMenu>
-        <div className="rating_menu-notification">
-          <div className="rating_menu-notification-icon">{@publishErrorsCounter()}</div>
-          <div className="rating_menu-notification-list">{@publishErrorItems()}</div>
-        </div>
-      </RatingMenu>
-
       <Header/>
       <DeleteRating rating={rating} onDelete={@redirectToProfile}/>
       <Description object={rating} actions="ratingsActions"/>

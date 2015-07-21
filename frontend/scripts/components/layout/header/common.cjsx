@@ -13,7 +13,6 @@ CommonHeader = React.createClass
       <Navigation/>
       <Auth/>
       <CreateRatingButton/>
-      <Logo/>
     </Header>
 
 module.exports = CommonHeader
