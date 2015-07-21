@@ -51,7 +51,7 @@ Pagination = React.createClass
     _.map @windowRanges(), (range, position) =>
       classes = classNames "#{block}_window", "m-#{position}"
 
-      <div key={position} className={classes}>
+      <div key={position} refCollection="#{position}Window" className={classes}>
         {@links range}
       </div>
 
@@ -60,7 +60,7 @@ Pagination = React.createClass
 
     return if pagesCount <= 1 or currentPage == 1
 
-    <Link className="m-prev" block={block} page={currentPage - 1}>
+    <Link ref="prevPageLink" className="m-prev" block={block} page={currentPage - 1}>
       Предидущая
     </Link>
 
@@ -69,7 +69,7 @@ Pagination = React.createClass
 
     return if pagesCount <= 1 or currentPage == pagesCount
 
-    <Link className="m-next" block={block} page={currentPage + 1}>
+    <Link ref="nextPageLink" className="m-next" block={block} page={currentPage + 1}>
       Следующая
     </Link>
 
