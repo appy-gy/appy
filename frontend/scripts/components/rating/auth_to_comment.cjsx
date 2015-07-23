@@ -10,7 +10,7 @@ AuthToComment = React.createClass
         Авторизуйтесь
       </Login>
       <div className="comments_auth-to-comment-body">
-        авторизуйтесь, чтобы оставить комментарий
+        чтобы оставить комментарий
       </div>
     </div>
 

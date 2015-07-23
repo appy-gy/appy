@@ -24,9 +24,13 @@
     width: $header-width
     height: 100%
     overflow-y: auto
+    flex-flow: row wrap
+
+    > *
+      width: 100%
 
     @media screen and (min-width: $medium)
-      display: block
+      display: flex
 
   &_loader
     position: fixed
