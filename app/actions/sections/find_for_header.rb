@@ -1,7 +1,7 @@
 module Sections
   class FindForHeader
     def call
-      Section.all
+      Section.order :position
     end
   end
 end
