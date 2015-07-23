@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719180710) do
+ActiveRecord::Schema.define(version: 20150723152111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,11 +91,12 @@ ActiveRecord::Schema.define(version: 20150719180710) do
   add_index "ratings_tags", ["tag_id"], name: "index_ratings_tags_on_tag_id", using: :btree
 
   create_table "sections", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.text     "name",       null: false
-    t.text     "color",      null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text     "slug",       null: false
+    t.text     "name",                   null: false
+    t.text     "color",                  null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.text     "slug",                   null: false
+    t.integer  "position",   default: 0, null: false
   end
 
   add_index "sections", ["slug"], name: "index_sections_on_slug", unique: true, using: :btree
