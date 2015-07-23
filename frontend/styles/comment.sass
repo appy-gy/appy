@@ -31,12 +31,14 @@
   &_textarea
     font-size: 16px
     background: $white
-    padding: 20px
+    padding: 10px
     margin-left: 10px
     border-radius: $border-radius
     width: calc(100% - 60px)
     min-height: 60px
     resize: none
+
+    &.m-subtree
 
   &_actions
     display: flex
@@ -48,8 +50,11 @@
     cursor: pointer
     margin-right: 5px
     width: 100%
-    &:hover
-      color: $blue
+
+    &-link
+      &:hover
+        color: $blue
+
 
   &:hover
     .comment_actions

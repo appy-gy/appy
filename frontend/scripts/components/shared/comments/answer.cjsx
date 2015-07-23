@@ -48,7 +48,7 @@ Answer = React.createClass
     Root = @root()
 
     <Root className="comment_action" slug={comment.ratingSlug} query={comment: comment.shortId(), reply: true}>
-      <div onClick={@triggerForm}>
+      <div className="coment_action-link" onClick={@triggerForm}>
         Ответить
       </div>
       {@form()}

@@ -30,9 +30,11 @@ Like = React.createClass
       <div key={index} className={@childClasses("rating_like-burst-#{index}")}/>
 
   render: ->
-    <div className="rating_like" onClick={@triggerLike}>
-      {@subbursts()}
-      <div className={@childClasses('rating_like-content')}></div>
+    <div className="rating_like-wrapper">
+      <div className="rating_like" onClick={@triggerLike}>
+        <div className={@childClasses('rating_like-icon')}></div>
+        <div className={@childClasses('rating_like-content')}>12378</div>
+      </div>
     </div>
 
 module.exports = Like

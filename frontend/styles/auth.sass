@@ -1,34 +1,16 @@
-=button
-  font-size: 12px
-  font-weight: 600
-  cursor: pointer
-  padding: 0 10px
-  border-radius: $border-radius
-  line-height: 34px
-  height: 40px
-  transition: all 0.3s ease
-  text-transform: uppercase
-  text-align: center
-  color: $color-1
-  border: 3px solid $color-1
-
-  &:hover
-    border-color: darken($color-1, 15%)
-    background: darken($color-1, 15%)
-    color: $white
-
 .auth
   display: flex
   justify-content: space-between
   margin: 15px
+  align-self: flex-end
 
   &_login
-    +button
+    +border-button
     flex: 1
     margin-right: 10px
 
   &_registration
-    +button
+    +border-button
     flex: 2
 
   &_user-profile-link
