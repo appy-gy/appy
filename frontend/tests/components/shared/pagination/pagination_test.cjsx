@@ -2,7 +2,7 @@ _ = require 'lodash'
 chai = require 'chai'
 React = require 'react/addons'
 testTree = require 'react-test-tree'
-mockComponent = require '../../../helpers/mock_component'
+mockComponents = require '../../../helpers/mock_components'
 Pagination = require '../../../../scripts/components/shared/pagination/pagination'
 Link = require '../../../../scripts/components/shared/pagination/link'
 
@@ -21,10 +21,10 @@ getPages = (pagination) ->
 
 describe 'Pagination', ->
   before ->
-    @restoreLink = mockComponent Link
+    @restoreComponents = mockComponents Link
 
   after ->
-    @restoreLink()
+    @restoreComponents()
 
   describe 'previous page link', ->
     it 'should not show on a first page', ->
