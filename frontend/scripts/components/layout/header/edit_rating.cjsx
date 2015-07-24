@@ -11,8 +11,6 @@ EditRatingHeader = React.createClass
 
   render: ->
     <Header>
-      <Logo/>
-      <Auth/>
       <EditRatingItems/>
     </Header>
 

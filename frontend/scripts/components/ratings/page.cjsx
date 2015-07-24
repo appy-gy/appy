@@ -49,8 +49,9 @@ Ratings = React.createClass
   content: ->
     {ratings} = @props
 
-    _.tap @previews(), (previews) =>
-      previews.splice @subscriptionPosition, 0, @subscription()
+    @previews()
+    # _.tap @previews(), (previews) =>
+    #   previews.splice @subscriptionPosition, 0, @subscription()
 
   render: ->
     {page} = @context
@@ -79,5 +80,5 @@ module.exports = Marty.createContainer Ratings,
     @clearStoresOnce()
     ratings: @app.ratingsStore.getPage(@page())
 
-  pending: ->
-    @done ratings: []
+  pending: (props) ->
+    @done _.defaults({}, props, ratings: [])

@@ -13,7 +13,7 @@ class LoaderVisibilityStore extends Marty.Store
   get: ->
     @fetch
       id: 'get'
-      locally: -> @state.visible
+      locally: -> @state
 
   set: (visible) ->
     @state = { visible }

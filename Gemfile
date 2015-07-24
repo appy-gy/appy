@@ -50,6 +50,9 @@ gem 'russian'
 gem 'babosa'
 gem 'friendly_id'
 
+# Administration
+gem 'activeadmin', '~> 1.0.0.pre1'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails'
@@ -66,6 +69,8 @@ group :development do
   gem 'binding_of_caller'
   gem 'sys-proctable', require: false
   gem 'colorize', require: false
+  gem 'mina', require: false
+  gem 'mina-puma', require: false
 end
 
 group :test do

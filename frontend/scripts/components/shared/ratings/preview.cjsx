@@ -61,7 +61,9 @@ Preview = React.createClass
         @app.ratingsActions.remove rating.id
         removePopup()
       onCancel: removePopup
-    popup = new Popup <ConfirmationPopup {...popupProps}/>
+    popup = new Popup
+      type: 'confirmation'
+      content: <ConfirmationPopup {...popupProps}/>
 
     @app.popupsActions.append popup
 

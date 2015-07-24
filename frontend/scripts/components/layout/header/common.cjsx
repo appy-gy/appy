@@ -10,10 +10,9 @@ CommonHeader = React.createClass
 
   render: ->
     <Header>
-      <Logo/>
+      <Navigation/>
       <Auth/>
       <CreateRatingButton/>
-      <Navigation/>
     </Header>
 
 module.exports = CommonHeader

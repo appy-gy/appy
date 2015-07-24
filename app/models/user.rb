@@ -6,12 +6,18 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, Users::AvatarUploader
 
+  enum role: %w{member admin}
+
   has_many :ratings, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :votes, dependent: :destroy
 
   after_create :generate_avatar, unless: :avatar?
+
+  def to_s
+    name or id
+  end
 
   private
 

@@ -3,18 +3,19 @@
     display: block
     font-size: 40px
     font-weight: 700
-    color: white
+    color: $black
     line-height: 60px
     text-align: center
     width: 240px
     height: 60px
     position: fixed
+    margin-top: 40px
 
   &_rating-button
     display: block
     font-weight: 600
-    background: $white
-    color: $color-1
+    background: $color-1
+    color: $white
     cursor: pointer
     margin: 15px
     border-radius: $border-radius
@@ -23,6 +24,7 @@
     height: 40px
     text-transform: uppercase
     transition: 0.2s ease
+    align-self: flex-end
 
     &:hover
       color: $white
@@ -33,10 +35,10 @@
 
   &_rating-item
     display: flex
-    background-color: $white-3
-    color: $white
+    background-color: $grey-2
+    color: $black
     padding: 5px 10px
-    margin: 5px 15px
+    margin: 8px 15px
     border-radius: 2px
     line-height: 20px
     height: 30px
@@ -44,7 +46,7 @@
     position: relative
 
     &.m-waypoint-enter
-      background-color: tomato
+      background-color: $color-3
 
     &.m-edit
       cursor: move
@@ -54,23 +56,13 @@
     &.m-dragging
       opacity: 0
 
-  &_rating-item-title
-    font-size: 12px
-    margin-right: 5px
-    overflow: hidden
-    width: 100%
-    text-overflow: ellipsis
+    &-title
+      font-size: 12px
+      margin-right: 5px
+      overflow: hidden
+      width: 100%
+      color: $black
+      text-overflow: ellipsis
 
-  &_rating-item-options
-    display: flex
-
-  &_rating-item-up
-    cursor: pointer
-    margin-right: 5px
-    &:before
-      +ion-icon("arrow-up-c")
-
-  &_rating-item-down
-    cursor: pointer
-    &:before
-      +ion-icon("arrow-down-c")
+    &-options
+      font-size: 12px

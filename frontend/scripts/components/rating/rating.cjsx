@@ -9,7 +9,7 @@ ShareButtons = require './share_buttons'
 RatingMenu = require './menu'
 Nothing = require '../shared/nothing'
 UserLink = require '../shared/links/user'
-DeleteRating = require '../shared/ratings/delete'
+Delete = require '../shared/ratings/delete'
 prepublishValidation = require '../../helpers/ratings/prepublish_validation'
 isClient = require '../../helpers/is_client'
 
@@ -104,6 +104,14 @@ Rating = React.createClass
 
     <h1 onClick={@publish}>Опубликовать</h1>
 
+  deleteButton: ->
+    {rating} = @props
+    {canEdit} = @context
+
+    return if rating.status == 'published'
+
+    <Delete rating={rating} onDelete={@redirectToProfile}/>
+
   publishErrors: ->
     {rating, ratingItems} = @props
 
@@ -128,15 +136,8 @@ Rating = React.createClass
     {rating} = @props
 
     <article className="rating">
-      <RatingMenu>
-        <div className="rating_menu-notification">
-          <div className="rating_menu-notification-icon">{@publishErrorsCounter()}</div>
-          <div className="rating_menu-notification-list">{@publishErrorItems()}</div>
-        </div>
-      </RatingMenu>
-
       <Header/>
-      <DeleteRating rating={rating} onDelete={@redirectToProfile}/>
+      {@deleteButton()}
       <Description object={rating} actions="ratingsActions"/>
       {@userLink()}
       <div className="rating_line"></div>

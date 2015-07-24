@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624195501) do
+ActiveRecord::Schema.define(version: 20150723152111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,11 +91,12 @@ ActiveRecord::Schema.define(version: 20150624195501) do
   add_index "ratings_tags", ["tag_id"], name: "index_ratings_tags_on_tag_id", using: :btree
 
   create_table "sections", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.text     "name",       null: false
-    t.text     "color",      null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text     "slug",       null: false
+    t.text     "name",                   null: false
+    t.text     "color",                  null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.text     "slug",                   null: false
+    t.integer  "position",   default: 0, null: false
   end
 
   add_index "sections", ["slug"], name: "index_sections_on_slug", unique: true, using: :btree
@@ -110,8 +111,8 @@ ActiveRecord::Schema.define(version: 20150624195501) do
     t.text     "email"
     t.text     "crypted_password"
     t.text     "salt"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.text     "reset_password_token"
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_sent_at"
@@ -119,7 +120,8 @@ ActiveRecord::Schema.define(version: 20150624195501) do
     t.text     "avatar"
     t.text     "facebook_link"
     t.text     "instagram_link"
-    t.text     "slug",                            null: false
+    t.text     "slug",                                        null: false
+    t.integer  "role",                            default: 0, null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

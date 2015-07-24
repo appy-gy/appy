@@ -1,3 +1,4 @@
+_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 Section = require './section'
@@ -30,5 +31,5 @@ module.exports = Marty.createContainer Navigation,
   fetch: ->
     sections: @app.headerSectionsStore.getAll()
 
-  pending: ->
-    @done sections: []
+  pending: (props) ->
+    @done _.defaults({}, props, sections: [])

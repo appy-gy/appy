@@ -1,0 +1,13 @@
+ru:
+  activerecord:
+    models:
+      section:
+        one: Секция
+        few: Секции
+        many: Секций
+        other: Секции
+    attributes:
+      section:
+        name: Название
+        color: Цвет
+        position: Позиция

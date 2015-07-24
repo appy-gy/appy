@@ -4,7 +4,6 @@
   border: 1px solid #f2f2f2
   border-radius: $border-radius
   width: 100%
-  margin-top: $rating-menu
 
   &_menu
     position: fixed
@@ -96,7 +95,7 @@
     &:hover
 
       .rating_cover:after
-        display: block
+        opacity: 1
 
   &_cover
     position: absolute
@@ -110,13 +109,14 @@
 
     &:after
       content: ''
-      display: none
+      opacity: 0
       position: absolute
       top: 0
       left: 0
       width: 100%
       height: 100%
       background: $black-3
+      transition: all 0.2s
 
   &_line
     position: relative
@@ -166,7 +166,44 @@
       font-size: 18px
 
   &_like
-    +like-burst(120px)
+    position: relative
+    cursor: pointer
+
+    &-wrapper
+      display: flex
+      align-items: center
+      justify-content: center
+      padding: 40px 0 60px 0
+    &-icon
+      display: flex
+      justify-content: center
+      align-items: center
+      &:before
+        +ion-icon("ios-heart-outline")
+        font-size: 90px
+        color: $red
+
+      &.m-active
+        &:before
+          +ion-icon("ios-heart")
+
+        animation: heart-beat 0.5s ease-out
+
+    &-content
+      position: absolute
+      width: 100%
+      height: 100%
+      left: 0
+      top: 0
+      font-size: 12px
+      font-weight: 600
+      text-align: center
+      color: $black-3
+      display: flex
+      justify-content: center
+      align-items: center
+      &.m-active
+        color: $white
 
   &_meta
     justify-content: center
@@ -214,14 +251,6 @@
     &.m-cancel
       +cancel
 
-  &_section-name-wrapper
-    position: absolute
-    top: 80px
-    width: 100%
-    display: flex
-    justify-content: center
-    z-index: 1
-
   &_section-name
     display: block
     font-size: 15px
@@ -230,6 +259,14 @@
     // margin: 25px 0 15px 0
     text-transform: uppercase
     cursor: pointer
+
+    &-wrapper
+      position: absolute
+      top: 80px
+      width: 100%
+      display: flex
+      justify-content: center
+      z-index: 2
 
     &:after
       content: ":"

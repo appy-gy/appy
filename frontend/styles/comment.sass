@@ -35,19 +35,28 @@
     margin-left: 10px
     border-radius: $border-radius
     width: calc(100% - 60px)
+    min-height: 60px
     resize: none
+
+    &.m-subtree
 
   &_actions
     display: flex
     padding-top: 3px
 
   &_action
-    font-size: 13px
-    color: $black-3
-    cursor: pointer
-    margin-right: 5px
-    &:hover
-      color: $blue
+    width: 100%
+
+    &-link
+      display: inline
+      font-size: 13px
+      cursor: pointer
+      color: $black-3
+      user-select: none
+
+      &:hover
+        color: $blue
+
 
   &:hover
     .comment_actions
