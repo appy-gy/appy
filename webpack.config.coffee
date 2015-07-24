@@ -14,6 +14,11 @@ sassLoaders = cssLoaders.concat 'sass'
 [cssLoader, lessLoader, sassLoader] = [cssLoaders, lessLoaders, sassLoaders].map (loaders) ->
   ['style'].concat(loaders).join('!')
 
+cjsxLoaders = ['coffee', 'cjsx']
+
+if process.env.TOP_ENV == 'development'
+  cjsxLoaders.unshift 'react-hot'
+
 env = _.pick process.env, 'NODE_ENV', 'TOP_ENV', 'TOP_INSTAGRAM_KEY'
 definePluginEnv = mapObj env, (key, value) ->
   ["process.env.#{key}", JSON.stringify(value)]
@@ -63,5 +68,5 @@ module.exports =
       { test: /\.scss$/, loader: sassLoader }
       { test: /\.js$/, include: /node_modules\/marty/, loader: 'babel' }
       { test: /\.coffee$/, exclude: /node_modules/, loader: 'coffee' }
-      { test: /\.cjsx$/, exclude: /node_modules/, loaders: ['react-hot', 'coffee', 'cjsx'] }
+      { test: /\.cjsx$/, exclude: /node_modules/, loaders: cjsxLoaders }
     ]
