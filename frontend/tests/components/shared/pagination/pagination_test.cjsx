@@ -28,63 +28,63 @@ describe 'Pagination', ->
 
   describe 'previous page link', ->
     it 'should not show on a first page', ->
-      pagination = createPagination currentPage: 1, pagesCount: 10
-      expect(pagination.prevPageLink).to.be.undefined
+      paginationTree = createPagination currentPage: 1, pagesCount: 10
+      expect(paginationTree.prevPageLink).to.be.undefined
 
     it 'should show on other pages', ->
-      pagination = createPagination currentPage: 5, pagesCount: 10
-      expect(pagination.prevPageLink).not.to.be.undefined
+      paginationTree = createPagination currentPage: 5, pagesCount: 10
+      expect(paginationTree.prevPageLink).not.to.be.undefined
 
   describe 'next page link', ->
     it 'should not show on a last page', ->
-      pagination = createPagination currentPage: 10, pagesCount: 10
-      expect(pagination.nextPageLink).to.be.undefined
+      paginationTree = createPagination currentPage: 10, pagesCount: 10
+      expect(paginationTree.nextPageLink).to.be.undefined
 
     it 'should show on other pages', ->
-      pagination = createPagination currentPage: 5, pagesCount: 10
-      expect(pagination.nextPageLink).not.to.be.undefined
+      paginationTree = createPagination currentPage: 5, pagesCount: 10
+      expect(paginationTree.nextPageLink).not.to.be.undefined
 
   context 'zero pages', ->
     before ->
-      @pagination = createPagination currentPage: 1, pagesCount: 0
+      @paginationTree = createPagination currentPage: 1, pagesCount: 0
 
     it 'pages should not be visible', ->
-      expect(getPages(@pagination)).to.be.empty
+      expect(getPages(@paginationTree)).to.be.empty
 
     it 'prev should not be visible', ->
-      expect(@pagination.prevPageLink).to.be.undefined
+      expect(@paginationTree.prevPageLink).to.be.undefined
 
     it 'next should not be visible', ->
-      expect(@pagination.nextPageLink).to.be.undefined
+      expect(@paginationTree.nextPageLink).to.be.undefined
 
   context 'only one page', ->
     it 'should not be visible', ->
-      pagination = createPagination currentPage: 1, pagesCount: 1
-      expect(getPages(pagination)).to.be.empty
+      paginationTree = createPagination currentPage: 1, pagesCount: 1
+      expect(getPages(paginationTree)).to.be.empty
 
   context 'on a first page', ->
     it 'only one page', ->
-      pagination = createPagination currentPage: 1, pagesCount: 1
-      expect(getPages(pagination)).to.be.empty
+      paginationTree = createPagination currentPage: 1, pagesCount: 1
+      expect(getPages(paginationTree)).to.be.empty
 
     it 'pages count less than a half of window size', ->
-      pagination = createPagination currentPage: 1, pagesCount: 3
-      expect(getPages(pagination)).to.be.deep.equal(central: [1..3])
+      paginationTree = createPagination currentPage: 1, pagesCount: 3
+      expect(getPages(paginationTree)).to.be.deep.equal(central: [1..3])
 
     it 'pages count greater than a half of window size', ->
-      pagination = createPagination currentPage: 1, pagesCount: 7
-      expect(getPages(pagination)).to.be.deep.equal(central: [1..4], right: [7])
+      paginationTree = createPagination currentPage: 1, pagesCount: 7
+      expect(getPages(paginationTree)).to.be.deep.equal(central: [1..4], right: [7])
 
   context 'in the middle', ->
     it 'shows all windows', ->
-      pagination = createPagination currentPage: 10, pagesCount: 20
-      expect(getPages(pagination)).to.be.deep.equal(left: [1], central: [7..13], right: [20])
+      paginationTree = createPagination currentPage: 10, pagesCount: 20
+      expect(getPages(paginationTree)).to.be.deep.equal(left: [1], central: [7..13], right: [20])
 
   context 'on a last page', ->
     it 'pages count less than a half of window size', ->
-      pagination = createPagination currentPage: 3, pagesCount: 3
-      expect(getPages(pagination)).to.be.deep.equal(central: [1..3])
+      paginationTree = createPagination currentPage: 3, pagesCount: 3
+      expect(getPages(paginationTree)).to.be.deep.equal(central: [1..3])
 
     it 'pages count greater than a half of window size', ->
-      pagination = createPagination currentPage: 7, pagesCount: 7
-      expect(getPages(pagination)).to.be.deep.equal(left: [1], central: [4..7])
+      paginationTree = createPagination currentPage: 7, pagesCount: 7
+      expect(getPages(paginationTree)).to.be.deep.equal(left: [1], central: [4..7])

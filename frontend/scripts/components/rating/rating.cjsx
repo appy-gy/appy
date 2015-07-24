@@ -22,6 +22,7 @@ Rating = React.createClass
 
   propTypes:
     rating: PropTypes.object.isRequired
+    ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
   contextTypes:
     router: PropTypes.func.isRequired
@@ -46,6 +47,13 @@ Rating = React.createClass
 
     router.replaceWith 'user', userSlug: slug
 
+  publish: ->
+    {rating} = @props
+
+    return unless _.isEmpty @publishErrors()
+
+    @app.ratingsActions.update(rating.id, status: 'published')
+
   addRatingItemButton: ->
     {rating} = @props
     {canEdit} = @context
@@ -58,28 +66,28 @@ Rating = React.createClass
       </div>
     </div>
 
-  userLink: ->
+  authorLink: ->
     {rating} = @props
 
     return unless rating.status == 'published'
 
-    <UserLink user={rating.user} className="rating_author">
+    <UserLink ref="authorLink" user={rating.user} className="rating_author">
       {rating.user.name || rating.user.email}
     </UserLink>
 
-  like: ->
+  likeButton: ->
     {rating} = @props
 
     return unless rating.status == 'published'
 
-    <Like/>
+    <Like ref="likeButton"/>
 
   shareButtons: ->
     {rating} = @props
 
     return unless rating.status == 'published'
 
-    <ShareButtons/>
+    <ShareButtons ref="shareButtons"/>
 
   ratingItems: ->
     {ratingItems} = @props
@@ -90,19 +98,12 @@ Rating = React.createClass
         <RatingItem key={ratingItem.id} ratingItem={ratingItem} index={index + 1}/>
       .value()
 
-  publish: ->
-    {rating} = @props
-
-    return unless _.isEmpty @publishErrors()
-
-    @app.ratingsActions.update(rating.id, status: 'published')
-
   publishButton: ->
     {rating} = @props
 
     return if rating.status == 'published'
 
-    <h1 onClick={@publish}>Опубликовать</h1>
+    <h1 ref="publishButton" onClick={@publish}>Опубликовать</h1>
 
   deleteButton: ->
     {rating} = @props
@@ -110,7 +111,7 @@ Rating = React.createClass
 
     return if rating.status == 'published'
 
-    <Delete rating={rating} onDelete={@redirectToProfile}/>
+    <Delete ref="deleteButton" rating={rating} onDelete={@redirectToProfile}/>
 
   publishErrors: ->
     {rating, ratingItems} = @props
@@ -139,13 +140,13 @@ Rating = React.createClass
       <Header/>
       {@deleteButton()}
       <Description object={rating} actions="ratingsActions"/>
-      {@userLink()}
+      {@authorLink()}
       <div className="rating_line"></div>
       {@ratingItems()}
       {@addRatingItemButton()}
       <div className="rating_line"></div>
       {@publishButton()}
-      {@like()}
+      {@likeButton()}
       {@shareButtons()}
     </article>
 
@@ -166,12 +167,13 @@ module.exports = Marty.createContainer Rating,
   done: (results) ->
     {router} = @context
 
-    unless @hasAccess results
-      if isClient()
-        setImmediate -> router.replaceWith 'root'
-      <Nothing/>
+    if @hasAccess results
+      return <Rating ref="innerComponent" {...@props} {...results} app={@app}/>
 
-    <Rating ref="innerComponent" {...@props} {...results} app={@app}/>
+    if isClient()
+      setImmediate -> router.replaceWith 'root'
+
+    <Nothing ref="innerComponent"/>
 
   hasAccess: ({rating}) ->
     {canEdit} = @context
