@@ -30,10 +30,12 @@ Like = React.createClass
       <div key={index} className={@childClasses("rating_like-burst-#{index}")}/>
 
   render: ->
+    {rating} = @context
+
     <div className="rating_like-wrapper">
-      <div className="rating_like" onClick={@triggerLike}>
+      <div ref="like" className="rating_like" onClick={@triggerLike}>
         <div className={@childClasses('rating_like-icon')}></div>
-        <div className={@childClasses('rating_like-content')}>12378</div>
+        <div ref="counter" className={@childClasses('rating_like-content')}>{rating.likesCount}</div>
       </div>
     </div>
 

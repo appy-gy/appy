@@ -15,7 +15,7 @@ Meta = React.createClass
     <div className="#{block}_meta">
       <div className="#{block}_item ">
         <div className="#{block}_icon m-likes"></div>
-        <div className="#{block}_text">
+        <div ref="likesCounter" className="#{block}_text">
           {rating.likesCount}
         </div>
       </div>
