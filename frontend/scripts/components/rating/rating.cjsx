@@ -8,7 +8,6 @@ Like = require './like'
 ShareButtons = require './share_buttons'
 Nothing = require '../shared/nothing'
 UserLink = require '../shared/links/user'
-prepublishValidation = require '../../helpers/ratings/prepublish_validation'
 isClient = require '../../helpers/is_client'
 
 {PropTypes} = React

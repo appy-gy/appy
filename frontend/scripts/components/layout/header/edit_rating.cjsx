@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Marty = require 'marty'
 Header = require './header'
+Validations = require './validations'
 RatingActions = require './rating_actions'
 EditRatingItems = require './edit_rating_items'
 
@@ -25,6 +26,7 @@ EditRatingHeader = React.createClass
 
   render: ->
     <Header>
+      <Validations/>
       <RatingActions/>
       <EditRatingItems/>
     </Header>
