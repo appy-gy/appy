@@ -30,22 +30,18 @@ describe 'Rating', ->
         @rating.status = 'published'
         @ratingTree = testTree <Rating rating={@rating} ratingItems={@ratingItems}/>, context: { app: {}, canEdit: true }
 
-      _.each deleteButton: false, publishButton: false, authorLink: true, likeButton: true, shareButtons: true, (visible, name) ->
-        it "#{if visible then 'shows' else 'hides'} #{_.startCase name}", ->
-          expectation = expect @ratingTree[name]
-          expectation = expectation.not if visible
-          expectation.to.be.undefined
+      ['authorLink', 'likeButton', 'shareButtons'].forEach (name) ->
+        it "shows #{_.startCase name}", ->
+          expect(@ratingTree[name]).not.to.be.undefined
 
     context 'rating is draft', ->
       beforeEach ->
         @rating.status = 'draft'
         @ratingTree = testTree <Rating rating={@rating} ratingItems={@ratingItems}/>, context: { app: {}, canEdit: true }
 
-      _.each deleteButton: true, publishButton: true, authorLink: false, likeButton: false, shareButtons: false, (visible, name) ->
-        it "#{if visible then 'shows' else 'hides'} #{_.startCase name}", ->
-          expectation = expect @ratingTree[name]
-          expectation = expectation.not if visible
-          expectation.to.be.undefined
+      ['authorLink', 'likeButton', 'shareButtons'].forEach (name) ->
+        it "shows #{_.startCase name}", ->
+          expect(@ratingTree[name]).to.be.undefined
 
   describe 'draft access', ->
     before ->

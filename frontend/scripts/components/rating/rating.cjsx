@@ -9,7 +9,6 @@ ShareButtons = require './share_buttons'
 RatingMenu = require './menu'
 Nothing = require '../shared/nothing'
 UserLink = require '../shared/links/user'
-Delete = require '../shared/ratings/delete'
 prepublishValidation = require '../../helpers/ratings/prepublish_validation'
 isClient = require '../../helpers/is_client'
 
@@ -40,19 +39,6 @@ Rating = React.createClass
     {rating} = @props
 
     @app.ratingItemsActions.create rating.id
-
-  redirectToProfile: ->
-    {router} = @context
-    {slug} = @app.currentUserStore.getState()
-
-    router.replaceWith 'user', userSlug: slug
-
-  publish: ->
-    {rating} = @props
-
-    return unless _.isEmpty @publishErrors()
-
-    @app.ratingsActions.update(rating.id, status: 'published')
 
   addRatingItemButton: ->
     {rating} = @props
@@ -98,54 +84,17 @@ Rating = React.createClass
         <RatingItem key={ratingItem.id} ratingItem={ratingItem} index={index + 1}/>
       .value()
 
-  publishButton: ->
-    {rating} = @props
-
-    return if rating.status == 'published'
-
-    <h1 ref="publishButton" onClick={@publish}>Опубликовать</h1>
-
-  deleteButton: ->
-    {rating} = @props
-    {canEdit} = @context
-
-    return if rating.status == 'published'
-
-    <Delete ref="deleteButton" rating={rating} onDelete={@redirectToProfile}/>
-
-  publishErrors: ->
-    {rating, ratingItems} = @props
-
-    prepublishValidation rating, ratingItems
-
-  publishErrorItems: ->
-    @publishErrors().map (condition) ->
-      <div key={condition} className="rating_menu-notification-list-item">
-        {condition}publishErrors
-      </div>
-
-  publishErrorsCounter: ->
-    errors = @publishErrors()
-    return if _.isEmpty errors
-    counter = "+#{errors.length}"
-
-    <div className="rating_menu-notification-icon-counter">
-      {counter}
-    </div>
-
   render: ->
     {rating} = @props
 
     <article className="rating">
       <Header/>
-      {@deleteButton()}
       <Description object={rating} actions="ratingsActions"/>
       {@authorLink()}
       <div className="rating_line"></div>
       {@ratingItems()}
       {@addRatingItemButton()}
       <div className="rating_line"></div>
-      {@publishButton()}
       {@likeButton()}
       {@shareButtons()}
     </article>

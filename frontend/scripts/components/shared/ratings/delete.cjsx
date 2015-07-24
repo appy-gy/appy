@@ -42,7 +42,7 @@ DeleteRating = React.createClass
   render: ->
     {block} = @context
 
-    <div className="#{block}_delete" onClick={@showDeleteConfirmation}>
+    <div className="#{block}_delete-rating" onClick={@showDeleteConfirmation}>
       Удалить
     </div>
 

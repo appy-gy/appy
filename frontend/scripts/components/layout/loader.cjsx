@@ -8,12 +8,12 @@ Loader = React.createClass
   displayName: 'Loader'
 
   propTypes:
-    visible: PropTypes.bool.isRequired
+    visibility: PropTypes.object.isRequired
 
   render: ->
-    {visible} = @props
+    {visibility} = @props
 
-    return <Nothing/> unless visible
+    return <Nothing/> unless visibility.visible
 
     <div className="layout_loader"></div>
 
@@ -21,4 +21,4 @@ module.exports = Marty.createContainer Loader,
   listenTo: 'loaderVisibilityStore'
 
   fetch: ->
-    visible: @app.loaderVisibilityStore.get().visible
+    visibility: @app.loaderVisibilityStore.get()
