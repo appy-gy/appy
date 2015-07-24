@@ -34,11 +34,9 @@ RatingItem = React.createClass
     classes = classNames 'header_rating-item', 'm-waypoint-enter': _.includes(waypoints, ratingItem)
 
     <div className={classes}>
-      <div className="header_rating-item-title">
-        <a href={@ratingItemAnchor()} >
-          {ratingItem.title}
-        </a>
-      </div>
+      <a className="header_rating-item-title" href={@ratingItemAnchor()} >
+        {ratingItem.title}
+      </a>
       <div className="header_rating-item-options">
         {ratingItem.mark}
       </div>
