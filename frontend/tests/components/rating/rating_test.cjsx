@@ -30,7 +30,7 @@ describe 'Rating', ->
         @rating.status = 'published'
         @ratingTree = testTree <Rating rating={@rating} ratingItems={@ratingItems}/>, context: { app: {}, canEdit: true }
 
-      ['authorLink', 'likeButton', 'shareButtons'].forEach (name) ->
+      ['authorLink', 'likeButton', 'shareButtons'].each (name) ->
         it "shows #{_.startCase name}", ->
           expect(@ratingTree[name]).not.to.be.undefined
 
@@ -39,7 +39,7 @@ describe 'Rating', ->
         @rating.status = 'draft'
         @ratingTree = testTree <Rating rating={@rating} ratingItems={@ratingItems}/>, context: { app: {}, canEdit: true }
 
-      ['authorLink', 'likeButton', 'shareButtons'].forEach (name) ->
+      ['authorLink', 'likeButton', 'shareButtons'].each (name) ->
         it "shows #{_.startCase name}", ->
           expect(@ratingTree[name]).to.be.undefined
 

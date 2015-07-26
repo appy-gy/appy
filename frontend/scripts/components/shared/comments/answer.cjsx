@@ -40,7 +40,7 @@ Answer = React.createClass
 
     return unless showForm
 
-    <Form parent={comment}/>
+    <Form ref="form" parent={comment} onSubmit={@triggerForm}/>
 
   render: ->
     {comment} = @context
@@ -48,7 +48,7 @@ Answer = React.createClass
     Root = @root()
 
     <Root className="comment_action" slug={comment.ratingSlug} query={comment: comment.shortId(), reply: true}>
-      <div className="comment_action-link" onClick={@triggerForm}>
+      <div ref="trigger" className="comment_action-link" onClick={@triggerForm}>
         Ответить
       </div>
       {@form()}

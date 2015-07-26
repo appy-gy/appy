@@ -21,7 +21,7 @@
     "react-dnd": "^1.1.2",
     "react-router": "^0.13.3",
     "react-select": "^0.5.2",
-    "react-textarea-autosize": "^2.3.1",
+    "react-textarea-autosize": "^2.4.0",
     "react-waypoint": "^1.0.1",
     "setimmediate": "^1.0.2",
     "wolfy87-eventemitter": "miraks/EventEmitter"

@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 isBlank = require '../../helpers/is_blank'
+canCommentRating = require '../../helpers/ratings/can_comment'
 CommentsTree = require './comments_tree'
 NoComments = require './no_comments'
 AuthToComment = require './auth_to_comment'
@@ -15,14 +16,21 @@ Comments = React.createClass
   displayName: 'Comments'
 
   propTypes:
+    user: PropTypes.object.isRequired
     rating: PropTypes.object.isRequired
     comments: PropTypes.arrayOf(PropTypes.object).isRequired
 
   childContextTypes:
+    canComment: PropTypes.bool.isRequired
     block: PropTypes.string.isRequired
 
   getChildContext: ->
-    block: 'comments'
+    canComment: @canComment(), block: 'comments'
+
+  canComment: ->
+    {user, rating} = @props
+
+    canCommentRating user, rating
 
   trees: ->
     {comments} = @props
@@ -34,11 +42,11 @@ Comments = React.createClass
       <CommentsTree key={tree.root.id} tree={tree} level={1}/>
 
   commentForm: ->
-    {rating} = @props
+    {user, rating} = @props
 
-    return <AuthToComment/> unless rating.canComment
+    return <AuthToComment/> unless @canComment()
 
-    <CommentForm/>
+    <CommentForm ref="form"/>
 
   render: ->
     {rating} = @props
@@ -49,7 +57,9 @@ Comments = React.createClass
       <div className="comments_header">
         Комментарии
       </div>
-      {@trees()}
+      <div refCollection="trees" className="comments_trees">
+        {@trees()}
+      </div>
       {@commentForm()}
     </div>
 
@@ -57,10 +67,11 @@ module.exports = Marty.createContainer Comments,
   contextTypes:
     ratingSlug: PropTypes.string.isRequired
 
-  listenTo: ['ratingsStore', 'commentsStore']
+  listenTo: ['currentUserStore', 'ratingsStore', 'commentsStore']
 
   fetch: ->
     {ratingSlug} = @context
 
+    user: @app.currentUserStore.get()
     rating: @app.ratingsStore.get(ratingSlug)
     comments: @app.commentsStore.getForRating(ratingSlug)

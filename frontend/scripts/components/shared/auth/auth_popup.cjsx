@@ -1,7 +1,6 @@
 React = require 'react/addons'
 Marty = require 'marty'
 Title = require './title'
-Close = require './close'
 SocialButtons = require './social_buttons'
 Or = require './or'
 Form = require './form'
@@ -14,11 +13,10 @@ AuthPopup = React.createClass
   propTypes:
     title: PropTypes.string.isRequired
     onSubmit: PropTypes.func.isRequired
-    onClose: PropTypes.func.isRequired
     switcher: PropTypes.node.isRequired
 
   render: ->
-    {title, onSubmit, onClose, switcher} = @props
+    {title, onSubmit, switcher} = @props
 
     <div className="auth-popup">
       <Title text={title}/>
