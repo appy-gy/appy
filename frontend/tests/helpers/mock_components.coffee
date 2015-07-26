@@ -6,8 +6,6 @@ mockComponents = (components...) ->
     mockComponent component
 
   ->
-    restorers.forEach (restorer) ->
-      restorer()
-      true
+    restorers.each (restorer) -> restorer()
 
 module.exports = mockComponents

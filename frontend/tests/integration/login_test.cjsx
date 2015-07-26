@@ -8,7 +8,7 @@ Login = require '../../scripts/components/shared/auth/login'
 
 {expect} = chai
 
-describe 'login', ->
+describe 'Login', ->
   beforeEach ->
     @app = TestUtils.createApplication Application,
       include: ['popupsActions', 'popupsStore', 'currentUserActions', 'currentUserApi', 'currentUserStore']

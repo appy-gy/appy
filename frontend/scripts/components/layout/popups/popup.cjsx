@@ -1,9 +1,12 @@
 React = require 'react/addons'
+Marty = require 'marty'
 
 {PropTypes} = React
 
 Popup = React.createClass
   displayName: 'Popup'
+
+  mixins: [Marty.createAppMixin()]
 
   propTypes:
     popup: PropTypes.object.isRequired
@@ -11,7 +14,7 @@ Popup = React.createClass
   closePopup: ->
     {popup} = @props
 
-    popup.close()
+    @app.popupsActions.remove popup
 
   render: ->
     {popup} = @props

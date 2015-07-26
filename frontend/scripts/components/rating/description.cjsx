@@ -1,10 +1,10 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-Textarea = require 'react-textarea-autosize'
 Classes = require '../mixins/classes'
 isBlank = require '../../helpers/is_blank'
 withIndexKeys = require '../../helpers/react/with_index_keys'
+Textarea = require '../shared/textarea'
 
 {PropTypes} = React
 

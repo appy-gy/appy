@@ -49,7 +49,7 @@ Comment = React.createClass
         <div className="comment_date">
           {comment.createdAt.fromNow()}
         </div>
-        <Actions types={actionTypes}/>
+        <Actions ref="actions" types={actionTypes}/>
       </div>
     </div>
 

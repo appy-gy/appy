@@ -26,7 +26,7 @@ CommentsTree = React.createClass
     actionTypes = answer: { inline: true }
 
     <div className={classes}>
-      <Comment comment={tree.root} actionTypes={actionTypes}/>
+      <Comment ref="comment" comment={tree.root} actionTypes={actionTypes}/>
       {@subtrees()}
     </div>
 

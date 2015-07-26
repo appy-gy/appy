@@ -1,6 +1,6 @@
 React = require 'react/addons'
 Marty = require 'marty'
-Textarea = require 'react-textarea-autosize'
+Textarea = require '../textarea'
 
 {PropTypes} = React
 
@@ -10,7 +10,9 @@ Form = React.createClass
   mixins: [Marty.createAppMixin()]
 
   propTypes:
+    user: PropTypes.object.isRequired
     parent: PropTypes.object
+    onSubmit: PropTypes.func
 
   contextTypes:
     ratingSlug: PropTypes.string.isRequired
@@ -19,6 +21,7 @@ Form = React.createClass
 
   getDefaultProps: ->
     parent: null
+    onSubmit: ->
 
   getInitialState: ->
     body: ''
@@ -33,10 +36,11 @@ Form = React.createClass
     @createComment()
 
   createComment: ->
-    {parent} = @props
+    {parent, onSubmit} = @props
     {body} = @state
     {ratingSlug} = @context
 
+    onSubmit()
     @app.commentsActions.create ratingSlug, { body, parentId: parent?.id }
       .then => @setState body: ''
 
@@ -46,7 +50,7 @@ Form = React.createClass
 
     <div className="comment-form">
       <img className="comment_userface" src={user.avatarUrl 'small'}/>
-      <Textarea className="comment_textarea" placeholder={@placeholder} value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
+      <Textarea ref="bodyInput" className="comment_textarea" placeholder={@placeholder} value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
     </div>
 
 module.exports = Marty.createContainer Form,

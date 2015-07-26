@@ -22,7 +22,7 @@ Actions = React.createClass
     _.map types, (props, type) =>
       Comp = @types[type]
 
-      <Comp key={type} {...props}/>
+      <Comp key={type} ref={type} {...props}/>
 
   render: ->
     <div className="comment_actions">

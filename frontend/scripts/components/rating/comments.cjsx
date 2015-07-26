@@ -38,7 +38,7 @@ Comments = React.createClass
 
     return <AuthToComment/> unless rating.canComment
 
-    <CommentForm/>
+    <CommentForm ref="form"/>
 
   render: ->
     {rating} = @props
@@ -49,7 +49,9 @@ Comments = React.createClass
       <div className="comments_header">
         Комментарии
       </div>
-      {@trees()}
+      <div refCollection="trees" className="comments_trees">
+        {@trees()}
+      </div>
       {@commentForm()}
     </div>
 
