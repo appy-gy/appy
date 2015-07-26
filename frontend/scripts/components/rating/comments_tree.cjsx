@@ -11,6 +11,14 @@ CommentsTree = React.createClass
     tree: PropTypes.object.isRequired
     level: PropTypes.number.isRequired
 
+  contextTypes:
+    canComment: PropTypes.bool.isRequired
+
+  actionTypes: ->
+    {canComment} = @context
+
+    if canComment then { answer: { inline: true } } else {}
+
   subtrees: ->
     {tree, level} = @props
 
@@ -23,10 +31,9 @@ CommentsTree = React.createClass
     {tree, level} = @props
 
     classes = classNames 'comments_tree', "m-level-#{level}", 'm-subtree': level > 1
-    actionTypes = answer: { inline: true }
 
     <div className={classes}>
-      <Comment ref="comment" comment={tree.root} actionTypes={actionTypes}/>
+      <Comment ref="comment" comment={tree.root} actionTypes={@actionTypes()}/>
       {@subtrees()}
     </div>
 

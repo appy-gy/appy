@@ -15,7 +15,7 @@ UserLink = require '../../scripts/components/shared/links/user'
 {InnerComponent: Comments} = CommentsContainer
 
 buildUser = ->
-  id: _.uniqueId('userId'), avatarUrl: (->)
+  id: _.uniqueId('userId'), avatarUrl: (->), isLoggedIn: (-> true)
 
 buildComment = ->
   id: _.uniqueId('commentId')
@@ -30,7 +30,7 @@ describe 'Comments', ->
 
     beforeEach ->
       currentUser = buildUser()
-      rating = canSeeComments: true, canComment: true, slug: 'test'
+      rating = status: 'published', canSeeComments: true, slug: 'test'
       comments = [buildComment()]
       router = getCurrentQuery: -> {}
 
@@ -41,7 +41,7 @@ describe 'Comments', ->
             create: sinon.stub().returns(Promise.resolve(body: { comment: buildComment() }, status: 200))
       sinon.stub(app.currentUserStore, 'get').returns(fetch.done(currentUser))
 
-      @commentsTree = testTree <Comments rating={rating} comments={comments}/>, context: { app, router }
+      @commentsTree = testTree <Comments user={currentUser} rating={rating} comments={comments}/>, context: { app, router }
 
     after ->
       @restoreComponents()
