@@ -1,5 +1,6 @@
 React = require 'react/addons'
 Marty = require 'marty'
+classNames = require 'classnames'
 Textarea = require '../textarea'
 
 {PropTypes} = React
@@ -45,12 +46,14 @@ Form = React.createClass
       .then => @setState body: ''
 
   render: ->
-    {user} = @props
+    {user, parent} = @props
     {body} = @state
 
-    <div className="comment-form">
+    classes = classNames 'comment-form', 'm-answer': parent?
+
+    <div className={classes}>
       <img className="comment_userface" src={user.avatarUrl 'small'}/>
-      <Textarea ref="bodyInput" className="comment_textarea" placeholder={@placeholder} value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
+      <Textarea ref="bodyInput" className="comment-form_textarea" placeholder={@placeholder} value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
     </div>
 
 module.exports = Marty.createContainer Form,
