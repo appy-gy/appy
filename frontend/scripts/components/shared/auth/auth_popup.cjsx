@@ -22,11 +22,11 @@ AuthPopup = React.createClass
 
     <div className="auth-popup">
       <Title text={title}/>
-      <Close onClick={onClose}/>
       <SocialButtons/>
       <Or/>
       <Form ref="form" onSubmit={onSubmit}/>
       {switcher}
+      <Close onClick={onClose}/>
     </div>
 
 module.exports = AuthPopup

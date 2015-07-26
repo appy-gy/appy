@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Marty = require 'marty'
 Header = require './header'
+Logo = require './logo'
 Validations = require './validations'
 RatingActions = require './rating_actions'
 EditRatingItems = require './edit_rating_items'
@@ -26,9 +27,10 @@ EditRatingHeader = React.createClass
 
   render: ->
     <Header>
+      <Logo/>
+      <EditRatingItems/>
       <Validations/>
       <RatingActions/>
-      <EditRatingItems/>
     </Header>
 
 module.exports = Marty.createContainer EditRatingHeader,

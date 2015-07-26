@@ -11,9 +11,8 @@ RatingHeader = React.createClass
 
   render: ->
     <Header>
-      <RatingItems/>
       <Logo/>
-      <Auth/>
+      <RatingItems/>
     </Header>
 
 module.exports = RatingHeader

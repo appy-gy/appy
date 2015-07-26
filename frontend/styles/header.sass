@@ -1,15 +1,27 @@
 .header
   &_logotype
     display: block
-    font-size: 40px
-    font-weight: 700
-    color: $black
-    line-height: 60px
+    background: #2D4D77
+    color: $white
+    padding: 10px 20px
     text-align: center
-    width: 240px
-    height: 60px
-    position: fixed
-    margin-top: 40px
+    position: relative
+    flex-shrink: 0
+    height: 80px
+
+    &-icon
+      display: inline-block
+      margin-bottom: 2px
+      font-size: 20px
+      &:before
+        +ion-icon("thumbsup")
+    &-text
+      text-transform: uppercase
+      font-size: 14px
+      font-weight: 600
+
+    &:hover
+      opacity: 0.8
 
   &_rating-button
     display: block
@@ -24,7 +36,7 @@
     height: 40px
     text-transform: uppercase
     transition: 0.2s ease
-    align-self: flex-end
+    width: calc(100% - 30px)
 
     &:hover
       color: $white
@@ -32,6 +44,10 @@
 
   &_rating-button-icon
     margin-right: 5px
+
+  &_rating-title
+    padding: 15px 15px 5px 15px
+    font-family: $serif
 
   &_rating-item
     display: flex

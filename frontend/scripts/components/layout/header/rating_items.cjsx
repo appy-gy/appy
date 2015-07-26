@@ -20,6 +20,7 @@ RatingItems = React.createClass
 
   render: ->
     <div className="header_rating-items">
+      <div className="header_rating-title">Тут должно быть название рейтинга:</div>
       {@ratingItems()}
     </div>
 

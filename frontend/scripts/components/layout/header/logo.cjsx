@@ -11,7 +11,8 @@ Logo = React.createClass
 
   render: ->
     <Link to="root" className="header_logotype">
-      Activelist
+      <div className="header_logotype-icon"></div>
+      <div className="header_logotype-text">Activelist</div>
     </Link>
 
 module.exports = Logo

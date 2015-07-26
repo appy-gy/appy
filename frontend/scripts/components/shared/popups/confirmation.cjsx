@@ -24,11 +24,10 @@ ConfirmationPopup = React.createClass
         {text}
       </div>
       <div className="confirmation-popup_buttons">
-        <div className="confirmation-popup_button" onClick={onConfirm}>
+        <div className="confirmation-popup_button m-accept" onClick={onConfirm}>
           {confirmText}
         </div>
-        <div className="confirmation-popup_button" onClick={onCancel}>
-          {cancelText}
+        <div className="confirmation-popup_button m-cancel" onClick={onCancel}>
         </div>
       </div>
     </div>
