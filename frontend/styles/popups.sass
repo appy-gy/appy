@@ -14,3 +14,17 @@
 
   &_popup
     align-self: center
+
+    &-close
+      position: absolute
+      top: 3 * $margin
+      right: 3 * $margin
+      font-size: 40px
+      color: $white-2
+      cursor: pointer
+
+      &:before
+        +ion-icon("android-close")
+
+      &:hover
+        color: $white

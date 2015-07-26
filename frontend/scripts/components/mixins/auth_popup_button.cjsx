@@ -46,7 +46,7 @@ AuthPopupButton =
 
     popup = new Popup
       type: 'auth'
-      content: <AuthPopup title={@popupTitle} onSubmit={@submit} onClose={@closeAuthPopups} switcher={@switcher()}/>
+      content: <AuthPopup title={@popupTitle} onSubmit={@submit} switcher={@switcher()}/>
 
     @app.popupsActions.append popup
 
