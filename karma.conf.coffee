@@ -1,3 +1,5 @@
+process.env.TOP_ENV = 'test'
+
 webpack = require 'webpack'
 webpackConfig = require './webpack.config'
 

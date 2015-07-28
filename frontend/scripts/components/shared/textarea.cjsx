@@ -1,6 +1,6 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Textarea = require 'react-textarea-autosize'
+Textarea = if process.env.TOP_ENV == 'test' then 'textarea' else require('react-textarea-autosize')
 
 module.exports = React.createClass
   displayName: 'Textarea'

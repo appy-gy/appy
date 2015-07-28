@@ -6,41 +6,43 @@ webpack = require 'webpack'
 
 dotenv.load()
 
-[debug, devtool] = if process.env.TOP_ENV == 'development' then [true, 'eval'] else [false, null]
+app = ['./frontend/app']
 
-cssLoaders = ['css', 'autoprefixer']
-lessLoaders = cssLoaders.concat 'less'
-sassLoaders = cssLoaders.concat 'sass'
-[cssLoader, lessLoader, sassLoader] = [cssLoaders, lessLoaders, sassLoaders].map (loaders) ->
-  ['style'].concat(loaders).join('!')
-
-cjsxLoaders = ['coffee', 'cjsx']
-
-if process.env.TOP_ENV == 'development'
-  cjsxLoaders.unshift 'react-hot'
+debug = true
+devtool = 'eval'
 
 env = _.pick process.env, 'NODE_ENV', 'TOP_ENV', 'TOP_INSTAGRAM_KEY'
 definePluginEnv = mapObj env, (key, value) ->
   ["process.env.#{key}", JSON.stringify(value)]
-
-app = ['./frontend/app']
-
-if process.env.TOP_ENV == 'development'
-  app.unshift \
-    "webpack-dev-server/client?#{process.env.TOP_WEBPACK_HOST}"
-    'webpack/hot/dev-server'
 
 plugins = [
   new webpack.PrefetchPlugin 'react'
   new webpack.PrefetchPlugin 'react/lib/ReactComponentBrowserEnvironment'
 ]
 
-if process.env.TOP_ENV == 'production'
-  plugins.push \
-    new webpack.optimize.UglifyJsPlugin compress: { warnings: false }
-    new webpack.optimize.DedupePlugin()
-else
-  plugins.push new webpack.HotModuleReplacementPlugin()
+cssLoaders = ['css', 'autoprefixer']
+lessLoaders = cssLoaders.concat 'less'
+sassLoaders = cssLoaders.concat 'sass'
+[cssLoader, lessLoader, sassLoader] = [cssLoaders, lessLoaders, sassLoaders].map (loaders) ->
+  ['style'].concat(loaders).join('!')
+cjsxLoaders = ['coffee', 'cjsx']
+
+switch process.env.TOP_ENV
+  when 'production'
+    debug = false
+    devtool = null
+
+    plugins.push \
+      new webpack.optimize.UglifyJsPlugin compress: { warnings: false }
+      new webpack.optimize.DedupePlugin()
+  when 'development'
+    app.unshift \
+      "webpack-dev-server/client?#{process.env.TOP_WEBPACK_HOST}"
+      'webpack/hot/dev-server'
+
+    plugins.push new webpack.HotModuleReplacementPlugin()
+
+    cjsxLoaders.unshift 'react-hot'
 
 plugins.push \
   new webpack.DefinePlugin definePluginEnv
