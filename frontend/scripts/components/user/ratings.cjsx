@@ -76,7 +76,7 @@ module.exports = Marty.createContainer Ratings,
     status: PropTypes.string.isRequired
 
   contextTypes:
-    userSlug: PropTypes.object.isRequired
+    userSlug: PropTypes.string.isRequired
     page: PropTypes.number.isRequired
 
   fetch: ->
