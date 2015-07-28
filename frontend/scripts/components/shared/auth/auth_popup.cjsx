@@ -24,6 +24,7 @@ AuthPopup = React.createClass
       <Or/>
       <Form ref="form" onSubmit={onSubmit}/>
       {switcher}
+      <Close onClick={onClose}/>
     </div>
 
 module.exports = AuthPopup

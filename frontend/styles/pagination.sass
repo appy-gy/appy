@@ -3,6 +3,11 @@
   flex-flow: row nowrap
   list-style: none
   justify-content: center
+  position: relative
+  margin-top: 20px
+
+  &:not(:empty)
+    border-top: 2px solid $grey-3
 
   &_window
     display: flex
@@ -13,22 +18,39 @@
       content: '...'
 
   &_link
-    line-height: 26px
-    min-width: 30px
+    line-height: 30px
     height: 30px
-    margin: 0 3px
     font-family: $sans-serif
-    font-weight: 600
-    font-size: 18px
-    color: $blue
-    border-radius: 12px
+    font-weight: 700
+    font-size: 16px
+    color: $black-2
     text-align: center
-    border: 2px solid rgba(0, 0, 0, 0)
+    margin: 20px 5px 0 5px
+
+    &.m-next, &.m-prev
+      position: absolute
+      top: 0
+      font-size: 24px
+      display: flex
+      align-items: center
+      justify-content: center
+      margin-left: 0
+      margin-right: 0
+
+    &.m-next
+      right: 0
+
+      &:before
+        +ion-icon("android-arrow-forward")
+
+    &.m-prev
+      left: 0
+      &:before
+        +ion-icon("android-arrow-back")
 
     &:hover
-      color: $black
+      color: $blue
 
     &.m-active
       cursor: default
-      color: $black
-      border-color: $black
+      color: $blue

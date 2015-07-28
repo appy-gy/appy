@@ -13,7 +13,7 @@ Open = React.createClass
     {comment} = @context
 
     <RatingLink className="comment_action" slug={comment.ratingSlug} query={comment: comment.shortId()}>
-      Показать
+      <div className="comment_action-link">Показать</div>
     </RatingLink>
 
 module.exports = Open
