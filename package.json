@@ -16,6 +16,7 @@
     "moment": "^2.9.0",
     "node-uuid": "^1.4.3",
     "normalize.css": "^3.0.2",
+    "pluralize": "^1.1.2",
     "qs": "^2.3.3",
     "react": "^0.13.3",
     "react-dnd": "^1.1.2",

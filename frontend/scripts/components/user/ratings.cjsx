@@ -1,5 +1,7 @@
+_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
+canEditRating = require '../../helpers/ratings/can_edit'
 PaginationLink = require './pagination_link'
 Preview = require '../shared/ratings/preview'
 CreateRating = require '../shared/ratings/create'
@@ -10,16 +12,20 @@ Pagination = require '../shared/pagination/pagination'
 Ratings = React.createClass
   displayName: 'Ratings'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
+    currentUser: PropTypes.object.isRequired
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
+    status: PropTypes.string.isRequired
 
   contextTypes:
-    router: PropTypes.func.isRequired
     user: PropTypes.object.isRequired
     page: PropTypes.number.isRequired
     isOwnPage: PropTypes.bool.isRequired
+
+  hasRatings: ->
+    {user} = @context
+
+    user.ratingsCount > 0
 
   noRatings: ->
     {isOwnPage} = @context
@@ -28,59 +34,54 @@ Ratings = React.createClass
 
     text = if isOwnPage then 'У вас пока нет рейтингов. Создайте свой первый рейтинг прямо сейчас!' else 'У пользователя нет рейтингов.'
 
-    <div>
+    <div className="user-ratings_no-ratings">
       {text}
     </div>
 
   createRating: ->
-    {user, isOwnPage} = @context
+    {isOwnPage} = @context
 
     return if @hasRatings() or not isOwnPage
 
-    <CreateRating className="user-profile_tab-button">
+    <CreateRating className="user-ratings_create-button">
       Создать рейтинг
     </CreateRating>
 
-  hasRatings: ->
-    {user} = @context
-
-    user.ratingsCount > 0
-
   ratings: ->
-    {ratings} = @props
-    {user} = @context
+    {currentUser, ratings} = @props
 
     ratings.map (rating) ->
-      <Preview key={rating.id} rating={rating} imageSize="preview" showDelete={user.canEdit}/>
+      showDelete = canEditRating currentUser, rating
+      <Preview key={rating.id} rating={rating} imageSize="preview" showDelete={showDelete}/>
 
   render: ->
-    {user, page} = @context
+    {status} = @props
+    {page} = @context
 
-    pagesCount = @app.pageCountsStore.get('userRatings') || 0
+    pagesCount = @app.pageCountsStore.get("user#{_.classify status}Ratings") || 0
 
-    <div>
-      <h2 className="user-profile_tab-header">
-        Ваши рейтинги ({user.ratingsCount})
-      </h2>
-      {@noRatings()}
-      {@createRating()}
-      <div className="previews">
+    <div className="user-ratings_content">
+      <div className="user-ratings_previews">
         {@ratings()}
       </div>
+      {@noRatings()}
+      {@createRating()}
       <Pagination currentPage={page} pagesCount={pagesCount} link={PaginationLink}/>
     </div>
 
 module.exports = Marty.createContainer Ratings,
-  listenTo: 'ratingsStore'
+  listenTo: ['currentUserStore', 'ratingsStore']
 
   propTypes:
-    page: PropTypes.number.isRequired
+    status: PropTypes.string.isRequired
 
   contextTypes:
-    userSlug: PropTypes.string.isRequired
+    userSlug: PropTypes.object.isRequired
+    page: PropTypes.number.isRequired
 
   fetch: ->
-    {page} = @props
-    {userSlug} = @context
+    {status} = @props
+    {userSlug, page} = @context
 
-    ratings: @app.ratingsStore.getForUser(userSlug, page)
+    currentUser: @app.currentUserStore.get()
+    ratings: @app.ratingsStore.getForUser(userSlug, { status, page })

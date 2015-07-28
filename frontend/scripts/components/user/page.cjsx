@@ -8,7 +8,7 @@ Loading = require '../mixins/loading'
 Avatar = require './avatar'
 Name = require './name'
 SocialButtons = require './social_buttons'
-Ratings = require './ratings'
+RatingTabs = require './rating_tabs'
 Comments = require './comments'
 Layout = require '../layout/layout'
 Tabs = require '../shared/tabs/tabs'
@@ -80,10 +80,10 @@ UserPage = React.createClass
         </header>
         <Tabs defaultTab="ratings" queryModificator={@resetPage}>
           <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
-            <Ratings page={@currentPage()}/>
+            <RatingTabs/>
           </Tab>
           <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
-            <Comments page={@currentPage()}/>
+            <Comments/>
           </Tab>
         </Tabs>
       </div>

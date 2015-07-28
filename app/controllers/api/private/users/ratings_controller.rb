@@ -3,10 +3,15 @@ module Api
     module Users
       class RatingsController < BaseController
         find :user
+        check 'Users::CanSeeDrafts', :@user, only: [:drafts]
 
-        def index
-          ratings = ::Ratings::FindForUser.new(current_user, @user, @page).call
-          render json: ratings, meta: { pages_count: ratings.total_pages }
+        Rating.statuses.each_key do |status|
+          class_eval <<-CODE, __FILE__, __LINE__ + 1
+            def #{status.pluralize}
+              ratings = ::Ratings::FindForUser.new(current_user, @user, page: @page, status: :#{status}).call
+              render json: ratings, meta: { pages_count: ratings.total_pages }
+            end
+          CODE
         end
       end
     end

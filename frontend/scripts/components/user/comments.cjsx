@@ -48,16 +48,13 @@ Comments = React.createClass
     </div>
 
 module.exports = Marty.createContainer Comments,
-  propTypes:
-    page: PropTypes.number.isRequired
-
   contextTypes:
     user: PropTypes.object.isRequired
+    page: PropTypes.number.isRequired
 
   listenTo: 'commentsStore'
 
   fetch: ->
-    {page} = @props
-    {user} = @context
+    {user, page} = @context
 
     comments: @app.commentsStore.getForUser(user.id, page)

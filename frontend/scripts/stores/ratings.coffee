@@ -38,16 +38,17 @@ class RatingsStore extends Marty.Store
       remotely: ->
         @app.ratingsQueries.getPage(page)
 
-  getForUser: (userId, page) ->
-    id = "getForUser-#{userId}-#{page}"
+  getForUser: (userId, {status, page}) ->
+    id = "getForUser-#{userId}-#{status}-#{page}"
 
     @fetch
       id: id
       locally: ->
         return unless @hasAlreadyFetched id
-        findInStore @, page, all: true, fields: ['page']
+        @state.filter (rating) ->
+          rating.page == page and rating.status == status
       remotely: ->
-        @app.ratingsQueries.getForUser(userId, page)
+        @app.ratingsQueries.getForUser(userId, { status, page })
 
   getForSection: (sectionId) ->
     id = "getForSection-#{sectionId}"

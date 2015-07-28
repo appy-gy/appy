@@ -9,6 +9,7 @@ Tabs = React.createClass
 
   propTypes:
     defaultTab: PropTypes.string.isRequired
+    queryKey: PropTypes.string
     queryModificator: PropTypes.func
     children: PropTypes.node.isRequired
 
@@ -17,19 +18,20 @@ Tabs = React.createClass
     block: PropTypes.string.isRequired
 
   getDefaultProps: ->
+    queryKey: 'tab'
     queryModificator: _.identity
 
   getInitialState: ->
-    {defaultTab, children} = @props
+    {defaultTab, queryKey, children} = @props
     {router} = @context
 
-    activeTab: router.getCurrentQuery().tab || defaultTab
+    activeTab: router.getCurrentQuery()[queryKey] || defaultTab
 
   activateTab: (id) ->
-    {queryModificator} = @props
+    {queryKey, queryModificator} = @props
     {router} = @context
 
-    query = queryModificator _.defaults(tab: id, router.getCurrentQuery())
+    query = queryModificator _.defaults("#{queryKey}": id, router.getCurrentQuery())
     router.replaceWith router.getCurrentPathname(), {}, query
     @setState activeTab: id
 

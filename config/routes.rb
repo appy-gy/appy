@@ -11,7 +11,11 @@ Rails.application.routes.draw do
       end
       resources :users, only: [:show, :create, :update] do
         scope module: :users do
-          resources :ratings, only: [:index]
+          resources :ratings, only: [] do
+            collection do
+              get *Rating.statuses.keys.map(&:pluralize)
+            end
+          end
           resources :comments, only: [:index]
         end
       end

@@ -1,10 +1,6 @@
-_ = require 'lodash'
-findIndexInStore = require './find_index_in_store'
+findInArray = require './find_in_array'
 
 findInStore = (store, data, opts) ->
-  index = findIndexInStore store, data, opts
-  state = store.getState()
-  return state[index] unless _.isArray index
-  _.at state, index
+  findInArray store.getState(), data, opts
 
 module.exports = findInStore
