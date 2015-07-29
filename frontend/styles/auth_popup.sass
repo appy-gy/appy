@@ -22,20 +22,6 @@ $wrapper-margin: 3 * $margin
     color: $blue
     margin-bottom: 4 * $margin
 
-  // &_close
-  //   position: fixed
-  //   top: $wrapper-margin
-  //   right: $wrapper-margin
-  //   font-size: 40px
-  //   color: $white-2
-  //   cursor: pointer
-  //
-  //   &:before
-  //     +ion-icon("android-close")
-  //
-  //   &:hover
-  //     color: $white
-
   &_social-buttons
     display: flex
     justify-content: space-between
@@ -90,11 +76,15 @@ $wrapper-margin: 3 * $margin
     color: $black
     align-items: center
 
+  &_input-wrapper
+    position: relative
+    width: 100%
+
   &_input
     background-color: $white-3
+    border-radius: 10px 10px 0 0
     padding: $margin
     width: 100%
-    border-radius: 0 0 10px 10px
 
     &::placeholder
       color: $black
@@ -102,8 +92,25 @@ $wrapper-margin: 3 * $margin
     &:focus
       background-color: $white
 
-    &:first-of-type
-      border-radius: 10px 10px 0 0
+    &.m-password
+      border-radius: 0 0 10px 10px
+      padding-right: 3 * $margin
+
+  &_show-password
+    position: absolute
+    top: 0
+    right: $margin
+    display: flex
+    align-items: center
+    font-size: 20px
+    cursor: pointer
+    height: 100%
+
+    &:before
+      +ion-icon("eye-disabled")
+
+    &.m-active:before
+      +ion-icon("eye")
 
   &_submit
     $size: 40px
