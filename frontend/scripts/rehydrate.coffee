@@ -2,6 +2,6 @@ app = require './app'
 
 rehydrate = ->
   app.rehydrate()
-  document.querySelector('#__marty-state').remove()
+  document.querySelector('#__marty-state')?.remove()
 
 module.exports = rehydrate
