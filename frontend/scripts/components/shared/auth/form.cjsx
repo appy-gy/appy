@@ -26,7 +26,7 @@ Form = React.createClass
 
   render: ->
     <form className="auth-popup_form" onSubmit={@onSubmit}>
-      <input type="text" className="auth-popup_input" placeholder="Email" valueLink={@linkState 'email'}/>
+      <input type="text" className="auth-popup_input" autoFocus placeholder="Email" valueLink={@linkState 'email'}/>
       <input type="password" className="auth-popup_input" placeholder="Пароль" valueLink={@linkState 'password'}/>
       <div className="auth-popup_submit" onClick={@onSubmit}></div>
       <input type="submit" value="" className="g-hidden"/>

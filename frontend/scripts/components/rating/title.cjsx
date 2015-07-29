@@ -69,7 +69,7 @@ ObjectTitle = React.createClass
     return unless edit
 
     withIndexKeys [
-      <Textarea autoFocus={true} maxLength="90" className={@classes("#{block}_title", 'm-edit')} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></Textarea>
+      <Textarea autoFocus maxLength="90" className={@classes("#{block}_title", 'm-edit')} value={title} onChange={@changeTitle} placeholder="Введи заголовок рейтинга"></Textarea>
       <div className="#{block}_title-buttons">
         <button className="#{block}_title-button m-accept" onClick={@updateTitle}>
           Сохранить

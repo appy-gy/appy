@@ -63,7 +63,7 @@ Name = React.createClass
     return unless edit
 
     withIndexKeys [
-      <input className="user-profile_name-value" type="text" autoFocus={true} placeholder="Введи свое имя" value={user.name} onChange={@changeName}/>
+      <input className="user-profile_name-value" type="text" autoFocus placeholder="Введи свое имя" value={user.name} onChange={@changeName}/>
       <div className="user-profile_name-buttons">
         <div className="user-profile_name-button m-accept" onClick={@saveName}>
           Cохранить
