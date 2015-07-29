@@ -3,6 +3,7 @@ dotenv = require 'dotenv'
 path = require 'path'
 mapObj = require 'map-obj'
 webpack = require 'webpack'
+ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
 dotenv.load()
 
@@ -18,13 +19,14 @@ definePluginEnv = mapObj env, (key, value) ->
 plugins = [
   new webpack.PrefetchPlugin 'react'
   new webpack.PrefetchPlugin 'react/lib/ReactComponentBrowserEnvironment'
+  new ExtractTextPlugin '[name].css', disable: process.env.TOP_ENV != 'production'
 ]
 
 cssLoaders = ['css', 'autoprefixer']
 lessLoaders = cssLoaders.concat 'less'
 sassLoaders = cssLoaders.concat 'sass'
 [cssLoader, lessLoader, sassLoader] = [cssLoaders, lessLoaders, sassLoaders].map (loaders) ->
-  ['style'].concat(loaders).join('!')
+  ExtractTextPlugin.extract 'style', loaders.join('!')
 cjsxLoaders = ['coffee', 'cjsx']
 
 switch process.env.TOP_ENV
@@ -53,7 +55,7 @@ module.exports =
     app: app
   output:
     path: path.join(__dirname, 'public/static')
-    filename: 'app.js'
+    filename: '[name].js'
     publicPath: "#{process.env.TOP_WEBPACK_HOST}/"
   debug: debug
   devtool: devtool
