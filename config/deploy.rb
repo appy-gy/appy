@@ -54,7 +54,7 @@ namespace :prerender do
   task start: :environment do
     queue %{echo "-----> Starting prerender service"}
     in_directory "#{deploy_to}/#{current_path}" do
-      queue! %{node_modules/.bin/forever start -a -l #{deploy_to}/#{current_path}/log/prerender_forever.log -o #{deploy_to}/#{current_path}/log/prerender_out.log -e #{deploy_to}/#{current_path}/log/prerender_err.log -c node_modules/.bin/coffee --uid prerender prerender/app.coffee}
+      queue! %{node_modules/.bin/forever start -a -l #{deploy_to}/#{current_path}/log/prerender_forever.log -o #{deploy_to}/#{current_path}/log/prerender_out.log -e #{deploy_to}/#{current_path}/log/prerender_err.log -c node_modules/.bin/coffee --uid prerender prerender/server.coffee}
     end
   end
 
