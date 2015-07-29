@@ -99,6 +99,3 @@ module.exports = Marty.createContainer UserPage,
 
     user: @app.usersStore.get(userSlug)
     currentUser: @app.currentUserStore.get()
-
-  pending: (props) ->
-    @done _.defaults({}, props, user: new User)

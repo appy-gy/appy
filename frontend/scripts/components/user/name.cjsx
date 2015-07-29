@@ -14,6 +14,8 @@ Name = React.createClass
   contextTypes:
     user: PropTypes.object.isRequired
 
+  placeholder: 'Введи свое имя'
+
   getInitialState: ->
     {user} = @context
 
@@ -43,8 +45,8 @@ Name = React.createClass
   cancelEdit: ->
     {user} = @context
 
-    @app.usersActions.change user.id, name: @prevName
     @setState edit: false
+    @app.usersActions.change user.id, name: @prevName
 
   contentView: ->
     {edit} = @state
@@ -53,7 +55,7 @@ Name = React.createClass
     return if edit
 
     <div className="user-profile_name-value" onClick={@startEdit}>
-      {user.name}
+      {user.name || @placeholder}
     </div>
 
   contentEdit: ->
@@ -63,7 +65,7 @@ Name = React.createClass
     return unless edit
 
     withIndexKeys [
-      <input className="user-profile_name-value" type="text" autoFocus placeholder="Введи свое имя" value={user.name} onChange={@changeName}/>
+      <input className="user-profile_name-value" type="text" autoFocus placeholder={@placeholder} value={user.name} onChange={@changeName}/>
       <div className="user-profile_name-buttons">
         <div className="user-profile_name-button m-accept" onClick={@saveName}>
           Cохранить
