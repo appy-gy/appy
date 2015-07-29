@@ -15,6 +15,7 @@ SocialButton = React.createClass
 
   contextTypes:
     user: PropTypes.object.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   link: ->
     {network} = @props
@@ -57,27 +58,27 @@ SocialButton = React.createClass
 
   button: ->
     {network} = @props
-    {user} = @context
+    {user, canEdit} = @context
 
-    return unless user.canEdit or @link()?
+    return unless canEdit or @link()?
 
     onClick = if @link()? then _.noop else @triggerLink
 
     <a href={user["#{network}Link"]} className="user-profile_social-button m-#{network}" target="_blank" onClick={onClick}></a>
 
   linkInfo: ->
-    {user} = @context
+    {canEdit} = @context
 
-    return unless user.canEdit and @link()?
+    return unless canEdit and @link()?
 
     <span className="user-profile_social-caption">
       Привязано
     </span>
 
   triggerLinkButton: ->
-    {user} = @context
+    {canEdit} = @context
 
-    return unless user.canEdit
+    return unless canEdit
 
     text = if @link()? then 'Отвязать' else 'Привязать'
 
@@ -87,11 +88,11 @@ SocialButton = React.createClass
 
   render: ->
     {network} = @props
-    {user} = @context
+    {canEdit} = @context
 
     classes = classNames 'user-profile_social',
-      'm-add': user.canEdit and not @link()?
-      'm-remove': user.canEdit and @link()?
+      'm-add': canEdit and not @link()?
+      'm-remove': canEdit and @link()?
 
     <div className={classes}>
       {@button()}

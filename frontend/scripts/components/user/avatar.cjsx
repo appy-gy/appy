@@ -13,6 +13,7 @@ Avatar = React.createClass
 
   contextTypes:
     user: PropTypes.object.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   updateAvatar: (files) ->
     {user} = @context
@@ -24,9 +25,9 @@ Avatar = React.createClass
     @app.usersActions.update user.id, { avatar }
 
   fileInput: ->
-    {user} = @context
+    {canEdit} = @context
 
-    return unless user.canEdit
+    return unless canEdit
 
     <div className="user-profile_avatar-edit" onClick={@openSelect}>
       Изменить фотографию профиля
@@ -43,11 +44,11 @@ Avatar = React.createClass
     ]
 
   render: ->
-    {user} = @context
+    {canEdit} = @context
 
     classes = 'user-profile_avatar'
 
-    return <div className={classes}>{@children()}</div> unless user.canEdit
+    return <div className={classes}>{@children()}</div> unless canEdit
 
     <FileInput className={classes} onSelect={@updateAvatar} {...@fileInputProps()}>
       {@children()}

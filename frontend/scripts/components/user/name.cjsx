@@ -13,13 +13,14 @@ Name = React.createClass
 
   contextTypes:
     user: PropTypes.object.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   placeholder: 'Введи свое имя'
 
   getInitialState: ->
-    {user} = @context
+    {user, canEdit} = @context
 
-    edit: user.canEdit and isBlank(user.name)
+    edit: canEdit and isBlank(user.name)
 
   changeName: (event) ->
     {user} = @context
@@ -35,9 +36,9 @@ Name = React.createClass
     @app.usersActions.update user.id, name: user.name
 
   startEdit: ->
-    {user} = @context
+    {user, canEdit} = @context
 
-    return unless user.canEdit
+    return unless canEdit
 
     @prevName = user.name
     @setState edit: true

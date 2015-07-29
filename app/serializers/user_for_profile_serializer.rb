@@ -1,7 +1,7 @@
 class UserForProfileSerializer < UserSerializer
   self.root = :user
 
-  attributes :ratings_count, :comments_count, :can_edit,
+  attributes :ratings_count, :comments_count,
     *Rating.statuses.keys.map{ |status| :"#{status}_ratings_count" }
 
   def ratings_count
@@ -10,10 +10,6 @@ class UserForProfileSerializer < UserSerializer
 
   def comments_count
     object.comments.count
-  end
-
-  def can_edit
-    Users::CanEdit.new(scope, object).call
   end
 
   def published_ratings_count

@@ -1,6 +1,8 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
+canEditUser = require '../../helpers/users/can_edit'
+User = require '../../models/user'
 ClearStores = require '../mixins/clear_stores'
 ParsePage = require '../mixins/parse_page'
 SyncSlug = require '../mixins/sync_slug'
@@ -13,7 +15,6 @@ Comments = require './comments'
 Layout = require '../layout/layout'
 Tabs = require '../shared/tabs/tabs'
 Tab = require '../shared/tabs/tab'
-User = require '../../models/user'
 
 {PropTypes} = React
 
@@ -34,17 +35,23 @@ UserPage = React.createClass
     userSlug: PropTypes.string.isRequired
     page: PropTypes.number.isRequired
     isOwnPage: PropTypes.bool.isRequired
+    canEdit: PropTypes.bool.isRequired
     block: PropTypes.string.isRequired
 
   getChildContext: ->
     {user, userSlug} = @props
 
-    { user, userSlug, page: @currentPage(), isOwnPage: @isOwnPage(), block: 'user-profile' }
+    { user, userSlug, page: @currentPage(), isOwnPage: @isOwnPage(), canEdit: @canEdit(), block: 'user-profile' }
 
   isOwnPage: ->
     {user, currentUser} = @props
 
     currentUser?.id == user.id
+
+  canEdit: ->
+    {user, currentUser} = @props
+
+    canEditUser currentUser, user
 
   currentPage: ->
     {router} = @context
