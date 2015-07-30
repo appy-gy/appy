@@ -96,7 +96,7 @@ UserPage = React.createClass
     </Layout>
 
 module.exports = Marty.createContainer UserPage,
-  listenTo: 'usersStore'
+  listenTo: ['usersStore', 'currentUserStore']
 
   mixins: [ClearStores()]
 
