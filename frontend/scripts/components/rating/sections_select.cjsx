@@ -24,7 +24,12 @@ SectionsSelect = React.createClass
     {sections} = @props
 
     sections.map (section) ->
-      value: section.id, label: section.name
+      value: section.id, label: section.name, color: section.color
+
+  renderOption: ({label, color}) ->
+    <div style={{color}}>
+      {label}
+    </div>
 
   render: ->
     {object} = @props
@@ -32,7 +37,7 @@ SectionsSelect = React.createClass
 
     return <div>{object.section?.name}</div> unless canEdit
 
-    <Select placeholder="Рубрика" value={object.section?.id} options={@options()} searchable={false} onChange={@updateSection}/>
+    <Select placeholder="Рубрика" value={object.section?.id} options={@options()} searchable={false} valueRenderer={@renderOption} optionRenderer={@renderOption} onChange={@updateSection}/>
 
 module.exports = Marty.createContainer SectionsSelect,
   listenTo: 'sectionsStore'

@@ -85,12 +85,14 @@ Preview = React.createClass
     else
       imageStyles.backgroundColor = 'rgba(33, 172, 208, 1)'
 
+    sectionNameStyles = _.pick rating.section, 'color'
+
     <RatingLink rating={rating} className={classes}>
       <Meta/>
       <div className="preview_image" style={imageStyles}></div>
       <div className="preview_content">
         {@deleteButton()}
-        <div className="preview_section-name">
+        <div className="preview_section-name" style={sectionNameStyles}>
           {@sectionName()}
         </div>
         <div className="preview_title">
