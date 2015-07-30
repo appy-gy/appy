@@ -33,7 +33,7 @@ describe 'User slug update', ->
           load: sinon.stub().returns(Promise.resolve(body: { @user }, status: 200))
     @app.usersStore.append @user
 
-  it.only 'replaces current route on change', (done) ->
+  it 'replaces current route on change', (done) ->
     @router.replaceWith = sinon.spy()
 
     userContainerTree = testTree <UserContainer userSlug={@user.slug}/>, context: { @app, @router }
