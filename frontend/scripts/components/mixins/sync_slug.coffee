@@ -8,7 +8,7 @@ SyncSlug = (name) ->
     slug = nextProps["#{name}Slug"]
     {router} = @context
     object = if _.has nextProps, name then nextProps[name] else @[name](slug)
-    checker = @isSlugChanged or _.partial(isSlugChanged, { name, object, router })
+    checker = if @isSlugChanged? then _.partial(@isSlugChanged, nextProps) else _.partial(isSlugChanged, { name, object, router })
 
     return unless checker()
 
