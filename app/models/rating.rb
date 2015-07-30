@@ -1,5 +1,6 @@
 class Rating < ActiveRecord::Base
   extend FriendlyId
+  include IdAsSlug
 
   attr_accessor :like
 

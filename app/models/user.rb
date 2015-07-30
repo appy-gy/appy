@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   extend FriendlyId
+  include IdAsSlug
   include Users::Auth
 
   friendly_id :slug_candidates
@@ -26,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    not slug? or (name? and name_changed? and slug =~ /\A\h{8}-(\h{4}-){3}\h{12}\z/)
+    name? and name_changed? and uuid? slug
   end
 
   def generate_avatar
