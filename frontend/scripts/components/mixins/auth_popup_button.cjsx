@@ -10,10 +10,14 @@ Popup = require '../../models/popup'
 AuthPopupButton =
   propTypes:
     children: PropTypes.node.isRequired
+    onSuccess: PropTypes.func
 
   switcherComponents:
     login: Login
     registration: Registration
+
+  getDefaultProps: ->
+    onSuccess: ->
 
   componentWillMount: ->
     {app} = @props
@@ -21,10 +25,13 @@ AuthPopupButton =
     @app ||= app
 
   submit: (data) ->
+    {onSuccess} = @props
+
     @app.currentUserActions[@submitAction] data
       .then ({error}) =>
         return @showFailToast() if error?
         @closeAuthPopups()
+        onSuccess()
 
   showFailToast: (error) ->
     toast = new Toast @failToastContent(error), type: 'error'
