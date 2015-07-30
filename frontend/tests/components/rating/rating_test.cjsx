@@ -24,11 +24,16 @@ describe 'Rating', ->
     beforeEach ->
       @rating = createdAt: moment(), imageUrl: (->), user: {}
       @ratingItems = []
+      @app = TestUtils.createApplication Application,
+        include: ['currentUserQueries', 'currentUserApi', 'currentUserStore']
+        stub:
+          currentUserApi:
+            load: sinon.stub().returns(Promise.resolve(body: { user: {} }, status: 200))
 
     context 'rating is published', ->
       beforeEach ->
         @rating.status = 'published'
-        @ratingTree = testTree <Rating rating={@rating} ratingItems={@ratingItems}/>, context: { app: {}, canEdit: true }
+        @ratingTree = testTree <Rating rating={@rating} ratingItems={@ratingItems}/>, context: { @app, canEdit: true }
 
       ['authorLink', 'likeButton', 'shareButtons'].each (name) ->
         it "shows #{_.startCase name}", ->
@@ -37,7 +42,7 @@ describe 'Rating', ->
     context 'rating is draft', ->
       beforeEach ->
         @rating.status = 'draft'
-        @ratingTree = testTree <Rating rating={@rating} ratingItems={@ratingItems}/>, context: { app: {}, canEdit: true }
+        @ratingTree = testTree <Rating rating={@rating} ratingItems={@ratingItems}/>, context: { @app, canEdit: true }
 
       ['authorLink', 'likeButton', 'shareButtons'].each (name) ->
         it "shows #{_.startCase name}", ->
