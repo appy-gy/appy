@@ -7,7 +7,7 @@ module.exports = ->
     prevRender = res.render
 
     res.render = (view, locals) ->
-      _.merge locals, host: assetsHost, facebookAppId: process.env.TOP_FACEBOOK_APP_ID
+      _.merge locals, env: process.env.TOP_ENV, host: assetsHost, facebookAppId: process.env.TOP_FACEBOOK_APP_ID
       prevRender.call res, view, locals
 
     next()

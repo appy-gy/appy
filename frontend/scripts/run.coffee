@@ -1,9 +1,11 @@
+_ = require 'lodash'
 rehydrate = require './rehydrate'
 router = require './router'
 
 run = ->
-  document.addEventListener 'DOMContentLoaded', ->
-    rehydrate()
-    router()
+  rehydrate()
+  router()
 
-module.exports = run
+module.exports = ->
+  return run() if _.includes ['interactive', 'complete'], document.readyState
+  document.addEventListener 'DOMContentLoaded', run
