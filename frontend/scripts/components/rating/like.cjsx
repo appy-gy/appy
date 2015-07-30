@@ -10,6 +10,9 @@ Like = React.createClass
 
   mixins: [Marty.createAppMixin()]
 
+  propTypes:
+    currentUser: PropTypes.object.isRequired
+
   contextTypes:
     rating: PropTypes.object.isRequired
 
@@ -19,10 +22,10 @@ Like = React.createClass
     classNames klass, 'm-active': rating.like?
 
   triggerLike: ->
-    {user} = @props
+    {currentUser} = @props
     {rating} = @context
 
-    return unless user.isLoggedIn()
+    return unless currentUser.isLoggedIn()
 
     action = if rating.like? then 'unlike' else 'like'
     @app.ratingsActions[action] rating.id
@@ -34,10 +37,10 @@ Like = React.createClass
       <div key={index} className={@childClasses("rating_like-burst-#{index}")}/>
 
   render: ->
-    {user} = @props
+    {currentUser} = @props
     {rating} = @context
 
-    Component = if user.isLoggedIn() then 'div' else Login
+    Component = if currentUser.isLoggedIn() then 'div' else Login
 
     <Component className="rating_like-wrapper" onSuccess={@triggerLike}>
       <div ref="like" className="rating_like" onClick={@triggerLike}>
@@ -50,4 +53,4 @@ module.exports = Marty.createContainer Like,
   listenTo: 'currentUserStore'
 
   fetch: ->
-    user: @app.currentUserStore.get()
+    currentUser: @app.currentUserStore.get()

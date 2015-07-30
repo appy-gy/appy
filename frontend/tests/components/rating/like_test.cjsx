@@ -5,31 +5,28 @@ React = require 'react/addons'
 testTree = require 'react-test-tree'
 TestUtils = require 'marty/test-utils'
 Application = require '../../../scripts/application'
-Like = require '../../../scripts/components/rating/like'
+LikeContainer = require '../../../scripts/components/rating/like'
 Meta = require '../../../scripts/components/shared/ratings/meta'
 
 {expect} = chai
+{InnerComponent: Like} = LikeContainer
 
-describe.only 'Like', ->
+describe 'Like', ->
   beforeEach ->
     @rating = id: '1', like: null, likesCount: 0, createdAt: moment(), slug: 'test', update: (data) -> _.merge @, data
     @app = TestUtils.createApplication Application,
-      include: ['currentUserStore', 'ratingsActions', 'ratingsStore', 'likesApi', 'popupsActions', 'popupsStore']
+      include: ['ratingsActions', 'ratingsStore', 'likesApi', 'popupsActions', 'popupsStore']
       stub:
         likesApi:
           create: sinon.stub().returns(Promise.resolve(body: { like: {}, meta: { likes_count: @rating.likesCount + 1 } }, status: 200))
     @app.ratingsStore.append @rating
 
   context 'logged in', ->
-    before ->
-      currentUser = id: _.uniqueId('userId'), isLoggedIn: (-> true)
-      @restore = sinon.stub(@app.currentUserStore, 'get').returns(fetch.done(currentUser))
-
-    after ->
-      @restore()
+    beforeEach ->
+      @currentUser = isLoggedIn: (-> true)
 
     it 'updates likes count after like', (done) ->
-      createLikeTree = => testTree <Like/>, context: { @app, @rating }
+      createLikeTree = => testTree <Like currentUser={@currentUser}/>, context: { @app, @rating }
       createLikeTree().like.click()
       setImmediate =>
         metaTree = testTree <Meta/>, context: { @rating }
@@ -38,6 +35,12 @@ describe.only 'Like', ->
         done()
 
   context 'not logged in', ->
-    it 'shows login popup', ->
-      testTree(<Like/>, context: { @app, @rating }).like.click()
-      expect(TestUtils.hasDispatched(@app, "APPEND_POPUPS").to.be.true
+    beforeEach ->
+      @currentUser = isLoggedIn: (-> false)
+
+    it 'shows login popup', (done) ->
+      testTree(<Like currentUser={@currentUser}/>, context: { @app, @rating }).like.click()
+      setImmediate =>
+        actions = TestUtils.getDispatchedActionsWithType(@app, 'APPEND_POPUPS')
+        expect(actions).to.have.length(1)
+        done()
