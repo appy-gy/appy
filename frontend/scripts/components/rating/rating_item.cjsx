@@ -70,7 +70,6 @@ RatingItem = React.createClass
       <div className="rating-item_header">
         <Title object={ratingItem} actions="ratingItemsActions"/>
       </div>
-      <Image/>
       <div className="rating-item_description-wrapper">
         <Description object={ratingItem} actions="ratingItemsActions"/>
       </div>

@@ -89,10 +89,8 @@ Rating = React.createClass
       <Header/>
       <Description object={rating} actions="ratingsActions"/>
       {@authorLink()}
-      <div className="rating_line"></div>
       {@ratingItems()}
       {@addRatingItemButton()}
-      <div className="rating_line"></div>
       {@likeButton()}
       {@shareButtons()}
     </article>

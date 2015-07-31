@@ -29,8 +29,10 @@ EditRatingHeader = React.createClass
     <Header>
       <Logo/>
       <EditRatingItems/>
-      <Validations/>
-      <RatingActions/>
+      <div className="header_rating-publish-info">
+        <Validations/>
+        <RatingActions/>
+      </div>
     </Header>
 
 module.exports = Marty.createContainer EditRatingHeader,

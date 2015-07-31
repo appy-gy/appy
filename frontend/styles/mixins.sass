@@ -76,6 +76,44 @@
   &:hover
     color: $black
 
+=header-button
+  display: block
+  font-size: 14px
+  font-weight: 600
+  background: $color-1
+  color: $white
+  cursor: pointer
+  margin: 15px
+  border-radius: $border-radius
+  line-height: 40px
+  text-align: center
+  height: 40px
+  text-transform: uppercase
+  transition: 0.2s ease
+  width: calc(100% - 30px)
+
+  &:hover
+    color: $white
+    background: darken($color-1, 15%)
+
+=delete-button($color: $color-1)
+  border: 1px solid $color
+  cursor: pointer
+  color: $color
+  display: flex
+  border-radius: $border-radius
+  font-size: 24px
+  justify-content: center
+  align-items: center
+  transition: all 0.2s ease
+
+  &:before
+    +ion-icon("android-delete")
+
+  &:hover
+    color: $white
+    background-color: $color
+
 =add-image
   z-index: 2
   font-size: 32px

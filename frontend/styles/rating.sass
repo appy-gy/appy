@@ -1,3 +1,12 @@
+// @keyframes flash
+//   0%
+//     margin-left: -100%
+//     opacity: 0
+//   100%
+//     margin-left: 0
+//     opacity: 1
+
+
 .rating
   +rating-meta
   background: white
@@ -74,35 +83,41 @@
 
   &_new-item-button
     display: inline-flex
+    flex-flow: column nowrap
+    align-items: center
     line-height: 40px
     cursor: pointer
-    margin-bottom: 30px
 
     &-wrapper
       display: flex
       justify-content: center
 
     &-icon
-      font-size: 32px
+      font-size: 50px
       color: $green
       line-height: inherit
-      margin-right: 10px
-      margin-top: -2px
-      transition: transform 0.1s
+      transition: all 0.2s ease
 
       &:before
         line-height: inherit
-        +ion-icon("android-add-circle")
-
-    &:hover
-      .rating_new-item-button-icon
-        transform: scale(1.2)
+        +ion-icon("ios-plus-outline")
 
     &-text
       color: $blue
       line-height: inherit
       font-family: $serif
-      font-size: 18px
+      font-size: 12px
+      opacity: 0
+      transition: all 0.2s ease
+
+    &:hover
+      .rating_new-item-button-icon
+        transform: scale(0.8)
+        margin-top: -10px
+      .rating_new-item-button-text
+        opacity: 1
+        margin-top: -10px
+        margin-bottom: 20px
 
   &_like
     position: relative
