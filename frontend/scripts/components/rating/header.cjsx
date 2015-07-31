@@ -2,6 +2,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 classNames = require 'classnames'
 WithFileInput = require '../mixins/with_file_input'
+WithRequestQueue = require '../mixins/with_request_queue'
 Title = require './title'
 SectionsSelect = require './sections_select'
 Tags = require '../shared/ratings/tags'
@@ -15,7 +16,7 @@ withIndexKeys = require '../../helpers/react/with_index_keys'
 Header = React.createClass
   displayName: 'Header'
 
-  mixins: [Marty.createAppMixin(), WithFileInput]
+  mixins: [Marty.createAppMixin(), WithFileInput, WithRequestQueue]
 
   contextTypes:
     rating: PropTypes.object.isRequired
@@ -28,7 +29,9 @@ Header = React.createClass
     return unless image?
 
     @app.ratingsActions.change rating.id, image: image.preview
-    @app.ratingsActions.update rating.id, { image }
+    @clearQueue()
+    @addToQueue =>
+      @app.ratingsActions.update rating.id, { image }
 
   ratingImageButton: ->
     {rating, canEdit} = @context

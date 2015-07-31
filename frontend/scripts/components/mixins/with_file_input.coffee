@@ -1,6 +1,3 @@
-_ = require 'lodash'
-FileInput = require '../shared/file_input'
-
 WithFileInput =
   componentWillMount: ->
     @fileInputFns = {}
