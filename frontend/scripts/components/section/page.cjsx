@@ -30,9 +30,7 @@ Ratings = React.createClass
       <Preview key={rating.id} rating={rating} imageSize="preview"/>
 
   render: ->
-    {sectionSlug} = @props
-
-    <Layout sectionSlug={sectionSlug}>
+    <Layout>
       <div className="previews">
         {@previews()}
       </div>

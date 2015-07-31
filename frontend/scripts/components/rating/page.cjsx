@@ -38,18 +38,13 @@ RatingPage = React.createClass
 
   header: ->
     {user} = @props
-    
+
     if canEditRating(user, @rating()) then 'editRating' else 'rating'
-
-  sectionSlug: ->
-    {ratingSlug} = @props
-
-    _.get @rating(), 'section.slug', 'default'
 
   render: ->
     {ratingSlug} = @props
 
-    <Layout header={@header()} sectionSlug={@sectionSlug()}>
+    <Layout header={@header()}>
       <Rating/>
       <Comments/>
     </Layout>

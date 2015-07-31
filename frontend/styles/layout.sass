@@ -10,11 +10,6 @@
     @media screen and (min-width: $medium)
       margin-left: $header-width
 
-    &.m-section
-      @each $section in movie,life
-        &-#{$section}
-          background-image: url("../images/#{$section}.png")
-
   &_header
     display: none
     position: fixed

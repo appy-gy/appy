@@ -58,8 +58,7 @@ UserPage = React.createClass
 
     @parsePage router.getCurrentQuery().page
 
-  isSlugChanged: ->
-    {user} = @props
+  isSlugChanged: ({user}) ->
     {router} = @context
 
     user?.slug? and router.getCurrentParams().userSlug != user.slug
@@ -97,7 +96,7 @@ UserPage = React.createClass
     </Layout>
 
 module.exports = Marty.createContainer UserPage,
-  listenTo: 'usersStore'
+  listenTo: ['usersStore', 'currentUserStore']
 
   mixins: [ClearStores()]
 

@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Marty = require 'marty'
 classNames = require 'classnames'
+Login = require '../shared/auth/login'
 
 {PropTypes} = React
 
@@ -8,6 +9,9 @@ Like = React.createClass
   displayName: 'Like'
 
   mixins: [Marty.createAppMixin()]
+
+  propTypes:
+    currentUser: PropTypes.object.isRequired
 
   contextTypes:
     rating: PropTypes.object.isRequired
@@ -18,7 +22,10 @@ Like = React.createClass
     classNames klass, 'm-active': rating.like?
 
   triggerLike: ->
+    {currentUser} = @props
     {rating} = @context
+
+    return unless currentUser.isLoggedIn()
 
     action = if rating.like? then 'unlike' else 'like'
     @app.ratingsActions[action] rating.id
@@ -30,13 +37,20 @@ Like = React.createClass
       <div key={index} className={@childClasses("rating_like-burst-#{index}")}/>
 
   render: ->
+    {currentUser} = @props
     {rating} = @context
 
-    <div className="rating_like-wrapper">
+    Component = if currentUser.isLoggedIn() then 'div' else Login
+
+    <Component className="rating_like-wrapper" onSuccess={@triggerLike}>
       <div ref="like" className="rating_like" onClick={@triggerLike}>
         <div className={@childClasses('rating_like-icon')}></div>
         <div ref="counter" className={@childClasses('rating_like-content')}>{rating.likesCount}</div>
       </div>
-    </div>
+    </Component>
 
-module.exports = Like
+module.exports = Marty.createContainer Like,
+  listenTo: 'currentUserStore'
+
+  fetch: ->
+    currentUser: @app.currentUserStore.get()

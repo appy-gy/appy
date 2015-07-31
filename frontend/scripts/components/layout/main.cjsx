@@ -7,12 +7,11 @@ Main = React.createClass
 
   propTypes:
     children: PropTypes.node.isRequired
-    sectionSlug: PropTypes.string.isRequired
 
   render: ->
-    {children, sectionSlug} = @props
+    {children} = @props
 
-    <main className="layout_main m-section-#{sectionSlug}">
+    <main className="layout_main">
       <div className='grid'>
         {children}
       </div>

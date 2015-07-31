@@ -16,7 +16,6 @@ Layout = React.createClass
   propTypes:
     children: PropTypes.node.isRequired
     header: PropTypes.string
-    sectionSlug: PropTypes.string
 
   headers:
     common: CommonHeader
@@ -25,7 +24,6 @@ Layout = React.createClass
 
   getDefaultProps: ->
     header: 'common'
-    sectionSlug: ''
 
   header: ->
     {header} = @props
@@ -34,11 +32,11 @@ Layout = React.createClass
     <Header/>
 
   render: ->
-    {children, sectionSlug} = @props
+    {children} = @props
 
     <div className="layout">
       {@header()}
-      <Main sectionSlug={sectionSlug}>
+      <Main>
         {children}
       </Main>
       <Popups/>
