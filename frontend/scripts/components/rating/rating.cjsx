@@ -46,7 +46,8 @@ Rating = React.createClass
 
     <div className="rating_new-item-button-wrapper">
       <div className="rating_new-item-button" onClick={@createRatingItem}>
-        <div className="rating_new-item-button-icon"></div><div className="rating_new-item-button-text">Добавить новый пункт в рейтинг</div>
+        <div className="rating_new-item-button-icon"></div>
+        <div className="rating_new-item-button-text">Добавить новый пункт в рейтинг</div>
       </div>
     </div>
 
@@ -87,7 +88,7 @@ Rating = React.createClass
 
     <article className="rating">
       <Header/>
-      <Description object={rating} actions="ratingsActions"/>
+      <Description object={rating} actions="ratingsActions" placeholder="Введите описание рейтинга"/>
       {@authorLink()}
       {@ratingItems()}
       {@addRatingItemButton()}

@@ -3,6 +3,7 @@ Marty = require 'marty'
 Header = require './header'
 Logo = require './logo'
 Validations = require './validations'
+RatingUpdateStatus = require './rating_update_status'
 RatingActions = require './rating_actions'
 EditRatingItems = require './edit_rating_items'
 
@@ -30,6 +31,7 @@ EditRatingHeader = React.createClass
       <Logo/>
       <EditRatingItems/>
       <div className="header_rating-publish-info">
+        <RatingUpdateStatus/>
         <Validations/>
         <RatingActions/>
       </div>

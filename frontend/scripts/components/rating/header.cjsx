@@ -2,7 +2,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 classNames = require 'classnames'
 WithFileInput = require '../mixins/with_file_input'
-WithRequestQueue = require '../mixins/with_request_queue'
+RatingUpdater = require '../mixins/rating_updater'
 Title = require './title'
 SectionsSelect = require './sections_select'
 Tags = require '../shared/ratings/tags'
@@ -16,7 +16,7 @@ withIndexKeys = require '../../helpers/react/with_index_keys'
 Header = React.createClass
   displayName: 'Header'
 
-  mixins: [Marty.createAppMixin(), WithFileInput, WithRequestQueue]
+  mixins: [Marty.createAppMixin(), WithFileInput, RatingUpdater]
 
   contextTypes:
     rating: PropTypes.object.isRequired
@@ -29,8 +29,7 @@ Header = React.createClass
     return unless image?
 
     @app.ratingsActions.change rating.id, image: image.preview
-    @clearQueue()
-    @addToQueue =>
+    @queueUpdate =>
       @app.ratingsActions.update rating.id, { image }
 
   ratingImageButton: ->
@@ -60,7 +59,7 @@ Header = React.createClass
       <div className="rating_tags-select">
         <TagsSelect/>
       </div>
-      <Title object={rating} actions="ratingsActions"/>
+      <Title object={rating} actions="ratingsActions" placeholder="Введите заголовок рейтинга"/>
       @tags()
     ]
 

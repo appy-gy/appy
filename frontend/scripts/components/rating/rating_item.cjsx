@@ -68,10 +68,10 @@ RatingItem = React.createClass
       <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} threshold={0}/>
       <a name={ratingItem.position}></a>
       <div className="rating-item_header">
-        <Title object={ratingItem} actions="ratingItemsActions"/>
+        <Title object={ratingItem} actions="ratingItemsActions" placeholder="Введите заголовок пункта"/>
       </div>
       <div className="rating-item_description-wrapper">
-        <Description object={ratingItem} actions="ratingItemsActions"/>
+        <Description object={ratingItem} actions="ratingItemsActions" placeholder="Введите описание пункта"/>
       </div>
       <div className="rating_item_button-wrapper">
         {@removeButton()}
