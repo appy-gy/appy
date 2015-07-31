@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
+Login = require '../auth/login'
 
 {PropTypes} = React
 
@@ -16,18 +17,28 @@ CreateRating = React.createClass
     router: PropTypes.func.isRequired
 
   create: ->
+    {currentUser} = @props
     {router} = @context
+
+    return unless currentUser.isLoggedIn()
 
     @app.ratingsActions.create().then ({body}) =>
       router.transitionTo 'rating', ratingSlug: body.rating.slug
 
   render: ->
-    {children} = @props
+    {currentUser, children} = @props
 
     props = _.omit @props, 'children'
+    Component = if currentUser.isLoggedIn() then 'div' else Login
 
-    <div {...props} onClick={@create}>
-      {children}
-    </div>
+    <Component {...props} onSuccess={@create}>
+      <div onClick={@create}>
+        {children}
+      </div>
+    </Component>
 
-module.exports = CreateRating
+module.exports = Marty.createContainer CreateRating,
+  listenTo: 'currentUserStore'
+
+  fetch: ->
+    currentUser: @app.currentUserStore.get()
