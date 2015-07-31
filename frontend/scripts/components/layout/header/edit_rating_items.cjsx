@@ -9,6 +9,7 @@ EditRatingItems = React.createClass
 
   contextTypes:
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
+    rating: PropTypes.object.isRequired
 
   ratingItems: ->
     {ratingItems} = @context
@@ -20,7 +21,10 @@ EditRatingItems = React.createClass
       .value()
 
   render: ->
+    {rating} = @context
+
     <div className="header_rating-items">
+      <a href="#" className="header_rating-title">{rating.title}</a>
       {@ratingItems()}
     </div>
 
