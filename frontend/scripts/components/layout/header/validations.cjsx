@@ -25,10 +25,8 @@ Validations = React.createClass
       </div>
 
   render: ->
-    <div className="header_validation-errors">
-      <CSSTransitionGroup transitionName="header_validation-errors">
-        {@errors()}
-      </CSSTransitionGroup>
-    </div>
+    <CSSTransitionGroup className="header_validation-errors" transitionName="m">
+      {@errors()}
+    </CSSTransitionGroup>
 
 module.exports = Validations

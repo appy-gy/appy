@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Marty = require 'marty'
 WithFileInput = require '../mixins/with_file_input'
+WithRequestQueue = require '../mixins/with_request_queue'
 FileInput = require '../shared/file_input'
 withIndexKeys = require '../../helpers/react/with_index_keys'
 
@@ -9,7 +10,7 @@ withIndexKeys = require '../../helpers/react/with_index_keys'
 Avatar = React.createClass
   displayName: 'Avatar'
 
-  mixins: [Marty.createAppMixin(), WithFileInput]
+  mixins: [Marty.createAppMixin(), WithFileInput, WithRequestQueue]
 
   contextTypes:
     user: PropTypes.object.isRequired
@@ -22,7 +23,9 @@ Avatar = React.createClass
     return unless avatar?
 
     @app.usersActions.change user.id, avatar: avatar.preview
-    @app.usersActions.update user.id, { avatar }
+    @clearQueue()
+    @addToQueue =>
+      @app.usersActions.update user.id, { avatar }
 
   fileInput: ->
     {canEdit} = @context

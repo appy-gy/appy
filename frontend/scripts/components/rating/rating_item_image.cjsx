@@ -2,6 +2,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 classNames = require 'classnames'
 WithFileInput = require '../mixins/with_file_input'
+WithRequestQueue = require '../mixins/with_request_queue'
 FileInput = require '../shared/file_input'
 withIndexKeys = require '../../helpers/react/with_index_keys'
 
@@ -10,7 +11,7 @@ withIndexKeys = require '../../helpers/react/with_index_keys'
 RatingItemImage = React.createClass
   displayName: 'RatingItemImage'
 
-  mixins: [Marty.createAppMixin(), WithFileInput]
+  mixins: [Marty.createAppMixin(), WithFileInput, WithRequestQueue]
 
   contextTypes:
     ratingItem: PropTypes.object.isRequired
@@ -32,12 +33,17 @@ RatingItemImage = React.createClass
     return unless image?
 
     @app.ratingItemsActions.change ratingItem.id, image: image.preview
-    @app.ratingItemsActions.update ratingItem.id, { image }
+    @clearQueue()
+    @addToQueue =>
+      @app.ratingItemsActions.update ratingItem.id, { image }
 
   removeImage: ->
     {ratingItem} = @context
 
-    @app.ratingItemsActions.update ratingItem.id, removeImage: true
+    @app.ratingItemsActions.change ratingItem.id, image: null
+    @clearQueue()
+    @addToQueue =>
+      @app.ratingItemsActions.update ratingItem.id, removeImage: true
 
   updateImageButton: ->
     <div className="rating-item_add-image" onClick={@openSelect}></div>
