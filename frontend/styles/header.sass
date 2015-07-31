@@ -88,3 +88,15 @@
   &_validation-errors
     font-size: 12px
     margin: 15px 15px 0 15px
+
+    &-enter
+      opacity: 0
+      &-active
+        opacity: 1
+        transition: opacity .5s ease-in
+
+    &-leave
+      opacity: 1
+      &-active
+        opacity: 0
+        transition: opacity .5s ease-in
