@@ -3,7 +3,7 @@ Marty = require 'marty'
 classNames = require 'classnames'
 WithFileInput = require '../mixins/with_file_input'
 RatingUpdater = require '../mixins/rating_updater'
-FileInput = require '../shared/file_input'
+FileInput = require '../shared/inputs/file'
 withIndexKeys = require '../../helpers/react/with_index_keys'
 
 {PropTypes} = React

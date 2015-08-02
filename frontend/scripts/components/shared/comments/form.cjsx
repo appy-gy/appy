@@ -1,7 +1,7 @@
 React = require 'react/addons'
 Marty = require 'marty'
 classNames = require 'classnames'
-Textarea = require '../textarea'
+Textarea = require '../inputs/text'
 
 {PropTypes} = React
 

@@ -1,14 +1,7 @@
 $wrapper-margin: 3 * $margin
 
-@keyframes increase-from-the-center
-  0%
-    transform: scale(0)
-  90%
-    transform: scale(1.05)
-  100%
-    transform: scale(1)
-
 .auth-popup
+  +password-input
   display: flex
   flex-flow: column nowrap
   padding: $wrapper-margin
@@ -95,22 +88,6 @@ $wrapper-margin: 3 * $margin
     &.m-password
       border-radius: 0 0 10px 10px
       padding-right: 3 * $margin
-
-  &_show-password
-    position: absolute
-    top: 0
-    right: $margin
-    display: flex
-    align-items: center
-    font-size: 20px
-    cursor: pointer
-    height: 100%
-
-    &:before
-      +ion-icon("eye-disabled")
-
-    &.m-active:before
-      +ion-icon("eye")
 
   &_submit
     $size: 40px

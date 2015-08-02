@@ -4,6 +4,7 @@ AuthPopup = require '../shared/auth/auth_popup'
 Login = -> require '../shared/auth/login'
 Registration = -> require '../shared/auth/registration'
 Popup = require '../../models/popup'
+Toast = require '../../models/toast'
 
 {PropTypes} = React
 
@@ -29,7 +30,7 @@ AuthPopupButton =
 
     @app.currentUserActions[@submitAction] data
       .then ({error}) =>
-        return @showFailToast() if error?
+        return @showFailToast(error) if error?
         @closeAuthPopups()
         onSuccess()
 

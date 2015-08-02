@@ -8,7 +8,7 @@ SectionsSelect = require './sections_select'
 Tags = require '../shared/ratings/tags'
 TagsSelect = require './tags_select'
 Meta = require '../shared/ratings/meta'
-FileInput = require '../shared/file_input'
+FileInput = require '../shared/inputs/file'
 withIndexKeys = require '../../helpers/react/with_index_keys'
 
 {PropTypes} = React

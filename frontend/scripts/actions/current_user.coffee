@@ -9,7 +9,7 @@ class CurrentUserActions extends Marty.ActionCreators
 
   logIn: (data) ->
     @app.currentUserApi.logIn(data).then ({body, status}) =>
-      return error: body.error if status == 400
+      return error: body.error unless status == 200
       user = new User body.user
       @dispatch Constants.SET_CURRENT_USER, user
       user
@@ -21,7 +21,7 @@ class CurrentUserActions extends Marty.ActionCreators
 
   register: (data) ->
     @app.currentUserApi.register(data).then ({body, status}) =>
-      return error: body.error if status == 400
+      return error: body.error unless status == 200
       user = new User body.user
       @dispatch Constants.SET_CURRENT_USER, user
       user

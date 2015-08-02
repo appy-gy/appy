@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         end
       end
       resources :users, only: [:show, :create, :update] do
+        put :change_password
         scope module: :users do
           resources :ratings, only: [] do
             get *Rating.statuses.keys.map(&:pluralize), on: :collection

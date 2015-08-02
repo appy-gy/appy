@@ -177,19 +177,16 @@ $tab-title-height: 50px
           line-height: 22px
           padding: 0 10px
 
-  &_edit-buttons
-    display: flex
-    flex-flow: row nowrap
+  &_settings
     position: absolute
-    top: $margin
-    right: 0
+    top: $padding
+    right: 1.5 * $padding
 
-  &_edit-button
-    +icon-button
-
-    @each $mod, $icon in (start, edit), (cancel, close), (save, checkmark)
-      &.m-#{$mod}:before
-        +ion-icon($icon)
+    &:before
+      +ion-icon("gear-a")
+      cursor: pointer
+      color: white
+      font-size: $icon-button-size
 
   &_content
     padding: 30px 60px

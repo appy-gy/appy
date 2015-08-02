@@ -12,4 +12,9 @@ class UsersApi extends Marty.HttpStateSource
     body = toFormData(user: snakecaseKeys(changes))
     @put { url: id, body }
 
+  changePassword: (id, oldPassword, newPassword) ->
+    url = "#{id}/change_password"
+    body = snakecaseKeys { oldPassword, newPassword }
+    @put { url, body }
+
 module.exports = UsersApi
