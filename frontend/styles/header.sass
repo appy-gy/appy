@@ -1,3 +1,17 @@
+@keyframes leave
+  0%
+    opacity: 1
+    transform: scale(1)
+  10%, 80%
+    transform: scale(1.05)
+    color: $green
+  90%
+    opacity: 1
+    transform: scale(1.05)
+  100%
+    opacity: 0
+    transform: scale(1.05)
+
 .header
   &_logotype
     display: block
@@ -86,10 +100,16 @@
     flex: 1
 
   &_validation-errors
+    display: block
     font-size: 12px
     margin: 15px 15px 0 15px
 
   &_validation-error
+    &:before
+      font-size: 24px
+      visibility: hidden
+      +ion-icon("ios-checkmark-empty")
+
     &.m-enter
       opacity: 0
 
@@ -98,8 +118,16 @@
         transition: opacity .5s ease-in
 
     &.m-leave
-      opacity: 1
+      animation: leave 3s linear
+      &:before
+        visibility: visible
+
+
 
       &-active
-        opacity: 0
-        transition: opacity .5s ease-in
+
+
+
+        &:before
+          display: inline-block
+        // transition: opacity .5s ease-in
