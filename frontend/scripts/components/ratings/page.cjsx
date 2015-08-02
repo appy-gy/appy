@@ -4,7 +4,7 @@ Marty = require 'marty'
 ClearStores = require '../mixins/clear_stores'
 ParsePage = require '../mixins/parse_page'
 Loading = require '../mixins/loading'
-Subscription = require './subscription'
+ShowMore = require './show_more'
 PaginationLink = require './pagination_link'
 Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
@@ -34,35 +34,41 @@ Ratings = React.createClass
 
     _.isEmpty ratings
 
-  subscription: ->
-    <Subscription key="subscription"/>
+  ratings: ->
+    {ratings} = @props
+    {page} = @context
+
+    ratingsFromPrevPages = @app.ratingsStore.getState().filter (rating) ->
+      rating.page? and rating.page < page
+
+    ratings.concat ratingsFromPrevPages
+
+  pagesCount: ->
+    @app.pageCountsStore.get('ratings') || 0
 
   previews: ->
-    {ratings} = @props
-
-    ratings.map (rating, index) =>
+    @ratings().map (rating, index) =>
       type = _.findKey(@previewEnds, (end) -> _.inRange index, end) || 'normal'
       mod = _.kebabCase type
       imageSize = if type == 'normal' then 'preview' else 'large_preview'
       <Preview key={rating.id} rating={rating} mod={mod} imageSize={imageSize}/>
 
-  content: ->
-    {ratings} = @props
+  showMore: ->
+    {page} = @context
 
-    @previews()
-    # _.tap @previews(), (previews) =>
-    #   previews.splice @subscriptionPosition, 0, @subscription()
+    return if page >= @pagesCount()
+
+    <ShowMore/>
 
   render: ->
     {page} = @context
 
-    pagesCount = @app.pageCountsStore.get('ratings') || 0
-
     <Layout>
       <div className="previews">
-        {@content()}
+        {@previews()}
+        {@showMore()}
       </div>
-      <Pagination currentPage={page} pagesCount={pagesCount} link={PaginationLink}/>
+      <Pagination currentPage={page} pagesCount={@pagesCount()} link={PaginationLink}/>
     </Layout>
 
 module.exports = Marty.createContainer Ratings,

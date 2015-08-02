@@ -189,22 +189,6 @@
         color: $white
         transition: color 0.1s
 
-  &_title-buttons
-    display: flex
-    justify-content: flex-end
-    position: absolute
-    bottom: 0
-    right: 0
-    padding: 20px
-    z-index: 1
-
-  &_title-button
-    &.m-accept
-      +accept
-
-    &.m-cancel
-      +cancel
-
   &_section-name
     display: block
     font-size: 15px
@@ -262,19 +246,6 @@
 
     &.m-edit
       resize: none
-
-  &_description-buttons
-    display: flex
-    justify-content: flex-end
-    padding-top: 15px
-    width: 100%
-
-  &_description-button
-    &.m-accept
-      +accept
-
-    &.m-cancel
-      +alt-cancel
 
   &_author
     display: block

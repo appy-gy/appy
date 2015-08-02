@@ -1,9 +1,10 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-Classes = require '../mixins/classes'
 isBlank = require '../../helpers/is_blank'
 withIndexKeys = require '../../helpers/react/with_index_keys'
+Classes = require '../mixins/classes'
+RatingUpdater = require '../mixins/rating_updater'
 Textarea = require '../shared/textarea'
 
 {PropTypes} = React
@@ -11,11 +12,12 @@ Textarea = require '../shared/textarea'
 ObjectDescription = React.createClass
   displayName: 'Description'
 
-  mixins: [Marty.createAppMixin(), Classes]
+  mixins: [Marty.createAppMixin(), Classes, RatingUpdater]
 
   propTypes:
     object: PropTypes.object.isRequired
     actions: PropTypes.string.isRequired
+    placeholder: PropTypes.string.isRequired
 
   contextTypes:
     block: PropTypes.string.isRequired
@@ -24,7 +26,7 @@ ObjectDescription = React.createClass
   getInitialState: ->
     {object} = @props
 
-    edit: isBlank object.description
+    edit: false
 
   startEdit: ->
     {object} = @props
@@ -36,21 +38,21 @@ ObjectDescription = React.createClass
   stopEdit: ->
     {object} = @props
 
-    @setState edit: false unless isBlank(object.description)
+    @setState edit: false
 
   changeDescription: (event) ->
     {object, actions} = @props
 
     @app[actions].change object.id, description: event.target.value
+    @queueUpdate @updateDescription
 
   updateDescription: ->
     {object, actions} = @props
 
     @app[actions].update object.id, description: object.description
-    @stopEdit()
 
   descriptionView: ->
-    {object, className} = @props
+    {object, placeholder} = @props
     {edit} = @state
     {block} = @context
     {description} = object
@@ -58,26 +60,18 @@ ObjectDescription = React.createClass
     return if edit
 
     <div className={@classes("#{block}_description")} onClick={@startEdit}>
-      {description}
+      {description || placeholder}
     </div>
 
   descriptionEdit: ->
-    {object, className} = @props
+    {object, placeholder} = @props
     {edit} = @state
     {block} = @context
-    {description} = object
 
     return unless edit
 
     withIndexKeys [
-      <Textarea className={@classes("#{block}_description", 'm-edit')} maxLength="90" value={description} onChange={@changeDescription} placeholder="Введи описание рейтинга"></Textarea>
-      <div className="#{block}_description-buttons">
-        <button className="#{block}_description-button m-accept" onClick={@updateDescription}>
-          Cохранить
-        </button>
-        <button className="#{block}_description-button m-cancel" onClick={@stopEdit}>
-        </button>
-      </div>
+      <Textarea autoFocus className={@classes("#{block}_description", 'm-edit')} maxLength="90" placeholder={placeholder} value={object.description} onChange={@changeDescription} onBlur={@stopEdit}/>
     ]
 
   render: ->

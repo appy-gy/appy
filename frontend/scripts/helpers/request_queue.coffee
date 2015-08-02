@@ -6,25 +6,25 @@ class RequestQueue
     @busy = false
 
   add: (request) ->
-    @requests.push request
-    @performNext()
-    => @cancel request
+    new Promise (resolve) =>
+      @queue.push { request, resolve }
+      @performNext()
 
-  cancel: (request) ->
-    _.remove @requests, (req) -> req == request
+  cancel: (req) ->
+    _.remove @queue, ({request}) -> request == req
 
   clear: ->
-    @requests = []
+    @queue = []
 
   performNext: ->
-    return if @busy or _.isEmpty(@requests)
-    request = @requests.shift()
-    @perform request
+    return if @busy or _.isEmpty(@queue)
+    @perform @queue.shift()
 
-  perform: (request) ->
+  perform: ({request, resolve}) ->
     @busy = true
     @always request(), (result) =>
       @busy = false
+      resolve()
       @performNext()
       result
 
