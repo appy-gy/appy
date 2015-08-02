@@ -10,7 +10,8 @@ html
     link(href="//fonts.googleapis.com/css?family=Roboto+Slab&subset=latin,cyrillic" rel="stylesheet" type="text/css")
     link(href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css")
   body
-    != body
+    div#page
+      != body
     != state
     script(async=(env == 'production') src=host + "app.js" type="text/javascript")
     include ./_facebook.jade
