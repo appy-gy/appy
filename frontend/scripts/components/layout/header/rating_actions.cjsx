@@ -25,8 +25,8 @@ RatingActions = React.createClass
     {rating, ratingItems} = @context
 
     <div className="header_rating-actions">
-      <Publish rating={rating} ratingItems={ratingItems}/>
-      <Delete rating={rating} onDelete={@redirectToProfile}/>
+      <Publish ref="publish" rating={rating} ratingItems={ratingItems}/>
+      <Delete ref="delete" rating={rating} onDelete={@redirectToProfile}/>
     </div>
 
 module.exports = RatingActions
