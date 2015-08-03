@@ -23,7 +23,7 @@ Settings = React.createClass
     @app.popupsActions.append popup
 
   render: ->
-    <div className="user-profile_settings" onClick={@showPopup}>
+    <div className="user-profile_settings" title="Настройки" onClick={@showPopup}>
     </div>
 
 module.exports = Settings
