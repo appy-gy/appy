@@ -15,7 +15,7 @@ ResetPasswordPopup = React.createClass
   mixins: [LinkedStateMixin, AppFromProps, AppToContext]
 
   componentWillMount: ->
-    Login = Login()
+    @Login = Login()
 
   getInitialState: ->
     email: ''
@@ -49,9 +49,9 @@ ResetPasswordPopup = React.createClass
           <input type="text" className="auth-popup_input m-solo" autoFocus placeholder="Email" valueLink={@linkState 'email'}/>
         </div>
       </Form>
-      <Login className="auth-popup_link">
+      <@Login className="auth-popup_link">
         Войти
-      </Login>
+      </@Login>
     </div>
 
 module.exports = ResetPasswordPopup
