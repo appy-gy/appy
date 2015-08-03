@@ -1,4 +1,5 @@
 React = require 'react/addons'
+Marty = require 'marty'
 Publish = require '../../shared/ratings/publish'
 Delete = require '../../shared/ratings/delete'
 
@@ -6,6 +7,8 @@ Delete = require '../../shared/ratings/delete'
 
 RatingActions = React.createClass
   displayName: 'RatingActions'
+
+  mixins: [Marty.createAppMixin()]
 
   contextTypes:
     router: PropTypes.func.isRequired
