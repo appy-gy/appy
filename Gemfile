@@ -50,6 +50,10 @@ gem 'russian'
 gem 'babosa'
 gem 'friendly_id'
 
+# Mailing
+gem 'mandrill-api'
+gem 'slim'
+
 # Administration
 gem 'activeadmin', '~> 1.0.0.pre1'
 

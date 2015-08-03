@@ -1,4 +1,5 @@
 React = require 'react/addons'
+AppFromProps = require '../mixins/app_from_props'
 PasswordInput = require '../shared/inputs/password'
 Toast = require '../../models/toast'
 
@@ -8,10 +9,9 @@ Toast = require '../../models/toast'
 SettingsPopup = React.createClass
   displayName: 'SettingsPopup'
 
-  mixins: [LinkedStateMixin]
+  mixins: [LinkedStateMixin, AppFromProps]
 
   propTypes:
-    app: PropTypes.object.isRequired
     user: PropTypes.object.isRequired
 
   childContextTypes:
@@ -30,17 +30,15 @@ SettingsPopup = React.createClass
 
     event.preventDefault()
 
-    app.usersApi.changePassword(user.id, oldPassword, newPassword)
+    @app.usersApi.changePassword(user.id, oldPassword, newPassword)
       .then ({body, status}) =>
         return @showToast 'Вы ввели неверный старый пароль', 'error' unless status == 200
         @showToast 'Пароль был успешно изменен', 'success'
         @setState oldPassword: '', newPassword: ''
 
   showToast: (text, type) ->
-    {app} = @props
-
     toast = new Toast text, { type }
-    app.toastsActions.append toast
+    @app.toastsActions.append toast
 
   render: ->
     <div className="user-settings">

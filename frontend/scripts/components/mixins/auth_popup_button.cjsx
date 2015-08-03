@@ -1,14 +1,17 @@
 _ = require 'lodash'
 React = require 'react/addons'
+Popup = require '../../models/popup'
+Toast = require '../../models/toast'
+AppFromProps = require './app_from_props'
 AuthPopup = require '../shared/auth/auth_popup'
 Login = -> require '../shared/auth/login'
 Registration = -> require '../shared/auth/registration'
-Popup = require '../../models/popup'
-Toast = require '../../models/toast'
 
 {PropTypes} = React
 
 AuthPopupButton =
+  mixins: [AppFromProps]
+
   propTypes:
     children: PropTypes.node.isRequired
     onSuccess: PropTypes.func
@@ -19,11 +22,6 @@ AuthPopupButton =
 
   getDefaultProps: ->
     onSuccess: ->
-
-  componentWillMount: ->
-    {app} = @props
-
-    @app ||= app
 
   submit: (data) ->
     {onSuccess} = @props
@@ -54,7 +52,7 @@ AuthPopupButton =
 
     popup = new Popup
       type: 'auth'
-      content: <AuthPopup title={@popupTitle} onSubmit={@submit} switcher={@switcher()}/>
+      content: <AuthPopup app={@app} title={@popupTitle} onSubmit={@submit} switcher={@switcher()}/>
 
     @app.popupsActions.append popup
 
