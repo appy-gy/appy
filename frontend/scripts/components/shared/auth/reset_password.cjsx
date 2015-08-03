@@ -1,12 +1,13 @@
 React = require 'react/addons'
 Marty = require 'marty'
 Popup = require '../../../models/popup'
+Classes = require '../../mixins/classes'
 ResetPasswordPopup = require './reset_password_popup'
 
 ResetPassword = React.createClass
   displayName: 'ResetPassword'
 
-  mixins: [Marty.createAppMixin()]
+  mixins: [Marty.createAppMixin(), Classes]
 
   showResetPasswordPopup: ->
     popups = @app.popupsStore.getOfType('auth')
@@ -18,7 +19,7 @@ ResetPassword = React.createClass
     @app.popupsActions.append popup
 
   render: ->
-    <div className="auth-popup_reset-password" onClick={@showResetPasswordPopup}>
+    <div className={@classes()} onClick={@showResetPasswordPopup}>
       Забыли пароль?
     </div>
 

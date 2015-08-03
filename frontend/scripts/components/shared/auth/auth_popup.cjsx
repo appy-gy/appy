@@ -29,7 +29,7 @@ AuthPopup = React.createClass
       <Or/>
       <AuthForm ref="form" onSubmit={onSubmit}/>
       {switcher}
-      <ResetPassword/>
+      <ResetPassword className="auth-popup_link"/>
     </div>
 
 module.exports = AuthPopup
