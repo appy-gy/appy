@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.3'
 
 # Server
 gem 'puma'
@@ -49,6 +49,10 @@ gem 'russian'
 # Friendly urls
 gem 'babosa'
 gem 'friendly_id'
+
+# Mailing
+gem 'mandrill-api'
+gem 'slim'
 
 # Administration
 gem 'activeadmin', '~> 1.0.0.pre1'

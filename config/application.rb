@@ -15,7 +15,14 @@ module Top
 
     config.time_zone = 'Moscow'
 
+    config.host = URI.parse(ENV['TOP_HOST']).host
+
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.action_mailer.default_url_options = { host: config.host }
+    config.action_mailer.default_options = {
+      from: "reply@#{config.host}"
+    }
 
     config.i18n.load_path = Dir.glob Rails.root.join('config/locales/**/*.yml').to_s
     config.i18n.default_locale = :ru

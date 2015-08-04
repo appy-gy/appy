@@ -3,7 +3,7 @@ Marty = require 'marty'
 classNames = require 'classnames'
 WithFileInput = require '../mixins/with_file_input'
 RatingUpdater = require '../mixins/rating_updater'
-FileInput = require '../shared/file_input'
+FileInput = require '../shared/inputs/file'
 withIndexKeys = require '../../helpers/react/with_index_keys'
 
 {PropTypes} = React
@@ -25,6 +25,11 @@ RatingItemImage = React.createClass
     return [] unless canEdit
 
     @buttonTypes.map (type) => @["#{type}Button"]()
+
+  imageUrlFor: ({context}) ->
+    {ratingItem} = context
+
+    ratingItem.imageUrl 'normal'
 
   updateImage: (files) ->
     {ratingItem} = @context
@@ -59,7 +64,7 @@ RatingItemImage = React.createClass
 
     withIndexKeys [
       @buttons()...
-      <img className="rating-item_cover-image" src={ratingItem.imageUrl('normal')}/>
+      <img className="rating-item_cover-image" src={@imageUrl()}/>
     ]
 
   render: ->

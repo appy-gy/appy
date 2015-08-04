@@ -15,4 +15,4 @@ module.exports = ->
         <Handler {...state.params}/>
       </ApplicationContainer>
 
-    React.render container, document.body
+    React.render container, document.querySelector('#page')

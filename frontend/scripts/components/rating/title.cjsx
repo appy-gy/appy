@@ -5,7 +5,7 @@ isBlank = require '../../helpers/is_blank'
 withIndexKeys = require '../../helpers/react/with_index_keys'
 Classes = require '../mixins/classes'
 RatingUpdater = require '../mixins/rating_updater'
-Textarea = require '../shared/textarea'
+Textarea = require '../shared/inputs/text'
 
 {PropTypes} = React
 

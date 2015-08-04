@@ -1,7 +1,5 @@
 module RatingItems
   class RatingItemImageUploader < ImageUploader
-    process convert: 'jpg'
-
     image :normal, [840, 385]
 
     def filename

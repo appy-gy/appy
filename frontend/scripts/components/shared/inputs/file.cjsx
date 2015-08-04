@@ -1,8 +1,8 @@
 _ = require 'lodash'
 React = require 'react/addons'
 ReactDnd = require 'react-dnd'
-Classes = require '../mixins/classes'
 HTML5Backend = require 'react-dnd/modules/backends/HTML5'
+Classes = require '../../mixins/classes'
 
 {PropTypes} = React
 {DropTarget} = ReactDnd

@@ -2,7 +2,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 WithFileInput = require '../mixins/with_file_input'
 WithRequestQueue = require '../mixins/with_request_queue'
-FileInput = require '../shared/file_input'
+FileInput = require '../shared/inputs/file'
 withIndexKeys = require '../../helpers/react/with_index_keys'
 
 {PropTypes} = React
@@ -15,6 +15,11 @@ Avatar = React.createClass
   contextTypes:
     user: PropTypes.object.isRequired
     canEdit: PropTypes.bool.isRequired
+
+  imageUrlFor: ({context}) ->
+    {user} = context
+
+    user.avatarUrl 'normal'
 
   updateAvatar: (files) ->
     {user} = @context
@@ -39,7 +44,7 @@ Avatar = React.createClass
   children: ->
     {user} = @context
 
-    imageStyles = backgroundImage: "url(#{user.avatarUrl('normal')})"
+    imageStyles = backgroundImage: "url(#{@imageUrl()})"
 
     withIndexKeys [
       <div className="user-profile_avatar-img" style={imageStyles}></div>

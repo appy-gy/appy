@@ -3,13 +3,15 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :private do
-      resource  :sessions, only: [:show, :create, :destroy]
+      resource :sessions, only: [:show, :create, :destroy]
+      resource :reset_passwords, only: [:create]
       resources :sections, only: [:index, :show] do
         scope module: :sections do
           resources :ratings, only: [:index]
         end
       end
       resources :users, only: [:show, :create, :update] do
+        put :change_password
         scope module: :users do
           resources :ratings, only: [] do
             get *Rating.statuses.keys.map(&:pluralize), on: :collection

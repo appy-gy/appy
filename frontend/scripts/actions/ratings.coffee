@@ -40,7 +40,7 @@ class RatingsActions extends Marty.ActionCreators
 
   like: (ratingId) ->
     @app.likesApi.create(ratingId).then ({body, status}) =>
-      return if status == 400
+      return unless status == 200
       like = new Like body.like
       likesCount = body.meta.likes_count
       @dispatch Constants.CHANGE_RATING, ratingId, { like, likesCount }

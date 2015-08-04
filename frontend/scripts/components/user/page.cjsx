@@ -10,6 +10,7 @@ Loading = require '../mixins/loading'
 Avatar = require './avatar'
 Name = require './name'
 SocialButtons = require './social_buttons'
+Settings = require './settings'
 RatingTabs = require './rating_tabs'
 Comments = require './comments'
 Layout = require '../layout/layout'
@@ -72,6 +73,11 @@ UserPage = React.createClass
     delete query.page
     query
 
+  settings: ->
+    return unless @canEdit()
+
+    <Settings/>
+
   render: ->
     {user} = @props
 
@@ -83,6 +89,7 @@ UserPage = React.createClass
             <Name/>
             <SocialButtons/>
           </div>
+          {@settings()}
         </header>
         <Tabs defaultTab="ratings" queryModificator={@resetPage}>
           <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">

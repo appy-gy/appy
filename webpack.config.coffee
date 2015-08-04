@@ -35,11 +35,11 @@ switch process.env.TOP_ENV
     devtool = null
 
     plugins.push \
-      new webpack.optimize.UglifyJsPlugin compress: { warnings: false }
+      new webpack.optimize.UglifyJsPlugin compress: { warnings: false },
       new webpack.optimize.DedupePlugin()
   when 'development'
     app.unshift \
-      "webpack-dev-server/client?#{process.env.TOP_WEBPACK_HOST}"
+      "webpack-dev-server/client?#{process.env.TOP_WEBPACK_HOST}",
       'webpack/hot/dev-server'
 
     plugins.push new webpack.HotModuleReplacementPlugin()
