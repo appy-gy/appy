@@ -1,7 +1,5 @@
 module Users
   class AvatarUploader < ImageUploader
-    process convert: 'jpg'
-
     image :normal, [480, 480]
     image :small, [100, 100]
 
