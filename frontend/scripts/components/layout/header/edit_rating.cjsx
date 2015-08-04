@@ -31,8 +31,8 @@ EditRatingHeader = React.createClass
       <Logo/>
       <EditRatingItems/>
       <div className="header_rating-publish-info">
-        <RatingUpdateStatus/>
         <Validations/>
+        <RatingUpdateStatus/>
         <RatingActions/>
       </div>
     </Header>
