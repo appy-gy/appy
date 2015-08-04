@@ -26,6 +26,11 @@ RatingItemImage = React.createClass
 
     @buttonTypes.map (type) => @["#{type}Button"]()
 
+  imageUrlFor: ({context}) ->
+    {ratingItem} = context
+
+    ratingItem.imageUrl 'normal'
+
   updateImage: (files) ->
     {ratingItem} = @context
 
@@ -59,7 +64,7 @@ RatingItemImage = React.createClass
 
     withIndexKeys [
       @buttons()...
-      <img className="rating-item_cover-image" src={ratingItem.imageUrl('normal')}/>
+      <img className="rating-item_cover-image" src={@imageUrl()}/>
     ]
 
   render: ->

@@ -22,6 +22,11 @@ Header = React.createClass
     rating: PropTypes.object.isRequired
     canEdit: PropTypes.bool.isRequired
 
+  imageUrlFor: ({context}) ->
+    {rating} = context
+
+    rating.imageUrl 'normal'
+
   updateImage: (files) ->
     {rating} = @context
 
@@ -50,7 +55,7 @@ Header = React.createClass
     {rating} = @context
 
     withIndexKeys [
-      <div className="rating_cover" style={backgroundImage: "url(#{rating.imageUrl('normal')})"}></div>
+      <div className="rating_cover" style={backgroundImage: "url(#{@imageUrl()})"}></div>
       <Meta/>
       @ratingImageButton()
       <div className="rating_section-name-wrapper">

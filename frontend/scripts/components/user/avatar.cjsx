@@ -16,6 +16,11 @@ Avatar = React.createClass
     user: PropTypes.object.isRequired
     canEdit: PropTypes.bool.isRequired
 
+  imageUrlFor: ({context}) ->
+    {user} = context
+
+    user.avatarUrl 'normal'
+
   updateAvatar: (files) ->
     {user} = @context
 
@@ -39,7 +44,7 @@ Avatar = React.createClass
   children: ->
     {user} = @context
 
-    imageStyles = backgroundImage: "url(#{user.avatarUrl('normal')})"
+    imageStyles = backgroundImage: "url(#{@imageUrl()})"
 
     withIndexKeys [
       <div className="user-profile_avatar-img" style={imageStyles}></div>
