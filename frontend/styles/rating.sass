@@ -288,8 +288,14 @@
       width: 100%
       height: 60px
 
+      &.m-vk
+        .rating_share-icon
+          background:  url("../images/vk.svg") center center
+          background-repeat: no-repeat
+          background-size: contain
+          background-color: $white
 
-      @each $type, $icon, $color in (facebook, social-facebook, #3b5b98), (google, social-googleplus, #d54a35), (twitter social-twitter #55acee)
+      @each $type, $icon, $color in (facebook, social-facebook, #3b5b98), (vk, social-vk, #5d80a6), (google, social-googleplus, #d54a35), (twitter social-twitter #55acee)
         &.m-#{$type}
           background: $color
 
@@ -302,6 +308,8 @@
 
               &:before
                 +ion-icon($icon)
+
+
 
   &_add-image
     +add-image

@@ -17,3 +17,19 @@
 
     &.m-active:before
       +ion-icon("eye")
+
+=popup-input
+  background-color: $white-2
+  padding: $margin
+  width: 100%
+  cursor: pointer
+  transition: all 0.2s ease
+
+
+  &::placeholder
+    color: $black
+
+  &:focus
+    background-color: $white
+    &::placeholder
+      color: $black

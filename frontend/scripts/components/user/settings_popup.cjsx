@@ -2,7 +2,6 @@ React = require 'react/addons'
 AppFromProps = require '../mixins/app_from_props'
 PasswordInput = require '../shared/inputs/password'
 Toast = require '../../models/toast'
-
 {PropTypes} = React
 {LinkedStateMixin} = React.addons
 
@@ -42,6 +41,7 @@ SettingsPopup = React.createClass
 
   render: ->
     <div className="user-settings">
+      <div className="user-settings_title">Смена пароля</div>
       <form className="user-settings_change-password" onSubmit={@changePassword}>
         <PasswordInput placeholder="Старый пароль" valueLink={@linkState 'oldPassword'}/>
         <PasswordInput placeholder="Новый пароль" valueLink={@linkState 'newPassword'}/>

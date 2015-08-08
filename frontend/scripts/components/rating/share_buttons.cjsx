@@ -4,11 +4,11 @@ ShareButton = require './share_button'
 ShareButtons = React.createClass
   displayName: 'ShareButtons'
 
-  types: ['facebook', 'google', 'twitter']
+  types: ['facebook', 'vk', 'twitter']
 
   texts:
     facebook: 'Нравится'
-    google: 'Поделиться'
+    vk: 'Поделиться'
     twitter: 'Твитнуть'
 
   buttons: ->

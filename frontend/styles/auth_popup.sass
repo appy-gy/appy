@@ -9,12 +9,7 @@ $wrapper-margin: 3 * $margin
   animation: increase-from-the-center 0.25s ease-in-out
 
   &_title
-    align-self: center
-    font-family: $serif
-    font-size: 25px
-    color: $blue
-    margin-bottom: 4 * $margin
-    text-align: center
+    +popup-title
 
   &_social-buttons
     display: flex
@@ -75,16 +70,8 @@ $wrapper-margin: 3 * $margin
     width: 100%
 
   &_input
-    background-color: $white-3
+    +popup-input
     border-radius: 10px 10px 0 0
-    padding: $margin
-    width: 100%
-
-    &::placeholder
-      color: $black
-
-    &:focus
-      background-color: $white
 
     &.m-password
       border-radius: 0 0 10px 10px
