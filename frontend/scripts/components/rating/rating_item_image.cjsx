@@ -49,7 +49,9 @@ RatingItemImage = React.createClass
       @app.ratingItemsActions.update ratingItem.id, removeImage: true
 
   updateImageButton: ->
-    <div className="rating-item_add-image" onClick={@openSelect}></div>
+    <div className="rating-item_add-image" onClick={@openSelect}>
+
+    </div>
 
   removeImageButton: ->
     {ratingItem} = @context

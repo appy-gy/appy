@@ -51,7 +51,6 @@ RatingItem = React.createClass
     return unless canEdit
 
     <div className="rating-item_remove" onClick={@removeItem}>
-      Удалить пункт рейтинга
     </div>
 
   votes: ->
@@ -70,12 +69,13 @@ RatingItem = React.createClass
       <div className="rating-item_header">
         <Title object={ratingItem} actions="ratingItemsActions" placeholder="Введите заголовок пункта"/>
       </div>
+      <div className="rating-item_cover-wrap">
+        <Image/>
+      </div>
       <div className="rating-item_description-wrapper">
         <Description object={ratingItem} actions="ratingItemsActions" placeholder="Введите описание пункта"/>
       </div>
-      <div className="rating_item_button-wrapper">
-        {@removeButton()}
-      </div>
+      {@removeButton()}
       {@votes()}
     </section>
 

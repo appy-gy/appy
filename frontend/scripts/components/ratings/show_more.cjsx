@@ -35,9 +35,14 @@ ShowMore = React.createClass
     {loading} = @state
 
     classes = classNames 'previews_show-more', 'm-loading': loading
-
-    <div className={classes} onClick={@loadMore}>
-      Показать еще
+    <div className="previews_show-more-wrap">
+      <div className={classes} onClick={@loadMore}>
+        <div className="previews_show-more-icon">
+        </div>
+        <div className="previews_show-more-text">
+          Хочу еще больше
+        </div>
+      </div>
     </div>
 
 module.exports = ShowMore

@@ -2,8 +2,40 @@
   display: flex
   flex-flow: row wrap
 
+  &_show-more
+    color: $color-1
+    cursor: pointer
+
+    &-icon
+      font-size: 36px
+      display: flex
+      justify-content: center
+      align-items: center
+
+      &:before
+        +ion-icon("ios-loop-strong")
+
+    &-text
+      text-align: center
+      font-size: 12px
+      font-weight: 600
+      text-transform: uppercase
+      margin: 5px 0
+
+    &:hover
+      color: $blue
+      .previews_show-more-icon
+        transform: rotate(360deg)
+        transition: transform 1s ease
+
+    &-wrap
+      width: 100%
+      display: flex
+      justify-content: center
+
   @media screen and (min-width: $small)
     margin: -15px -15px 0 -15px
+
 
 .preview
   +rating-meta
