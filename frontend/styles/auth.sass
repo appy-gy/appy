@@ -4,18 +4,26 @@
   margin: 15px 15px 0 15px
   width: calc(100% - 30px)
 
-  &_login
+  &_login,
+  &_registration
     +border-button
+    border-color: #ED475E
+    color: #ED475E
+    &:hover
+      background-color: #ED475E
+      border-color: #ED475E
+
+  &_login
     flex: 1
     margin-right: 10px
 
   &_registration
-    +border-button
     flex: 2
 
   &_user-profile-link
     display: flex
     align-items: center
+    width: 100%
 
     &:hover
 

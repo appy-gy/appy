@@ -24,7 +24,7 @@
 .header
   &_logotype
     display: block
-    background: #2D4D77
+    background: $blue
     color: $white
     padding: 10px 20px
     text-align: center
@@ -48,6 +48,17 @@
 
   &_rating-button
     +header-button
+    background-color: #E666AC
+
+    &:hover
+      background-color: lighten(#E666AC, 10%)
+
+    &.m-authorized
+      background-color: #ED475E
+
+      &:hover
+        background-color: lighten(#ED475E, 10%)
+
 
   &_rating-button-icon
     margin-right: 5px
