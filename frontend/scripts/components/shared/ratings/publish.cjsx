@@ -26,7 +26,7 @@ Publish = React.createClass
   publish: ->
     {rating} = @props
 
-    return unless _.isEmpty @hasPublishErrors()
+    return if @hasPublishErrors()
 
     @app.ratingsActions.update(rating.id, status: 'published')
 
