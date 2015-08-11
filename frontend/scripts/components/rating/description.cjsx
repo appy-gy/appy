@@ -71,7 +71,7 @@ ObjectDescription = React.createClass
     return unless edit
 
     withIndexKeys [
-      <Textarea autoFocus className={@classes("#{block}_description", 'm-edit')} maxLength="90" placeholder={placeholder} value={object.description} onChange={@changeDescription} onBlur={@stopEdit}/>
+      <Textarea autoFocus className={@classes("#{block}_description", 'm-edit')} placeholder={placeholder} value={object.description} onChange={@changeDescription} onBlur={@stopEdit}/>
     ]
 
   render: ->
