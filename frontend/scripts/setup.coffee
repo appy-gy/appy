@@ -5,7 +5,6 @@ setWindowMarty = require './setup/set_window_marty'
 arrayEach = require './setup/array_each'
 classify = require './setup/classify'
 momentLocale = require './setup/moment_locale'
-addPluralizationRules = require './setup/add_pluralization_rules'
 
 setup = ->
   polyfillSetImmediate()
@@ -15,6 +14,5 @@ setup = ->
   arrayEach()
   classify()
   momentLocale()
-  addPluralizationRules()
 
 module.exports = setup

@@ -11,12 +11,12 @@ class RatingsQueries extends Marty.Queries
       @dispatch Constants.APPEND_RATINGS, ratings
       @dispatch Constants.SET_PAGES_COUNT, 'ratings', body.meta.pages_count
 
-  getForUser: (userId, {status, page}) ->
-    @app.ratingsApi.loadForUser(userId, { status, page }).then ({body}) =>
+  getForUser: (userId, page) ->
+    @app.ratingsApi.loadForUser(userId, page).then ({body}) =>
       return unless body?
       ratings = body.ratings.map (rating) -> new Rating _.merge(rating, { page })
       @dispatch Constants.APPEND_RATINGS, ratings
-      @dispatch Constants.SET_PAGES_COUNT, "user#{_.classify status}Ratings", body.meta.pages_count
+      @dispatch Constants.SET_PAGES_COUNT, "userRatings", body.meta.pages_count
 
   getForSection: (sectionId) ->
     @app.ratingsApi.loadForSection(sectionId).then ({body}) =>

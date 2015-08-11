@@ -13,9 +13,7 @@ Rails.application.routes.draw do
       resources :users, only: [:show, :create, :update] do
         put :change_password
         scope module: :users do
-          resources :ratings, only: [] do
-            get *Rating.statuses.keys.map(&:pluralize), on: :collection
-          end
+          resources :ratings, only: [:index]
           resources :comments, only: [:index]
         end
       end

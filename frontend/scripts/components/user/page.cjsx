@@ -11,7 +11,7 @@ Avatar = require './avatar'
 Name = require './name'
 SocialButtons = require './social_buttons'
 Settings = require './settings'
-RatingTabs = require './rating_tabs'
+Ratings = require './ratings'
 Comments = require './comments'
 Layout = require '../layout/layout'
 Tabs = require '../shared/tabs/tabs'
@@ -93,7 +93,7 @@ UserPage = React.createClass
         </header>
         <Tabs defaultTab="ratings" queryModificator={@resetPage}>
           <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
-            <RatingTabs/>
+            <Ratings/>
           </Tab>
           <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
             <Comments/>
