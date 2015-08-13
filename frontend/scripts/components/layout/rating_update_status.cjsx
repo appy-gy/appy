@@ -19,7 +19,7 @@ RatingUpdateStatus = React.createClass
 
     name = @statusNames[status.type]
 
-    <div className="header_rating-update-status">
+    <div className="layout_rating-update-status">
       {name}
     </div>
 

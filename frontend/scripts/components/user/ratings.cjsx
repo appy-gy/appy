@@ -58,8 +58,11 @@ Ratings = React.createClass
 
     pagesCount = @app.pageCountsStore.get("userRatings") || 0
 
-    <div className="user-ratings_content">
-      <div className="user-ratings_previews">
+    <div>
+      <h2 className="user-profile_tab-header">
+        Рейтинги (кол-во)
+      </h2>
+      <div className="previews">
         {@ratings()}
       </div>
       {@noRatings()}
