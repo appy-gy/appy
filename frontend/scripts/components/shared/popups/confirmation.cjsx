@@ -13,8 +13,8 @@ ConfirmationPopup = React.createClass
     cancelText: PropTypes.string
 
   getDefaultProps: ->
-    confirmText: 'Да'
-    cancelText: 'Отмена'
+    confirmText: 'Да, пожалуйста'
+    cancelText: 'Не удалять'
 
   render: ->
     {text, onConfirm, onCancel, confirmText, cancelText} = @props
@@ -28,6 +28,7 @@ ConfirmationPopup = React.createClass
           {confirmText}
         </div>
         <div className="confirmation-popup_button m-cancel" onClick={onCancel}>
+          {cancelText}
         </div>
       </div>
     </div>

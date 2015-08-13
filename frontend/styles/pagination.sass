@@ -21,7 +21,7 @@
     line-height: 30px
     height: 30px
     font-family: $sans-serif
-    font-weight: 700
+    font-weight: 300
     font-size: 16px
     color: $black-2
     text-align: center
@@ -30,7 +30,7 @@
     &.m-next, &.m-prev
       position: absolute
       top: 0
-      font-size: 24px
+      font-size: 28px
       display: flex
       align-items: center
       justify-content: center
@@ -41,12 +41,12 @@
       right: 0
 
       &:before
-        +ion-icon("android-arrow-forward")
+        +ion-icon("ios-arrow-thin-right")
 
     &.m-prev
       left: 0
       &:before
-        +ion-icon("android-arrow-back")
+        +ion-icon("ios-arrow-thin-left")
 
     &:hover
       color: $blue
@@ -54,3 +54,4 @@
     &.m-active
       cursor: default
       color: $blue
+      font-weight: 600
