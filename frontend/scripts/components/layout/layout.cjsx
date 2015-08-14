@@ -7,7 +7,6 @@ EditRatingHeader = require './header/edit_rating'
 Popups = require './popups/popups'
 Toastr = require './toastr/toastr'
 FbRoot = require './fb_root'
-RatingUpdateStatus = require './rating_update_status'
 
 {PropTypes} = React
 
@@ -44,7 +43,6 @@ Layout = React.createClass
       <Toastr/>
       <Loader/>
       <FbRoot/>
-      <RatingUpdateStatus/>
     </div>
 
 module.exports = Layout

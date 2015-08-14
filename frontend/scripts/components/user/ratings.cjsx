@@ -54,13 +54,13 @@ Ratings = React.createClass
       <Preview key={rating.id} rating={rating} imageSize="preview" showDelete={showDelete}/>
 
   render: ->
-    {page} = @context
+    {page, user} = @context
 
     pagesCount = @app.pageCountsStore.get("userRatings") || 0
 
     <div>
       <h2 className="user-profile_tab-header">
-        Рейтинги (кол-во)
+        Рейтинги ({user.ratingsCount})
       </h2>
       <div className="previews">
         {@ratings()}

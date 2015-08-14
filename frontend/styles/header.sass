@@ -46,6 +46,24 @@
     &:hover
       opacity: 0.8
 
+  &_rating-update-status
+    font-size: 14px
+    border-radius: $border-radius
+    padding: 5px 10px
+    color: $black-2
+    position: fixed
+    top: 5px
+    right: 5px
+    background: rgba($red, 0.9)
+    z-index: 999
+    width: auto
+
+    &.done
+      background: rgba($green, 0.9)
+
+    &.pending
+      background: rgba($yellow, 0.9)
+
   &_rating-button
     +header-button
     background-color: #E666AC

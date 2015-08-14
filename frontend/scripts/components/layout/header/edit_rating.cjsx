@@ -5,6 +5,7 @@ Logo = require './logo'
 Validations = require './validations'
 RatingActions = require './rating_actions'
 EditRatingItems = require './edit_rating_items'
+RatingUpdateStatus = require './rating_update_status'
 
 {PropTypes} = React
 
@@ -33,6 +34,7 @@ EditRatingHeader = React.createClass
         <Validations/>
         <RatingActions/>
       </div>
+      <RatingUpdateStatus/>
     </Header>
 
 module.exports = Marty.createContainer EditRatingHeader,
