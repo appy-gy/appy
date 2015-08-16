@@ -9,7 +9,7 @@
   &_header
     font: 24px $serif
     font-weight: 700
-    color: $blue
+    color: $color-1
     margin-bottom: 20px
     text-align: center
     display: flex
@@ -141,9 +141,10 @@
     color: white
     cursor: pointer
     border-radius: 15px
-    line-height: 30px
+    line-height: 32px
     width: 30px
     height: 30px
+    visibility: hidden
 
     &.m-down
       background: $red
@@ -173,6 +174,17 @@
     letter-spacing: 1px
     min-width: 20px
     text-align: center
+    position: relative
+
+    &:before
+      +ion-icon("stats-bars")
+      position: absolute
+      top: 0
+      left: -30px
+      font-size: 28px
+      line-height: 30px
+      color: $green
+
 
   &_remove
     color: $black-3
@@ -194,6 +206,13 @@
       +ion-icon("ios-close-outline")
 
   &:hover
+
     .rating-item_remove
       margin-left: 0
       opacity: 1
+
+    .rating-item_button
+      visibility: visible
+
+    .rating-item_mark:before
+      visibility: hidden

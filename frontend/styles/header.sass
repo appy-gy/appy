@@ -20,6 +20,14 @@
     opacity: 1
     transform: translateX(0)
 
+@keyframes hidden
+  0%
+    opacity: 1
+
+  100%
+    opacity: 0
+    display: none
+
 
 .header
   &_logotype
@@ -54,15 +62,24 @@
     position: fixed
     top: 5px
     right: 5px
-    background: rgba($red, 0.9)
-    z-index: 999
+    z-index: 9999999
     width: auto
+    transition: all 0.2s ease
+    display: none
+
+    &.done,
+    &.saving
+      background: rgba($green, 0.8)
+      display: block
 
     &.done
-      background: rgba($green, 0.9)
+      transition: opacity 0.3s ease 3s
+      opacity: 0
+      // animation: hidden 1s linear 1s
 
     &.pending
-      background: rgba($yellow, 0.9)
+      background: rgba($yellow, 0.8)
+      display: block
 
   &_rating-button
     +header-button

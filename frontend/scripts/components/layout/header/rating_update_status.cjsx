@@ -11,8 +11,8 @@ RatingUpdateStatus = React.createClass
 
   statusNames:
     done: 'Сохранено'
-    pending: 'Ожидает сохранения'
-    saving: 'Сохраняется'
+    pending: 'Ожидает сохранения...'
+    saving: 'Сохраняется...'
 
   render: ->
     {status} = @props

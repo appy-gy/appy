@@ -11,6 +11,6 @@ ShareButtons = React.createClass
     @getDOMNode().appendChild script
 
   render: ->
-    <div className="pluso" data-background="transparent" data-options="big,square,line,horizontal,counter,theme=04" data-services="vkontakte,odnoklassniki,facebook,twitter"></div>
+    <div className="pluso rating_share" data-background="transparent" data-options="big,square,line,horizontal,counter,sepcounter=1,theme=14" data-services="vkontakte,facebook,twitter, odnoklassniki"></div>
 
 module.exports = ShareButtons

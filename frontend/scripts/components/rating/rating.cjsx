@@ -9,6 +9,7 @@ ShareButtons = require './share_buttons'
 Nothing = require '../shared/nothing'
 UserLink = require '../shared/links/user'
 isClient = require '../../helpers/is_client'
+RatingUpdateStatus = require '../layout/header/rating_update_status'
 
 {PropTypes} = React
 
@@ -87,6 +88,7 @@ Rating = React.createClass
     {rating} = @props
 
     <article className="rating">
+      <RatingUpdateStatus/>
       <Header/>
       <Description object={rating} actions="ratingsActions" placeholder="Введите описание рейтинга"/>
       {@authorLink()}
