@@ -15,7 +15,10 @@ Header = React.createClass
     {children} = @props
 
     <header className="layout_header header">
-      {children}
+      <div className="header_menu-button"></div>
+      <div className="header_content">
+        {children}
+      </div>
     </header>
 
 module.exports = Header

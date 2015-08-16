@@ -1,11 +1,17 @@
 .comments
   background: #f2f2f2
-  padding: 30px 40px
+  padding: 20px
+
+  @media screen and (min-width: $medium)
+    padding: 30px 40px
 
   &_header
-    font: 30px $serif
+    font: 24px $serif
     color: $color-1
     margin-bottom: 15px
+
+    @media screen and (min-width: $small)
+      font-size: 30px
 
   &_empty
     margin-bottom: 20px
@@ -14,7 +20,10 @@
   &_tree
     &.m-subtree
       &.m-level-2, &.m-level-3, &.m-level-4, &.m-level-5
-        margin-left: 7.5 * $margin
+        margin-left: 2 * $margin
+
+        @media screen and (min-width: $small)
+          margin-left: 7.5 * $margin
 
   &_auth-to-comment
     display: flex

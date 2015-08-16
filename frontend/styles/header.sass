@@ -30,6 +30,59 @@
 
 
 .header
+  z-index: 2
+  margin-left: (-$header-width)
+  transition: margin 0.3s ease
+
+  &_menu-button
+    position: absolute
+    right: -40px
+    width: 40px
+    height: 40px
+    background-color: $blue
+    top: 0
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 32px
+    color: $white
+
+    @media screen and (min-width: $small)
+      right: -50px
+      width: 50px
+      height: 50px
+
+    &:before
+      +ion-icon("android-menu")
+
+
+
+
+  &_content
+    width: 100%
+    height: 100%
+    overflow-y: auto
+    background-color: $white
+
+  &.m-active
+    margin-left: 0
+
+    .header_menu-button
+      background-color: $color-1
+
+      &:before
+        +ion-icon("android-close")
+
+
+  @media screen and (min-width: $big)
+    margin-left: 0
+
+    &_menu-button
+      display: none
+
+
+
+
   &_logotype
     display: block
     background: $blue
