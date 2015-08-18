@@ -11,10 +11,14 @@ Tags = React.createClass
   propTypes:
     tag: PropTypes.object.isRequired
 
+  contextTypes:
+    block: PropTypes.string.isRequired
+
   render: ->
     {tag} = @props
+    {block} = @context
 
-    <span className="tag">
+    <span className="#{block}_tag tag">
       {tag.name}
     </span>
 
