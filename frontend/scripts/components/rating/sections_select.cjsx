@@ -35,7 +35,9 @@ SectionsSelect = React.createClass
     {object} = @props
     {canEdit} = @context
 
-    return <div>{object.section?.name}</div> unless canEdit
+    sectionNameStyles = _.pick object.section, 'color'
+
+    return <div className="rating_section-name" style={sectionNameStyles}>{object.section?.name}</div> unless canEdit
 
     <Select placeholder="Рубрика" value={object.section?.id} options={@options()} searchable={false} valueRenderer={@renderOption} optionRenderer={@renderOption} onChange={@updateSection}/>
 
