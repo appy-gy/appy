@@ -49,8 +49,8 @@ Preview = React.createClass
     {rating} = @props
 
     _.trunc rating.description,
-        'length': 90,
-        'separator': /,? +/
+      length: 90
+      separator: /,? +/
 
   showDeleteConfirmation: (event) ->
     {rating} = @props
