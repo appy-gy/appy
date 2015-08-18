@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Form = require './form'
 RatingLink = require '../links/rating'
+classNames = require 'classnames'
 
 {PropTypes} = React
 
@@ -43,11 +44,13 @@ Answer = React.createClass
     <Form ref="form" parent={comment} onSubmit={@triggerForm}/>
 
   render: ->
+    {showForm} = @state
     {comment} = @context
 
     Root = @root()
+    classes = classNames 'comment_action', 'm-active': showForm
 
-    <Root className="comment_action" slug={comment.ratingSlug} query={comment: comment.shortId(), reply: true}>
+    <Root className={classes} slug={comment.ratingSlug} query={comment: comment.shortId(), reply: true}>
       <div ref="trigger" className="comment_action-link" onClick={@triggerForm}>
         Ответить
       </div>
