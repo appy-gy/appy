@@ -3,8 +3,8 @@ Marty = require 'marty'
 
 {PropTypes} = React
 
-RatingUpdateStatus = React.createClass
-  displayName: 'RatingUpdateStatus'
+UpdateStatus = React.createClass
+  displayName: 'UpdateStatus'
 
   propTypes:
     status: PropTypes.object.isRequired
@@ -23,7 +23,7 @@ RatingUpdateStatus = React.createClass
       {name}
     </div>
 
-module.exports = Marty.createContainer RatingUpdateStatus,
+module.exports = Marty.createContainer UpdateStatus,
   listenTo: 'ratingUpdateStatusStore'
 
   fetch: ->

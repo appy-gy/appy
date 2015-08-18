@@ -25,7 +25,7 @@ describe 'Rating', ->
       @rating = createdAt: moment(), imageUrl: (->), user: {}
       @ratingItems = []
       @app = TestUtils.createApplication Application,
-        include: ['currentUserQueries', 'currentUserApi', 'currentUserStore']
+        include: ['currentUserQueries', 'currentUserApi', 'currentUserStore', 'ratingUpdateStatusStore']
         stub:
           currentUserApi:
             load: sinon.stub().returns(Promise.resolve(body: { user: {} }, status: 200))

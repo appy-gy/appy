@@ -7,7 +7,7 @@ Application = require '../../scripts/application'
 Layout = require '../../scripts/components/layout/layout'
 UserContainer = require '../../scripts/components/user/page'
 Avatar = require '../../scripts/components/user/avatar'
-RatingTabs = require '../../scripts/components/user/rating_tabs'
+Ratings = require '../../scripts/components/user/ratings'
 Comments = require '../../scripts/components/user/comments'
 
 {expect} = chai
@@ -15,7 +15,7 @@ Comments = require '../../scripts/components/user/comments'
 
 describe 'User slug update', ->
   before ->
-    @restore = mockComponents Layout, Avatar, RatingTabs, Comments
+    @restore = mockComponents Layout, Avatar, Ratings, Comments
 
   after ->
     @restore()
@@ -25,10 +25,13 @@ describe 'User slug update', ->
     @router = getCurrentQuery: (-> {}), getCurrentParams: (-> userSlug: '1')
     @app = TestUtils.createApplication Application,
       include: ['usersApi', 'usersQueries', 'usersStore',
+        'ratingsApi', 'ratingsQueries', 'ratingsStore',
         'currentUserApi', 'currentUserQueries', 'currentUserStore']
       stub:
         usersApi:
           load: sinon.stub().returns(Promise.resolve(body: { @user }, status: 200))
+        ratingsApi:
+          loadForUser: sinon.stub().returns(Promise.resolve(body: { ratings: [{}] }, status: 200))
         currentUserApi:
           load: sinon.stub().returns(Promise.resolve(body: { @user }, status: 200))
     @app.usersStore.append @user

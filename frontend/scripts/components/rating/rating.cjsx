@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
+UpdateStatus = require './update_status'
 Header = require './header'
 Description = require './description'
 RatingItem = require './rating_item'
@@ -9,7 +10,6 @@ ShareButtons = require './share_buttons'
 Nothing = require '../shared/nothing'
 UserLink = require '../shared/links/user'
 isClient = require '../../helpers/is_client'
-RatingUpdateStatus = require '../layout/header/rating_update_status'
 
 {PropTypes} = React
 
@@ -88,7 +88,7 @@ Rating = React.createClass
     {rating} = @props
 
     <article className="rating">
-      <RatingUpdateStatus/>
+      <UpdateStatus/>
       <Header/>
       <Description object={rating} actions="ratingsActions" placeholder="Введите описание рейтинга"/>
       {@authorLink()}

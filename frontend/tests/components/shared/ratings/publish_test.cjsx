@@ -13,7 +13,7 @@ describe 'Publish', ->
     expect(publishTree.getClassName()).to.string('m-disabled')
 
   it 'has not disabled modifactor when rating can be published', ->
-    rating = title: 'test', description: 'test'
+    rating = title: 'test', description: 'test', section: {}
     ratingItems = [{}, {}]
     publishTree = testTree <Publish rating={rating} ratingItems={ratingItems}/>
     expect(publishTree.getClassName()).not.to.string('m-disabled')
