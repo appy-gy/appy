@@ -5,4 +5,7 @@ class RatingItem < ActiveRecord::Base
 
   belongs_to :rating
   has_many :votes, dependent: :destroy
+
+  validates :position, :mark, :rating, presence: true
+  validates :position, uniqueness: { scope: :rating }
 end

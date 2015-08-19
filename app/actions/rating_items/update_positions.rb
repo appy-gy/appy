@@ -8,6 +8,7 @@ module RatingItems
     end
 
     def call
+      return unless positions.present?
       Queries::BulkUpdate.new(RatingItem, changes).call
       RatingItem.where(id: ids).pluck(:id, :position).to_h
     end

@@ -8,11 +8,8 @@ RatingItem = require '../models/rating_item'
 {update} = React.addons
 
 class RatingItemsActions extends Marty.ActionCreators
-  create: (ratingId) ->
-    position = (_.max(@app.ratingItemsStore.getState(), 'position')?.position or 0) + 1
-    data = { ratingId, position }
-
-    @app.ratingItemsApi.create(ratingId, data).then ({body}) =>
+  create: (ratingId, position) ->
+    @app.ratingItemsApi.create(ratingId, { position }).then ({body}) =>
       return unless body?
       ratingItem = new RatingItem body.rating_item
       @dispatch Constants.APPEND_RATING_ITEMS, ratingItem

@@ -1,34 +1,3 @@
-@keyframes leave
-  0%
-    opacity: 1
-    transform: scale(1)
-  5%, 80%
-    color: $green
-  90%
-    opacity: 1
-    transform: translateX(0)
-  100%
-    opacity: 0
-    transform: translateX(-200px)
-
-
-@keyframes enter
-  0%
-    opacity: 0
-    transform: translateX(-200px)
-  100%
-    opacity: 1
-    transform: translateX(0)
-
-@keyframes hidden
-  0%
-    opacity: 1
-
-  100%
-    opacity: 0
-    display: none
-
-
 .header
   z-index: 2
   margin-left: (-$header-width)
@@ -55,9 +24,6 @@
     &:before
       +ion-icon("android-menu")
 
-
-
-
   &_content
     width: 100%
     height: 100%
@@ -73,15 +39,11 @@
       &:before
         +ion-icon("android-close")
 
-
   @media screen and (min-width: $big)
     margin-left: 0
 
     &_menu-button
       display: none
-
-
-
 
   &_logotype
     display: block
@@ -99,6 +61,7 @@
       font-size: 20px
       &:before
         +ion-icon("thumbsup")
+
     &-text
       text-transform: uppercase
       font-size: 14px
@@ -146,7 +109,6 @@
 
       &:hover
         background-color: lighten(#ED475E, 10%)
-
 
   &_rating-button-icon
     margin-right: 5px

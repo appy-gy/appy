@@ -27,11 +27,6 @@
         height: 100%
         background-color: $black-3
 
-    .image-selector
-      position: absolute
-      top: 20px
-      left: 20px
-
     @media screen and (min-width: $medium)
       height: 500px
 
@@ -105,14 +100,16 @@
       transition: all 0.2s ease
 
     &:hover
-      .rating_new-item-button-icon
-        transform: scale(0.8)
-        margin-top: -10px
-        color: $blue
-      .rating_new-item-button-text
-        opacity: 1
-        margin-top: -10px
-        margin-bottom: 20px
+      .rating
+        &_new-item-button-icon
+          transform: scale(0.8)
+          margin-top: -10px
+          color: $blue
+
+        &_new-item-button-text
+          opacity: 1
+          margin-top: -10px
+          margin-bottom: 20px
 
   &_like
     position: relative
@@ -123,22 +120,25 @@
       align-items: center
       justify-content: center
       padding: 20px 0 30px 0
+
       @media screen and (min-width: $medium)
         padding: 40px 0 60px 0
+
     &-icon
       display: flex
       justify-content: center
       align-items: center
+
       &:before
         +ion-icon("ios-heart-outline")
         font-size: 90px
         color: $red
 
       &.m-active
+        animation: heart-beat 0.5s ease-out
+
         &:before
           +ion-icon("ios-heart")
-
-        animation: heart-beat 0.5s ease-out
 
     &-content
       position: absolute
@@ -153,6 +153,7 @@
       display: flex
       justify-content: center
       align-items: center
+
       &.m-active
         color: $white
 
@@ -331,8 +332,6 @@
 
               &:before
                 +ion-icon($icon)
-
-
 
   &_add-image
     +add-image

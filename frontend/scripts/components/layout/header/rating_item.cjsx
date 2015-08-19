@@ -13,16 +13,6 @@ RatingItem = React.createClass
   propTypes:
     ratingItem: PropTypes.object.isRequired
 
-  changePosition: (newPosition) ->
-    {ratingItem} = @props
-
-    @app.ratingItemsActions.changePosition ratingItem.id, newPosition
-
-  updatePositions: ->
-    {ratingItem} = @props
-
-    @app.ratingsActions.updatePositions ratingItem.ratingId
-
   ratingItemAnchor: ->
     {ratingItem} = @props
 
@@ -34,7 +24,7 @@ RatingItem = React.createClass
     classes = classNames 'header_rating-item', 'm-waypoint-enter': _.includes(waypoints, ratingItem)
 
     <div className={classes}>
-      <a className="header_rating-item-title" href={@ratingItemAnchor()} >
+      <a className="header_rating-item-title" href={@ratingItemAnchor()}>
         {ratingItem.title}
       </a>
       <div className="header_rating-item-options">

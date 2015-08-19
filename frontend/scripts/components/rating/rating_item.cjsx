@@ -4,6 +4,7 @@ Title = require './title'
 Description = require './description'
 Image = require './rating_item_image'
 Votes = require './votes'
+AddRatingItem = require './add_rating_item'
 Waypoint = require 'react-waypoint'
 
 {PropTypes} = React
@@ -45,13 +46,24 @@ RatingItem = React.createClass
 
     @app.waypointsActions.remove ratingItem
 
+  addRatingItemButton: (place) ->
+    {ratingItem} = @props
+    {canEdit} = @context
+
+    return unless canEdit
+
+    position = if place == 'top' then ratingItem.position else ratingItem.position + 1
+
+    <AddRatingItem className="rating-item_add-item m-#{place}" position={position}>
+      Добавить пункт
+    </AddRatingItem>
+
   removeButton: ->
     {canEdit} = @context
 
     return unless canEdit
 
-    <div className="rating-item_remove" onClick={@removeItem}>
-    </div>
+    <div className="rating-item_remove" onClick={@removeItem}></div>
 
   votes: ->
     {rating} = @context
@@ -65,6 +77,7 @@ RatingItem = React.createClass
 
     <section className="rating-item">
       <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} threshold={0}/>
+      {@addRatingItemButton 'top'}
       <a name={ratingItem.position}></a>
       <div className="rating-item_header">
         <span className="rating-item_number">{index}</span>
@@ -76,6 +89,7 @@ RatingItem = React.createClass
       <div className="rating-item_description-wrapper">
         <Description object={ratingItem} actions="ratingItemsActions" placeholder="Введите описание пункта"/>
       </div>
+      {@addRatingItemButton 'bottom'}
       {@removeButton()}
       {@votes()}
     </section>

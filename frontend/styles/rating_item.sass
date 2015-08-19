@@ -4,7 +4,6 @@
   border-bottom: 1px solid #f2f2f2
   margin-top: -1px
   position: relative
-  overflow: hidden
 
   @media screen and (min-width: $medium)
     padding: 30px 40px
@@ -52,7 +51,6 @@
       resize: none
       text-align: center
 
-
   &_add-image
     +add-image
     position: relative
@@ -61,7 +59,6 @@
     height: 40px
     border: 1px solid $black-3
     border-radius: 20px
-
 
   &_cover
     position: relative
@@ -113,8 +110,6 @@
         .rating-item_remove-image
           margin-right: 0
           opacity: 1
-
-
 
   &_description
     margin: 15px 0
@@ -194,7 +189,6 @@
       line-height: 30px
       color: $green
 
-
   &_remove
     color: $black-3
     position: absolute
@@ -214,14 +208,42 @@
     &:before
       +ion-icon("ios-close-outline")
 
-  &:hover
+  &_add-item
+    display: flex
+    flex-flow: column nowrap
+    align-items: center
+    justify-content: center
+    position: absolute
+    left: 0
+    background: $white
+    cursor: pointer
+    width: 100%
+    height: 70px
+    opacity: 0
+    z-index: 1
+    transition: opacity 0.2s ease
 
-    .rating-item_remove
-      margin-left: 0
+    &:hover
       opacity: 1
 
-    .rating-item_button
-      visibility: visible
+    &.m-top
+      top: -35px
 
-    .rating-item_mark:before
-      visibility: hidden
+    &.m-bottom
+      bottom: -35px
+
+  &:hover
+    .rating-item
+      &_remove
+        margin-left: 0
+        opacity: 1
+
+      &_button
+        visibility: visible
+
+      &_mark:before
+        visibility: hidden
+
+  &:nth-of-type(n+2)
+    .rating-item_add-item.m-top
+      display: none

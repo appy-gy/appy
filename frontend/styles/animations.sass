@@ -1,3 +1,36 @@
+@keyframes leave
+  0%
+    opacity: 1
+    transform: scale(1)
+
+  5%, 80%
+    color: $green
+
+  90%
+    opacity: 1
+    transform: translateX(0)
+
+  100%
+    opacity: 0
+    transform: translateX(-200px)
+
+@keyframes enter
+  0%
+    opacity: 0
+    transform: translateX(-200px)
+
+  100%
+    opacity: 1
+    transform: translateX(0)
+
+@keyframes hidden
+  0%
+    opacity: 1
+
+  100%
+    opacity: 0
+    display: none
+
 @keyframes heart-beat
   25%
     transform: scale(1.2)
@@ -15,7 +48,9 @@
 @keyframes increase-from-the-center
   0%
     transform: scale(0)
+
   90%
     transform: scale(1.05)
+
   100%
     transform: scale(1)

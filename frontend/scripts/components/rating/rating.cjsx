@@ -5,6 +5,7 @@ UpdateStatus = require './update_status'
 Header = require './header'
 Description = require './description'
 RatingItem = require './rating_item'
+AddRatingItem = require './add_rating_item'
 Like = require './like'
 ShareButtons = require './share_buttons'
 Nothing = require '../shared/nothing'
@@ -28,11 +29,12 @@ Rating = React.createClass
 
   childContextTypes:
     rating: PropTypes.object.isRequired
+    ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
   getChildContext: ->
-    {rating} = @props
+    {rating, ratingItems} = @props
 
-    { rating }
+    { rating, ratingItems }
 
   createRatingItem: ->
     {rating} = @props
@@ -40,17 +42,19 @@ Rating = React.createClass
     @app.ratingItemsActions.create rating.id
 
   addRatingItemButton: ->
-    {rating} = @props
+    {ratingItems} = @props
     {canEdit} = @context
 
     return unless canEdit
 
-    <div className="rating_new-item-button-wrapper">
-      <div className="rating_new-item-button" onClick={@createRatingItem}>
+    position = (_.max(ratingItems, 'position')?.position || 0) + 1
+
+    <AddRatingItem className="rating_new-item-button-wrapper" position={position}>
+      <div className="rating_new-item-button" >
         <div className="rating_new-item-button-icon"></div>
         <div className="rating_new-item-button-text">Добавить новый пункт в рейтинг</div>
       </div>
-    </div>
+    </AddRatingItem>
 
   authorLink: ->
     {rating} = @props
