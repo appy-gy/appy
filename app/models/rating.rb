@@ -13,7 +13,7 @@ class Rating < ActiveRecord::Base
   belongs_to :user
   belongs_to :section
   has_many :ratings_tags, dependent: :destroy
-  has_many :tags, through: :ratings_tags
+  has_many :tags, through: :ratings_tags, after_remove: :cleanup_tag
   has_many :items, class_name: 'RatingItem', dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -44,5 +44,9 @@ class Rating < ActiveRecord::Base
 
   def publishing?
     status_changed? and status == 'published'
+  end
+
+  def cleanup_tag tag
+    tag.destroy unless tag.ratings.present?
   end
 end
