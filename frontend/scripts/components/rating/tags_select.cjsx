@@ -24,6 +24,7 @@ TagsSelect = React.createClass
     @app.tagsApi.autocomplete(query).then ({body, status}) =>
       return callback 'Ошибка' unless status == 200
       tags = body.tags.map (tag) -> new Tag tag
+      tags.push new Tag name: query unless _(tags).map('name').includes(query)
       callback null, options: @toOptions(tags)
 
   value: ->
@@ -44,7 +45,7 @@ TagsSelect = React.createClass
         {label}
       </div>
       <div className="tag-option_number-of-uses">
-        ({numberOfUses})
+        ({numberOfUses || 'новый'})
       </div>
     </div>
 
