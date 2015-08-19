@@ -1,7 +1,7 @@
 module Api
   module Private
     class RatingsController < BaseController
-      find :rating, only: [:show, :update, :destroy]
+      find :rating, only: [:show, :update, :destroy, :similar]
       check 'Ratings::CanEdit', :@rating, only: [:update, :destroy]
 
       def index
@@ -26,6 +26,11 @@ module Api
       def destroy
         rating = ::Ratings::Destroy.new(@rating).call
         render json: { success: rating.deleted? }
+      end
+
+      def similar
+        ratings = ::Ratings::FindSimilar.new(@rating).call
+        render json: ratings
       end
 
       private

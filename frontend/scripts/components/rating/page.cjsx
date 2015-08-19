@@ -5,6 +5,7 @@ ClearStores = require '../mixins/clear_stores'
 SyncSlug = require '../mixins/sync_slug'
 Loading = require '../mixins/loading'
 Rating = require './rating'
+Similar = require './similar'
 Comments = require './comments'
 Layout = require '../layout/layout'
 findInStore = require '../../helpers/find_in_store'
@@ -46,6 +47,7 @@ RatingPage = React.createClass
 
     <Layout header={@header()}>
       <Rating/>
+      <Similar/>
       <Comments/>
     </Layout>
 

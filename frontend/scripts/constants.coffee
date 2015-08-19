@@ -34,6 +34,8 @@ Constants = Marty.createConstants [
 
   'APPEND_SECTIONS'
 
+  'SET_SIMILAR_RATINGS'
+
   'APPEND_TOASTS'
   'REMOVE_TOASTS'
 

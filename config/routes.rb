@@ -18,6 +18,7 @@ Rails.application.routes.draw do
         end
       end
       resources :ratings, only: [:index, :show, :create, :update, :destroy] do
+        get :similar
         scope module: :ratings do
           resource :tags, only: [:create, :destroy]
           resources :rating_items, only: [:index, :create, :update, :destroy] do
