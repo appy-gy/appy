@@ -37,6 +37,10 @@ ObjectTitle = React.createClass
 
     @setState edit: false
 
+  restrictEnter: (event) ->
+    return unless event.key == 'Enter'
+    event.preventDefault()
+
   changeTitle: (event) ->
     {object, actions} = @props
 
@@ -67,7 +71,7 @@ ObjectTitle = React.createClass
     return unless edit
 
     withIndexKeys [
-      <Textarea autoFocus maxLength="90" className={@classes("#{block}_title", 'm-edit')} placeholder={placeholder} value={object.title} onChange={@changeTitle} onBlur={@stopEdit}/>
+      <Textarea autoFocus maxLength="90" className={@classes("#{block}_title", 'm-edit')} placeholder={placeholder} value={object.title} onChange={@changeTitle} onKeyDown={@restrictEnter} onBlur={@stopEdit}/>
     ]
 
   render: ->
