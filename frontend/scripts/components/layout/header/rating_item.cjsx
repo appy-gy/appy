@@ -16,7 +16,7 @@ RatingItem = React.createClass
   ratingItemAnchor: ->
     {ratingItem} = @props
 
-    "##{ratingItem.position}"
+    "#item-#{ratingItem.position}"
 
   render: ->
     {ratingItem, waypoints} = @props
@@ -24,7 +24,7 @@ RatingItem = React.createClass
     classes = classNames 'header_rating-item', 'm-waypoint-enter': _.includes(waypoints, ratingItem)
 
     <div className={classes}>
-      <a className="header_rating-item-title" href={@ratingItemAnchor()}>
+      <a className="header_rating-item-title" href={@ratingItemAnchor()} data-scroll>
         {ratingItem.title}
       </a>
       <div className="header_rating-item-options">

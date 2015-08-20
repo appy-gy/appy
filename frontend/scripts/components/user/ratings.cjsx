@@ -51,7 +51,7 @@ Ratings = React.createClass
 
     ratings.map (rating) ->
       showDelete = canEditRating currentUser, rating
-      <Preview key={rating.id} rating={rating} imageSize="preview" showDelete={showDelete}/>
+      <Preview key={rating.id} rating={rating} mod={rating.status} imageSize="preview" showDelete={showDelete}/>
 
   render: ->
     {page} = @props
