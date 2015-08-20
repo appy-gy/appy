@@ -41,7 +41,7 @@ Ratings = React.createClass
     ratingsFromPrevPages = @app.ratingsStore.getState().filter (rating) ->
       rating.page? and rating.page < page
 
-    ratings.concat ratingsFromPrevPages
+    _(ratings).concat(ratingsFromPrevPages).sortBy('publishedAt').reverse().value()
 
   pagesCount: ->
     @app.pageCountsStore.get('ratings') || 0
