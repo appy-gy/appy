@@ -1,6 +1,6 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Link = require '../shared/pagination/link'
+Link = require '../pagination/link'
 
 {PropTypes} = React
 

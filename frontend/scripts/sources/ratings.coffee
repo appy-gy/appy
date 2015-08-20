@@ -14,8 +14,9 @@ class RatingsApi extends Marty.HttpStateSource
     query = Qs.stringify { page }
     @get "users/#{userId}/ratings?#{query}"
 
-  loadForSection: (sectionId) ->
-    @get "sections/#{sectionId}/ratings"
+  loadForSection: (sectionId, page) ->
+    query = Qs.stringify { page }
+    @get "sections/#{sectionId}/ratings?#{query}"
 
   load: (id) ->
     @get "ratings/#{id}"

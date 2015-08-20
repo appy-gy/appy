@@ -16,13 +16,14 @@ class RatingsQueries extends Marty.Queries
       return unless body?
       ratings = body.ratings.map (rating) -> new Rating _.merge(rating, { page })
       @dispatch Constants.APPEND_RATINGS, ratings
-      @dispatch Constants.SET_PAGES_COUNT, "userRatings", body.meta.pages_count
+      @dispatch Constants.SET_PAGES_COUNT, 'userRatings', body.meta.pages_count
 
-  getForSection: (sectionId) ->
-    @app.ratingsApi.loadForSection(sectionId).then ({body}) =>
+  getForSection: (sectionId, page) ->
+    @app.ratingsApi.loadForSection(sectionId, page).then ({body}) =>
       return unless body?
-      ratings = body.ratings.map (rating) -> new Rating rating
+      ratings = body.ratings.map (rating) -> new Rating _.merge(rating, { page })
       @dispatch Constants.APPEND_RATINGS, ratings
+      @dispatch Constants.SET_PAGES_COUNT, "sectionRatings-#{sectionId}", body.meta.pages_count
 
   get: (id) ->
     @app.ratingsApi.load(id).then ({body}) =>

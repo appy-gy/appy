@@ -1,13 +1,16 @@
 module Ratings
   class FindInSection
-    attr_reader :section
+    attr_reader :section, :page
 
-    def initialize section
+    const :per_page, 15
+
+    def initialize section, page
       @section = section
+      @page = page
     end
 
     def call
-      section.ratings
+      section.ratings.includes(:user, :section, :tags, :items).published.order(published_at: :desc).page(page).per(per_page)
     end
   end
 end

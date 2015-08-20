@@ -5,8 +5,8 @@ module Api
         find :section
 
         def index
-          ratings = ::Ratings::FindInSection.new(@section).call
-          render json: ratings
+          ratings = ::Ratings::FindInSection.new(@section, @page).call
+          render json: ratings, meta: { pages_count: ratings.total_pages }
         end
       end
     end

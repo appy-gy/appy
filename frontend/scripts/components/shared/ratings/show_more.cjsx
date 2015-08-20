@@ -2,7 +2,7 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 classNames = require 'classnames'
-KeepScroll = require '../mixins/keep_scroll'
+KeepScroll = require '../../mixins/keep_scroll'
 
 {PropTypes} = React
 
@@ -14,17 +14,18 @@ ShowMore = React.createClass
   contextTypes:
     router: PropTypes.func.isRequired
     page: PropTypes.number.isRequired
+    loadPage: PropTypes.func.isRequired
     changeVisiblePages: PropTypes.func.isRequired
 
   getInitialState: ->
     loading: false
 
   loadMore: ->
-    {router, page, changeVisiblePages} = @context
+    {router, page, loadPage, changeVisiblePages} = @context
 
     @setState loading: true
 
-    @app.ratingsStore.getPage(page + 1).toPromise().then =>
+    loadPage(page + 1).toPromise().then =>
       @setState loading: false
       changeVisiblePages (pages) -> pages.add page + 1
 
