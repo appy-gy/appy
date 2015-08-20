@@ -6,6 +6,7 @@ withIndexKeys = require '../../helpers/react/with_index_keys'
 Classes = require '../mixins/classes'
 RatingUpdater = require '../mixins/rating_updater'
 Textarea = require '../shared/inputs/text'
+removeExtraSpaces = require '../../helpers/remove_extra_spaces'
 
 {PropTypes} = React
 
@@ -50,7 +51,7 @@ ObjectTitle = React.createClass
   updateTitle: ->
     {object, actions} = @props
 
-    @app[actions].update object.id, title: object.title
+    @app[actions].update object.id, title: removeExtraSpaces(object.title)
 
   titleView: ->
     {object, placeholder} = @props
