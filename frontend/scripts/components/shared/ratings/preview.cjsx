@@ -18,7 +18,7 @@ Preview = React.createClass
     rating: PropTypes.object.isRequired
     imageSize: PropTypes.string.isRequired
     showDelete: PropTypes.bool
-    mods: PropTypes.string
+    mod: PropTypes.string
 
   childContextTypes:
     rating: PropTypes.object.isRequired
