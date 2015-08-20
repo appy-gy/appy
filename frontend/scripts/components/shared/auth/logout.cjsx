@@ -11,7 +11,9 @@ Logout = React.createClass
   contextTypes:
     block: PropTypes.string.isRequired
 
-  logOut: ->
+  logOut: (event) ->
+    event.preventDefault()
+
     @app.currentUserActions.logOut()
 
   render: ->
