@@ -24,24 +24,41 @@ Ratings = React.createClass
     router: PropTypes.func.isRequired
     page: PropTypes.number.isRequired
 
+  childContextTypes:
+    changeVisiblePages: PropTypes.func.isRequired
+
   previewEnds:
     superLarge: 1
     large: 3
   subscriptionPosition: 1
+
+  getInitialState: ->
+    {page} = @context
+
+    visiblePages: new Set [page]
+
+  getChildContext: ->
+    { @changeVisiblePages }
 
   shouldShowLoader: ->
     {ratings} = @props
 
     _.isEmpty ratings
 
+  changeVisiblePages: (fn) ->
+    {visiblePages} = @state
+
+    @setState visiblePages: fn visiblePages
+
   ratings: ->
-    {ratings} = @props
+    {visiblePages} = @state
     {page} = @context
 
-    ratingsFromPrevPages = @app.ratingsStore.getState().filter (rating) ->
-      rating.page? and rating.page < page
-
-    _(ratings).concat(ratingsFromPrevPages).sortBy('publishedAt').reverse().value()
+    _ @app.ratingsStore.getState()
+      .filter (rating) -> visiblePages.has rating.page
+      .sortBy 'publishedAt'
+      .reverse()
+      .value()
 
   pagesCount: ->
     @app.pageCountsStore.get('ratings') || 0

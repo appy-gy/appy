@@ -14,17 +14,19 @@ ShowMore = React.createClass
   contextTypes:
     router: PropTypes.func.isRequired
     page: PropTypes.number.isRequired
+    changeVisiblePages: PropTypes.func.isRequired
 
   getInitialState: ->
     loading: false
 
   loadMore: ->
-    {router, page} = @context
+    {router, page, changeVisiblePages} = @context
 
     @setState loading: true
 
     @app.ratingsStore.getPage(page + 1).toPromise().then =>
       @setState loading: false
+      changeVisiblePages (pages) -> pages.add page + 1
 
     setImmediate =>
       params = _.defaults page: page + 1, router.getCurrentParams()

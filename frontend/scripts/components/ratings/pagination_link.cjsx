@@ -10,11 +10,21 @@ PaginationLink = React.createClass
   propTypes:
     page: PropTypes.number.isRequired
 
+  contextTypes:
+    changeVisiblePages: PropTypes.func.isRequired
+
+  resetVisiblePages: ->
+    {page} = @props
+    {changeVisiblePages} = @context
+
+    changeVisiblePages -> new Set [page]
+
   linkProps: ->
     {page} = @props
 
     to: 'ratings'
     params: { page }
+    onClick: @resetVisiblePages
 
   render: ->
     props = _.merge @linkProps(), @props
