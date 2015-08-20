@@ -2,6 +2,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 classNames = require 'classnames'
 Textarea = require '../inputs/text'
+isBlank = require '../../../helpers/is_blank'
 
 {PropTypes} = React
 
@@ -41,6 +42,8 @@ Form = React.createClass
     {body} = @state
     {ratingSlug} = @context
 
+    return if isBlank body
+
     onSubmit()
     @app.commentsActions.create ratingSlug, { body, parentId: parent?.id }
       .then => @setState body: ''
@@ -50,10 +53,12 @@ Form = React.createClass
     {body} = @state
 
     classes = classNames 'comment-form', 'm-answer': parent?
+    buttonClasses = classNames 'comment-button', 'disabled': isBlank(body)
 
     <div className={classes}>
       <img className="comment_userface" src={user.avatarUrl 'small'}/>
       <Textarea ref="bodyInput" className="comment-form_textarea" placeholder={@placeholder} value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
+      <div className={buttonClasses} onClick={@createComment}>Написать</div>
     </div>
 
 module.exports = Marty.createContainer Form,
