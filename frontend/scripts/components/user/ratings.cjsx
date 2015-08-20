@@ -15,10 +15,10 @@ Ratings = React.createClass
   propTypes:
     currentUser: PropTypes.object.isRequired
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
+    page: PropTypes.number.isRequired
 
   contextTypes:
     user: PropTypes.object.isRequired
-    page: PropTypes.number.isRequired
     isOwnPage: PropTypes.bool.isRequired
 
   hasRatings: ->
@@ -54,7 +54,8 @@ Ratings = React.createClass
       <Preview key={rating.id} rating={rating} imageSize="preview" showDelete={showDelete}/>
 
   render: ->
-    {page, user} = @context
+    {page} = @props
+    {user} = @context
 
     pagesCount = @app.pageCountsStore.get("userRatings") || 0
 
@@ -73,12 +74,15 @@ Ratings = React.createClass
 module.exports = Marty.createContainer Ratings,
   listenTo: ['currentUserStore', 'ratingsStore']
 
-  contextTypes:
-    userSlug: PropTypes.string.isRequired
+  propTypes:
     page: PropTypes.number.isRequired
 
+  contextTypes:
+    userSlug: PropTypes.string.isRequired
+
   fetch: ->
-    {userSlug, page} = @context
+    {page} = @props
+    {userSlug} = @context
 
     currentUser: @app.currentUserStore.get()
     ratings: @app.ratingsStore.getForUser(userSlug, page)

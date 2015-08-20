@@ -11,10 +11,10 @@ Comments = React.createClass
 
   propTypes:
     comments: PropTypes.arrayOf(PropTypes.object).isRequired
+    page: PropTypes.number.isRequired
 
   contextTypes:
     user: PropTypes.object.isRequired
-    page: PropTypes.number.isRequired
 
   noComments: ->
     {user} = @context
@@ -34,7 +34,8 @@ Comments = React.createClass
       <Comment key={comment.id} comment={comment} actionTypes={actionTypes}/>
 
   render: ->
-    {user, page} = @context
+    {page} = @props
+    {user} = @context
 
     pagesCount = @app.pageCountsStore.get('userComments') || 0
 
@@ -48,13 +49,16 @@ Comments = React.createClass
     </div>
 
 module.exports = Marty.createContainer Comments,
-  contextTypes:
-    user: PropTypes.object.isRequired
-    page: PropTypes.number.isRequired
-
   listenTo: 'commentsStore'
 
+  propTypes:
+    page: PropTypes.number.isRequired
+
+  contextTypes:
+    user: PropTypes.object.isRequired
+
   fetch: ->
-    {user, page} = @context
+    {page} = @props
+    {user} = @context
 
     comments: @app.commentsStore.getForUser(user.id, page)

@@ -24,6 +24,6 @@ PaginationLink = React.createClass
   render: ->
     props = _.merge @linkProps(), @props
 
-    <Link  {...props}/>
+    <Link {...props}/>
 
 module.exports = PaginationLink

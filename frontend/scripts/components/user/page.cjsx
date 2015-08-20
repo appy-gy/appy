@@ -34,7 +34,6 @@ UserPage = React.createClass
   childContextTypes:
     user: PropTypes.object.isRequired
     userSlug: PropTypes.string.isRequired
-    page: PropTypes.number.isRequired
     isOwnPage: PropTypes.bool.isRequired
     canEdit: PropTypes.bool.isRequired
     block: PropTypes.string.isRequired
@@ -42,7 +41,7 @@ UserPage = React.createClass
   getChildContext: ->
     {user, userSlug} = @props
 
-    { user, userSlug, page: @currentPage(), isOwnPage: @isOwnPage(), canEdit: @canEdit(), block: 'user-profile' }
+    { user, userSlug, isOwnPage: @isOwnPage(), canEdit: @canEdit(), block: 'user-profile' }
 
   isOwnPage: ->
     {user, currentUser} = @props
@@ -93,10 +92,10 @@ UserPage = React.createClass
         </header>
         <Tabs defaultTab="ratings" queryModificator={@resetPage}>
           <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
-            <Ratings/>
+            <Ratings page={@currentPage()}/>
           </Tab>
           <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
-            <Comments/>
+            <Comments page={@currentPage()}/>
           </Tab>
         </Tabs>
       </div>
