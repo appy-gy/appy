@@ -75,10 +75,9 @@ RatingItem = React.createClass
   render: ->
     {ratingItem, index} = @props
 
-    <section className="rating-item">
+    <section id="item-#{ratingItem.position}" className="rating-item">
       <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} threshold={0}/>
       {@addRatingItemButton 'top'}
-      <a name={ratingItem.position}></a>
       <div className="rating-item_header">
         <span className="rating-item_number">{index}</span>
         <Title object={ratingItem} actions="ratingItemsActions" placeholder="Введите заголовок пункта"/>
