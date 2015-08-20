@@ -1,19 +1,30 @@
 React = require 'react/addons'
+Marty = require 'marty'
+classNames = require 'classnames'
 CreateRating = require '../../shared/ratings/create'
 
-{PureRenderMixin} = React.addons
+{PropTypes} = React
 
 CreateRatingButton = React.createClass
   displayName: 'CreateRatingButton'
 
-  mixins: [PureRenderMixin]
+  propTypes:
+    currentUser: PropTypes.object.isRequired
 
   render: ->
-    <CreateRating className="header_rating-button">
+    {currentUser} = @props
+
+    classes = classNames 'header_rating-button', 'm-authorized': currentUser.isLoggedIn()
+
+    <CreateRating className={classes}>
       <span className="header_rating-button-icon">+</span>
       <span className="header_rating-button-text">
         Создать
       </span>
     </CreateRating>
 
-module.exports = CreateRatingButton
+module.exports = Marty.createContainer CreateRatingButton,
+  listenTo: 'currentUserStore'
+
+  fetch: ->
+    currentUser: @app.currentUserStore.get()
