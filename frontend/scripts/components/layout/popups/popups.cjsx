@@ -1,11 +1,11 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-classNames = require 'classnames'
 OnEsc = require '../../mixins/on_esc'
 Popup = require './popup'
 
 {PropTypes} = React
+{CSSTransitionGroup} = React.addons
 
 Popups = React.createClass
   displayName: 'Popups'
@@ -30,13 +30,9 @@ Popups = React.createClass
       <Popup key={popup.cid} popup={popup}/>
 
   render: ->
-    {popups} = @props
-
-    classes = classNames 'popups', 'm-empty': _.isEmpty(popups)
-
-    <div className={classes}>
+    <CSSTransitionGroup className="popups" transitionName="m">
       {@popups()}
-    </div>
+    </CSSTransitionGroup>
 
 module.exports = Marty.createContainer Popups,
   listenTo: 'popupsStore'

@@ -5,15 +5,21 @@
   position: fixed
   top: 0
   left: 0
+  background-color: rgba($black, 0.85)
   width: 100%
   height: 100%
-  z-index: 9
-  background-color: rgba($black, 0.85)
+  z-index: 3
 
-  &.m-empty
+  &:empty
     display: none
 
   &_popup
+    &.m-enter
+      animation: increase-from-the-center 0.25s ease-in-out
+
+    &.m-leave
+      animation: increase-from-the-center 0.25s ease-in-out reverse
+
     &-close
       position: absolute
       top: 3 * $margin
