@@ -1,0 +1,12 @@
+ru:
+  activerecord:
+    models:
+      rating_item:
+        one: Пункт рейтинга
+        few: Пункта рейтинга
+        many: Пунктов рейтинга
+        other: Пункты рейтинга
+    attributes:
+      rating_item:
+        title: Заголовок
+        description: Описание

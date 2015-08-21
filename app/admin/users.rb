@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  menu priority: 2
+  menu priority: 1
 
   actions :all, except: [:show]
 
@@ -14,7 +14,7 @@ ActiveAdmin.register User do
     column :name
     column :email
     column :role do |user|
-      I18n.t "users.roles.#{user.role}"
+      user.role_i18n
     end
     column :created_at
     actions
@@ -31,7 +31,7 @@ ActiveAdmin.register User do
       f.input :facebook_link, as: :string
       f.input :instagram_link, as: :string
       f.input :slug, as: :string
-      f.input :role, as: :select, collection: User.roles.map{ |name, _| [I18n.t("users.roles.#{name}"), name] }
+      f.input :role, as: :select, collection: User.roles_i18n.invert
     end
     f.actions
   end

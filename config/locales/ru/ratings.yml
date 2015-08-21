@@ -1,0 +1,21 @@
+ru:
+  activerecord:
+    models:
+      rating:
+        one: Рейтинг
+        few: Рейтинга
+        many: Рейтингов
+        other: Рейтинги
+    attributes:
+      rating:
+        title: Название
+        description: Описание
+        status: Статус
+        image: Картинка
+        user: Автор
+        section: Секция
+  enums:
+    rating:
+      status:
+        draft: Черновик
+        published: Опубликован
