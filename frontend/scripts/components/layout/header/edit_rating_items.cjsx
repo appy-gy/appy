@@ -22,8 +22,9 @@ EditRatingItems = React.createClass
 
   render: ->
     {rating} = @context
+    sectionColor = _.get rating, 'section.color', '#fff'
 
-    <div className="header_rating-items">
+    <div className="header_rating-items" style={backgroundColor: sectionColor}>
       <a href="#" className="header_rating-title">{rating.title}</a>
       {@ratingItems()}
     </div>
