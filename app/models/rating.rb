@@ -18,6 +18,9 @@ class Rating < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
+  accepts_nested_attributes_for :tags, allow_destroy: true
+  accepts_nested_attributes_for :items, allow_destroy: true
+
   enum status: %w{draft published}
 
   after_create :generate_slug

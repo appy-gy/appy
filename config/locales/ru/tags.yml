@@ -1,0 +1,11 @@
+ru:
+  activerecord:
+    models:
+      tag:
+        one: Тег
+        few: Тега
+        many: Тегов
+        other: Теги
+    attributes:
+      tag:
+        name: Название

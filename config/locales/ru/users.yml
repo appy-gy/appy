@@ -15,7 +15,8 @@ ru:
         facebook_link: Профиль в Facebook
         instagram_link: Профиль в Instagram
         role: Роль
-  users:
-    roles:
-      member: Пользователь
-      admin: Администратор
+  enums:
+    user:
+      role:
+        member: Пользователь
+        admin: Администратор

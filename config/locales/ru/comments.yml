@@ -1,0 +1,13 @@
+ru:
+  activerecord:
+    models:
+      comment:
+        one: Комментарий
+        few: Комментария
+        many: Комментариев
+        other: Комментарии
+    attributes:
+      comment:
+        body: Текст
+        user: Автор
+        rating: Рейтинг

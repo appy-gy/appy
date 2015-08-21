@@ -45,6 +45,7 @@ gem 'foreman'
 
 # I18n
 gem 'russian'
+gem 'enum_help'
 
 # Friendly urls
 gem 'babosa'

@@ -94,6 +94,7 @@ GEM
     dotenv (1.0.2)
     dotenv-rails (1.0.2)
       dotenv (= 1.0.2)
+    enum_help (0.0.14)
     erubis (2.7.0)
     excon (0.45.4)
     execjs (2.5.2)
@@ -319,6 +320,7 @@ DEPENDENCIES
   database_cleaner
   did_you_mean
   dotenv-rails
+  enum_help
   factory_girl_rails
   foreman
   friendly_id
@@ -347,3 +349,6 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   sys-proctable
+
+BUNDLED WITH
+   1.10.5
