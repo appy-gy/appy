@@ -33,6 +33,7 @@ DeleteRating = React.createClass
         removePopup()
         onDelete()
       onCancel: removePopup
+      cancelText: 'Не удалять'
     popup = new Popup
       type: 'confirmation'
       content: <ConfirmationPopup {...popupProps}/>
