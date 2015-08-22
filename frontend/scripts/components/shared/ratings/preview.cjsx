@@ -52,24 +52,6 @@ Preview = React.createClass
       length: 90
       separator: /,? +/
 
-  showDeleteConfirmation: (event) ->
-    {rating} = @props
-
-    event.preventDefault()
-
-    removePopup = => @app.popupsActions.remove popup
-    popupProps =
-      text: 'Вы уверены, что хотите удалить этот рейтинг?'
-      onConfirm: =>
-        @app.ratingsActions.remove rating.id
-        removePopup()
-      onCancel: removePopup
-    popup = new Popup
-      type: 'confirmation'
-      content: <ConfirmationPopup {...popupProps}/>
-
-    @app.popupsActions.append popup
-
   deleteButton: ->
     {rating, showDelete} = @props
 
