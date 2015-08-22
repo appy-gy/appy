@@ -2,23 +2,32 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 Select = require 'react-select'
+RatingUpdater = require '../mixins/rating_updater'
+findInArray = require '../../helpers/find_in_array'
 
 {PropTypes} = React
 
 SectionsSelect = React.createClass
   displayName: 'SectionsSelect'
 
+  mixins: [RatingUpdater]
+
   propTypes:
     sections: PropTypes.arrayOf(PropTypes.object).isRequired
     object: PropTypes.object.isRequired
+    actions: PropTypes.string.isRequired
 
   contextTypes:
     canEdit: PropTypes.bool.isRequired
 
-  updateSection: (sectionId) ->
-    {object, actions} = @props
+  changeSection: (sectionId) ->
+    {sections, object, actions} = @props
 
-    @app[actions].update object.id, { sectionId }
+    section = findInArray(sections, sectionId)
+
+    @app[actions].change object.id, { section }
+    @queueUpdate =>
+      @app[actions].update object.id, { sectionId }
 
   options: ->
     {sections} = @props
@@ -39,7 +48,7 @@ SectionsSelect = React.createClass
 
     return <div className="rating_section-name" style={sectionNameStyles}>{object.section?.name}</div> unless canEdit
 
-    <Select placeholder="Рубрика" value={object.section?.id} options={@options()} searchable={false} valueRenderer={@renderOption} optionRenderer={@renderOption} onChange={@updateSection}/>
+    <Select placeholder="Рубрика" value={object.section?.id} options={@options()} searchable={false} valueRenderer={@renderOption} optionRenderer={@renderOption} onChange={@changeSection}/>
 
 module.exports = Marty.createContainer SectionsSelect,
   listenTo: 'sectionsStore'

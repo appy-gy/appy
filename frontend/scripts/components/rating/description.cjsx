@@ -44,13 +44,11 @@ ObjectDescription = React.createClass
   changeDescription: (event) ->
     {object, actions} = @props
 
-    @app[actions].change object.id, description: event.target.value
-    @queueUpdate @updateDescription
+    description = event.target.value
 
-  updateDescription: ->
-    {object, actions} = @props
-
-    @app[actions].update object.id, description: removeExtraSpaces(object.description)
+    @app[actions].change object.id, { description }
+    @queueUpdate =>
+      @app[actions].update object.id, description: removeExtraSpaces(description)
 
   descriptionView: ->
     {object, placeholder} = @props
