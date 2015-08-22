@@ -1,7 +1,8 @@
 React = require 'react/addons'
 AppFromProps = require '../mixins/app_from_props'
 PasswordInput = require '../shared/inputs/password'
-Toast = require '../../models/toast'
+showToast = require '../../helpers/toasts/show'
+
 {PropTypes} = React
 {LinkedStateMixin} = React.addons
 
@@ -31,13 +32,9 @@ SettingsPopup = React.createClass
 
     @app.usersApi.changePassword(user.id, oldPassword, newPassword)
       .then ({body, status}) =>
-        return @showToast 'Вы ввели неверный старый пароль', 'error' unless status == 200
-        @showToast 'Пароль был успешно изменен', 'success'
+        return showToast @app, 'Вы ввели неверный старый пароль', 'error' unless status == 200
+        showToast @app, 'Пароль был успешно изменен', 'success'
         @setState oldPassword: '', newPassword: ''
-
-  showToast: (text, type) ->
-    toast = new Toast text, { type }
-    @app.toastsActions.append toast
 
   render: ->
     <div className="user-settings">
