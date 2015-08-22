@@ -2,9 +2,9 @@ _ = require 'lodash'
 Marty = require 'marty'
 React = require 'react/addons'
 classNames = require 'classnames'
-ConfirmationPopup = require '../popups/confirmation'
-Popup = require '../../../models/popup'
 prepublishValidation = require '../../../helpers/ratings/prepublish_validation'
+showConfirm = require '../../../helpers/popups/confirm'
+showToast = require '../../../helpers/toasts/show'
 
 {PropTypes} = React
 
@@ -30,24 +30,16 @@ Publish = React.createClass
 
     return if @hasPublishErrors()
 
-    @app.ratingsActions.update(rating.id, status: 'published')
+    @app.ratingsActions.update(rating.id, status: 'published').then =>
+      showToast @app, 'Рейтинг опубликован', 'success'
 
   confirmPublish: ->
     return if @hasPublishErrors()
 
-    removePopup = => @app.popupsActions.remove popup
-    popupProps =
+    showConfirm @app,
       text: 'Внимание! После публикации рейтинга вы не сможете больше его редактировать. Вы уверены, что хотите опубликовать этот рейтинг?'
-      onConfirm: =>
-        @publish()
-        removePopup()
-      onCancel: removePopup
+      onConfirm: @publish
       cancelText: 'Не публиковать'
-    popup = new Popup
-      type: 'publish'
-      content: <ConfirmationPopup {...popupProps}/>
-
-    @app.popupsActions.append popup
 
   render: ->
     {block} = @context

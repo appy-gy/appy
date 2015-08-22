@@ -1,7 +1,6 @@
 React = require 'react/addons'
 Marty = require 'marty'
-ConfirmationPopup = require '../popups/confirmation'
-Popup = require '../../../models/popup'
+showConfirm = require '../../../helpers/popups/confirm'
 
 {PropTypes} = React
 
@@ -25,20 +24,12 @@ DeleteRating = React.createClass
 
     event.preventDefault()
 
-    removePopup = => @app.popupsActions.remove popup
-    popupProps =
+    showConfirm @app,
       text: 'Вы уверены, что хотите удалить этот рейтинг?'
       onConfirm: =>
         @app.ratingsActions.remove rating.id
-        removePopup()
         onDelete()
-      onCancel: removePopup
       cancelText: 'Не удалять'
-    popup = new Popup
-      type: 'confirmation'
-      content: <ConfirmationPopup {...popupProps}/>
-
-    @app.popupsActions.append popup
 
   render: ->
     {block} = @context
