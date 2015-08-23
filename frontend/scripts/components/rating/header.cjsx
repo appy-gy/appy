@@ -42,7 +42,7 @@ Header = React.createClass
 
     return unless canEdit
 
-    <div className="rating_add-image" onClick={@openSelect}></div>
+    <div className="rating_add-image" title="Выберите титульное изображение" onClick={@openSelect}></div>
 
   tags: ->
     {rating} = @context

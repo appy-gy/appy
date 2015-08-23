@@ -49,7 +49,7 @@ RatingItemImage = React.createClass
       @app.ratingItemsActions.update ratingItem.id, removeImage: true
 
   updateImageButton: ->
-    <div className="rating-item_add-image" onClick={@openSelect}>
+    <div className="rating-item_add-image" title="Выберите изображение" onClick={@openSelect}>
 
     </div>
 
@@ -58,7 +58,7 @@ RatingItemImage = React.createClass
 
     return unless ratingItem.image?
 
-    <div className="rating-item_remove-image" onClick={@removeImage}>
+    <div className="rating-item_remove-image" title="Удалить изображение" onClick={@removeImage}>
     </div>
 
   children: ->
