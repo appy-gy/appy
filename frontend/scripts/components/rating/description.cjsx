@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
+AutolinkText = require 'react-autolink-text'
 isBlank = require '../../helpers/is_blank'
 withIndexKeys = require '../../helpers/react/with_index_keys'
 Classes = require '../mixins/classes'
@@ -59,7 +60,7 @@ ObjectDescription = React.createClass
     return if edit
 
     <div className={@classes("#{block}_description")} onClick={@startEdit}>
-      {description || placeholder}
+      <AutolinkText text={description || placeholder} target="_blank"></AutolinkText>
     </div>
 
   descriptionEdit: ->
