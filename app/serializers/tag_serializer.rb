@@ -1,3 +1,3 @@
 class TagSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :ratings_count
 end

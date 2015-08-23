@@ -3,8 +3,12 @@ module Api
     class TagsController < BaseController
       def index
         tags = ::Tags::Autocomplete.new(params[:query]).call
-        ::Tags::SetNumberOfUses.new(tags).call
-        render json: tags, each_serializer: TagForAutocompleteSerializer
+        render json: tags
+      end
+
+      def popular
+        tags = ::Tags::FindPopular.new.call
+        render json: tags
       end
     end
   end
