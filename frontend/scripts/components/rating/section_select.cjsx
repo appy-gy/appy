@@ -7,8 +7,8 @@ findInArray = require '../../helpers/find_in_array'
 
 {PropTypes} = React
 
-SectionsSelect = React.createClass
-  displayName: 'SectionsSelect'
+SectionSelect = React.createClass
+  displayName: 'SectionSelect'
 
   mixins: [RatingUpdater]
 
@@ -16,9 +16,6 @@ SectionsSelect = React.createClass
     sections: PropTypes.arrayOf(PropTypes.object).isRequired
     object: PropTypes.object.isRequired
     actions: PropTypes.string.isRequired
-
-  contextTypes:
-    canEdit: PropTypes.bool.isRequired
 
   changeSection: (sectionId) ->
     {sections, object, actions} = @props
@@ -42,15 +39,10 @@ SectionsSelect = React.createClass
 
   render: ->
     {object} = @props
-    {canEdit} = @context
-
-    sectionNameStyles = _.pick object.section, 'color'
-
-    return <div className="rating_section-name" style={sectionNameStyles}>{object.section?.name}</div> unless canEdit
 
     <Select placeholder="Рубрика" value={object.section?.id} options={@options()} searchable={false} valueRenderer={@renderOption} optionRenderer={@renderOption} onChange={@changeSection}/>
 
-module.exports = Marty.createContainer SectionsSelect,
+module.exports = Marty.createContainer SectionSelect,
   listenTo: 'sectionsStore'
 
   fetch: ->

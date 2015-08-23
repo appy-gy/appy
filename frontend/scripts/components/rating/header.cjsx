@@ -4,11 +4,12 @@ classNames = require 'classnames'
 WithFileInput = require '../mixins/with_file_input'
 RatingUpdater = require '../mixins/rating_updater'
 Title = require './title'
-SectionsSelect = require './sections_select'
-Tags = require '../shared/ratings/tags'
+SectionSelect = require './section_select'
 TagsSelect = require './tags_select'
+Tags = require '../shared/ratings/tags'
 Meta = require '../shared/ratings/meta'
 FileInput = require '../shared/inputs/file'
+SectionLink = require '../shared/links/section'
 withIndexKeys = require '../../helpers/react/with_index_keys'
 
 {PropTypes} = React
@@ -20,7 +21,6 @@ Header = React.createClass
 
   contextTypes:
     rating: PropTypes.object.isRequired
-    canEdit: PropTypes.bool.isRequired
 
   imageUrlFor: ({context}) ->
     {rating} = context
@@ -45,11 +45,28 @@ Header = React.createClass
     <Meta/>
 
   ratingImageButton: ->
-    {rating, canEdit} = @context
+    {rating} = @context
 
-    return unless canEdit
+    return if rating.status == 'published'
 
     <div className="rating_add-image" title="Выберите титульное изображение" onClick={@openSelect}></div>
+
+  sectionLink: ->
+    {rating} = @context
+
+    return unless rating.status == 'published'
+
+    sectionNameStyles = _.pick rating.section, 'color'
+    <SectionLink className="rating_section-name" section={rating.section} style={sectionNameStyles}>
+      {rating.section?.name}
+    </SectionLink>
+
+  sectionSelect: ->
+    {rating} = @context
+
+    return if rating.status == 'published'
+
+    <SectionSelect object={rating} actions="ratingsActions"/>
 
   tags: ->
     {rating} = @context
@@ -66,7 +83,8 @@ Header = React.createClass
       @meta()
       @ratingImageButton()
       <div className="rating_section-name-wrapper">
-        <SectionsSelect object={rating} actions="ratingsActions"/>
+        {@sectionLink()}
+        {@sectionSelect()}
       </div>
       <div className="rating_tags-select">
         <TagsSelect/>
@@ -76,11 +94,11 @@ Header = React.createClass
     ]
 
   render: ->
-    {rating, canEdit} = @context
+    {rating} = @context
 
     classes = classNames 'rating_header', 'm-with-image': rating.image?
 
-    return <div className={classes}>{@children()}</div> unless canEdit
+    return <div className={classes}>{@children()}</div> if rating.status == 'published'
 
     <FileInput className={classes} onSelect={@updateImage} {...@fileInputProps()}>
       {@children()}

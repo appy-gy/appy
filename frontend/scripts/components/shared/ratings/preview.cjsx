@@ -6,6 +6,7 @@ Meta = require './meta'
 Tags = require './tags'
 Delete = require './delete'
 RatingLink = require '../links/rating'
+SectionLink = require '../links/section'
 
 {PropTypes} = React
 
@@ -32,13 +33,6 @@ Preview = React.createClass
   getDefaultProps: ->
     showDelete: false
     mod: null
-
-  sectionName: ->
-    {rating} = @props
-
-    return unless rating.section?
-
-    rating.section.name
 
   title: ->
     {rating} = @props
@@ -72,22 +66,26 @@ Preview = React.createClass
 
     sectionNameStyles = _.pick rating.section, 'color'
 
-    <RatingLink rating={rating} className={classes}>
+    <div className={classes}>
       <Meta/>
-      <div className="preview_image" style={imageStyles}></div>
+      <RatingLink rating={rating}>
+        <div className="preview_image" style={imageStyles}></div>
+      </RatingLink>
       <div className="preview_content">
         {@deleteButton()}
-        <div className="preview_section-name" style={sectionNameStyles}>
-          {@sectionName()}
-        </div>
-        <div className="preview_title">
-          {@title()}
-        </div>
-        <div className="preview_description">
-          {@description()}
-        </div>
-        <Tags tags={rating.tags}/>
+        <SectionLink className="preview_section-name" section={rating.section} style={sectionNameStyles}>
+          {rating.section?.name}
+        </SectionLink>
+        <RatingLink rating={rating}>
+          <div className="preview_title">
+            {@title()}
+          </div>
+          <div className="preview_description">
+            {@description()}
+          </div>
+          <Tags tags={rating.tags}/>
+        </RatingLink>
       </div>
-    </RatingLink>
+    </div>
 
 module.exports = Preview
