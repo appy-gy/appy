@@ -53,6 +53,7 @@ class Base
           value
 
         set: (newValue) ->
+          value = newValue unless newValue
           value = moment new Date newValue
 
   defineImageAccessors: ->
