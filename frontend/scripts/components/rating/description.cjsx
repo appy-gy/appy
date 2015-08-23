@@ -2,8 +2,6 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 AutolinkText = require 'react-autolink-text'
-isBlank = require '../../helpers/is_blank'
-withIndexKeys = require '../../helpers/react/with_index_keys'
 Classes = require '../mixins/classes'
 RatingUpdater = require '../mixins/rating_updater'
 Textarea = require '../shared/inputs/text'
@@ -26,20 +24,15 @@ ObjectDescription = React.createClass
     canEdit: PropTypes.bool.isRequired
 
   getInitialState: ->
-    {object} = @props
-
     edit: false
 
   startEdit: ->
-    {object} = @props
     {canEdit} = @context
 
     return unless canEdit
     @setState edit: true
 
   stopEdit: ->
-    {object} = @props
-
     @setState edit: false
 
   changeDescription: (event) ->
@@ -60,7 +53,7 @@ ObjectDescription = React.createClass
     return if edit
 
     <div className={@classes("#{block}_description")} onClick={@startEdit}>
-      <AutolinkText text={description || placeholder} target="_blank"></AutolinkText>
+      <AutolinkText text={description || placeholder}></AutolinkText>
     </div>
 
   descriptionEdit: ->
@@ -70,9 +63,7 @@ ObjectDescription = React.createClass
 
     return unless edit
 
-    withIndexKeys [
-      <Textarea className={@classes("#{block}_description", 'm-edit')} placeholder={placeholder} value={object.description} onChange={@changeDescription} onBlur={@stopEdit}/>
-    ]
+    <Textarea autoFocus className={@classes("#{block}_description", 'm-edit')} placeholder={placeholder} value={object.description} onChange={@changeDescription} onBlur={@stopEdit}/>
 
   render: ->
     {block} = @context

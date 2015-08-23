@@ -36,7 +36,8 @@ module Api
       private
 
       def rating_params
-        params.require(:rating).permit(:title, :description, :section_id, :image, :status)
+        params.require(:rating).permit(:title, :description, :source,
+          :section_id, :image, :status)
       end
     end
   end

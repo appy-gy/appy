@@ -6,6 +6,7 @@ Header = require './header'
 Description = require './description'
 RatingItem = require './rating_item'
 AddRatingItem = require './add_rating_item'
+Source = require './source'
 Like = require './like'
 ShareButtons = require './share_buttons'
 Nothing = require '../shared/nothing'
@@ -98,6 +99,7 @@ Rating = React.createClass
       {@authorLink()}
       {@ratingItems()}
       {@addRatingItemButton()}
+      <Source/>
       {@likeButton()}
       {@shareButtons()}
     </article>
