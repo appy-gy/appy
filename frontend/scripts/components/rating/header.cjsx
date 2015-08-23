@@ -37,6 +37,13 @@ Header = React.createClass
     @queueUpdate =>
       @app.ratingsActions.update rating.id, { image }
 
+  meta: ->
+    {rating} = @context
+
+    return unless rating.status == 'published'
+
+    <Meta/>
+
   ratingImageButton: ->
     {rating, canEdit} = @context
 
@@ -56,7 +63,7 @@ Header = React.createClass
 
     withIndexKeys [
       <div className="rating_cover" style={backgroundImage: "url(#{@imageUrl()})"}></div>
-      <Meta/>
+      @meta()
       @ratingImageButton()
       <div className="rating_section-name-wrapper">
         <SectionsSelect object={rating} actions="ratingsActions"/>

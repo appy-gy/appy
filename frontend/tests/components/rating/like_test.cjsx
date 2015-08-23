@@ -13,7 +13,7 @@ Meta = require '../../../scripts/components/shared/ratings/meta'
 
 describe 'Like', ->
   beforeEach ->
-    @rating = id: '1', like: null, likesCount: 0, createdAt: moment(), slug: 'test', update: (data) -> _.merge @, data
+    @rating = id: '1', like: null, likesCount: 0, status: 'published', createdAt: moment(), publishedAt: moment(), slug: 'test', update: (data) -> _.merge @, data
     @app = TestUtils.createApplication Application,
       include: ['ratingsActions', 'ratingsStore', 'likesApi', 'popupsActions', 'popupsStore']
       stub:

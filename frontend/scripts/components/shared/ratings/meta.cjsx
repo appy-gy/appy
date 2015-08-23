@@ -27,7 +27,7 @@ Meta = React.createClass
       </div>
       <div className="#{block}_item">
         <div className="#{block}_text">
-          {rating.createdAt.format('D MMMM YYYY')}
+          {rating.publishedAt.format('D MMMM YYYY')}
         </div>
       </div>
     </div>
