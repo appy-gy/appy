@@ -24,10 +24,11 @@
     "react-dnd": "^1.1.2",
     "react-router": "^0.13.3",
     "react-select": "^0.6.3",
-    "react-textarea-autosize": "^2.4.0",
+    "react-textarea-autosize": "^2.5.1",
     "react-waypoint": "^1.0.1",
     "setimmediate": "^1.0.2",
     "smooth-scroll": "cferdinandi/smooth-scroll",
+    "textfill": "miraks/textfill.js",
     "wolfy87-eventemitter": "miraks/EventEmitter"
   },
   "devDependencies": {

@@ -1,12 +1,10 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-isBlank = require '../../helpers/is_blank'
-withIndexKeys = require '../../helpers/react/with_index_keys'
+textfill = require 'textfill'
+isClient = require '../../helpers/is_client'
 Classes = require '../mixins/classes'
 RatingUpdater = require '../mixins/rating_updater'
-Textarea = require '../shared/inputs/text'
-removeExtraSpaces = require '../../helpers/remove_extra_spaces'
 
 {PropTypes} = React
 
@@ -26,6 +24,22 @@ ObjectTitle = React.createClass
 
   getInitialState: ->
     edit: false
+
+  componentDidMount: ->
+    @updateFontSize()
+
+  componentDidUpdate: ->
+    @updateFontSize()
+
+  updateFontSize: ->
+    {edit} = @state
+    {titleView, titleEdit} = @refs
+
+    return unless isClient()
+
+    textfill titleView.getDOMNode(), minFontPixels: 20, maxFontPixels: 60, explicitHeight: 200
+    return unless edit
+    titleEdit.getDOMNode().style.fontSize = titleView.getDOMNode().children[0].style.fontSize
 
   startEdit: ->
     {canEdit} = @context
@@ -49,17 +63,17 @@ ObjectTitle = React.createClass
 
     @app[actions].change object.id, { title }
     @queueUpdate =>
-      @app[actions].update object.id, title: removeExtraSpaces(title)
+      @app[actions].update object.id, { title }
 
   titleView: ->
     {object, placeholder} = @props
     {edit} = @state
     {block} = @context
 
-    return if edit
-
-    <h1 className={@classes("#{block}_title")} onClick={@startEdit}>
-      {object.title || placeholder}
+    <h1 ref="titleView" className={@classes("#{block}_title", 'm-hidden': edit)} onClick={@startEdit}>
+      <div>
+        {object.title || placeholder}
+      </div>
     </h1>
 
   titleEdit: ->
@@ -69,9 +83,7 @@ ObjectTitle = React.createClass
 
     return unless edit
 
-    withIndexKeys [
-      <Textarea autoFocus maxLength="90" className={@classes("#{block}_title", 'm-edit')} placeholder={placeholder} value={object.title} onChange={@changeTitle} onKeyDown={@restrictEnter} onBlur={@stopEdit}/>
-    ]
+    <textarea ref="titleEdit" autoFocus maxLength="90" rows="3" className={@classes("#{block}_title", 'm-edit')} placeholder={placeholder} value={object.title} onChange={@changeTitle} onKeyDown={@restrictEnter} onBlur={@stopEdit}/>
 
   render: ->
     {block} = @context

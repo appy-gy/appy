@@ -161,34 +161,35 @@
     justify-content: center
 
   &_title-wrapper
+    position: relative
     width: 100%
+    height: 200px
     z-index: 1
-    // position: absolute
-    // top: 200px
-    padding: 16px
-
-    @media screen and (min-width: $small)
-      padding: 20px
 
   &_title
     font-family: $serif
     font-size: 24px
     font-weight: 400
     color: $white
-    margin: 0
+    padding: 0 16px
     line-height: 1.2
-    text-align: center
     width: 100%
+    text-align: center
     word-break: break-word
 
     &.m-edit
-      border-radius: $border-radius
-      height: 220px
+      position: absolute
+      top: 0
+      overflow: hidden
       resize: none
 
       &::placeholder
         color: $white
         transition: color 0.1s
+
+    &.m-hidden
+      opacity: 0
+      pointer-events: none
 
     @media screen and (min-width: $small)
       font-size: 40px
@@ -343,3 +344,6 @@
   &_share
     display: flex !important
     justify-content: center
+
+  &_source
+    white-space: pre-wrap
