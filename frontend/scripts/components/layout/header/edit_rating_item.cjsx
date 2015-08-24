@@ -64,9 +64,6 @@ EditRatingItem = React.createClass
       <div className="header_rating-item-title">
         {ratingItem.title}
       </div>
-      <div className="header_rating-item-options">
-        {ratingItem.mark}
-      </div>
     </div>
 
 module.exports = DropTarget('EditRatingItem', ratingItemTarget, collectTarget)(DragSource('EditRatingItem', ratingItemSource, collectSource)(EditRatingItem))
