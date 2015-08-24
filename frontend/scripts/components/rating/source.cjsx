@@ -38,7 +38,7 @@ Source = React.createClass
 
     @app.ratingsActions.change rating.id, { source }
     @queueUpdate =>
-      @app.ratingsActions.update rating.id, source: removeExtraSpaces(source)
+      @app.ratingsActions.update rating.id, { source }
 
   sourceView: ->
     {edit} = @state
@@ -47,7 +47,7 @@ Source = React.createClass
     return if edit
 
     <div className="rating_source" onClick={@startEdit}>
-      <AutolinkText text={rating.source || @placeholder}></AutolinkText>
+      <AutolinkText text={removeExtraSpaces(rating.source) || @placeholder}></AutolinkText>
     </div>
 
   sourceEdit: ->

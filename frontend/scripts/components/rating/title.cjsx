@@ -5,7 +5,6 @@ textfill = require 'textfill'
 isClient = require '../../helpers/is_client'
 Classes = require '../mixins/classes'
 RatingUpdater = require '../mixins/rating_updater'
-removeExtraSpaces = require '../../helpers/remove_extra_spaces'
 
 {PropTypes} = React
 
@@ -64,7 +63,7 @@ ObjectTitle = React.createClass
 
     @app[actions].change object.id, { title }
     @queueUpdate =>
-      @app[actions].update object.id, title: removeExtraSpaces(title)
+      @app[actions].update object.id, { title }
 
   titleView: ->
     {object, placeholder} = @props

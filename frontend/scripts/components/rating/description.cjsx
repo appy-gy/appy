@@ -42,7 +42,7 @@ ObjectDescription = React.createClass
 
     @app[actions].change object.id, { description }
     @queueUpdate =>
-      @app[actions].update object.id, description: removeExtraSpaces(description)
+      @app[actions].update object.id, { description }
 
   descriptionView: ->
     {object, placeholder} = @props
@@ -53,7 +53,7 @@ ObjectDescription = React.createClass
     return if edit
 
     <div className={@classes("#{block}_description")} onClick={@startEdit}>
-      <AutolinkText text={description || placeholder}></AutolinkText>
+      <AutolinkText text={removeExtraSpaces(description) || placeholder}></AutolinkText>
     </div>
 
   descriptionEdit: ->
