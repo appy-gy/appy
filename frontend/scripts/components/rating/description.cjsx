@@ -1,8 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-isBlank = require '../../helpers/is_blank'
-withIndexKeys = require '../../helpers/react/with_index_keys'
+AutolinkText = require 'react-autolink-text'
 Classes = require '../mixins/classes'
 RatingUpdater = require '../mixins/rating_updater'
 Textarea = require '../shared/inputs/text'
@@ -25,32 +24,25 @@ ObjectDescription = React.createClass
     canEdit: PropTypes.bool.isRequired
 
   getInitialState: ->
-    {object} = @props
-
     edit: false
 
   startEdit: ->
-    {object} = @props
     {canEdit} = @context
 
     return unless canEdit
     @setState edit: true
 
   stopEdit: ->
-    {object} = @props
-
     @setState edit: false
 
   changeDescription: (event) ->
     {object, actions} = @props
 
-    @app[actions].change object.id, description: event.target.value
-    @queueUpdate @updateDescription
+    description = event.target.value
 
-  updateDescription: ->
-    {object, actions} = @props
-
-    @app[actions].update object.id, description: removeExtraSpaces(object.description)
+    @app[actions].change object.id, { description }
+    @queueUpdate =>
+      @app[actions].update object.id, description: removeExtraSpaces(description)
 
   descriptionView: ->
     {object, placeholder} = @props
@@ -61,7 +53,7 @@ ObjectDescription = React.createClass
     return if edit
 
     <div className={@classes("#{block}_description")} onClick={@startEdit}>
-      {description || placeholder}
+      <AutolinkText text={description || placeholder}></AutolinkText>
     </div>
 
   descriptionEdit: ->
@@ -71,9 +63,7 @@ ObjectDescription = React.createClass
 
     return unless edit
 
-    withIndexKeys [
-      <Textarea className={@classes("#{block}_description", 'm-edit')} placeholder={placeholder} value={object.description} onChange={@changeDescription} onBlur={@stopEdit}/>
-    ]
+    <Textarea autoFocus className={@classes("#{block}_description", 'm-edit')} placeholder={placeholder} value={object.description} onChange={@changeDescription} onBlur={@stopEdit}/>
 
   render: ->
     {block} = @context

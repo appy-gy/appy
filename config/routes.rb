@@ -36,7 +36,9 @@ Rails.application.routes.draw do
         end
       end
       resources :header_sections, only: [:index]
-      resources :tags, only: [:index]
+      resources :tags, only: [:index] do
+        get :popular, on: :collection
+      end
     end
   end
 

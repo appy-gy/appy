@@ -1,10 +1,10 @@
 React = require 'react/addons'
-Toast = require '../../../models/toast'
 AppFromProps = require '../../mixins/app_from_props'
 AppToContext = require '../../mixins/app_to_context'
 Title = require './title'
 Login = -> require './login'
 Form = require './form'
+showToast = require '../../../helpers/toasts/show'
 
 {PropTypes} = React
 {LinkedStateMixin} = React.addons
@@ -32,14 +32,10 @@ ResetPasswordPopup = React.createClass
       @app.popupsActions.remove popups
 
   showFailToast: ->
-    @showToast 'Не удалось отправить письмо для восстановления пароля', 'error'
+    showToast @app, 'Не удалось отправить письмо для восстановления пароля', 'error'
 
   showSuccessToast: ->
-    @showToast 'Письмо для восстановления пароля отправлено', 'success'
-
-  showToast: (text, type) ->
-    toast = new Toast text, { type }
-    @app.toastsActions.append toast
+    showToast @app, 'Письмо для восстановления пароля отправлено', 'success'
 
   render: ->
     <div className="auth-popup">

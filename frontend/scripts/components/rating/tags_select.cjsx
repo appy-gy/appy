@@ -18,13 +18,15 @@ TagsSelect = React.createClass
 
   toOptions: (tags) ->
     tags.map (tag) ->
-      value: tag.name, label: tag.name, numberOfUses: tag.numberOfUses
+      value: tag.name, label: tag.name, ratingsCount: tag.ratingsCount
 
   loadOptions: (query, callback) ->
-    @app.tagsApi.autocomplete(query).then ({body, status}) =>
+    action = if _.isEmpty query then 'popular' else 'autocomplete'
+
+    @app.tagsApi[action](query).then ({body, status}) =>
       return callback 'Ошибка' unless status == 200
       tags = body.tags.map (tag) -> new Tag tag
-      tags.push new Tag name: query unless _(tags).map('name').includes(query)
+      tags.push new Tag name: query unless _.isEmpty(query) or _(tags).map('name').includes(query)
       callback null, options: @toOptions(tags)
 
   value: ->
@@ -39,13 +41,13 @@ TagsSelect = React.createClass
     action = if options.length > rating.tags.length then 'add' else 'remove'
     @app.ratingsActions["#{action}Tag"] rating.id, name
 
-  renderOption: ({label, numberOfUses}) ->
+  renderOption: ({label, ratingsCount}) ->
     <div className="tag-option">
       <div className="tag-option_label">
         {label}
       </div>
       <div className="tag-option_number-of-uses">
-        ({numberOfUses || 'новый'})
+        ({ratingsCount || 'новый'})
       </div>
     </div>
 
@@ -54,6 +56,6 @@ TagsSelect = React.createClass
 
     return <Nothing/> unless canEdit
 
-    <Select placeholder="Задать теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" autoload={false} multi={true} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} optionRenderer={@renderOption} onChange={@updateTags}/>
+    <Select placeholder="Задать теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" autoload={true} multi={true} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} optionRenderer={@renderOption} onChange={@updateTags}/>
 
 module.exports = TagsSelect

@@ -9,6 +9,9 @@ class TagsApi extends Marty.HttpStateSource
     url = "tags?#{query}"
     @get { url }
 
+  popular: ->
+    @get url: 'tags/popular'
+
   addToRating: (ratingId, name) ->
     @post url: "ratings/#{ratingId}/tags", body: { name }
 

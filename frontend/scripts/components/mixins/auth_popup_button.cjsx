@@ -1,11 +1,11 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Popup = require '../../models/popup'
-Toast = require '../../models/toast'
 AppFromProps = require './app_from_props'
 AuthPopup = require '../shared/auth/auth_popup'
 Login = -> require '../shared/auth/login'
 Registration = -> require '../shared/auth/registration'
+showToast = require '../../helpers/toasts/show'
 
 {PropTypes} = React
 
@@ -33,8 +33,7 @@ AuthPopupButton =
         onSuccess()
 
   showFailToast: (error) ->
-    toast = new Toast @failToastContent(error), type: 'error'
-    @app.toastsActions.append toast
+    showToast @app, @failToastContent(error), 'error'
 
   switcher: ->
     Component = @switcherComponents[@switcherComponent]()

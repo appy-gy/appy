@@ -14,7 +14,7 @@ ConfirmationPopup = React.createClass
 
   getDefaultProps: ->
     confirmText: 'Да, пожалуйста'
-    cancelText: 'Не удалять'
+    cancelText: 'Нет, не надо'
 
   render: ->
     {text, onConfirm, onCancel, confirmText, cancelText} = @props

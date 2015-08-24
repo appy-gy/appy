@@ -349,6 +349,3 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   sys-proctable
-
-BUNDLED WITH
-   1.10.5

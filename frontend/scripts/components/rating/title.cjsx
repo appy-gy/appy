@@ -45,13 +45,11 @@ ObjectTitle = React.createClass
   changeTitle: (event) ->
     {object, actions} = @props
 
-    @app[actions].change object.id, title: event.target.value
-    @queueUpdate @updateTitle
+    title = event.target.value
 
-  updateTitle: ->
-    {object, actions} = @props
-
-    @app[actions].update object.id, title: removeExtraSpaces(object.title)
+    @app[actions].change object.id, { title }
+    @queueUpdate =>
+      @app[actions].update object.id, title: removeExtraSpaces(title)
 
   titleView: ->
     {object, placeholder} = @props

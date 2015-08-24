@@ -1,30 +1,16 @@
-_ = require 'lodash'
 React = require 'react/addons'
-Router = require 'react-router'
+ModelLink = require '../../mixins/model_link'
 
 {PropTypes} = React
-{Link} = Router
 
 UserLink = React.createClass
   displayName: 'UserLink'
 
+  mixins: [ModelLink]
+
   propTypes:
     user: PropTypes.object
-    slug: PropTypes.string
-    children: PropTypes.node.isRequired
 
-  slug: ->
-    {user, slug} = @props
-
-    slug or user.slug
-
-  render: ->
-    {children} = @props
-
-    props = _.omit @props, 'user', 'slug', 'children'
-
-    <Link to="user" params={userSlug: @slug()} {...props}>
-      {children}
-    </Link>
+  objectName: 'user'
 
 module.exports = UserLink

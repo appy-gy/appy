@@ -1,5 +1,5 @@
 class RatingSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :published_at, :created_at,
+  attributes :id, :title, :description, :source, :published_at, :created_at,
     :status, :slug, :image, :comments_count, :likes_count,
     :can_edit, :can_see_comments
 

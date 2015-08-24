@@ -12,6 +12,8 @@ Meta = React.createClass
   render: ->
     {block, rating} = @context
 
+    timestamp = rating.publishedAt || rating.createdAt
+
     <div className="#{block}_meta">
       <div className="#{block}_item ">
         <div className="#{block}_icon m-likes"></div>
@@ -27,7 +29,7 @@ Meta = React.createClass
       </div>
       <div className="#{block}_item">
         <div className="#{block}_text">
-          {rating.createdAt.format('D MMMM YYYY')}
+          {timestamp?.format('D MMMM YYYY')}
         </div>
       </div>
     </div>
