@@ -26,6 +26,11 @@ class Rating < ActiveRecord::Base
   after_create :generate_slug
   before_save :set_published_at, if: :publishing?
 
+  # recommendation system
+  def words
+    (title.gsub(/[a-zA-Zа-яА-Я]{3,}/).to_a | tags.pluck(:name)).map{|word| word.mb_chars.downcase.to_s }.uniq.sort
+  end
+
   private
 
   def slug_candidates
