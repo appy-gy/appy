@@ -29,7 +29,8 @@
     "setimmediate": "^1.0.2",
     "smooth-scroll": "cferdinandi/smooth-scroll",
     "textfill": "miraks/textfill.js",
-    "wolfy87-eventemitter": "miraks/EventEmitter"
+    "wolfy87-eventemitter": "miraks/EventEmitter",
+    "tinycolor2": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^2.0.0",
