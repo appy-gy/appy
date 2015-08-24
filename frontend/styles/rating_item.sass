@@ -27,8 +27,9 @@
       content: '#'
 
   &_title
-    font-size: inherit
-    max-width: 100%
+    position: relative
+    width: 100%
+    text-align: center
     +word-break
 
     &-wrapper
@@ -39,7 +40,6 @@
       justify-content: flex-end
 
     &-button
-
       &.m-accept
         +accept
 
@@ -47,9 +47,13 @@
         +alt-cancel
 
     &.m-edit
-      width: 100%
+      overflow: hidden
       resize: none
-      text-align: center
+
+    &.m-hidden
+      position: absolute
+      opacity: 0
+      pointer-events: none
 
   &_add-image
     +add-image
