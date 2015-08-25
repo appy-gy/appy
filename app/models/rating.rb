@@ -28,7 +28,7 @@ class Rating < ActiveRecord::Base
 
   # recommendation system
   def words
-    (title.gsub(/[a-zA-Zа-яА-Я]{3,}/).to_a | tags.pluck(:name) | [section.name]).map{ |word| word.mb_chars.downcase.to_s }.uniq.sort
+    ((title || '').scan(/[a-zA-Zа-яА-Я]{3,}/).to_set | tags.pluck(:name) | Array.wrap(section.try(:name))).map{ |word| word.mb_chars.downcase.to_s }.sort.to_set
   end
 
   private
