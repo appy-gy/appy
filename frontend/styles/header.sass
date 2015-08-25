@@ -27,7 +27,6 @@
   &_content
     width: 100%
     height: 100%
-    overflow-y: auto
     background-color: $white
 
   &.m-active
@@ -125,7 +124,9 @@
       content: ":"
 
   &_rating-items
+    height: 100%
     padding: 15px 15px 0 15px
+    overflow-y: auto
 
   &_rating-item
     display: flex
@@ -157,9 +158,10 @@
       margin-right: 5px
       overflow: hidden
       width: 100%
-      // color: $black
+      color: $black-2
       text-overflow: ellipsis
       white-space: nowrap
+      text-decoration: none
 
     &-options
       font-size: 12px
