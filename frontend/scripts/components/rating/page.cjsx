@@ -47,7 +47,7 @@ RatingPage = React.createClass
 
     <Layout header={@header()}>
       <Rating/>
-      <Similar/>
+      {<Similar/> if @rating() and @rating().isPublished()}
       <Comments/>
     </Layout>
 
