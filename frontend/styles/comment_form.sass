@@ -12,9 +12,25 @@
   &_textarea
     font-size: 16px
     background: $white
-    padding: 10px
+    padding: 8px
     margin-left: 10px
     border-radius: $border-radius
     width: calc(100% - 60px)
     min-height: 60px
     resize: none
+
+  &_button
+    padding: 0 10px
+    display: flex
+    justify-content: center
+    align-items: center
+    font-weight: 600
+    flex-shrink: 0
+    color: $black-3
+
+    &:not(.m-disabled)
+      color: $blue
+      cursor: pointer
+
+      &:hover
+        color: $blue-2

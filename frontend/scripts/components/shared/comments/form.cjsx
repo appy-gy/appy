@@ -19,7 +19,7 @@ Form = React.createClass
   contextTypes:
     ratingSlug: PropTypes.string.isRequired
 
-  placeholder: 'Нажмите Shift + Enter для отправки. Для перехода на новую строку нажмите Enter'
+  placeholder: 'Нажмите Shift + Enter для отправки комментария. Для перехода на новую строку нажмите Enter'
 
   getDefaultProps: ->
     parent: null
@@ -53,7 +53,7 @@ Form = React.createClass
     {body} = @state
 
     classes = classNames 'comment-form', 'm-answer': parent?
-    buttonClasses = classNames 'comment-button', 'disabled': isBlank(body)
+    buttonClasses = classNames 'comment-form_button', 'm-disabled': isBlank(body)
 
     <div className={classes}>
       <img className="comment_userface" src={user.avatarUrl 'small'}/>

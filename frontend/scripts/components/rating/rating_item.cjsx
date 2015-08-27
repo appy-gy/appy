@@ -83,7 +83,7 @@ RatingItem = React.createClass
       <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} threshold={0}/>
       {@addRatingItemButton 'top'}
       <div className="rating-item_header">
-        <span className="rating-item_number">{index}</span>
+        <span className="rating-item_number" minFontSize={20} maxFontSize={36}>{index}</span>
         <Title object={ratingItem} actions="ratingItemsActions" placeholder={ratingTitlePlaceholder} minFontSize={20} maxFontSize={36}/>
       </div>
       <div className="rating-item_cover-wrap">

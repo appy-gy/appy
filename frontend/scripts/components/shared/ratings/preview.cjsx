@@ -76,15 +76,13 @@ Preview = React.createClass
         <SectionLink className="preview_section-name" section={rating.section} style={sectionNameStyles}>
           {rating.section?.name}
         </SectionLink>
-        <RatingLink rating={rating}>
-          <div className="preview_title">
-            {@title()}
-          </div>
-          <div className="preview_description">
-            {@description()}
-          </div>
-          <Tags tags={rating.tags}/>
+        <RatingLink className="preview_title" rating={rating}>
+          {@title()}
         </RatingLink>
+        <RatingLink className="preview_description" rating={rating}>
+          {@description()}
+        </RatingLink>
+        <Tags tags={rating.tags}/>
       </div>
     </div>
 

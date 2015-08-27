@@ -46,28 +46,15 @@
 
   &_logotype
     display: block
-    background: $blue
-    color: $white
     padding: 10px 20px
     text-align: center
     position: relative
     flex-shrink: 0
     height: 80px
+    background: $blue  url("../images/appy_logo.svg") center center
+    background-repeat: no-repeat
+    background-size: 50% 50%
 
-    &-icon
-      display: inline-block
-      margin-bottom: 2px
-      font-size: 20px
-      &:before
-        +ion-icon("happy-outline")
-
-    &-text
-      text-transform: uppercase
-      font-size: 14px
-      font-weight: 600
-
-    &:hover
-      opacity: 0.8
 
   &_rating-update-status
     font-size: 14px
