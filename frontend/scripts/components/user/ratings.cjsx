@@ -42,7 +42,7 @@ Ratings = React.createClass
 
     return if @hasRatings() or not isOwnPage
 
-    <CreateRating className="user-ratings_create-button">
+    <CreateRating className="user-profile_tab-button">
       Создать рейтинг
     </CreateRating>
 

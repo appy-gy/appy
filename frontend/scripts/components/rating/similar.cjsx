@@ -19,7 +19,7 @@ Similar = React.createClass
   render: ->
     <div className="similar">
       <div className="similar_title">
-        Вам так же понравится
+        А еще вот что:
       </div>
       <div className="previews">
         {@ratings()}

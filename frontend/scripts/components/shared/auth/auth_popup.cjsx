@@ -22,11 +22,12 @@ AuthPopup = React.createClass
 
   render: ->
     {title, onSubmit, switcher} = @props
+    showSocial = false
 
     <div className="auth-popup">
       <Title text={title}/>
-      <SocialButtons/>
-      <Or/>
+      { <SocialButtons/> if showSocial }
+      { <Or/> if showSocial }
       <AuthForm ref="form" onSubmit={onSubmit}/>
       {switcher}
       <ResetPassword className="auth-popup_link"/>

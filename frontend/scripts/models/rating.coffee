@@ -11,4 +11,7 @@ class Rating extends Base
   @hasOne 'like', Like
   @hasMany 'tags', Tag
 
+  isPublished: ->
+    @status == 'published'
+
 module.exports = Rating

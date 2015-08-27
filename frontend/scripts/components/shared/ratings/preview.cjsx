@@ -43,7 +43,7 @@ Preview = React.createClass
     {rating} = @props
 
     _.trunc rating.description,
-      length: 90
+      length: 150
       separator: /,? +/
 
   deleteButton: ->
