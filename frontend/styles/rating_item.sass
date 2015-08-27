@@ -16,12 +16,15 @@
     text-align: center
     display: flex
     justify-content: center
+    position: relative
 
     @media screen and (min-width: $small)
       padding: 0 40px
 
   &_number
-    margin-right: 5px
+    position: absolute
+    top: 0
+    left: 0
 
     &:before
       content: '#'
@@ -199,7 +202,7 @@
     position: absolute
     font-size: 36px
     top: 31px
-    left: 30px
+    right: 30px
     width: 30px
     height: 30px
     display: flex
