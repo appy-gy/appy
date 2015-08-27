@@ -17,6 +17,8 @@ ObjectTitle = React.createClass
     object: PropTypes.object.isRequired
     actions: PropTypes.string.isRequired
     placeholder: PropTypes.string.isRequired
+    minFontSize: PropTypes.number.isRequired
+    maxFontSize: PropTypes.number.isRequired
 
   contextTypes:
     block: PropTypes.string.isRequired
@@ -32,12 +34,13 @@ ObjectTitle = React.createClass
     @updateFontSize()
 
   updateFontSize: ->
+    {minFontSize, maxFontSize} = @props
     {edit} = @state
     {titleView, titleEdit} = @refs
 
     return unless isClient()
 
-    textfill titleView.getDOMNode(), minFontPixels: 20, maxFontPixels: 60, explicitHeight: 200
+    textfill titleView.getDOMNode(), minFontPixels: minFontSize, maxFontPixels: maxFontSize, explicitHeight: 200
     return unless edit
     titleEdit.getDOMNode().style.fontSize = titleView.getDOMNode().children[0].style.fontSize
 

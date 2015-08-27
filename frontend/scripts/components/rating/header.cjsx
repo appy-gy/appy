@@ -90,7 +90,7 @@ Header = React.createClass
       <div className="rating_tags-select">
         <TagsSelect/>
       </div>
-      <Title object={rating} actions="ratingsActions" placeholder="Введите заголовок рейтинга"/>
+      <Title object={rating} actions="ratingsActions" placeholder="Введите заголовок рейтинга" minFontSize={20} maxFontSize={60}/>
       @tags()
     ]
 

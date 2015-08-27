@@ -80,7 +80,7 @@ RatingItem = React.createClass
       {@addRatingItemButton 'top'}
       <div className="rating-item_header">
         <span className="rating-item_number">{index}</span>
-        <Title object={ratingItem} actions="ratingItemsActions" placeholder="Введите заголовок пункта"/>
+        <Title object={ratingItem} actions="ratingItemsActions" placeholder="Введите заголовок пункта" minFontSize={20} maxFontSize={36}/>
       </div>
       <div className="rating-item_cover-wrap">
         <Image/>
