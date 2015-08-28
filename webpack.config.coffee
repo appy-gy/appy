@@ -9,8 +9,7 @@ dotenv.load()
 
 app = ['./frontend/app']
 
-debug = true
-devtool = 'eval'
+
 
 env = _.pick process.env, 'NODE_ENV', 'TOP_ENV', 'TOP_INSTAGRAM_KEY'
 definePluginEnv = mapObj env, (key, value) ->
@@ -33,11 +32,16 @@ switch process.env.TOP_ENV
   when 'production'
     debug = false
     devtool = null
+    publicPath = '/static/'
 
     plugins.push \
       new webpack.optimize.UglifyJsPlugin compress: { warnings: false },
       new webpack.optimize.DedupePlugin()
   when 'development'
+    debug = true
+    devtool = 'eval'
+    publicPath: "#{process.env.TOP_WEBPACK_HOST}/"
+
     app.unshift \
       "webpack-dev-server/client?#{process.env.TOP_WEBPACK_HOST}",
       'webpack/hot/dev-server'
@@ -56,7 +60,7 @@ module.exports =
   output:
     path: path.join(__dirname, 'public/static')
     filename: '[name].js'
-    publicPath: "#{process.env.TOP_WEBPACK_HOST || ''}/"
+    publicPath: publicPath
   debug: debug
   devtool: devtool
   plugins: plugins
