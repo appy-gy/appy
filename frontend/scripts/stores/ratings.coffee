@@ -1,5 +1,6 @@
 _ = require 'lodash'
 toArray = require '../helpers/to_array'
+findInArray = require '../helpers/find_in_array'
 findInStore = require '../helpers/find_in_store'
 findIndexInStore = require '../helpers/find_index_in_store'
 React = require 'react/addons'
@@ -56,7 +57,7 @@ class RatingsStore extends Marty.Store
       id: id
       locally: ->
         return unless @hasAlreadyFetched id
-        findInStore @, page, all: true, fields: ['page']
+        findInArray findInStore(@, page, all: true, fields: ['page']), sectionId, all: true, fields: ['section.id', 'section.slug']
       remotely: ->
         @app.ratingsQueries.getForSection(sectionId, page)
 
