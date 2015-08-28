@@ -1,6 +1,7 @@
 React = require 'react/addons'
 Router = require 'react-router'
 App = require './components/app'
+NotFound = require './components/not_found/page'
 Ratings = require './components/ratings/page'
 Rating = require './components/rating/page'
 SectionRatings = require './components/section/page'
@@ -8,7 +9,7 @@ SectionRatings = require './components/section/page'
 User = require './components/user/page'
 Instagram = require './components/instagram/page'
 
-{Route, DefaultRoute} = Router
+{Route, DefaultRoute, NotFoundRoute} = Router
 
 routes =
   <Route handler={App} path="/">
@@ -18,6 +19,7 @@ routes =
     <Route name="section" path="sections/:sectionSlug" handler={SectionRatings}/>
     <Route name="user" path="users/:userSlug" handler={User}/>
     <Route name="instagram" path="instagram" handler={Instagram}/>
+    <NotFoundRoute handler={NotFound}/>
   </Route>
 
 module.exports = routes

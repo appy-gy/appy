@@ -11,7 +11,7 @@ Section = require '../../models/section'
 
 {PropTypes} = React
 
-Ratings = React.createClass
+SectionRatings = React.createClass
   displayName: 'SectionRatings'
 
   mixins: [Loading, RatingsList]
@@ -45,7 +45,7 @@ Ratings = React.createClass
       {@pagination()}
     </Layout>
 
-module.exports = Marty.createContainer Ratings,
+module.exports = Marty.createContainer SectionRatings,
   listenTo: ['ratingsStore', 'sectionsStore']
 
   mixins: [ClearStores(false), ParsePage]
