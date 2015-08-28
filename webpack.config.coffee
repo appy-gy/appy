@@ -56,7 +56,7 @@ module.exports =
   output:
     path: path.join(__dirname, 'public/static')
     filename: '[name].js'
-    publicPath: "#{process.env.TOP_WEBPACK_HOST}/"
+    publicPath: "#{process.env.TOP_WEBPACK_HOST || ''}/"
   debug: debug
   devtool: devtool
   plugins: plugins
