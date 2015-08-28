@@ -75,6 +75,13 @@ namespace :prerender do
   end
 end
 
+namespace :memcached do
+  desc 'Flush memcached'
+  task flush: :environment do
+    queue! %{echo 'flush_all' | nc localhost 11211}
+  end
+end
+
 desc 'Deploys the current version to the server.'
 task deploy: :environment do
   to :before_hook do
@@ -93,6 +100,7 @@ task deploy: :environment do
     to :launch do
       invoke :'puma:restart'
       invoke :'prerender:restart'
+      invoke :'memcached:flush'
     end
   end
 end
