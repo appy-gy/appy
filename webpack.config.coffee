@@ -41,7 +41,7 @@ switch process.env.TOP_ENV
     debug = true
     devtool = 'eval'
     filename = '[name].js'
-    publicPath: "#{process.env.TOP_WEBPACK_HOST}/"
+    publicPath = "#{process.env.TOP_WEBPACK_HOST}/"
 
     app.unshift \
       "webpack-dev-server/client?#{process.env.TOP_WEBPACK_HOST}",
