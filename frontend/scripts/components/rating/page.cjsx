@@ -42,12 +42,15 @@ RatingPage = React.createClass
 
     if canEditRating(user, @rating()) then 'editRating' else 'rating'
 
+  similar: ->
+    <Similar/> if @rating()?.status == 'published'
+
   render: ->
     {ratingSlug} = @props
 
     <Layout header={@header()}>
       <Rating/>
-      {<Similar/> if @rating() and @rating().isPublished()}
+      {@similar()}
       <Comments/>
     </Layout>
 

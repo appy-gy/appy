@@ -68,7 +68,7 @@ RatingItem = React.createClass
   votes: ->
     {rating} = @context
 
-    return unless rating.isPublished()
+    return unless rating.status == 'published'
 
     <Votes/>
 
@@ -76,8 +76,8 @@ RatingItem = React.createClass
     {rating} = @context
     {ratingItem, index} = @props
 
-    ratingTitlePlaceholder = 'Введите заголовок пункта' unless rating.isPublished()
-    ratingDescriptionPlaceholder = 'Введите описание пункта' unless rating.isPublished()
+    ratingTitlePlaceholder = 'Введите заголовок пункта' unless rating.status == 'published'
+    ratingDescriptionPlaceholder = 'Введите описание пункта' unless rating.status == 'published'
 
     <section id="item-#{ratingItem.position}" className="rating-item">
       <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} threshold={0}/>
