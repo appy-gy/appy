@@ -4,21 +4,18 @@ path = require 'path'
 mapObj = require 'map-obj'
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
+AssetsPlugin = require 'assets-webpack-plugin'
 
 dotenv.load()
 
 app = ['./frontend/app']
-
-
 
 env = _.pick process.env, 'NODE_ENV', 'TOP_ENV', 'TOP_INSTAGRAM_KEY'
 definePluginEnv = mapObj env, (key, value) ->
   ["process.env.#{key}", JSON.stringify(value)]
 
 plugins = [
-  new webpack.PrefetchPlugin 'react'
-  new webpack.PrefetchPlugin 'react/lib/ReactComponentBrowserEnvironment'
-  new ExtractTextPlugin '[name].css', disable: process.env.TOP_ENV != 'production'
+  new ExtractTextPlugin('[name].[hash].css', disable: process.env.TOP_ENV != 'production')
 ]
 
 cssLoaders = ['css', 'autoprefixer']
@@ -32,14 +29,18 @@ switch process.env.TOP_ENV
   when 'production'
     debug = false
     devtool = null
+    filename = '[name].[hash].js'
     publicPath = '/static/'
 
     plugins.push \
-      new webpack.optimize.UglifyJsPlugin compress: { warnings: false },
-      new webpack.optimize.DedupePlugin()
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.optimize.UglifyJsPlugin(compress: { warnings: false }),
+      new webpack.optimize.DedupePlugin(),
+      new AssetsPlugin(path: path.join(__dirname, 'tmp/webpack'), filename: 'assets.json')
   when 'development'
     debug = true
     devtool = 'eval'
+    filename = '[name].js'
     publicPath: "#{process.env.TOP_WEBPACK_HOST}/"
 
     app.unshift \
@@ -51,7 +52,7 @@ switch process.env.TOP_ENV
     cjsxLoaders.unshift 'react-hot'
 
 plugins.push \
-  new webpack.DefinePlugin definePluginEnv
+  new webpack.DefinePlugin(definePluginEnv),
   new webpack.NoErrorsPlugin()
 
 module.exports =
@@ -59,7 +60,7 @@ module.exports =
     app: app
   output:
     path: path.join(__dirname, 'public/static')
-    filename: '[name].js'
+    filename: filename
     publicPath: publicPath
   debug: debug
   devtool: devtool

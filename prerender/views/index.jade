@@ -5,7 +5,7 @@ html
     meta(content="telephone=no" name="format-detection")
     meta(content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" name="viewport")
     title .appy
-    link(href=host + "app.css" rel="stylesheet" type="text/css")
+    link(href=cssPath rel="stylesheet" type="text/css")
     link(href="//fonts.googleapis.com/css?family=Open+Sans:300,600,700&subset=latin,cyrillic" rel="stylesheet" type="text/css")
     link(href="//fonts.googleapis.com/css?family=Roboto+Slab&subset=latin,cyrillic" rel="stylesheet" type="text/css")
     link(href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css")
@@ -13,5 +13,5 @@ html
     div#page
       != body
     != state
-    script(async=(env == 'production') src=host + "app.js" type="text/javascript")
+    script(async=(env == 'production') src=jsPath type="text/javascript")
     include ./_facebook.jade
