@@ -63,4 +63,9 @@ class RatingsActions extends Marty.ActionCreators
       return unless status == 200
       @changePositions body.positions
 
+  view: (ratingId) ->
+    @app.ratingsApi.view(ratingId).then ({body, status}) =>
+      return unless status == 200
+      @dispatch Constants.CHANGE_RATING, ratingId, viewsCount: body.viewsCount
+
 module.exports = RatingsActions

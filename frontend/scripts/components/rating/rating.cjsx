@@ -37,6 +37,11 @@ Rating = React.createClass
 
     { rating, ratingItems }
 
+  componentWillMount: ->
+    {rating} = @props
+
+    @app.ratingsActions.view rating.id if rating.status == 'published'
+
   createRatingItem: ->
     {rating} = @props
 

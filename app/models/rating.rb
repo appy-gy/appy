@@ -1,5 +1,6 @@
 class Rating < ActiveRecord::Base
   extend FriendlyId
+  include Redis::Objects
   include IdAsSlug
 
   attr_accessor :like
@@ -7,6 +8,8 @@ class Rating < ActiveRecord::Base
   acts_as_paranoid
 
   friendly_id :slug_candidates
+
+  counter :views
 
   mount_uploader :image, Ratings::RatingImageUploader
 

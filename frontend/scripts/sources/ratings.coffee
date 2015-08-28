@@ -37,4 +37,7 @@ class RatingsApi extends Marty.HttpStateSource
     body = { positions }
     @put { url, body }
 
+  view: (id) ->
+    @put "ratings/#{id}/view"
+
 module.exports = RatingsApi

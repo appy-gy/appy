@@ -17,17 +17,9 @@
     font-size: 20px
     margin-top: -2px
 
-    &.m-likes
-      // font-size: px
-
-      &:before
-        +ion-icon("ios-heart")
-
-    &.m-comments
-      // font-size: 15px
-
-      &:before
-        +ion-icon("chatbubble")
+    @each $type, $icon in (likes, ios-heart), (comments, chatbubble), (views, eye)
+      &.m-#{$type}:before
+        +ion-icon($icon)
 
   &_text
     font-size: 12px

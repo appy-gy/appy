@@ -9,6 +9,7 @@ gem 'puma'
 gem 'pg'
 gem 'pg_search'
 gem 'dalli'
+gem 'redis-objects'
 
 # Configuration
 gem 'dotenv-rails'

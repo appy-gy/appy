@@ -1,4 +1,5 @@
 React = require 'react/addons'
+Item = require './meta_item'
 
 {PropTypes} = React
 
@@ -15,23 +16,18 @@ Meta = React.createClass
     timestamp = rating.publishedAt || rating.createdAt
 
     <div className="#{block}_meta">
-      <div className="#{block}_item ">
-        <div className="#{block}_icon m-likes"></div>
-        <div ref="likesCounter" className="#{block}_text">
-          {rating.likesCount}
-        </div>
-      </div>
-      <div className="#{block}_item">
-        <div className="#{block}_icon m-comments"></div>
-        <div className="#{block}_text">
-          {rating.commentsCount}
-        </div>
-      </div>
-      <div className="#{block}_item">
-        <div className="#{block}_text">
-          {timestamp?.format('D MMMM YYYY')}
-        </div>
-      </div>
+      <Item ref="likesCounter" icon="likes">
+        {rating.likesCount}
+      </Item>
+      <Item icon="comments">
+        {rating.commentsCount}
+      </Item>
+      <Item icon="views">
+        {rating.viewsCount}
+      </Item>
+      <Item>
+        {timestamp?.format('D MMMM YYYY')}
+      </Item>
     </div>
 
 module.exports = Meta
