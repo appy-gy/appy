@@ -1,5 +1,5 @@
 module Ratings
-  class RatingImageUplo'#21acd0'ader < ImageUploader
+  class RatingImageUploader < ImageUploader
     const :pad_color, '#21acd0'
 
     image :normal, [950, 500, pad_color], resize: :resize_and_pad
