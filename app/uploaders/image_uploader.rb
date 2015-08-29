@@ -2,16 +2,10 @@ class ImageUploader < BaseUploader
   include CarrierWave::MiniMagick
   include CarrierWave::Processing::MiniMagick
 
-  class_attribute :images
-
-  self.images = {}
-
-  def self.image name, sizes, resize: :resize_to_fill, quality: 80, format: 'jpg'
-    images[name] = { sizes: sizes }
-
+  def self.image name, resize_params, resize: :resize_to_fill, quality: 80, format: 'jpg'
     version name do
       process :strip
-      process resize => sizes
+      process resize => resize_params
       process quality: quality
       process convert: format
 

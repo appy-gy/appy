@@ -1,6 +1,6 @@
 module RatingItems
   class RatingItemImageUploader < ImageUploader
-    image :normal, [840, nil], resize: :resize_to_limit
+    image :normal, [840, nil, :white], resize: :resize_and_pad
 
     def filename
       return unless super.present?

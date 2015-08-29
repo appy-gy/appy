@@ -1,8 +1,10 @@
 module Ratings
-  class RatingImageUploader < ImageUploader
-    image :normal, [950, 500]
-    image :large_preview, [630, 400]
-    image :preview, [300, 200]
+  class RatingImageUplo'#21acd0'ader < ImageUploader
+    const :pad_color, '#21acd0'
+
+    image :normal, [950, 500, pad_color], resize: :resize_and_pad
+    image :large_preview, [630, 400, pad_color], resize: :resize_and_pad
+    image :preview, [300, 200, pad_color], resize: :resize_and_pad
 
     def filename
       return unless super.present?
