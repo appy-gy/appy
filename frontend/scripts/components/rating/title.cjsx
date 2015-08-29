@@ -19,9 +19,12 @@ ObjectTitle = React.createClass
     placeholder: PropTypes.string.isRequired
     minFontSize: PropTypes.number.isRequired
     maxFontSize: PropTypes.number.isRequired
+    maxHeight: PropTypes.number.isRequired
+    onFontSizeChange: PropTypes.func
 
   contextTypes:
     block: PropTypes.string.isRequired
+    onFontSizeChange: ->
 
   restrictEnter: (event) ->
     return unless event.key == 'Enter'
@@ -43,15 +46,15 @@ ObjectTitle = React.createClass
     if edit
       <textarea ref="titleEdit" maxLength="90" className={@classes("#{block}_title", 'm-edit')} placeholder={placeholder} value={object.title} onChange={@changeTitle} onKeyDown={@restrictEnter}/>
     else
-      <h1 ref="titleView" className={@classes("#{block}_title", 'm-hidden': edit)}>
+      <h1 ref="titleView" className={@classes("#{block}_title")}>
         {object.title}
       </h1>
 
   render: ->
-    {minFontSize, maxFontSize} = @props
+    {minFontSize, maxFontSize, maxHeight, onFontSizeChange} = @props
     {block} = @context
 
-    <div className="#{block}_title-wrapper" maxHeight={210}>
+    <div className="#{block}_title-wrapper" maxHeight={maxHeight} onFontSizeChange={onFontSizeChange}>
       <Textfill minFontSize={minFontSize} maxFontSize={maxFontSize}>
         {@title()}
       </Textfill>
