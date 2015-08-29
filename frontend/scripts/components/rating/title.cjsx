@@ -51,11 +51,11 @@ ObjectTitle = React.createClass
       </h1>
 
   render: ->
-    {minFontSize, maxFontSize, maxHeight, onFontSizeChange} = @props
+    {object, minFontSize, maxFontSize, maxHeight, onFontSizeChange} = @props
     {block} = @context
 
-    <div className="#{block}_title-wrapper" maxHeight={maxHeight} onFontSizeChange={onFontSizeChange}>
-      <Textfill minFontSize={minFontSize} maxFontSize={maxFontSize}>
+    <div className="#{block}_title-wrapper">
+      <Textfill minFontSize={minFontSize} maxFontSize={maxFontSize} maxHeight={maxHeight} onFontSizeChange={onFontSizeChange} content={object.title}>
         {@title()}
       </Textfill>
     </div>

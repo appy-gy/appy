@@ -12,16 +12,23 @@ Textfill = React.createClass
     maxFontSize: PropTypes.number.isRequired
     maxHeight: PropTypes.number
     onFontSizeChange: PropTypes.func
+    content: PropTypes.string
 
   getDefaultProps: ->
     maxHeight: null
     onFontSizeChange: ->
+    content: null
 
   componentDidMount: ->
     @updateFontSize()
 
-  componentDidUpdate: ->
-    @updateFontSize()
+  componentDidUpdate: (prevProps) ->
+    @updateFontSize() if @shouldUpdateFontSize prevProps.content
+
+  shouldUpdateFontSize: (prevContent) ->
+    {content} = @props
+
+    not content? or content != prevContent
 
   findOptimalFontSize: (el, maxHeight, minFontSize, maxFontSize) ->
     return minFontSize if minFontSize == maxFontSize
