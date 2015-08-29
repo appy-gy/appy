@@ -186,6 +186,9 @@
         color: $white
         transition: color 0.1s
 
+      &:focus::placeholder
+        color: $white-2
+
     &.m-hidden
       opacity: 0
       pointer-events: none
@@ -258,9 +261,16 @@
     color: $black-2
     word-break: break-word
     white-space: pre-line
+    transition: color 0.2s ease
 
     &.m-edit
       resize: none
+
+    &::placeholder
+      color: $black-2
+
+    &:focus::placeholder
+      color: $black-3
 
     @media screen and (min-width: $small)
       font-size: 20px

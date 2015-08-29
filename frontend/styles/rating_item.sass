@@ -35,6 +35,21 @@
     text-align: center
     +word-break
 
+    &.m-edit
+      overflow: hidden
+      resize: none
+
+    &.m-hidden
+      position: absolute
+      opacity: 0
+      pointer-events: none
+
+    &::placeholder
+      color: $black-2
+
+    &:focus::placeholder
+      color: $black-3
+
     &-wrapper
       width: 100%
 
@@ -48,15 +63,6 @@
 
       &.m-cancel
         +alt-cancel
-
-    &.m-edit
-      overflow: hidden
-      resize: none
-
-    &.m-hidden
-      position: absolute
-      opacity: 0
-      pointer-events: none
 
   &_add-image
     +add-image
@@ -128,6 +134,12 @@
 
     &.m-edit
       resize: none
+
+    &::placeholder
+      color: $black-2
+
+    &:focus::placeholder
+      color: $black-3
 
     &-buttons
       display: flex
