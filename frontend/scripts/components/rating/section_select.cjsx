@@ -40,7 +40,7 @@ SectionSelect = React.createClass
   render: ->
     {object} = @props
 
-    <Select placeholder="Рубрика" value={object.section?.id} options={@options()} searchable={false} valueRenderer={@renderOption} optionRenderer={@renderOption} onChange={@changeSection}/>
+    <Select placeholder="Выберите рубрику" value={object.section?.id} options={@options()} searchable={false} valueRenderer={@renderOption} optionRenderer={@renderOption} onChange={@changeSection}/>
 
 module.exports = Marty.createContainer SectionSelect,
   listenTo: 'sectionsStore'
