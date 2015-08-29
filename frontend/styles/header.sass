@@ -66,7 +66,6 @@
     right: 5px
     z-index: 4
     width: auto
-    transition: all 0.2s ease
     display: none
 
     &.m-done,
@@ -77,7 +76,6 @@
     &.m-done
       transition: opacity 0.3s ease 3s
       opacity: 0
-      // animation: hidden 1s linear 1s
 
     &.m-pending
       background: rgba($yellow, 0.8)
@@ -124,7 +122,7 @@
     border-radius: 2px
     line-height: 20px
     height: 30px
-    transition: all 0.5s
+    transition: background 0.5s, transform 0.5s
     position: relative
 
     &.m-waypoint-enter
@@ -132,6 +130,7 @@
 
     &.m-edit
       cursor: move
+
       &:hover
         transform: scale(1.05)
 
@@ -177,16 +176,12 @@
     padding: 15px 15px 0 15px
 
   &_validation-error
-    transition: all 0.2s ease
-
     &:before
       font-size: 24px
       display: none
       +ion-icon("ios-checkmark-empty")
 
     &.m-enter
-      opacity: 0
-      transform: translateX(-200px)
       animation: enter 0.5s linear
 
     &.m-leave
