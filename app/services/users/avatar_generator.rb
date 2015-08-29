@@ -1,6 +1,6 @@
 module Users
   class AvatarGenerator
-    const :size, AvatarUploader.images[:normal][:sizes].first
+    const :size, 480
     const :generator_url, 'http://api.adorable.io/avatar'
 
     def generate
