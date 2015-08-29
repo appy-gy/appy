@@ -25,6 +25,8 @@
       +ion-icon("android-menu")
 
   &_content
+    display: flex
+    flex-flow: column nowrap
     width: 100%
     height: 100%
     background-color: $white
@@ -109,9 +111,9 @@
       content: ":"
 
   &_rating-items
-    height: 100%
     padding: 15px 15px 0 15px
     overflow-y: auto
+    height: 100%
 
   &_rating-item
     display: flex
@@ -153,9 +155,6 @@
       font-size: 12px
 
   &_rating-publish-info
-    position: absolute
-    bottom: 0
-    left: 0
     width: 100%
 
   &_rating-actions
