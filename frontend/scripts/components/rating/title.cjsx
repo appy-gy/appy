@@ -15,18 +15,13 @@ ObjectTitle = React.createClass
   propTypes:
     object: PropTypes.object.isRequired
     actions: PropTypes.string.isRequired
+    edit: PropTypes.bool.isRequired
     placeholder: PropTypes.string.isRequired
     minFontSize: PropTypes.number.isRequired
     maxFontSize: PropTypes.number.isRequired
 
   contextTypes:
-    rating: PropTypes.object.isRequired
     block: PropTypes.string.isRequired
-
-  getInitialState: ->
-    {rating} = @context
-
-    edit: rating.status != 'published'
 
   restrictEnter: (event) ->
     return unless event.key == 'Enter'
@@ -42,15 +37,14 @@ ObjectTitle = React.createClass
       @app[actions].update object.id, { title }
 
   title: ->
-    {object, placeholder} = @props
-    {edit} = @state
+    {object, edit, placeholder} = @props
     {block} = @context
 
     if edit
       <textarea ref="titleEdit" maxLength="90" className={@classes("#{block}_title", 'm-edit')} placeholder={placeholder} value={object.title} onChange={@changeTitle} onKeyDown={@restrictEnter}/>
     else
       <h1 ref="titleView" className={@classes("#{block}_title", 'm-hidden': edit)}>
-        {object.title || placeholder}
+        {object.title}
       </h1>
 
   render: ->

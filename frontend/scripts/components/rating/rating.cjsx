@@ -97,10 +97,12 @@ Rating = React.createClass
   render: ->
     {rating} = @props
 
+    edit = rating.status != 'published'
+
     <article className="rating">
       <UpdateStatus/>
       <Header/>
-      <Description object={rating} actions="ratingsActions" placeholder="Введите описание рейтинга"/>
+      <Description object={rating} actions="ratingsActions" edit={edit} placeholder="Введите описание рейтинга"/>
       {@authorLink()}
       {@ratingItems()}
       {@addRatingItemButton()}

@@ -76,18 +76,17 @@ RatingItem = React.createClass
     {rating} = @context
     {ratingItem, index} = @props
 
-    ratingTitlePlaceholder = 'Введите заголовок пункта' unless rating.status == 'published'
-    ratingDescriptionPlaceholder = 'Введите описание пункта' unless rating.status == 'published'
+    edit = rating.status != 'published'
 
     <section id="item-#{ratingItem.position}" className="rating-item">
       <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} threshold={0}/>
       {@addRatingItemButton 'top'}
       <div className="rating-item_header">
         <span className="rating-item_number">{index}</span>
-        <Title object={ratingItem} actions="ratingItemsActions" placeholder={ratingTitlePlaceholder} minFontSize={20} maxFontSize={36}/>
+        <Title object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите заголовок пункта" minFontSize={20} maxFontSize={36}/>
       </div>
       <div className="rating-item_description-wrapper">
-        <Description object={ratingItem} actions="ratingItemsActions" placeholder={ratingDescriptionPlaceholder}/>
+        <Description object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите описание пункта"/>
       </div>
       <div className="rating-item_cover-wrap">
         <Image/>

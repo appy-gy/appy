@@ -79,6 +79,8 @@ Header = React.createClass
   children: ->
     {rating} = @context
 
+    edit = rating.status != 'published'
+
     withIndexKeys [
       <div className="rating_cover" style={backgroundImage: "url(#{@imageUrl()})"}></div>
       @meta()
@@ -90,7 +92,7 @@ Header = React.createClass
       <div className="rating_tags-select">
         <TagsSelect/>
       </div>
-      <Title object={rating} actions="ratingsActions" placeholder="Введите заголовок рейтинга" minFontSize={20} maxFontSize={60}/>
+      <Title object={rating} actions="ratingsActions" edit={edit} placeholder="Введите заголовок рейтинга" minFontSize={20} maxFontSize={60}/>
       @tags()
     ]
 
