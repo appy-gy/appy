@@ -79,44 +79,47 @@
         padding: 20px 0
 
     &-image
-      width: 100%
       display: none
+      margin: 0 auto
+      max-width: 100%
 
     &.m-with-image
       width: 100%
 
-      .rating-item_cover-image
-        display: block
+      .rating-item
+        &_cover-image
+          display: block
 
-      .rating-item_add-image
-        width: 100%
-        height: 100%
-        position: absolute
-        top: 0
-        left: 0
-        background-color: $color-3
-        opacity: 0
-        transform: scale(0)
-        color: $white
-        font-size: 48px
+        &_add-image
+          width: 100%
+          height: 100%
+          position: absolute
+          top: 0
+          left: 0
+          background-color: $color-3
+          opacity: 0
+          transform: scale(0)
+          color: $white
+          font-size: 48px
 
-      .rating-item_remove-image
-        +remove-image
-        position: absolute
-        top: 20px
-        right: 20px
-        margin-right: -60px
-        transition: all 0.2s ease
-        opacity: 0
+        &_remove-image
+          +remove-image
+          position: absolute
+          top: 20px
+          right: 20px
+          margin-right: -60px
+          transition: all 0.2s ease
+          opacity: 0
 
       &:hover
-        .rating-item_add-image
-          transform: scale(1)
-          opacity: 1
+        .rating-item
+          &_add-image
+            transform: scale(1)
+            opacity: 1
 
-        .rating-item_remove-image
-          margin-right: 0
-          opacity: 1
+          &_remove-image
+            margin-right: 0
+            opacity: 1
 
   &_description
     margin: 15px 0
