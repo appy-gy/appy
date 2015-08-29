@@ -160,9 +160,10 @@
     justify-content: center
 
   &_title-wrapper
+    display: flex
     position: relative
     width: 100%
-    height: 200px
+    height: 210px
     z-index: 1
 
   &_title
@@ -172,14 +173,13 @@
     color: $white
     padding: 0 16px
     line-height: 1.2
+    overflow: hidden
     width: 100%
+    height: 100%
     text-align: center
     word-break: break-word
 
     &.m-edit
-      position: absolute
-      top: 0
-      overflow: hidden
       resize: none
 
       &::placeholder

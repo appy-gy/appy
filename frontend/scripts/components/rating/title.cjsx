@@ -1,10 +1,9 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-textfill = require 'textfill'
-isClient = require '../../helpers/is_client'
 Classes = require '../mixins/classes'
 RatingUpdater = require '../mixins/rating_updater'
+Textfill = require '../shared/textfill/textfill'
 
 {PropTypes} = React
 
@@ -21,39 +20,13 @@ ObjectTitle = React.createClass
     maxFontSize: PropTypes.number.isRequired
 
   contextTypes:
+    rating: PropTypes.object.isRequired
     block: PropTypes.string.isRequired
-    canEdit: PropTypes.bool.isRequired
 
   getInitialState: ->
-    edit: false
+    {rating} = @context
 
-  componentDidMount: ->
-    @updateFontSize()
-
-  componentDidUpdate: ->
-    @updateFontSize()
-
-  updateFontSize: ->
-    {minFontSize, maxFontSize} = @props
-    {edit} = @state
-    {titleView, titleEdit} = @refs
-
-    return unless isClient()
-
-    textfill titleView.getDOMNode(), minFontPixels: minFontSize, maxFontPixels: maxFontSize, explicitHeight: 200
-    return unless edit
-    titleEdit.getDOMNode().style.fontSize = titleView.getDOMNode().children[0].style.fontSize
-
-  startEdit: ->
-    {canEdit} = @context
-
-    return unless canEdit
-    @setState edit: true
-
-  stopEdit: ->
-    {object} = @props
-
-    @setState edit: false
+    edit: rating.status != 'published'
 
   restrictEnter: (event) ->
     return unless event.key == 'Enter'
@@ -68,32 +41,26 @@ ObjectTitle = React.createClass
     @queueUpdate =>
       @app[actions].update object.id, { title }
 
-  titleView: ->
+  title: ->
     {object, placeholder} = @props
     {edit} = @state
     {block} = @context
 
-    <h1 ref="titleView" className={@classes("#{block}_title", 'm-hidden': edit)} onClick={@startEdit}>
-      <div>
+    if edit
+      <textarea ref="titleEdit" maxLength="90" className={@classes("#{block}_title", 'm-edit')} placeholder={placeholder} value={object.title} onChange={@changeTitle} onKeyDown={@restrictEnter}/>
+    else
+      <h1 ref="titleView" className={@classes("#{block}_title", 'm-hidden': edit)}>
         {object.title || placeholder}
-      </div>
-    </h1>
-
-  titleEdit: ->
-    {object, placeholder} = @props
-    {edit} = @state
-    {block} = @context
-
-    return unless edit
-
-    <textarea ref="titleEdit" autoFocus maxLength="90" rows="3" className={@classes("#{block}_title", 'm-edit')} placeholder={placeholder} value={object.title} onChange={@changeTitle} onKeyDown={@restrictEnter} onBlur={@stopEdit}/>
+      </h1>
 
   render: ->
+    {minFontSize, maxFontSize} = @props
     {block} = @context
 
-    <div className="#{block}_title-wrapper">
-      {@titleView()}
-      {@titleEdit()}
+    <div className="#{block}_title-wrapper" maxHeight={210}>
+      <Textfill minFontSize={minFontSize} maxFontSize={maxFontSize}>
+        {@title()}
+      </Textfill>
     </div>
 
 module.exports = ObjectTitle
