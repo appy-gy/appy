@@ -62,7 +62,7 @@ EditRatingItem = React.createClass
 
     connectDropTarget connectDragSource <div className={classes}>
       <div className="header_rating-item-title">
-        {ratingItem.title}
+        {ratingItem.position + 1}. {ratingItem.title}
       </div>
     </div>
 
