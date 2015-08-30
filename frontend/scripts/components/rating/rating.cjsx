@@ -67,9 +67,11 @@ Rating = React.createClass
 
     return unless rating.status == 'published'
 
-    <UserLink ref="authorLink" user={rating.user} className="rating_author">
-      {rating.user.name || rating.user.email}
-    </UserLink>
+    <div className="rating_author-wrap">
+      <UserLink ref="authorLink" user={rating.user} className="rating_author">
+        {rating.user.name || rating.user.email}
+      </UserLink>
+    </div>
 
   likeButton: ->
     {rating} = @props

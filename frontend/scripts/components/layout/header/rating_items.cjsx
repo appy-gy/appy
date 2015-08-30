@@ -25,7 +25,7 @@ RatingItems = React.createClass
     mSectionColor = tinycolor(sectionColor).setAlpha(.5).toString()
 
     <div className="header_rating-items" style={backgroundColor: mSectionColor}>
-      <a href="#" className="header_rating-title">{rating.title}</a>
+      <a href="#"  className="header_rating-title" data-scroll>{rating.title}</a>
       {@ratingItems()}
     </div>
 
