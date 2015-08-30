@@ -45,6 +45,11 @@ EditRatingItem = React.createClass
     connectDropTarget: PropTypes.func.isRequired
     isDragging: PropTypes.bool.isRequired
 
+  ratingItemAnchor: ->
+    {ratingItem} = @props
+
+    "#item-#{ratingItem.position}"
+
   changePosition: (newPosition) ->
     {ratingItem} = @props
 
@@ -60,10 +65,10 @@ EditRatingItem = React.createClass
 
     classes = classNames 'header_rating-item', 'm-edit', 'm-dragging': isDragging
 
-    connectDropTarget connectDragSource <div className={classes}>
+    connectDropTarget connectDragSource <a href={@ratingItemAnchor()} className={classes} data-scroll>
       <div className="header_rating-item-title">
         {ratingItem.position + 1}. {ratingItem.title}
       </div>
-    </div>
+    </a>
 
 module.exports = DropTarget('EditRatingItem', ratingItemTarget, collectTarget)(DragSource('EditRatingItem', ratingItemSource, collectSource)(EditRatingItem))
