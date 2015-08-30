@@ -30,7 +30,7 @@ switch process.env.TOP_ENV
     debug = false
     devtool = null
     filename = '[name].[hash].js'
-    publicPath = '/static/'
+    publicPath = '#{process.env.TOP_ASSETS_HOST}/static/'
 
     plugins.push \
       new webpack.optimize.OccurenceOrderPlugin(),

@@ -17,6 +17,9 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { host: ENV.fetch('TOP_HOST_IP', ENV['TOP_HOST']) }
 
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+  config.action_controller.asset_host = ENV['TOP_ASSETS_HOST']
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
