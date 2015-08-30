@@ -46,7 +46,7 @@ Source = React.createClass
 
     return if edit
 
-    <div className="rating_source" onClick={@startEdit}>
+    <div className="rating_description" onClick={@startEdit}>
       <AutolinkText text={removeExtraSpaces(rating.source) || @placeholder}></AutolinkText>
     </div>
 
@@ -56,10 +56,10 @@ Source = React.createClass
 
     return unless edit
 
-    <Textarea autoFocus className="rating_source m-edit" placeholder={@placeholder} value={rating.source} onChange={@changeSource} onBlur={@stopEdit}/>
+    <Textarea autoFocus className="rating_description m-edit" placeholder={@placeholder} value={rating.source} onChange={@changeSource} onBlur={@stopEdit}/>
 
   render: ->
-    <div className="rating_source-wrapper">
+    <div className="rating_description-wrapper">
       {@sourceView()}
       {@sourceEdit()}
     </div>
