@@ -16,14 +16,16 @@ TagsSelect = React.createClass
     rating: PropTypes.object.isRequired
     canEdit: PropTypes.bool.isRequired
 
+  delimiter: '⟅'
+
   toOptions: (tags) ->
     tags.map (tag) ->
       value: tag.name, label: tag.name, ratingsCount: tag.ratingsCount
 
   loadOptions: (query, callback) ->
-    # React-select passes object instead of empty string when initialized
-    # with some values or when new value added to list of values
-    query = '' if _.isObject query
+    # React-select passes current values instead of an empty string when
+    # initialized or after adding/removing a value from the values list
+    query = '' if _.includes query, @delimiter
 
     action = if _.isEmpty query then 'popular' else 'autocomplete'
 
@@ -36,9 +38,9 @@ TagsSelect = React.createClass
   value: ->
     {rating} = @context
 
-    @toOptions rating.tags
+    _.map(rating.tags, 'name').join(@delimiter)
 
-  updateTags: (name, options) ->
+  updateTags: (__, options) ->
     {rating} = @context
 
     name = _.xor(_.map(rating.tags, 'name'), _.map(options, 'value'))[0]
@@ -60,6 +62,6 @@ TagsSelect = React.createClass
 
     return <Nothing/> unless canEdit
 
-    <Select placeholder="Укажите теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" autoload={true} multi={true} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} optionRenderer={@renderOption} onChange={@updateTags}/>
+    <Select placeholder="Укажите теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" autoload={true} multi={true} delimiter={@delimiter} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} optionRenderer={@renderOption} onChange={@updateTags}/>
 
 module.exports = TagsSelect
