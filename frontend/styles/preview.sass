@@ -46,7 +46,7 @@
   margin: 10px
   border-radius: 5px
   width: 300px
-  height: 400px
+  min-height: 400px
 
   @media screen and (min-width: $small)
     margin: 15px
@@ -66,6 +66,11 @@
     overflow: hidden
     width: 100%
     height: 200px
+
+    &-wrap
+      display: block
+      width: 100%
+      height: 100%
 
     &:after
       content: ''
@@ -99,8 +104,11 @@
     color: $black
     white-space: pre-wrap
     word-wrap: break-word
+    transition: color 0.2s ease
 
   &_description
+    display: block
+    line-height: 1.5
     font: 14px $sans-serif
     white-space: pre-wrap
     word-wrap: break-word
@@ -115,14 +123,15 @@
       &:after
         opacity: 1
 
-    &_title
-      color: $black_2
+    .preview_title
+      color: $green
 
 
   &.m-super-large
     @media screen and (min-width: $small)
       // width: 630px
       width: 100%
+      height: 400px
 
       .preview
         &_meta
