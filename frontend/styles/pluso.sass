@@ -1,0 +1,84 @@
+.pluso
+  width: 100% !important
+
+  & > div
+    width: 100% !important
+
+  &-more,
+  &-counter
+    display: none !important
+
+  &-wrap
+    width: 100% !important
+    display: flex !important
+    padding: 0 48px 16px 48px !important
+
+    @media screen and (min-width: $small)
+      padding: 0 60px 20px 60px !important
+
+    @media screen and (min-width: $medium)
+      padding: 0 120px 40px 120px !important
+
+    & > div
+      height: 50px !important
+      flex: 1 !important
+      border-radius: 0 !important
+      margin: 0px !important
+      display: flex !important
+      padding: 0 5px !important
+      align-items: center !important
+      justify-content: flex-end !important
+      position: relative !important
+
+      & > a
+        width: 100% !important
+        height: 100% !important
+        position: absolute !important
+        top: 0 !important
+        left: 0 !important
+        background: none !important
+        position: relative !important
+
+
+        &.pluso-vkontakte,
+        &.pluso-facebook,
+        &.pluso-twitter
+          background-repeat: no-repeat !important
+          background-size: 40px 40px !important
+          background-position: 5px 5px !important
+
+          &::after
+            content: 'Поделиться'
+            position: absolute
+            top: 5px
+            line-height: 40px
+            left: 60px
+            color: $white
+            font-weight: 600
+            font-size: 16px
+
+        &.pluso-vkontakte
+          background-image: url('../images/vk_white.svg') !important
+
+        &.pluso-facebook
+          background-image: url('../images/facebook_white.svg') !important
+
+        &.pluso-twitter
+          background-image: url('../images/twitter_white.svg') !important
+
+          &::after
+            content: 'Твитнуть'
+
+      & > b
+        font-weight: 600 !important
+
+      &:first-of-type
+        border-radius: $border-radius 0 0 $border-radius !important
+        margin-right: 1px !important
+
+      &:last-of-type
+        border-radius: 0 $border-radius $border-radius 0 !important
+        margin-left: 1px !important
+
+      &:hover
+        opacity: 0.8 !important
