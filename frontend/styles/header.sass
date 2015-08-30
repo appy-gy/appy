@@ -54,10 +54,14 @@
     text-align: center
     position: relative
     flex-shrink: 0
-    height: 80px
+    height: 60px
     background: $blue  url("../images/appy_logo.svg") center center
     background-repeat: no-repeat
-    background-size: 50% 50%
+    background-size: 40% 40%
+
+    @media screen and (min-width: $big)
+      height: 80px
+      background-size: 50% 50%
 
 
   &_rating-update-status

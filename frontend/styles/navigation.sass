@@ -1,9 +1,14 @@
 .site-nav
   background-color: $white
   overflow-y: auto
+  flex-grow: 1
+
   &_icon
     display: inline-block
     margin-bottom: 2px
+
+    @media screen and (max-height: 620px)
+      display: none
 
   &_text
     font-size: 14px
@@ -20,22 +25,20 @@
     position: relative
     flex-shrink: 0
     transition: opacity 0.2s ease
+    display: flex
+    flex-flow: column
+    align-items: center
+    justify-content: center
+
     &:hover
       opacity: 0.8
       color: $white
 
-    // &:before
-    //   content: ''
-    //   position: absolute
-    //   top: 0
-    //   left: -5px
-    //   width: 5px
-    //   height: 100%
-    //   background: rgba($black, 0.5)
-    //
-    // &:hover
-    //   &:before
-    //     left: 0
+    @media screen and (max-height: 600px)
+      height: 50px
+
+    @media screen and (max-height: 520px)
+      height: 40px
 
     &:not(:first-of-type)
       font-size: 18px
