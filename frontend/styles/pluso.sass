@@ -11,10 +11,10 @@
   &-wrap
     width: 100% !important
     display: flex !important
-    padding: 0 48px 16px 48px !important
+    padding: 0 16px 16px 16px !important
 
     @media screen and (min-width: $small)
-      padding: 0 60px 20px 60px !important
+      padding: 0 20px 20px 20px !important
 
     @media screen and (min-width: $medium)
       padding: 0 120px 40px 120px !important
@@ -39,6 +39,7 @@
         left: 0 !important
         background: none !important
         position: relative !important
+        z-index: 1
 
 
         &.pluso-vkontakte,
@@ -46,17 +47,25 @@
         &.pluso-twitter
           background-repeat: no-repeat !important
           background-size: 40px 40px !important
-          background-position: 5px 5px !important
+
+          background-position: 0px 5px !important
+
+          @media screen and (min-width: $small)
+            background-position: 5px 5px !important
 
           &::after
-            content: 'Поделиться'
-            position: absolute
-            top: 5px
-            line-height: 40px
-            left: 60px
-            color: $white
-            font-weight: 600
-            font-size: 16px
+            @media screen and(min-width: $small)
+              content: 'Поделиться'
+              position: absolute
+              top: 5px
+              line-height: 40px
+              left: 60px
+              color: $white
+              font-weight: 600
+              font-size: 13px
+
+            @media screen and (min-width: $medium)
+              font-size: 16px
 
         &.pluso-vkontakte
           background-image: url('../images/vk_white.svg') !important
@@ -71,7 +80,15 @@
             content: 'Твитнуть'
 
       & > b
+        position: absolute !important
+        font-size: 13px !important
         font-weight: 600 !important
+        top: 5px !important
+        right: 5px !important
+
+        @media screen and (min-width: $small)
+          font-size: 16px !important
+          right: 15px !important
 
       &:first-of-type
         border-radius: $border-radius 0 0 $border-radius !important
