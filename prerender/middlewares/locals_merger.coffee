@@ -5,8 +5,8 @@ module.exports = ->
   switch process.env.TOP_ENV
     when 'production'
       paths = assetPaths()
-      cssPath = "#{process.env.TOP_ASSETS_HOST}/#{paths.css}"
-      jsPath = "#{process.env.TOP_ASSETS_HOST}/#{paths.js}"
+      cssPath = paths.css
+      jsPath = paths.js
     when 'development'
       cssPath = "#{process.env.TOP_WEBPACK_HOST}/app.css"
       jsPath = "#{process.env.TOP_WEBPACK_HOST}/app.js"
