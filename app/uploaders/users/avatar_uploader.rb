@@ -1,7 +1,9 @@
 module Users
   class AvatarUploader < ImageUploader
-    image :normal, [480, 480]
-    image :small, [100, 100]
+    const :pad_color, :white
+
+    image :normal, [480, 480, pad_color]
+    image :small, [100, 100, pad_color]
 
     def filename
       return unless super.present?
