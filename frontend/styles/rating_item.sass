@@ -17,9 +17,10 @@
     display: flex
     justify-content: center
     position: relative
+    padding: 0 40px
 
     @media screen and (min-width: $small)
-      padding: 0 40px
+      padding: 0 60px
 
   &_number
     position: absolute
@@ -83,9 +84,9 @@
       display: none
       margin: 0 auto
       max-width: 100%
+      max-height: 600px
 
     &.m-with-image
-      width: 100%
 
       .rating-item
         &_cover-image
@@ -97,6 +98,8 @@
           position: absolute
           top: 0
           left: 0
+          border-radius: 0
+          border: none
           background-color: $color-3
           opacity: 0
           transform: scale(0)
@@ -109,7 +112,7 @@
           top: 20px
           right: 20px
           margin-right: -60px
-          transition: margin 0.2s ease, opacity 0.2s ease
+          transition: margin 0.2s ease, opacity 0.2s ease, transform 0.2s ease
           opacity: 0
 
       &:hover

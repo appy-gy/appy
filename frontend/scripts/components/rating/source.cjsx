@@ -59,7 +59,7 @@ Source = React.createClass
     <Textarea autoFocus className="rating_description m-edit" placeholder={@placeholder} value={rating.source} onChange={@changeSource} onBlur={@stopEdit}/>
 
   render: ->
-    <div className="rating_description-wrapper">
+    <div className="rating_description-wrapper m-bottom">
       {@sourceView()}
       {@sourceEdit()}
     </div>

@@ -81,10 +81,11 @@
       display: flex
       justify-content: center
       padding-top: 40px
+      border-bottom: 1px solid $grey-2
 
     &-icon
       font-size: 50px
-      color: $black-3
+      color: $black-2
       line-height: inherit
       transition: margin 0.2s ease, color 0.2s ease, transform 0.2s ease
 
@@ -253,6 +254,8 @@
 
     @media screen and (min-width: $medium)
       padding: 40px 40px 20px
+      &.m-bottom
+        padding: 20px 40px 40px
 
   &_description
     font-size: 16px
