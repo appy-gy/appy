@@ -166,7 +166,8 @@
     line-height: 32px
     width: 30px
     height: 30px
-    visibility: hidden
+    @media screen and (min-width: $big)
+      visibility: hidden
 
     &.m-down
       background: $red
@@ -206,6 +207,10 @@
       font-size: 28px
       line-height: 30px
       color: $green
+      visibility: hidden
+
+      @media screen and (min-width: $big)
+        visibility: visible
 
   &_remove
     color: $black-3
