@@ -68,7 +68,7 @@ Preview = React.createClass
 
     <div className={classes}>
       <Meta/>
-      <RatingLink rating={rating}>
+      <RatingLink className="preview_image-wrap" rating={rating}>
         <div className="preview_image" style={imageStyles}></div>
       </RatingLink>
       <div className="preview_content">
