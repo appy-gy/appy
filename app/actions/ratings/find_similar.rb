@@ -2,14 +2,13 @@ module Ratings
   class FindSimilar
     attr_reader :rating
 
-    const :limit, 3
-
     def initialize rating
       @rating = rating
     end
 
     def call
-      Ratings::Recommendations.new(@rating, ratings).recommendations.first(limit)
+      return @rating.recommendations if @rating.recommendations.present?
+      @rating.recommendations = Ratings::Recommendations.new(@rating, ratings).recommendations.first(Rating::recommendations_limit)
     end
 
     private
@@ -17,6 +16,6 @@ module Ratings
     def ratings
       Rating.published.where.not(id: rating)
     end
-    
+
   end
 end

@@ -3,6 +3,8 @@ class Rating < ActiveRecord::Base
   include Redis::Objects
   include IdAsSlug
 
+  const :recommendations_limit, 3
+
   attr_accessor :like
 
   acts_as_paranoid
@@ -20,6 +22,7 @@ class Rating < ActiveRecord::Base
   has_many :items, class_name: 'RatingItem', dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :recommendations, class_name: 'Rating'
 
   accepts_nested_attributes_for :tags, allow_destroy: true
   accepts_nested_attributes_for :items, allow_destroy: true

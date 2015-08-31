@@ -59,6 +59,9 @@ gem 'slim'
 # Administration
 gem 'activeadmin', '~> 1.0.0.pre1'
 
+# Jobs
+gem 'whenever', require: false
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails'
