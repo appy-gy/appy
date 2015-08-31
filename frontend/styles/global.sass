@@ -9,11 +9,14 @@
 
 html, body
   position: relative
-  font: normal normal 300 16px/1.5 $sans-serif
+  font: normal normal 400 16px/1.5 $sans-serif
   background: white
   color: $black
   width: 100%
   height: 100%
+
+  @media screen and (min-device-pixel-ratio: 1.5)
+    font-weight: 300
 
 h1, h2, h3, h4, h5, h6
   margin: 0
