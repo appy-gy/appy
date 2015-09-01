@@ -104,9 +104,9 @@
     font-family: $serif
     color: $black
     white-space: pre-wrap
-    word-wrap: break-word
     transition: color 0.2s ease
     max-width: 100%
+    +word-break
 
   &_description
     display: block
@@ -114,7 +114,7 @@
     font-size: 14px
     font-family: $sans-serif
     white-space: pre-wrap
-    word-wrap: break-word
+    +word-break
     color: $black-2
     margin-top: 5px
     max-width: 100%
