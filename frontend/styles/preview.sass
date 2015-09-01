@@ -45,7 +45,7 @@
   position: relative
   border-radius: 5px
   width: 100%
-  margin: 0 0 15px 0
+  margin: 0 15px 15px
 
   @media screen and (min-width: $small)
     margin: 15px
@@ -137,13 +137,16 @@
     height: 400px
 
     @media screen and (max-width: $small)
-      margin: -15px -15px 15px -15px
+      margin-left: 0
+      margin-right: 0
       border-radius: 0
-      width: calc(100% + 30px)
+      width: 100%
 
     .preview
       &_meta
         justify-content: center
+        @media screen and (max-width: $small)
+          top: 15px
 
       &_image
         height: 100%

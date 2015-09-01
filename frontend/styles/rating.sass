@@ -2,7 +2,6 @@
   +rating-meta
   background: white
   border: 1px solid #f2f2f2
-  border-radius: $border-radius
   width: 100%
   max-width: 960px
 
@@ -19,7 +18,6 @@
     flex-flow: column wrap
     position: relative
     background-color: $blue
-    border-radius: $border-radius $border-radius 0 0
     width: 100%
     height: 360px
 
@@ -32,6 +30,9 @@
         width: 100%
         height: 100%
         background-color: $black-3
+
+    @media screen and (min-width: $small)
+      border-radius: $border-radius $border-radius 0 0
 
     @media screen and (min-width: $medium)
       height: 500px
@@ -373,3 +374,6 @@
 
   &_source
     white-space: pre-wrap
+
+  @media screen and (min-width: $small)
+    border-radius: $border-radius
