@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150830195002) do
+ActiveRecord::Schema.define(version: 20150901152011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,24 +63,23 @@ ActiveRecord::Schema.define(version: 20150830195002) do
 
   create_table "ratings", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.text     "title"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.uuid     "section_id"
     t.text     "description"
     t.uuid     "user_id"
-    t.integer  "status",         default: 0, null: false
-    t.integer  "comments_count", default: 0, null: false
-    t.integer  "likes_count",    default: 0, null: false
+    t.integer  "status",          default: 0,  null: false
+    t.integer  "comments_count",  default: 0,  null: false
+    t.integer  "likes_count",     default: 0,  null: false
     t.text     "slug"
     t.text     "image"
     t.datetime "published_at"
     t.datetime "deleted_at"
     t.text     "source"
-    t.uuid     "rating_id"
+    t.text     "recommendations", default: [],              array: true
   end
 
   add_index "ratings", ["deleted_at"], name: "index_ratings_on_deleted_at", using: :btree
-  add_index "ratings", ["rating_id"], name: "index_ratings_on_rating_id", using: :btree
   add_index "ratings", ["section_id"], name: "index_ratings_on_section_id", using: :btree
   add_index "ratings", ["slug"], name: "index_ratings_on_slug", unique: true, using: :btree
   add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
@@ -153,7 +152,6 @@ ActiveRecord::Schema.define(version: 20150830195002) do
   add_foreign_key "likes", "ratings"
   add_foreign_key "likes", "users"
   add_foreign_key "rating_items", "ratings"
-  add_foreign_key "ratings", "ratings"
   add_foreign_key "ratings", "sections"
   add_foreign_key "ratings", "users"
   add_foreign_key "ratings_tags", "ratings"

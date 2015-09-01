@@ -3,9 +3,9 @@ namespace :recommendations do
   task for_rating: :environment do
     ratings = Rating.published
 
-    # TODO: WUT?
-    ratings.each do |rating|
-      rating.recommendations = Ratings::Recommendations.new(rating, ratings.where.not(id: rating)).recommendations.first(Rating::recommendations_limit)
+    ratings.find_each do |rating|
+      rating.recommendations = Ratings::Recommendations.new(rating, ratings.where.not(id: rating)).recommendations.first(Rating::recommendations_limit).map(&:id)
+      rating.save
     end
   end
 end

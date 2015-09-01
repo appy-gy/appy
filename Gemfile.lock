@@ -357,6 +357,3 @@ DEPENDENCIES
   spring-commands-rspec
   sys-proctable
   whenever
-
-BUNDLED WITH
-   1.10.6

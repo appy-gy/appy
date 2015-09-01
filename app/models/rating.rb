@@ -22,7 +22,6 @@ class Rating < ActiveRecord::Base
   has_many :items, class_name: 'RatingItem', dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
-  has_many :recommendations, class_name: 'Rating'
 
   accepts_nested_attributes_for :tags, allow_destroy: true
   accepts_nested_attributes_for :items, allow_destroy: true

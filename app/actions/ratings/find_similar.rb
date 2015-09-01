@@ -7,8 +7,7 @@ module Ratings
     end
 
     def call
-      return @rating.recommendations if @rating.recommendations.present?
-      @rating.recommendations = Ratings::Recommendations.new(@rating, ratings).recommendations.first(Rating::recommendations_limit)
+      Rating.find @rating.recommendations
     end
 
     private
