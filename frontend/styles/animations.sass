@@ -48,9 +48,15 @@
 @keyframes increase-from-the-center
   0%
     transform: scale(0)
+    opacity: 0
 
   90%
     transform: scale(1.05)
 
   100%
     transform: scale(1)
+
+@keyframes appearance-close
+  100%
+    opacity: 1
+    right: 3 * $margin
