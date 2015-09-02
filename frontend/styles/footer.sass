@@ -4,25 +4,49 @@
   display: flex
   justify-content: center
   align-items: center
+  flex-flow: row wrap
+  @media screen and (min-width: $small)
+    flex-flow: row nowrap
 
-  &-left,
-  &-right,
-  &-logo
-    flex: 1
+  &-left
+    flex: 1 auto
+    display: flex
+    justify-content: center
+
+    @media screen and (min-width: $small)
+      justify-content: flex-start
+      order: 1
+      flex: 1
 
   &-right
+    flex: 1 auto
     display: flex
-    justify-content: flex-end
+    justify-content: center
+
+    @media screen and (min-width: $small)
+      justify-content: flex-end
+      order: 3
+      flex: 1
+
 
   &-logo
+    flex: 1 100%
     background-image: url("../images/colour_logo.svg")
     background-position: center center
     background-repeat: no-repeat
     width: 150px
     height: 40px
+    margin: 5px 0 10px
+
+    @media screen and (min-width: $small)
+      order: 2
+      flex: 1
 
   &-link
-    padding: 10px 30px
     color: $color-1
+    padding: 5px
     &:hover
       color: $green
+
+    @media screen and (min-width: $small)
+      padding: 10px 20px
