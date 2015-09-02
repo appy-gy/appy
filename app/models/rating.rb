@@ -30,11 +30,7 @@ class Rating < ActiveRecord::Base
 
   after_create :generate_slug
   before_save :set_published_at, if: :publishing?
-
-  # recommendation system
-  def words
-    ((title || '').scan(/[a-zA-Zа-яА-Я]{3,}/).to_set | tags.pluck(:name) | Array.wrap(section.try(:name))).map{ |word| word.mb_chars.downcase.to_s }.sort.to_set
-  end
+  before_save :set_words, if: :publishing?
 
   private
 
@@ -53,6 +49,11 @@ class Rating < ActiveRecord::Base
 
   def set_published_at
     self.published_at = Time.current
+  end
+
+  # recommendation system
+  def set_words
+    self.words = ((title || '').scan(/[a-zA-Zа-яА-Я]{3,}/).to_set | tags.pluck(:name) | Array.wrap(section.try(:name))).map{ |word| word.mb_chars.downcase.to_s }
   end
 
   def publishing?
