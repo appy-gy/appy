@@ -59,6 +59,9 @@ gem 'slim'
 # Administration
 gem 'activeadmin', '~> 1.0.0.pre1'
 
+# Command line
+gem 'cocaine'
+
 # Jobs
 gem 'whenever', require: false
 
