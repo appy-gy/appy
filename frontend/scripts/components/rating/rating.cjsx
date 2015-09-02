@@ -12,6 +12,7 @@ ShareButtons = require './share_buttons'
 Nothing = require '../shared/nothing'
 UserLink = require '../shared/links/user'
 isClient = require '../../helpers/is_client'
+isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
 
@@ -96,6 +97,11 @@ Rating = React.createClass
         <RatingItem key={ratingItem.id} ratingItem={ratingItem} index={index + 1}/>
       .value()
 
+  source: ->
+    {rating} = @props
+
+    <Source/> unless isBlank(rating.source) and rating.status == 'published'
+
   render: ->
     {rating} = @props
 
@@ -108,7 +114,7 @@ Rating = React.createClass
       {@authorLink()}
       {@ratingItems()}
       {@addRatingItemButton()}
-      <Source/>
+      {@source()}
       {@likeButton()}
       {@shareButtons()}
     </article>
