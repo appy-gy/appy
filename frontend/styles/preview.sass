@@ -6,9 +6,12 @@
     background-color: $blue
     color: $white
     cursor: pointer
-    padding: 10px 20px
+    padding: 0px 20px
     border-radius: $border-radius
     transition: background-color 0.2s ease
+    height: 40px
+    display: flex
+    align-items: center
 
     &-icon
       font-size: 36px
@@ -25,7 +28,6 @@
       font-size: 12px
       font-weight: 700
       text-transform: uppercase
-      margin: 5px 0
 
     &:hover
       background-color: $blue-2
@@ -128,7 +130,7 @@
   &_title
     display: block
     position: relative
-    font-size: 20px
+    font-size: 18px
     font-family: $serif
     color: $black
     transition: color 0.2s ease
@@ -226,6 +228,9 @@
       .preview
         &_image
           height: 230px
+
+        &_title
+          font-size: 22px
 
   &:not(.m-super-large)
     .preview
