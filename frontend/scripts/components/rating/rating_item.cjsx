@@ -90,7 +90,6 @@ RatingItem = React.createClass
     numberStyles.fontSize = titleFontSize if titleFontSize?
 
     <section id="item-#{ratingItem.position}" className="rating-item">
-      <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} threshold={0}/>
       <div className="rating-item_add-item-wrap m-top">
         {@addRatingItemButton 'top'}
       </div>
@@ -98,6 +97,7 @@ RatingItem = React.createClass
         <span className="rating-item_number" style={numberStyles}>{index}</span>
         <Title object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите заголовок пункта" minFontSize={20} maxFontSize={36} maxHeight={80} onFontSizeChange={@changeTitleFontSize}/>
       </div>
+      <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} threshold={0.2}/>
       <div className="rating-item_description-wrapper">
         <Description object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите описание пункта"/>
       </div>
