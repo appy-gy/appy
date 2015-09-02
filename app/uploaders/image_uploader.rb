@@ -38,7 +38,11 @@ class ImageUploader < BaseUploader
       process :strip
       process resize => resize_params
       process convert: format
-      process mozjpeg: quality if format == 'jpg'
+
+      if format == 'jpg'
+        quality_key = ENV['TOP_USE_MOZJPEG'] == 'true' ? :mozjpeg : :quality
+        process quality_key => quality
+      end
 
       define_method :full_filename do |for_file|
         name = super for_file
