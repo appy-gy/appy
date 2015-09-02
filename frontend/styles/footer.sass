@@ -1,0 +1,28 @@
+.layout_footer
+  background-color: #1F2932
+  color: $white
+  display: flex
+  justify-content: center
+  align-items: center
+
+  &-left,
+  &-right,
+  &-logo
+    flex: 1
+
+  &-right
+    display: flex
+    justify-content: flex-end
+
+  &-logo
+    background-image: url("../images/colour_logo.svg")
+    background-position: center center
+    background-repeat: no-repeat
+    width: 150px
+    height: 40px
+
+  &-link
+    padding: 10px 30px
+    color: $color-1
+    &:hover
+      color: $green

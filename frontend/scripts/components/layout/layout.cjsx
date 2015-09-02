@@ -7,6 +7,7 @@ EditRatingHeader = require './header/edit_rating'
 Popups = require './popups/popups'
 Toastr = require './toastr/toastr'
 FbRoot = require './fb_root'
+Footer = require './footer/footer'
 
 {PropTypes} = React
 
@@ -39,6 +40,7 @@ Layout = React.createClass
       <Main>
         {children}
       </Main>
+      <Footer/>
       <Popups/>
       <Toastr/>
       <Loader/>
