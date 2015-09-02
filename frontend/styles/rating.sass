@@ -2,7 +2,6 @@
   +rating-meta
   background: white
   border: 1px solid #f2f2f2
-  border-radius: $border-radius
   width: 100%
   max-width: 960px
 
@@ -19,7 +18,6 @@
     flex-flow: column wrap
     position: relative
     background-color: $blue
-    border-radius: $border-radius $border-radius 0 0
     width: 100%
     height: 360px
 
@@ -32,6 +30,9 @@
         width: 100%
         height: 100%
         background-color: $black-3
+
+    @media screen and (min-width: $small)
+      border-radius: $border-radius $border-radius 0 0
 
     @media screen and (min-width: $medium)
       height: 500px
@@ -185,8 +186,8 @@
     width: 100%
     height: 100%
     text-align: center
-    word-break: break-word
     transform: scale(0.4)
+    +word-break
 
     &-wrapper
       display: flex
@@ -225,6 +226,7 @@
     &-wrapper
       position: absolute
       top: 80px
+      left: 0
       width: 100%
       display: flex
       justify-content: center
@@ -242,6 +244,7 @@
     position: absolute
     bottom: 20px
     z-index: 1
+    left: 0
 
   &_tag
     color: $white-2
@@ -253,6 +256,7 @@
     position: absolute
     width: 100%
     bottom: 20px
+    left: 0
     display: flex
     justify-content: center
     z-index: 1
@@ -274,9 +278,9 @@
     font-size: 16px
     width: 100%
     color: $black-2
-    word-break: break-word
     white-space: pre-line
     transition: color 0.2s ease
+    +word-break
 
     &.m-edit
       resize: none
@@ -373,3 +377,6 @@
 
   &_source
     white-space: pre-wrap
+
+  @media screen and (min-width: $small)
+    border-radius: $border-radius

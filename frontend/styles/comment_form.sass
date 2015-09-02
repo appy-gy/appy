@@ -2,9 +2,12 @@
   display: flex
   background: #e3e3e3
   padding: 10px
-  margin: 0 -10px
   border-radius: $border-radius * 2
-  width: calc(100% + 20px)
+
+
+  @media screen and (min-width: $small)
+    width: calc(100% + 20px)
+    margin: 0 -10px
 
   &.m-answer
     margin-top: 10px
