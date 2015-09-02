@@ -27,7 +27,9 @@ Header = React.createClass
     classes = classNames 'layout_header', 'header', 'm-active': expanded
 
     <header className={classes}>
-      <div className="header_menu-button" onClick={@triggerExpand}></div>
+      <div className="header_menu-button-wrap" onClick={@triggerExpand}>
+        <div className="header_menu-button"></div>
+      </div>
       <div className="header_content">
         {children}
       </div>
