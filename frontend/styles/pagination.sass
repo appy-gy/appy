@@ -1,8 +1,7 @@
 .pagination
   display: flex
-  flex-flow: row nowrap
   list-style: none
-  justify-content: center
+  justify-content: space-between
   position: relative
   margin-top: 20px
   padding: 10px 0 0 0
@@ -29,23 +28,17 @@
     padding: 0 15px
 
     &.m-next, &.m-prev
-      position: absolute
-      top: 0
       font-size: 28px
       display: flex
       align-items: center
       justify-content: center
-      margin-left: 0
-      margin-right: 0
 
     &.m-next
-      right: 0
 
       &:before
         +ion-icon("ios-arrow-forward")
 
     &.m-prev
-      left: 0
       &:before
         +ion-icon("ios-arrow-back")
 
