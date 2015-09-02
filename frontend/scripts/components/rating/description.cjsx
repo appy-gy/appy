@@ -31,7 +31,7 @@ ObjectDescription = React.createClass
 
     @app[actions].change object.id, { description }
     @queueUpdate =>
-      @app[actions].update object.id, { description }
+      @app[actions].update object.id, { description }, true
 
   description: ->
     {object, edit, placeholder} = @props
