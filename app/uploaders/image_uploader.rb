@@ -1,6 +1,7 @@
 class ImageUploader < BaseUploader
   include CarrierWave::MiniMagick
   include CarrierWave::Processing::MiniMagick
+  include CarrierWave::Mozjpeg
 
   # Replace #resize_to_fill to allow pass a background argument
   # Original source:
@@ -36,8 +37,12 @@ class ImageUploader < BaseUploader
     version name do
       process :strip
       process resize => resize_params
-      process quality: quality
       process convert: format
+
+      if format == 'jpg'
+        quality_key = ENV['TOP_USE_MOZJPEG'] == 'true' ? :mozjpeg : :quality
+        process quality_key => quality
+      end
 
       define_method :full_filename do |for_file|
         name = super for_file
