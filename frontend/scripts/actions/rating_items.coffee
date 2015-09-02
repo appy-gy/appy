@@ -17,12 +17,13 @@ class RatingItemsActions extends Marty.ActionCreators
   change: (ratingItemId, changes) ->
     @dispatch Constants.CHANGE_RATING_ITEM, ratingItemId, changes
 
-  update: (ratingItemId, changes) ->
+  update: (ratingItemId, changes, notSync) ->
+    notSync = _.keys changes if notSync == true
     ratingItem = findInStore @app.ratingItemsStore, ratingItemId
 
-    @app.ratingItemsApi.update(ratingItem.id, ratingItem.ratingId, changes).then ({body}) =>
-      return unless body?
-      ratingItem = new RatingItem body.rating_item
+    @app.ratingItemsApi.update(ratingItem.id, ratingItem.ratingId, changes).then ({body, status}) =>
+      return unless status == 200
+      ratingItem = new RatingItem _.omit(body.rating_item, notSync)
       @dispatch Constants.REPLACE_RATING_ITEM, ratingItem
 
   remove: (ratingItemId) ->

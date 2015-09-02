@@ -16,10 +16,11 @@ class RatingsActions extends Marty.ActionCreators
   change: (ratingId, changes) ->
     @dispatch Constants.CHANGE_RATING, ratingId, changes
 
-  update: (ratingId, changes) ->
-    @app.ratingsApi.update(ratingId, changes).then ({body}) =>
-      return unless body?
-      rating = new Rating body.rating
+  update: (ratingId, changes, notSync) ->
+    notSync = _.keys changes if notSync == true
+    @app.ratingsApi.update(ratingId, changes).then ({body, status}) =>
+      return unless status == 200
+      rating = new Rating _.omit(body.rating, notSync)
       @dispatch Constants.REPLACE_RATING, rating
 
   remove: (ratingId) ->

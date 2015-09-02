@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901152011) do
+ActiveRecord::Schema.define(version: 20150902144733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,8 @@ ActiveRecord::Schema.define(version: 20150901152011) do
     t.datetime "published_at"
     t.datetime "deleted_at"
     t.text     "source"
-    t.text     "recommendations", default: [],              array: true
+    t.text     "words",           default: [],              array: true
+    t.uuid     "recommendations", default: [],              array: true
   end
 
   add_index "ratings", ["deleted_at"], name: "index_ratings_on_deleted_at", using: :btree

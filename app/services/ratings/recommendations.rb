@@ -2,30 +2,24 @@
 
 module Ratings
   class Recommendations
-    attr_reader :rating, :ratings
-
-    def initialize rating, ratings
-      @current_rating, @ratings = rating, ratings
+    def initialize rating_data, ratings
+      @current_rating = rating_data
+      @ratings = ratings
     end
 
     def recommendations
-      @ratings.map do |rating|
-        rating.define_singleton_method(:jaccard_index) do
-          @jaccard_index
-        end
+      @ratings.map! do |rating_data|
+        next if rating_data.nil? || @current_rating[0] == rating_data[0]
+        current_rating_words = @current_rating[1]
+        rating_words = rating_data[1]
 
-        rating.define_singleton_method(:jaccard_index=) do |index|
-          @jaccard_index = index || 0.0
-        end
+        intersection = (current_rating_words & rating_words).size
+        union = (current_rating_words | rating_words).size
 
-        intersection = (@current_rating.words & rating.words).size
+        rating_data[2] = (intersection.to_f / union.to_f)
 
-        union = (@current_rating.words | rating.words).size
-
-        rating.jaccard_index = (intersection.to_f / union.to_f) rescue 0.0
-
-        rating
-      end.sort_by{ |rating| 1 - rating.jaccard_index }
+        rating_data
+      end.compact.sort_by{ |rating| 1 - rating[2] }
     end
 
   end

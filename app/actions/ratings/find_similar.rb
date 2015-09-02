@@ -9,12 +9,5 @@ module Ratings
     def call
       Rating.find @rating.recommendations
     end
-
-    private
-
-    def ratings
-      Rating.published.where.not(id: rating)
-    end
-
   end
 end
