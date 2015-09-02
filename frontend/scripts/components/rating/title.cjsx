@@ -37,7 +37,7 @@ ObjectTitle = React.createClass
 
     @app[actions].change object.id, { title }
     @queueUpdate =>
-      @app[actions].update object.id, { title }
+      @app[actions].update object.id, { title }, true
 
   title: ->
     {object, edit, placeholder} = @props

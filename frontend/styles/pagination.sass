@@ -5,9 +5,10 @@
   justify-content: center
   position: relative
   margin-top: 20px
+  padding: 10px 0 0 0
 
   &:not(:empty)
-    border-top: 2px solid $grey-3
+    border-top: 3px solid $grey-3
 
   &_window
     display: flex
@@ -18,14 +19,14 @@
       content: '...'
 
   &_link
-    line-height: 30px
-    height: 30px
+    line-height: 40px
+    height: 40px
     font-family: $sans-serif
-    font-weight: 300
+    font-weight: 700
     font-size: 16px
-    color: $black-2
+    color: $black
     text-align: center
-    margin: 20px 5px 0 5px
+    padding: 0 15px
 
     &.m-next, &.m-prev
       position: absolute
@@ -41,17 +42,19 @@
       right: 0
 
       &:before
-        +ion-icon("ios-arrow-thin-right")
+        +ion-icon("ios-arrow-forward")
 
     &.m-prev
       left: 0
       &:before
-        +ion-icon("ios-arrow-thin-left")
+        +ion-icon("ios-arrow-back")
 
     &:hover
       color: $blue
 
     &.m-active
       cursor: default
-      color: $blue
-      font-weight: 600
+      color: $black-3
+
+    &.m-hidden
+      visibility: hidden

@@ -58,17 +58,19 @@ Pagination = React.createClass
   prevPageLink: ->
     {link: Link, block, currentPage, pagesCount} = @props
 
-    return if pagesCount <= 1 or currentPage == 1
+    available = pagesCount > 1 and currentPage != 1
+    classes = classNames 'm-prev', 'm-hidden': not available
 
-    <Link ref="prevPageLink" className="m-prev" block={block} page={currentPage - 1}>
+    <Link ref="prevPageLink" className={classes} block={block} page={currentPage - 1}>
     </Link>
 
   nextPageLink: ->
     {link: Link, block, currentPage, pagesCount} = @props
 
-    return if pagesCount <= 1 or currentPage == pagesCount
+    available = pagesCount > 1 and currentPage != pagesCount
+    classes = classNames 'm-next', 'm-hidden': not available
 
-    <Link ref="nextPageLink" className="m-next" block={block} page={currentPage + 1}>
+    <Link ref="nextPageLink" className={classes} block={block} page={currentPage + 1}>
     </Link>
 
   links: (range) ->
