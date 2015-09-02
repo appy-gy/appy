@@ -19,7 +19,7 @@ module Ratings
         rating_data[2] = (intersection.to_f / union.to_f)
 
         rating_data
-      end.compact!.sort_by{ |rating| 1 - rating[2] }
+      end.compact.sort_by{ |rating| 1 - rating[2] }
     end
 
   end

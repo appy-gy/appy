@@ -31,6 +31,7 @@ class Rating < ActiveRecord::Base
   after_create :generate_slug
   before_save :set_published_at, if: :publishing?
   before_save :set_words, if: :publishing?
+  before_save :set_recommendations, if: :publishing?
 
   private
 
@@ -54,6 +55,11 @@ class Rating < ActiveRecord::Base
   # recommendation system
   def set_words
     self.words = ((title || '').scan(/[a-zA-Zа-яА-Я]{3,}/).to_set | tags.pluck(:name) | Array.wrap(section.try(:name))).map{ |word| word.mb_chars.downcase.to_s }
+  end
+
+  def set_recommendations
+    ratings = Rating.published.pluck(:id, :words)
+    self.recommendations = Ratings::Recommendations.new([id, words], ratings).recommendations.first(Rating::recommendations_limit).map(&:first)
   end
 
   def publishing?
