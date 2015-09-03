@@ -5,7 +5,7 @@ Description = require './description'
 Image = require './rating_item_image'
 Votes = require './votes'
 AddRatingItem = require './add_rating_item'
-Waypoint = require 'react-waypoint'
+Waypoint = require '../shared/waypoint'
 
 {PropTypes} = React
 
@@ -89,26 +89,27 @@ RatingItem = React.createClass
     numberStyles = {}
     numberStyles.fontSize = titleFontSize if titleFontSize?
 
-    <section id="item-#{ratingItem.position}" className="rating-item">
-      <div className="rating-item_add-item-wrap m-top">
-        {@addRatingItemButton 'top'}
-      </div>
-      <div className="rating-item_header">
-        <span className="rating-item_number" style={numberStyles}>{index}</span>
-        <Title object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите заголовок пункта" minFontSize={20} maxFontSize={36} maxHeight={80} onFontSizeChange={@changeTitleFontSize}/>
-      </div>
-      <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} threshold={0.2}/>
-      <div className="rating-item_description-wrapper">
-        <Description object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите описание пункта"/>
-      </div>
-      <div className="rating-item_cover-wrap">
-        <Image/>
-      </div>
-      <div className="rating-item_add-item-wrap m-bottom">
-        {@addRatingItemButton 'bottom'}
-      </div>
-      {@removeButton()}
-      {@votes()}
-    </section>
+    <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave}>
+      <section id="item-#{ratingItem.position}" className="rating-item">
+        <div className="rating-item_add-item-wrap m-top">
+          {@addRatingItemButton 'top'}
+        </div>
+        <div className="rating-item_header">
+          <span className="rating-item_number" style={numberStyles}>{index}</span>
+          <Title object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите заголовок пункта" minFontSize={20} maxFontSize={36} maxHeight={80} onFontSizeChange={@changeTitleFontSize}/>
+        </div>
+        <div className="rating-item_description-wrapper">
+          <Description object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите описание пункта"/>
+        </div>
+        <div className="rating-item_cover-wrap">
+          <Image/>
+        </div>
+        <div className="rating-item_add-item-wrap m-bottom">
+          {@addRatingItemButton 'bottom'}
+        </div>
+        {@removeButton()}
+        {@votes()}
+      </section>
+    </Waypoint>
 
 module.exports = RatingItem
