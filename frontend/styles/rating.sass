@@ -14,12 +14,19 @@
   &_header
     display: flex
     align-items: center
-    justify-content: center
-    flex-flow: column wrap
+    justify-content: space-between
+    flex-flow: column nowrap
     position: relative
     background-color: $blue
     width: 100%
-    height: 360px
+    padding: 15px
+    min-height: 360px
+
+    @media screen and (min-width: $small)
+      padding: 20px
+
+    @media screen and (min-width: $small)
+      padding: 40px
 
     &.m-with-image
       &:after
@@ -35,7 +42,8 @@
       border-radius: $border-radius $border-radius 0 0
 
     @media screen and (min-width: $medium)
-      height: 500px
+      min-height: 500px
+      height: auto
 
     &:hover
       .rating_cover:after
@@ -61,6 +69,9 @@
       height: 100%
       background: $black-3
       transition: opacity 0.2s
+
+  &_center
+    z-index: 1
 
   &_line
     position: relative
@@ -183,7 +194,6 @@
     line-height: 1.2
     overflow: hidden
     width: 100%
-    height: 100%
     text-align: center
     transform: scale(0.4)
     +word-break
@@ -192,7 +202,6 @@
       display: flex
       position: relative
       width: 100%
-      max-height: 210px
       z-index: 1
 
     &.m-edit
@@ -222,9 +231,6 @@
     cursor: pointer
 
     &-wrapper
-      position: absolute
-      top: 80px
-      left: 0
       width: 100%
       display: flex
       justify-content: center
@@ -244,10 +250,7 @@
   &_tags
     width: 100%
     justify-content: center
-    position: absolute
-    bottom: 20px
     z-index: 1
-    left: 0
 
   &_tag
     color: $white-2
