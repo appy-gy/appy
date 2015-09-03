@@ -8,7 +8,7 @@ module Ratings
     end
 
     def recommendations
-      @ratings.map! do |rating_data|
+      @ratings.map do |rating_data|
         next if rating_data.nil? || @current_rating[0] == rating_data[0]
         current_rating_words = @current_rating[1]
         rating_words = rating_data[1]
