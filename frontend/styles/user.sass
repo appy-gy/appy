@@ -17,10 +17,15 @@ $tab-title-height: 50px
 
 .user-profile
   background: $white
-  border: 1px solid #f2f2f2
-  border-radius: $border-radius
   width: 100%
   min-height: calc(100vh - 80px)
+  margin-bottom: 0
+
+  @media screen and (min-width: $small)
+    margin-bottom: 30px
+
+  @media screen and (min-width: $medium)
+    margin-bottom: 40px
 
   $avatar-margin: 7px
   $padding: 20px
@@ -31,10 +36,16 @@ $tab-title-height: 50px
     position: relative
     background: $blue
     background: linear-gradient(to bottom, $blue, $blue-2)
-    padding: 50px $padding $padding $padding
-    border-radius: $border-radius $border-radius 0 0
+    padding: 15px 15px 90px 15px
     width: 100%
-    min-height: 360px
+    flex-flow: row wrap
+
+    @media screen and (min-width: $small)
+      padding: 30px 30px 60px 30px
+      flex-flow: row nowrap
+
+    @media screen and (min-width: $medium)
+      padding: 40px 40px 80px 40px
 
   &_avatar
     display: flex
@@ -49,6 +60,7 @@ $tab-title-height: 50px
     overflow: hidden
     width: $avatar-size
     height: $avatar-size
+    flex-shrink: 0
 
     &:before
       +ion-icon("person")
@@ -85,9 +97,13 @@ $tab-title-height: 50px
         margin-bottom: 0
 
   &_info
-    padding: 0 0 0 $padding
-    width: calc(100% - #{$avatar-size})
-    margin-top: 50px
+    width: 100%
+    display: flex
+    flex-flow: column
+    justify-content: center
+    padding: 15px 0 0 0
+    @media screen and (min-width: $small)
+      padding: 0 0 0 40px
 
   &_name
     &-value
@@ -101,9 +117,13 @@ $tab-title-height: 50px
       overflow: hidden
       white-space: nowrap
       text-overflow: ellipsis
+      text-align: center
 
       &::placeholder, &:focus::placeholder
         color: $white-2
+
+      @media screen and (min-width: $small)
+        text-align: left
 
     &-buttons
       margin-top: 20px
@@ -123,6 +143,11 @@ $tab-title-height: 50px
     display: flex
     margin-top: 2 * $margin
     flow-flow: row nowrap
+    justify-content: center
+
+    @media screen and (min-width: $small)
+
+      justify-content: flex-start
 
   &_social
     display: flex
@@ -204,21 +229,30 @@ $tab-title-height: 50px
     display: flex
     position: absolute
     top: -$tab-title-height
-    left: $avatar-size + $avatar-margin * 2 + $padding * 2
+    left: 15px
+
+    @media screen and (min-width: $small)
+      left: $avatar-size + $avatar-margin * 2 + 60px
+
+    @media screen and (min-width: $medium)
+      left: $avatar-size + $avatar-margin * 2 + 80px
 
   &_tab-title
     display: block
-    font-size: 16px
+    font-size: 14px
     font-weight: 600
     background: $white-3
     color: $blue
     cursor: pointer
-    padding: 0 3 * $margin
+    padding: 0 2 * $margin
     margin-top: $margin
     border-radius: $border-radius $border-radius 0 0
     line-height: $tab-title-height
     height: $tab-title-height
     transition: margin 0.3s ease
+
+    @media screen and (min-width: $medium)
+      font-size: 16px
 
     &:hover
       margin-top: $margin / 2
@@ -231,18 +265,29 @@ $tab-title-height: 50px
       margin-top: 0
 
   &_tab-content
-    padding: 30px 20px 20px 20px
+    padding: 15px
+
+    @media screen and (min-width: $small)
+      padding: 30px
+
+    @media screen and (min-width: $medium)
+      padding: 40px
+
 
     // @media screen and (max-width: 1240px)
     //   padding: 15px 30px
 
   &_tab-header
-    font-size: 28px
+    font-size: 20px
     font-family: $serif
     font-weight: 600
     color: $blue
-    margin: $margin 0 3 * $margin
     line-height: 1
+    margin: 10px 0 15px 0
+
+    @media screen and (min-width: $small)
+      font-size: 28px
+      margin: 0px 0 25px 0
 
   &_tab-button
     +accept
