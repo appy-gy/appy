@@ -1,0 +1,53 @@
+.layout_footer
+  background-color: #1F2932
+  color: $white
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-flow: row wrap
+  @media screen and (min-width: $small)
+    flex-flow: row nowrap
+
+  &-left
+    flex: 1 auto
+    display: flex
+    justify-content: center
+
+    @media screen and (min-width: $small)
+      justify-content: flex-start
+      order: 1
+      flex: 1
+
+  &-right
+    flex: 1 auto
+    display: flex
+    justify-content: center
+
+    @media screen and (min-width: $small)
+      justify-content: flex-end
+      order: 3
+      flex: 1
+
+
+  &-logo
+    flex: 1 100%
+    background-image: url("../images/colour_logo.svg")
+    background-position: center center
+    background-repeat: no-repeat
+    width: 150px
+    height: 40px
+    margin: 10px 0
+
+    @media screen and (min-width: $small)
+      order: 2
+      flex: 1
+      margin: 0
+
+  &-link
+    color: $color-1
+    padding: 5px
+    &:hover
+      color: $green
+
+    @media screen and (min-width: $small)
+      padding: 10px 20px

@@ -178,7 +178,6 @@
   &_title
     font-family: $serif
     font-size: 24px
-    font-weight: 400
     color: $white
     padding: 0 16px
     line-height: 1.2
@@ -216,10 +215,9 @@
 
   &_section-name
     display: block
-    font-size: 15px
-    font-weight: 600
-    color: $white-2
-    // margin: 25px 0 15px 0
+    font-size: 12px
+    font-weight: 700
+    letter-spacing: 1px
     text-transform: uppercase
     cursor: pointer
 
@@ -232,11 +230,16 @@
       justify-content: center
       z-index: 2
 
-    &:after
+    &::after
       content: ":"
+      transition: margin 0.2s ease
+      margin-top: -2px
 
     &:hover
-      color: $white
+      &::after
+        font-size: 14px
+        margin-left: 10px
+        +ion-icon("chevron-right")
 
   &_tags
     width: 100%
@@ -378,5 +381,5 @@
   &_source
     white-space: pre-wrap
 
-  @media screen and (min-width: $small)
-    border-radius: $border-radius
+  // @media screen and (min-width: $small)
+  //   border-radius: $border-radius

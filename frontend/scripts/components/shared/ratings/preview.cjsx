@@ -84,6 +84,8 @@ Preview = React.createClass
         </RatingLink>
         <Tags tags={rating.tags}/>
       </div>
+      <RatingLink className="preview_link" rating={rating}>
+      </RatingLink>
     </div>
 
 module.exports = Preview
