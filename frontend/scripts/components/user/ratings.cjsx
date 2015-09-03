@@ -33,7 +33,7 @@ Ratings = React.createClass
 
     text = if isOwnPage then 'У вас пока нет рейтингов. Создайте свой первый рейтинг прямо сейчас!' else 'У пользователя нет рейтингов.'
 
-    <div className="user-ratings_no-ratings">
+    <div className="user-profile_tab-no-ratings">
       {text}
     </div>
 

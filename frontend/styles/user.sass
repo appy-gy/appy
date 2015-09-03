@@ -265,7 +265,7 @@ $tab-title-height: 50px
       margin-top: 0
 
   &_tab-content
-    padding: 15px
+    padding: 0
 
     @media screen and (min-width: $small)
       padding: 30px
@@ -283,7 +283,7 @@ $tab-title-height: 50px
     font-weight: 600
     color: $blue
     line-height: 1
-    margin: 10px 0 15px 0
+    padding: 25px 15px 15px 15px
 
     @media screen and (min-width: $small)
       font-size: 28px
@@ -291,7 +291,22 @@ $tab-title-height: 50px
 
   &_tab-button
     +accept
-    margin-top: 15px
+    margin: 15px 15px 0
+    @media screen and (min-width: $small)
+      margin: 15px 0 0 0
+
+  &_tab-no-comments,
+  &_tab-no-ratings
+    @media screen and (max-width: $small)
+      padding: 0 15px
+
 
   .preview
-    width: 286px
+    width: 100%
+    margin: 0 15px 15px 15px
+    @media screen and (min-width: $medium)
+      width: calc(50% - 30px)
+      margin: 15px
+
+    @media screen and (min-width: $medium)
+      width: calc(33.33% - 30px)

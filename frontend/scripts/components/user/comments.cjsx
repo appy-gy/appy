@@ -21,7 +21,7 @@ Comments = React.createClass
 
     return if user.commentsCount > 0
 
-    <div>
+    <div className="user-profile_tab-no-comments">
       У вас пока нет комментариев.
     </div>
 
