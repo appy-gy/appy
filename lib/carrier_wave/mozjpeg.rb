@@ -12,7 +12,11 @@ module CarrierWave
     private
 
     def line
-      @line ||= Cocaine::CommandLine.new 'cjpeg', '-quality :quality -outfile :outfile :inputfile'
+      @line ||= Cocaine::CommandLine.new cjpeg_path, '-quality :quality -outfile :outfile :inputfile'
+    end
+
+    def cjpeg_path
+      ENV.fetch 'TOP_CJPEG_PATH', 'cjpeg'
     end
   end
 end
