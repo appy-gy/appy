@@ -47,7 +47,7 @@ Waypoint = React.createClass
     @timer = setTimeout( ->
       @lastPosition = null
     , 30)
-    
+
     delta
 
   calculateVisibility: ->
@@ -66,7 +66,11 @@ Waypoint = React.createClass
     elementTop = waypoint.getBoundingClientRect().top
     elementBottom = waypoint.getBoundingClientRect().bottom
 
-    (elementTop > 0 && elementTop < window.innerHeight) || (elementBottom > 0 && elementBottom < window.innerHeight)
+    topVisible = elementTop >= 0 && elementTop <= window.innerHeight
+    bottomVisible = elementBottom >= 0 && elementBottom <= window.innerHeight
+    biggerThanViewport = elementBottom >= window.innerHeight && elementTop <= window.innerHeight
+
+    (topVisible || bottomVisible) || biggerThanViewport
 
   render: ->
     <span>{@props.children}</span>
