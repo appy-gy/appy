@@ -6,6 +6,7 @@ Waypoint = React.createClass
   displayName: 'Waypoint'
 
   wasVisible: false
+  callsCount: 0
 
   propTypes:
     onEnter: PropTypes.func
@@ -21,7 +22,12 @@ Waypoint = React.createClass
   componentWillUnmount: ->
     window.removeEventListener 'scroll', @handleScroll, false
 
-  handleScroll: (event) ->
+  handleScroll: () ->
+    @callsCount += 1
+    return unless @callCount % 2 == 0
+    @calculateVisibility()
+
+  calculateVisibility: () ->
     isVisible = @isVisible()
     return if @wasVisible == isVisible
 
