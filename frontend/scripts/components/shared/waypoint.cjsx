@@ -37,7 +37,7 @@ Waypoint = React.createClass
     elementTop = waypoint.getBoundingClientRect().top
     elementBottom = waypoint.getBoundingClientRect().bottom
 
-    elementTop >= 0 && elementBottom <= window.innerHeight
+    (elementTop > 0 && elementTop < window.innerHeight) || (elementBottom > 0 && elementBottom < window.innerHeight)
 
   render: ->
     <span>{@props.children}</span>
