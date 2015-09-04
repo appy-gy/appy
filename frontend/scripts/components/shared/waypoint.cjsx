@@ -24,7 +24,7 @@ Waypoint = React.createClass
 
   handleScroll: () ->
     @callsCount += 1
-    return unless @callCount % 2 == 0
+    return unless @callsCount % 2 == 0
     @calculateVisibility()
 
   calculateVisibility: () ->
