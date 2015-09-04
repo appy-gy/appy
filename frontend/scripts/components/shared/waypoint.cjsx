@@ -6,7 +6,12 @@ Waypoint = React.createClass
   displayName: 'Waypoint'
 
   wasVisible: false
+
   callsCount: 0
+
+  timer: 0
+  lastPosition: null
+  newPosition: 0
 
   propTypes:
     onEnter: PropTypes.func
@@ -22,12 +27,30 @@ Waypoint = React.createClass
   componentWillUnmount: ->
     window.removeEventListener 'scroll', @handleScroll, false
 
-  handleScroll: () ->
-    @callsCount += 1
-    return unless @callsCount % 2 == 0
+  handleScroll: ->
+    return if @scrollSpeed() > 600
+    return unless @callsLimit()
     @calculateVisibility()
 
-  calculateVisibility: () ->
+  callsLimit: ->
+    @callsCount += 1
+    @callsCount % 2 == 0
+
+  scrollSpeed: ->
+    @newPosition = window.scrollY
+
+    delta = Math.abs(@newPosition - @lastPosition) if @lastPosition
+
+    @lastPosition = @newPosition
+
+    @timer && clearTimeout(@timer)
+    @timer = setTimeout( ->
+      @lastPosition = null
+    , 30)
+    
+    delta
+
+  calculateVisibility: ->
     isVisible = @isVisible()
     return if @wasVisible == isVisible
 
