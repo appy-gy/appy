@@ -5,7 +5,6 @@ NotFoundPage = React.createClass
 
   render: ->
     <div className="not-found">
-      404
     </div>
 
 module.exports = NotFoundPage
