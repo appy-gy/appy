@@ -5,3 +5,52 @@
   background-position: left top
   background-size: cover
   background-repeat: no-repeat
+  display: flex
+  justify-content: center
+  align-items: center
+
+  &_content
+    color: #00d9e5
+    max-width: 800px
+    padding: 15px
+    position: absolute
+    top: 0
+    left: 0
+    height: 100%
+    width: 26%
+    display: flex
+    flex-flow: column
+    justify-content: center
+    align-items: center
+
+  &_title
+    font-size: 72px
+    font-family: $serif
+    text-align: center
+
+  &_text
+    font-size: 20px
+    text-align: center
+    font-weight: 600
+    margin-bottom: 20px
+
+  &_button
+    +button
+    background-color: #00d9e5
+    color: $white
+    text-transform: uppercase
+    font-weight: 600
+    letter-spacing: 1px
+
+    &:hover
+      background-color: lighten(#00d9e5, 10%)
+
+  &_caption
+    margin-top: 20px
+
+  &_link
+    color: #00d9e5
+    padding: 3px 0
+
+    &:not(:hover)
+      border-bottom: 1px solid #00d9e5
