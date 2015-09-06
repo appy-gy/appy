@@ -52,6 +52,9 @@
       .rating_cover:after
         opacity: 1
 
+    &-center
+      width: 100%
+
   &_cover
     position: absolute
     width: 100%
@@ -199,7 +202,6 @@
     overflow: hidden
     width: 100%
     text-align: center
-    transform: scale(0.4)
     +word-break
 
     &-wrapper
@@ -219,12 +221,12 @@
         color: $white-2
 
     @media screen and (min-width: $small)
-      transform: scale(0.65)
       padding: 0 20px
+      font-size: 32px
 
     @media screen and (min-width: $medium)
-      transform: none
       padding: 0 40px
+      font-size: 40px
 
   &_section-name
     display: block
@@ -240,6 +242,7 @@
       display: flex
       justify-content: center
       z-index: 2
+      margin: 20px 0
 
     &::after
       content: ":"
@@ -264,14 +267,9 @@
     //   color: $white
 
   &_tags-select
-    position: absolute
-    width: 100%
-    bottom: 20px
-    left: 0
     display: flex
     justify-content: center
     z-index: 1
-    padding: 20px
 
   &_description-wrapper
     padding: 16px
@@ -379,9 +377,11 @@
 
   &_add-image
     +add-image
-    position: absolute
-    top: 10px
-    left: 20px
+
+    &-wrap
+      width: 100%
+      display: flex
+      justify-content: center
 
   &_share
     display: flex !important
