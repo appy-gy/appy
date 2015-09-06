@@ -41,6 +41,7 @@ EditRatingItem = React.createClass
 
   propTypes:
     ratingItem: PropTypes.object.isRequired
+    index: PropTypes.number.isRequired
     connectDragSource: PropTypes.func.isRequired
     connectDropTarget: PropTypes.func.isRequired
     isDragging: PropTypes.bool.isRequired
@@ -61,13 +62,13 @@ EditRatingItem = React.createClass
     @app.ratingsActions.updatePositions ratingItem.ratingId
 
   render: ->
-    {ratingItem, connectDragSource, connectDropTarget, isDragging} = @props
+    {ratingItem, index, connectDragSource, connectDropTarget, isDragging} = @props
 
     classes = classNames 'header_rating-item', 'm-edit', 'm-dragging': isDragging
 
     connectDropTarget connectDragSource <a href={@ratingItemAnchor()} className={classes} data-scroll>
       <div className="header_rating-item-title">
-        {ratingItem.position + 1}. {ratingItem.title}
+        {index}. {ratingItem.title}
       </div>
     </a>
 

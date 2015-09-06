@@ -19,7 +19,6 @@ RatingItem = React.createClass
     index: PropTypes.number.isRequired
 
   contextTypes:
-    canEdit: PropTypes.bool.isRequired
     rating: PropTypes.object.isRequired
 
   childContextTypes:
@@ -48,21 +47,23 @@ RatingItem = React.createClass
 
   addRatingItemButton: (place) ->
     {ratingItem} = @props
-    {canEdit} = @context
+    {rating} = @context
 
-    return unless canEdit
+    return if rating.status == 'published'
 
     position = if place == 'top' then ratingItem.position else ratingItem.position + 1
 
-    <AddRatingItem className="rating-item_add-item m-#{place}" position={position}>
-      <div className="rating-item_add-item-icon"></div>
-      <div className="rating-item_add-item-text">Добавить новый пункт рейтинга между двумя пунктами</div>
+    <AddRatingItem className="rating-item_add-item-wrap m-#{place}" position={position}>
+      <div className="rating-item_add-item">
+        <div className="rating-item_add-item-icon"></div>
+        <div className="rating-item_add-item-text">Добавить новый пункт рейтинга между двумя пунктами</div>
+      </div>
     </AddRatingItem>
 
   removeButton: ->
-    {canEdit} = @context
+    {rating} = @context
 
-    return unless canEdit
+    return if rating.status == 'published'
 
     <div className="rating-item_remove" onClick={@removeItem}></div>
 
@@ -81,9 +82,7 @@ RatingItem = React.createClass
 
     <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave}>
       <section id="item-#{ratingItem.position}" className="rating-item">
-        <div className="rating-item_add-item-wrap m-top">
-          {@addRatingItemButton 'top'}
-        </div>
+        {@addRatingItemButton 'top'}
         <div className="rating-item_header">
           <span className="rating-item_number">{index}</span>
           <Title object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите заголовок пункта"/>
@@ -94,9 +93,7 @@ RatingItem = React.createClass
         <div className="rating-item_cover-wrap">
           <Image/>
         </div>
-        <div className="rating-item_add-item-wrap m-bottom">
-          {@addRatingItemButton 'bottom'}
-        </div>
+        {@addRatingItemButton 'bottom'}
         {@removeButton()}
         {@votes()}
       </section>

@@ -17,8 +17,8 @@ EditRatingItems = React.createClass
 
     _ ratingItems
       .sortBy 'position'
-      .map (ratingItem) ->
-        <RatingItem key={ratingItem.id} ratingItem={ratingItem}/>
+      .map (ratingItem, index) ->
+        <RatingItem key={ratingItem.id} ratingItem={ratingItem} index={index + 1}/>
       .value()
 
   render: ->
