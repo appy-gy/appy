@@ -31,9 +31,6 @@ RatingItem = React.createClass
 
     { ratingItem, block: 'rating-item' }
 
-  getInitialState: ->
-    titleFontSize: null
-
   removeItem: ->
     {ratingItem} = @props
 
@@ -48,9 +45,6 @@ RatingItem = React.createClass
     {ratingItem} = @props
 
     @app.waypointsActions.remove ratingItem
-
-  changeTitleFontSize: (fontSize) ->
-    @setState titleFontSize: fontSize
 
   addRatingItemButton: (place) ->
     {ratingItem} = @props
@@ -81,13 +75,9 @@ RatingItem = React.createClass
 
   render: ->
     {ratingItem, index} = @props
-    {titleFontSize} = @state
     {rating} = @context
 
     edit = rating.status != 'published'
-
-    numberStyles = {}
-    numberStyles.fontSize = titleFontSize if titleFontSize?
 
     <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave}>
       <section id="item-#{ratingItem.position}" className="rating-item">
@@ -95,8 +85,8 @@ RatingItem = React.createClass
           {@addRatingItemButton 'top'}
         </div>
         <div className="rating-item_header">
-          <span className="rating-item_number" style={numberStyles}>{index}</span>
-          <Title object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите заголовок пункта" minFontSize={20} maxFontSize={36} maxHeight={80} onFontSizeChange={@changeTitleFontSize}/>
+          <span className="rating-item_number">{index}</span>
+          <Title object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите заголовок пункта"/>
         </div>
         <div className="rating-item_description-wrapper">
           <Description object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите описание пункта"/>

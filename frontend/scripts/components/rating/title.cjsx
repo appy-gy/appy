@@ -3,7 +3,6 @@ React = require 'react/addons'
 Marty = require 'marty'
 Classes = require '../mixins/classes'
 RatingUpdater = require '../mixins/rating_updater'
-Textfill = require '../shared/textfill/textfill'
 
 {PropTypes} = React
 
@@ -17,14 +16,9 @@ ObjectTitle = React.createClass
     actions: PropTypes.string.isRequired
     edit: PropTypes.bool.isRequired
     placeholder: PropTypes.string.isRequired
-    minFontSize: PropTypes.number.isRequired
-    maxFontSize: PropTypes.number.isRequired
-    maxHeight: PropTypes.number.isRequired
-    onFontSizeChange: PropTypes.func
 
   contextTypes:
     block: PropTypes.string.isRequired
-    onFontSizeChange: ->
 
   restrictEnter: (event) ->
     return unless event.key == 'Enter'
@@ -51,13 +45,11 @@ ObjectTitle = React.createClass
       </h1>
 
   render: ->
-    {object, minFontSize, maxFontSize, maxHeight, onFontSizeChange} = @props
+    {object} = @props
     {block} = @context
 
     <div className="#{block}_title-wrapper">
-      <Textfill minFontSize={minFontSize} maxFontSize={maxFontSize} maxHeight={maxHeight} onFontSizeChange={onFontSizeChange} content={object.title}>
-        {@title()}
-      </Textfill>
+      {@title()}
     </div>
 
 module.exports = ObjectTitle
