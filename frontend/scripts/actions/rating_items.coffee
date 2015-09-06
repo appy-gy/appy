@@ -1,8 +1,8 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-findInStore = require '../helpers/find_in_store'
 Constants = require '../constants'
+findInStore = require '../helpers/find_in_store'
 RatingItem = require '../models/rating_item'
 
 {update} = React.addons
@@ -23,7 +23,8 @@ class RatingItemsActions extends Marty.ActionCreators
 
     @app.ratingItemsApi.update(ratingItem.id, ratingItem.ratingId, changes).then ({body, status}) =>
       return unless status == 200
-      ratingItem = new RatingItem _.omit(body.rating_item, notSync)
+      prevRatingItem = findInStore @app.ratingItemsStore, ratingItemId
+      ratingItem = new RatingItem _.merge(_.omit(body.rating_item, notSync), _.pick(prevRatingItem, notSync))
       @dispatch Constants.REPLACE_RATING_ITEM, ratingItem
 
   remove: (ratingItemId) ->

@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
 classNames = require 'classnames'
+withIndexKeys = require '../../../helpers/react/with_index_keys'
 
 {PropTypes} = React
 
@@ -83,13 +84,22 @@ Pagination = React.createClass
         {page}
       </Link>
 
+  content: ->
+    {pagesCount} = @props
+
+    return if pagesCount <= 1
+
+    withIndexKeys [
+      @prevPageLink()
+      @windows()
+      @nextPageLink()
+    ]
+
   render: ->
     {block} = @props
 
     <div className={block}>
-      {@prevPageLink()}
-      {@windows()}
-      {@nextPageLink()}
+      {@content()}
     </div>
 
 module.exports = Pagination
