@@ -3,6 +3,7 @@ React = require 'react/addons'
 Marty = require 'marty'
 Classes = require '../mixins/classes'
 RatingUpdater = require '../mixins/rating_updater'
+Textarea = require '../shared/inputs/text'
 
 {PropTypes} = React
 
@@ -38,9 +39,9 @@ ObjectTitle = React.createClass
     {block} = @context
 
     if edit
-      <textarea ref="titleEdit" maxLength="90" className={@classes("#{block}_title", 'm-edit')} placeholder={placeholder} value={object.title} onChange={@changeTitle} onKeyDown={@restrictEnter}/>
+      <Textarea maxLength="90" className={@classes("#{block}_title", 'm-edit')} placeholder={placeholder} value={object.title} onChange={@changeTitle} onKeyDown={@restrictEnter}/>
     else
-      <h1 ref="titleView" className={@classes("#{block}_title")}>
+      <h1 className={@classes("#{block}_title")}>
         {object.title}
       </h1>
 
