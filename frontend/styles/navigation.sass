@@ -5,16 +5,18 @@
   &_icon
     display: inline-block
     margin-bottom: 2px
+    line-height: 28px
 
     @media screen and (max-height: 620px)
       display: none
 
   &_text
-    font-size: 14px
+    font-size: 15px
     font-weight: 700
     text-transform: uppercase
     letter-spacing: 1px
     color: $white
+    font-family: $monospace
 
   &_item
     display: block
@@ -71,10 +73,9 @@
 
     &:nth-of-type(6)
       .site-nav_icon
-        width: 10px
-        height: 10px
-        transform: rotate(45deg)
-        background: $white
+        font-size: 24px
+        &:before
+          +ion-icon("ios-bolt")
 
     &.active
       &:before
