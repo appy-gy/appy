@@ -96,8 +96,10 @@ SocialButton = React.createClass
 
     <div className={classes}>
       {@button()}
-      {@linkInfo()}
-      {@triggerLinkButton()}
+      <div className="user-profile_social-content">
+        {@linkInfo()}
+        {@triggerLinkButton()}
+      </div>
     </div>
 
 module.exports = SocialButton
