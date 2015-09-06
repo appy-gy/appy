@@ -4,6 +4,13 @@
   width: 100%
   max-width: 960px
 
+  @media screen and (min-width: $small)
+    margin-bottom: 30px
+
+  @media screen and (min-width: $medium)
+    margin-bottom:  40px
+
+
   a
     color: $blue
 
@@ -36,9 +43,6 @@
         width: 100%
         height: 100%
         background-color: $black-3
-
-    @media screen and (min-width: $small)
-      border-radius: $border-radius $border-radius 0 0
 
     @media screen and (min-width: $medium)
       min-height: 500px
@@ -229,6 +233,7 @@
     letter-spacing: 1px
     text-transform: uppercase
     cursor: pointer
+    z-index: 2
 
     &-wrapper
       width: 100%

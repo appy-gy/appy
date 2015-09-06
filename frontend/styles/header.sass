@@ -73,7 +73,6 @@
 
   &_rating-update-status
     font-size: 14px
-    border-radius: $border-radius
     padding: 5px 10px
     color: $black-2
     position: fixed
@@ -120,29 +119,32 @@
     padding-bottom: 15px
     color: $black-2
     word-wrap: break-word
+    padding: 0 15px 15px 15px
+    width: 100%
+    display: inline-block
 
     &:not(:empty)::after
       content: ":"
 
   &_rating-items
-    padding: 15px 15px 0 15px
+    padding: 15px 0 0
     overflow-y: auto
     height: 100%
 
   &_rating-item
     display: flex
-    background-color: $grey-2
     color: $black
     padding: 5px 10px
-    margin: 8px 0
-    // border-radius: 2px
     line-height: 20px
     height: 30px
     transition: background 0.5s, transform 0.5s
     position: relative
+    border: 2px solid $black-4
+    margin-top: -2px
 
     &.m-waypoint-enter
-      background-color: $color-3
+      background-color: $black-4
+      border-color: transparent
 
     &.m-edit
       cursor: move
@@ -170,18 +172,20 @@
 
   &_rating-publish-info
     width: 100%
+    flex-shrink: 0
 
   &_rating-actions
     display: flex
 
   &_publish-rating
     +header-button
-    flex: 3
+    width: 100%
 
   &_delete-rating
     +delete-button
     margin: 15px 15px 15px 0
-    flex: 1
+    width: 40px
+    flex-shrink: 0
 
   &_validation-errors
     display: block
