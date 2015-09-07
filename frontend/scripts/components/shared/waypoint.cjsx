@@ -29,7 +29,7 @@ Waypoint = React.createClass
 
   handleScroll: ->
     return if @scrollSpeed() > 600
-    return unless @callsLimit()
+    # return unless @callsLimit()
     @calculateVisibility()
 
   callsLimit: ->
