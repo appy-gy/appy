@@ -50,14 +50,24 @@
     &:empty
       display: none
 
-
-
 .preview
   +rating-meta
   position: relative
   // border-radius: 5px
   width: 100%
   margin: 0 15px 15px
+
+  &.m-enter,
+  &.m-appear
+    opacity: 0
+    transform: scaleY(0.9)
+    transform-origin: 50% bottom 0px
+
+  &.m-enter.m-enter-active,
+  &.m-appear.m-appear-active
+    transition: all .5s ease-out
+    opacity: 1
+    transform: scaleY(1)
 
   @media screen and (min-width: $small)
     margin: 15px
@@ -75,8 +85,6 @@
     width: 100%
     padding-top: 5px
 
-
-
   &_image
     position: relative
     background-size: cover
@@ -90,7 +98,6 @@
     &-wrap
       display: block
       // border-radius: 5px
-
 
     &:after
       content: ''

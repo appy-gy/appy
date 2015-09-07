@@ -10,6 +10,7 @@ Preview = require '../shared/ratings/preview'
 Section = require '../../models/section'
 
 {PropTypes} = React
+{CSSTransitionGroup} = React.addons
 
 SectionRatings = React.createClass
   displayName: 'SectionRatings'
@@ -38,10 +39,10 @@ SectionRatings = React.createClass
 
   render: ->
     <Layout>
-      <div className="previews">
+      <CSSTransitionGroup className="previews" transitionName="m" transitionAppear={true}>
         {@previews()}
-        {@showMore()}
-      </div>
+      </CSSTransitionGroup>
+      {@showMore()}
       {@pagination()}
     </Layout>
 

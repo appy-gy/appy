@@ -8,6 +8,7 @@ CreateRating = require '../shared/ratings/create'
 Pagination = require '../shared/pagination/pagination'
 
 {PropTypes} = React
+{CSSTransitionGroup} = React.addons
 
 Ratings = React.createClass
   displayName: 'Ratings'
@@ -63,9 +64,9 @@ Ratings = React.createClass
       <h2 className="user-profile_tab-header">
         Рейтинги ({user.ratingsCount})
       </h2>
-      <div className="previews">
+      <CSSTransitionGroup className="previews" transitionName="m" transitionAppear={true}>
         {@ratings()}
-      </div>
+      </CSSTransitionGroup>
       {@noRatings()}
       {@createRating()}
       <Pagination currentPage={page} pagesCount={pagesCount} link={PaginationLink}/>
