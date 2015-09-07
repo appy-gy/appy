@@ -120,15 +120,17 @@ Rating = React.createClass
     </article>
 
 module.exports = Marty.createContainer Rating,
+  propTypes:
+    ratingSlug: PropTypes.string.isRequired
+
   contextTypes:
     router: PropTypes.func.isRequired
     canEdit: PropTypes.bool.isRequired
-    ratingSlug: PropTypes.string.isRequired
 
   listenTo: ['ratingsStore', 'ratingItemsStore']
 
   fetch: ->
-    {ratingSlug} = @context
+    {ratingSlug} = @props
 
     rating: @app.ratingsStore.get(ratingSlug)
     ratingItems: @app.ratingItemsStore.getForRating(ratingSlug)

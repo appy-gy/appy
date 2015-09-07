@@ -10,7 +10,6 @@ $tab-title-height: 50px
   background: $white
   color: $blue
   cursor: pointer
-  border-radius: $border-radius * 3
   text-align: center
   width: $icon-button-size
   height: $icon-button-size
@@ -80,6 +79,8 @@ $tab-title-height: 50px
       position: absolute
       bottom: 0
       left: 0
+      font-family: $monospace
+      font-size: 15px
       background: $black_3
       color: $white
       padding: $margin 2 * $margin 2 * $margin 2 * $margin
@@ -112,8 +113,8 @@ $tab-title-height: 50px
   &_name
     &-value
       font-size: 40px
-      font-family: $serif
-      font-weight: 600
+      font-family: $monospace
+      font-weight: 700
       color: $white
       line-height: 50px
       height: 50px
@@ -161,22 +162,22 @@ $tab-title-height: 50px
       +icon-button
 
       &.m-facebook:before
-        +ion-icon("social-facebook")
+        +ion-icon("social-facebook-outline")
 
       &.m-instagram:before
-        +ion-icon("social-instagram")
+        +ion-icon("social-instagram-outline")
 
     &-link
       cursor: pointer
       padding: 0 10px
       font-size: 14px
+      font-family: $monospace
 
     &:last-of-type
       margin-right: 0
 
     &.m-add
       background: $white
-      border-radius: $border-radius
       line-height: $icon-button-size
       color: $blue-2
 
@@ -189,7 +190,6 @@ $tab-title-height: 50px
 
     &.m-remove
       display: flex
-      flex-flow: column wrap
       height: 40px
 
       .user-profile
@@ -224,7 +224,7 @@ $tab-title-height: 50px
 
   &_title
     font-size: 28px
-    font-family: $serif
+    font-family: $monospace
 
   &_tabs
     position: relative
@@ -242,15 +242,16 @@ $tab-title-height: 50px
       left: $avatar-size + $avatar-margin * 2 + 80px
 
   &_tab-title
+    font-family: $monospace
     display: block
     font-size: 14px
-    font-weight: 600
+    font-weight: 700
     background: $white-3
     color: $blue
     cursor: pointer
     padding: 0 2 * $margin
     margin-top: $margin
-    border-radius: $border-radius $border-radius 0 0
+    // border-radius: $border-radius $border-radius 0 0
     line-height: $tab-title-height
     height: $tab-title-height
     transition: margin 0.3s ease
@@ -283,8 +284,8 @@ $tab-title-height: 50px
 
   &_tab-header
     font-size: 20px
-    font-family: $serif
-    font-weight: 600
+    font-family: $monospace
+    font-weight: 700
     color: $blue
     line-height: 1
     padding: 25px 15px 15px 15px

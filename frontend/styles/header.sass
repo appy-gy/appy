@@ -63,14 +63,12 @@
     text-align: center
     position: relative
     flex-shrink: 0
-    height: 60px
-    background: #2880AE  url("../images/white_logo-2.svg") center center
+    height: 80px
+    background: #2880AE  url("../images/colour-logo_2.svg") center center
+    background-color: #1C6991
     background-repeat: no-repeat
-    background-size: 40% 40%
+    background-size: 50% 50%
 
-    @media screen and (min-width: $big)
-      height: 80px
-      background-size: 50% 50%
 
 
   &_rating-update-status
@@ -101,6 +99,7 @@
   &_rating-button
     flex-shrink: 0
     +header-button
+    font-family: $monospace
     background-color: #E666AC
 
     &:hover
@@ -117,7 +116,7 @@
 
   &_rating-title
     // padding: 15px 15px 5px 15px
-    font-family: $serif
+    font-family: $monospace
     padding-bottom: 15px
     color: $black-2
     word-wrap: break-word
@@ -136,7 +135,7 @@
     color: $black
     padding: 5px 10px
     margin: 8px 0
-    border-radius: 2px
+    // border-radius: 2px
     line-height: 20px
     height: 30px
     transition: background 0.5s, transform 0.5s

@@ -11,7 +11,8 @@
     height: 40px
     display: flex
     align-items: center
-    border-radius: $border-radius
+    font-family: $monospace
+    // border-radius: $border-radius
 
     &-icon
       font-size: 36px
@@ -143,7 +144,8 @@
     display: block
     position: relative
     font-size: 18px
-    font-family: $serif
+    font-weight: 700
+    font-family: $monospace
     color: $black
     transition: color 0.2s ease
     max-width: 100%
@@ -252,6 +254,15 @@
 
         &_title
           font-size: 22px
+
+  &.m-draft
+    .preview_title
+      &:before
+        +ion-icon("edit")
+        font-size: 12px
+        width: 16px
+        margin-left: -16px
+        color: $black-3
 
   &:not(.m-super-large)
     .preview

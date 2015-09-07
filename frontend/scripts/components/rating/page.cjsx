@@ -45,13 +45,16 @@ RatingPage = React.createClass
   similar: ->
     <Similar/> if @rating()?.status == 'published'
 
+  comments: ->
+    <Comments/> if @rating()?.status == 'published'
+
   render: ->
     {ratingSlug} = @props
 
     <Layout header={@header()}>
-      <Rating/>
+      <Rating ratingSlug={ratingSlug}/>
       {@similar()}
-      <Comments/>
+      {@comments()}
     </Layout>
 
 module.exports = Marty.createContainer RatingPage,

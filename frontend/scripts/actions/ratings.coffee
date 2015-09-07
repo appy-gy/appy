@@ -1,6 +1,7 @@
 _ = require 'lodash'
 Marty = require 'marty'
 Constants = require '../constants'
+findInStore = require '../helpers/find_in_store'
 Rating = require '../models/rating'
 Tag = require '../models/tag'
 Like = require '../models/like'
@@ -20,7 +21,8 @@ class RatingsActions extends Marty.ActionCreators
     notSync = _.keys changes if notSync == true
     @app.ratingsApi.update(ratingId, changes).then ({body, status}) =>
       return unless status == 200
-      rating = new Rating _.omit(body.rating, notSync)
+      prevRating = findInStore @app.ratingsStore, ratingId
+      rating = new Rating _.merge(_.omit(body.rating, notSync), _.pick(prevRating, notSync))
       @dispatch Constants.REPLACE_RATING, rating
 
   remove: (ratingId) ->
