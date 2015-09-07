@@ -125,6 +125,7 @@ module.exports = Marty.createContainer Rating,
 
   contextTypes:
     router: PropTypes.func.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   listenTo: ['ratingsStore', 'ratingItemsStore']
 
@@ -146,4 +147,6 @@ module.exports = Marty.createContainer Rating,
     <Nothing ref="innerComponent"/>
 
   hasAccess: ({rating}) ->
-    rating.status == 'published'
+    {canEdit} = @context
+
+    rating.status == 'published' or canEdit
