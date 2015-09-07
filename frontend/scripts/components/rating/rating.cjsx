@@ -4,7 +4,7 @@ Marty = require 'marty'
 UpdateStatus = require './update_status'
 Header = require './header'
 Description = require './description'
-RatingItem = require './rating_item'
+RatingItems = require './rating_items'
 AddRatingItem = require './add_rating_item'
 Source = require './source'
 Like = require './like'
@@ -88,15 +88,6 @@ Rating = React.createClass
 
     <ShareButtons ref="shareButtons"/>
 
-  ratingItems: ->
-    {ratingItems} = @props
-
-    _ ratingItems
-      .sortBy 'position'
-      .map (ratingItem, index) ->
-        <RatingItem key={ratingItem.id} ratingItem={ratingItem} index={index + 1}/>
-      .value()
-
   source: ->
     {rating} = @props
 
@@ -112,7 +103,7 @@ Rating = React.createClass
       <Header/>
       <Description object={rating} actions="ratingsActions" edit={edit} placeholder="Введите описание рейтинга"/>
       {@authorLink()}
-      {@ratingItems()}
+      <RatingItems/>
       {@addRatingItemButton()}
       {@source()}
       {@likeButton()}

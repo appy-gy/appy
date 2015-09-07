@@ -255,9 +255,6 @@
   &_tag
     color: $white-2
 
-    // &:hover
-    //   color: $white
-
   &_tags-select
     position: absolute
     width: 100%
@@ -277,6 +274,7 @@
 
     @media screen and (min-width: $medium)
       padding: 40px 40px 20px
+
       &.m-bottom
         padding: 20px 40px 40px
 
@@ -385,5 +383,45 @@
   &_source
     white-space: pre-wrap
 
-  // @media screen and (min-width: $small)
-  //   border-radius: $border-radius
+  &_add-item
+    display: flex
+    justify-content: center
+    align-items: center
+    position: absolute
+    top: -35px
+    left: 0
+    background-color: $grey-3
+    color: $black
+    width: 100%
+    height: 70px
+    overflow: hidden
+    opacity: 0
+    transition: opacity 0.1s ease
+
+    &:hover
+      opacity: 1
+      transition: opacity 0.2s ease 0.2s
+
+    &-icon
+      font-size: 24px
+      color: $black
+      margin-right: 10px
+      margin-top: -5px
+
+      &:before
+        +ion-icon("ios-plus-outline")
+        line-height: inherit
+
+    &-text
+      color: $black
+      font-size: 12px
+
+    &-wrap
+      display: flex
+      align-items: center
+      justify-content: center
+      position: relative
+      cursor: pointer
+      width: 100%
+      height: 0
+      z-index: 1
