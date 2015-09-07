@@ -1,3 +1,4 @@
+_ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 Classes = require '../mixins/classes'
@@ -38,7 +39,9 @@ AddRatingItem = React.createClass
   render: ->
     {children} = @props
 
-    <div className={@classes()} onClick={@createRatingItem}>
+    props = _.omit @props, 'position', 'children'
+
+    <div className={@classes()} onClick={@createRatingItem} {...props}>
       {children}
     </div>
 

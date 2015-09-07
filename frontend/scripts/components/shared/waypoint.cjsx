@@ -16,6 +16,7 @@ Waypoint = React.createClass
   propTypes:
     onEnter: PropTypes.func
     onLeave: PropTypes.func
+    children: PropTypes.element.isRequired
 
   getDefaultProps: ->
     onEnter: ->
@@ -29,7 +30,7 @@ Waypoint = React.createClass
 
   handleScroll: ->
     return if @scrollSpeed() > 600
-    return unless @callsLimit()
+    # return unless @callsLimit()
     @calculateVisibility()
 
   callsLimit: ->
@@ -73,6 +74,8 @@ Waypoint = React.createClass
     (topVisible || bottomVisible) || biggerThanViewport
 
   render: ->
-    <span>{@props.children}</span>
+    {children} = @props
+
+    children
 
 module.exports = Waypoint
