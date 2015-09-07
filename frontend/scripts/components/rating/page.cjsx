@@ -52,7 +52,7 @@ RatingPage = React.createClass
     {ratingSlug} = @props
 
     <Layout header={@header()}>
-      <Rating/>
+      <Rating ratingSlug={ratingSlug}/>
       {@similar()}
       {@comments()}
     </Layout>
