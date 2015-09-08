@@ -4,6 +4,13 @@
   width: 100%
   max-width: 960px
 
+  @media screen and (min-width: $small)
+    margin-bottom: 30px
+
+  @media screen and (min-width: $medium)
+    margin-bottom:  40px
+
+
   a
     color: $blue
 
@@ -37,9 +44,6 @@
         height: 100%
         background-color: $black-3
 
-    @media screen and (min-width: $small)
-      border-radius: $border-radius $border-radius 0 0
-
     @media screen and (min-width: $medium)
       min-height: 500px
       height: auto
@@ -47,6 +51,9 @@
     &:hover
       .rating_cover:after
         opacity: 1
+
+    &-center
+      width: 100%
 
   &_cover
     position: absolute
@@ -195,7 +202,6 @@
     overflow: hidden
     width: 100%
     text-align: center
-    transform: scale(0.4)
     +word-break
 
     &-wrapper
@@ -215,12 +221,12 @@
         color: $white-2
 
     @media screen and (min-width: $small)
-      transform: scale(0.65)
       padding: 0 20px
+      font-size: 32px
 
     @media screen and (min-width: $medium)
-      transform: none
       padding: 0 40px
+      font-size: 40px
 
   &_section-name
     display: block
@@ -229,12 +235,14 @@
     letter-spacing: 1px
     text-transform: uppercase
     cursor: pointer
+    z-index: 2
 
     &-wrapper
       width: 100%
       display: flex
       justify-content: center
       z-index: 2
+      margin: 20px 0
 
     &::after
       content: ":"
@@ -249,21 +257,16 @@
 
   &_tags
     width: 100%
-    justify-content: center
+    text-align: center
     z-index: 1
 
   &_tag
     color: $white-2
 
   &_tags-select
-    position: absolute
-    width: 100%
-    bottom: 20px
-    left: 0
     display: flex
     justify-content: center
     z-index: 1
-    padding: 20px
 
   &_description-wrapper
     padding: 16px
@@ -372,9 +375,11 @@
 
   &_add-image
     +add-image
-    position: absolute
-    top: 10px
-    left: 20px
+
+    &-wrap
+      width: 100%
+      display: flex
+      justify-content: center
 
   &_share
     display: flex !important

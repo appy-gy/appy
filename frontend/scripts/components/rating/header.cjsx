@@ -50,7 +50,9 @@ Header = React.createClass
 
     return if rating.status == 'published'
 
-    <div className="rating_add-image" title="Выберите титульное изображение" onClick={@openSelect}></div>
+    <div className="rating_add-image-wrap">
+      <div className="rating_add-image" title="Выберите титульное изображение" onClick={@openSelect}></div>
+    </div>
 
   sectionLink: ->
     {rating} = @context

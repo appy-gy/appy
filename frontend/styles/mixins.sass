@@ -101,7 +101,6 @@
     background: darken($color-1, 15%)
 
 =delete-button($color: $color-1)
-  border: 1px solid $color
   cursor: pointer
   color: $color
   display: flex
@@ -112,7 +111,7 @@
   transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease
 
   &:before
-    +ion-icon("android-delete")
+    +ion-icon("android-close")
 
   &:hover
     color: $white

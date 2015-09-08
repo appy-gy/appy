@@ -1,8 +1,7 @@
 .comment-form
   display: flex
-  background: #e3e3e3
+  border: 1px dashed $black-4
   padding: 10px
-  border-radius: $border-radius * 2
 
 
   @media screen and (min-width: $small)
@@ -14,13 +13,14 @@
 
   &_textarea
     font-size: 16px
-    background: $white
-    padding: 8px
+    padding: 18px
     margin-left: 10px
-    border-radius: $border-radius
     width: calc(100% - 60px)
     min-height: 60px
     resize: none
+
+    &:focus
+      background: $white
 
   &_button
     padding: 0 10px
@@ -30,6 +30,8 @@
     font-weight: 700
     flex-shrink: 0
     color: $black-3
+    height: 60px
+    align-self: flex-end
 
     &:not(.m-disabled)
       color: $blue
