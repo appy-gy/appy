@@ -14,7 +14,7 @@ CreateRatingButton = React.createClass
   render: ->
     {currentUser} = @props
 
-    classes = classNames 'header_rating-button', 'm-authorized': currentUser.isLoggedIn()
+    classes = classNames 'header_rating-button', 'm-authorized': currentUser.id?
 
     <CreateRating className={classes}>
       <span className="header_rating-button-icon">+</span>

@@ -3,7 +3,6 @@ toArray = require '../helpers/to_array'
 React = require 'react/addons'
 Marty = require 'marty'
 Constants = require '../constants'
-Section = require '../models/section'
 findInStore = require '../helpers/find_in_store'
 
 {update} = React.addons
@@ -16,10 +15,6 @@ class SectionsStore extends Marty.Store
 
   getInitialState: ->
     []
-
-  rehydrate: (state) ->
-    sections = state.map (section) -> new Section section
-    @append sections
 
   getAll: ->
     @fetch

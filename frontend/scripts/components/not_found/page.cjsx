@@ -16,7 +16,7 @@ NotFoundPage = React.createClass
   button: ->
     {currentUser} = @props
 
-    if currentUser.isLoggedIn()
+    if currentUser.id?
       Component = CreateRating
       props = {}
       children = 'Создать рейтинг'

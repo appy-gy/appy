@@ -1,4 +1,5 @@
 React = require 'react/addons'
+moment = require 'moment'
 Item = require './meta_item'
 
 {PropTypes} = React
@@ -13,7 +14,7 @@ Meta = React.createClass
   render: ->
     {block, rating} = @context
 
-    timestamp = rating.publishedAt || rating.createdAt
+    timestamp = moment(rating.publishedAt || rating.createdAt)
 
     <div className="#{block}_meta">
       <Item ref="likesCounter" icon="likes">
@@ -26,7 +27,7 @@ Meta = React.createClass
         {rating.viewsCount}
       </Item>
       <Item>
-        {timestamp?.format('D MMMM YYYY')}
+        {timestamp.format('D MMMM YYYY')}
       </Item>
     </div>
 

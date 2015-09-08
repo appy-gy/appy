@@ -1,6 +1,6 @@
 React = require 'react/addons'
 Marty = require 'marty'
-Popup = require '../../models/popup'
+buildPopup = require '../../helpers/popups/build'
 SettingsPopup = require './settings_popup'
 
 {PropTypes} = React
@@ -16,7 +16,7 @@ Settings = React.createClass
   showPopup: ->
     {user} = @context
 
-    popup = new Popup
+    popup = buildPopup
       type: 'userSettings'
       content: <SettingsPopup app={@app} user={user}/>
 

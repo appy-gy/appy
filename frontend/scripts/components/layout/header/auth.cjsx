@@ -34,7 +34,7 @@ Auth = React.createClass
   auth: ->
     {user} = @props
 
-    components = if user.isLoggedIn() then 'info' else 'loginAndRegistration'
+    components = if user.id? then 'info' else 'loginAndRegistration'
     @[components] user
 
   render: ->

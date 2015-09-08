@@ -1,7 +1,9 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
+moment = require 'moment'
 classNames = require 'classnames'
+imageUrl = require '../../../helpers/image_url'
 Meta = require './meta'
 Tags = require './tags'
 Delete = require './delete'
@@ -37,7 +39,7 @@ Preview = React.createClass
   title: ->
     {rating} = @props
 
-    rating.title or "Ваш рейтинг от #{rating.createdAt.format('HH:MM DD.MM.YYYY')}"
+    rating.title or "Ваш рейтинг от #{moment(rating.createdAt).format('HH:MM DD.MM.YYYY')}"
 
   description: ->
     {rating} = @props
@@ -60,7 +62,7 @@ Preview = React.createClass
 
     imageStyles = {}
     if rating.image
-      imageStyles.backgroundImage = "url(#{rating.imageUrl(imageSize)})"
+      imageStyles.backgroundImage = "url(#{imageUrl rating.image, imageSize})"
     else
       imageStyles.backgroundColor = 'rgba(33, 172, 208, 1)'
 

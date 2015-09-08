@@ -3,7 +3,6 @@ React = require 'react/addons'
 Marty = require 'marty'
 Select = require 'react-select'
 Nothing = require '../shared/nothing'
-Tag = require '../../models/tag'
 
 {PropTypes} = React
 
@@ -29,10 +28,10 @@ TagsSelect = React.createClass
 
     action = if _.isEmpty query then 'popular' else 'autocomplete'
 
-    @app.tagsApi[action](query).then ({body, status}) =>
-      return callback 'Ошибка' unless status == 200
-      tags = body.tags.map (tag) -> new Tag tag
-      tags.unshift new Tag name: query unless _.isEmpty(query) or _(tags).map('name').includes(query)
+    @app.tagsApi[action](query).then ({body, ok}) =>
+      return callback 'Ошибка' unless ok
+      {tags} = _.clone body.tags
+      tags.unshift name: query unless _.isEmpty(query) or _(tags).map('name').includes(query)
       callback null, options: @toOptions(tags)
 
   value: ->

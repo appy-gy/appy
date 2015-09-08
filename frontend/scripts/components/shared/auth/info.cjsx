@@ -1,4 +1,5 @@
 React = require 'react/addons'
+imageUrl = require '../../../helpers/image_url'
 UserLink = require '../links/user'
 Logout = require './logout'
 
@@ -18,7 +19,7 @@ Info = React.createClass
     {block} = @context
 
     <UserLink className="#{block}_user-profile-link" user={user}>
-      <img className="#{block}_user-avatar" width="50" height="50" src={user.avatarUrl('small')}/>
+      <img className="#{block}_user-avatar" width="50" height="50" src={imageUrl user.avatar, 'small'}/>
       <div className="#{block}_user-info">
         <div className="#{block}_user-name">
           {user.name or user.email}

@@ -5,6 +5,7 @@ WithFileInput = require '../mixins/with_file_input'
 RatingUpdater = require '../mixins/rating_updater'
 FileInput = require '../shared/inputs/file'
 withIndexKeys = require '../../helpers/react/with_index_keys'
+imageUrl = require '../../helpers/image_url'
 
 {PropTypes} = React
 
@@ -29,7 +30,7 @@ RatingItemImage = React.createClass
   imageUrlFor: ({context}) ->
     {ratingItem} = context
 
-    ratingItem.imageUrl 'normal'
+    imageUrl ratingItem.image, 'normal'
 
   updateImage: (files) ->
     {ratingItem} = @context

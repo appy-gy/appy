@@ -20,7 +20,7 @@ CreateRating = React.createClass
     {currentUser} = @props
     {router} = @context
 
-    return unless currentUser.isLoggedIn()
+    return unless currentUser.id?
 
     @app.ratingsActions.create().then ({body}) =>
       router.transitionTo 'rating', ratingSlug: body.rating.slug
@@ -29,7 +29,7 @@ CreateRating = React.createClass
     {currentUser, children} = @props
 
     props = _.omit @props, 'children'
-    Component = if currentUser.isLoggedIn() then 'div' else Login
+    Component = if currentUser.id? then 'div' else Login
 
     <Component {...props} onSuccess={@create}>
       <div onClick={@create}>

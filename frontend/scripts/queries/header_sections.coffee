@@ -1,12 +1,10 @@
 Marty = require 'marty'
 Constants = require '../constants'
-Section = require '../models/section'
 
 class HeaderSectionsQueries extends Marty.Queries
   getAll: ->
-    @app.headerSectionsApi.loadAll().then ({body}) =>
-      return unless body?
-      sections = body.sections.map (section) -> new Section section
-      @dispatch Constants.SET_HEADER_SECTIONS, sections
+    @app.headerSectionsApi.loadAll().then ({body, ok}) =>
+      return unless ok
+      @dispatch Constants.SET_HEADER_SECTIONS, body.sections
 
 module.exports = HeaderSectionsQueries

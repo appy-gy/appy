@@ -1,6 +1,6 @@
 React = require 'react/addons'
 Marty = require 'marty'
-Popup = require '../../../models/popup'
+buildPopup = require '../../../helpers/popups/build'
 Classes = require '../../mixins/classes'
 ResetPasswordPopup = require './reset_password_popup'
 
@@ -13,7 +13,7 @@ ResetPassword = React.createClass
     popups = @app.popupsStore.getOfType('auth')
     @app.popupsActions.remove popups
 
-    popup = new Popup
+    popup = buildPopup
       type: 'auth'
       content: <ResetPasswordPopup app={@app}/>
     @app.popupsActions.append popup

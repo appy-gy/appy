@@ -1,7 +1,8 @@
 React = require 'react/addons'
+classNames = require 'classnames'
+shortId = require '../../../helpers/short_id'
 Form = require './form'
 RatingLink = require '../links/rating'
-classNames = require 'classnames'
 
 {PropTypes} = React
 
@@ -20,7 +21,7 @@ Answer = React.createClass
 
     query = router.getCurrentQuery()
 
-    showForm: query.reply and comment.shortId() == query.comment
+    showForm: query.reply and shortId(comment.id) == query.comment
 
   triggerForm: ->
     {inline} = @props
@@ -50,7 +51,7 @@ Answer = React.createClass
     Root = @root()
     classes = classNames 'comment_action', 'm-active': showForm
 
-    <Root className={classes} slug={comment.ratingSlug} query={comment: comment.shortId(), reply: true}>
+    <Root className={classes} slug={comment.ratingSlug} query={comment: shortId(comment.id), reply: true}>
       <div ref="trigger" className="comment_action-link" onClick={@triggerForm}>
         Ответить
       </div>

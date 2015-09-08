@@ -1,4 +1,7 @@
 React = require 'react/addons'
+moment = require 'moment'
+shortId = require '../../../helpers/short_id'
+imageUrl = require '../../../helpers/image_url'
 ScrollTo = require '../../mixins/scroll_to'
 Actions = require './actions'
 UserLink = require '../links/user'
@@ -29,7 +32,7 @@ Comment = React.createClass
     {comment} = @props
     {router} = @context
 
-    return unless comment.shortId() == router.getCurrentQuery().comment
+    return unless shortId(comment.id) == router.getCurrentQuery().comment
     @scrollTo()
 
   render: ->
@@ -37,7 +40,7 @@ Comment = React.createClass
 
     <div className="comment">
       <UserLink className="comment_username" user={comment.user}>
-        <img className="comment_userface" src={comment.user.avatarUrl('small')}/>
+        <img className="comment_userface" src={imageUrl comment.user.avatar, 'small'}/>
       </UserLink>
       <div className="comment_content">
         <UserLink className="comment_username" user={comment.user}>
@@ -47,7 +50,7 @@ Comment = React.createClass
           {comment.body}
         </span>
         <div className="comment_date">
-          {comment.createdAt.fromNow()}
+          {moment(comment.createdAt).fromNow()}
         </div>
         <Actions ref="actions" types={actionTypes}/>
       </div>

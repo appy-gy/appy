@@ -1,13 +1,10 @@
 Marty = require 'marty'
 Constants = require '../constants'
-Vote = require '../models/vote'
 
 class VotesActions extends Marty.ActionCreators
   create: (ratingItemId, kind) ->
-    @app.votesApi.create(ratingItemId, kind).then ({body, status}) =>
-      return unless status == 200
-      vote = new Vote body.vote
-      {mark} = body.meta
-      @dispatch Constants.CHANGE_RATING_ITEM, ratingItemId, { vote, mark }
+    @app.votesApi.create(ratingItemId, kind).then ({body, ok}) =>
+      return unless ok
+      @dispatch Constants.CHANGE_RATING_ITEM, ratingItemId, vote: body.vote, mark: body.meta.mark
 
 module.exports = VotesActions

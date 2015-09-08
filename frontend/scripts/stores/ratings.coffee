@@ -6,7 +6,6 @@ findIndexInStore = require '../helpers/find_index_in_store'
 React = require 'react/addons'
 Marty = require 'marty'
 Constants = require '../constants'
-Rating = require '../models/rating'
 
 {update} = React.addons
 
@@ -23,10 +22,6 @@ class RatingsStore extends Marty.Store
 
   getInitialState: ->
     []
-
-  rehydrate: (state) ->
-    ratings = state.map (rating) -> new Rating rating
-    @append ratings
 
   getPage: (page) ->
     id = "getPage-#{page}"
@@ -72,7 +67,7 @@ class RatingsStore extends Marty.Store
   change: (ratingId, changes) ->
     rating = findInStore @, ratingId
     return unless rating?
-    rating.update changes
+    _.merge rating, changes
     @hasChanged()
 
   replace: (rating) ->

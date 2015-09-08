@@ -1,12 +1,10 @@
 Marty = require 'marty'
 Constants = require '../constants'
-User = require '../models/user'
 
 class UsersQueries extends Marty.Queries
   get: (id) ->
-    @app.usersApi.load(id).then ({body}) =>
-      return unless body?
-      user = new User body.user
-      @dispatch Constants.APPEND_USERS, user
+    @app.usersApi.load(id).then ({body, ok}) =>
+      return unless ok
+      @dispatch Constants.APPEND_USERS, body.user
 
 module.exports = UsersQueries

@@ -1,6 +1,6 @@
 Marty = require 'marty'
 Qs = require 'qs'
-snakecaseKeys = require '../helpers/snakecase_keys'
+deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 
 class CommentsApi extends Marty.HttpStateSource
   baseUrl: '/api/private'
@@ -14,7 +14,7 @@ class CommentsApi extends Marty.HttpStateSource
 
   create: (ratingId, data) ->
     url = "ratings/#{ratingId}/comments"
-    body = comment: snakecaseKeys(data)
+    body = comment: deepSnakecaseKeys(data)
     @post { url, body }
 
 module.exports = CommentsApi

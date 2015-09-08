@@ -3,7 +3,6 @@ React = require 'react/addons'
 toArray = require '../helpers/to_array'
 findInStore = require '../helpers/find_in_store'
 Constants = require '../constants'
-Comment = require '../models/comment'
 
 {update} = React.addons
 
@@ -15,10 +14,6 @@ class CommentsStore extends Marty.Store
 
   getInitialState: ->
     []
-
-  rehydrate: (state) ->
-    comments = state.map (comment) -> new Comment comment
-    @append comments
 
   getForRating: (ratingId) ->
     id = "getForRating-#{ratingId}"

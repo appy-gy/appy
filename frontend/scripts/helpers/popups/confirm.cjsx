@@ -1,7 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
+buildPopup = require './build'
 ConfirmationPopup = require '../../components/shared/popups/confirmation'
-Popup = require '../../models/popup'
 
 confirmPopup = (app, props) ->
   removePopup = -> app.popupsActions.remove popup
@@ -11,7 +11,7 @@ confirmPopup = (app, props) ->
       removePopup()
       fn?()
 
-  popup = new Popup
+  popup = buildPopup
     type: 'confirmation'
     content: <ConfirmationPopup {...props}/>
 

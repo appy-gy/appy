@@ -1,6 +1,5 @@
 Marty = require 'marty'
 Constants = require '../constants'
-Section = require '../models/section'
 
 class HeaderSectionsStore extends Marty.Store
   constructor: ->
@@ -10,10 +9,6 @@ class HeaderSectionsStore extends Marty.Store
 
   getInitialState: ->
     []
-
-  rehydrate: (state) ->
-    sections = state.map (section) -> new Section section
-    @set sections
 
   getAll: ->
     @fetch

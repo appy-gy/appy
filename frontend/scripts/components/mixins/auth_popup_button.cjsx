@@ -1,11 +1,11 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Popup = require '../../models/popup'
+buildPopup = require '../../helpers/popups/build'
+showToast = require '../../helpers/toasts/show'
 AppFromProps = require './app_from_props'
 AuthPopup = require '../shared/auth/auth_popup'
 Login = -> require '../shared/auth/login'
 Registration = -> require '../shared/auth/registration'
-showToast = require '../../helpers/toasts/show'
 
 {PropTypes} = React
 
@@ -49,7 +49,7 @@ AuthPopupButton =
   showPopup: ->
     @closeAuthPopups()
 
-    popup = new Popup
+    popup = buildPopup
       type: 'auth'
       content: <AuthPopup app={@app} title={@popupTitle} onSubmit={@submit} switcher={@switcher()}/>
 

@@ -38,7 +38,7 @@ Ratings = React.createClass
 
     _ @app.ratingsStore.getState()
       .filter (rating) -> visiblePages.has rating.page
-      .sortBy 'publishedAt'
+      .sortBy (rating) -> Date.parse rating.publishedAt
       .reverse()
       .value()
 

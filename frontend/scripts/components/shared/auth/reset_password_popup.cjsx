@@ -25,8 +25,8 @@ ResetPasswordPopup = React.createClass
 
     event.preventDefault()
 
-    @app.resetPasswordApi.reset(email).then ({body, status}) =>
-      return @showFailToast() unless status == 200
+    @app.resetPasswordApi.reset(email).then ({body, ok}) =>
+      return @showFailToast() unless ok
       @showSuccessToast()
       popups = @app.popupsStore.getOfType('auth')
       @app.popupsActions.remove popups

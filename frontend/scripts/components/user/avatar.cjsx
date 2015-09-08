@@ -1,9 +1,10 @@
 React = require 'react/addons'
 Marty = require 'marty'
+imageUrl = require '../../helpers/image_url'
+withIndexKeys = require '../../helpers/react/with_index_keys'
 WithFileInput = require '../mixins/with_file_input'
 WithRequestQueue = require '../mixins/with_request_queue'
 FileInput = require '../shared/inputs/file'
-withIndexKeys = require '../../helpers/react/with_index_keys'
 
 {PropTypes} = React
 
@@ -19,7 +20,7 @@ Avatar = React.createClass
   imageUrlFor: ({context}) ->
     {user} = context
 
-    user.avatarUrl 'normal'
+    imageUrl user.avatar, 'normal'
 
   updateAvatar: (files) ->
     {user} = @context

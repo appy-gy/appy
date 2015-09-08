@@ -1,8 +1,9 @@
 React = require 'react/addons'
 Marty = require 'marty'
 classNames = require 'classnames'
-Textarea = require '../inputs/text'
 isBlank = require '../../../helpers/is_blank'
+imageUrl = require '../../../helpers/image_url'
+Textarea = require '../inputs/text'
 
 {PropTypes} = React
 
@@ -56,7 +57,7 @@ Form = React.createClass
     buttonClasses = classNames 'comment-form_button', 'm-disabled': isBlank(body)
 
     <div className={classes}>
-      <img className="comment_userface" src={user.avatarUrl 'small'}/>
+      <img className="comment_userface" src={imageUrl user.avatar, 'small'}/>
       <Textarea ref="bodyInput" className="comment-form_textarea" placeholder={@placeholder} value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
       <div className={buttonClasses} onClick={@createComment}>Написать</div>
     </div>

@@ -7,7 +7,6 @@ ParsePage = require '../mixins/parse_page'
 RatingsList = require '../mixins/ratings_list'
 Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
-Section = require '../../models/section'
 
 {PropTypes} = React
 {CSSTransitionGroup} = React.addons

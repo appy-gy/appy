@@ -12,7 +12,6 @@
     "iconfonts": "^0.7.0",
     "jade": "^1.9.2",
     "lodash": "^3.7.0",
-    "map-obj": "^1.0.0",
     "marty": "^0.10.5",
     "marty-express": "^0.10.0",
     "memcached": "^2.1.0",

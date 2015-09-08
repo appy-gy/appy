@@ -12,6 +12,7 @@ Meta = require '../shared/ratings/meta'
 FileInput = require '../shared/inputs/file'
 SectionLink = require '../shared/links/section'
 withIndexKeys = require '../../helpers/react/with_index_keys'
+imageUrl = require '../../helpers/image_url'
 
 {PropTypes} = React
 
@@ -26,7 +27,7 @@ Header = React.createClass
   imageUrlFor: ({context}) ->
     {rating} = context
 
-    rating.imageUrl 'normal'
+    imageUrl rating.image, 'normal'
 
   updateImage: (files) ->
     {rating} = @context

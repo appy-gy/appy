@@ -31,8 +31,8 @@ SettingsPopup = React.createClass
     event.preventDefault()
 
     @app.usersApi.changePassword(user.id, oldPassword, newPassword)
-      .then ({body, status}) =>
-        return showToast @app, 'Вы ввели неверный старый пароль', 'error' unless status == 200
+      .then ({body, ok}) =>
+        return showToast @app, 'Вы ввели неверный старый пароль', 'error' unless ok
         showToast @app, 'Пароль был успешно изменен', 'success'
         @setState oldPassword: '', newPassword: ''
 

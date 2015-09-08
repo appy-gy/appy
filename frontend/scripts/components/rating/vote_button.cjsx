@@ -20,7 +20,7 @@ VoteButton = React.createClass
     {kind, currentUser} = @props
     {ratingItem} = @context
 
-    return unless currentUser.isLoggedIn()
+    return unless currentUser.id?
 
     @app.votesActions.create ratingItem.id, kind
 
@@ -29,7 +29,7 @@ VoteButton = React.createClass
     {ratingItem} = @context
 
     classes = classNames 'rating-item_button', "m-#{kind}", 'm-active': ratingItem.vote?.kind == kind
-    Component = if currentUser.isLoggedIn() then 'div' else Login
+    Component = if currentUser.id? then 'div' else Login
 
     <Component onSuccess={@vote}>
       <div className={classes} onClick={@vote}></div>

@@ -1,5 +1,5 @@
 Marty = require 'marty'
-snakecaseKeys = require '../helpers/snakecase_keys'
+deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 toFormData = require '../helpers/to_form_data'
 
 class UsersApi extends Marty.HttpStateSource
@@ -9,12 +9,12 @@ class UsersApi extends Marty.HttpStateSource
     @get id
 
   update: (id, changes) ->
-    body = toFormData(user: snakecaseKeys(changes))
+    body = toFormData(user: deepSnakecaseKeys(changes))
     @put { url: id, body }
 
   changePassword: (id, oldPassword, newPassword) ->
     url = "#{id}/change_password"
-    body = snakecaseKeys { oldPassword, newPassword }
+    body = deepSnakecaseKeys { oldPassword, newPassword }
     @put { url, body }
 
 module.exports = UsersApi

@@ -4,7 +4,6 @@ React = require 'react/addons'
 toArray = require '../helpers/to_array'
 findInStore = require '../helpers/find_in_store'
 Constants = require '../constants'
-User = require '../models/user'
 
 {update} = React.addons
 
@@ -18,10 +17,6 @@ class UsersStore extends Marty.Store
 
   getInitialState: ->
     []
-
-  rehydrate: (state) ->
-    users = state.map (user) -> new User user
-    @append users
 
   get: (id) ->
     @fetch
@@ -38,7 +33,7 @@ class UsersStore extends Marty.Store
   change: (id, changes) ->
     user = _.find @state, (user) -> user.id == id
     return unless user?
-    user.update changes
+    _.merge user, changes
     @hasChanged()
 
   replace: (user) ->

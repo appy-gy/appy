@@ -25,7 +25,7 @@ Like = React.createClass
     {currentUser} = @props
     {rating} = @context
 
-    return unless currentUser.isLoggedIn()
+    return unless currentUser.id?
 
     action = if rating.like? then 'unlike' else 'like'
     @app.ratingsActions[action] rating.id
@@ -40,7 +40,7 @@ Like = React.createClass
     {currentUser} = @props
     {rating} = @context
 
-    Component = if currentUser.isLoggedIn() then 'div' else Login
+    Component = if currentUser.id? then 'div' else Login
 
     <Component className="rating_like-wrapper" onSuccess={@triggerLike}>
       <div ref="like" className="rating_like" onClick={@triggerLike}>

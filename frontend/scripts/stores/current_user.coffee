@@ -1,6 +1,5 @@
 Marty = require 'marty'
 Constants = require '../constants'
-User = require '../models/user'
 
 class CurrentUserStore extends Marty.Store
   constructor: ->
@@ -10,11 +9,7 @@ class CurrentUserStore extends Marty.Store
       maybeSet: Constants.REPLACE_USER
 
   getInitialState: ->
-    new User
-
-  rehydrate: (state) ->
-    user = new User state
-    @set user
+    {}
 
   get: ->
     @fetch
@@ -26,8 +21,7 @@ class CurrentUserStore extends Marty.Store
         @app.currentUserQueries.get()
 
   set: (user) ->
-    user = new User unless user?
-    @state = user
+    @state = user || {}
 
   maybeSet: (user) ->
     return unless user.id == @state.id

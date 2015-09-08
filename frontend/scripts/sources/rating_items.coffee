@@ -1,5 +1,5 @@
 Marty = require 'marty'
-snakecaseKeys = require '../helpers/snakecase_keys'
+deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 toFormData = require '../helpers/to_form_data'
 
 class RatingItemsApi extends Marty.HttpStateSource
@@ -11,12 +11,12 @@ class RatingItemsApi extends Marty.HttpStateSource
 
   create: (ratingId, data) ->
     url = "#{ratingId}/rating_items"
-    body = toFormData rating_item: snakecaseKeys(data)
+    body = toFormData rating_item: deepSnakecaseKeys(data)
     @post { url, body }
 
   update: (id, ratingId, changes) ->
     url = "#{ratingId}/rating_items/#{id}"
-    body = toFormData rating_item: snakecaseKeys(changes)
+    body = toFormData rating_item: deepSnakecaseKeys(changes)
     @put { url, body }
 
   remove: (id, ratingId) ->

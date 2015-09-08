@@ -6,6 +6,7 @@ arrayEach = require './setup/array_each'
 classify = require './setup/classify'
 momentLocale = require './setup/moment_locale'
 initSmoothScroll = require './setup/init_smooth_scroll'
+camelcaseResponseBody = require './setup/camelcase_response_body'
 
 setup = ->
   polyfillSetImmediate()
@@ -16,5 +17,6 @@ setup = ->
   classify()
   momentLocale()
   initSmoothScroll()
+  camelcaseResponseBody()
 
 module.exports = setup

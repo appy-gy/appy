@@ -3,16 +3,14 @@ React = require 'react/addons'
 Marty = require 'marty'
 Constants = require '../constants'
 findInStore = require '../helpers/find_in_store'
-RatingItem = require '../models/rating_item'
 
 {update} = React.addons
 
 class RatingItemsActions extends Marty.ActionCreators
   create: (ratingId, position) ->
-    @app.ratingItemsApi.create(ratingId, { position }).then ({body}) =>
-      return unless body?
-      ratingItem = new RatingItem body.rating_item
-      @dispatch Constants.APPEND_RATING_ITEMS, ratingItem
+    @app.ratingItemsApi.create(ratingId, { position }).then ({body, ok}) =>
+      return unless ok
+      @dispatch Constants.APPEND_RATING_ITEMS, body.ratingItem
 
   change: (ratingItemId, changes) ->
     @dispatch Constants.CHANGE_RATING_ITEM, ratingItemId, changes
@@ -21,10 +19,10 @@ class RatingItemsActions extends Marty.ActionCreators
     notSync = _.keys changes if notSync == true
     ratingItem = findInStore @app.ratingItemsStore, ratingItemId
 
-    @app.ratingItemsApi.update(ratingItem.id, ratingItem.ratingId, changes).then ({body, status}) =>
-      return unless status == 200
+    @app.ratingItemsApi.update(ratingItem.id, ratingItem.ratingId, changes).then ({body, ok}) =>
+      return unless ok
       prevRatingItem = findInStore @app.ratingItemsStore, ratingItemId
-      ratingItem = new RatingItem _.merge(_.omit(body.rating_item, notSync), _.pick(prevRatingItem, notSync))
+      ratingItem = _.merge(_.omit(body.ratingItem, notSync), _.pick(prevRatingItem, notSync))
       @dispatch Constants.REPLACE_RATING_ITEM, ratingItem
 
   remove: (ratingItemId) ->
