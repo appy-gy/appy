@@ -14,7 +14,7 @@
     "lodash": "^3.7.0",
     "marty": "^0.10.5",
     "marty-express": "^0.10.0",
-    "memcached": "^2.1.0",
+    "memcached": "3rd-Eden/memcached",
     "moment": "^2.9.0",
     "node-uuid": "^1.4.3",
     "normalize.css": "^3.0.2",
@@ -33,9 +33,9 @@
   "devDependencies": {
     "assets-webpack-plugin": "^2.2.2",
     "autoprefixer-loader": "^2.0.0",
-    "babel-core": "^5.8.19",
+    "babel-core": "^5.8.23",
     "babel-loader": "^5.3.2",
-    "chai": "^3.0.0",
+    "chai": "^3.2.0",
     "cjsx-loader": "^2.0.1",
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.9.3",
@@ -44,7 +44,7 @@
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
     "http-proxy": "^1.11.1",
-    "karma": "^0.13.3",
+    "karma": "^0.13.9",
     "karma-mocha": "^0.2.0",
     "karma-notify-reporter": "^0.1.1",
     "karma-sinon-chai": "^1.0.0",
@@ -62,7 +62,7 @@
     "sinon": "^1.15.4",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.12.3",
-    "webpack": "^1.10.5",
+    "webpack": "^1.12.1",
     "webpack-dev-server": "^1.10.1"
   }
 }

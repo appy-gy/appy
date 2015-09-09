@@ -1,7 +1,6 @@
 _ = require 'lodash'
 dotenv = require 'dotenv'
 path = require 'path'
-mapObj = require 'map-obj'
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 AssetsPlugin = require 'assets-webpack-plugin'
@@ -11,8 +10,8 @@ dotenv.load()
 app = ['./frontend/app']
 
 env = _.pick process.env, 'NODE_ENV', 'TOP_ENV', 'TOP_INSTAGRAM_KEY'
-definePluginEnv = mapObj env, (key, value) ->
-  ["process.env.#{key}", JSON.stringify(value)]
+definePluginEnv = _.transform env, (result, value, key) ->
+  result["process.env.#{key}"] = JSON.stringify value
 
 plugins = [
   new ExtractTextPlugin('[name].[hash].css', disable: process.env.TOP_ENV != 'production')
