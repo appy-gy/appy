@@ -10,7 +10,7 @@ module Comments
     end
 
     def call
-      user.comments.includes(:user, rating: :section).page(page).per(per_page)
+      user.comments.includes(:user, rating: :section).order(created_at: :desc).page(page).per(per_page)
     end
   end
 end
