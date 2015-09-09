@@ -47,7 +47,8 @@ Ratings = React.createClass
 
   previews: ->
     @ratings().map (rating, index) =>
-      type = _.findKey(@previewEnds, (end) -> _.inRange index, end) || 'normal'
+      type = _.findKey @previewEnds, (end) -> _.inRange index, end if rating.page == 1
+      type ||= 'normal'
       mod = _.kebabCase type
       imageSize = if type == 'normal' then 'preview' else 'large_preview'
       <Preview key={rating.id} rating={rating} mod={mod} imageSize={imageSize}/>
