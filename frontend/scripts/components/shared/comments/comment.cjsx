@@ -5,6 +5,8 @@ imageUrl = require '../../../helpers/image_url'
 ScrollTo = require '../../mixins/scroll_to'
 Actions = require './actions'
 UserLink = require '../links/user'
+RatingLink = require '../links/rating'
+SectionLink = require '../links/section'
 
 {PropTypes} = React
 
@@ -15,6 +17,8 @@ Comment = React.createClass
 
   propTypes:
     comment: PropTypes.object.isRequired
+    showUsername: PropTypes.bool.isRequired
+    showRatingInfo: PropTypes.bool.isRequired
     actionTypes: PropTypes.object.isRequired
 
   contextTypes:
@@ -35,6 +39,32 @@ Comment = React.createClass
     return unless shortId(comment.id) == router.getCurrentQuery().comment
     @scrollTo()
 
+  username: ->
+    {comment, showUsername} = @props
+
+    return unless showUsername
+
+    <UserLink className="comment_username" user={comment.user}>
+      {comment.user.name or comment.user.email}
+    </UserLink>
+
+  ratingInfo: ->
+    {comment, showRatingInfo} = @props
+
+    return unless showRatingInfo
+
+    sectionStyles = color: comment.rating.section.color
+
+    <div className="comment_rating-info">
+      <SectionLink className="comment_rating-info-section" section={comment.rating.section} style={sectionStyles}>
+        {comment.rating.section.name}
+      </SectionLink>
+      |
+      <RatingLink className="comment_rating-info-rating" rating={comment.rating}>
+        {comment.rating.title}
+      </RatingLink>
+    </div>
+
   render: ->
     {comment, actionTypes} = @props
 
@@ -43,9 +73,8 @@ Comment = React.createClass
         <img className="comment_userface" src={imageUrl comment.user.avatar, 'small'}/>
       </UserLink>
       <div className="comment_content">
-        <UserLink className="comment_username" user={comment.user}>
-          {comment.user.name or comment.user.email}
-        </UserLink>
+        {@username()}
+        {@ratingInfo()}
         <span className="comment_text">
           {comment.body}
         </span>

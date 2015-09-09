@@ -33,7 +33,7 @@ CommentsTree = React.createClass
     classes = classNames 'comments_tree', "m-level-#{level}", 'm-subtree': level > 1
 
     <div className={classes}>
-      <Comment ref="comment" comment={tree.root} actionTypes={@actionTypes()}/>
+      <Comment ref="comment" comment={tree.root} showUsername={true} showRatingInfo={false} actionTypes={@actionTypes()}/>
       {@subtrees()}
     </div>
 

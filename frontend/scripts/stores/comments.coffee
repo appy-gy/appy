@@ -22,7 +22,7 @@ class CommentsStore extends Marty.Store
       id: id
       locally: ->
         return unless @hasAlreadyFetched id
-        findInStore @, ratingId, all: true, fields: ['ratingId', 'ratingSlug']
+        findInStore @, ratingId, all: true, fields: ['rating.id', 'rating.slug']
       remotely: ->
         @app.commentsQueries.getForRating(ratingId)
 

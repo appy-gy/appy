@@ -31,7 +31,7 @@ Comments = React.createClass
     actionTypes = open: {}, answer: { inline: false }
 
     comments.map (comment) ->
-      <Comment key={comment.id} comment={comment} actionTypes={actionTypes}/>
+      <Comment key={comment.id} comment={comment} showUsername={false} showRatingInfo={true} actionTypes={actionTypes}/>
 
   render: ->
     {page} = @props

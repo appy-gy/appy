@@ -10,7 +10,7 @@ module Comments
     end
 
     def call
-      user.comments.includes(:rating).page(page).per(per_page)
+      user.comments.includes(:user, rating: :section).page(page).per(per_page)
     end
   end
 end
