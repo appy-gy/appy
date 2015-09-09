@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
 canEditUser = require '../../helpers/users/can_edit'
+canSeeRatingDrafts = require '../../helpers/ratings/can_see_drafts'
 ClearStores = require '../mixins/clear_stores'
 ParsePage = require '../mixins/parse_page'
 SyncSlug = require '../mixins/sync_slug'
@@ -41,6 +42,14 @@ UserPage = React.createClass
     {user, userSlug} = @props
 
     { user, userSlug, isOwnPage: @isOwnPage(), canEdit: @canEdit(), block: 'user-profile' }
+
+  componentWillUpdate: (nextProps) ->
+    {user, currentUser} = @props
+
+    return if canSeeRatingDrafts(currentUser, user) == canSeeRatingDrafts(nextProps.currentUser, user)
+
+    @app.ratingsStore.clear()
+    @app.usersStore.clear()
 
   isOwnPage: ->
     {user, currentUser} = @props
