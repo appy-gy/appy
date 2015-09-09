@@ -1,16 +1,19 @@
 React = require 'react/addons'
 Router = require 'react-router'
 
-{PureRenderMixin} = React.addons
+{PropTypes} = React
 {Link} = Router
 
 Logo = React.createClass
   displayName: 'Logo'
 
-  mixins: [PureRenderMixin]
+  contextTypes:
+    onLogoClick: PropTypes.func.isRequired
 
   render: ->
-    <Link to="root" className="header_logotype">
+    {onLogoClick} = @context
+
+    <Link to="root" className="header_logotype" onClick={onLogoClick}>
     </Link>
 
 module.exports = Logo

@@ -2,12 +2,9 @@ React = require 'react/addons'
 classNames = require 'classnames'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 Header = React.createClass
   displayName: 'Header'
-
-  mixins: [PureRenderMixin]
 
   propTypes:
     children: PropTypes.node.isRequired

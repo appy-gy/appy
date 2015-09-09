@@ -15,8 +15,12 @@ Layout = React.createClass
   displayName: 'Layout'
 
   propTypes:
-    children: PropTypes.node.isRequired
     header: PropTypes.string
+    onLogoClick: PropTypes.func
+    children: PropTypes.node.isRequired
+
+  childContextTypes:
+    onLogoClick: PropTypes.func.isRequired
 
   headers:
     common: CommonHeader
@@ -25,6 +29,12 @@ Layout = React.createClass
 
   getDefaultProps: ->
     header: 'common'
+    onLogoClick: ->
+
+  getChildContext: ->
+    {onLogoClick} = @props
+
+    { onLogoClick }
 
   header: ->
     {header} = @props

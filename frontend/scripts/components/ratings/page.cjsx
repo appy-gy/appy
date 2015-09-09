@@ -32,6 +32,9 @@ Ratings = React.createClass
   pagesCountKey: ->
     'ratings'
 
+  showFirstPage: ->
+    @changeVisiblePages -> new Set [1]
+
   ratings: ->
     {visiblePages} = @state
     {page} = @context
@@ -50,7 +53,7 @@ Ratings = React.createClass
       <Preview key={rating.id} rating={rating} mod={mod} imageSize={imageSize}/>
 
   render: ->
-    <Layout>
+    <Layout onLogoClick={@showFirstPage}>
       <CSSTransitionGroup className="previews" transitionName="m">
         {@previews()}
       </CSSTransitionGroup>

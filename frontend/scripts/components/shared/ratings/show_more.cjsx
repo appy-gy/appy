@@ -1,6 +1,5 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
 classNames = require 'classnames'
 KeepScroll = require '../../mixins/keep_scroll'
 
@@ -9,7 +8,7 @@ KeepScroll = require '../../mixins/keep_scroll'
 ShowMore = React.createClass
   displayName: 'ShowMore'
 
-  mixins: [Marty.createAppMixin(), KeepScroll]
+  mixins: [KeepScroll]
 
   contextTypes:
     router: PropTypes.func.isRequired
