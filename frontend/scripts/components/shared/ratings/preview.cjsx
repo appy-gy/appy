@@ -58,7 +58,7 @@ Preview = React.createClass
   render: ->
     {rating, imageSize, mod} = @props
 
-    classes = classNames 'preview', "m-#{mod}": !!mod
+    classes = classNames 'preview', "m-#{mod}"
 
     imageStyles = {}
     if rating.image

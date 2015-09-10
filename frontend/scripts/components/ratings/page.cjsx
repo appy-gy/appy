@@ -9,7 +9,6 @@ Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
 
 {PropTypes} = React
-{CSSTransitionGroup} = React.addons
 
 Ratings = React.createClass
   displayName: 'Ratings'
@@ -55,10 +54,10 @@ Ratings = React.createClass
 
   render: ->
     <Layout onLogoClick={@showFirstPage}>
-      <CSSTransitionGroup className="previews" transitionName="m">
+      <div className="previews">
         {@previews()}
-      </CSSTransitionGroup>
-      {@showMore()}
+        {@showMore()}
+      </div>
       {@pagination()}
     </Layout>
 
