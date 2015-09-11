@@ -6,7 +6,6 @@ axios = require 'axios'
 requestRatings = createAction 'REQUEST_RATINGS'
 receiveRatings = createAction 'RECEIVE_RATINGS'
 setRatingsPagesCount = createAction 'SET_RATINGS_PAGES_COUNT'
-clearRatings = createAction 'CLEAR_RATINGS'
 
 fetchRatings = (page) ->
   (dispatch, getState) ->
@@ -26,4 +25,4 @@ fetchRatingsInSection = (section, page) ->
       dispatch receiveRatings(data.ratings)
       dispatch setRatingsPagesCount(data.meta.pagesCount)
 
-module.exports = { fetchRatings, fetchRatingsInSection, clearRatings }
+module.exports = { fetchRatings, fetchRatingsInSection }

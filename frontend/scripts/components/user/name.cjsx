@@ -1,15 +1,19 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+userActions = require '../../actions/user'
 isBlank = require '../../helpers/is_blank'
 withIndexKeys = require '../../helpers/react/with_index_keys'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{changeUser, updateUser} = userActions
 
 Name = React.createClass
   displayName: 'Name'
 
-  mixins: [Marty.createAppMixin()]
+  propTypes:
+    dispatch: PropTypes.func.isRequired
 
   contextTypes:
     user: PropTypes.object.isRequired
@@ -18,22 +22,18 @@ Name = React.createClass
   placeholder: 'Введи свое имя'
 
   getInitialState: ->
-    {user, canEdit} = @context
-
-    edit: canEdit and isBlank(user.name)
+    edit: @context.canEdit and isBlank(@context.user.name)
 
   changeName: (event) ->
-    {user} = @context
-    {value} = event.target
-
-    @app.usersActions.change user.id, name: value
+    @props.dispatch changeUser(name: event.target.value)
 
   saveName: ->
+    {dispatch} = @props
     {user} = @context
 
     @setState edit: false
-    return @app.usersActions.change user.id, name: @prevName if isBlank user.name
-    @app.usersActions.update user.id, name: user.name
+    return dispatch changeUser(name: @prevName) if isBlank user.name
+    dispatch updateUser(user.id, name: user.name)
 
   startEdit: ->
     {user, canEdit} = @context
@@ -44,10 +44,11 @@ Name = React.createClass
     @setState edit: true
 
   cancelEdit: ->
+    {dispatch} = @props
     {user} = @context
 
     @setState edit: false
-    @app.usersActions.change user.id, name: @prevName
+    dispatch changeUser(name: @prevName)
 
   contentView: ->
     {edit} = @state
@@ -82,4 +83,4 @@ Name = React.createClass
       {@contentEdit()}
     </div>
 
-module.exports = Name
+module.exports = connect()(Name)

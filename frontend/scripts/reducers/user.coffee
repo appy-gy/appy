@@ -6,21 +6,22 @@ ReduxActions = require 'redux-actions'
 {handleActions} = ReduxActions
 
 defaultState = ->
-  items: []
-  pagesCount: 0
+  item: {}
   isFetching: false
 
 reducer = handleActions
-  REQUEST_RATINGS: (state) ->
+  REQUEST_USER: (state) ->
     update state, isFetching: { $set: true }
 
-  RECEIVE_RATINGS: (state, {payload: ratings}) ->
+  RECEIVE_USER: (state, {payload: user}) ->
+    user ||= {}
+
     update state,
       isFetching: { $set: false }
-      items: { $set: _.uniq(ratings.concat(state.items), 'id') }
+      item: { $set: user }
 
-  SET_RATINGS_PAGES_COUNT: (state, {payload: pagesCount}) ->
-    update state, pagesCount: { $set: pagesCount }
+  CHANGE_USER: (state, {payload: changes}) ->
+    update state, item: { $merge: changes }
 
 , defaultState()
 

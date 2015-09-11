@@ -1,5 +1,6 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+userActions = require '../../actions/user'
 imageUrl = require '../../helpers/image_url'
 withIndexKeys = require '../../helpers/react/with_index_keys'
 WithFileInput = require '../mixins/with_file_input'
@@ -7,31 +8,35 @@ WithRequestQueue = require '../mixins/with_request_queue'
 FileInput = require '../shared/inputs/file'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{changeUser, updateUser} = userActions
 
 Avatar = React.createClass
   displayName: 'Avatar'
 
-  mixins: [Marty.createAppMixin(), WithFileInput, WithRequestQueue]
+  mixins: [WithFileInput, WithRequestQueue]
+
+  propTypes:
+    dispatch: PropTypes.func.isRequired
 
   contextTypes:
     user: PropTypes.object.isRequired
     canEdit: PropTypes.bool.isRequired
 
   imageUrlFor: ({context}) ->
-    {user} = context
-
-    imageUrl user.avatar, 'normal'
+    imageUrl @context.user.avatar, 'normal'
 
   updateAvatar: (files) ->
+    {dispatch} = @props
     {user} = @context
 
     avatar = files[0]
     return unless avatar?
 
-    @app.usersActions.change user.id, avatar: avatar.preview
+    dispatch changeUser(avatar: avatar.preview)
     @clearQueue()
-    @addToQueue =>
-      @app.usersActions.update user.id, { avatar }
+    @addToQueue ->
+      dispatch updateUser(user.id, { avatar })
 
   fileInput: ->
     {canEdit} = @context
@@ -63,4 +68,4 @@ Avatar = React.createClass
       {@children()}
     </FileInput>
 
-module.exports = Avatar
+module.exports = connect()(Avatar)

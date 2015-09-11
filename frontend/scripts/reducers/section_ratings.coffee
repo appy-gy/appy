@@ -22,9 +22,6 @@ reducer = handleActions
   SET_SECTION_RATINGS_PAGES_COUNT: (state, {payload: pagesCount}) ->
     update state, pagesCount: { $set: pagesCount }
 
-  CLEAR_SECTION_RATINGS: (state) ->
-    defaultState()
-
 , defaultState()
 
 module.exports = reducer

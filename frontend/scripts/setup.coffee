@@ -3,6 +3,7 @@ polyfillSet = require './setup/polyfill_set'
 arrayEach = require './setup/array_each'
 momentLocale = require './setup/moment_locale'
 initSmoothScroll = require './setup/init_smooth_scroll'
+notPureConnect = require './setup/not_pure_connect'
 axiosPrependBaseUrl = require './setup/axios_prepend_base_url'
 axiosSetResponseOk = require './setup/axios_set_response_ok'
 axiosCamelcaseData = require './setup/axios_camelcase_data'
@@ -13,6 +14,7 @@ setup = ->
   arrayEach()
   momentLocale()
   initSmoothScroll()
+  notPureConnect()
   axiosPrependBaseUrl()
   axiosSetResponseOk()
   axiosCamelcaseData()

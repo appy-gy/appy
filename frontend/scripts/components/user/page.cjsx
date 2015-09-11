@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+userActions = require '../../actions/user'
 canEditUser = require '../../helpers/users/can_edit'
 canSeeRatingDrafts = require '../../helpers/ratings/can_see_drafts'
 ParsePage = require '../mixins/parse_page'
@@ -17,18 +18,22 @@ Tabs = require '../shared/tabs/tabs'
 Tab = require '../shared/tabs/tab'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{fetchUser} = userActions
 
-UserPage = React.createClass
+User = React.createClass
   displayName: 'User'
 
-  mixins: [ParsePage, SyncSlug('user'), Loading]
+  mixins: [Loading, ParsePage, SyncSlug('user')]
 
   propTypes:
+    dispatch: PropTypes.func.isRequired
+    userSlug: PropTypes.string.isRequired
     user: PropTypes.object.isRequired
-    currentUser: PropTypes.object.isRequired
 
   contextTypes:
     router: PropTypes.func.isRequired
+    currentUser: PropTypes.object.isRequired
 
   childContextTypes:
     user: PropTypes.object.isRequired
@@ -42,47 +47,41 @@ UserPage = React.createClass
 
     { user, userSlug, isOwnPage: @isOwnPage(), canEdit: @canEdit(), block: 'user-profile' }
 
+  componentWillMount: ->
+    @fetchUser()
+
   componentWillUpdate: (nextProps) ->
-    {user, currentUser} = @props
+    {user} = @props
+    {currentUser} = @context
 
     return if canSeeRatingDrafts(currentUser, user) == canSeeRatingDrafts(nextProps.currentUser, user)
 
     @app.ratingsStore.clear()
     @app.usersStore.clear()
 
-  isOwnPage: ->
-    {user, currentUser} = @props
-
-    currentUser?.id == user.id
-
-  canEdit: ->
-    {user, currentUser} = @props
-
-    canEditUser currentUser, user
-
-  currentPage: ->
-    {router} = @context
-
-    @parsePage router.getCurrentQuery().page
+  shouldShowLoader: ->
+    @props.isFetching
 
   isSlugChanged: ({user}) ->
-    {router} = @context
+    user?.slug? and @context.router.getCurrentParams().userSlug != user.slug
 
-    user?.slug? and router.getCurrentParams().userSlug != user.slug
+  currentPage: ->
+    @parsePage @context.router.getCurrentQuery().page
 
-  shouldShowLoader: ->
-    {user} =  @props
+  isOwnPage: ->
+    @context.currentUser.id == @props.user.id
 
-    not user?.id?
+  canEdit: ->
+    canEditUser @context.currentUser, @props.user
+
+  fetchUser: ->
+    @props.dispatch fetchUser(@props.userSlug)
 
   resetPage: (query) ->
-    delete query.page
-    query
+    _.omit query, 'page'
 
   settings: ->
-    return unless @canEdit()
-
-    <Settings/>
+    <Settings/> if @canEdit()
 
   render: ->
     {user} = @props
@@ -97,22 +96,18 @@ UserPage = React.createClass
           </div>
           {@settings()}
         </header>
-        <Tabs defaultTab="ratings" queryModificator={@resetPage}>
-          <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
-            <Ratings page={@currentPage()}/>
-          </Tab>
-          <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
-            <Comments page={@currentPage()}/>
-          </Tab>
-        </Tabs>
       </div>
     </Layout>
+        # <Tabs defaultTab="ratings" queryModificator={@resetPage}>
+        #   <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
+        #     <Ratings page={@currentPage()}/>
+        #   </Tab>
+        #   <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
+        #     <Comments page={@currentPage()}/>
+        #   </Tab>
+        # </Tabs>
 
-module.exports = Marty.createContainer UserPage,
-  listenTo: ['usersStore', 'currentUserStore']
+mapStateToProps = ({user}) ->
+  user: user.item, isFetching: user.isFetching
 
-  fetch: ->
-    {userSlug} = @props
-
-    user: @app.usersStore.get(userSlug)
-    currentUser: @app.currentUserStore.get()
+module.exports = connect(mapStateToProps)(User)
