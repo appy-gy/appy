@@ -3,7 +3,6 @@ React = require 'react/addons'
 Marty = require 'marty'
 canEditUser = require '../../helpers/users/can_edit'
 canSeeRatingDrafts = require '../../helpers/ratings/can_see_drafts'
-ClearStores = require '../mixins/clear_stores'
 ParsePage = require '../mixins/parse_page'
 SyncSlug = require '../mixins/sync_slug'
 Loading = require '../mixins/loading'
@@ -111,8 +110,6 @@ UserPage = React.createClass
 
 module.exports = Marty.createContainer UserPage,
   listenTo: ['usersStore', 'currentUserStore']
-
-  mixins: [ClearStores()]
 
   fetch: ->
     {userSlug} = @props

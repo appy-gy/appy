@@ -1,5 +1,5 @@
 # To use this mixin your component should define following methods:
-# fetchRatings, page, pagesCount, changePage
+# fetchRatings, page, changePage
 
 _ = require 'lodash'
 React = require 'react/addons'
@@ -12,6 +12,10 @@ PaginationLink = require '../shared/ratings/pagination_link'
 
 RatingsList =
   mixins: [KeepScroll]
+
+  propTypes:
+    ratings: PropTypes.arrayOf(PropTypes.object).isRequired
+    pagesCount: PropTypes.number.isRequired
 
   childContextTypes:
     loadPage: PropTypes.func.isRequired
@@ -47,12 +51,24 @@ RatingsList =
     @changeVisiblePages (pages) -> pages.concat page
     setImmediate => @keepScroll => @changePage page
 
-  showMore: ->
-    return if @page() >= @pagesCount()
+  ratings: ->
+    {ratings} = @props
+    {visiblePages} = @state
 
+    _ ratings
+      .filter (rating) -> _.includes visiblePages, rating.page
+      .sortBy (rating) -> -Date.parse(rating.publishedAt)
+      .value()
+
+  showMore: ->
+    {pagesCount} = @props
+
+    return if @page() >= pagesCount
     <ShowMore onClick={@loadNextPage}/>
 
   pagination: ->
-    <Pagination currentPage={@page()} pagesCount={@pagesCount()} link={PaginationLink}/>
+    {pagesCount} = @props
+
+    <Pagination currentPage={@page()} pagesCount={pagesCount} link={PaginationLink}/>
 
 module.exports = RatingsList

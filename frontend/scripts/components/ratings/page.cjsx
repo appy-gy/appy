@@ -2,7 +2,6 @@ _ = require 'lodash'
 React = require 'react/addons'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../actions/ratings'
-ClearStores = require '../mixins/clear_stores'
 Loading = require '../mixins/loading'
 ParsePage = require '../mixins/parse_page'
 RatingsList = require '../mixins/ratings_list'
@@ -20,8 +19,6 @@ Ratings = React.createClass
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-    ratings: PropTypes.arrayOf(PropTypes.object).isRequired
-    pagesCount: PropTypes.number.isRequired
     isFetching: PropTypes.bool.isRequired
 
   contextTypes:
@@ -37,9 +34,6 @@ Ratings = React.createClass
   fetchRatings: (page) ->
     @props.dispatch fetchRatings(page)
 
-  pagesCount: ->
-    @props.pagesCount
-
   changePage: (page) ->
     {router} = @context
 
@@ -48,15 +42,6 @@ Ratings = React.createClass
 
   showFirstPage: ->
     @loadPage 1
-
-  ratings: ->
-    {ratings} = @props
-    {visiblePages} = @state
-
-    _ ratings
-      .filter (rating) -> _.includes visiblePages, rating.page
-      .sortBy (rating) -> -Date.parse(rating.publishedAt)
-      .value()
 
   previews: ->
     @ratings().map (rating, index) =>

@@ -1,7 +1,6 @@
 _ = require 'lodash'
 React = require 'react/addons'
 Marty = require 'marty'
-ClearStores = require '../mixins/clear_stores'
 SyncSlug = require '../mixins/sync_slug'
 Loading = require '../mixins/loading'
 Rating = require './rating'
@@ -16,7 +15,7 @@ canEditRating = require '../../helpers/ratings/can_edit'
 RatingPage = React.createClass
   displayName: 'RatingPage'
 
-  mixins: [Marty.createAppMixin(), ClearStores(), SyncSlug('rating'), Loading]
+  mixins: [Marty.createAppMixin(), SyncSlug('rating'), Loading]
 
   contextTypes:
     router: PropTypes.func.isRequired
