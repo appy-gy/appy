@@ -31,12 +31,11 @@ Section = React.createClass
   componentWillMount: ->
     @fetchSection()
 
-  componentDidUpdate: (prevProps) ->
-    {sectionSlug} = @props
-
-    return if prevProps.sectionSlug == sectionSlug
-    @fetchSection()
-    @fetchRatings @page()
+    @watch
+      exp: ({sectionSlug}) -> sectionSlug
+      onChange: =>
+        @fetchSection()
+        @fetchRatings @page()
 
   shouldShowLoader: ->
     @props.isFetching

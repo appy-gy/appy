@@ -3,6 +3,7 @@
 
 _ = require 'lodash'
 React = require 'react/addons'
+Watch = require './watch'
 KeepScroll = require './keep_scroll'
 ShowMore = require '../shared/ratings/show_more'
 Pagination = require '../shared/pagination/pagination'
@@ -11,7 +12,7 @@ PaginationLink = require '../shared/ratings/pagination_link'
 {PropTypes} = React
 
 RatingsList =
-  mixins: [KeepScroll]
+  mixins: [Watch, KeepScroll]
 
   propTypes:
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
@@ -29,12 +30,9 @@ RatingsList =
   componentWillMount: ->
     @fetchRatings @page()
 
-  componentWillUpdate: ->
-    @prevPage = @page()
-
-  componentDidUpdate: ->
-    return if @prevPage == @page()
-    @fetchRatings @page()
+    @watch
+      exp: @page
+      onChange: => @fetchRatings @page()
 
   changeVisiblePages: (fn) ->
     @setState visiblePages: fn _.clone(@state.visiblePages)
