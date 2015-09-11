@@ -1,16 +1,18 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 classNames = require 'classnames'
+userActions = require '../../actions/user'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{updateUser} = userActions
 
 SocialButton = React.createClass
   displayName: 'SocialButton'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
+    dispatch: PropTypes.func.isRequired
     network: PropTypes.string.isRequired
 
   contextTypes:
@@ -18,10 +20,7 @@ SocialButton = React.createClass
     canEdit: PropTypes.bool.isRequired
 
   link: ->
-    {network} = @props
-    {user} = @context
-
-    user["#{network}Link"]
+    @context.user["#{@props.network}Link"]
 
   triggerLink: (event) ->
     {user} = @props
@@ -31,17 +30,16 @@ SocialButton = React.createClass
     if @link()? then @unlink() else @getLink()
 
   getLink: ->
-    {network} = @props
-
-    @["get#{_.capitalize network}Link"]()
+    @["get#{_.capitalize @props.network}Link"]()
 
   getFacebookLink: ->
+    {dispatch} = @props
     {user} = @context
 
-    FB.login ({status}) =>
+    FB.login ({status}) ->
       return unless status == 'connected'
-      FB.api '/me', fields: 'link', ({link}) =>
-        @app.usersActions.update user.id, facebookLink: link
+      FB.api '/me', fields: 'link', ({link}) ->
+        dispatch updateUser(user.id, facebookLink: link)
 
   getInstagramLink: ->
     {user} = @context
@@ -51,10 +49,7 @@ SocialButton = React.createClass
     window.location = "https://instagram.com/oauth/authorize/?client_id=#{clientId}&redirect_uri=#{redirectUri}&response_type=token"
 
   unlink: ->
-    {network} = @props
-    {user} = @context
-
-    @app.usersActions.update user.id, "#{network}Link": null
+    @props.dispatch updateUser(@context.user.id, "#{@props.network}Link": null)
 
   button: ->
     {network} = @props
@@ -102,4 +97,4 @@ SocialButton = React.createClass
       </div>
     </div>
 
-module.exports = SocialButton
+module.exports = connect()(SocialButton)
