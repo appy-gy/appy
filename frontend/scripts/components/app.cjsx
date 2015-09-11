@@ -35,6 +35,6 @@ App = React.createClass
     <RouteHandler {...@props}/>
 
 mapStateToProps = ({currentUser}) ->
-  currentUser: currentUser.value
+  currentUser: currentUser.item
 
 module.exports = DragDropContext(HTML5Backend)(connect(mapStateToProps)(App))

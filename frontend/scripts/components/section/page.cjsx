@@ -1,6 +1,8 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+sectionActions = require '../../actions/section'
+sectionRatingActions = require '../../actions/section_ratings'
 ClearStores = require '../mixins/clear_stores'
 Loading = require '../mixins/loading'
 ParsePage = require '../mixins/parse_page'
@@ -9,25 +11,55 @@ Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{fetchSection} = sectionActions
+{fetchSectionRatings} = sectionRatingActions
 
-SectionRatings = React.createClass
-  displayName: 'SectionRatings'
+Section = React.createClass
+  displayName: 'Section'
 
-  mixins: [Loading, RatingsList]
+  mixins: [Loading, ParsePage, RatingsList]
 
   propTypes:
+    dispatch: PropTypes.func.isRequired
+    sectionSlug: PropTypes.string.isRequired
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
     section: PropTypes.object.isRequired
+    pagesCount: PropTypes.number.isRequired
+    isFetching: PropTypes.bool.isRequired
 
-  shouldShowLoader: ->
-    {ratings} = @props
+  contextTypes:
+    router: PropTypes.func.isRequired
 
-    _.isEmpty ratings
+  componentWillMount: ->
+    @fetchSection()
 
-  pagesCountKey: ->
+  componentDidUpdate: (prevProps) ->
     {sectionSlug} = @props
 
-    "sectionRatings-#{sectionSlug}"
+    return if prevProps.sectionSlug == sectionSlug
+    @fetchSection()
+    @fetchRatings @page()
+
+  fetchSection: ->
+    {dispatch, sectionSlug} = @props
+
+    dispatch fetchSection(sectionSlug)
+
+  shouldShowLoader: ->
+    @props.isFetching
+
+  fetchRatings: (page) ->
+    @props.dispatch fetchSectionRatings(@props.sectionSlug, page)
+
+  pagesCount: ->
+    @props.pagesCount
+
+  changePage: (page) ->
+    {router} = @context
+
+    query = _.defaults { page }, router.getCurrentQuery()
+    router.replaceWith 'section', router.getCurrentParams(), query
 
   previews: ->
     {ratings} = @props
@@ -44,27 +76,10 @@ SectionRatings = React.createClass
       {@pagination()}
     </Layout>
 
-module.exports = Marty.createContainer SectionRatings,
-  listenTo: ['ratingsStore', 'sectionsStore']
+mapStateToProps = ({sectionRatings, section}, {sectionSlug}) ->
+  ratings: sectionRatings.items
+  section: section.item
+  pagesCount: sectionRatings.pagesCount
+  isFetching: _.any [sectionRatings, section], 'isFetching'
 
-  mixins: [ClearStores(false), ParsePage]
-
-  childContextTypes:
-    page: PropTypes.number.isRequired
-    loadPage: PropTypes.func.isRequired
-
-  getChildContext: ->
-    { page: @page(), @loadPage }
-
-  loadPage: (page) ->
-    {sectionSlug} = @props
-
-    @app.ratingsStore.getForSection(sectionSlug, page)
-
-  fetch: ->
-    {sectionSlug} = @props
-
-    @clearStoresOnce()
-
-    section: @app.sectionsStore.get(sectionSlug)
-    ratings: @loadPage(@page())
+module.exports = connect(mapStateToProps)(Section)

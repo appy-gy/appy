@@ -1,6 +1,6 @@
 loaderActions = require '../../actions/loader'
 
-{setLoaderVisibility} = loaderActions
+{changeLoaderVisibility} = loaderActions
 
 Loading =
   componentDidMount: ->
@@ -14,11 +14,11 @@ Loading =
   showLoader: ->
     {dispatch} = @props
 
-    dispatch setLoaderVisibility(true)
+    dispatch changeLoaderVisibility(true)
 
   hideLoader: ->
     {dispatch} = @props
 
-    dispatch setLoaderVisibility(false)
+    dispatch changeLoaderVisibility(false)
 
 module.exports = Loading

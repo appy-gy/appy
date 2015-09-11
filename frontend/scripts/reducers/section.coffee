@@ -1,3 +1,4 @@
+_ = require 'lodash'
 React = require 'react/addons'
 ReduxActions = require 'redux-actions'
 
@@ -9,15 +10,15 @@ defaultState = ->
   isFetching: false
 
 reducer = handleActions
-  REQUEST_CURRENT_USER: (state) ->
+  REQUEST_SECTION: (state) ->
     update state, isFetching: { $set: true }
 
-  RECEIVE_CURRENT_USER: (state, {payload: user}) ->
-    user ||= {}
+  RECEIVE_SECTION: (state, {payload: section}) ->
+    section ||= {}
 
     update state,
       isFetching: { $set: false }
-      item: { $set: user }
+      item: { $set: section }
 
 , defaultState()
 

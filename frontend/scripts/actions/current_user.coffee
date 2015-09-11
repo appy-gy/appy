@@ -10,8 +10,7 @@ fetchCurrentUser = ->
   (dispatch, getState) ->
     dispatch requestCurrentUser()
 
-    axios.get('sessions').then ({data, ok}) ->
-      return unless ok
+    axios.get('sessions').then ({data}) ->
       dispatch receiveCurrentUser(data.user)
 
 logIn = ({email, password}) ->
