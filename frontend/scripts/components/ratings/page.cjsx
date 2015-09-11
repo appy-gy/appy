@@ -10,12 +10,8 @@ Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
 
 {PropTypes} = React
-<<<<<<< HEAD
-{CSSTransitionGroup} = React.addons
 {connect} = ReactRedux
 {fetchRatings} = ratingActions
-=======
->>>>>>> master
 
 Ratings = React.createClass
   displayName: 'Ratings'
