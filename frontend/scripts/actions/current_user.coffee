@@ -1,5 +1,6 @@
 ReduxActions = require 'redux-actions'
 axios = require 'axios'
+deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 
 {createAction} = ReduxActions
 
@@ -37,4 +38,11 @@ register = ({email, password}) ->
         data
       .catch ({data}) -> data
 
-module.exports = { changeCurrentUser, fetchCurrentUser, logIn, logOut, register }
+changePassword = (oldPassword, newPassword) ->
+  (dispatch, getState) ->
+    {currentUser} = getState()
+
+    data = deepSnakecaseKeys { oldPassword, newPassword }
+    axios.put "users/#{currentUser.item.id}/change_password", data
+
+module.exports = { changeCurrentUser, fetchCurrentUser, logIn, logOut, register, changePassword }

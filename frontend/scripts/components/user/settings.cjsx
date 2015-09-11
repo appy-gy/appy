@@ -1,29 +1,34 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+popupActions = require '../../actions/popups'
 buildPopup = require '../../helpers/popups/build'
 SettingsPopup = require './settings_popup'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{appendPopup} = popupActions
 
 Settings = React.createClass
   displayName: 'Settings'
 
-  mixins: [Marty.createAppMixin()]
+  propTypes:
+    dispatch: PropTypes.func.isRequired
 
   contextTypes:
     user: PropTypes.object.isRequired
 
   showPopup: ->
+    {dispatch} = @props
     {user} = @context
 
     popup = buildPopup
       type: 'userSettings'
       content: -> <SettingsPopup user={user}/>
 
-    @app.popupsActions.append popup
+    dispatch appendPopup(popup)
 
   render: ->
     <div className="user-profile_settings" title="Настройки" onClick={@showPopup}>
     </div>
 
-module.exports = Settings
+module.exports = connect()(Settings)

@@ -1,9 +1,13 @@
 React = require 'react/addons'
+ReactRedux = require 'react-redux'
+currentUserActions = require '../../actions/current_user'
 PasswordInput = require '../shared/inputs/password'
 showToast = require '../../helpers/toasts/show'
 
 {PropTypes} = React
 {LinkedStateMixin} = React.addons
+{connect} = ReactRedux
+{changePassword} = currentUserActions
 
 SettingsPopup = React.createClass
   displayName: 'SettingsPopup'
@@ -11,6 +15,7 @@ SettingsPopup = React.createClass
   mixins: [LinkedStateMixin]
 
   propTypes:
+    dispatch: PropTypes.func.isRequired
     user: PropTypes.object.isRequired
 
   childContextTypes:
@@ -24,16 +29,17 @@ SettingsPopup = React.createClass
     newPassword: ''
 
   changePassword: (event) ->
-    {app, user} = @props
+    {dispatch, user} = @props
     {oldPassword, newPassword} = @state
 
     event.preventDefault()
 
-    @app.usersApi.changePassword(user.id, oldPassword, newPassword)
-      .then ({body, ok}) =>
-        return showToast @app, 'Вы ввели неверный старый пароль', 'error' unless ok
-        showToast @app, 'Пароль был успешно изменен', 'success'
+    dispatch changePassword(oldPassword, newPassword)
+      .then =>
+        showToast dispatch, 'Пароль был успешно изменен', 'success'
         @setState oldPassword: '', newPassword: ''
+      .catch ->
+        showToast dispatch, 'Вы ввели неверный старый пароль', 'error'
 
   render: ->
     <div className="user-settings">
@@ -45,4 +51,4 @@ SettingsPopup = React.createClass
       </form>
     </div>
 
-module.exports = SettingsPopup
+module.exports = connect()(SettingsPopup)
