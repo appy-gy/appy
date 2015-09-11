@@ -9,7 +9,11 @@ class OauthsController < ApplicationController
     provider = auth_params[:provider]
     redirect_to '/'
     return if login_from provider
-    user = create_from provider
+    user = create_from(provider) do |user|
+      user.generate_password
+      user.generate_email
+      user.save
+    end
     reset_session
     auto_login user
   end
