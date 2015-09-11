@@ -1,3 +1,7 @@
+loaderActions = require '../../actions/loader'
+
+{setLoaderVisibility} = loaderActions
+
 Loading =
   componentDidMount: ->
     return unless @shouldShowLoader()
@@ -8,9 +12,13 @@ Loading =
     @hideLoader()
 
   showLoader: ->
-    @app.loaderVisibilityStore.set true
+    {dispatch} = @props
+
+    dispatch setLoaderVisibility(true)
 
   hideLoader: ->
-    @app.loaderVisibilityStore.set false
+    {dispatch} = @props
+
+    dispatch setLoaderVisibility(false)
 
 module.exports = Loading

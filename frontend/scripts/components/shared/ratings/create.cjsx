@@ -1,6 +1,5 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
 Login = require '../auth/login'
 
 {PropTypes} = React
@@ -8,17 +7,15 @@ Login = require '../auth/login'
 CreateRating = React.createClass
   displayName: 'CreateRating'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
     children: PropTypes.node.isRequired
 
   contextTypes:
     router: PropTypes.func.isRequired
+    currentUser: PropTypes.object.isRequired
 
   create: ->
-    {currentUser} = @props
-    {router} = @context
+    {router, currentUser} = @context
 
     return unless currentUser.id?
 
@@ -26,7 +23,8 @@ CreateRating = React.createClass
       router.transitionTo 'rating', ratingSlug: body.rating.slug
 
   render: ->
-    {currentUser, children} = @props
+    {children} = @props
+    {currentUser} = @context
 
     props = _.omit @props, 'children'
     Component = if currentUser.id? then 'div' else Login
@@ -37,8 +35,4 @@ CreateRating = React.createClass
       </div>
     </Component>
 
-module.exports = Marty.createContainer CreateRating,
-  listenTo: 'currentUserStore'
-
-  fetch: ->
-    currentUser: @app.currentUserStore.get()
+module.exports = CreateRating

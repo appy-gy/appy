@@ -1,5 +1,4 @@
 React = require 'react/addons'
-Marty = require 'marty'
 classNames = require 'classnames'
 CreateRating = require '../../shared/ratings/create'
 
@@ -8,11 +7,11 @@ CreateRating = require '../../shared/ratings/create'
 CreateRatingButton = React.createClass
   displayName: 'CreateRatingButton'
 
-  propTypes:
+  contextTypes:
     currentUser: PropTypes.object.isRequired
 
   render: ->
-    {currentUser} = @props
+    {currentUser} = @context
 
     classes = classNames 'header_rating-button', 'm-authorized': currentUser.id?
 
@@ -23,8 +22,4 @@ CreateRatingButton = React.createClass
       </span>
     </CreateRating>
 
-module.exports = Marty.createContainer CreateRatingButton,
-  listenTo: 'currentUserStore'
-
-  fetch: ->
-    currentUser: @app.currentUserStore.get()
+module.exports = CreateRatingButton

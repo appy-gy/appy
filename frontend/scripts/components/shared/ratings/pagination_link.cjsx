@@ -11,13 +11,13 @@ PaginationLink = React.createClass
     page: PropTypes.number.isRequired
 
   contextTypes:
-    changeVisiblePages: PropTypes.func.isRequired
+    loadPage: PropTypes.func.isRequired
 
   resetVisiblePages: ->
     {page} = @props
-    {changeVisiblePages} = @context
+    {loadPage} = @context
 
-    changeVisiblePages -> new Set [page]
+    loadPage page
 
   linkProps: ->
     {page} = @props

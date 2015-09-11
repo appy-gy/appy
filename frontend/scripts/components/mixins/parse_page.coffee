@@ -1,8 +1,17 @@
 _ = require 'lodash'
+React = require 'react/addons'
+
+{PropTypes} = React
 
 defaultPage = 1
 
 ParsePage =
+  propTypes:
+    page: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+
+  getDefaultProps: ->
+    page: null
+
   parsePage: (page) ->
     return defaultPage unless page?
     return page if _.isNumber page

@@ -1,26 +1,33 @@
-Marty = require 'marty'
-Constants = require '../constants'
+ReduxActions = require 'redux-actions'
+axios = require 'axios'
 
-{autoDispatch} = Marty
+{createAction} = ReduxActions
 
-class CurrentUserActions extends Marty.ActionCreators
-  set: autoDispatch Constants.SET_CURRENT_USER
+requestCurrentUser = createAction 'REQUEST_CURRENT_USER'
+receiveCurrentUser = createAction 'RECEIVE_CURRENT_USER'
 
-  logIn: (data) ->
-    @app.currentUserApi.logIn(data).then ({body, ok}) =>
-      return error: body.error unless ok
-      @dispatch Constants.SET_CURRENT_USER, body.user
-      body.user
+fetchCurrentUser = ->
+  (dispatch, getState) ->
+    dispatch requestCurrentUser()
 
-  logOut: ->
-    @app.currentUserApi.logOut().then ({body}) =>
-      return unless body.success
-      @dispatch Constants.SET_CURRENT_USER, null
+    axios.get('sessions').then ({data, ok}) ->
+      return unless ok
+      dispatch receiveCurrentUser(data.user)
 
-  register: (data) ->
-    @app.currentUserApi.register(data).then ({body, ok}) =>
-      return error: body.error unless ok
-      @dispatch Constants.SET_CURRENT_USER, body.user
-      body.user
+logIn = ({email, password}) ->
+  (dispatch, getState) ->
+    dispatch requestCurrentUser()
 
-module.exports = CurrentUserActions
+    axios.post('sessions', session: { email, password }).then ({data, ok}) ->
+      return data.error unless ok
+      dispatch receiveCurrentUser(data.user)
+
+logOut = ->
+  (dispatch, getState) ->
+    axios.delete('sessions').then ({data, ok}) ->
+      return unless ok
+      dispatch receiveCurrentUser(null)
+
+register = ->
+
+module.exports = { fetchCurrentUser, logIn, logOut, register }

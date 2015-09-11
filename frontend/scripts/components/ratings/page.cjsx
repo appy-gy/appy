@@ -1,48 +1,62 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+ratingActions = require '../../actions/ratings'
 ClearStores = require '../mixins/clear_stores'
-ParsePage = require '../mixins/parse_page'
 Loading = require '../mixins/loading'
+ParsePage = require '../mixins/parse_page'
 RatingsList = require '../mixins/ratings_list'
 Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
 
 {PropTypes} = React
 {CSSTransitionGroup} = React.addons
+{connect} = ReactRedux
+{fetchRatings} = ratingActions
 
 Ratings = React.createClass
   displayName: 'Ratings'
 
-  mixins: [Marty.createAppMixin(), Loading, RatingsList]
+  mixins: [Loading, ParsePage, RatingsList]
 
   propTypes:
+    dispatch: PropTypes.func.isRequired
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
+    pagesCount: PropTypes.number.isRequired
+    isFetching: PropTypes.bool.isRequired
+
+  contextTypes:
+    router: PropTypes.func.isRequired
 
   previewEnds:
     superLarge: 1
     large: 3
-  subscriptionPosition: 1
 
   shouldShowLoader: ->
-    {ratings} = @props
+    @props.isFetching
 
-    _.isEmpty ratings
+  fetchRatings: (page) ->
+    @props.dispatch fetchRatings(page)
 
-  pagesCountKey: ->
-    'ratings'
+  pagesCount: ->
+    @props.pagesCount
+
+  changePage: (page) ->
+    {router} = @context
+
+    params = _.defaults { page }, router.getCurrentParams()
+    router.replaceWith 'ratings', params, router.getCurrentQuery()
 
   showFirstPage: ->
-    @changeVisiblePages -> new Set [1]
+    @loadPage 1
 
   ratings: ->
+    {ratings} = @props
     {visiblePages} = @state
-    {page} = @context
 
-    _ @app.ratingsStore.getState()
-      .filter (rating) -> visiblePages.has rating.page
-      .sortBy (rating) -> Date.parse rating.publishedAt
-      .reverse()
+    _ ratings
+      .filter (rating) -> _.includes visiblePages, rating.page
+      .sortBy (rating) -> -Date.parse(rating.publishedAt)
       .value()
 
   previews: ->
@@ -55,31 +69,14 @@ Ratings = React.createClass
 
   render: ->
     <Layout onLogoClick={@showFirstPage}>
-      <CSSTransitionGroup className="previews" transitionName="m">
+      <div className="previews" transitionName="m">
         {@previews()}
-      </CSSTransitionGroup>
+      </div>
       {@showMore()}
       {@pagination()}
     </Layout>
 
-module.exports = Marty.createContainer Ratings,
-  listenTo: 'ratingsStore'
+mapStateToProps = ({ratings}) ->
+  _.merge ratings: ratings.items, _.pick(ratings, 'pagesCount', 'isFetching')
 
-  mixins: [ClearStores(false), ParsePage]
-
-  childContextTypes:
-    page: PropTypes.number.isRequired
-    loadPage: PropTypes.func.isRequired
-
-  getChildContext: ->
-    { page: @page(), @loadPage }
-
-  loadPage: (page) ->
-    @app.ratingsStore.getPage(page)
-
-  fetch: ->
-    @clearStoresOnce()
-    ratings: @loadPage(@page())
-
-  pending: (props) ->
-    @done _.defaults({}, props, ratings: [])
+module.exports = connect(mapStateToProps)(Ratings)

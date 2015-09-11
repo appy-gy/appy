@@ -1,18 +1,24 @@
-_ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+headerSectionActions = require '../../../actions/header_sections'
 Section = require './section'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
+{connect} = ReactRedux
+{fetchHeaderSections} = headerSectionActions
 
 Navigation = React.createClass
   displayName: 'Navigation'
 
-  mixins: [PureRenderMixin]
-
   propTypes:
+    dispatch: PropTypes.func.isRequired
     sections: PropTypes.arrayOf(PropTypes.object).isRequired
+
+  componentWillMount: ->
+    @fetchHeaderSections()
+
+  fetchHeaderSections: ->
+    @props.dispatch fetchHeaderSections()
 
   sections: ->
     {sections} = @props
@@ -25,11 +31,7 @@ Navigation = React.createClass
       {@sections()}
     </nav>
 
-module.exports = Marty.createContainer Navigation,
-  listenTo: 'headerSectionsStore'
+mapStateToProps = ({headerSections}) ->
+  sections: headerSections.items
 
-  fetch: ->
-    sections: @app.headerSectionsStore.getAll()
-
-  pending: (props) ->
-    @done _.defaults({}, props, sections: [])
+module.exports = connect(mapStateToProps)(Navigation)

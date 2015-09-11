@@ -1,20 +1,25 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+currentUserActions = require '../../../actions/current_user'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{logOut} = currentUserActions
 
 Logout = React.createClass
   displayName: 'Logout'
 
-  mixins: [Marty.createAppMixin()]
+  propTypes:
+    dispatch: PropTypes.func.isRequired
 
   contextTypes:
     block: PropTypes.string.isRequired
 
   logOut: (event) ->
-    event.preventDefault()
+    {dispatch} = @props
 
-    @app.currentUserActions.logOut()
+    event.preventDefault()
+    dispatch logOut()
 
   render: ->
     {block} = @context
@@ -23,4 +28,4 @@ Logout = React.createClass
       Выйти
     </div>
 
-module.exports = Logout
+module.exports = connect()(Logout)

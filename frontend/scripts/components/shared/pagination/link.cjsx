@@ -18,7 +18,7 @@ PaginationLink = React.createClass
     query: PropTypes.object
     params: PropTypes.object
     isActive: PropTypes.bool
-    children: PropTypes.node.isRequired
+    children: PropTypes.node
 
   contextTypes:
     router: PropTypes.func.isRequired

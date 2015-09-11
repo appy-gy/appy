@@ -1,6 +1,4 @@
-app = require './app'
-
 rehydrate = ->
-  app.rehydrate()
+  console.log 'In progress: rehydrate'
 
 module.exports = rehydrate

@@ -1,24 +1,25 @@
+_ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
-Nothing = require '../shared/nothing'
+ReactRedux = require 'react-redux'
+classNames = require 'classnames'
 
 {PropTypes} = React
+{connect} = ReactRedux
 
 Loader = React.createClass
   displayName: 'Loader'
 
   propTypes:
-    visibility: PropTypes.object.isRequired
+    visible: PropTypes.bool.isRequired
 
   render: ->
-    {visibility} = @props
+    {visible} = @props
 
-    return <Nothing/> unless visibility.visible
+    classes = classNames 'layout_loader', 'm-hidden': not visible
 
-    <div className="layout_loader"></div>
+    <div className={classes}></div>
 
-module.exports = Marty.createContainer Loader,
-  listenTo: 'loaderVisibilityStore'
+mapStateToProps = ({loader}) ->
+  _.pick loader, 'visible'
 
-  fetch: ->
-    visibility: @app.loaderVisibilityStore.get()
+module.exports = connect(mapStateToProps)(Loader)

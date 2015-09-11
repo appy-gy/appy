@@ -1,20 +1,16 @@
 React = require 'react/addons'
-Marty = require 'marty'
 Info = require '../../shared/auth/info'
 Login = require '../../shared/auth/login'
 Registration = require '../../shared/auth/registration'
 withIndexKeys = require '../../../helpers/react/with_index_keys'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 Auth = React.createClass
   displayName: 'Auth'
 
-  mixins: [PureRenderMixin]
-
-  propTypes:
-    user: PropTypes.object.isRequired
+  contextTypes:
+    currentUser: PropTypes.object.isRequired
 
   childContextTypes:
     block: PropTypes.string.isRequired
@@ -32,18 +28,14 @@ Auth = React.createClass
     ]
 
   auth: ->
-    {user} = @props
+    {currentUser} = @context
 
-    components = if user.id? then 'info' else 'loginAndRegistration'
-    @[components] user
+    components = if currentUser.id? then 'info' else 'loginAndRegistration'
+    @[components] currentUser
 
   render: ->
     <div className="auth">
       {@auth()}
     </div>
 
-module.exports = Marty.createContainer Auth,
-  listenTo: 'currentUserStore'
-
-  fetch: ->
-    user: @app.currentUserStore.get()
+module.exports = Auth
