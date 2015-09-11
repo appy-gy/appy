@@ -23,7 +23,7 @@ logIn = ({email, password}) ->
       .then ({data}) ->
         dispatch receiveCurrentUser(data.user)
         data
-      .catch ({data}) -> data
+      .catch ({data}) -> throw data.error
 
 logOut = ->
   (dispatch, getState) ->
@@ -36,7 +36,7 @@ register = ({email, password}) ->
       .then ({data}) ->
         dispatch receiveCurrentUser(data.user)
         data
-      .catch ({data}) -> data
+      .catch ({data}) -> throw data.error
 
 changePassword = (oldPassword, newPassword) ->
   (dispatch, getState) ->

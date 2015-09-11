@@ -34,10 +34,11 @@ AuthPopupButton =
     {dispatch, onSuccess} = @props
 
     dispatch currentUserActions[@submitAction](data)
-      .then ({error}) =>
-        return @showFailToast error if error?
+      .then =>
         @closeAuthPopups()
         onSuccess()
+      .catch (error) =>
+        @showFailToast error
 
   showFailToast: (error) ->
     showToast @props.dispatch, @failToastContent(error), 'error'
