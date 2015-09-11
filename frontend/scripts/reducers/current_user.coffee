@@ -19,6 +19,9 @@ reducer = handleActions
       isFetching: { $set: false }
       item: { $set: user }
 
+  CHANGE_CURRENT_USER: (state, {payload: changes}) ->
+    update state, item: { $merge: changes }
+
 , defaultState()
 
 module.exports = reducer

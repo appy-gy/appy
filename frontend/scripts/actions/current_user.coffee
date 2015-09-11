@@ -5,6 +5,7 @@ axios = require 'axios'
 
 requestCurrentUser = createAction 'REQUEST_CURRENT_USER'
 receiveCurrentUser = createAction 'RECEIVE_CURRENT_USER'
+changeCurrentUser = createAction 'CHANGE_CURRENT_USER'
 
 fetchCurrentUser = ->
   (dispatch, getState) ->
@@ -36,4 +37,4 @@ register = ({email, password}) ->
         data
       .catch ({data}) -> data
 
-module.exports = { fetchCurrentUser, logIn, logOut, register }
+module.exports = { changeCurrentUser, fetchCurrentUser, logIn, logOut, register }
