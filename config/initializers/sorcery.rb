@@ -98,7 +98,7 @@ Rails.application.config.sorcery.configure do |config|
   config.twitter.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=twitter"
   config.twitter.user_info_mapping = { name: 'name' }
 
-  config.facebook.key = ENV['TOP_FACEBOOK_OAUTH_KEY']
+  config.facebook.key = ENV['TOP_FACEBOOK_APP_ID']
   config.facebook.secret = ENV['TOP_FACEBOOK_OAUTH_SECRET']
   config.facebook.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=facebook"
   config.facebook.user_info_mapping = { name: 'name' }
@@ -361,7 +361,7 @@ Rails.application.config.sorcery.configure do |config|
     # Class which holds the various external provider data for this user.
     # Default: `nil`
 
-    user.authentications_class = 'Authentication'
+    user.authentications_class = Authentication
 
     # User's identifier in authentications class.
     # Default: `:user_id`

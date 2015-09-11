@@ -22,7 +22,7 @@ AuthPopup = React.createClass
 
   render: ->
     {title, onSubmit, switcher} = @props
-    showSocial = false
+    showSocial = true
 
     <div className="auth-popup">
       <Title text={title}/>

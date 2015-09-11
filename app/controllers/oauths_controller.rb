@@ -7,7 +7,7 @@ class OauthsController < ApplicationController
 
   def callback
     provider = auth_params[:provider]
-    redirect_to root_path
+    redirect_to '/'
     return if login_from provider
     user = create_from provider
     reset_session
