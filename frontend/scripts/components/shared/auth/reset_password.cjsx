@@ -15,7 +15,7 @@ ResetPassword = React.createClass
 
     popup = buildPopup
       type: 'auth'
-      content: <ResetPasswordPopup app={@app}/>
+      content: -> <ResetPasswordPopup/>
     @app.popupsActions.append popup
 
   render: ->

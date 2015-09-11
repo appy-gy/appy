@@ -50,11 +50,11 @@ Layout = React.createClass
       <Main>
         {children}
       </Main>
+      <Footer/>
+      <Popups/>
+      <Toastr/>
+      <Loader/>
+      <FbRoot/>
     </div>
-      # <Footer/>
-      # <Popups/>
-      # <Toastr/>
-      # <Loader/>
-      # <FbRoot/>
 
 module.exports = Layout

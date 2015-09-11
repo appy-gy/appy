@@ -1,9 +1,12 @@
 _ = require 'lodash'
 buildToast = require './build'
+toastActions = require '../../actions/toasts'
 
-showToast = (app, content, opts) ->
+{appendToast} = toastActions
+
+showToast = (dispatch, content, opts) ->
   opts = type: opts if _.isString opts
   toast = buildToast content, opts
-  app.toastsActions.append toast
+  dispatch appendToast(toast)
 
 module.exports = showToast

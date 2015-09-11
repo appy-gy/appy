@@ -1,8 +1,9 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 Toast = require './toast'
 
 {PropTypes} = React
+{connect} = ReactRedux
 
 Toastr = React.createClass
   displayName: 'Toastr'
@@ -21,8 +22,7 @@ Toastr = React.createClass
       {@toasts()}
     </div>
 
-module.exports = Marty.createContainer Toastr,
-  listenTo: 'toastsStore'
+mapStateToProps = ({toasts}) ->
+  { toasts }
 
-  fetch: ->
-    toasts: @app.toastsStore.getAll()
+module.exports = connect(mapStateToProps)(Toastr)

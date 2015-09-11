@@ -1,41 +1,50 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+popupActions = require '../../../actions/popups'
 OnEsc = require '../../mixins/on_esc'
 Popup = require './popup'
 
 {PropTypes} = React
 {CSSTransitionGroup} = React.addons
+{connect} = ReactRedux
+{removePopup} = popupActions
 
 Popups = React.createClass
   displayName: 'Popups'
 
-  mixins: [Marty.createAppMixin(), OnEsc]
+  mixins: [OnEsc]
 
   propTypes:
+    dispatch: PropTypes.func.isRequired
     popups: PropTypes.arrayOf(PropTypes.object).isRequired
 
   componentWillMount: ->
     @onEsc @closeLastPopup
 
   closeLastPopup: ->
+    @props.dispatch removePopup(@popup()) if @popup()?
+
+  popup: ->
     {popups} = @props
 
-    @app.popupsActions.remove _.last(popups)
+    return if _.isEmpty popups
+    _.last popups
 
-  popups: ->
-    {popups} = @props
-
-    popups.map (popup) ->
-      <Popup key={popup.cid} popup={popup}/>
+  popupComponent: ->
+    popup = @popup()
+    return unless popup?
+    <Popup key={popup.cid} popup={popup}/>
 
   render: ->
-    <CSSTransitionGroup className="popups" transitionName="m">
-      {@popups()}
-    </CSSTransitionGroup>
+    <div className="popups">
+      <CSSTransitionGroup className="popups_popup-wrapper" transitionName="m">
+        {@popupComponent()}
+      </CSSTransitionGroup>
+      <div className="popups_close" onClick={@closeLastPopup}></div>
+    </div>
 
-module.exports = Marty.createContainer Popups,
-  listenTo: 'popupsStore'
+mapStateToProps = ({popups}) ->
+  { popups }
 
-  fetch: ->
-    popups: @app.popupsStore.getAll()
+module.exports = connect(mapStateToProps)(Popups)

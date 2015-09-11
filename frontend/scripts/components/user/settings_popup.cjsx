@@ -1,5 +1,4 @@
 React = require 'react/addons'
-AppFromProps = require '../mixins/app_from_props'
 PasswordInput = require '../shared/inputs/password'
 showToast = require '../../helpers/toasts/show'
 
@@ -9,7 +8,7 @@ showToast = require '../../helpers/toasts/show'
 SettingsPopup = React.createClass
   displayName: 'SettingsPopup'
 
-  mixins: [LinkedStateMixin, AppFromProps]
+  mixins: [LinkedStateMixin]
 
   propTypes:
     user: PropTypes.object.isRequired

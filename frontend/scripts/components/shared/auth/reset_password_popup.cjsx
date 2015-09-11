@@ -1,6 +1,4 @@
 React = require 'react/addons'
-AppFromProps = require '../../mixins/app_from_props'
-AppToContext = require '../../mixins/app_to_context'
 Title = require './title'
 Login = -> require './login'
 Form = require './form'
@@ -12,7 +10,7 @@ showToast = require '../../../helpers/toasts/show'
 ResetPasswordPopup = React.createClass
   displayName: 'ResetPasswordPopup'
 
-  mixins: [LinkedStateMixin, AppFromProps, AppToContext]
+  mixins: [LinkedStateMixin]
 
   componentWillMount: ->
     @Login = Login()

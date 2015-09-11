@@ -1,23 +1,25 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+toastActions = require '../../../actions/toasts'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{removeToast} = toastActions
 
 Toast = React.createClass
   displayName: 'Toast'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
+    dispatch: PropTypes.func.isRequired
     toast: PropTypes.object.isRequired
 
   componentWillMount: ->
     @queueRemove()
 
   remove: ->
-    {toast} = @props
+    {dispatch, toast} = @props
 
-    @app.toastsActions.remove toast
+    dispatch removeToast(toast)
 
   queueRemove: ->
     {toast} = @props
@@ -38,4 +40,4 @@ Toast = React.createClass
       {toast.content}
     </div>
 
-module.exports = Toast
+module.exports = connect()(Toast)

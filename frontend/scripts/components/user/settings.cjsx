@@ -18,7 +18,7 @@ Settings = React.createClass
 
     popup = buildPopup
       type: 'userSettings'
-      content: <SettingsPopup app={@app} user={user}/>
+      content: -> <SettingsPopup user={user}/>
 
     @app.popupsActions.append popup
 

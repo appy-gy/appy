@@ -1,11 +1,13 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 AuthPopupButton = require '../../mixins/auth_popup_button'
+
+{connect} = ReactRedux
 
 Login = React.createClass
   displayName: 'Login'
 
-  mixins: [Marty.createAppMixin(), AuthPopupButton]
+  mixins: [AuthPopupButton]
 
   submitAction: 'logIn'
   popupTitle: 'Войти'
@@ -15,4 +17,4 @@ Login = React.createClass
   failToastContent: ->
     'Неверный логин или пароль'
 
-module.exports = Login
+module.exports = connect()(Login)

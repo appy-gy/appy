@@ -1,11 +1,13 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 AuthPopupButton = require '../../mixins/auth_popup_button'
+
+{connect} = ReactRedux
 
 Registration = React.createClass
   displayName: 'Registration'
 
-  mixins: [Marty.createAppMixin(), AuthPopupButton]
+  mixins: [AuthPopupButton]
 
   submitAction: 'register'
   popupTitle: 'Регистрация'
@@ -15,4 +17,4 @@ Registration = React.createClass
   failToastContent: (error) ->
     error
 
-module.exports = Registration
+module.exports = connect()(Registration)

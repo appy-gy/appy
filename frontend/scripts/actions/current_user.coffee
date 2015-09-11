@@ -18,16 +18,23 @@ logIn = ({email, password}) ->
   (dispatch, getState) ->
     dispatch requestCurrentUser()
 
-    axios.post('sessions', session: { email, password }).then ({data, ok}) ->
-      return data.error unless ok
-      dispatch receiveCurrentUser(data.user)
+    axios.post 'sessions', session: { email, password }
+      .then ({data}) ->
+        dispatch receiveCurrentUser(data.user)
+        data
+      .catch ({data}) -> data
 
 logOut = ->
   (dispatch, getState) ->
-    axios.delete('sessions').then ({data, ok}) ->
-      return unless ok
+    axios.delete('sessions').then ({data}) ->
       dispatch receiveCurrentUser(null)
 
-register = ->
+register = ({email, password}) ->
+  (dispatch, getState) ->
+    axios.post 'users', user: { email, password }
+      .then ({data}) ->
+        dispatch receiveCurrentUser(data.user)
+        data
+      .catch ({data}) -> data
 
 module.exports = { fetchCurrentUser, logIn, logOut, register }

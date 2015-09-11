@@ -12,8 +12,7 @@ fetchRatings = (page) ->
   (dispatch, getState) ->
     dispatch requestRatings()
 
-    axios.get('ratings', params: { page }).then ({data, ok}) ->
-      return unless ok
+    axios.get('ratings', params: { page }).then ({data}) ->
       data.ratings.each (rating) -> rating.page = page
       dispatch receiveRatings(data.ratings)
       dispatch setRatingsPagesCount(data.meta.pagesCount)

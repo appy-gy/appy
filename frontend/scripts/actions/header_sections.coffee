@@ -10,8 +10,7 @@ fetchHeaderSections = (page) ->
   (dispatch, getState) ->
     dispatch requestHeaderSections()
 
-    axios.get('header_sections').then ({data, ok}) ->
-      return unless ok
+    axios.get('header_sections').then ({data}) ->
       dispatch receiveHeaderSections(data.sections)
 
 module.exports = { fetchHeaderSections }
