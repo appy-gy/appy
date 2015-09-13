@@ -30,7 +30,7 @@ RatingPage = React.createClass
 
     { ratingSlug, block: 'rating', canEdit: canEditRating(user, @rating()) }
 
-  shouldShowLoader: ->
+  isLoading: ->
     not @rating()?
 
   rating: (ratingSlug = @props.ratingSlug) ->

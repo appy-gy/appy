@@ -4,11 +4,11 @@ loaderActions = require '../../actions/loader'
 
 Loading =
   componentDidMount: ->
-    return unless @shouldShowLoader()
+    return unless @isLoading()
     @showLoader()
 
   componentDidUpdate: ->
-    return if @shouldShowLoader()
+    return if @isLoading()
     @hideLoader()
 
   showLoader: ->

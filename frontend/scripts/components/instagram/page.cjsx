@@ -35,7 +35,7 @@ Instagram = React.createClass
     script.async = true
     @getDOMNode().appendChild script
 
-  shouldShowLoader: ->
+  isLoading: ->
     true
 
   redirect: ->

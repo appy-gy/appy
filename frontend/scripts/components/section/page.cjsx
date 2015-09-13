@@ -37,7 +37,7 @@ Section = React.createClass
         @fetchSection()
         @fetchRatings @page()
 
-  shouldShowLoader: ->
+  isLoading: ->
     @props.isFetching
 
   fetchSection: ->

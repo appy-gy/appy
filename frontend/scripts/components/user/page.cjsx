@@ -16,6 +16,7 @@ Comments = require './comments'
 Layout = require '../layout/layout'
 Tabs = require '../shared/tabs/tabs'
 Tab = require '../shared/tabs/tab'
+Nothing = require '../shared/nothing'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -59,7 +60,7 @@ User = React.createClass
     @app.ratingsStore.clear()
     @app.usersStore.clear()
 
-  shouldShowLoader: ->
+  isLoading: ->
     @props.isFetching
 
   isSlugChanged: ({user}) ->
@@ -86,6 +87,8 @@ User = React.createClass
   render: ->
     {user} = @props
 
+    return <Nothing/> if @isLoading()
+
     <Layout>
       <div className="user-profile">
         <header className="user-profile_header">
@@ -96,16 +99,16 @@ User = React.createClass
           </div>
           {@settings()}
         </header>
+        <Tabs defaultTab="ratings" queryModificator={@resetPage}>
+          <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
+            <Ratings page={@currentPage()}/>
+          </Tab>
+          <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
+          </Tab>
+        </Tabs>
       </div>
     </Layout>
-        # <Tabs defaultTab="ratings" queryModificator={@resetPage}>
-        #   <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
-        #     <Ratings page={@currentPage()}/>
-        #   </Tab>
-        #   <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
-        #     <Comments page={@currentPage()}/>
-        #   </Tab>
-        # </Tabs>
+            # <Comments page={@currentPage()}/>
 
 mapStateToProps = ({user}) ->
   user: user.item, isFetching: user.isFetching

@@ -1,30 +1,46 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+userRatingActions = require '../../actions/user_ratings'
 canEditRating = require '../../helpers/ratings/can_edit'
+Watch = require '../mixins/watch'
 PaginationLink = require './pagination_link'
 Preview = require '../shared/ratings/preview'
 CreateRating = require '../shared/ratings/create'
 Pagination = require '../shared/pagination/pagination'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{fetchUserRatings} = userRatingActions
 
 Ratings = React.createClass
   displayName: 'Ratings'
 
+  mixins: [Watch]
+
   propTypes:
-    currentUser: PropTypes.object.isRequired
+    dispatch: PropTypes.func.isRequired
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
     page: PropTypes.number.isRequired
+    pagesCount: PropTypes.number.isRequired
 
   contextTypes:
+    currentUser: PropTypes.object.isRequired
     user: PropTypes.object.isRequired
     isOwnPage: PropTypes.bool.isRequired
 
-  hasRatings: ->
-    {user} = @context
+  componentWillMount: ->
+    @fetchRatings()
 
-    user.ratingsCount > 0
+    @watch
+      exp: ({page}) -> page
+      onChange: @fetchRatings
+
+  fetchRatings: ->
+    @props.dispatch fetchUserRatings(@context.user.id, @props.page)
+
+  hasRatings: ->
+    @context.user.ratingsCount > 0
 
   noRatings: ->
     {isOwnPage} = @context
@@ -47,17 +63,18 @@ Ratings = React.createClass
     </CreateRating>
 
   ratings: ->
-    {currentUser, ratings} = @props
+    {ratings, page} = @props
+    {currentUser} = @context
 
-    ratings.map (rating) ->
-      showDelete = canEditRating currentUser, rating
-      <Preview key={rating.id} rating={rating} mod={rating.status} imageSize="preview" showDelete={showDelete}/>
+    ratings
+      .filter (rating) -> rating.page == page
+      .map (rating) ->
+        showDelete = canEditRating currentUser, rating
+        <Preview key={rating.id} rating={rating} mod={rating.status} imageSize="preview" showDelete={showDelete}/>
 
   render: ->
-    {page} = @props
+    {page, pagesCount} = @props
     {user} = @context
-
-    pagesCount = @app.pageCountsStore.get("userRatings") || 0
 
     <div>
       <h2 className="user-profile_tab-header">
@@ -71,18 +88,7 @@ Ratings = React.createClass
       <Pagination currentPage={page} pagesCount={pagesCount} link={PaginationLink}/>
     </div>
 
-module.exports = Marty.createContainer Ratings,
-  listenTo: ['currentUserStore', 'ratingsStore']
+mapStateToProps = ({userRatings}) ->
+  ratings: userRatings.items, pagesCount: userRatings.pagesCount
 
-  propTypes:
-    page: PropTypes.number.isRequired
-
-  contextTypes:
-    userSlug: PropTypes.string.isRequired
-
-  fetch: ->
-    {page} = @props
-    {userSlug} = @context
-
-    currentUser: @app.currentUserStore.get()
-    ratings: @app.ratingsStore.getForUser(userSlug, page)
+module.exports = connect(mapStateToProps)(Ratings)

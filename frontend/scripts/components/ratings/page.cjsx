@@ -28,7 +28,7 @@ Ratings = React.createClass
     superLarge: 1
     large: 3
 
-  shouldShowLoader: ->
+  isLoading: ->
     @props.isFetching
 
   fetchRatings: (page) ->
