@@ -7,6 +7,7 @@ canSeeRatingDrafts = require '../../helpers/ratings/can_see_drafts'
 ParsePage = require '../mixins/parse_page'
 SyncSlug = require '../mixins/sync_slug'
 Loading = require '../mixins/loading'
+Watch = require '../mixins/watch'
 Avatar = require './avatar'
 Name = require './name'
 SocialButtons = require './social_buttons'
@@ -25,7 +26,7 @@ Nothing = require '../shared/nothing'
 User = React.createClass
   displayName: 'User'
 
-  mixins: [Loading, ParsePage, SyncSlug('user')]
+  mixins: [Loading, ParsePage, SyncSlug('user'), Watch]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
@@ -51,14 +52,9 @@ User = React.createClass
   componentWillMount: ->
     @fetchUser()
 
-  componentWillUpdate: (nextProps) ->
-    {user} = @props
-    {currentUser} = @context
-
-    return if canSeeRatingDrafts(currentUser, user) == canSeeRatingDrafts(nextProps.currentUser, user)
-
-    @app.ratingsStore.clear()
-    @app.usersStore.clear()
+    @watch
+      exp: (props, state, {currentUser}) -> currentUser.id
+      onChange: @fetchUser
 
   isLoading: ->
     @props.isFetching
