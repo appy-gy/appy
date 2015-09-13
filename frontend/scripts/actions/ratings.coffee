@@ -16,13 +16,4 @@ fetchRatings = (page) ->
       dispatch receiveRatings(data.ratings)
       dispatch setRatingsPagesCount(data.meta.pagesCount)
 
-fetchRatingsInSection = (section, page) ->
-  (dispatch, getState) ->
-    dispatch requestRatings()
-
-    axios.get("sections/#{section}/ratings", params: { page }).then ({data}) ->
-      data.ratings.each (rating) -> rating.page = page
-      dispatch receiveRatings(data.ratings)
-      dispatch setRatingsPagesCount(data.meta.pagesCount)
-
-module.exports = { fetchRatings, fetchRatingsInSection }
+module.exports = { fetchRatings }

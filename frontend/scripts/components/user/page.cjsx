@@ -57,7 +57,7 @@ User = React.createClass
       onChange: @fetchUser
 
   isLoading: ->
-    @props.isFetching
+    @props.isFetching or not @props.user.id?
 
   isSlugChanged: ({user}) ->
     user?.slug? and @context.router.getCurrentParams().userSlug != user.slug

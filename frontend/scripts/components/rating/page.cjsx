@@ -1,63 +1,97 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+ratingActions = require '../../actions/rating'
+ratingItemActions = require '../../actions/rating_items'
+canEditRating = require '../../helpers/ratings/can_edit'
 SyncSlug = require '../mixins/sync_slug'
 Loading = require '../mixins/loading'
+Watch = require '../mixins/watch'
 Rating = require './rating'
 Similar = require './similar'
 Comments = require './comments'
 Layout = require '../layout/layout'
-findInStore = require '../../helpers/find_in_store'
-canEditRating = require '../../helpers/ratings/can_edit'
+Nothing = require '../shared/nothing'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{fetchRating} = ratingActions
+{fetchRatingItems} = ratingItemActions
 
-RatingPage = React.createClass
-  displayName: 'RatingPage'
+Rating = React.createClass
+  displayName: 'Rating'
 
-  mixins: [Marty.createAppMixin(), SyncSlug('rating'), Loading]
+  mixins: [SyncSlug('rating'), Loading, Watch]
+
+  propTypes:
+    dispatch: PropTypes.func.isRequired
+    rating: PropTypes.object.isRequired
+    ratingSlug: PropTypes.string.isRequired
+    ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
+    isFetching: PropTypes.bool.isRequired
 
   contextTypes:
     router: PropTypes.func.isRequired
+    currentUser: PropTypes.object.isRequired
 
   childContextTypes:
+    rating: PropTypes.object.isRequired
     ratingSlug: PropTypes.string.isRequired
+    ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
     block: PropTypes.string.isRequired
     canEdit: PropTypes.bool.isRequired
 
-  getChildContext: ->
-    {ratingSlug, user} = @props
+  componentWillMount: ->
+    @fetchRating()
+    @fetchRatingItems()
 
-    { ratingSlug, block: 'rating', canEdit: canEditRating(user, @rating()) }
+    @watch
+      exp: ({ratingSlug}) -> ratingSlug
+      onChange: =>
+        @fetchRating()
+        @fetchRatingItems()
+
+  getChildContext: ->
+    {rating, ratingSlug, ratingItems} = @props
+    {currentUser} = @context
+
+    { rating, ratingSlug, ratingItems, block: 'rating', canEdit: @canEdit() }
 
   isLoading: ->
-    not @rating()?
+    @props.isFetching or not @props.rating.id?
 
-  rating: (ratingSlug = @props.ratingSlug) ->
-    findInStore @app.ratingsStore, ratingSlug
+  fetchRating: ->
+    @props.dispatch fetchRating(@props.ratingSlug)
+
+  fetchRatingItems: ->
+    @props.dispatch fetchRatingItems(@props.ratingSlug)
+
+  canEdit: ->
+    canEditRating @context.currentUser, @props.rating
 
   header: ->
-    {user} = @props
-
-    if canEditRating(user, @rating()) then 'editRating' else 'rating'
+    if @canEdit() then 'editRating' else 'rating'
 
   similar: ->
-    <Similar/> if @rating()?.status == 'published'
+    <Similar/> if @props.rating.status == 'published'
 
   comments: ->
-    <Comments/> if @rating()?.status == 'published'
+    <Comments/> if @props.rating.status == 'published'
 
   render: ->
     {ratingSlug} = @props
 
+    return <Nothing/> if @isLoading()
+
     <Layout header={@header()}>
-      <Rating ratingSlug={ratingSlug}/>
-      {@similar()}
-      {@comments()}
     </Layout>
+      # <Rating ratingSlug={ratingSlug}/>
+      # {@similar()}
+      # {@comments()}
 
-module.exports = Marty.createContainer RatingPage,
-  listenTo: ['ratingsStore', 'currentUserStore']
+mapStateToProps = ({rating, ratingItems}) ->
+  rating: rating.item
+  ratingItems: ratingItems.items
+  isFetching: _.any [rating, ratingItems], 'isFetching'
 
-  fetch: ->
-    user: @app.currentUserStore.get()
+module.exports = connect(mapStateToProps)(Rating)

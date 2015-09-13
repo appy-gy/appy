@@ -12,6 +12,7 @@ SyncSlug = (name) ->
 
     return unless checker()
 
-    setImmediate -> router.replaceWith name, "#{name}Slug": object.slug
+    console.log 'In progress sync slug'
+    # setImmediate -> router.replaceWith name, "#{name}Slug": object.slug
 
 module.exports = SyncSlug

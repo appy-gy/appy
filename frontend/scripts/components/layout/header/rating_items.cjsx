@@ -1,7 +1,6 @@
 _ = require 'lodash'
-tinycolor = require 'tinycolor2'
 React = require 'react/addons'
-Marty = require 'marty'
+tinycolor = require 'tinycolor2'
 RatingItem = require './rating_item'
 Nothing = require '../../shared/nothing'
 
@@ -10,8 +9,12 @@ Nothing = require '../../shared/nothing'
 RatingItems = React.createClass
   displayName: 'RatingItems'
 
+  contextTypes:
+    rating: PropTypes.object.isRequired
+    ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
+
   ratingItems: ->
-    {rating, ratingItems} = @props
+    {ratingItems} = @context
 
     _ ratingItems
       .sortBy 'position'
@@ -20,24 +23,15 @@ RatingItems = React.createClass
       .value()
 
   render: ->
-    {rating} = @props
-    sectionColor = _.get rating, 'section.color', '#fff'
-    mSectionColor = tinycolor(sectionColor).setAlpha(.5).toString()
+    {rating} = @context
 
-    <div className="header_rating-items" style={backgroundColor: mSectionColor}>
-      <a href="#" className="header_rating-title" data-scroll>{rating.title}</a>
+    sectionColor = tinycolor(rating.section.color).setAlpha(.5).toString()
+
+    <div className="header_rating-items" style={backgroundColor: sectionColor}>
+      <a href="#" className="header_rating-title" data-scroll>
+        {rating.title}
+      </a>
       {@ratingItems()}
     </div>
 
-module.exports = Marty.createContainer RatingItems,
-  contextTypes:
-    router: PropTypes.func.isRequired
-
-  listenTo: ['ratingItemsStore', 'ratingsStore']
-
-  fetch: ->
-    {router} = @context
-    {ratingSlug} = router.getCurrentParams()
-
-    rating: @app.ratingsStore.get(ratingSlug)
-    ratingItems: @app.ratingItemsStore.getForRating(ratingSlug)
+module.exports = RatingItems

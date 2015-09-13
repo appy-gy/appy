@@ -1,17 +1,17 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 classNames = require 'classnames'
 
 {PropTypes} = React
+{connect} = ReactRedux
 
 RatingItem = React.createClass
   displayName: 'RatingItem'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
     ratingItem: PropTypes.object.isRequired
+    visible: PropTypes.arrayOf(PropTypes.string).isRequired
 
   ratingItemAnchor: ->
     {ratingItem} = @props
@@ -19,9 +19,9 @@ RatingItem = React.createClass
     "#item-#{ratingItem.position}"
 
   render: ->
-    {ratingItem, waypoints} = @props
+    {ratingItem, visible} = @props
 
-    classes = classNames 'header_rating-item', 'm-waypoint-enter': _.includes(waypoints, ratingItem)
+    classes = classNames 'header_rating-item', 'm-visible': _.includes(visible, ratingItem.id)
 
     <div className={classes}>
       <a title={ratingItem.title} className="header_rating-item-title" href={@ratingItemAnchor()} data-scroll>
@@ -32,8 +32,7 @@ RatingItem = React.createClass
       </div>
     </div>
 
-module.exports = Marty.createContainer RatingItem,
-  listenTo: ['waypointsStore']
+mapStateToProps = ({ratingItems}) ->
+  visible: ratingItems.visible
 
-  fetch: ->
-    waypoints: @app.waypointsStore.getAll()
+module.exports = connect(mapStateToProps)(RatingItem)
