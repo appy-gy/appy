@@ -7,8 +7,6 @@ Waypoint = React.createClass
 
   wasVisible: false
 
-  callsCount: 0
-
   timer: 0
   lastPosition: null
   newPosition: 0
@@ -30,12 +28,7 @@ Waypoint = React.createClass
 
   handleScroll: ->
     return if @scrollSpeed() > 600
-    # return unless @callsLimit()
     @calculateVisibility()
-
-  callsLimit: ->
-    @callsCount += 1
-    @callsCount % 2 == 0
 
   scrollSpeed: ->
     @newPosition = window.scrollY
