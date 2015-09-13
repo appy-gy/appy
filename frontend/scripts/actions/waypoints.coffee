@@ -6,5 +6,6 @@ Constants = require '../constants'
 class WaypointsActions extends Marty.ActionCreators
   append: autoDispatch Constants.APPEND_WAYPOINT
   remove: autoDispatch Constants.REMOVE_WAYPOINT
+  change: autoDispatch Constants.CHANGE_WAYPOINT
 
 module.exports = WaypointsActions

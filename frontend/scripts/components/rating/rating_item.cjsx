@@ -49,6 +49,11 @@ RatingItem = React.createClass
 
     @app.waypointsActions.remove ratingItem
 
+  handleWaypointVisibilityChange: (visibility) ->
+    {ratingItem} = @props
+
+    @app.waypointsActions.change ratingItem, { waypointVisibilityClass: "m-waypoint-#{visibility}" }
+
   removeButton: ->
     {rating} = @context
 
@@ -70,7 +75,7 @@ RatingItem = React.createClass
     edit = rating.status != 'published'
     classes = classNames 'rating-item', mods.map (mod) -> "m-#{mod}"
 
-    <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave}>
+    <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} onVisibilityChange={@handleWaypointVisibilityChange}>
       <section id="item-#{ratingItem.position}" className={classes}>
         <div className="rating-item_header">
           <span className="rating-item_number">{index}</span>

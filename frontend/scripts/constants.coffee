@@ -41,6 +41,7 @@ Constants = Marty.createConstants [
 
   'APPEND_WAYPOINT'
   'REMOVE_WAYPOINT'
+  'CHANGE_WAYPOINT'
 
   'APPEND_USERS'
   'CHANGE_USER'

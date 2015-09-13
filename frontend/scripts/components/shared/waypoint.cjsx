@@ -14,11 +14,13 @@ Waypoint = React.createClass
   propTypes:
     onEnter: PropTypes.func
     onLeave: PropTypes.func
+    onVisibilityChange: PropTypes.func
     children: PropTypes.element.isRequired
 
   getDefaultProps: ->
     onEnter: ->
     onLeave: ->
+    onVisibilityChange: ->
 
   componentDidMount: ->
     window.addEventListener 'scroll', @handleScroll, false
@@ -46,6 +48,9 @@ Waypoint = React.createClass
 
   calculateVisibility: ->
     isVisible = @isVisible()
+
+    @props.onVisibilityChange(@waypointVisibility()) if isVisible
+
     return if @wasVisible == isVisible
 
     if isVisible
@@ -54,6 +59,21 @@ Waypoint = React.createClass
       @props.onLeave()
 
     @wasVisible = isVisible
+
+  waypointVisibility: ->
+    waypoint = React.findDOMNode @
+    windowTop = window.innerHeight * .2
+    windowBottom = window.innerHeight * .8;
+    elementTop = waypoint.getBoundingClientRect().top
+    elementBottom = waypoint.getBoundingClientRect().bottom
+
+    insideWindow = elementTop >= windowTop && elementBottom <= windowBottom
+    biggerThanWindow = elementBottom >= windowBottom && elementTop <= windowTop
+
+    if insideWindow || biggerThanWindow
+      'inside'
+    else
+      'outside'
 
   isVisible: ->
     waypoint = React.findDOMNode @

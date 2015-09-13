@@ -20,8 +20,9 @@ RatingItem = React.createClass
 
   render: ->
     {ratingItem, waypoints} = @props
+    isRatingVisible = _.includes(waypoints, ratingItem)
 
-    classes = classNames 'header_rating-item', 'm-waypoint-enter': _.includes(waypoints, ratingItem)
+    classes = classNames 'header_rating-item', 'm-waypoint-enter': isRatingVisible, ratingItem.waypointVisibilityClass
 
     <div className={classes}>
       <a title={ratingItem.title} className="header_rating-item-title" href={@ratingItemAnchor()} data-scroll>
