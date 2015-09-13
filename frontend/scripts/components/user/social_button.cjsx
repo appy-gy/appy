@@ -36,12 +36,17 @@ SocialButton = React.createClass
     @["get#{_.capitalize network}Link"]()
 
   getFacebookLink: ->
-    {user} = @context
+    FB.getLoginStatus ({status}) =>
+      if status == 'connected'
+        @fbGetLink()
+      else
+        FB.login ({status}) => @fbGetLink()
 
-    FB.login ({status}) =>
-      return unless status == 'connected'
-      FB.api '/me', fields: 'link', ({link}) =>
-        @app.usersActions.update user.id, facebookLink: link
+  fbGetLink: ->
+    {user} = @context
+    
+    FB.api '/me', fields: 'link', ({link}) =>
+      @app.usersActions.update user.id, facebookLink: link
 
   getInstagramLink: ->
     {user} = @context

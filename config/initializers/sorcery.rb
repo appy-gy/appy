@@ -101,14 +101,14 @@ Rails.application.config.sorcery.configure do |config|
   config.facebook.key = ENV['TOP_FACEBOOK_APP_ID']
   config.facebook.secret = ENV['TOP_FACEBOOK_OAUTH_SECRET']
   config.facebook.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=facebook"
-  config.facebook.user_info_mapping = { name: 'name' }
-  config.facebook.access_permissions = %w{email}
+  config.facebook.user_info_mapping = { email: 'email', name: 'name', facebook_link: 'link'}
+  config.facebook.access_permissions = %w{email public_profile}
+  config.facebook.user_info_path = "me?fields=email,name,link"
 
   # config.github.key = ""
   # config.github.secret = ""
   # config.github.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=github"
   # config.github.user_info_mapping = {:email => "name"}
-
   config.google.key = ENV['TOP_GOOGLE_OAUTH_KEY']
   config.google.secret = ENV['TOP_GOOGLE_OAUTH_SECRET']
   config.google.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=google"
