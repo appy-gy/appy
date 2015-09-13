@@ -1,20 +1,21 @@
 _ = require 'lodash'
 React = require 'react/addons'
+popupActions = require '../../actions/popups'
 buildPopup = require './build'
 ConfirmationPopup = require '../../components/shared/popups/confirmation'
 
-confirmPopup = (app, props) ->
-  removePopup = -> app.popupsActions.remove popup
+{appendPopup, removePopup} = popupActions
 
+confirmPopup = (dispatch, props) ->
   ['onConfirm', 'onCancel'].each (prop) ->
     props[prop] = _.wrap props[prop], (fn) ->
-      removePopup()
+      dispatch removePopup(popup)
       fn?()
 
   popup = buildPopup
     type: 'confirmation'
-    content: <ConfirmationPopup {...props}/>
+    content: -> <ConfirmationPopup {...props}/>
 
-  app.popupsActions.append popup
+  dispatch appendPopup(popup)
 
 module.exports = confirmPopup

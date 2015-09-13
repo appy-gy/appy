@@ -2,7 +2,6 @@ _ = require 'lodash'
 React = require 'react/addons'
 tinycolor = require 'tinycolor2'
 RatingItem = require './rating_item'
-Nothing = require '../../shared/nothing'
 
 {PropTypes} = React
 
@@ -25,7 +24,8 @@ RatingItems = React.createClass
   render: ->
     {rating} = @context
 
-    sectionColor = tinycolor(rating.section.color).setAlpha(.5).toString()
+    color = rating.section?.color || 'white'
+    sectionColor = tinycolor(color).setAlpha(.5).toString()
 
     <div className="header_rating-items" style={backgroundColor: sectionColor}>
       <a href="#" className="header_rating-title" data-scroll>

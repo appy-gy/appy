@@ -1,19 +1,21 @@
 _ = require 'lodash'
-Marty = require 'marty'
 React = require 'react/addons'
+ReactRedux = require 'react-redux'
 classNames = require 'classnames'
+ratingActions = require '../../../actions/rating'
 prepublishValidation = require '../../../helpers/ratings/prepublish_validation'
 showConfirm = require '../../../helpers/popups/confirm'
 showToast = require '../../../helpers/toasts/show'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{updateRating} = ratingActions
 
 Publish = React.createClass
   displayName: 'Publish'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
+    dispatch: PropTypes.func.isRequired
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
@@ -26,17 +28,19 @@ Publish = React.createClass
     not _.isEmpty prepublishValidation(rating, ratingItems)
 
   publish: ->
-    {rating} = @props
+    {dispatch, rating} = @props
 
     return if @hasPublishErrors()
 
-    @app.ratingsActions.update(rating.id, status: 'published').then =>
-      showToast @app, 'Рейтинг опубликован', 'success'
+    dispatch updateRating(status: 'published').then ->
+      showToast dispatch, 'Рейтинг опубликован', 'success'
 
   confirmPublish: ->
+    {dispatch} = @props
+
     return if @hasPublishErrors()
 
-    showConfirm @app,
+    showConfirm dispatch,
       text: 'Внимание! После публикации рейтинга вы не сможете больше его редактировать. Вы уверены, что хотите опубликовать этот рейтинг?'
       onConfirm: @publish
       cancelText: 'Не публиковать'
@@ -50,4 +54,4 @@ Publish = React.createClass
       Опубликовать
     </div>
 
-module.exports = Publish
+module.exports = connect()(Publish)

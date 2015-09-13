@@ -1,5 +1,4 @@
 React = require 'react/addons'
-Marty = require 'marty'
 Publish = require '../../shared/ratings/publish'
 Delete = require '../../shared/ratings/delete'
 
@@ -8,18 +7,14 @@ Delete = require '../../shared/ratings/delete'
 RatingActions = React.createClass
   displayName: 'RatingActions'
 
-  mixins: [Marty.createAppMixin()]
-
   contextTypes:
     router: PropTypes.func.isRequired
+    currentUser: PropTypes.object.isRequired
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
   redirectToProfile: ->
-    {router} = @context
-    {slug} = @app.currentUserStore.getState()
-
-    router.replaceWith 'user', userSlug: slug
+    @context.router.replaceWith 'user', userSlug: @context.currentUser.slug
 
   render: ->
     {rating, ratingItems} = @context

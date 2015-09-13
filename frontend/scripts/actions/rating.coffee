@@ -1,5 +1,8 @@
+_ = require 'lodash'
 ReduxActions = require 'redux-actions'
 axios = require 'axios'
+toFormData = require '../helpers/to_form_data'
+deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 
 {createAction} = ReduxActions
 
@@ -23,4 +26,20 @@ viewRating = ->
     axios.put("ratings/#{rating.item.id}/view").then ({data}) ->
       dispatch changeRating(data)
 
-module.exports = { fetchRating, viewRating }
+updateRating = (changes, notSync) ->
+  (dispatch, getState) ->
+    {rating} = getState()
+    notSync = _.keys changes if notSync == true
+    data = toFormData rating: deepSnakecaseKeys(changes)
+
+    axios.put("ratings/#{rating.item.id}", data).then ({data}) ->
+      changes = _.omit data.rating, notSync
+      dispatch changeRating(changes)
+
+removeRating = ->
+  (dispatch, getState) ->
+    {rating} = getState()
+
+    axios.delete "ratings/#{rating.item.id}"
+
+module.exports = { fetchRating, viewRating, changeRating, updateRating, removeRating }

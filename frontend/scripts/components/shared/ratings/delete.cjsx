@@ -1,15 +1,17 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+ratingActions = require '../../../actions/rating'
 showConfirm = require '../../../helpers/popups/confirm'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{removeRating} = ratingActions
 
 DeleteRating = React.createClass
   displayName: 'DeleteRating'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
+    dispatch: PropTypes.func.isRequired
     rating: PropTypes.object.isRequired
     onDelete: PropTypes.func
 
@@ -20,15 +22,13 @@ DeleteRating = React.createClass
     onDelete: ->
 
   showDeleteConfirmation: (event) ->
-    {rating, onDelete} = @props
+    {dispatch, rating, onDelete} = @props
 
     event.preventDefault()
 
-    showConfirm @app,
+    showConfirm dispatch,
       text: 'Вы уверены, что хотите удалить этот рейтинг?'
-      onConfirm: =>
-        @app.ratingsActions.remove rating.id
-        onDelete()
+      onConfirm: -> dispatch(removeRating()).then(onDelete)
       cancelText: 'Не удалять'
 
   render: ->
@@ -36,4 +36,4 @@ DeleteRating = React.createClass
 
     <div className="#{block}_delete-rating" onClick={@showDeleteConfirmation}></div>
 
-module.exports = DeleteRating
+module.exports = connect()(DeleteRating)
