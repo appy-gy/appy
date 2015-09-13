@@ -33,7 +33,7 @@ Name = React.createClass
 
     @setState edit: false
     return dispatch changeUser(name: @prevName) if isBlank user.name
-    dispatch updateUser(user.id, name: user.name)
+    dispatch updateUser(name: user.name)
 
   startEdit: ->
     {user, canEdit} = @context

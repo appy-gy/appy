@@ -41,10 +41,9 @@ SocialButton = React.createClass
 
   fbGetLink: ->
     {dispatch} = @props
-    {user} = @context
 
     FB.api '/me', fields: 'link', ({link}) =>
-      dispatch updateUser(user.id, facebookLink: link)
+      dispatch updateUser(facebookLink: link)
 
   getInstagramLink: ->
     {user} = @context

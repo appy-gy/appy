@@ -28,7 +28,6 @@ Avatar = React.createClass
 
   updateAvatar: (files) ->
     {dispatch} = @props
-    {user} = @context
 
     avatar = files[0]
     return unless avatar?
@@ -36,7 +35,7 @@ Avatar = React.createClass
     dispatch changeUser(avatar: avatar.preview)
     @clearQueue()
     @addToQueue ->
-      dispatch updateUser(user.id, { avatar })
+      dispatch updateUser({ avatar })
 
   fileInput: ->
     {canEdit} = @context

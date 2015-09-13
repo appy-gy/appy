@@ -20,6 +20,9 @@ reducer = handleActions
       isFetching: { $set: false }
       item: { $set: rating }
 
+  CHANGE_RATING: (state, {payload: changes}) ->
+    update state, item: { $merge: changes }
+
 , defaultState()
 
 module.exports = reducer

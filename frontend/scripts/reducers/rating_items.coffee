@@ -19,6 +19,9 @@ reducer = handleActions
       isFetching: { $set: false }
       items: { $set: ratingItems }
 
+  APPEND_RATING_ITEM: (state, {payload: ratingItem}) ->
+    update state, items: { $push: [ratingItem] }
+
   MARK_RATING_ITEM_VISIBLE: (state, {payload: ratingItemId}) ->
     update state, visible: { $push: [ratingItemId] }
 

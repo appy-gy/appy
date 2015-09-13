@@ -1,6 +1,8 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+ratingActions = require '../../actions/rating'
+ratingItemActions = require '../../actions/rating_items'
 UpdateStatus = require './update_status'
 Header = require './header'
 Description = require './description'
@@ -15,38 +17,27 @@ isClient = require '../../helpers/is_client'
 isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{viewRating} = ratingActions
+{createRatingItem} = ratingItemActions
 
 Rating = React.createClass
   displayName: 'Rating'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
-    rating: PropTypes.object.isRequired
-    ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
+    dispatch: PropTypes.func.isRequired
 
   contextTypes:
     router: PropTypes.func.isRequired
-    canEdit: PropTypes.bool.isRequired
-
-  childContextTypes:
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
-
-  getChildContext: ->
-    {rating, ratingItems} = @props
-
-    { rating, ratingItems }
+    canEdit: PropTypes.bool.isRequired
 
   componentWillMount: ->
-    {rating} = @props
-
-    @app.ratingsActions.view rating.id if rating.status == 'published'
+    @props.dispatch viewRating()
 
   createRatingItem: ->
-    {rating} = @props
-
-    @app.ratingItemsActions.create rating.id
+    @props.dispatch createRatingItem()
 
   addRatingItemButton: ->
     {ratingItems} = @props
@@ -94,50 +85,50 @@ Rating = React.createClass
     <Source/> unless isBlank(rating.source) and rating.status == 'published'
 
   render: ->
-    {rating} = @props
+    {rating} = @context
 
     edit = rating.status != 'published'
 
     <article className="rating">
-      <UpdateStatus/>
-      <Header/>
-      <Description object={rating} actions="ratingsActions" edit={edit} placeholder="Введите описание рейтинга"/>
-      {@authorLink()}
-      <RatingItems/>
-      {@addRatingItemButton()}
-      {@source()}
-      {@likeButton()}
-      {@shareButtons()}
     </article>
+      # <UpdateStatus/>
+      # <Header/>
+      # <Description object={rating} actions="ratingsActions" edit={edit} placeholder="Введите описание рейтинга"/>
+      # {@authorLink()}
+      # <RatingItems/>
+      # {@addRatingItemButton()}
+      # {@source()}
+      # {@likeButton()}
+      # {@shareButtons()}
 
-module.exports = Marty.createContainer Rating,
-  propTypes:
-    ratingSlug: PropTypes.string.isRequired
-
-  contextTypes:
-    router: PropTypes.func.isRequired
-    canEdit: PropTypes.bool.isRequired
-
-  listenTo: ['ratingsStore', 'ratingItemsStore']
-
-  fetch: ->
-    {ratingSlug} = @props
-
-    rating: @app.ratingsStore.get(ratingSlug)
-    ratingItems: @app.ratingItemsStore.getForRating(ratingSlug)
-
-  done: (results) ->
-    {router} = @context
-
-    if @hasAccess results
-      return <Rating ref="innerComponent" {...@props} {...results} app={@app}/>
-
-    if isClient()
-      setImmediate -> router.replaceWith 'root'
-
-    <Nothing ref="innerComponent"/>
-
-  hasAccess: ({rating}) ->
-    {canEdit} = @context
-
-    rating.status == 'published' or canEdit
+module.exports = connect()(Rating)
+  # propTypes:
+  #   ratingSlug: PropTypes.string.isRequired
+  #
+  # contextTypes:
+  #   router: PropTypes.func.isRequired
+  #   canEdit: PropTypes.bool.isRequired
+  #
+  # listenTo: ['ratingsStore', 'ratingItemsStore']
+  #
+  # fetch: ->
+  #   {ratingSlug} = @props
+  #
+  #   rating: @app.ratingsStore.get(ratingSlug)
+  #   ratingItems: @app.ratingItemsStore.getForRating(ratingSlug)
+  #
+  # done: (results) ->
+  #   {router} = @context
+  #
+  #   if @hasAccess results
+  #     return <Rating ref="innerComponent" {...@props} {...results} app={@app}/>
+  #
+  #   if isClient()
+  #     setImmediate -> router.replaceWith 'root'
+  #
+  #   <Nothing ref="innerComponent"/>
+  #
+  # hasAccess: ({rating}) ->
+  #   {canEdit} = @context
+  #
+  #   rating.status == 'published' or canEdit
