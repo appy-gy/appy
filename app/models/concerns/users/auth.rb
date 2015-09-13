@@ -12,6 +12,15 @@ module Users
       validates :email, presence: true, uniqueness: true
 
       has_many :authentications, dependent: :destroy
+
+      def generate_password
+        self.password = SecureRandom.uuid
+      end
+
+      def generate_email
+        return if self.email?
+        self.email = "#{SecureRandom.uuid.first(8)}@fake.com"
+      end
     end
   end
 end

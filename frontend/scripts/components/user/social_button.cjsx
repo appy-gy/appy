@@ -33,13 +33,18 @@ SocialButton = React.createClass
     @["get#{_.capitalize @props.network}Link"]()
 
   getFacebookLink: ->
+    FB.getLoginStatus ({status}) =>
+      if status == 'connected'
+        @fbGetLink()
+      else
+        FB.login @fbGetLink
+
+  fbGetLink: ->
     {dispatch} = @props
     {user} = @context
 
-    FB.login ({status}) ->
-      return unless status == 'connected'
-      FB.api '/me', fields: 'link', ({link}) ->
-        dispatch updateUser(user.id, facebookLink: link)
+    FB.api '/me', fields: 'link', ({link}) =>
+      dispatch updateUser(user.id, facebookLink: link)
 
   getInstagramLink: ->
     {user} = @context

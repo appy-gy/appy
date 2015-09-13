@@ -30,7 +30,7 @@ TagsSelect = React.createClass
 
     @app.tagsApi[action](query).then ({body, ok}) =>
       return callback 'Ошибка' unless ok
-      {tags} = _.clone body.tags
+      tags = _.clone body.tags
       tags.unshift name: query unless _.isEmpty(query) or _(tags).map('name').includes(query)
       callback null, options: @toOptions(tags)
 
