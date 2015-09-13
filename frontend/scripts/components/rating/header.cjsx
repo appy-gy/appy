@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+ratingActions = require '../../actions/rating'
 classNames = require 'classnames'
 WithFileInput = require '../mixins/with_file_input'
 RatingUpdater = require '../mixins/rating_updater'
@@ -15,11 +16,16 @@ withIndexKeys = require '../../helpers/react/with_index_keys'
 imageUrl = require '../../helpers/image_url'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{changeRating, updateRating} = ratingActions
 
 Header = React.createClass
   displayName: 'Header'
 
-  mixins: [Marty.createAppMixin(), WithFileInput, RatingUpdater]
+  mixins: [WithFileInput, RatingUpdater]
+
+  propTypes:
+    dispatch: PropTypes.func.isRequired
 
   contextTypes:
     rating: PropTypes.object.isRequired
@@ -30,14 +36,15 @@ Header = React.createClass
     imageUrl rating.image, 'normal'
 
   updateImage: (files) ->
+    {dispatch} = @props
     {rating} = @context
 
     image = files[0]
     return unless image?
 
-    @app.ratingsActions.change rating.id, image: image.preview
-    @queueUpdate =>
-      @app.ratingsActions.update rating.id, { image }
+    dispatch changeRating(image: image.preview)
+    @queueUpdate ->
+      dispatch updateRating({ image })
 
   meta: ->
     {rating} = @context
@@ -70,7 +77,7 @@ Header = React.createClass
 
     return if rating.status == 'published'
 
-    <SectionSelect object={rating} actions="ratingsActions"/>
+    <SectionSelect/>
 
   tags: ->
     {rating} = @context
@@ -112,4 +119,4 @@ Header = React.createClass
       {@children()}
     </FileInput>
 
-module.exports = Header
+module.exports = connect()(Header)

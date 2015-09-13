@@ -9,7 +9,7 @@ deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 requestRating = createAction 'REQUEST_RATING'
 receiveRating = createAction 'RECEIVE_RATING'
 changeRating = createAction 'CHANGE_RATING'
-changeUpdateStatus = createAction 'CHANGE_UPDATE_STATUS'
+changeRatingUpdateStatus = createAction 'CHANGE_UPDATE_STATUS'
 
 fetchRating = (id) ->
   (dispatch, getState) ->
@@ -43,4 +43,19 @@ removeRating = ->
 
     axios.delete "ratings/#{rating.item.id}"
 
-module.exports = { fetchRating, viewRating, changeRating, updateRating, removeRating, changeUpdateStatus }
+addTagToRating = (name) ->
+  (dispatch, getState) ->
+    {rating} = getState()
+
+    dispatch type: 'ADD_TAG_TO_RATING', payload: name
+    axios.post "ratings/#{rating.item.id}/tags", { name }
+
+removeTagFromRating = (name) ->
+  (dispatch, getState) ->
+    {rating} = getState()
+
+    dispatch type: 'REMOVE_TAG_FROM_RATING', payload: name
+    axios.delete "ratings/#{rating.item.id}/tags", data: { name }
+
+module.exports = { fetchRating, viewRating, changeRating, updateRating,
+  removeRating, changeRatingUpdateStatus, addTagToRating, removeTagFromRating }

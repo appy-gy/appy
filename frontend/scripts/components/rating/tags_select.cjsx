@@ -1,15 +1,20 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+axios = require 'axios'
 Select = require 'react-select'
+ratingActions = require '../../actions/rating'
 Nothing = require '../shared/nothing'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{addTagToRating, removeTagFromRating} = ratingActions
 
 TagsSelect = React.createClass
   displayName: 'TagsSelect'
 
-  mixins: [Marty.createAppMixin()]
+  propTypes:
+    dispatch: PropTypes.func.isRequired
 
   contextTypes:
     rating: PropTypes.object.isRequired
@@ -26,11 +31,9 @@ TagsSelect = React.createClass
     # initialized or after adding/removing a value from the values list
     query = '' if _.includes query, @delimiter
 
-    action = if _.isEmpty query then 'popular' else 'autocomplete'
-
-    @app.tagsApi[action](query).then ({body, ok}) =>
-      return callback 'Ошибка' unless ok
-      tags = _.clone body.tags
+    url = if _.isEmpty query then 'tags/popular' else 'tags'
+    axios.get(url, params: { query }).then ({data}) =>
+      {tags} = data
       tags.unshift name: query unless _.isEmpty(query) or _(tags).map('name').includes(query)
       callback null, options: @toOptions(tags)
 
@@ -40,11 +43,12 @@ TagsSelect = React.createClass
     _.map(rating.tags, 'name').join(@delimiter)
 
   updateTags: (__, options) ->
+    {dispatch} = @props
     {rating} = @context
 
     name = _.xor(_.map(rating.tags, 'name'), _.map(options, 'value'))[0]
-    action = if options.length > rating.tags.length then 'add' else 'remove'
-    @app.ratingsActions["#{action}Tag"] rating.id, name
+    action = if options.length > rating.tags.length then addTagToRating else removeTagFromRating
+    dispatch action(name)
 
   renderOption: ({label, ratingsCount}) ->
     <div className="tag-option">
@@ -63,4 +67,4 @@ TagsSelect = React.createClass
 
     <Select placeholder="Укажите теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" autoload={true} multi={true} delimiter={@delimiter} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} optionRenderer={@renderOption} onChange={@updateTags}/>
 
-module.exports = TagsSelect
+module.exports = connect()(TagsSelect)

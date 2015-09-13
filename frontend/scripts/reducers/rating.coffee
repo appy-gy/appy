@@ -27,6 +27,13 @@ reducer = handleActions
   CHANGE_UPDATE_STATUS: (state, {payload: status}) ->
     update state, updateStatus: { $set: status }
 
+  ADD_TAG_TO_RATING: (state, {payload: name}) ->
+    update state, item: { tags: { $push: [{ name }] } }
+
+  REMOVE_TAG_FROM_RATING: (state, {payload: name}) ->
+    index = _.findIndex state.item.tags, (tag) -> tag.name == name
+    update state, item: { tags: { $splice: [[index, 1]] } }
+
 , defaultState()
 
 module.exports = reducer

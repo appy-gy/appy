@@ -1,11 +1,16 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 Select = require 'react-select'
-RatingUpdater = require '../mixins/rating_updater'
+sectionActions = require '../../actions/sections'
+ratingActions = require '../../actions/rating'
 findInArray = require '../../helpers/find_in_array'
+RatingUpdater = require '../mixins/rating_updater'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{fetchSections} = sectionActions
+{changeRating, updateRating} = ratingActions
 
 SectionSelect = React.createClass
   displayName: 'SectionSelect'
@@ -13,18 +18,26 @@ SectionSelect = React.createClass
   mixins: [RatingUpdater]
 
   propTypes:
+    dispatch: PropTypes.func.isRequired
     sections: PropTypes.arrayOf(PropTypes.object).isRequired
-    object: PropTypes.object.isRequired
-    actions: PropTypes.string.isRequired
+
+  contextTypes:
+    rating: PropTypes.object.isRequired
+
+  componentWillMount: ->
+    @fetchSections()
+
+  fetchSections: ->
+    @props.dispatch fetchSections()
 
   changeSection: (sectionId) ->
-    {sections, object, actions} = @props
+    {dispatch, sections} = @props
 
-    section = findInArray(sections, sectionId)
+    section = findInArray sections, sectionId
 
-    @app[actions].change object.id, { section }
-    @queueUpdate =>
-      @app[actions].update object.id, { sectionId }
+    dispatch changeRating({ section })
+    @queueUpdate ->
+      dispatch updateRating({ sectionId })
 
   options: ->
     {sections} = @props
@@ -38,12 +51,11 @@ SectionSelect = React.createClass
     </div>
 
   render: ->
-    {object} = @props
+    {rating} = @context
 
-    <Select placeholder="Выберите рубрику" value={object.section?.id} options={@options()} searchable={false} valueRenderer={@renderOption} optionRenderer={@renderOption} onChange={@changeSection}/>
+    <Select placeholder="Выберите рубрику" value={rating.section?.id} options={@options()} searchable={false} valueRenderer={@renderOption} optionRenderer={@renderOption} onChange={@changeSection}/>
 
-module.exports = Marty.createContainer SectionSelect,
-  listenTo: 'sectionsStore'
+mapStateToProps = ({sections}) ->
+  sections: sections.items
 
-  fetch: ->
-    sections: @app.sectionsStore.getAll()
+module.exports = connect(mapStateToProps)(SectionSelect)

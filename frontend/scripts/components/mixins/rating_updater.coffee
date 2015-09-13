@@ -1,5 +1,11 @@
+# If you want to use this component make sure
+# that your component connected to redux
+
 _ = require 'lodash'
+ratingActions = require '../../actions/rating'
 RequestQueue = require '../../helpers/request_queue'
+
+{changeRatingUpdateStatus} = ratingActions
 
 updateDelay = 2000
 updateTimeoutId = null
@@ -7,30 +13,29 @@ requests = []
 queue = new RequestQueue
 batchQueue = new RequestQueue
 
-getStatus = (app) ->
-  app.ratingUpdateStatusStore.get().result.status
-
-performUpdates = (app) ->
-  app.ratingUpdateStatusActions.set 'saving'
+performUpdates = (dispatch) ->
+  dispatch changeRatingUpdateStatus('saving')
 
   prevRequests = requests
   batchQueue.add =>
     promises = prevRequests.map (request) -> queue.add request
     Promise.all(promises).then ->
-      app.ratingUpdateStatusActions.set 'done'
+      dispatch changeRatingUpdateStatus('done')
 
   requests = []
 
-timeoutUpdatesPerform = (app) ->
+timeoutUpdatesPerform = (dispatch) ->
   clearTimeout updateTimeoutId if updateTimeoutId?
-  updateTimeoutId = setTimeout _.partial(performUpdates, app), updateDelay
-  app.ratingUpdateStatusActions.set 'pending'
+  updateTimeoutId = setTimeout _.partial(performUpdates, dispatch), updateDelay
+  dispatch changeRatingUpdateStatus('pending')
 
 RatingUpdater =
   queueUpdate: (request) ->
+    {dispatch} = @props
+
     @cancelUpdate?()
     requests.push request
     @cancelUpdate = -> _.remove requests, (req) -> req == request
-    timeoutUpdatesPerform @app
+    timeoutUpdatesPerform dispatch
 
 module.exports = RatingUpdater
