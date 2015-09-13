@@ -1,6 +1,5 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
 moment = require 'moment'
 classNames = require 'classnames'
 imageUrl = require '../../../helpers/image_url'
@@ -14,8 +13,6 @@ SectionLink = require '../links/section'
 
 Preview = React.createClass
   displayName: 'Preview'
-
-  mixins: [Marty.createAppMixin()]
 
   propTypes:
     rating: PropTypes.object.isRequired

@@ -6,7 +6,7 @@ axios = require 'axios'
 requestHeaderSections = createAction 'REQUEST_HEADER_SECTIONS'
 receiveHeaderSections = createAction 'RECEIVE_HEADER_SECTIONS'
 
-fetchHeaderSections = (page) ->
+fetchHeaderSections = ->
   (dispatch, getState) ->
     dispatch requestHeaderSections()
 

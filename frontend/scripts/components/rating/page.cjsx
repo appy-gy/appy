@@ -84,9 +84,9 @@ Rating = React.createClass
     return <Nothing/> if @isLoading()
 
     <Layout header={@header()}>
+      {@similar()}
     </Layout>
       # <Rating ratingSlug={ratingSlug}/>
-      # {@similar()}
       # {@comments()}
 
 mapStateToProps = ({rating, ratingItems}) ->

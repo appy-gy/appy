@@ -1,14 +1,27 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+similarRatingActions = require '../../actions/similar_ratings'
 Preview = require '../shared/ratings/preview'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{fetchSimilarRatings} = similarRatingActions
 
 Similar = React.createClass
   displayName: 'Similar'
 
   propTypes:
+    dispatch: PropTypes.func.isRequired
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
+
+  contextTypes:
+    rating: PropTypes.object.isRequired
+
+  componentWillMount: ->
+    @fetchSimilarRatings()
+
+  fetchSimilarRatings: ->
+    @props.dispatch fetchSimilarRatings()
 
   ratings: ->
     {ratings} = @props
@@ -26,13 +39,7 @@ Similar = React.createClass
       </div>
     </div>
 
-module.exports = Marty.createContainer Similar,
-  listenTo: ['similarRatingsStore']
+mapStateToProps = ({similarRatings}) ->
+  ratings: similarRatings.items
 
-  contextTypes:
-    ratingSlug: PropTypes.string.isRequired
-
-  fetch: ->
-    {ratingSlug} = @context
-
-    ratings: @app.similarRatingsStore.getFor(ratingSlug)
+module.exports = connect(mapStateToProps)(Similar)
