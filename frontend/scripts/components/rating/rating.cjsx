@@ -90,8 +90,8 @@ Rating = React.createClass
     edit = rating.status != 'published'
 
     <article className="rating">
+      <UpdateStatus/>
     </article>
-      # <UpdateStatus/>
       # <Header/>
       # <Description object={rating} actions="ratingsActions" edit={edit} placeholder="Введите описание рейтинга"/>
       # {@authorLink()}

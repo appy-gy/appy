@@ -18,8 +18,8 @@ Nothing = require '../shared/nothing'
 {fetchRating} = ratingActions
 {fetchRatingItems} = ratingItemActions
 
-Rating = React.createClass
-  displayName: 'Rating'
+RatingPage = React.createClass
+  displayName: 'RatingPage'
 
   mixins: [SyncSlug('rating'), Loading, Watch]
 
@@ -84,9 +84,9 @@ Rating = React.createClass
     return <Nothing/> if @isLoading()
 
     <Layout header={@header()}>
+      <Rating/>
       {@similar()}
     </Layout>
-      # <Rating ratingSlug={ratingSlug}/>
       # {@comments()}
 
 mapStateToProps = ({rating, ratingItems}) ->
@@ -94,4 +94,4 @@ mapStateToProps = ({rating, ratingItems}) ->
   ratingItems: ratingItems.items
   isFetching: _.any [rating, ratingItems], 'isFetching'
 
-module.exports = connect(mapStateToProps)(Rating)
+module.exports = connect(mapStateToProps)(RatingPage)

@@ -9,6 +9,7 @@ deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 requestRating = createAction 'REQUEST_RATING'
 receiveRating = createAction 'RECEIVE_RATING'
 changeRating = createAction 'CHANGE_RATING'
+changeUpdateStatus = createAction 'CHANGE_UPDATE_STATUS'
 
 fetchRating = (id) ->
   (dispatch, getState) ->
@@ -42,4 +43,4 @@ removeRating = ->
 
     axios.delete "ratings/#{rating.item.id}"
 
-module.exports = { fetchRating, viewRating, changeRating, updateRating, removeRating }
+module.exports = { fetchRating, viewRating, changeRating, updateRating, removeRating, changeUpdateStatus }

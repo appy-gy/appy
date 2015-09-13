@@ -8,6 +8,7 @@ ReduxActions = require 'redux-actions'
 defaultState = ->
   item: {}
   isFetching: false
+  updateStatus: 'done'
 
 reducer = handleActions
   REQUEST_RATING: (state) ->
@@ -22,6 +23,9 @@ reducer = handleActions
 
   CHANGE_RATING: (state, {payload: changes}) ->
     update state, item: { $merge: changes }
+
+  CHANGE_UPDATE_STATUS: (state, {payload: status}) ->
+    update state, updateStatus: { $set: status }
 
 , defaultState()
 

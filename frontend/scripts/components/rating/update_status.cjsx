@@ -1,13 +1,14 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 
 {PropTypes} = React
+{connect} = ReactRedux
 
 UpdateStatus = React.createClass
   displayName: 'UpdateStatus'
 
   propTypes:
-    status: PropTypes.object.isRequired
+    status: PropTypes.string.isRequired
 
   statusNames:
     done: 'Сохранено'
@@ -17,14 +18,13 @@ UpdateStatus = React.createClass
   render: ->
     {status} = @props
 
-    name = @statusNames[status.type]
+    name = @statusNames[status]
 
-    <div className="header_rating-update-status m-#{status.type}">
+    <div className="header_rating-update-status m-#{status}">
       {name}
     </div>
 
-module.exports = Marty.createContainer UpdateStatus,
-  listenTo: 'ratingUpdateStatusStore'
+mapStateToProps = ({rating}) ->
+  status: rating.updateStatus
 
-  fetch: ->
-    status: @app.ratingUpdateStatusStore.get()
+module.exports = connect(mapStateToProps)(UpdateStatus)
