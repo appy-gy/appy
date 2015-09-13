@@ -104,11 +104,11 @@ User = React.createClass
             <Ratings page={@currentPage()}/>
           </Tab>
           <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
+            <Comments page={@currentPage()}/>
           </Tab>
         </Tabs>
       </div>
     </Layout>
-            # <Comments page={@currentPage()}/>
 
 mapStateToProps = ({user}) ->
   user: user.item, isFetching: user.isFetching

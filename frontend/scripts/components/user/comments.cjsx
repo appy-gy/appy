@@ -1,20 +1,38 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+userCommentActions = require '../../actions/user_comments'
+Watch = require '../mixins/watch'
 PaginationLink = require './pagination_link'
 Comment = require '../shared/comments/comment'
 Pagination = require '../shared/pagination/pagination'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{fetchUserComments} = userCommentActions
 
 Comments = React.createClass
   displayName: 'Comments'
 
+  mixins: [Watch]
+
   propTypes:
+    dispatch: PropTypes.func.isRequired
     comments: PropTypes.arrayOf(PropTypes.object).isRequired
     page: PropTypes.number.isRequired
+    pagesCount: PropTypes.number.isRequired
 
   contextTypes:
     user: PropTypes.object.isRequired
+
+  componentWillMount: ->
+    @fetchComments()
+
+    @watch
+      exp: ({page}) -> page
+      onChange: @fetchComments
+
+  fetchComments: ->
+    @props.dispatch fetchUserComments(@context.user.id, @props.page)
 
   noComments: ->
     {user} = @context
@@ -26,18 +44,18 @@ Comments = React.createClass
     </div>
 
   comments: ->
-    {comments} = @props
+    {comments, page} = @props
 
     actionTypes = open: {}, answer: { inline: false }
 
-    comments.map (comment) ->
-      <Comment key={comment.id} comment={comment} showUsername={false} showRatingInfo={true} actionTypes={actionTypes}/>
+    comments
+      .filter (comment) -> comment.page == page
+      .map (comment) ->
+        <Comment key={comment.id} comment={comment} showUsername={false} showRatingInfo={true} actionTypes={actionTypes}/>
 
   render: ->
-    {page} = @props
+    {page, pagesCount} = @props
     {user} = @context
-
-    pagesCount = @app.pageCountsStore.get('userComments') || 0
 
     <div>
       <h2 className="user-profile_tab-header">
@@ -48,17 +66,7 @@ Comments = React.createClass
       <Pagination currentPage={page} pagesCount={pagesCount} link={PaginationLink}/>
     </div>
 
-module.exports = Marty.createContainer Comments,
-  listenTo: 'commentsStore'
+mapStateToProps = ({userComments}) ->
+  comments: userComments.items, pagesCount: userComments.pagesCount
 
-  propTypes:
-    page: PropTypes.number.isRequired
-
-  contextTypes:
-    user: PropTypes.object.isRequired
-
-  fetch: ->
-    {page} = @props
-    {user} = @context
-
-    comments: @app.commentsStore.getForUser(user.id, page)
+module.exports = connect(mapStateToProps)(Comments)
