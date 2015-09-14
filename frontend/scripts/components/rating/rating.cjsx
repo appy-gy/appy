@@ -96,9 +96,9 @@ Rating = React.createClass
       <RatingItems/>
       {@addRatingItemButton()}
       {@source()}
+      {@likeButton()}
+      {@shareButtons()}
     </article>
-      # {@likeButton()}
-      # {@shareButtons()}
 
 module.exports = connect()(Rating)
   # propTypes:

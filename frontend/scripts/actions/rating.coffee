@@ -57,5 +57,20 @@ removeTagFromRating = (name) ->
     dispatch type: 'REMOVE_TAG_FROM_RATING', payload: name
     axios.delete "ratings/#{rating.item.id}/tags", data: { name }
 
+likeRating = ->
+  (dispatch, getState) ->
+    {rating} = getState()
+
+    axios.post("ratings/#{rating.item.id}/likes").then ({data}) ->
+      dispatch changeRating(like: data.like, likesCount: data.meta.likesCount)
+
+unlikeRating = ->
+  (dispatch, getState) ->
+    {rating} = getState()
+
+    axios.delete("ratings/#{rating.item.id}/likes").then ({data}) ->
+      dispatch changeRating(like: null, likesCount: data.meta.likesCount)
+
 module.exports = { fetchRating, viewRating, changeRating, updateRating,
-  removeRating, changeRatingUpdateStatus, addTagToRating, removeTagFromRating }
+  removeRating, changeRatingUpdateStatus, addTagToRating, removeTagFromRating,
+  likeRating, unlikeRating }

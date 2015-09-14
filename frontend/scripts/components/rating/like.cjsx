@@ -1,19 +1,21 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 classNames = require 'classnames'
+ratingActions = require '../../actions/rating'
 Login = require '../shared/auth/login'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{likeRating, unlikeRating} = ratingActions
 
 Like = React.createClass
   displayName: 'Like'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
-    currentUser: PropTypes.object.isRequired
+    dispatch: PropTypes.func.isRequired
 
   contextTypes:
+    currentUser: PropTypes.object.isRequired
     rating: PropTypes.object.isRequired
 
   childClasses: (klass) ->
@@ -22,13 +24,13 @@ Like = React.createClass
     classNames klass, 'm-active': rating.like?
 
   triggerLike: ->
-    {currentUser} = @props
-    {rating} = @context
+    {dispatch} = @props
+    {currentUser, rating} = @context
 
     return unless currentUser.id?
 
-    action = if rating.like? then 'unlike' else 'like'
-    @app.ratingsActions[action] rating.id
+    action = if rating.like? then unlikeRating else likeRating
+    dispatch action()
 
   subbursts: ->
     {rating} = @context
@@ -37,8 +39,7 @@ Like = React.createClass
       <div key={index} className={@childClasses("rating_like-burst-#{index}")}/>
 
   render: ->
-    {currentUser} = @props
-    {rating} = @context
+    {currentUser, rating} = @context
 
     Component = if currentUser.id? then 'div' else Login
 
@@ -49,8 +50,4 @@ Like = React.createClass
       </div>
     </Component>
 
-module.exports = Marty.createContainer Like,
-  listenTo: 'currentUserStore'
-
-  fetch: ->
-    currentUser: @app.currentUserStore.get()
+module.exports = connect()(Like)
