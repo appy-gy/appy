@@ -86,8 +86,8 @@ RatingPage = React.createClass
     <Layout header={@header()}>
       <Rating/>
       {@similar()}
+      {@comments()}
     </Layout>
-      # {@comments()}
 
 mapStateToProps = ({rating, ratingItems}) ->
   rating: rating.item

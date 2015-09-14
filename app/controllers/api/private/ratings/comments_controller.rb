@@ -3,7 +3,6 @@ module Api
     module Ratings
       class CommentsController < BaseController
         find :rating
-        check 'Ratings::CanSeeComments', :@rating, only: [:index]
         check 'Ratings::CanComment', :@rating, only: [:create]
 
         def index

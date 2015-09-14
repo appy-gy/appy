@@ -1,24 +1,25 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 classNames = require 'classnames'
+ratingCommentActions = require '../../../actions/rating_comments'
 isBlank = require '../../../helpers/is_blank'
 imageUrl = require '../../../helpers/image_url'
 Textarea = require '../inputs/text'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{createRatingComment} = ratingCommentActions
 
 Form = React.createClass
   displayName: 'CommentForm'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
-    user: PropTypes.object.isRequired
+    dispatch: PropTypes.func.isRequired
     parent: PropTypes.object
     onSubmit: PropTypes.func
 
   contextTypes:
-    ratingSlug: PropTypes.string.isRequired
+    currentUser: PropTypes.object.isRequired
 
   placeholder: 'Нажмите Shift + Enter для отправки комментария. Для перехода на новую строку нажмите Enter'
 
@@ -39,31 +40,27 @@ Form = React.createClass
     @createComment()
 
   createComment: ->
-    {parent, onSubmit} = @props
+    {dispatch, parent, onSubmit} = @props
     {body} = @state
-    {ratingSlug} = @context
 
     return if isBlank body
 
     onSubmit()
-    @app.commentsActions.create ratingSlug, { body, parentId: parent?.id }
-      .then => @setState body: ''
+    dispatch(createRatingComment(body, parent?.id)).then =>
+      @setState body: ''
 
   render: ->
-    {user, parent} = @props
+    {parent} = @props
     {body} = @state
+    {currentUser} = @context
 
     classes = classNames 'comment-form', 'm-answer': parent?
     buttonClasses = classNames 'comment-form_button', 'm-disabled': isBlank(body)
 
     <div className={classes}>
-      <img className="comment_userface" src={imageUrl user.avatar, 'small'}/>
+      <img className="comment_userface" src={imageUrl currentUser.avatar, 'small'}/>
       <Textarea ref="bodyInput" className="comment-form_textarea" placeholder={@placeholder} value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
       <div className={buttonClasses} onClick={@createComment}>Написать</div>
     </div>
 
-module.exports = Marty.createContainer Form,
-  listenTo: 'currentUserStore'
-
-  fetch: ->
-    user: @app.currentUserStore.get()
+module.exports = connect()(Form)

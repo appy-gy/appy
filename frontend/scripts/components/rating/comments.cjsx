@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+ratingCommentActions = require '../../actions/rating_comments'
 isBlank = require '../../helpers/is_blank'
 canCommentRating = require '../../helpers/ratings/can_comment'
 CommentsTree = require './comments_tree'
@@ -11,14 +12,19 @@ Nothing = require '../shared/nothing'
 CommentTreesBuilder = require '../../helpers/comments/trees_builder'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{fetchRatingComments} = ratingCommentActions
 
 Comments = React.createClass
   displayName: 'Comments'
 
   propTypes:
-    user: PropTypes.object.isRequired
-    rating: PropTypes.object.isRequired
+    dispatch: PropTypes.func.isRequired
     comments: PropTypes.arrayOf(PropTypes.object).isRequired
+
+  contextTypes:
+    currentUser: PropTypes.object.isRequired
+    rating: PropTypes.object.isRequired
 
   childContextTypes:
     canComment: PropTypes.bool.isRequired
@@ -27,10 +33,14 @@ Comments = React.createClass
   getChildContext: ->
     canComment: @canComment(), block: 'comments'
 
-  canComment: ->
-    {user, rating} = @props
+  componentWillMount: ->
+    @fetchComments()
 
-    canCommentRating user, rating
+  canComment: ->
+    canCommentRating @context.currentUser, @context.rating
+
+  fetchComments: ->
+    @props.dispatch fetchRatingComments()
 
   trees: ->
     {comments} = @props
@@ -42,16 +52,12 @@ Comments = React.createClass
       <CommentsTree key={tree.root.id} tree={tree} level={1}/>
 
   commentForm: ->
-    {user, rating} = @props
-
     return <AuthToComment/> unless @canComment()
 
     <CommentForm ref="form"/>
 
   render: ->
-    {rating} = @props
-
-    return <Nothing/> unless rating.canSeeComments
+    {rating} = @context
 
     <div className="comments">
       <div className="comments_header">
@@ -63,15 +69,7 @@ Comments = React.createClass
       {@commentForm()}
     </div>
 
-module.exports = Marty.createContainer Comments,
-  contextTypes:
-    ratingSlug: PropTypes.string.isRequired
+mapStateToProps = ({ratingComments}) ->
+  comments: ratingComments.items
 
-  listenTo: ['currentUserStore', 'ratingsStore', 'commentsStore']
-
-  fetch: ->
-    {ratingSlug} = @context
-
-    user: @app.currentUserStore.get()
-    rating: @app.ratingsStore.get(ratingSlug)
-    comments: @app.commentsStore.getForRating(ratingSlug)
+module.exports = connect(mapStateToProps)(Comments)
