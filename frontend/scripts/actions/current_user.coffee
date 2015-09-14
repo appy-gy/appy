@@ -15,6 +15,14 @@ fetchCurrentUser = ->
     axios.get('sessions').then ({data}) ->
       dispatch receiveCurrentUser(data.user)
 
+updateCurrentUser = (changes) ->
+  (dispatch, getState) ->
+    {currentUser} = getState()
+
+    data = user: deepSnakecaseKeys(changes)
+    axios.put("users/#{currentUser.item.id}", data).then ({data}) ->
+      dispatch changeCurrentUser(data.user)
+
 logIn = ({email, password}) ->
   (dispatch, getState) ->
     dispatch requestCurrentUser()
@@ -49,5 +57,5 @@ resetPassword = (email) ->
   (dispatch, getState) ->
     axios.post 'reset_passwords', { email }
 
-module.exports = { changeCurrentUser, fetchCurrentUser, logIn, logOut,
-  register, changePassword, resetPassword }
+module.exports = { fetchCurrentUser, changeCurrentUser, updateCurrentUser,
+  logIn, logOut, register, changePassword, resetPassword }

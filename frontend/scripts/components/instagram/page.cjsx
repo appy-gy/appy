@@ -1,30 +1,37 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 Qs = require 'qs'
+currentUserActions = require '../../actions/current_user'
 Loading = require '../mixins/loading'
 Layout = require '../layout/layout'
 Nothing = require '../shared/nothing'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{updateCurrentUser} = currentUserActions
 
 Instagram = React.createClass
   displayName: 'Instagram'
 
-  mixins: [Marty.createAppMixin(), Loading]
+  mixins: [Loading]
+
+  propTypes:
+    dispatch: PropTypes.func.isRequired
 
   contextTypes:
     router: PropTypes.func.isRequired
+    currentUser: PropTypes.object.isRequired
 
   componentDidMount: ->
-    {user} = @props
+    {dispatch} = @props
     {access_token, error} = Qs.parse _.trimLeft(location.hash, '#')
 
     redirect() if @error?
 
     window.instagramCallback = ({data}) =>
       link = "https://instagram.com/#{data.username}"
-      @app.usersActions.update user.id, instagramLink: link
+      dispatch updateCurrentUser(instagramLink: link)
       @redirect()
       delete window.instagramCallback
 
@@ -39,18 +46,13 @@ Instagram = React.createClass
     true
 
   redirect: ->
-    {user} = @props
-    {router} = @context
+    {currentUser, router} = @context
 
-    router.transitionTo 'user', userSlug: user.slug
+    router.transitionTo 'user', userSlug: currentUser.slug
 
   render: ->
     <Layout>
       <Nothing/>
     </Layout>
 
-module.exports = Marty.createContainer Instagram,
-  listenTo: 'currentUserStore'
-
-  fetch: ->
-    user: @app.currentUserStore.get()
+module.exports = connect()(Instagram)
