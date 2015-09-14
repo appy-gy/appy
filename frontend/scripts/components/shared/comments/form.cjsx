@@ -46,8 +46,8 @@ Form = React.createClass
     return if isBlank body
 
     onSubmit()
-    dispatch(createRatingComment(body, parent?.id)).then =>
-      @setState body: ''
+    @setState body: ''
+    dispatch createRatingComment(body, parent?.id)
 
   render: ->
     {parent} = @props
