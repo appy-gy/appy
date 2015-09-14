@@ -8,6 +8,7 @@ deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 requestRatingItems = createAction 'REQUEST_RATING_ITEMS'
 receiveRatingItems = createAction 'RECEIVE_RATING_ITEMS'
 appendRatingItem = createAction 'APPEND_RATING_ITEM'
+changeRatingItemPositions = createAction 'CHANGE_RATING_ITEM_POSITIONS'
 markRatingItemVisible = createAction 'MARK_RATING_ITEM_VISIBLE'
 unmarkRatingItemVisible = createAction 'UNMARK_RATING_ITEM_VISIBLE'
 
@@ -26,4 +27,26 @@ createRatingItem = (position) ->
     axios.post("ratings/#{rating.item.id}/rating_items", data).then ({data}) ->
       dispatch appendRatingItem(data.ratingItem)
 
-module.exports = { fetchRatingItems, createRatingItem }
+changeRatingItem = createAction 'CHANGE_RATING_ITEM', (id, changes) ->
+  { id, changes }
+
+updateRatingItem = (id, changes, notSync) ->
+  (dispatch, getState) ->
+    {rating} = getState()
+    notSync = _.keys changes if notSync == true
+    data = toFormData deepSnakecaseKeys(ratingItem: changes)
+
+    axios.put("ratings/#{rating.item.id}/rating_items/#{id}", data).then ({data}) ->
+      changes = _.omit data.ratingItem, notSync
+      dispatch changeRating(id, changes)
+
+removeRatingItem = (id) ->
+  (dispatch, getState) ->
+    {rating} = getState()
+
+    axios.delete("ratings/#{rating.item.id}/rating_items/#{id}").then ->
+      dispatch type: 'REMOVE_RATING_ITEM', payload: id
+
+module.exports = { fetchRatingItems, createRatingItem, changeRatingItem,
+  updateRatingItem, removeRatingItem, changeRatingItemPositions,
+  markRatingItemVisible, unmarkRatingItemVisible }

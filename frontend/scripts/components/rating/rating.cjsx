@@ -40,8 +40,7 @@ Rating = React.createClass
     @props.dispatch createRatingItem()
 
   addRatingItemButton: ->
-    {ratingItems} = @props
-    {canEdit} = @context
+    {ratingItems, canEdit} = @context
 
     return unless canEdit
 
@@ -55,7 +54,7 @@ Rating = React.createClass
     </AddRatingItem>
 
   authorLink: ->
-    {rating} = @props
+    {rating} = @context
 
     return unless rating.status == 'published'
 
@@ -66,21 +65,21 @@ Rating = React.createClass
     </div>
 
   likeButton: ->
-    {rating} = @props
+    {rating} = @context
 
     return unless rating.status == 'published'
 
     <Like ref="likeButton"/>
 
   shareButtons: ->
-    {rating} = @props
+    {rating} = @context
 
     return unless rating.status == 'published'
 
     <ShareButtons ref="shareButtons"/>
 
   source: ->
-    {rating} = @props
+    {rating} = @context
 
     <Source/> unless isBlank(rating.source) and rating.status == 'published'
 
@@ -92,11 +91,11 @@ Rating = React.createClass
     <article className="rating">
       <UpdateStatus/>
       <Header/>
+      <Description object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Введите описание рейтинга"/>
+      {@authorLink()}
+      <RatingItems/>
+      {@addRatingItemButton()}
     </article>
-      # <Description object={rating} actions="ratingsActions" edit={edit} placeholder="Введите описание рейтинга"/>
-      # {@authorLink()}
-      # <RatingItems/>
-      # {@addRatingItemButton()}
       # {@source()}
       # {@likeButton()}
       # {@shareButtons()}

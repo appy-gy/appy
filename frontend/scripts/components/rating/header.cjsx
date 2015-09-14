@@ -100,7 +100,7 @@ Header = React.createClass
           {@sectionLink()}
           {@sectionSelect()}
         </div>
-        <Title object={rating} actions="ratingsActions" edit={edit} placeholder="Введите заголовок рейтинга"/>
+        <Title object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Введите заголовок рейтинга"/>
       </div>
       <div className="rating_tags-select">
         <TagsSelect/>

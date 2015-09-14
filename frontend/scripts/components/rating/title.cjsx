@@ -1,20 +1,35 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+ratingActions = require '../../actions/rating'
+ratingItemActions = require '../../actions/rating_items'
 Classes = require '../mixins/classes'
 RatingUpdater = require '../mixins/rating_updater'
 Textarea = require '../shared/inputs/text'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{changeRating, updateRating} = ratingActions
+{changeRatingItem, updateRatingItem} = ratingItemActions
 
-ObjectTitle = React.createClass
+actions =
+  rating:
+    change: changeRating
+    update: updateRating
+  ratingItem:
+    change: changeRatingItem
+    update: updateRatingItem
+
+Title = React.createClass
   displayName: 'Title'
 
-  mixins: [Marty.createAppMixin(), Classes, RatingUpdater]
+  mixins: [Classes, RatingUpdater]
 
   propTypes:
+    dispatch: PropTypes.func.isRequired
     object: PropTypes.object.isRequired
-    actions: PropTypes.string.isRequired
+    objectType: PropTypes.string.isRequired
+    passObjectId: PropTypes.bool.isRequired
     edit: PropTypes.bool.isRequired
     placeholder: PropTypes.string.isRequired
 
@@ -26,13 +41,15 @@ ObjectTitle = React.createClass
     event.preventDefault()
 
   changeTitle: (event) ->
-    {object, actions} = @props
+    {dispatch, object, objectType, passObjectId} = @props
 
     title = event.target.value
+    payload = [{ title }]
+    payload.unshift object.id if passObjectId
 
-    @app[actions].change object.id, { title }
+    dispatch actions[objectType].change(payload...)
     @queueUpdate =>
-      @app[actions].update object.id, { title }, true
+      dispatch actions[objectType].update(payload..., true)
 
   title: ->
     {object, edit, placeholder} = @props
@@ -53,4 +70,4 @@ ObjectTitle = React.createClass
       {@title()}
     </div>
 
-module.exports = ObjectTitle
+module.exports = connect()(Title)

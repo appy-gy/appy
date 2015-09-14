@@ -1,16 +1,20 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+ratingItemActions = require '../../actions/rating_items'
 Classes = require '../mixins/classes'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{createRatingItem, changeRatingItemPositions} = ratingItemActions
 
 AddRatingItem = React.createClass
   displayName: 'AddRatingItem'
 
-  mixins: [Marty.createAppMixin(), Classes]
+  mixins: [Classes]
 
   propTypes:
+    dispatch: PropTypes.func.isRequired
     position: PropTypes.number.isRequired
     children: PropTypes.node
 
@@ -30,11 +34,10 @@ AddRatingItem = React.createClass
     , {}
 
   createRatingItem: ->
-    {position} = @props
-    {rating} = @context
+    {dispatch, position} = @props
 
-    @app.ratingsActions.changePositions @newPositions()
-    @app.ratingItemsActions.create rating.id, position
+    dispatch changeRatingItemPositions(@newPositions())
+    dispatch createRatingItem(position)
 
   render: ->
     {children} = @props
@@ -45,4 +48,4 @@ AddRatingItem = React.createClass
       {children}
     </div>
 
-module.exports = AddRatingItem
+module.exports = connect()(AddRatingItem)

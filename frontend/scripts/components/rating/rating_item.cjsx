@@ -1,6 +1,7 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 classNames = require 'classnames'
+ratingItemActions = require '../../actions/rating_items'
 Title = require './title'
 Description = require './description'
 Image = require './rating_item_image'
@@ -8,13 +9,14 @@ Votes = require './votes'
 Waypoint = require '../shared/waypoint'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{removeRatingItem, markRatingItemVisible, unmarkRatingItemVisible} = ratingItemActions
 
 RatingItem = React.createClass
   displayName: 'RatingItem'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
+    dispatch: PropTypes.func.isRequired
     ratingItem: PropTypes.object.isRequired
     index: PropTypes.number.isRequired
     mods: PropTypes.arrayOf(PropTypes.string)
@@ -37,17 +39,13 @@ RatingItem = React.createClass
   removeItem: ->
     {ratingItem} = @props
 
-    @app.ratingItemsActions.remove ratingItem.id
+    @props.dispatch removeRatingItem(@props.ratingItem.id)
 
   handleWaypointEnter: ->
-    {ratingItem} = @props
-
-    @app.waypointsActions.append ratingItem
+    @props.dispatch markRatingItemVisible(@props.ratingItem.id)
 
   handleWaypointLeave: ->
-    {ratingItem} = @props
-
-    @app.waypointsActions.remove ratingItem
+    @props.dispatch unmarkRatingItemVisible(@props.ratingItem.id)
 
   removeButton: ->
     {rating} = @context
@@ -57,11 +55,7 @@ RatingItem = React.createClass
     <div className="rating-item_remove" onClick={@removeItem}></div>
 
   votes: ->
-    {rating} = @context
-
-    return unless rating.status == 'published'
-
-    <Votes/>
+    <Votes/> if @context.rating.status == 'published'
 
   render: ->
     {ratingItem, index, mods} = @props
@@ -74,10 +68,10 @@ RatingItem = React.createClass
       <section id="item-#{ratingItem.position}" className={classes}>
         <div className="rating-item_header">
           <span className="rating-item_number">{index}</span>
-          <Title object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите заголовок пункта"/>
+          <Title object={ratingItem} objectType="ratingItem" passObjectId={true} edit={edit} placeholder="Введите заголовок пункта"/>
         </div>
         <div className="rating-item_description-wrapper">
-          <Description object={ratingItem} actions="ratingItemsActions" edit={edit} placeholder="Введите описание пункта"/>
+          <Description object={ratingItem} objectType="ratingItem" passObjectId={true} edit={edit} placeholder="Введите описание пункта"/>
         </div>
         <div className="rating-item_cover-wrap">
           <Image/>
@@ -87,4 +81,4 @@ RatingItem = React.createClass
       </section>
     </Waypoint>
 
-module.exports = RatingItem
+module.exports = connect()(RatingItem)

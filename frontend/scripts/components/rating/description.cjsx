@@ -1,6 +1,8 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+ratingActions = require '../../actions/rating'
+ratingItemActions = require '../../actions/rating_items'
 AutolinkText = require 'react-autolink-text'
 Classes = require '../mixins/classes'
 RatingUpdater = require '../mixins/rating_updater'
@@ -8,15 +10,28 @@ Textarea = require '../shared/inputs/text'
 removeExtraSpaces = require '../../helpers/remove_extra_spaces'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{changeRating, updateRating} = ratingActions
+{changeRatingItem, updateRatingItem} = ratingItemActions
 
-ObjectDescription = React.createClass
+actions =
+  rating:
+    change: changeRating
+    update: updateRating
+  ratingItem:
+    change: changeRatingItem
+    update: updateRatingItem
+
+Description = React.createClass
   displayName: 'Description'
 
-  mixins: [Marty.createAppMixin(), Classes, RatingUpdater]
+  mixins: [Classes, RatingUpdater]
 
   propTypes:
+    dispatch: PropTypes.func.isRequired
     object: PropTypes.object.isRequired
-    actions: PropTypes.string.isRequired
+    objectType: PropTypes.string.isRequired
+    passObjectId: PropTypes.bool.isRequired
     edit: PropTypes.bool.isRequired
     placeholder: PropTypes.string.isRequired
 
@@ -25,13 +40,15 @@ ObjectDescription = React.createClass
     block: PropTypes.string.isRequired
 
   changeDescription: (event) ->
-    {object, actions} = @props
+    {dispatch, object, objectType, passObjectId} = @props
 
     description = event.target.value
+    payload = [{ description }]
+    payload.unshift object.id if passObjectId
 
-    @app[actions].change object.id, { description }
+    dispatch actions[objectType].change(payload...)
     @queueUpdate =>
-      @app[actions].update object.id, { description }, true
+      dispatch actions[objectType].update(payload..., true)
 
   description: ->
     {object, edit, placeholder} = @props
@@ -51,4 +68,4 @@ ObjectDescription = React.createClass
       {@description()}
     </div>
 
-module.exports = ObjectDescription
+module.exports = connect()(Description)
