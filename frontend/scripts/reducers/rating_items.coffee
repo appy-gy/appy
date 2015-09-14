@@ -8,7 +8,7 @@ ReduxActions = require 'redux-actions'
 defaultState = ->
   items: []
   isFetching: false
-  visible: []
+  visibilities: []
 
 reducer = handleActions
   REQUEST_RATING_ITEMS: (state) ->
@@ -37,12 +37,9 @@ reducer = handleActions
       result[index] = $merge: { position }
     update state, items: changes
 
-  MARK_RATING_ITEM_VISIBLE: (state, {payload: ratingItemId}) ->
-    update state, visible: { $push: [ratingItemId] }
-
-  UNMARK_RATING_ITEM_VISIBLE: (state, {payload: ratingItemId}) ->
-    index = _.findIndex state.visible, ratingItemId
-    update state, visible: { $splice: [[index, 1]] }
+  CHANGE_RATING_ITEM_VISIBILITY: (state, {payload}) ->
+    {id, visibility} = payload
+    update state, visibilities: { "#{id}": { $set: visibility } }
 
 , defaultState()
 

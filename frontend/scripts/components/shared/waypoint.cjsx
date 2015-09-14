@@ -7,8 +7,6 @@ Waypoint = React.createClass
 
   wasVisible: false
 
-  callsCount: 0
-
   timer: 0
   lastPosition: null
   newPosition: 0
@@ -16,51 +14,48 @@ Waypoint = React.createClass
   propTypes:
     onEnter: PropTypes.func
     onLeave: PropTypes.func
+    onVisibilityChange: PropTypes.func
     children: PropTypes.element.isRequired
 
   getDefaultProps: ->
     onEnter: ->
     onLeave: ->
+    onVisibilityChange: ->
 
   componentDidMount: ->
-    window.addEventListener 'scroll', @handleScroll, false
+    window.addEventListener 'scroll', @handleScroll
 
   componentWillUnmount: ->
-    window.removeEventListener 'scroll', @handleScroll, false
+    window.removeEventListener 'scroll', @handleScroll
 
   handleScroll: ->
-    return if @scrollSpeed() > 600
-    # return unless @callsLimit()
-    @calculateVisibility()
+    {onEnter, onLeave, onVisibilityChange} = @props
 
-  callsLimit: ->
-    @callsCount += 1
-    @callsCount % 2 == 0
-
-  scrollSpeed: ->
-    @newPosition = window.scrollY
-
-    delta = Math.abs(@newPosition - @lastPosition) if @lastPosition
-
-    @lastPosition = @newPosition
-
-    @timer && clearTimeout(@timer)
-    @timer = setTimeout( ->
-      @lastPosition = null
-    , 30)
-
-    delta
-
-  calculateVisibility: ->
     isVisible = @isVisible()
-    return if @wasVisible == isVisible
+    visibility = @calculateVisibility()
 
-    if isVisible
-      @props.onEnter()
-    else
-      @props.onLeave()
+    if @wasVisible != isVisible
+      if isVisible then onEnter() else onLeave()
+
+    onVisibilityChange visibility if visibility != @prevVisibility
 
     @wasVisible = isVisible
+    @prevVisibility = visibility
+
+  calculateVisibility: ->
+    waypoint = React.findDOMNode @
+    windowTop = window.innerHeight * .2
+    windowBottom = window.innerHeight * .8;
+    elementTop = waypoint.getBoundingClientRect().top
+    elementBottom = waypoint.getBoundingClientRect().bottom
+
+    insideWindow = elementTop >= windowTop && elementBottom <= windowBottom
+    biggerThanWindow = elementBottom >= windowBottom && elementTop <= windowTop
+
+    if insideWindow || biggerThanWindow
+      'inside'
+    else
+      'outside'
 
   isVisible: ->
     waypoint = React.findDOMNode @

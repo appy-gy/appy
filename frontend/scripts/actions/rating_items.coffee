@@ -11,8 +11,6 @@ requestRatingItems = createAction 'REQUEST_RATING_ITEMS'
 receiveRatingItems = createAction 'RECEIVE_RATING_ITEMS'
 appendRatingItem = createAction 'APPEND_RATING_ITEM'
 changeRatingItemPositions = createAction 'CHANGE_RATING_ITEM_POSITIONS'
-markRatingItemVisible = createAction 'MARK_RATING_ITEM_VISIBLE'
-unmarkRatingItemVisible = createAction 'UNMARK_RATING_ITEM_VISIBLE'
 
 fetchRatingItems = (ratingId) ->
   (dispatch, getState) ->
@@ -80,6 +78,9 @@ updateRatingItemPositions = ->
     axios.put(url, { positions }).then ({data}) ->
       dispatch changeRatingItemPositions(data.positions)
 
+changeRatingItemVisibility = createAction 'CHANGE_RATING_ITEM_VISIBILITY', (id, visibility) ->
+  { id, visibility }
+
 voteFromRatingItem = (id, kind) ->
   (dispatch, getState) ->
     axios.post("rating_items/#{id}/votes", vote: { kind }).then ({data}) ->
@@ -87,5 +88,5 @@ voteFromRatingItem = (id, kind) ->
 
 module.exports = { fetchRatingItems, createRatingItem, changeRatingItem,
   updateRatingItem, removeRatingItem, changeRatingItemPositions,
-  changeRatingItemPosition, updateRatingItemPositions, markRatingItemVisible,
-  unmarkRatingItemVisible, voteFromRatingItem }
+  changeRatingItemPosition, updateRatingItemPositions,
+  changeRatingItemVisibility, voteFromRatingItem }

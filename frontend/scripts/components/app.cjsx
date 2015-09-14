@@ -19,7 +19,7 @@ App = React.createClass
   propTypes:
     dispatch: PropTypes.func.isRequired
     currentUser: PropTypes.object.isRequired
-    isFetching: PropTypes.bool.isFetching
+    isFetching: PropTypes.bool.isRequired
 
   childContextTypes:
     currentUser: PropTypes.object.isRequired
