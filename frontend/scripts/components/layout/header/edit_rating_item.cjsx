@@ -1,11 +1,14 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 ReactDnd = require 'react-dnd'
 classNames = require 'classnames'
+ratingItemActions = require '../../../actions/rating_items'
 
 {PropTypes} = React
+{connect} = ReactRedux
 {DragSource, DropTarget} = ReactDnd
+{changeRatingItemPosition, updateRatingItemPositions} = ratingItemActions
 
 ratingItemSource =
   beginDrag: (props, monitor, component) ->
@@ -37,9 +40,8 @@ collectTarget = (connect) ->
 EditRatingItem = React.createClass
   displayName: 'EditRatingItem'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
+    dispatch: PropTypes.func.isRequired
     ratingItem: PropTypes.object.isRequired
     index: PropTypes.number.isRequired
     connectDragSource: PropTypes.func.isRequired
@@ -51,15 +53,11 @@ EditRatingItem = React.createClass
 
     "#item-#{ratingItem.position}"
 
-  changePosition: (newPosition) ->
-    {ratingItem} = @props
-
-    @app.ratingItemsActions.changePosition ratingItem.id, newPosition
+  changePosition: (position) ->
+    @props.dispatch changeRatingItemPosition(@props.ratingItem.id, position)
 
   updatePositions: ->
-    {ratingItem} = @props
-
-    @app.ratingsActions.updatePositions ratingItem.ratingId
+    @props.dispatch updateRatingItemPositions()
 
   render: ->
     {ratingItem, index, connectDragSource, connectDropTarget, isDragging} = @props
@@ -72,4 +70,5 @@ EditRatingItem = React.createClass
       </div>
     </a>
 
-module.exports = DropTarget('EditRatingItem', ratingItemTarget, collectTarget)(DragSource('EditRatingItem', ratingItemSource, collectSource)(EditRatingItem))
+module.exports = connect()(DropTarget('EditRatingItem', ratingItemTarget, collectTarget)(DragSource('EditRatingItem', ratingItemSource, collectSource)(EditRatingItem))
+)
