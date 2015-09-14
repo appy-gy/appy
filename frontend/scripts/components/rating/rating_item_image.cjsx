@@ -1,6 +1,7 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 classNames = require 'classnames'
+ratingItemActions = require '../../actions/rating_items'
 WithFileInput = require '../mixins/with_file_input'
 RatingUpdater = require '../mixins/rating_updater'
 FileInput = require '../shared/inputs/file'
@@ -8,11 +9,16 @@ withIndexKeys = require '../../helpers/react/with_index_keys'
 imageUrl = require '../../helpers/image_url'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{changeRatingItem, updateRatingItem} = ratingItemActions
 
 RatingItemImage = React.createClass
   displayName: 'RatingItemImage'
 
-  mixins: [Marty.createAppMixin(), WithFileInput, RatingUpdater]
+  mixins: [WithFileInput, RatingUpdater]
+
+  propTypes:
+    dispatch: PropTypes.func.isRequired
 
   contextTypes:
     ratingItem: PropTypes.object.isRequired
@@ -28,26 +34,26 @@ RatingItemImage = React.createClass
     @buttonTypes.map (type) => @["#{type}Button"]()
 
   imageUrlFor: ({context}) ->
-    {ratingItem} = context
-
-    imageUrl ratingItem.image, 'normal'
+    imageUrl context.ratingItem.image, 'normal'
 
   updateImage: (files) ->
+    {dispatch} = @props
     {ratingItem} = @context
 
     image = files[0]
     return unless image?
 
-    @app.ratingItemsActions.change ratingItem.id, image: image.preview
-    @queueUpdate =>
-      @app.ratingItemsActions.update ratingItem.id, { image }
+    dispatch changeRatingItem(ratingItem.id, image: image.preview)
+    @queueUpdate ->
+      dispatch updateRatingItem(ratingItem.id, { image })
 
   removeImage: ->
+    {dispatch} = @props
     {ratingItem} = @context
 
-    @app.ratingItemsActions.change ratingItem.id, image: null
-    @queueUpdate =>
-      @app.ratingItemsActions.update ratingItem.id, removeImage: true
+    dispatch changeRatingItem(ratingItem.id, image: null)
+    @queueUpdate ->
+      dispatch updateRatingItem(ratingItem.id, removeImage: true)
 
   updateImageButton: ->
     <div className="rating-item_add-image" title="Выберите изображение" onClick={@openSelect}>
@@ -81,4 +87,4 @@ RatingItemImage = React.createClass
       {@children()}
     </FileInput>
 
-module.exports = RatingItemImage
+module.exports = connect()(RatingItemImage)
