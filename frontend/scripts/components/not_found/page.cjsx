@@ -1,6 +1,5 @@
 React = require 'react/addons'
 Router = require 'react-router'
-Marty = require 'marty'
 CreateRating = require '../shared/ratings/create'
 Registration = require '../shared/auth/registration'
 
@@ -10,11 +9,11 @@ Registration = require '../shared/auth/registration'
 NotFoundPage = React.createClass
   displayName: 'NotFoundPage'
 
-  propTypes:
+  contextTypes:
     currentUser: PropTypes.object.isRequired
 
   button: ->
-    {currentUser} = @props
+    {currentUser} = @context
 
     if currentUser.id?
       Component = CreateRating
@@ -46,8 +45,4 @@ NotFoundPage = React.createClass
       </div>
     </div>
 
-module.exports = Marty.createContainer NotFoundPage,
-  listenTo: 'currentUserStore'
-
-  fetch: ->
-    currentUser: @app.currentUserStore.get()
+module.exports = NotFoundPage
