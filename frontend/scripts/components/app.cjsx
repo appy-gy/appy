@@ -24,6 +24,9 @@ App = React.createClass
   childContextTypes:
     currentUser: PropTypes.object.isRequired
 
+  getInitialState: ->
+    startFetchingUser: false
+
   componentWillMount: ->
     @fetchCurrentUser()
 
@@ -31,13 +34,14 @@ App = React.createClass
     _.pick @props, 'currentUser'
 
   fetchCurrentUser: ->
-    @startFetching = true
     @props.dispatch fetchCurrentUser()
+    setImmediate => @setState startFetchingUser: true
 
   render: ->
     {isFetching} = @props
+    {startFetchingUser} = @state
 
-    return <Nothing/> if not @startFetching or isFetching
+    return <Nothing/> if not startFetchingUser or isFetching
 
     <RouteHandler {...@props}/>
 
