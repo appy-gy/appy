@@ -47,7 +47,7 @@ RatingPage = React.createClass
     @fetchRatingItems()
 
     @watch
-      exp: ({ratingSlug}) -> ratingSlug
+      exp: => @props.ratingSlug
       onChange: =>
         @fetchRating()
         @fetchRatingItems()
@@ -64,7 +64,7 @@ RatingPage = React.createClass
   checkAccess: (rating) ->
     {router} = @context
 
-    return if rating.status == 'published' or @canEdit()
+    return if rating.status == 'published' or @canEdit(rating)
     router.replaceWith 'root' if isClient()
 
   fetchRating: ->
@@ -74,8 +74,8 @@ RatingPage = React.createClass
   fetchRatingItems: ->
     @props.dispatch fetchRatingItems(@props.ratingSlug)
 
-  canEdit: ->
-    canEditRating @context.currentUser, @props.rating
+  canEdit: (rating = @props.rating) ->
+    canEditRating @context.currentUser, rating
 
   header: ->
     if @canEdit() then 'editRating' else 'rating'

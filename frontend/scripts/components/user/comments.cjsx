@@ -28,7 +28,7 @@ Comments = React.createClass
     @fetchComments()
 
     @watch
-      exp: ({page}) -> page
+      exp: => @props.page
       onChange: @fetchComments
 
   fetchComments: ->

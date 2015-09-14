@@ -32,7 +32,7 @@ Section = React.createClass
     @fetchSection()
 
     @watch
-      exp: ({sectionSlug}) -> sectionSlug
+      exp: => @props.sectionSlug
       onChange: =>
         @fetchSection()
         @fetchRatings @page()

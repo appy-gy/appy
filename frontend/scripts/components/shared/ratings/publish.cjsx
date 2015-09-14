@@ -32,7 +32,7 @@ Publish = React.createClass
 
     return if @hasPublishErrors()
 
-    dispatch updateRating(status: 'published').then ->
+    dispatch(updateRating(status: 'published')).then ->
       showToast dispatch, 'Рейтинг опубликован', 'success'
 
   confirmPublish: ->

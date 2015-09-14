@@ -1,18 +1,23 @@
-_ = require 'lodash'
-
-isSlugChanged = ({name, object, router}) ->
-  object? and router.getCurrentParams()["#{name}Slug"] != object.slug
+# To use this mixin in your component you should also
+# include Watch mixin in it, has router in context and
+# has isLoading method defined
 
 SyncSlug = (name) ->
-  componentWillUpdate: (nextProps) ->
-    slug = nextProps["#{name}Slug"]
-    {router} = @context
-    object = if _.has nextProps, name then nextProps[name] else @[name](slug)
-    checker = if @isSlugChanged? then _.partial(@isSlugChanged, nextProps) else _.partial(isSlugChanged, { name, object, router })
+  componentWillMount: ->
+    @maybeSetupSlugWatcher()
 
-    return unless checker()
+  componentWillUpdate: ->
+    @maybeSetupSlugWatcher()
 
-    console.log 'In progress sync slug'
-    # setImmediate -> router.replaceWith name, "#{name}Slug": object.slug
+  maybeSetupSlugWatcher: ->
+    return if @isLoading() or @slugWatchSetup
+
+    @slugWatchSetup = true
+    currentSlug = => @props[name].slug
+
+    @watch
+      exp: currentSlug
+      onChange: =>
+        @context.router.replaceWith name, "#{name}Slug": currentSlug()
 
 module.exports = SyncSlug

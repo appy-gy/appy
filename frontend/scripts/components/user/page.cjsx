@@ -53,14 +53,11 @@ User = React.createClass
     @fetchUser()
 
     @watch
-      exp: (props, state, {currentUser}) -> currentUser.id
+      exp: => @context.currentUser.id
       onChange: @fetchUser
 
   isLoading: ->
     @props.isFetching or not @props.user.id?
-
-  isSlugChanged: ({user}) ->
-    user?.slug? and @context.router.getCurrentParams().userSlug != user.slug
 
   currentPage: ->
     @parsePage @context.router.getCurrentQuery().page

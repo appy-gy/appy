@@ -7,18 +7,16 @@
 # onChange - function to be called on exp result change
 
 Watch =
-  componentWillMount: ->
-    @watchers = []
-
   watch: (watcher) ->
+    @watchers ||= []
     @watchers.push watcher
 
-  componentWillUpdate: (prevProps, prevState, prevContext) ->
-    @watchers.each (watcher) ->
-      watcher.value = watcher.exp prevProps, prevState, prevContext
+  componentWillUpdate: ->
+    @watchers?.each (watcher) ->
+      watcher.value = watcher.exp()
 
-  componentDidUpdate: (nextProps, nextState, nextContext) ->
-    @watchers.each ({exp, value, onChange}) ->
-      onChange() unless value == exp(nextProps, nextState, nextContext)
+  componentDidUpdate: ->
+    @watchers?.each ({exp, value, onChange}) ->
+      onChange() unless value == exp()
 
 module.exports = Watch

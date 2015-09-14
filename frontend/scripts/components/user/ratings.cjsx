@@ -33,11 +33,11 @@ Ratings = React.createClass
     @fetchRatings()
 
     @watch
-      exp: ({page}) -> page
+      exp: => @props.page
       onChange: @fetchRatings
 
     @watch
-      exp: (props, state, {currentUser}) -> currentUser.id
+      exp: => @context.currentUser.id
       onChange: @fetchRatings
 
   fetchRatings: ->
