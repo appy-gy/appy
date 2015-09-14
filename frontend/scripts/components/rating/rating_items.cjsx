@@ -26,7 +26,7 @@ RatingItems = React.createClass
     onEnter = _.partial @changeHoveredButtonPosition, ratingItem.position
     onLeave = _.partial @changeHoveredButtonPosition, null
 
-    <AddRatingItem className="rating_add-item-wrap" position={ratingItem.position} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+    <AddRatingItem key="add-item-#{ratingItem.id}" className="rating_add-item-wrap" position={ratingItem.position} onMouseEnter={onEnter} onMouseLeave={onLeave}>
       <div className="rating_add-item">
         <div className="rating_add-item-icon"></div>
         <div className="rating_add-item-text">Добавить новый пункт рейтинга между двумя пунктами</div>

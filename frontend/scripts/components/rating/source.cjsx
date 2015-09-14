@@ -1,17 +1,23 @@
 _ = require 'lodash'
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
+ratingActions = require '../../actions/rating'
 AutolinkText = require 'react-autolink-text'
 RatingUpdater = require '../mixins/rating_updater'
 Textarea = require '../shared/inputs/text'
 removeExtraSpaces = require '../../helpers/remove_extra_spaces'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{changeRating, updateRating} = ratingActions
 
 Source = React.createClass
   displayName: 'Source'
 
-  mixins: [Marty.createAppMixin(), RatingUpdater]
+  mixins: [RatingUpdater]
+
+  propTypes:
+    dispatch: PropTypes.func.isRequired
 
   contextTypes:
     rating: PropTypes.object.isRequired
@@ -23,22 +29,20 @@ Source = React.createClass
     edit: false
 
   startEdit: ->
-    {canEdit} = @context
-
-    return unless canEdit
-    @setState edit: true
+    @setState edit: true if @context.canEdit
 
   stopEdit: ->
     @setState edit: false
 
   changeSource: (event) ->
+    {dispatch} = @props
     {rating} = @context
 
     source = event.target.value
 
-    @app.ratingsActions.change rating.id, { source }
-    @queueUpdate =>
-      @app.ratingsActions.update rating.id, { source }
+    dispatch changeRating({ source })
+    @queueUpdate ->
+      dispatch updateRating({ source })
 
   sourceView: ->
     {edit} = @state
@@ -64,4 +68,4 @@ Source = React.createClass
       {@sourceEdit()}
     </div>
 
-module.exports = Source
+module.exports = connect()(Source)

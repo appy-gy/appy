@@ -95,8 +95,8 @@ Rating = React.createClass
       {@authorLink()}
       <RatingItems/>
       {@addRatingItemButton()}
+      {@source()}
     </article>
-      # {@source()}
       # {@likeButton()}
       # {@shareButtons()}
 
