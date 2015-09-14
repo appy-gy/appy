@@ -74,7 +74,6 @@ module.exports =
       { test: /\.less$/, loader: lessLoader }
       { test: /\.sass$/, loader: sassLoader + '?indentedSyntax' }
       { test: /\.scss$/, loader: sassLoader }
-      { test: /\.js$/, include: /node_modules\/marty/, loader: 'babel' }
       { test: /\.coffee$/, exclude: /node_modules/, loader: 'coffee' }
       { test: /\.cjsx$/, exclude: /node_modules/, loaders: cjsxLoaders }
     ]

@@ -1,5 +1,4 @@
 React = require 'react/addons'
-Marty = require 'marty'
 Title = require './title'
 SocialButtons = require './social_buttons'
 Or = require './or'
