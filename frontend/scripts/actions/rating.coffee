@@ -28,6 +28,11 @@ viewRating = ->
     axios.put("ratings/#{rating.item.id}/view").then ({data}) ->
       dispatch changeRating(data)
 
+createRating = ->
+  (dispatch, getState) ->
+    axios.post('ratings').then ({data}) ->
+      data.rating
+
 updateRating = (changes, notSync) ->
   (dispatch, getState) ->
     {rating} = getState()
@@ -72,6 +77,6 @@ unlikeRating = ->
     axios.delete("ratings/#{rating.item.id}/likes").then ({data}) ->
       dispatch changeRating(like: null, likesCount: data.meta.likesCount)
 
-module.exports = { fetchRating, viewRating, changeRating, updateRating,
-  removeRating, changeRatingUpdateStatus, addTagToRating, removeTagFromRating,
-  likeRating, unlikeRating }
+module.exports = { fetchRating, viewRating, changeRating, createRating,
+  updateRating, removeRating, changeRatingUpdateStatus, addTagToRating,
+  removeTagFromRating, likeRating, unlikeRating }

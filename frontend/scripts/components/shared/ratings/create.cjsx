@@ -1,13 +1,18 @@
 _ = require 'lodash'
 React = require 'react/addons'
+ReactRedux = require 'react-redux'
+ratingActions = require '../../../actions/rating'
 Login = require '../auth/login'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{createRating} = ratingActions
 
 CreateRating = React.createClass
   displayName: 'CreateRating'
 
   propTypes:
+    dispatch: PropTypes.func.isRequired
     children: PropTypes.node.isRequired
 
   contextTypes:
@@ -15,12 +20,13 @@ CreateRating = React.createClass
     currentUser: PropTypes.object.isRequired
 
   create: ->
+    {dispatch} = @props
     {router, currentUser} = @context
 
     return unless currentUser.id?
 
-    @app.ratingsActions.create().then ({body}) =>
-      router.transitionTo 'rating', ratingSlug: body.rating.slug
+    dispatch(createRating()).then ({slug}) ->
+      router.transitionTo 'rating', ratingSlug: slug
 
   render: ->
     {children} = @props
@@ -35,4 +41,4 @@ CreateRating = React.createClass
       </div>
     </Component>
 
-module.exports = CreateRating
+module.exports = connect()(CreateRating)
