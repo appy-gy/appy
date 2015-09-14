@@ -17,6 +17,7 @@ fetchRating = (id) ->
 
     axios.get("ratings/#{id}").then ({data}) ->
       dispatch receiveRating(data.rating)
+      data.rating
 
 viewRating = ->
   (dispatch, getState) ->

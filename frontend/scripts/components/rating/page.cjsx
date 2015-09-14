@@ -3,6 +3,7 @@ React = require 'react/addons'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../actions/rating'
 ratingItemActions = require '../../actions/rating_items'
+isClient = require '../../helpers/is_client'
 canEditRating = require '../../helpers/ratings/can_edit'
 SyncSlug = require '../mixins/sync_slug'
 Loading = require '../mixins/loading'
@@ -60,8 +61,15 @@ RatingPage = React.createClass
   isLoading: ->
     @props.isFetching or not @props.rating.id?
 
+  checkAccess: (rating) ->
+    {router} = @context
+
+    return if rating.status == 'published' or @canEdit()
+    router.replaceWith 'root' if isClient()
+
   fetchRating: ->
-    @props.dispatch fetchRating(@props.ratingSlug)
+    @props.dispatch(fetchRating(@props.ratingSlug)).then (rating) =>
+      @checkAccess rating
 
   fetchRatingItems: ->
     @props.dispatch fetchRatingItems(@props.ratingSlug)

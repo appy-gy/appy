@@ -13,7 +13,6 @@ Like = require './like'
 ShareButtons = require './share_buttons'
 Nothing = require '../shared/nothing'
 UserLink = require '../shared/links/user'
-isClient = require '../../helpers/is_client'
 isBlank = require '../../helpers/is_blank'
 
 {PropTypes} = React
@@ -101,33 +100,3 @@ Rating = React.createClass
     </article>
 
 module.exports = connect()(Rating)
-  # propTypes:
-  #   ratingSlug: PropTypes.string.isRequired
-  #
-  # contextTypes:
-  #   router: PropTypes.func.isRequired
-  #   canEdit: PropTypes.bool.isRequired
-  #
-  # listenTo: ['ratingsStore', 'ratingItemsStore']
-  #
-  # fetch: ->
-  #   {ratingSlug} = @props
-  #
-  #   rating: @app.ratingsStore.get(ratingSlug)
-  #   ratingItems: @app.ratingItemsStore.getForRating(ratingSlug)
-  #
-  # done: (results) ->
-  #   {router} = @context
-  #
-  #   if @hasAccess results
-  #     return <Rating ref="innerComponent" {...@props} {...results} app={@app}/>
-  #
-  #   if isClient()
-  #     setImmediate -> router.replaceWith 'root'
-  #
-  #   <Nothing ref="innerComponent"/>
-  #
-  # hasAccess: ({rating}) ->
-  #   {canEdit} = @context
-  #
-  #   rating.status == 'published' or canEdit
