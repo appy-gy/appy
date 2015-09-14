@@ -45,4 +45,9 @@ changePassword = (oldPassword, newPassword) ->
     data = deepSnakecaseKeys { oldPassword, newPassword }
     axios.put "users/#{currentUser.item.id}/change_password", data
 
-module.exports = { changeCurrentUser, fetchCurrentUser, logIn, logOut, register, changePassword }
+resetPassword = (email) ->
+  (dispatch, getState) ->
+    axios.post 'reset_passwords', { email }
+
+module.exports = { changeCurrentUser, fetchCurrentUser, logIn, logOut,
+  register, changePassword, resetPassword }

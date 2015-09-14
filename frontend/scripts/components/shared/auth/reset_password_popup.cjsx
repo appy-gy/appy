@@ -1,16 +1,25 @@
 React = require 'react/addons'
+ReactRedux = require 'react-redux'
+currentUserActions = require '../../../actions/current_user'
+popupActions = require '../../../actions/popups'
+showToast = require '../../../helpers/toasts/show'
 Title = require './title'
 Login = -> require './login'
 Form = require './form'
-showToast = require '../../../helpers/toasts/show'
 
 {PropTypes} = React
 {LinkedStateMixin} = React.addons
+{connect} = ReactRedux
+{resetPassword} = currentUserActions
+{removePopupsWithType} = popupActions
 
 ResetPasswordPopup = React.createClass
   displayName: 'ResetPasswordPopup'
 
   mixins: [LinkedStateMixin]
+
+  propTypes:
+    dispatch: PropTypes.func.isRequired
 
   componentWillMount: ->
     @Login = Login()
@@ -19,21 +28,22 @@ ResetPasswordPopup = React.createClass
     email: ''
 
   resetPassword: (event) ->
+    {dispatch} = @props
     {email} = @state
 
     event.preventDefault()
 
-    @app.resetPasswordApi.reset(email).then ({body, ok}) =>
-      return @showFailToast() unless ok
-      @showSuccessToast()
-      popups = @app.popupsStore.getOfType('auth')
-      @app.popupsActions.remove popups
+    dispatch resetPassword(email)
+      .then =>
+        @showSuccessToast()
+        dispatch removePopupsWithType('auth')
+      .catch @showFailToast
 
   showFailToast: ->
-    showToast @app, 'Не удалось отправить письмо для восстановления пароля', 'error'
+    showToast @props.dispatch, 'Не удалось отправить письмо для восстановления пароля', 'error'
 
   showSuccessToast: ->
-    showToast @app, 'Письмо для восстановления пароля отправлено', 'success'
+    showToast @props.dispatch, 'Письмо для восстановления пароля отправлено', 'success'
 
   render: ->
     <div className="auth-popup">
@@ -48,4 +58,4 @@ ResetPasswordPopup = React.createClass
       </@Login>
     </div>
 
-module.exports = ResetPasswordPopup
+module.exports = connect()(ResetPasswordPopup)
