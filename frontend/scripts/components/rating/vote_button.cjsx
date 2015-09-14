@@ -1,32 +1,35 @@
 React = require 'react/addons'
-Marty = require 'marty'
+ReactRedux = require 'react-redux'
 classNames = require 'classnames'
+ratingItemActions = require '../../actions/rating_items'
 Login = require '../shared/auth/login'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{voteFromRatingItem} = ratingItemActions
 
 VoteButton = React.createClass
   displayName: 'VoteButton'
 
-  mixins: [Marty.createAppMixin()]
-
   propTypes:
+    dispatch: PropTypes.func.isRequired
     kind: PropTypes.string.isRequired
 
   contextTypes:
+    currentUser: PropTypes.object.isRequired
     ratingItem: PropTypes.object.isRequired
 
   vote: ->
-    {kind, currentUser} = @props
-    {ratingItem} = @context
+    {dispatch, kind} = @props
+    {currentUser, ratingItem} = @context
 
     return unless currentUser.id?
 
-    @app.votesActions.create ratingItem.id, kind
+    dispatch voteFromRatingItem(ratingItem.id, kind)
 
   render: ->
-    {kind, currentUser} = @props
-    {ratingItem} = @context
+    {kind} = @props
+    {currentUser, ratingItem} = @context
 
     classes = classNames 'rating-item_button', "m-#{kind}", 'm-active': ratingItem.vote?.kind == kind
     Component = if currentUser.id? then 'div' else Login
@@ -35,8 +38,4 @@ VoteButton = React.createClass
       <div className={classes} onClick={@vote}></div>
     </Component>
 
-module.exports = Marty.createContainer VoteButton,
-  listenTo: 'currentUserStore'
-
-  fetch: ->
-    currentUser: @app.currentUserStore.get()
+module.exports = connect()(VoteButton)

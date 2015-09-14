@@ -47,6 +47,11 @@ removeRatingItem = (id) ->
     axios.delete("ratings/#{rating.item.id}/rating_items/#{id}").then ->
       dispatch type: 'REMOVE_RATING_ITEM', payload: id
 
+voteFromRatingItem = (id, kind) ->
+  (dispatch, getState) ->
+    axios.post("rating_items/#{id}/votes", vote: { kind }).then ({data}) ->
+      dispatch changeRatingItem(id, vote: data.vote, mark: data.meta.mark)
+
 module.exports = { fetchRatingItems, createRatingItem, changeRatingItem,
   updateRatingItem, removeRatingItem, changeRatingItemPositions,
-  markRatingItemVisible, unmarkRatingItemVisible }
+  markRatingItemVisible, unmarkRatingItemVisible, voteFromRatingItem }
