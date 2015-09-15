@@ -21,7 +21,7 @@ Nothing = require '../shared/nothing'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{fetchUser} = userActions
+{fetchUser, clearUser} = userActions
 
 User = React.createClass
   displayName: 'User'
@@ -55,7 +55,9 @@ User = React.createClass
 
     @watch
       exp: => @context.currentUser.id
-      onChange: @fetchUser
+      onChange: =>
+        @clearUser()
+        @fetchUser()
 
   isLoading: ->
     not @props.isFetched
@@ -71,6 +73,9 @@ User = React.createClass
 
   fetchUser: ->
     @props.dispatch fetchUser(@props.userSlug)
+
+  clearUser: ->
+    @props.dispatch clearUser()
 
   resetPage: (query) ->
     _.omit query, 'page'

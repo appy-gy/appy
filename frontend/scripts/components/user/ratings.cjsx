@@ -11,7 +11,7 @@ Pagination = require '../shared/pagination/pagination'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{fetchUserRatings} = userRatingActions
+{fetchUserRatings, clearUserRatings} = userRatingActions
 
 Ratings = React.createClass
   displayName: 'Ratings'
@@ -38,10 +38,15 @@ Ratings = React.createClass
 
     @watch
       exp: => @context.currentUser.id
-      onChange: @fetchRatings
+      onChange: =>
+        @clearRatings()
+        @fetchRatings()
 
   fetchRatings: ->
     @props.dispatch fetchUserRatings(@props.page, @context.user.id)
+
+  clearRatings: ->
+    @props.dispatch clearUserRatings()
 
   hasRatings: ->
     @context.user.ratingsCount > 0

@@ -1,10 +1,14 @@
+ReduxActions = require 'redux-actions'
 itemFetcher = require '../helpers/actions/item_fetcher'
 http = require '../helpers/http'
 currentUserActions = require './current_user'
 deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 toFormData = require '../helpers/to_form_data'
 
+{createAction} = ReduxActions
 {changeCurrentUser} = currentUserActions
+
+clearUser = createAction 'CLEAR_USER'
 
 {fetch: fetchUser} = itemFetcher name: 'user', url: (id) -> "users/#{id}"
 
@@ -21,4 +25,4 @@ updateUser = (changes) ->
     http.put("users/#{user.item.id}", data).then ({data}) ->
       dispatch changeUser(data.user)
 
-module.exports = { fetchUser, changeUser, updateUser }
+module.exports = { fetchUser, changeUser, updateUser, clearUser }

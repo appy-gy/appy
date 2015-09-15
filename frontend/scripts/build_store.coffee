@@ -7,8 +7,7 @@ thunk = require 'redux-thunk'
 
 module.exports = (reducers, state) ->
   reducer = combineReducers reducers
-  # TODO: return
-  logger = createLogger logger: console, predicate: _.constant(process.env.TOP_ENV == 'development')
+  logger = createLogger logger: console, collapsed: true, predicate: _.constant(process.env.TOP_ENV == 'development')
   createStoreWithMiddleware = applyMiddleware thunk, logger
   store = createStoreWithMiddleware(createStore)(reducer)
   createStoreWithMiddleware(createStore)(reducer, state)

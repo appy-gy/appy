@@ -8,7 +8,7 @@ Pagination = require '../shared/pagination/pagination'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{fetchUserComments} = userCommentActions
+{fetchUserComments, clearUserComments} = userCommentActions
 
 Comments = React.createClass
   displayName: 'Comments'
@@ -31,8 +31,17 @@ Comments = React.createClass
       exp: => @props.page
       onChange: @fetchComments
 
+    @watch
+      exp: => @context.currentUser.id
+      onChange: =>
+        @clearComments()
+        @fetchComments()
+
   fetchComments: ->
     @props.dispatch fetchUserComments(@props.page, @context.user.id)
+
+  clearComments: ->
+    @props.dispatch clearUserComments()
 
   noComments: ->
     {user} = @context

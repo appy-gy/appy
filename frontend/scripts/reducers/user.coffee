@@ -12,6 +12,9 @@ handlers = _.merge handlers,
   CHANGE_USER: (state, {payload: changes}) ->
     update state, item: { $merge: changes }
 
+  CLEAR_USER: ->
+    defaultState()
+
 reducer = handleActions handlers, defaultState()
 
 module.exports = reducer
