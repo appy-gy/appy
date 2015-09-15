@@ -19,13 +19,10 @@ App = React.createClass
   propTypes:
     dispatch: PropTypes.func.isRequired
     currentUser: PropTypes.object.isRequired
-    isFetching: PropTypes.bool.isRequired
+    isFetched: PropTypes.bool.isRequired
 
   childContextTypes:
     currentUser: PropTypes.object.isRequired
-
-  getInitialState: ->
-    startFetchingUser: false
 
   componentWillMount: ->
     @fetchCurrentUser()
@@ -35,17 +32,17 @@ App = React.createClass
 
   fetchCurrentUser: ->
     @props.dispatch fetchCurrentUser()
-    setImmediate => @setState startFetchingUser: true
 
   render: ->
-    {isFetching} = @props
-    {startFetchingUser} = @state
+    {isFetched} = @props
 
-    return <Nothing/> if not startFetchingUser or isFetching
+    return <Nothing/> unless isFetched
+
+    props = _.omit @props, 'dispatch', 'currentUser', 'isFetched'
 
     <RouteHandler {...@props}/>
 
 mapStateToProps = ({currentUser}) ->
-  currentUser: currentUser.item, isFetching: currentUser.isFetching
+  currentUser: currentUser.item, isFetched: currentUser.isFetched
 
 module.exports = DragDropContext(HTML5Backend)(connect(mapStateToProps)(App))

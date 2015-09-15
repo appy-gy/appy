@@ -23,7 +23,7 @@ Section = React.createClass
     dispatch: PropTypes.func.isRequired
     sectionSlug: PropTypes.string.isRequired
     section: PropTypes.object.isRequired
-    isFetching: PropTypes.bool.isRequired
+    isFetched: PropTypes.bool.isRequired
 
   contextTypes:
     router: PropTypes.func.isRequired
@@ -38,15 +38,13 @@ Section = React.createClass
         @fetchRatings @page()
 
   isLoading: ->
-    @props.isFetching
+    not @props.isFetched
 
   fetchSection: ->
-    {dispatch, sectionSlug} = @props
-
-    dispatch fetchSection(sectionSlug)
+    @props.dispatch fetchSection(@props.sectionSlug)
 
   fetchRatings: (page) ->
-    @props.dispatch fetchSectionRatings(@props.sectionSlug, page)
+    @props.dispatch fetchSectionRatings(page, @props.sectionSlug)
 
   changePage: (page) ->
     {router} = @context
@@ -71,6 +69,6 @@ mapStateToProps = ({sectionRatings, section}, {sectionSlug}) ->
   ratings: sectionRatings.items.filter (rating) -> rating.section.slug == sectionSlug
   section: section.item
   pagesCount: sectionRatings.pagesCount
-  isFetching: _.any [sectionRatings, section], 'isFetching'
+  isFetched: _.any [sectionRatings, section], 'isFetched'
 
 module.exports = connect(mapStateToProps)(Section)

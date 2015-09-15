@@ -29,7 +29,7 @@ RatingPage = React.createClass
     rating: PropTypes.object.isRequired
     ratingSlug: PropTypes.string.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
-    isFetching: PropTypes.bool.isRequired
+    isFetched: PropTypes.bool.isRequired
 
   contextTypes:
     router: PropTypes.func.isRequired
@@ -59,7 +59,7 @@ RatingPage = React.createClass
     { rating, ratingSlug, ratingItems, block: 'rating', canEdit: @canEdit() }
 
   isLoading: ->
-    @props.isFetching or not @props.rating.id?
+    not @props.isFetched
 
   checkAccess: (rating) ->
     {router} = @context
@@ -100,6 +100,6 @@ RatingPage = React.createClass
 mapStateToProps = ({rating, ratingItems}) ->
   rating: rating.item
   ratingItems: ratingItems.items
-  isFetching: _.any [rating, ratingItems], 'isFetching'
+  isFetched: _.any [rating, ratingItems], 'isFetched'
 
 module.exports = connect(mapStateToProps)(RatingPage)

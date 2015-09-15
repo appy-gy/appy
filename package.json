@@ -31,8 +31,7 @@
     "redux-thunk": "^0.1.0",
     "setimmediate": "^1.0.2",
     "smooth-scroll": "cferdinandi/smooth-scroll",
-    "tinycolor2": "^1.0.0",
-    "wolfy87-eventemitter": "miraks/EventEmitter"
+    "tinycolor2": "^1.0.0"
   },
   "devDependencies": {
     "assets-webpack-plugin": "^2.2.2",

@@ -1,22 +1,10 @@
-React = require 'react/addons'
 ReduxActions = require 'redux-actions'
+itemsReceiver = require '../helpers/reducers/items_receiver'
 
-{update} = React.addons
 {handleActions} = ReduxActions
 
-defaultState = ->
-  items: []
-  isFetching: false
+{defaultState, handlers} = itemsReceiver name: 'headerSections'
 
-reducer = handleActions
-  REQUEST_HEADER_SECTIONS: (state) ->
-    update state, isFetching: { $set: true }
-
-  RECEIVE_HEADER_SECTIONS: (state, {payload: sections}) ->
-    update state,
-      isFetching: { $set: false }
-      items: { $set: sections }
-
-, defaultState()
+reducer = handleActions handlers, defaultState()
 
 module.exports = reducer

@@ -14,6 +14,7 @@ ShareButtons = require './share_buttons'
 Nothing = require '../shared/nothing'
 UserLink = require '../shared/links/user'
 isBlank = require '../../helpers/is_blank'
+isClient = require '../../helpers/is_client'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -33,7 +34,7 @@ Rating = React.createClass
     canEdit: PropTypes.bool.isRequired
 
   componentWillMount: ->
-    @props.dispatch viewRating()
+    @props.dispatch viewRating() if isClient()
 
   createRatingItem: ->
     @props.dispatch createRatingItem()

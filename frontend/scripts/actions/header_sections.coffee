@@ -1,16 +1,8 @@
-ReduxActions = require 'redux-actions'
-axios = require 'axios'
+itemsFetcher = require '../helpers/actions/items_fetcher'
 
-{createAction} = ReduxActions
-
-requestHeaderSections = createAction 'REQUEST_HEADER_SECTIONS'
-receiveHeaderSections = createAction 'RECEIVE_HEADER_SECTIONS'
-
-fetchHeaderSections = ->
-  (dispatch, getState) ->
-    dispatch requestHeaderSections()
-
-    axios.get('header_sections').then ({data}) ->
-      dispatch receiveHeaderSections(data.sections)
+{fetch: fetchHeaderSections} = itemsFetcher
+  name: 'headerSections'
+  url: -> 'header_sections'
+  responseKey: 'sections'
 
 module.exports = { fetchHeaderSections }

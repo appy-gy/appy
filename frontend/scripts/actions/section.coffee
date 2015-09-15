@@ -1,16 +1,5 @@
-ReduxActions = require 'redux-actions'
-axios = require 'axios'
+itemFetcher = require '../helpers/actions/item_fetcher'
 
-{createAction} = ReduxActions
-
-requestSection = createAction 'REQUEST_SECTION'
-receiveSection = createAction 'RECEIVE_SECTION'
-
-fetchSection = (id) ->
-  (dispatch, getState) ->
-    dispatch requestSection()
-
-    axios.get("sections/#{id}").then ({data}) ->
-      dispatch receiveSection(data.section)
+{fetch: fetchSection} = itemFetcher name: 'section', url: (id) -> "sections/#{id}"
 
 module.exports = { fetchSection }

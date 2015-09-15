@@ -1,28 +1,23 @@
 ReduxActions = require 'redux-actions'
-axios = require 'axios'
+itemsFetcher = require '../helpers/actions/items_fetcher'
+http = require '../helpers/http'
 deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 
 {createAction} = ReduxActions
 
-requestRatingComments = createAction 'REQUEST_RATING_COMMENTS'
-receiveRatingComments = createAction 'RECEIVE_RATING_COMMENTS'
 appendRatingComment = createAction 'APPEND_RATING_COMMENT'
 
-fetchRatingComments = ->
-  (dispatch, getState) ->
-    {rating} = getState()
-
-    dispatch requestRatingComments()
-
-    axios.get("ratings/#{rating.item.id}/comments").then ({data}) ->
-      dispatch receiveRatingComments(data.comments)
+{fetch: fetchRatingComments} = itemsFetcher
+  name: 'ratingComments',
+  url: ({rating}) -> "ratings/#{rating.item.id}/comments"
+  responseKey: 'comments'
 
 createRatingComment = (body, parentId) ->
   (dispatch, getState) ->
     {rating} = getState()
 
     data = comment: deepSnakecaseKeys({ body, parentId })
-    axios.post("ratings/#{rating.item.id}/comments", data).then ({data}) ->
+    http.post("ratings/#{rating.item.id}/comments", data).then ({data}) ->
       dispatch appendRatingComment(data.comment)
       data
 

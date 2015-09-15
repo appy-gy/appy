@@ -2,20 +2,24 @@ module Api
   module Private
     class SessionsController < BaseController
       def show
-        render json: current_user
+        render json: current_user, serializer: UserSerializer
       end
 
       def create
         user = login *params[:session].values_at(:email, :password), true
         return render_error unless user
-        cookies[:top_logged_in] = { value: '1', expires: 10.years.from_now }
-        render json: user
+        render json: user, serializer: UserSerializer
       end
 
       def destroy
         logout
         cookies.delete :top_logged_in
         render json: { success: true }
+      end
+
+      def check
+        cookies[:remember_me_token] = params[:token]
+        render json: { logged_in: logged_in? }
       end
     end
   end

@@ -1,7 +1,7 @@
 _ = require 'lodash'
 React = require 'react/addons'
 ReactRedux = require 'react-redux'
-axios = require 'axios'
+http = require '../../helpers/http'
 Select = require 'react-select'
 ratingActions = require '../../actions/rating'
 Nothing = require '../shared/nothing'
@@ -32,7 +32,7 @@ TagsSelect = React.createClass
     query = '' if _.includes query, @delimiter
 
     url = if _.isEmpty query then 'tags/popular' else 'tags'
-    axios.get(url, params: { query }).then ({data}) =>
+    http.get(url, params: { query }).then ({data}) =>
       {tags} = data
       tags.unshift name: query unless _.isEmpty(query) or _(tags).map('name').includes(query)
       callback null, options: @toOptions(tags)

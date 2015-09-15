@@ -16,7 +16,7 @@ module.exports = ->
   (req, res, next) ->
     prevRender = res.render
 
-    res.render = (view, locals) ->
+    res.render = (view, locals = {}) ->
       _.merge locals, { cssPath, jsPath, faviconPath, env: process.env.TOP_ENV, facebookAppId: process.env.TOP_FACEBOOK_APP_ID }
       prevRender.call res, view, locals
 

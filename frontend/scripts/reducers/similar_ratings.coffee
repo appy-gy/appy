@@ -1,23 +1,10 @@
-_ = require 'lodash'
-React = require 'react/addons'
 ReduxActions = require 'redux-actions'
+itemsReceiver = require '../helpers/reducers/items_receiver'
 
-{update} = React.addons
 {handleActions} = ReduxActions
 
-defaultState = ->
-  items: []
-  isFetching: false
+{defaultState, handlers} = itemsReceiver name: 'similarRatings'
 
-reducer = handleActions
-  REQUEST_SIMILAR_RATINGS: (state) ->
-    update state, isFetching: { $set: true }
-
-  RECEIVE_SIMILAR_RATINGS: (state, {payload: ratings}) ->
-    update state,
-      isFetching: { $set: false }
-      items: { $set: ratings }
-
-, defaultState()
+reducer = handleActions handlers, defaultState()
 
 module.exports = reducer

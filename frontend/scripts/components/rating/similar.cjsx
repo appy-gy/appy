@@ -15,13 +15,13 @@ Similar = React.createClass
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
 
   contextTypes:
-    rating: PropTypes.object.isRequired
+    ratingSlug: PropTypes.string.isRequired
 
   componentWillMount: ->
     @fetchSimilarRatings()
 
   fetchSimilarRatings: ->
-    @props.dispatch fetchSimilarRatings()
+    @props.dispatch fetchSimilarRatings(@context.ratingSlug)
 
   ratings: ->
     {ratings} = @props

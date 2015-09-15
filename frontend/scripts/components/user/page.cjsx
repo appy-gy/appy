@@ -32,6 +32,7 @@ User = React.createClass
     dispatch: PropTypes.func.isRequired
     userSlug: PropTypes.string.isRequired
     user: PropTypes.object.isRequired
+    isFetched: PropTypes.bool.isRequired
 
   contextTypes:
     router: PropTypes.func.isRequired
@@ -57,7 +58,7 @@ User = React.createClass
       onChange: @fetchUser
 
   isLoading: ->
-    @props.isFetching or not @props.user.id?
+    not @props.isFetched
 
   currentPage: ->
     @parsePage @context.router.getCurrentQuery().page
@@ -104,6 +105,6 @@ User = React.createClass
     </Layout>
 
 mapStateToProps = ({user}) ->
-  user: user.item, isFetching: user.isFetching
+  user: user.item, isFetched: user.isFetched
 
 module.exports = connect(mapStateToProps)(User)

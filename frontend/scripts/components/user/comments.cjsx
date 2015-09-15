@@ -32,7 +32,7 @@ Comments = React.createClass
       onChange: @fetchComments
 
   fetchComments: ->
-    @props.dispatch fetchUserComments(@context.user.id, @props.page)
+    @props.dispatch fetchUserComments(@props.page, @context.user.id)
 
   noComments: ->
     {user} = @context

@@ -5,10 +5,11 @@ path = require 'path'
 express = require 'express'
 cookieParser = require 'cookie-parser'
 setup = require './setup'
+setLoggedIn = require './middlewares/set_logged_in'
 localsMerger = require './middlewares/locals_merger'
 maybeSkipPrerender = require './middlewares/maybe_skip_prerender'
-memcachedServe = require './middlewares/memcached_serve'
-# marty = require './middlewares/marty'
+maybeUseCache = require './middlewares/maybe_use_cache'
+prerender = require './middlewares/prerender'
 
 setup()
 
@@ -20,9 +21,10 @@ app.set 'view engine', 'jade'
 app.set 'views', path.join(__dirname, 'views')
 
 app.use cookieParser()
+app.use setLoggedIn()
 app.use localsMerger()
 app.use maybeSkipPrerender()
-app.use memcachedServe() if process.env.TOP_ENV == 'production'
-# app.use marty()
+app.use maybeUseCache() if process.env.TOP_ENV == 'production'
+app.use prerender()
 
 app.listen port

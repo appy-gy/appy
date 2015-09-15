@@ -19,7 +19,7 @@ Ratings = React.createClass
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-    isFetching: PropTypes.bool.isRequired
+    fetchingPages: PropTypes.arrayOf(PropTypes.number).isRequired
 
   contextTypes:
     router: PropTypes.func.isRequired
@@ -29,7 +29,7 @@ Ratings = React.createClass
     large: 3
 
   isLoading: ->
-    @props.isFetching
+    not _.isEmpty @props.fetchingPages
 
   fetchRatings: (page) ->
     @props.dispatch fetchRatings(page)
@@ -61,6 +61,6 @@ Ratings = React.createClass
     </Layout>
 
 mapStateToProps = ({ratings}) ->
-  _.merge ratings: ratings.items, _.pick(ratings, 'pagesCount', 'isFetching')
+  _.merge ratings: ratings.items, _.pick(ratings, 'fetchingPages', 'pagesCount')
 
 module.exports = connect(mapStateToProps)(Ratings)

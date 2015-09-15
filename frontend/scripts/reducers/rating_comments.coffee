@@ -1,26 +1,17 @@
 _ = require 'lodash'
 React = require 'react/addons'
 ReduxActions = require 'redux-actions'
+itemsReceiver = require '../helpers/reducers/items_receiver'
 
 {update} = React.addons
 {handleActions} = ReduxActions
 
-defaultState = ->
-  items: []
-  isFetching: false
+{defaultState, handlers} = itemsReceiver name: 'ratingComments'
 
-reducer = handleActions
-  REQUEST_RATING_COMMENTS: (state) ->
-    update state, isFetching: { $set: true }
-
-  RECEIVE_RATING_COMMENTS: (state, {payload: comments}) ->
-    update state,
-      isFetching: { $set: false }
-      items: { $set: comments }
-
+handlers = _.merge handlers,
   APPEND_RATING_COMMENT: (state, {payload: comment}) ->
     update state, items: { $push: [comment] }
 
-, defaultState()
+reducer = handleActions handlers, defaultState()
 
 module.exports = reducer

@@ -1,18 +1,8 @@
-ReduxActions = require 'redux-actions'
-axios = require 'axios'
+itemsFetcher = require '../helpers/actions/items_fetcher'
 
-{createAction} = ReduxActions
-
-requestSimilarRatings = createAction 'REQUEST_SIMILAR_RATINGS'
-receiveSimilarRatings = createAction 'RECEIVE_SIMILAR_RATINGS'
-
-fetchSimilarRatings = ->
-  (dispatch, getState) ->
-    {rating} = getState()
-
-    dispatch requestSimilarRatings()
-
-    axios.get("ratings/#{rating.item.id}/similar").then ({data}) ->
-      dispatch receiveSimilarRatings(data.ratings)
+{fetch: fetchSimilarRatings} = itemsFetcher
+  name: 'similarRatings'
+  url: (ratingId) -> "ratings/#{ratingId}/similar"
+  responseKey: 'ratings'
 
 module.exports = { fetchSimilarRatings }

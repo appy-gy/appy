@@ -41,7 +41,7 @@ Ratings = React.createClass
       onChange: @fetchRatings
 
   fetchRatings: ->
-    @props.dispatch fetchUserRatings(@context.user.id, @props.page)
+    @props.dispatch fetchUserRatings(@props.page, @context.user.id)
 
   hasRatings: ->
     @context.user.ratingsCount > 0

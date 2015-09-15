@@ -1,30 +1,24 @@
 React = require 'react/addons'
 ReduxActions = require 'redux-actions'
-axios = require 'axios'
+itemsFetcher = require '../helpers/actions/items_fetcher'
+http = require '../helpers/http'
 toFormData = require '../helpers/to_form_data'
 deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 
 {update} = React.addons
 {createAction} = ReduxActions
 
-requestRatingItems = createAction 'REQUEST_RATING_ITEMS'
-receiveRatingItems = createAction 'RECEIVE_RATING_ITEMS'
 appendRatingItem = createAction 'APPEND_RATING_ITEM'
 changeRatingItemPositions = createAction 'CHANGE_RATING_ITEM_POSITIONS'
 
-fetchRatingItems = (ratingId) ->
-  (dispatch, getState) ->
-    dispatch requestRatingItems()
-
-    axios.get("ratings/#{ratingId}/rating_items").then ({data}) ->
-      dispatch receiveRatingItems(data.ratingItems)
+{fetch: fetchRatingItems} = itemsFetcher name: 'ratingItems', url: (ratingId) -> "ratings/#{ratingId}/rating_items"
 
 createRatingItem = (position) ->
   (dispatch, getState) ->
     {rating} = getState()
     data = toFormData deepSnakecaseKeys(ratingItem: { position })
 
-    axios.post("ratings/#{rating.item.id}/rating_items", data).then ({data}) ->
+    http.post("ratings/#{rating.item.id}/rating_items", data).then ({data}) ->
       dispatch appendRatingItem(data.ratingItem)
 
 changeRatingItem = createAction 'CHANGE_RATING_ITEM', (id, changes) ->
@@ -36,7 +30,7 @@ updateRatingItem = (id, changes, notSync) ->
     notSync = _.keys changes if notSync == true
     data = toFormData deepSnakecaseKeys(ratingItem: changes)
 
-    axios.put("ratings/#{rating.item.id}/rating_items/#{id}", data).then ({data}) ->
+    http.put("ratings/#{rating.item.id}/rating_items/#{id}", data).then ({data}) ->
       changes = _.omit data.ratingItem, notSync
       dispatch changeRating(id, changes)
 
@@ -44,7 +38,7 @@ removeRatingItem = (id) ->
   (dispatch, getState) ->
     {rating} = getState()
 
-    axios.delete("ratings/#{rating.item.id}/rating_items/#{id}").then ->
+    http.delete("ratings/#{rating.item.id}/rating_items/#{id}").then ->
       dispatch type: 'REMOVE_RATING_ITEM', payload: id
 
 changeRatingItemPosition = (id, position) ->
@@ -75,7 +69,7 @@ updateRatingItemPositions = ->
       result[id] = position
     , {}
 
-    axios.put(url, { positions }).then ({data}) ->
+    http.put(url, { positions }).then ({data}) ->
       dispatch changeRatingItemPositions(data.positions)
 
 changeRatingItemVisibility = createAction 'CHANGE_RATING_ITEM_VISIBILITY', (id, visibility) ->
@@ -83,7 +77,7 @@ changeRatingItemVisibility = createAction 'CHANGE_RATING_ITEM_VISIBILITY', (id, 
 
 voteFromRatingItem = (id, kind) ->
   (dispatch, getState) ->
-    axios.post("rating_items/#{id}/votes", vote: { kind }).then ({data}) ->
+    http.post("rating_items/#{id}/votes", vote: { kind }).then ({data}) ->
       dispatch changeRatingItem(id, vote: data.vote, mark: data.meta.mark)
 
 module.exports = { fetchRatingItems, createRatingItem, changeRatingItem,

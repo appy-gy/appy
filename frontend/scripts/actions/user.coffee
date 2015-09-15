@@ -1,21 +1,12 @@
-ReduxActions = require 'redux-actions'
-axios = require 'axios'
+itemFetcher = require '../helpers/actions/item_fetcher'
+http = require '../helpers/http'
 currentUserActions = require './current_user'
 deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 toFormData = require '../helpers/to_form_data'
 
-{createAction} = ReduxActions
 {changeCurrentUser} = currentUserActions
 
-requestUser = createAction 'REQUEST_USER'
-receiveUser = createAction 'RECEIVE_USER'
-
-fetchUser = (id) ->
-  (dispatch, getState) ->
-    dispatch requestUser()
-
-    axios.get("users/#{id}").then ({data}) ->
-      dispatch receiveUser(data.user)
+{fetch: fetchUser} = itemFetcher name: 'user', url: (id) -> "users/#{id}"
 
 changeUser = (changes) ->
   (dispatch, getState) ->
@@ -27,7 +18,7 @@ updateUser = (changes) ->
   (dispatch, getState) ->
     {user} = getState()
     data = toFormData user: deepSnakecaseKeys(changes)
-    axios.put("users/#{user.item.id}", data).then ({data}) ->
+    http.put("users/#{user.item.id}", data).then ({data}) ->
       dispatch changeUser(data.user)
 
 module.exports = { fetchUser, changeUser, updateUser }

@@ -1,25 +1,10 @@
-_ = require 'lodash'
-React = require 'react/addons'
 ReduxActions = require 'redux-actions'
+itemReceiver = require '../helpers/reducers/item_receiver'
 
-{update} = React.addons
 {handleActions} = ReduxActions
 
-defaultState = ->
-  item: {}
-  isFetching: false
+{defaultState, handlers} = itemReceiver name: 'section'
 
-reducer = handleActions
-  REQUEST_SECTION: (state) ->
-    update state, isFetching: { $set: true }
-
-  RECEIVE_SECTION: (state, {payload: section}) ->
-    section ||= {}
-
-    update state,
-      isFetching: { $set: false }
-      item: { $set: section }
-
-, defaultState()
+reducer = handleActions handlers, defaultState()
 
 module.exports = reducer

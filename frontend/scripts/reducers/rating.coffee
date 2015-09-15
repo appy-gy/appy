@@ -1,26 +1,17 @@
 _ = require 'lodash'
 React = require 'react/addons'
 ReduxActions = require 'redux-actions'
+itemReceiver = require '../helpers/reducers/item_receiver'
 
 {update} = React.addons
 {handleActions} = ReduxActions
 
-defaultState = ->
-  item: {}
-  isFetching: false
+{defaultState, handlers} = itemReceiver name: 'rating'
+
+defaultState = _.backflow defaultState, ->
   updateStatus: 'done'
 
-reducer = handleActions
-  REQUEST_RATING: (state) ->
-    update state, isFetching: { $set: true }
-
-  RECEIVE_RATING: (state, {payload: rating}) ->
-    rating ||= {}
-
-    update state,
-      isFetching: { $set: false }
-      item: { $set: rating }
-
+handlers = _.merge handlers,
   CHANGE_RATING: (state, {payload: changes}) ->
     update state, item: { $merge: changes }
 
@@ -34,6 +25,6 @@ reducer = handleActions
     index = _.findIndex state.item.tags, (tag) -> tag.name == name
     update state, item: { tags: { $splice: [[index, 1]] } }
 
-, defaultState()
+reducer = handleActions handlers, defaultState()
 
 module.exports = reducer

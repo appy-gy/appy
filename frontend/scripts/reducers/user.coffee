@@ -1,28 +1,17 @@
 _ = require 'lodash'
 React = require 'react/addons'
 ReduxActions = require 'redux-actions'
+itemReceiver = require '../helpers/reducers/item_receiver'
 
 {update} = React.addons
 {handleActions} = ReduxActions
 
-defaultState = ->
-  item: {}
-  isFetching: false
+{defaultState, handlers} = itemReceiver name: 'user'
 
-reducer = handleActions
-  REQUEST_USER: (state) ->
-    update state, isFetching: { $set: true }
-
-  RECEIVE_USER: (state, {payload: user}) ->
-    user ||= {}
-
-    update state,
-      isFetching: { $set: false }
-      item: { $set: user }
-
+handlers = _.merge handlers,
   CHANGE_USER: (state, {payload: changes}) ->
     update state, item: { $merge: changes }
 
-, defaultState()
+reducer = handleActions handlers, defaultState()
 
 module.exports = reducer
