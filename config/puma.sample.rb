@@ -9,7 +9,7 @@ stdout_redirect '/var/www/top/shared/log/puma_error.log', '/var/www/top/shared/l
 
 threads 4,4
 
-bind 'unix:/var/www/top/shared/tmp/sockets/puma.sock'
+bind 'tcp://127.0.0.1:3000'
 workers 1
 
 activate_control_app 'unix:/var/www/top/shared/tmp/sockets/pumactl.sock'
