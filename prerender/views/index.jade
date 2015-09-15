@@ -5,7 +5,6 @@ html
   body
     #page
       != body
-    #state(style="display: none")
-      != state
+    #state(style="display: none" data-state=state)
     script(async=(env == 'production') src=jsPath type="text/javascript")
     include ./_facebook.jade

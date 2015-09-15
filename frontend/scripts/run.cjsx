@@ -10,7 +10,7 @@ routes = require './routes'
 {HistoryLocation} = Router
 
 run = ->
-  state = JSON.parse(document.querySelector('#state').innerHTML || '{}')
+  state = JSON.parse(document.querySelector('#state').getAttribute('data-state')) || {}
   store = buildStore reducers, state
 
   Router.run routes, HistoryLocation, (Handler, state) ->
