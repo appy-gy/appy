@@ -8,7 +8,7 @@ module.exports = ->
     when 'production'
       paths = assetPaths()
       cssPath = path.join __dirname, '../../public', paths.css.replace(process.env.TOP_ASSETS_HOST, '')
-      css = fs.readFileSync cssOath
+      css = fs.readFileSync cssPath
       jsPath = paths.js
       faviconPath = "#{process.env.TOP_ASSETS_HOST}/files/favicon.png"
     when 'development'
