@@ -1,7 +1,7 @@
 http = require '../../frontend/scripts/helpers/http'
 
 tokenKey = 'remember_me_token'
-checkUrl = "#{process.env.TOP_HOST}/api/private/sessions/check"
+checkUrl = 'sessions/check'
 
 module.exports = ->
   (req, res, next) ->
