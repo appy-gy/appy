@@ -10,6 +10,7 @@ itemsReceiver = require '../helpers/reducers/items_receiver'
 
 defaultState = _.backflow defaultState, ->
   visibilities: []
+  waypoints: []
 
 handlers = _.merge handlers,
   APPEND_RATING_ITEM: (state, {payload: ratingItem}) ->
@@ -33,6 +34,13 @@ handlers = _.merge handlers,
   CHANGE_RATING_ITEM_VISIBILITY: (state, {payload}) ->
     {id, visibility} = payload
     update state, visibilities: { "#{id}": { $set: visibility } }
+
+  ADD_RATING_ITEM_WAYPOINT: (state, {payload: id}) ->
+    update state, waypoints: { $push: [id] }
+
+  REMOVE_RATING_ITEM_WAYPOINT: (state, {payload: id}) ->
+    index = _.indexOf state.waypoints, id
+    update state, waypoints: { $splice: [[index, 1]] }
 
 reducer = handleActions handlers, defaultState()
 

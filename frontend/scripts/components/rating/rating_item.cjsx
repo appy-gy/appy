@@ -10,7 +10,7 @@ Waypoint = require '../shared/waypoint'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{removeRatingItem, changeRatingItemVisibility} = ratingItemActions
+{removeRatingItem, changeRatingItemVisibility, addRatingItemWaypount, removeRatingItemWaypount} = ratingItemActions
 
 RatingItem = React.createClass
   displayName: 'RatingItem'
@@ -41,8 +41,11 @@ RatingItem = React.createClass
 
     @props.dispatch removeRatingItem(@props.ratingItem.id)
 
+  handleWaypointEnter: ->
+    @props.dispatch addRatingItemWaypount(@props.ratingItem.id)
+
   handleWaypointLeave: ->
-    @props.dispatch changeRatingItemVisibility(@props.ratingItem.id, null)
+    @props.dispatch removeRatingItemWaypount(@props.ratingItem.id)
 
   handleWaypointVisibilityChange: (visibility) ->
     @props.dispatch changeRatingItemVisibility(@props.ratingItem.id, visibility)
@@ -64,7 +67,7 @@ RatingItem = React.createClass
     edit = rating.status != 'published'
     classes = classNames 'rating-item', mods.map (mod) -> "m-#{mod}"
 
-    <Waypoint onLeave={@handleWaypointLeave} onVisibilityChange={@handleWaypointVisibilityChange}>
+    <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} onVisibilityChange={@handleWaypointVisibilityChange}>
       <section id="item-#{ratingItem.position}" className={classes}>
         <div className="rating-item_header">
           <span className="rating-item_number">{index}</span>

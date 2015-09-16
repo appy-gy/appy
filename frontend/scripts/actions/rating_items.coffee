@@ -75,6 +75,9 @@ updateRatingItemPositions = ->
 changeRatingItemVisibility = createAction 'CHANGE_RATING_ITEM_VISIBILITY', (id, visibility) ->
   { id, visibility }
 
+addRatingItemWaypount = createAction 'ADD_RATING_ITEM_WAYPOINT', (id) -> id
+removeRatingItemWaypount = createAction 'REMOVE_RATING_ITEM_WAYPOINT', (id) -> id
+
 voteFromRatingItem = (id, kind) ->
   (dispatch, getState) ->
     http.post("rating_items/#{id}/votes", vote: { kind }).then ({data}) ->
@@ -83,4 +86,4 @@ voteFromRatingItem = (id, kind) ->
 module.exports = { fetchRatingItems, createRatingItem, changeRatingItem,
   updateRatingItem, removeRatingItem, changeRatingItemPositions,
   changeRatingItemPosition, updateRatingItemPositions,
-  changeRatingItemVisibility, voteFromRatingItem }
+  changeRatingItemVisibility, voteFromRatingItem, addRatingItemWaypount, removeRatingItemWaypount }

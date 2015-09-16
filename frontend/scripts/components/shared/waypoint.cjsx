@@ -52,10 +52,7 @@ Waypoint = React.createClass
     insideWindow = elementTop >= windowTop && elementBottom <= windowBottom
     biggerThanWindow = elementBottom >= windowBottom && elementTop <= windowTop
 
-    if insideWindow || biggerThanWindow
-      'inside'
-    else
-      'outside'
+    return 'inside' if insideWindow || biggerThanWindow
 
   isVisible: ->
     waypoint = React.findDOMNode @
