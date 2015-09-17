@@ -38,7 +38,7 @@ Popups = React.createClass
 
   render: ->
     <div className="popups">
-      <CSSTransitionGroup className="popups_popup-wrapper" transitionName="m">
+      <CSSTransitionGroup className="popups_popup-wrapper" transitionName="m" transitionEnterTimeout={250} transitionLeaveTimeout={250}>
         {@popupComponent()}
       </CSSTransitionGroup>
       <div className="popups_close" onClick={@closeLastPopup}></div>

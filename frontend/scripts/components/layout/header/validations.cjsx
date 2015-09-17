@@ -25,7 +25,7 @@ Validations = React.createClass
       </div>
 
   render: ->
-    <CSSTransitionGroup className="header_validation-errors" transitionName="m">
+    <CSSTransitionGroup className="header_validation-errors" transitionName="m" transitionEnterTimeout={500} transitionLeaveTimeout={3000}>
       {@errors()}
     </CSSTransitionGroup>
 
