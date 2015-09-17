@@ -1,7 +1,6 @@
 _ = require 'lodash'
 React = require 'react/addons'
 ReactRedux = require 'react-redux'
-Router = require 'react-router'
 ReactDnd = require 'react-dnd'
 HTML5Backend = require 'react-dnd/modules/backends/HTML5'
 currentUserActions = require '../actions/current_user'
@@ -9,7 +8,6 @@ Nothing = require './shared/nothing'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{RouteHandler} = Router
 {DragDropContext} = ReactDnd
 {fetchCurrentUser} = currentUserActions
 
@@ -20,6 +18,7 @@ App = React.createClass
     dispatch: PropTypes.func.isRequired
     currentUser: PropTypes.object.isRequired
     isFetched: PropTypes.bool.isRequired
+    children: PropTypes.node.isRequired
 
   childContextTypes:
     currentUser: PropTypes.object.isRequired
@@ -34,13 +33,11 @@ App = React.createClass
     @props.dispatch fetchCurrentUser()
 
   render: ->
-    {isFetched} = @props
+    {isFetched, children} = @props
 
     return <Nothing/> unless isFetched
 
-    props = _.omit @props, 'dispatch', 'currentUser', 'isFetched'
-
-    <RouteHandler {...@props}/>
+    children
 
 mapStateToProps = ({currentUser}) ->
   currentUser: currentUser.item, isFetched: currentUser.isFetched

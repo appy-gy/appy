@@ -9,17 +9,17 @@ SectionRatings = require './components/section/page'
 User = require './components/user/page'
 Instagram = require './components/instagram/page'
 
-{Route, DefaultRoute, NotFoundRoute} = Router
+{Route, IndexRoute, NotFoundRoute} = Router
 
 routes =
-  <Route handler={App} path="/">
-    <DefaultRoute name="root" handler={Ratings}/>
-    <Route name="ratings" path="page:page?" handler={Ratings}/>
-    <Route name="rating" path="ratings/:ratingSlug" handler={Rating}/>
-    <Route name="section" path="sections/:sectionSlug" handler={SectionRatings}/>
-    <Route name="user" path="users/:userSlug" handler={User}/>
-    <Route name="instagram" path="instagram" handler={Instagram}/>
-    <NotFoundRoute handler={NotFound}/>
+  <Route component={App} path="/">
+    <IndexRoute name="root" component={Ratings}/>
+    <Route name="ratings" path="page:page?" component={Ratings}/>
+    <Route name="rating" path="ratings/:ratingSlug" component={Rating}/>
+    <Route name="section" path="sections/:sectionSlug" component={SectionRatings}/>
+    <Route name="user" path="users/:userSlug" component={User}/>
+    <Route name="instagram" path="instagram" component={Instagram}/>
+    <Route name="notFound" path="*" component={NotFound}/>
   </Route>
 
 module.exports = routes
