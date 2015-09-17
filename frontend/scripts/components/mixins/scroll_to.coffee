@@ -1,6 +1,8 @@
+ReactDOM = require 'react-dom'
+
 ScrollTo =
   scrollTo: ->
-    return @getDOMNode().scrollIntoView() if document.readyState == 'complete'
+    return ReactDOM.findDOMNode(@).scrollIntoView() if document.readyState == 'complete'
     document.addEventListener 'readystatechange', =>
       return unless document.readyState == 'complete'
       @scrollTo()

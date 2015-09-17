@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 
 {PropTypes} = React
 
@@ -43,7 +44,7 @@ Waypoint = React.createClass
     @prevVisibility = visibility
 
   calculateVisibility: ->
-    waypoint = React.findDOMNode @
+    waypoint = ReactDOM.findDOMNode @
     windowTop = window.innerHeight * .2
     windowBottom = window.innerHeight * .8;
     elementTop = waypoint.getBoundingClientRect().top
@@ -55,7 +56,7 @@ Waypoint = React.createClass
     return 'inside' if insideWindow || biggerThanWindow
 
   isVisible: ->
-    waypoint = React.findDOMNode @
+    waypoint = ReactDOM.findDOMNode @
     elementTop = waypoint.getBoundingClientRect().top
     elementBottom = waypoint.getBoundingClientRect().bottom
 

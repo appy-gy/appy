@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
+ReactDOM = require 'react-dom'
 ReactRedux = require 'react-redux'
 ReduxReachRouter = require 'redux-react-router'
 Qs = require 'qs'
@@ -41,7 +42,7 @@ Instagram = React.createClass
     script.type = 'text/javascript'
     script.src = "https://api.instagram.com/v1/users/self/?cliend_id=#{clientId}&access_token=#{access_token}&callback=instagramCallback"
     script.async = true
-    @getDOMNode().appendChild script
+    ReactDOM.findDOMNode(@).appendChild(script)
 
   isLoading: ->
     true

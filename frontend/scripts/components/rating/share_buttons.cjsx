@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 
 ShareButtons = React.createClass
   displayName: 'ShareButtons'
@@ -8,7 +9,7 @@ ShareButtons = React.createClass
     script.type = 'text/javascript'
     script.src = "//share.pluso.ru/pluso-like.js"
     script.async = true
-    @getDOMNode().appendChild script
+    ReactDOM.findDOMNode(@).appendChild script
 
   render: ->
     <div className="pluso rating_share" data-background="transparent" data-options="big,square,line,horizontal,counter,sepcounter=1,theme=14" data-services="vkontakte,facebook,twitter, odnoklassniki"></div>
