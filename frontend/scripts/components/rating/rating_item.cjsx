@@ -10,7 +10,7 @@ Waypoint = require '../shared/waypoint'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{removeRatingItem, changeRatingItemVisibility, addRatingItemWaypount, removeRatingItemWaypount} = ratingItemActions
+{removeRatingItem, changeRatingItemVisibility, addRatingItemWaypoint, removeRatingItemWaypoint} = ratingItemActions
 
 RatingItem = React.createClass
   displayName: 'RatingItem'
@@ -42,10 +42,10 @@ RatingItem = React.createClass
     @props.dispatch removeRatingItem(@props.ratingItem.id)
 
   handleWaypointEnter: ->
-    @props.dispatch addRatingItemWaypount(@props.ratingItem.id)
+    @props.dispatch addRatingItemWaypoint(@props.ratingItem.id)
 
   handleWaypointLeave: ->
-    @props.dispatch removeRatingItemWaypount(@props.ratingItem.id)
+    @props.dispatch removeRatingItemWaypoint(@props.ratingItem.id)
 
   handleWaypointVisibilityChange: (visibility) ->
     @props.dispatch changeRatingItemVisibility(@props.ratingItem.id, visibility)
