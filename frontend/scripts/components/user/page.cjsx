@@ -1,10 +1,9 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 userActions = require '../../actions/user'
 canEditUser = require '../../helpers/users/can_edit'
 canSeeRatingDrafts = require '../../helpers/ratings/can_see_drafts'
-ParsePage = require '../mixins/parse_page'
 SyncSlug = require '../mixins/sync_slug'
 Loading = require '../mixins/loading'
 Watch = require '../mixins/watch'
@@ -26,16 +25,16 @@ Nothing = require '../shared/nothing'
 User = React.createClass
   displayName: 'User'
 
-  mixins: [Loading, ParsePage, SyncSlug('user'), Watch]
+  mixins: [Loading, SyncSlug('user'), Watch]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-    userSlug: PropTypes.string.isRequired
     user: PropTypes.object.isRequired
+    userSlug: PropTypes.string.isRequired
     isFetched: PropTypes.bool.isRequired
+    page: PropTypes.number.isRequired
 
   contextTypes:
-    router: PropTypes.func.isRequired
     currentUser: PropTypes.object.isRequired
 
   childContextTypes:
@@ -62,9 +61,6 @@ User = React.createClass
   isLoading: ->
     not @props.isFetched
 
-  currentPage: ->
-    @parsePage @context.router.getCurrentQuery().page
-
   isOwnPage: ->
     @context.currentUser.id == @props.user.id
 
@@ -84,7 +80,7 @@ User = React.createClass
     <Settings/> if @canEdit()
 
   render: ->
-    {user} = @props
+    {user, page} = @props
 
     return <Nothing/> if @isLoading()
 
@@ -100,16 +96,19 @@ User = React.createClass
         </header>
         <Tabs defaultTab="ratings" queryModificator={@resetPage}>
           <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
-            <Ratings page={@currentPage()}/>
+            <Ratings page={page}/>
           </Tab>
           <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
-            <Comments page={@currentPage()}/>
+            <Comments page={page}/>
           </Tab>
         </Tabs>
       </div>
     </Layout>
 
-mapStateToProps = ({user}) ->
-  user: user.item, isFetched: user.isFetched
+mapStateToProps = ({router, user}) ->
+  user: user.item
+  userSlug: router.params.userSlug
+  isFetched: user.isFetched
+  page: parseInt(router.location.query.page || 1)
 
 module.exports = connect(mapStateToProps)(User)

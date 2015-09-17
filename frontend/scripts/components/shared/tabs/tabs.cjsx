@@ -1,54 +1,50 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
+ReactRedux = require 'react-redux'
+ReduxReactRouter = require 'redux-react-router'
 Title = require './title'
 
 {PropTypes} = React
+{connect} = ReactRedux
+{replaceState} = ReduxReactRouter
 
 Tabs = React.createClass
   displayName: 'Tabs'
 
   propTypes:
-    defaultTab: PropTypes.string.isRequired
+    dispatch: PropTypes.func.isRequired
+    tab: PropTypes.string.isRequired
+    pathname: PropTypes.string.isRequired
+    query: PropTypes.object.isRequired
     queryModificator: PropTypes.func
     children: PropTypes.node.isRequired
 
   contextTypes:
-    router: PropTypes.func.isRequired
     block: PropTypes.string.isRequired
 
   getDefaultProps: ->
     queryModificator: _.identity
 
-  getInitialState: ->
-    {defaultTab, children} = @props
-    {router} = @context
-
-    activeTab: router.getCurrentQuery().tab || defaultTab
-
   activateTab: (id) ->
-    {queryModificator} = @props
-    {router} = @context
+    {dispatch, pathname, query, queryModificator} = @props
 
-    query = queryModificator _.defaults(tab: id, router.getCurrentQuery())
-    router.replaceWith router.getCurrentPathname(), {}, query
-    @setState activeTab: id
+    query = queryModificator _.defaults(tab: id, query)
+    dispatch replaceState(null, pathname, query)
 
   titles: ->
-    {children} = @props
-    {activeTab} = @state
+    {tab, children} = @props
 
     children.map (child, index) =>
       {id, title} = child.props
-      active = id == activeTab
+      active = id == tab
       onClick = _.partial @activateTab, id
 
       <Title key={id} text={title} active={active} onClick={onClick}/>
 
-  tab: ->
-    {children} = @props
-    {activeTab} = @state
+  activeTab: ->
+    {tab, children} = @props
 
-    _.find children, (child) -> child.props.id == activeTab
+    _.find children, (child) -> child.props.id == tab
 
   render: ->
     {children} = @props
@@ -59,8 +55,13 @@ Tabs = React.createClass
         {@titles()}
       </div>
       <div className="#{block}_tab-content">
-        {@tab()}
+        {@activeTab()}
       </div>
     </div>
 
-module.exports = Tabs
+mapStateToProps = ({router}, {defaultTab}) ->
+  tab: router.location.query.tab || defaultTab
+  pathname: router.location.pathname
+  query: router.location.query
+
+module.exports = connect(mapStateToProps)(Tabs)

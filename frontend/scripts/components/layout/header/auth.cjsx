@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 Info = require '../../shared/auth/info'
 Login = require '../../shared/auth/login'
 Registration = require '../../shared/auth/registration'

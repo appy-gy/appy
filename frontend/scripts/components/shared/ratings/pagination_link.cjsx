@@ -1,34 +1,38 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
+ReactRedux = require 'react-redux'
 Link = require '../pagination/link'
 
 {PropTypes} = React
+{connect} = ReactRedux
 
 PaginationLink = React.createClass
   displayName: 'PaginationLink'
 
   propTypes:
     page: PropTypes.number.isRequired
+    pathname: PropTypes.string.isRequired
+    query: PropTypes.object.isRequired
 
   contextTypes:
     loadPage: PropTypes.func.isRequired
 
   resetVisiblePages: ->
-    {page} = @props
-    {loadPage} = @context
-
-    loadPage page
+    @context.loadPage @props.page
 
   linkProps: ->
-    {page} = @props
+    {page, pathname, query} = @props
 
-    to: 'ratings'
-    params: { page }
+    to: pathname
+    query: _.defaults { page }, query
     onClick: @resetVisiblePages
 
   render: ->
-    props = _.merge @linkProps(), @props
+    props = _.merge @linkProps(), _.omit(@props, 'page', 'pathname', 'query')
 
     <Link {...props}/>
 
-module.exports = PaginationLink
+mapStateToProps = ({router}) ->
+  _.pick router.location, 'pathname', 'query'
+
+module.exports = connect(mapStateToProps)(PaginationLink)

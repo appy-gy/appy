@@ -1,7 +1,6 @@
-React = require 'react/addons'
+update = require 'react-addons-update'
 ReduxActions = require 'redux-actions'
 
-{update} = React.addons
 {handleActions} = ReduxActions
 
 defaultState = ->

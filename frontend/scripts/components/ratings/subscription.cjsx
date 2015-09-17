@@ -1,12 +1,8 @@
-React = require 'react/addons'
+React = require 'react'
 Router = require 'react-router'
-
-{PureRenderMixin} = React.addons
 
 Subscription = React.createClass
   displayName: 'Subscription'
-
-  mixins: [PureRenderMixin]
 
   render: ->
     <div className="subscription">

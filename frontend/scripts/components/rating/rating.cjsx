@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../actions/rating'
 ratingItemActions = require '../../actions/rating_items'
@@ -28,7 +28,6 @@ Rating = React.createClass
     dispatch: PropTypes.func.isRequired
 
   contextTypes:
-    router: PropTypes.func.isRequired
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
     canEdit: PropTypes.bool.isRequired

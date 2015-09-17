@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 imageUrl = require '../../../helpers/image_url'
 UserLink = require '../links/user'
 Logout = require './logout'

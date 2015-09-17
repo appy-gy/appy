@@ -1,14 +1,10 @@
-React = require 'react/addons'
-Router = require 'react-router'
+React = require 'react'
+SectionLink = require '../../shared/links/section'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
-{Link} = Router
 
 Section = React.createClass
   displayName: 'Section'
-
-  mixins: [PureRenderMixin]
 
   propTypes:
     section: PropTypes.object.isRequired
@@ -18,9 +14,9 @@ Section = React.createClass
 
     styles = background: section.color
 
-    <Link to="section" params={sectionSlug: section.slug} className="site-nav_item" style={styles}>
+    <SectionLink section={section} className="site-nav_item" style={styles}>
       <div className="site-nav_icon"></div>
       <div className="site-nav_text">{section.name}</div>
-    </Link>
+    </SectionLink>
 
 module.exports = Section

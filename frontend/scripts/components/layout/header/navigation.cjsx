@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 headerSectionActions = require '../../../actions/header_sections'
 Section = require './section'

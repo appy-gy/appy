@@ -1,13 +1,9 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 SocialButton = require './social_button'
-
-{PureRenderMixin} = React.addons
 
 SocialButtons = React.createClass
   displayName: 'SocialButtons'
-
-  mixins: [PureRenderMixin]
 
   buttons: [
     { provider: 'facebook', text: 'Facebook' }

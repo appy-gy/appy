@@ -1,24 +1,23 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
+ReactDOM = require 'react-dom'
 ReactRedux = require 'react-redux'
-Router = require 'react-router'
+ReduxReactRouter = require 'redux-react-router'
 reducers = require './reducers'
 buildStore = require './build_store'
-routes = require './routes'
 
 {Provider} = ReactRedux
-{HistoryLocation} = Router
+{ReduxRouter} = ReduxReactRouter
 
 run = ->
   state = JSON.parse(document.querySelector('#state').getAttribute('data-state') || '{}')
   store = buildStore reducers, state
 
-  Router.run routes, HistoryLocation, (Handler, state) ->
-    element = <Provider store={store}>
-      {-> <Handler {...state.params}/>}
-    </Provider>
+  element = <Provider store={store}>
+    <ReduxRouter/>
+  </Provider>
 
-    React.render element, document.querySelector('#page')
+  ReactDOM.render element, document.querySelector('#page')
 
 module.exports = ->
   return run() if _.includes ['interactive', 'complete'], document.readyState

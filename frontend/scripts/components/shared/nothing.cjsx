@@ -1,11 +1,7 @@
-React = require 'react/addons'
-
-{PureRenderMixin} = React.addons
+React = require 'react'
 
 Nothing = React.createClass
   displayName: 'Nothing'
-
-  mixins: [PureRenderMixin]
 
   render: ->
     <span className="g-hidden"></span>

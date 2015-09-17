@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 Form = require './form'
 Open = require './open'
 Answer = require './answer'

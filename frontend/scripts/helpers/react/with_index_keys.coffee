@@ -1,7 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
-
-{createFragment} = React.addons
+createFragment = require 'react-addons-create-fragment'
 
 withIndexKeys = (components) ->
   return unless components?

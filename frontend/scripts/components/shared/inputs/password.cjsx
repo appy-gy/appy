@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 classNames = require 'classnames'
 Classes = require '../../mixins/classes'
 

@@ -1,10 +1,9 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 sectionActions = require '../../actions/section'
 sectionRatingActions = require '../../actions/section_ratings'
 Loading = require '../mixins/loading'
-ParsePage = require '../mixins/parse_page'
 RatingsList = require '../mixins/ratings_list'
 Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
@@ -17,26 +16,19 @@ Preview = require '../shared/ratings/preview'
 Section = React.createClass
   displayName: 'Section'
 
-  mixins: [Loading, ParsePage, RatingsList]
+  mixins: [Loading, RatingsList]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-    sectionSlug: PropTypes.string.isRequired
     section: PropTypes.object.isRequired
+    sectionSlug: PropTypes.string.isRequired
     isFetched: PropTypes.bool.isRequired
-
-  contextTypes:
-    router: PropTypes.func.isRequired
 
   componentWillMount: ->
     @fetchSection()
 
-    @watch
-      exp: => @props.sectionSlug
-      onChange: =>
-        @clearRatings()
-        @fetchSection()
-        @fetchRatings @page()
+  componentDidUpdate: ->
+    @fetchSection()
 
   isLoading: ->
     not @props.isFetched
@@ -51,10 +43,7 @@ Section = React.createClass
     @props.dispatch clearSectionRatings()
 
   changePage: (page) ->
-    {router} = @context
-
-    query = _.defaults { page }, router.getCurrentQuery()
-    router.replaceWith 'section', router.getCurrentParams(), query
+    @props.dispatch replaceState(null, "/sections/#{@props.sectionSlug}", { page })
 
   previews: ->
     @ratings().map (rating, index) =>
@@ -69,9 +58,12 @@ Section = React.createClass
       {@pagination()}
     </Layout>
 
-mapStateToProps = ({sectionRatings, section}, {sectionSlug}) ->
+mapStateToProps = ({router, sectionRatings, section}, {sectionSlug}) ->
+  console.log 'map', router.params
   ratings: sectionRatings.items
   section: section.item
+  sectionSlug: router.params.sectionSlug
+  page: parseInt(router.location.query.page || 1)
   pagesCount: sectionRatings.pagesCount
   isFetched: _.any [sectionRatings, section], 'isFetched'
 

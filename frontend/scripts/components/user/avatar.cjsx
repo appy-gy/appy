@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 userActions = require '../../actions/user'
 imageUrl = require '../../helpers/image_url'

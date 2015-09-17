@@ -1,11 +1,10 @@
-React = require 'react/addons'
+update = require 'react-addons-update'
 ReduxActions = require 'redux-actions'
 itemsFetcher = require '../helpers/actions/items_fetcher'
 http = require '../helpers/http'
 toFormData = require '../helpers/to_form_data'
 deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 
-{update} = React.addons
 {createAction} = ReduxActions
 
 appendRatingItem = createAction 'APPEND_RATING_ITEM'

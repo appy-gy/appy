@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 ModelLink = require '../../mixins/model_link'
 
 {PropTypes} = React

@@ -1,9 +1,9 @@
-React = require 'react/addons'
+React = require 'react'
+LinkedStateMixin = require 'react-addons-linked-state-mixin'
 Form = require './form'
 PasswordInput = require '../inputs/password'
 
 {PropTypes} = React
-{LinkedStateMixin} = React.addons
 
 AuthForm = React.createClass
   displayName: 'AuthForm'

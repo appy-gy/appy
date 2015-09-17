@@ -5,7 +5,7 @@
 # failToastContent
 
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 currentUserActions = require '../../actions/current_user'
 popupActions = require '../../actions/popups'
 buildPopup = require '../../helpers/popups/build'

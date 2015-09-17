@@ -1,6 +1,4 @@
-React = require 'react/addons'
-
-{TestUtils} = React.addons
+TestUtils = require 'react-addons-test-utils'
 
 createComponent = (component, {props, context, children} = {}) ->
   children ||= []

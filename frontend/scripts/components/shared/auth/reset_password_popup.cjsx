@@ -1,4 +1,5 @@
-React = require 'react/addons'
+React = require 'react'
+LinkedStateMixin = require 'react-addons-linked-state-mixin'
 ReactRedux = require 'react-redux'
 currentUserActions = require '../../../actions/current_user'
 popupActions = require '../../../actions/popups'
@@ -8,7 +9,6 @@ Login = -> require './login'
 Form = require './form'
 
 {PropTypes} = React
-{LinkedStateMixin} = React.addons
 {connect} = ReactRedux
 {resetPassword} = currentUserActions
 {removePopupsWithType} = popupActions

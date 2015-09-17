@@ -1,8 +1,8 @@
-React = require 'react/addons'
+React = require 'react'
+CSSTransitionGroup = require 'react-addons-css-transition-group'
 prepublishValidation = require '../../../helpers/ratings/prepublish_validation'
 
 {PropTypes} = React
-{CSSTransitionGroup} = React.addons
 
 Validations = React.createClass
   displayName: 'Validations'
@@ -25,7 +25,7 @@ Validations = React.createClass
       </div>
 
   render: ->
-    <CSSTransitionGroup className="header_validation-errors" transitionName="m">
+    <CSSTransitionGroup className="header_validation-errors" transitionName="m" transitionEnterTimeout={500} transitionLeaveTimeout={3000}>
       {@errors()}
     </CSSTransitionGroup>
 

@@ -1,3 +1,5 @@
+ReactDOM = require 'react-dom'
+
 OnClickElsewhere =
   componentWillMount: ->
     @elsewhereClickListeners = []
@@ -14,12 +16,12 @@ OnClickElsewhere =
 
     onComponentClick = (event) ->
       event.onComponent = true
-      
+
     document.body.addEventListener 'click', onBodyClick
-    @getDOMNode().addEventListener 'click', onComponentClick
+    ReactDOM.findDOMNode(@).addEventListener 'click', onComponentClick
 
     @elsewhereClickListeners.push dispose: =>
       document.body.removeEventListener 'click', onBodyClick
-      @getDOMNode().removeEventListener 'click', onComponentClick
+      ReactDOM.findDOMNode(@).removeEventListener 'click', onComponentClick
 
 module.exports = OnClickElsewhere

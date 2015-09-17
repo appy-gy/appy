@@ -1,25 +1,26 @@
-React = require 'react/addons'
+React = require 'react'
+ReactRedux = require 'react-redux'
 classNames = require 'classnames'
 shortId = require '../../../helpers/short_id'
 Form = require './form'
 RatingLink = require '../links/rating'
 
 {PropTypes} = React
+{connect} = ReactRedux
 
 Answer = React.createClass
   displayName: 'CommentAnswer'
 
   propTypes:
     inline: PropTypes.bool.isRequired
+    query: PropTypes.object.isRequired
 
   contextTypes:
-    router: PropTypes.func.isRequired
     comment: PropTypes.object.isRequired
 
   getInitialState: ->
-    {router, comment} = @context
-
-    query = router.getCurrentQuery()
+    {query} = @props
+    {comment} = @context
 
     showForm: query.reply and shortId(comment.id) == query.comment
 
@@ -58,4 +59,7 @@ Answer = React.createClass
       {@form()}
     </Root>
 
-module.exports = Answer
+mapStateToProps = ({router}) ->
+  query: router.location.query
+
+module.exports = connect(mapStateToProps)(Answer)

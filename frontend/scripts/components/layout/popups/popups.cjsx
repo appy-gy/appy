@@ -1,12 +1,12 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
+CSSTransitionGroup = require 'react-addons-css-transition-group'
 ReactRedux = require 'react-redux'
 popupActions = require '../../../actions/popups'
 OnEsc = require '../../mixins/on_esc'
 Popup = require './popup'
 
 {PropTypes} = React
-{CSSTransitionGroup} = React.addons
 {connect} = ReactRedux
 {removePopup} = popupActions
 
@@ -38,7 +38,7 @@ Popups = React.createClass
 
   render: ->
     <div className="popups">
-      <CSSTransitionGroup className="popups_popup-wrapper" transitionName="m">
+      <CSSTransitionGroup className="popups_popup-wrapper" transitionName="m" transitionEnterTimeout={250} transitionLeaveTimeout={250}>
         {@popupComponent()}
       </CSSTransitionGroup>
       <div className="popups_close" onClick={@closeLastPopup}></div>

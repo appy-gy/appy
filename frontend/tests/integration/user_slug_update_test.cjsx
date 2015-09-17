@@ -1,5 +1,5 @@
 chai = require 'chai'
-React = require 'react/addons'
+React = require 'react'
 testTree = require 'react-test-tree'
 TestUtils = require 'marty/test-utils'
 mockComponents = require '../support/mock_components'

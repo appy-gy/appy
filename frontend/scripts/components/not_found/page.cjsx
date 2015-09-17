@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 Router = require 'react-router'
 CreateRating = require '../shared/ratings/create'
 Registration = require '../shared/auth/registration'
@@ -38,7 +38,7 @@ NotFoundPage = React.createClass
         {@button()}
         <div className="not-found_caption">
           <span>или </span>
-          <Link to="root" className="not-found_link">
+          <Link to="/" className="not-found_link">
             на главную
           </Link>
         </div>

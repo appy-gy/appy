@@ -1,9 +1,8 @@
 _ = require 'lodash'
-React = require 'react/addons'
+update = require 'react-addons-update'
 ReduxActions = require 'redux-actions'
 itemsReceiver = require '../helpers/reducers/items_receiver'
 
-{update} = React.addons
 {handleActions} = ReduxActions
 
 {defaultState, handlers} = itemsReceiver name: 'ratingComments'

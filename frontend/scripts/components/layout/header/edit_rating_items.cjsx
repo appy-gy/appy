@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 tinycolor = require 'tinycolor2'
 RatingItem = require './edit_rating_item'
 

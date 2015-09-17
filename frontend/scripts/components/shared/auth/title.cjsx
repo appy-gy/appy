@@ -1,12 +1,9 @@
-React = require 'react/addons'
+React = require 'react'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 Title = React.createClass
   displayName: 'Title'
-
-  mixins: [PureRenderMixin]
 
   propTypes:
     text: PropTypes.string.isRequired

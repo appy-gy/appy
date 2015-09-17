@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 similarRatingActions = require '../../actions/similar_ratings'
 Preview = require '../shared/ratings/preview'

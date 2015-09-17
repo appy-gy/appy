@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 Header = require './header'
 Logo = require './logo'
 Auth = require './auth'

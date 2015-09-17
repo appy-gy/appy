@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 classNames = require 'classnames'
 Comment = require '../shared/comments/comment'
 

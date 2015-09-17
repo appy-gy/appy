@@ -1,11 +1,7 @@
-React = require 'react/addons'
-
-{PureRenderMixin} = React.addons
+React = require 'react'
 
 FbRoot = React.createClass
   displayName: 'FbRoot'
-
-  mixins: [PureRenderMixin]
 
   render: ->
     <div id="fb-root"></div>

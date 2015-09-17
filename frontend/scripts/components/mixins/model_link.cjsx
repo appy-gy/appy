@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 Router = require 'react-router'
 
 {PropTypes} = React
@@ -23,10 +23,10 @@ ModelLink =
     {children} = @props
 
     props = _.omit @props, @objectName, 'slug', 'children'
-
+    to = "/#{@objectName}s/#{@slug()}"
     Root = if @slug() then Link else 'span'
 
-    <Root to={@objectName} params={"#{@objectName}Slug": @slug()} {...props}>
+    <Root to={to} {...props}>
       {children}
     </Root>
 

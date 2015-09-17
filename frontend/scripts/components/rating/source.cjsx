@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../actions/rating'
 AutolinkText = require 'react-autolink-text'

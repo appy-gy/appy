@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 moment = require 'moment'
 Item = require './meta_item'
 

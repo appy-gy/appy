@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
 ratingItemActions = require '../../actions/rating_items'

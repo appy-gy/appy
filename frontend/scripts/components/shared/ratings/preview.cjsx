@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 moment = require 'moment'
 classNames = require 'classnames'
 imageUrl = require '../../../helpers/image_url'

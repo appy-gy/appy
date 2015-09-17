@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 popupActions = require '../../actions/popups'
 buildPopup = require '../../helpers/popups/build'

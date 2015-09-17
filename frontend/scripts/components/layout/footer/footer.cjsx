@@ -1,11 +1,7 @@
-React = require 'react/addons'
-
-{PureRenderMixin} = React.addons
+React = require 'react'
 
 Footer = React.createClass
   displayName: 'Footer'
-
-  mixins: [PureRenderMixin]
 
   render: ->
     <div className="layout_footer">

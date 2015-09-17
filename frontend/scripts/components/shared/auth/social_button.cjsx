@@ -1,13 +1,10 @@
-React = require 'react/addons'
+React = require 'react'
 classNames = require 'classnames'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 SocialButton = React.createClass
   displayName: 'SocialButton'
-
-  mixins: [PureRenderMixin]
 
   propTypes:
     provider: PropTypes.string.isRequired
