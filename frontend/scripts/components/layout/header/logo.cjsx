@@ -13,7 +13,7 @@ Logo = React.createClass
   render: ->
     {onLogoClick} = @context
 
-    <Link to="root" className="header_logotype" onClick={onLogoClick}>
+    <Link to="/" className="header_logotype" onClick={onLogoClick}>
     </Link>
 
 module.exports = Logo

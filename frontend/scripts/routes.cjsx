@@ -13,13 +13,12 @@ Instagram = require './components/instagram/page'
 
 routes =
   <Route component={App} path="/">
-    <IndexRoute name="root" component={Ratings}/>
-    <Route name="ratings" path="page:page?" component={Ratings}/>
-    <Route name="rating" path="ratings/:ratingSlug" component={Rating}/>
-    <Route name="section" path="sections/:sectionSlug" component={SectionRatings}/>
-    <Route name="user" path="users/:userSlug" component={User}/>
-    <Route name="instagram" path="instagram" component={Instagram}/>
-    <Route name="notFound" path="*" component={NotFound}/>
+    <IndexRoute component={Ratings}/>
+    <Route path="ratings/:ratingSlug" component={Rating}/>
+    <Route path="sections/:sectionSlug" component={SectionRatings}/>
+    <Route path="users/:userSlug" component={User}/>
+    <Route path="instagram" component={Instagram}/>
+    <Route path="*" component={NotFound}/>
   </Route>
 
 module.exports = routes

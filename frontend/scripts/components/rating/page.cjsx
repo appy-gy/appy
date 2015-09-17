@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
+ReduxReactRouter = require 'redux-react-router'
 ratingActions = require '../../actions/rating'
 ratingItemActions = require '../../actions/rating_items'
 isClient = require '../../helpers/is_client'
@@ -16,6 +17,7 @@ Nothing = require '../shared/nothing'
 
 {PropTypes} = React
 {connect} = ReactRedux
+{replaceState} = ReduxReactRouter
 {fetchRating} = ratingActions
 {fetchRatingItems} = ratingItemActions
 
@@ -32,7 +34,6 @@ RatingPage = React.createClass
     isFetched: PropTypes.bool.isRequired
 
   contextTypes:
-    router: PropTypes.func.isRequired
     currentUser: PropTypes.object.isRequired
 
   childContextTypes:
@@ -62,10 +63,10 @@ RatingPage = React.createClass
     not @props.isFetched
 
   checkAccess: (rating) ->
-    {router} = @context
+    {dispatch} = @props
 
     return if rating.status == 'published' or @canEdit(rating)
-    router.replaceWith 'root' if isClient()
+    dispatch replaceState(null, '/') if isClient()
 
   fetchRating: ->
     @props.dispatch(fetchRating(@props.ratingSlug)).then (rating) =>

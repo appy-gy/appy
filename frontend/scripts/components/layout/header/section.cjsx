@@ -1,8 +1,7 @@
 React = require 'react'
-Router = require 'react-router'
+SectionLink = require '../../shared/links/section'
 
 {PropTypes} = React
-{Link} = Router
 
 Section = React.createClass
   displayName: 'Section'
@@ -15,9 +14,9 @@ Section = React.createClass
 
     styles = background: section.color
 
-    <Link to="section" params={sectionSlug: section.slug} className="site-nav_item" style={styles}>
+    <SectionLink section={section} className="site-nav_item" style={styles}>
       <div className="site-nav_icon"></div>
       <div className="site-nav_text">{section.name}</div>
-    </Link>
+    </SectionLink>
 
 module.exports = Section

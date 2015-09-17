@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
+ReduxReachRouter = require 'redux-react-router'
 Qs = require 'qs'
 currentUserActions = require '../../actions/current_user'
 Loading = require '../mixins/loading'
@@ -9,6 +10,7 @@ Nothing = require '../shared/nothing'
 
 {PropTypes} = React
 {connect} = ReactRedux
+{replaceState} = ReduxReachRouter
 {updateCurrentUser} = currentUserActions
 
 Instagram = React.createClass
@@ -20,7 +22,6 @@ Instagram = React.createClass
     dispatch: PropTypes.func.isRequired
 
   contextTypes:
-    router: PropTypes.func.isRequired
     currentUser: PropTypes.object.isRequired
 
   componentDidMount: ->
@@ -46,9 +47,7 @@ Instagram = React.createClass
     true
 
   redirect: ->
-    {currentUser, router} = @context
-
-    router.transitionTo 'user', userSlug: currentUser.slug
+    @props.dispatch replaceState(null, "/users/#{@context.currentUser.slug}")
 
   render: ->
     <Layout>

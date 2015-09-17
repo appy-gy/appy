@@ -1,4 +1,5 @@
 React = require 'react'
+ReactRedux = require 'react-redux'
 moment = require 'moment'
 shortId = require '../../../helpers/short_id'
 imageUrl = require '../../../helpers/image_url'
@@ -9,6 +10,7 @@ RatingLink = require '../links/rating'
 SectionLink = require '../links/section'
 
 {PropTypes} = React
+{connect} = ReactRedux
 
 Comment = React.createClass
   displayName: 'Comment'
@@ -20,9 +22,7 @@ Comment = React.createClass
     showUsername: PropTypes.bool.isRequired
     showRatingInfo: PropTypes.bool.isRequired
     actionTypes: PropTypes.object.isRequired
-
-  contextTypes:
-    router: PropTypes.func.isRequired
+    query: PropTypes.object.isRequired
 
   childContextTypes:
     comment: PropTypes.object.isRequired
@@ -33,10 +33,9 @@ Comment = React.createClass
     { comment }
 
   componentDidMount: ->
-    {comment} = @props
-    {router} = @context
+    {comment, query} = @props
 
-    return unless shortId(comment.id) == router.getCurrentQuery().comment
+    return unless shortId(comment.id) == query.comment
     @scrollTo()
 
   username: ->
@@ -85,4 +84,7 @@ Comment = React.createClass
       </div>
     </div>
 
-module.exports = Comment
+mapStateToProps = ({router}) ->
+  query: router.location.query
+
+module.exports = connect(mapStateToProps)(Comment)

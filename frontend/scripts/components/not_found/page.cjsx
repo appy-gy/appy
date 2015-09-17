@@ -38,7 +38,7 @@ NotFoundPage = React.createClass
         {@button()}
         <div className="not-found_caption">
           <span>или </span>
-          <Link to="root" className="not-found_link">
+          <Link to="/" className="not-found_link">
             на главную
           </Link>
         </div>

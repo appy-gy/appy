@@ -1,28 +1,26 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
+ReduxReactRouter = require 'redux-react-router'
 ratingActions = require '../../actions/ratings'
 Loading = require '../mixins/loading'
-ParsePage = require '../mixins/parse_page'
 RatingsList = require '../mixins/ratings_list'
 Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
 
 {PropTypes} = React
 {connect} = ReactRedux
+{replaceState} = ReduxReactRouter
 {fetchRatings} = ratingActions
 
 Ratings = React.createClass
   displayName: 'Ratings'
 
-  mixins: [Loading, ParsePage, RatingsList]
+  mixins: [Loading, RatingsList]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
     fetchingPages: PropTypes.arrayOf(PropTypes.number).isRequired
-
-  contextTypes:
-    router: PropTypes.func.isRequired
 
   previewEnds:
     superLarge: 1
@@ -35,10 +33,7 @@ Ratings = React.createClass
     @props.dispatch fetchRatings(page)
 
   changePage: (page) ->
-    {router} = @context
-
-    params = _.defaults { page }, router.getCurrentParams()
-    router.replaceWith 'ratings', params, router.getCurrentQuery()
+    @props.dispatch replaceState(null, '/', { page })
 
   showFirstPage: ->
     @loadPage 1
@@ -60,7 +55,10 @@ Ratings = React.createClass
       {@pagination()}
     </Layout>
 
-mapStateToProps = ({ratings}) ->
-  _.merge ratings: ratings.items, _.pick(ratings, 'fetchingPages', 'pagesCount')
+mapStateToProps = ({router, ratings}) ->
+  ratings: ratings.items
+  page: parseInt(router.location.query.page || 1)
+  fetchingPages: ratings.fetchingPages
+  pagesCount: ratings.pagesCount
 
 module.exports = connect(mapStateToProps)(Ratings)

@@ -1,11 +1,13 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
+ReduxReactRouter = require 'redux-react-router'
 ratingActions = require '../../../actions/rating'
 Login = require '../auth/login'
 
 {PropTypes} = React
 {connect} = ReactRedux
+{pushState} = ReduxReactRouter
 {createRating} = ratingActions
 
 CreateRating = React.createClass
@@ -16,17 +18,16 @@ CreateRating = React.createClass
     children: PropTypes.node.isRequired
 
   contextTypes:
-    router: PropTypes.func.isRequired
     currentUser: PropTypes.object.isRequired
 
   create: ->
     {dispatch} = @props
-    {router, currentUser} = @context
+    {currentUser} = @context
 
     return unless currentUser.id?
 
     dispatch(createRating()).then ({slug}) ->
-      router.transitionTo 'rating', ratingSlug: slug
+      dispatch pushState(null, "/ratings/#{slug}")
 
   render: ->
     {children} = @props
