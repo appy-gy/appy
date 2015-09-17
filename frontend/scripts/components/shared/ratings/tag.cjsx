@@ -1,12 +1,9 @@
 React = require 'react/addons'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 
 Tags = React.createClass
   displayName: 'Tags'
-
-  mixins: [PureRenderMixin]
 
   propTypes:
     tag: PropTypes.object.isRequired

@@ -2,13 +2,10 @@ React = require 'react/addons'
 Router = require 'react-router'
 
 {PropTypes} = React
-{PureRenderMixin} = React.addons
 {Link} = Router
 
 Section = React.createClass
   displayName: 'Section'
-
-  mixins: [PureRenderMixin]
 
   propTypes:
     section: PropTypes.object.isRequired
