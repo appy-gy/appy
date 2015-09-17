@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 VoteButton = require './vote_button'
 
 {PropTypes} = React

@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 RatingItem = require './rating_item'
 AddRatingItem = require './add_rating_item'
 

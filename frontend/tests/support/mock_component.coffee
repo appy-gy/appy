@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 
 mockComponent = (component, tagName = 'div') ->
   sinon.stub component::, 'render', ->

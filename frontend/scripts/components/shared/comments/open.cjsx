@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 shortId = require '../../../helpers/short_id'
 RatingLink = require '../links/rating'
 

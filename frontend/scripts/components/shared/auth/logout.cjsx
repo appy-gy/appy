@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 currentUserActions = require '../../../actions/current_user'
 

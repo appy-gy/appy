@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 Router = require 'react-router'
 App = require './components/app'
 NotFound = require './components/not_found/page'

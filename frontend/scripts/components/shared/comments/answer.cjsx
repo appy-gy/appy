@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 classNames = require 'classnames'
 shortId = require '../../../helpers/short_id'
 Form = require './form'

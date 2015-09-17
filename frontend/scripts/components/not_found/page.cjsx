@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 Router = require 'react-router'
 CreateRating = require '../shared/ratings/create'
 Registration = require '../shared/auth/registration'

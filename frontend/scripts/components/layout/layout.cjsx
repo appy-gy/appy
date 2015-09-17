@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 Main = require './main'
 Loader = require './loader'
 CommonHeader = require './header/common'

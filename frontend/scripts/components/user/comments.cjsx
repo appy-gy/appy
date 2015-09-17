@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 userCommentActions = require '../../actions/user_comments'
 Watch = require '../mixins/watch'

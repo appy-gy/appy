@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 Publish = require '../../shared/ratings/publish'
 Delete = require '../../shared/ratings/delete'
 

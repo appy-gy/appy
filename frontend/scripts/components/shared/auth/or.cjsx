@@ -1,9 +1,7 @@
-React = require 'react/addons'
+React = require 'react'
 
 Or = React.createClass
   displayName: 'Or'
-
-  mixins: [PureRenderMixin]
 
   render: ->
     <div className="auth-popup_or">или</div>

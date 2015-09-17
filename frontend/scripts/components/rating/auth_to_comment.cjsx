@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 Login = require '../shared/auth/login'
 
 AuthToComment = React.createClass

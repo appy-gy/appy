@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 userActions = require '../../actions/user'
 canEditUser = require '../../helpers/users/can_edit'

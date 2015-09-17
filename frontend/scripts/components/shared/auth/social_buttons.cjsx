@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 SocialButton = require './social_button'
 
 SocialButtons = React.createClass

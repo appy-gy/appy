@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 Qs = require 'qs'
 currentUserActions = require '../../actions/current_user'

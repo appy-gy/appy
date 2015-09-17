@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 ReactDOM = require 'react-dom'
 ReactRedux = require 'react-redux'
 ReduxReactRouter = require 'redux-react-router'

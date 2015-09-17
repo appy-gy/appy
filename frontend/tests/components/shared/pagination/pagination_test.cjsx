@@ -1,6 +1,6 @@
 _ = require 'lodash'
 chai = require 'chai'
-React = require 'react/addons'
+React = require 'react'
 testTree = require 'react-test-tree'
 mockComponents = require '../../../support/mock_components'
 Pagination = require '../../../../scripts/components/shared/pagination/pagination'

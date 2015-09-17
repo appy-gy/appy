@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 ReactDnd = require 'react-dnd'
 HTML5Backend = require 'react-dnd/modules/backends/HTML5'
 Classes = require '../../mixins/classes'

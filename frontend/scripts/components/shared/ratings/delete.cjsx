@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../../actions/rating'
 showConfirm = require '../../../helpers/popups/confirm'

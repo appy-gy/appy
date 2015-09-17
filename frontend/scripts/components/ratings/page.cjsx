@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../actions/ratings'
 Loading = require '../mixins/loading'

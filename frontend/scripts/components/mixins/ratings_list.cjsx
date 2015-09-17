@@ -2,7 +2,7 @@
 # fetchRatings, page, changePage
 
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 Watch = require './watch'
 KeepScroll = require './keep_scroll'
 ShowMore = require '../shared/ratings/show_more'

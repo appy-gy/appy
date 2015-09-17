@@ -107,7 +107,7 @@
 * Если тебе нужно хитро составить имена классов для элемента используй `classNames`
 * Доставай `PropTypes` и `PureRenderMixin` заранее:
   ```coffee
-  React = require 'react/addons'
+  React = require 'react'
 
   {PropTypes} = React
   {PureRenderMixin} = React.addons

@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 ReactRedux = require 'react-redux'
 sectionActions = require '../../actions/section'
 sectionRatingActions = require '../../actions/section_ratings'

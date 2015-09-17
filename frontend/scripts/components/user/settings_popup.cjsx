@@ -1,11 +1,11 @@
-React = require 'react/addons'
+React = require 'react'
+LinkedStateMixin = require 'react-addons-linked-state-mixin'
 ReactRedux = require 'react-redux'
 currentUserActions = require '../../actions/current_user'
 PasswordInput = require '../shared/inputs/password'
 showToast = require '../../helpers/toasts/show'
 
 {PropTypes} = React
-{LinkedStateMixin} = React.addons
 {connect} = ReactRedux
 {changePassword} = currentUserActions
 

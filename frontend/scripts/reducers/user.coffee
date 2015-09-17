@@ -1,9 +1,8 @@
 _ = require 'lodash'
-React = require 'react/addons'
+update = require 'react-addons-update'
 ReduxActions = require 'redux-actions'
 itemReceiver = require '../helpers/reducers/item_receiver'
 
-{update} = React.addons
 {handleActions} = ReduxActions
 
 {defaultState, handlers} = itemReceiver name: 'user'

@@ -1,8 +1,6 @@
 _ = require 'lodash'
-React = require 'react/addons'
+update = require 'react-addons-update'
 constantize = require '../constantize'
-
-{update} = React.addons
 
 paginatedItemsReceiver = ({name}) ->
   defaultState = (state = {}) ->

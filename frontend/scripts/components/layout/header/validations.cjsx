@@ -1,8 +1,8 @@
-React = require 'react/addons'
+React = require 'react'
+CSSTransitionGroup = require 'react-addons-css-transition-group'
 prepublishValidation = require '../../../helpers/ratings/prepublish_validation'
 
 {PropTypes} = React
-{CSSTransitionGroup} = React.addons
 
 Validations = React.createClass
   displayName: 'Validations'

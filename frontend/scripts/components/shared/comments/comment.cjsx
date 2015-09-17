@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 moment = require 'moment'
 shortId = require '../../../helpers/short_id'
 imageUrl = require '../../../helpers/image_url'

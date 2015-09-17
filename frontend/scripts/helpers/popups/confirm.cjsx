@@ -1,5 +1,5 @@
 _ = require 'lodash'
-React = require 'react/addons'
+React = require 'react'
 popupActions = require '../../actions/popups'
 buildPopup = require './build'
 ConfirmationPopup = require '../../components/shared/popups/confirmation'
