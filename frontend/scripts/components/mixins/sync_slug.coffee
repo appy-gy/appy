@@ -1,24 +1,15 @@
-# To use this mixin in your component you should also
-# include Watch mixin in it, has router in context and
-# has isLoading method defined
+ReduxReactRouter = require 'redux-react-router'
 
-SyncSlug = (name) ->
-  componentWillMount: ->
-    @maybeSetupSlugWatcher()
+{replaceState} = ReduxReactRouter
 
-  componentWillUpdate: ->
-    @maybeSetupSlugWatcher()
+SyncSlug = (name, url) ->
+  componentWillUpdate: (nextProps) ->
+    {dispatch} = @props
 
-  maybeSetupSlugWatcher: ->
-    # TODO
-    # return if @isLoading() or @slugWatchSetup
-    #
-    # @slugWatchSetup = true
-    # currentSlug = => @props[name].slug
-    #
-    # @watch
-    #   exp: currentSlug
-    #   onChange: =>
-    #     @context.router.replaceWith name, "#{name}Slug": currentSlug()
+    {slug} = @props[name]
+    {slug: nextSlug} = nextProps[name]
+    return if not slug? or not nextSlug? or slug == nextSlug
+
+    dispatch replaceState(null, "#{url}/#{nextSlug}")
 
 module.exports = SyncSlug

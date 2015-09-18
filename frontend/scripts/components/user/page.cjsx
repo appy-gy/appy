@@ -28,7 +28,7 @@ Nothing = require '../shared/nothing'
 User = React.createClass
   displayName: 'User'
 
-  mixins: [Loading, SyncSlug('user')]
+  mixins: [Loading, SyncSlug('user', '/users')]
 
   propTypes:
     dispatch: PropTypes.func.isRequired

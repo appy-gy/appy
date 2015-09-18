@@ -23,7 +23,7 @@ Nothing = require '../shared/nothing'
 RatingPage = React.createClass
   displayName: 'RatingPage'
 
-  mixins: [SyncSlug('rating'), Loading]
+  mixins: [SyncSlug('rating', '/ratings'), Loading]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
