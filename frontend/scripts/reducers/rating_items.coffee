@@ -2,16 +2,17 @@ _ = require 'lodash'
 update = require 'react-addons-update'
 ReduxActions = require 'redux-actions'
 itemsReceiver = require '../helpers/reducers/items_receiver'
+cleaner = require '../helpers/reducers/cleaner'
 
 {handleActions} = ReduxActions
 
-{defaultState, handlers} = itemsReceiver name: 'ratingItems'
+{defaultState, handlers} = itemsReceiver 'ratingItems'
 
 defaultState = _.backflow defaultState, ->
   visibilities: []
   waypoints: []
 
-handlers = _.merge handlers,
+handlers = _.merge handlers, cleaner('ratingItems', defaultState),
   APPEND_RATING_ITEM: (state, {payload: ratingItem}) ->
     update state, items: { $push: [ratingItem] }
 

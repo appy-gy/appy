@@ -10,14 +10,15 @@ SyncSlug = (name) ->
     @maybeSetupSlugWatcher()
 
   maybeSetupSlugWatcher: ->
-    return if @isLoading() or @slugWatchSetup
-
-    @slugWatchSetup = true
-    currentSlug = => @props[name].slug
-
-    @watch
-      exp: currentSlug
-      onChange: =>
-        @context.router.replaceWith name, "#{name}Slug": currentSlug()
+    # TODO
+    # return if @isLoading() or @slugWatchSetup
+    #
+    # @slugWatchSetup = true
+    # currentSlug = => @props[name].slug
+    #
+    # @watch
+    #   exp: currentSlug
+    #   onChange: =>
+    #     @context.router.replaceWith name, "#{name}Slug": currentSlug()
 
 module.exports = SyncSlug

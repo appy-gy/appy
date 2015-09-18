@@ -3,11 +3,12 @@ paginatedItemsFetcher = require '../helpers/actions/paginated_items_fetcher'
 
 {createAction} = ReduxActions
 
-clearSectionRatings = createAction 'CLEAR_SECTION_RATINGS'
-
 {fetch: fetchSectionRatings} = paginatedItemsFetcher
   name: 'sectionRatings'
-  url: (page, sectionId) -> "sections/#{sectionId}/ratings"
+  url: ({args}) -> "sections/#{args[0]}/ratings"
   responseKey: 'ratings'
+  getPage: (args) -> args[1]
+  getSlugFromState: (state) -> state.section.item.slug
+  getSlugFromArgs: (args) -> args[0]
 
-module.exports = { fetchSectionRatings, clearSectionRatings }
+module.exports = { fetchSectionRatings }

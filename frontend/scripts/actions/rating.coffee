@@ -10,7 +10,7 @@ deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 changeRating = createAction 'CHANGE_RATING'
 changeRatingUpdateStatus = createAction 'CHANGE_UPDATE_STATUS'
 
-{fetch: fetchRating} = itemFetcher name: 'rating', url: (id) -> "ratings/#{id}"
+{fetch: fetchRating} = itemFetcher name: 'rating', url: ({args}) -> "ratings/#{args[0]}"
 
 viewRating = ->
   (dispatch, getState) ->

@@ -8,9 +8,7 @@ toFormData = require '../helpers/to_form_data'
 {createAction} = ReduxActions
 {changeCurrentUser} = currentUserActions
 
-clearUser = createAction 'CLEAR_USER'
-
-{fetch: fetchUser} = itemFetcher name: 'user', url: (id) -> "users/#{id}"
+{fetch: fetchUser} = itemFetcher name: 'user', url: ({args}) -> "users/#{args[0]}"
 
 changeUser = (changes) ->
   (dispatch, getState) ->
@@ -25,4 +23,4 @@ updateUser = (changes) ->
     http.put("users/#{user.item.id}", data).then ({data}) ->
       dispatch changeUser(data.user)
 
-module.exports = { fetchUser, changeUser, updateUser, clearUser }
+module.exports = { fetchUser, changeUser, updateUser }

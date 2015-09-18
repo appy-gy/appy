@@ -1,28 +1,15 @@
-ReduxActions = require 'redux-actions'
-http = require '../http'
-constantize = require '../constantize'
-
-{createAction} = ReduxActions
+fetcher = require './fetcher'
 
 itemFetcher = ({name, url, responseKey}) ->
-  responseKey ||= name
-
-  request = createAction "REQUEST_#{constantize name}"
-  receive = createAction "RECEIVE_#{constantize name}"
-
-  fetch = (args...) ->
-    (dispatch, getState) ->
-      state = getState()
-      item = state[name]
-
-      return Promise.resolve(item.item) if item.isFetching or item.isFetched
-
-      dispatch request()
-
-      http.get(url(args..., state)).then ({data}) ->
-        dispatch receive(data[responseKey])
-        data[responseKey]
-
-  { request, receive, fetch }
+  fetcher
+    name: name
+    url: url
+    responseKey: responseKey
+    getItems: (state) -> state[name].item
+    shouldUseCache: ({state}) ->
+      state[name].isFetching or state[name].isFetched
+    shouldClearState: ({state, args}) ->
+      return false unless state[name].item.slug?
+      state[name].item.slug != args[0]
 
 module.exports = itemFetcher

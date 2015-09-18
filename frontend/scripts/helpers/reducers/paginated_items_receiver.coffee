@@ -2,7 +2,7 @@ _ = require 'lodash'
 update = require 'react-addons-update'
 constantize = require '../constantize'
 
-paginatedItemsReceiver = ({name}) ->
+paginatedItemsReceiver = (name) ->
   defaultState = (state = {}) ->
     _.merge state,
       items: []

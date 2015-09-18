@@ -3,7 +3,7 @@ itemsReceiver = require '../helpers/reducers/items_receiver'
 
 {handleActions} = ReduxActions
 
-{defaultState, handlers} = itemsReceiver name: 'sections'
+{defaultState, handlers} = itemsReceiver 'sections'
 
 reducer = handleActions handlers, defaultState()
 

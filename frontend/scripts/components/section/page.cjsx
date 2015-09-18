@@ -11,7 +11,7 @@ Preview = require '../shared/ratings/preview'
 {PropTypes} = React
 {connect} = ReactRedux
 {fetchSection} = sectionActions
-{fetchSectionRatings, clearSectionRatings} = sectionRatingActions
+{fetchSectionRatings} = sectionRatingActions
 
 Section = React.createClass
   displayName: 'Section'
@@ -37,10 +37,7 @@ Section = React.createClass
     @props.dispatch fetchSection(@props.sectionSlug)
 
   fetchRatings: (page) ->
-    @props.dispatch fetchSectionRatings(page, @props.sectionSlug)
-
-  clearRatings: ->
-    @props.dispatch clearSectionRatings()
+    @props.dispatch fetchSectionRatings(@props.sectionSlug, page)
 
   changePage: (page) ->
     @props.dispatch replaceState(null, "/sections/#{@props.sectionSlug}", { page })
@@ -59,7 +56,6 @@ Section = React.createClass
     </Layout>
 
 mapStateToProps = ({router, sectionRatings, section}, {sectionSlug}) ->
-  console.log 'map', router.params
   ratings: sectionRatings.items
   section: section.item
   sectionSlug: router.params.sectionSlug

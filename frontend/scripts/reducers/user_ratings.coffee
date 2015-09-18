@@ -1,14 +1,13 @@
 _ = require 'lodash'
 ReduxActions = require 'redux-actions'
 paginatedItemsReceiver = require '../helpers/reducers/paginated_items_receiver'
+cleaner = require '../helpers/reducers/cleaner'
 
 {handleActions} = ReduxActions
 
-{defaultState, handlers} = paginatedItemsReceiver name: 'userRatings'
+{defaultState, handlers} = paginatedItemsReceiver 'userRatings'
 
-handlers = _.merge handlers,
-  CLEAR_USER_RATINGS: ->
-    defaultState()
+handlers = _.merge handlers, cleaner('userRatings', defaultState)
 
 reducer = handleActions handlers, defaultState()
 

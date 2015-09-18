@@ -8,7 +8,6 @@ isClient = require '../../helpers/is_client'
 canEditRating = require '../../helpers/ratings/can_edit'
 SyncSlug = require '../mixins/sync_slug'
 Loading = require '../mixins/loading'
-Watch = require '../mixins/watch'
 Rating = require './rating'
 Similar = require './similar'
 Comments = require './comments'
@@ -24,7 +23,7 @@ Nothing = require '../shared/nothing'
 RatingPage = React.createClass
   displayName: 'RatingPage'
 
-  mixins: [SyncSlug('rating'), Loading, Watch]
+  mixins: [SyncSlug('rating'), Loading]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
@@ -47,11 +46,10 @@ RatingPage = React.createClass
     @fetchRating()
     @fetchRatingItems()
 
-    @watch
-      exp: => @props.ratingSlug
-      onChange: =>
-        @fetchRating()
-        @fetchRatingItems()
+  componentDidUpdate: ->
+    # That order is important and yes, that sucks
+    @fetchRatingItems()
+    @fetchRating()
 
   getChildContext: ->
     {rating, ratingSlug, ratingItems} = @props
@@ -70,7 +68,7 @@ RatingPage = React.createClass
 
   fetchRating: ->
     @props.dispatch(fetchRating(@props.ratingSlug)).then (rating) =>
-      @checkAccess rating
+      @checkAccess rating if rating.id?
 
   fetchRatingItems: ->
     @props.dispatch fetchRatingItems(@props.ratingSlug)

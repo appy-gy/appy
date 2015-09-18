@@ -2,11 +2,12 @@ _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
 userActions = require '../../actions/user'
+userRatingActions = require '../../actions/user_ratings'
+userCommentActions = require '../../actions/user_comments'
 canEditUser = require '../../helpers/users/can_edit'
 canSeeRatingDrafts = require '../../helpers/ratings/can_see_drafts'
 SyncSlug = require '../mixins/sync_slug'
 Loading = require '../mixins/loading'
-Watch = require '../mixins/watch'
 Avatar = require './avatar'
 Name = require './name'
 SocialButtons = require './social_buttons'
@@ -20,12 +21,14 @@ Nothing = require '../shared/nothing'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{fetchUser, clearUser} = userActions
+{fetchUser} = userActions
+{fetchUserRatings} = userRatingActions
+{fetchUserComments} = userCommentActions
 
 User = React.createClass
   displayName: 'User'
 
-  mixins: [Loading, SyncSlug('user'), Watch]
+  mixins: [Loading, SyncSlug('user')]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
@@ -33,6 +36,10 @@ User = React.createClass
     userSlug: PropTypes.string.isRequired
     isFetched: PropTypes.bool.isRequired
     page: PropTypes.number.isRequired
+    ratings: PropTypes.arrayOf(PropTypes.object).isRequired
+    ratingPagesCount: PropTypes.number.isRequired
+    comments: PropTypes.arrayOf(PropTypes.object).isRequired
+    commentPagesCount: PropTypes.number.isRequired
 
   contextTypes:
     currentUser: PropTypes.object.isRequired
@@ -51,12 +58,13 @@ User = React.createClass
 
   componentWillMount: ->
     @fetchUser()
+    @fetchRatings()
+    @fetchComments()
 
-    @watch
-      exp: => @context.currentUser.id
-      onChange: =>
-        @clearUser()
-        @fetchUser()
+  componentDidUpdate: ->
+    @fetchRatings()
+    @fetchComments()
+    @fetchUser()
 
   isLoading: ->
     not @props.isFetched
@@ -70,8 +78,11 @@ User = React.createClass
   fetchUser: ->
     @props.dispatch fetchUser(@props.userSlug)
 
-  clearUser: ->
-    @props.dispatch clearUser()
+  fetchRatings: ->
+    @props.dispatch fetchUserRatings(@props.userSlug, @props.page)
+
+  fetchComments: ->
+    @props.dispatch fetchUserComments(@props.userSlug, @props.page)
 
   resetPage: (query) ->
     _.omit query, 'page'
@@ -80,7 +91,7 @@ User = React.createClass
     <Settings/> if @canEdit()
 
   render: ->
-    {user, page} = @props
+    {user, page, ratings, ratingPagesCount, comments, commentPagesCount} = @props
 
     return <Nothing/> if @isLoading()
 
@@ -96,19 +107,23 @@ User = React.createClass
         </header>
         <Tabs defaultTab="ratings" queryModificator={@resetPage}>
           <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
-            <Ratings page={page}/>
+            <Ratings ratings={ratings} pagesCount={ratingPagesCount} page={page}/>
           </Tab>
           <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
-            <Comments page={page}/>
+            <Comments comments={comments} pagesCount={commentPagesCount} page={page}/>
           </Tab>
         </Tabs>
       </div>
     </Layout>
 
-mapStateToProps = ({router, user}) ->
+mapStateToProps = ({router, user, userRatings, userComments}) ->
   user: user.item
   userSlug: router.params.userSlug
   isFetched: user.isFetched
   page: parseInt(router.location.query.page || 1)
+  ratings: userRatings.items
+  ratingPagesCount: userRatings.pagesCount
+  comments: userComments.items
+  commentPagesCount: userComments.pagesCount
 
 module.exports = connect(mapStateToProps)(User)

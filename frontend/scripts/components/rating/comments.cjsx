@@ -40,7 +40,7 @@ Comments = React.createClass
     canCommentRating @context.currentUser, @context.rating
 
   fetchComments: ->
-    @props.dispatch fetchRatingComments()
+    @props.dispatch fetchRatingComments(@context.rating.slug)
 
   trees: ->
     {comments} = @props

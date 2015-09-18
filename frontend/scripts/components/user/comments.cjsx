@@ -1,47 +1,20 @@
 React = require 'react'
-ReactRedux = require 'react-redux'
-userCommentActions = require '../../actions/user_comments'
-Watch = require '../mixins/watch'
 PaginationLink = require './pagination_link'
 Comment = require '../shared/comments/comment'
 Pagination = require '../shared/pagination/pagination'
 
 {PropTypes} = React
-{connect} = ReactRedux
-{fetchUserComments, clearUserComments} = userCommentActions
 
 Comments = React.createClass
   displayName: 'Comments'
 
-  mixins: [Watch]
-
   propTypes:
-    dispatch: PropTypes.func.isRequired
     comments: PropTypes.arrayOf(PropTypes.object).isRequired
     page: PropTypes.number.isRequired
     pagesCount: PropTypes.number.isRequired
 
   contextTypes:
     user: PropTypes.object.isRequired
-
-  componentWillMount: ->
-    @fetchComments()
-
-    @watch
-      exp: => @props.page
-      onChange: @fetchComments
-
-    @watch
-      exp: => @context.currentUser.id
-      onChange: =>
-        @clearComments()
-        @fetchComments()
-
-  fetchComments: ->
-    @props.dispatch fetchUserComments(@props.page, @context.user.id)
-
-  clearComments: ->
-    @props.dispatch clearUserComments()
 
   noComments: ->
     {user} = @context
@@ -75,7 +48,4 @@ Comments = React.createClass
       <Pagination currentPage={page} pagesCount={pagesCount} link={PaginationLink}/>
     </div>
 
-mapStateToProps = ({userComments}) ->
-  comments: userComments.items, pagesCount: userComments.pagesCount
-
-module.exports = connect(mapStateToProps)(Comments)
+module.exports = Comments

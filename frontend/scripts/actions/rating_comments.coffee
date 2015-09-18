@@ -9,8 +9,10 @@ appendRatingComment = createAction 'APPEND_RATING_COMMENT'
 
 {fetch: fetchRatingComments} = itemsFetcher
   name: 'ratingComments',
-  url: ({rating}) -> "ratings/#{rating.item.id}/comments"
+  url: ({args}) -> "ratings/#{args[0]}/comments"
   responseKey: 'comments'
+  getSlugFromState: (state) -> state.rating.item.slug
+  getSlugFromArgs: (args) -> args[0]
 
 createRatingComment = (body, parentId) ->
   (dispatch, getState) ->

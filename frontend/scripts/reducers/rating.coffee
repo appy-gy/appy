@@ -2,15 +2,16 @@ _ = require 'lodash'
 update = require 'react-addons-update'
 ReduxActions = require 'redux-actions'
 itemReceiver = require '../helpers/reducers/item_receiver'
+cleaner = require '../helpers/reducers/cleaner'
 
 {handleActions} = ReduxActions
 
-{defaultState, handlers} = itemReceiver name: 'rating'
+{defaultState, handlers} = itemReceiver 'rating'
 
 defaultState = _.backflow defaultState, ->
   updateStatus: 'done'
 
-handlers = _.merge handlers,
+handlers = _.merge handlers, cleaner('rating', defaultState),
   CHANGE_RATING: (state, {payload: changes}) ->
     update state, item: { $merge: changes }
 
