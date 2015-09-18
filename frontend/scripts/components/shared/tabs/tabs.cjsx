@@ -60,8 +60,8 @@ Tabs = React.createClass
     </div>
 
 mapStateToProps = ({router}, {defaultTab}) ->
-  tab: router.location.query.tab || defaultTab
+  tab: router.location.query?.tab || defaultTab
   pathname: router.location.pathname
-  query: router.location.query
+  query: router.location.query || {}
 
 module.exports = connect(mapStateToProps)(Tabs)

@@ -4,6 +4,7 @@ ReactDOM = require 'react-dom'
 ReactRedux = require 'react-redux'
 ReduxReactRouter = require 'redux-react-router'
 reducers = require './reducers'
+router = require './router'
 buildStore = require './build_store'
 
 {Provider} = ReactRedux
@@ -11,7 +12,11 @@ buildStore = require './build_store'
 
 run = ->
   state = JSON.parse(document.querySelector('#state').getAttribute('data-state') || '{}')
-  store = buildStore reducers, state
+  # TODO: this is a temp hack to workaround bug in redux-react-router,
+  # also there are some checks for the query presence in mapStateToProps funcs
+  # remove them too
+  state = _.omit state, 'router'
+  store = buildStore reducers, router, state
 
   element = <Provider store={store}>
     <ReduxRouter/>

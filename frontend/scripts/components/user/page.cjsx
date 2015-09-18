@@ -120,7 +120,7 @@ mapStateToProps = ({router, user, userRatings, userComments}) ->
   user: user.item
   userSlug: router.params.userSlug
   isFetched: user.isFetched
-  page: parseInt(router.location.query.page || 1)
+  page: parseInt(router.location.query?.page || 1)
   ratings: userRatings.items
   ratingPagesCount: userRatings.pagesCount
   comments: userComments.items

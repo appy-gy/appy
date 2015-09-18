@@ -26,6 +26,7 @@ PaginationLink = React.createClass
     <Link {...props}/>
 
 mapStateToProps = ({router}) ->
-  _.pick router.location, 'pathname', 'query'
+  pathname: router.location.pathname
+  query: router.location.query || {}
 
 module.exports = connect(mapStateToProps)(PaginationLink)

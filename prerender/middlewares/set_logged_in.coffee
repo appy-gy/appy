@@ -7,5 +7,5 @@ module.exports = ->
   (req, res, next) ->
     token = req.cookies[tokenKey]
     http.get(checkUrl, params: { token }).then ({data}) ->
-      req.isLoggedIn = true # data.loggedIn
+      req.isLoggedIn = data.loggedIn
       next()

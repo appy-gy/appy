@@ -12,7 +12,7 @@ server.on 'request', (req, res) ->
   proxy.web req, res, { target }
 
 proxy.on 'error', (err, req, res) ->
-  console.error 'error', err
+  console.error 'Failed to proxy request', error, error.stack
   res.end """
     <html>
       <head>

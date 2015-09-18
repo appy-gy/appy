@@ -59,7 +59,7 @@ mapStateToProps = ({router, sectionRatings, section}, {sectionSlug}) ->
   ratings: sectionRatings.items
   section: section.item
   sectionSlug: router.params.sectionSlug
-  page: parseInt(router.location.query.page || 1)
+  page: parseInt(router.location.query?.page || 1)
   pagesCount: sectionRatings.pagesCount
   isFetched: _.any [sectionRatings, section], 'isFetched'
 

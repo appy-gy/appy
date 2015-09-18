@@ -85,6 +85,6 @@ Comment = React.createClass
     </div>
 
 mapStateToProps = ({router}) ->
-  query: router.location.query
+  query: router.location.query || {}
 
 module.exports = connect(mapStateToProps)(Comment)

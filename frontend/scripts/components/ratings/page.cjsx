@@ -57,7 +57,7 @@ Ratings = React.createClass
 
 mapStateToProps = ({router, ratings}) ->
   ratings: ratings.items
-  page: parseInt(router.location.query.page || 1)
+  page: parseInt(router.location.query?.page || 1)
   fetchingPages: ratings.fetchingPages
   pagesCount: ratings.pagesCount
 

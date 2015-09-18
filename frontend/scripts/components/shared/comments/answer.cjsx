@@ -60,6 +60,6 @@ Answer = React.createClass
     </Root>
 
 mapStateToProps = ({router}) ->
-  query: router.location.query
+  query: router.location.query || {}
 
 module.exports = connect(mapStateToProps)(Answer)
