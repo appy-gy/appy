@@ -61,7 +61,7 @@ Rails.application.config.sorcery.configure do |config|
   # What providers are supported by this app, i.e. [:twitter, :facebook, :github, :linkedin] .
   # Default: `[]`
 
-  config.external_providers = %i{twitter facebook google vk}
+  config.external_providers = %i{facebook vk}
 
   # You can change it by your local ca_file. i.e. '/etc/pki/tls/certs/ca-bundle.crt'
   # Path to ca_file. By default use a internal ca-bundle.crt.
@@ -93,31 +93,32 @@ Rails.application.config.sorcery.configure do |config|
   # Twitter wil not accept any requests nor redirect uri containing localhost,
   # make sure you use 0.0.0.0:3000 to access your app in development
 
-  config.twitter.key = ENV['TOP_TWITTER_OAUTH_KEY']
-  config.twitter.secret = ENV['TOP_TWITTER_OAUTH_SECRET']
-  config.twitter.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=twitter"
-  config.twitter.user_info_mapping = { name: 'name' }
+  # config.twitter.key = ENV['TOP_TWITTER_OAUTH_KEY']
+  # config.twitter.secret = ENV['TOP_TWITTER_OAUTH_SECRET']
+  # config.twitter.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=twitter"
+  # config.twitter.user_info_mapping = { name: 'name' }
 
   config.facebook.key = ENV['TOP_FACEBOOK_APP_ID']
   config.facebook.secret = ENV['TOP_FACEBOOK_OAUTH_SECRET']
-  config.facebook.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=facebook"
+  config.facebook.callback_url = "http://4bab43b0.ngrok.io/oauth/callback?provider=facebook"
   config.facebook.user_info_mapping = { email: 'email', name: 'name', facebook_link: 'link'}
   config.facebook.access_permissions = %w{email public_profile}
   config.facebook.user_info_path = "me?fields=email,name,link"
+
+  config.vk.key = ENV['TOP_VK_OAUTH_KEY']
+  config.vk.secret = ENV['TOP_VK_OAUTH_SECRET']
+  config.vk.callback_url = "http://4bab43b0.ngrok.io/oauth/callback?provider=vk"
+  config.vk.user_info_mapping = { name: 'full_name', email: 'email' }
 
   # config.github.key = ""
   # config.github.secret = ""
   # config.github.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=github"
   # config.github.user_info_mapping = {:email => "name"}
-  config.google.key = ENV['TOP_GOOGLE_OAUTH_KEY']
-  config.google.secret = ENV['TOP_GOOGLE_OAUTH_SECRET']
-  config.google.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=google"
-  config.google.user_info_mapping = { name: 'name', email: 'email' }
 
-  config.vk.key = ENV['TOP_VK_OAUTH_KEY']
-  config.vk.secret = ENV['TOP_VK_OAUTH_SECRET']
-  config.vk.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=vk"
-  config.vk.user_info_mapping = { name: 'full_name', email: 'email' }
+  # config.google.key = ENV['TOP_GOOGLE_OAUTH_KEY']
+  # config.google.secret = ENV['TOP_GOOGLE_OAUTH_SECRET']
+  # config.google.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=google"
+  # config.google.user_info_mapping = { name: 'name', email: 'email' }
 
   # To use liveid in development mode you have to replace mydomain.com with
   # a valid domain even in development. To use a valid domain in development

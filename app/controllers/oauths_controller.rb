@@ -16,7 +16,7 @@ class OauthsController < ApplicationController
     user = User.find_by(email: user.email) unless user.save
 
     reset_session
-    auto_login user
+    auto_login user, true
   ensure
     redirect_to '/'
   end
