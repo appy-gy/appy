@@ -17,7 +17,7 @@ paginatedItemsFetcher = ({name, url, responseKey, getPage, getSlugFromState, get
       {fetchingPages, fetchedPages} = state[name]
       _(fetchingPages).concat(fetchedPages).includes(getPage(args))
     shouldClearState: shouldClearState
-    requestOpts: ({args}) -> getPage args
+    requestOpts: ({args}) -> params: { page: getPage args }
     requestPayload: ({args}) -> getPage args
     receivePayload: ({args, data}) ->
       page = getPage args
