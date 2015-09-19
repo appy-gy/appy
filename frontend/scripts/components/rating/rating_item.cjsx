@@ -41,11 +41,12 @@ RatingItem = React.createClass
 
     @props.dispatch removeRatingItem(@props.ratingItem.id)
 
-  handleWaypointEnter: ->
-    @props.dispatch addRatingItemWaypoint(@props.ratingItem.id)
 
   handleWaypointLeave: ->
     @props.dispatch removeRatingItemWaypoint(@props.ratingItem.id)
+
+  handleWaypointEnter: (visibility) ->
+    @props.dispatch addRatingItemWaypoint(@props.ratingItem.id, visibility)
 
   handleWaypointVisibilityChange: (visibility) ->
     @props.dispatch changeRatingItemVisibility(@props.ratingItem.id, visibility)

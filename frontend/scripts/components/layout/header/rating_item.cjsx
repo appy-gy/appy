@@ -19,8 +19,8 @@ RatingItem = React.createClass
     "#item-#{ratingItem.position}"
 
   render: ->
-    {ratingItem, visibility, isRatingItemVisible} = @props
-    classes = classNames 'header_rating-item', ("m-visible-#{visibility}" if visibility?), 'm-enter-waypoint': isRatingItemVisible
+    {ratingItem, visibility, ratingItemVisibility} = @props
+    classes = classNames 'header_rating-item', "m-visible-#{ratingItemVisibility}"
 
     <div className={classes}>
       <a title={ratingItem.title} className="header_rating-item-title" href={@ratingItemAnchor()} data-scroll>
@@ -32,9 +32,7 @@ RatingItem = React.createClass
     </div>
 
 mapStateToProps = ({ratingItems}, {ratingItem}) ->
-  visibility = ratingItems.visibilities[ratingItem.id]
-  isRatingItemVisible = _.includes(ratingItems.waypoints, ratingItem.id)
-
-  { visibility, isRatingItemVisible }
+  ratingItemVisibility =  _.result(_.find(ratingItems.waypoints, ratingItem.id), "#{ratingItem.id}.visibility", "hidden")
+  { ratingItemVisibility }
 
 module.exports = connect(mapStateToProps)(RatingItem)
