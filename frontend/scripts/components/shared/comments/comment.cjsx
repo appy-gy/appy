@@ -56,9 +56,8 @@ Comment = React.createClass
 
     <div className="comment_rating-info">
       <SectionLink className="comment_rating-info-section" section={comment.rating.section} style={sectionStyles}>
-        {comment.rating.section.name}
+        {comment.rating.section.name}:
       </SectionLink>
-      |
       <RatingLink className="comment_rating-info-rating" rating={comment.rating}>
         {comment.rating.title}
       </RatingLink>
