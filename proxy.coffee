@@ -11,7 +11,7 @@ server.on 'request', (req, res) ->
   target = if req.url.match /^\/(api|oauth|admin|assets|files|system|__better_errors)/ then process.env.TOP_API_HOST else process.env.TOP_PRERENDER_HOST
   proxy.web req, res, { target }
 
-proxy.on 'error', (err, req, res) ->
+proxy.on 'error', (error, req, res) ->
   console.error 'Failed to proxy request', error, error.stack
   res.end """
     <html>
