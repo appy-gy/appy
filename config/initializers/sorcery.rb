@@ -100,14 +100,14 @@ Rails.application.config.sorcery.configure do |config|
 
   config.facebook.key = ENV['TOP_FACEBOOK_APP_ID']
   config.facebook.secret = ENV['TOP_FACEBOOK_OAUTH_SECRET']
-  config.facebook.callback_url = "http://4bab43b0.ngrok.io/oauth/callback?provider=facebook"
+  config.facebook.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=facebook"
   config.facebook.user_info_mapping = { email: 'email', name: 'name', facebook_link: 'link'}
   config.facebook.access_permissions = %w{email public_profile}
   config.facebook.user_info_path = "me?fields=email,name,link"
 
   config.vk.key = ENV['TOP_VK_OAUTH_KEY']
   config.vk.secret = ENV['TOP_VK_OAUTH_SECRET']
-  config.vk.callback_url = "http://4bab43b0.ngrok.io/oauth/callback?provider=vk"
+  config.vk.callback_url = "#{ENV['TOP_HOST']}/oauth/callback?provider=vk"
   config.vk.user_info_mapping = { name: 'full_name', email: 'email' }
 
   # config.github.key = ""
