@@ -59,7 +59,13 @@ Header = React.createClass
     return if rating.status == 'published'
 
     <div className="rating_add-image-wrap">
-      <div className="rating_add-image" title="Выберите титульное изображение" onClick={@openSelect}></div>
+      <div className="rating_add-image" title="Выберите фото обложки" onClick={@openSelect}></div>
+      <div className="rating_drop-area">
+        <div className="rating_drop-area-icon"></div>
+        <div className="rating_drop-area-text">
+          Можете просто перетянуть изображение в эту зону для загрузки
+        </div>
+      </div>
     </div>
 
   sectionLink: ->
