@@ -1,3 +1,10 @@
+@keyframes prompt
+  100%
+    opacity: 1
+    margin-right: 0
+
+
+
 .rating
   +rating-meta
   background: white
@@ -271,6 +278,7 @@
   &_description-wrapper
     padding: 16px
     width: 100%
+    position: relative
 
     @media screen and (min-width: $small)
       padding: 20px
@@ -296,11 +304,42 @@
     &::placeholder
       color: $black
 
-    &:focus::placeholder
-      color: $black-3
+    &:focus
+
+      &::placeholder
+        color: $black-3
+
+      + .prompt
+        animation: prompt 0.2s linear forwards
 
     @media screen and (min-width: $small)
       font-size: 20px
+
+  .prompt
+    position: absolute
+    top: 40px
+    right: 40px
+    background-color: $black
+    color: $white
+    padding: 10px 15px
+    opacity: 0
+    margin-right: -100px
+    font-family: $monospace
+    font-size: 12px
+
+    &::before
+      content: ''
+      display: block
+      position: absolute
+      top: 13px
+      left: -12px
+      width: 0
+      height: 0
+      border-style: solid
+      border-width: 10px 12px 10px 0
+      border-color: transparent $black transparent transparent
+
+
 
   &_author
     font-family: $monospace

@@ -55,7 +55,10 @@ Description = React.createClass
     {block} = @context
 
     if edit
-      <Textarea className={@classes("#{block}_description", 'm-edit')} placeholder={placeholder} value={object.description} onChange={@changeDescription}/>
+      <div>
+        <Textarea className={@classes("#{block}_description", 'm-edit')} placeholder={placeholder} value={object.description} onChange={@changeDescription}/>
+        <div className="prompt">Не игнорируйте это место!</div>
+      </div>
     else
       <div className={@classes("#{block}_description")}>
         <AutolinkText text={removeExtraSpaces(object.description)}></AutolinkText>
