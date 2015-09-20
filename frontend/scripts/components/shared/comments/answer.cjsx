@@ -53,8 +53,7 @@ Answer = React.createClass
     classes = classNames 'comment_action', 'm-active': showForm
 
     <Root className={classes} rating={comment.rating} query={comment: shortId(comment.id), reply: true}>
-      <div ref="trigger" className="comment_action-link" onClick={@triggerForm}>
-        Ответить
+      <div ref="trigger" className="comment_action-link m-answer" onClick={@triggerForm}>
       </div>
       {@form()}
     </Root>

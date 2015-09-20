@@ -14,7 +14,7 @@ Open = React.createClass
     {comment} = @context
 
     <RatingLink className="comment_action" rating={comment.rating} query={comment: shortId(comment.id)}>
-      <div className="comment_action-link">Показать</div>
+      <div className="comment_action-link m-show"></div>
     </RatingLink>
 
 module.exports = Open

@@ -63,12 +63,22 @@
 
     &-link
       display: inline
-      font-size: 13px
+      font-size: 18px
       margin-right: 10px
       cursor: pointer
       color: $black-3
       font-family: $monospace
       user-select: none
+
+      &.m-show
+
+        &:before
+          +ion-icon('ios-eye-outline')
+
+      &.m-answer
+
+        &::before
+          +ion-icon('ios-redo-outline')
 
       &:hover
         color: $blue
