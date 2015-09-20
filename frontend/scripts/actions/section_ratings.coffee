@@ -8,7 +8,5 @@ paginatedItemsFetcher = require '../helpers/actions/paginated_items_fetcher'
   url: ({args}) -> "sections/#{args[0]}/ratings"
   responseKey: 'ratings'
   getPage: (args) -> args[1]
-  getSlugFromState: (state) -> state.section.item.slug
-  getSlugFromArgs: (args) -> args[0]
 
 module.exports = { fetchSectionRatings }

@@ -13,8 +13,6 @@ changeRatingItemPositions = createAction 'CHANGE_RATING_ITEM_POSITIONS'
 {fetch: fetchRatingItems} = itemsFetcher
   name: 'ratingItems',
   url: ({args}) -> "ratings/#{args[0]}/rating_items"
-  getSlugFromState: (state) -> state.rating.item.slug
-  getSlugFromArgs: (args) -> args[0]
 
 createRatingItem = (position) ->
   (dispatch, getState) ->

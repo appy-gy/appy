@@ -11,8 +11,6 @@ appendRatingComment = createAction 'APPEND_RATING_COMMENT'
   name: 'ratingComments',
   url: ({args}) -> "ratings/#{args[0]}/comments"
   responseKey: 'comments'
-  getSlugFromState: (state) -> state.rating.item.slug
-  getSlugFromArgs: (args) -> args[0]
 
 createRatingComment = (body, parentId) ->
   (dispatch, getState) ->

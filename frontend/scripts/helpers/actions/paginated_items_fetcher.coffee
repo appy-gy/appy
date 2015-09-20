@@ -1,12 +1,8 @@
 _ = require 'lodash'
 fetcher = require './fetcher'
 
-paginatedItemsFetcher = ({name, url, responseKey, getPage, getSlugFromState, getSlugFromArgs}) ->
+paginatedItemsFetcher = ({name, url, responseKey, getPage}) ->
   responseKey ||= name
-  shouldClearState = ({state, args}) ->
-    return false unless getSlugFromState? and getSlugFromArgs?
-    return false unless getSlugFromState(state)?
-    getSlugFromState(state) != getSlugFromArgs(args)
 
   fetcher
     name: name
@@ -16,7 +12,6 @@ paginatedItemsFetcher = ({name, url, responseKey, getPage, getSlugFromState, get
     shouldUseCache: ({state, args}) ->
       {fetchingPages, fetchedPages} = state[name]
       _(fetchingPages).concat(fetchedPages).includes(getPage(args))
-    shouldClearState: shouldClearState
     requestOpts: ({args}) -> params: { page: getPage args }
     requestPayload: ({args}) -> getPage args
     receivePayload: ({args, data}) ->

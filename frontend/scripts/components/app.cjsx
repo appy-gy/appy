@@ -4,6 +4,7 @@ ReactRedux = require 'react-redux'
 ReactDnd = require 'react-dnd'
 HTML5Backend = require 'react-dnd/modules/backends/HTML5'
 currentUserActions = require '../actions/current_user'
+ClearState = require './mixins/clear_state'
 Nothing = require './shared/nothing'
 
 {PropTypes} = React
@@ -14,8 +15,11 @@ Nothing = require './shared/nothing'
 App = React.createClass
   displayName: 'App'
 
+  mixins: [ClearState]
+
   propTypes:
     dispatch: PropTypes.func.isRequired
+    params: PropTypes.object.isRequired
     currentUser: PropTypes.object.isRequired
     isFetched: PropTypes.bool.isRequired
     children: PropTypes.node.isRequired
@@ -39,7 +43,9 @@ App = React.createClass
 
     children
 
-mapStateToProps = ({currentUser}) ->
-  currentUser: currentUser.item, isFetched: currentUser.isFetched
+mapStateToProps = ({router, currentUser}) ->
+  params: router.params
+  currentUser: currentUser.item,
+  isFetched: currentUser.isFetched
 
 module.exports = DragDropContext(HTML5Backend)(connect(mapStateToProps)(App))
