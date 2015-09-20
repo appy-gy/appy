@@ -43,6 +43,8 @@ $wrapper-margin: 3 * $margin
     width: 100%
     color: $white-3
     display: flex
+    font-family: $monospace
+    letter-spacing: 2px
 
     &:before,
     &:after
@@ -96,14 +98,25 @@ $wrapper-margin: 3 * $margin
       border-color: $blue
       color: $blue
 
+  &_links
+    display: flex
+    margin-top: 60px
+    justify-content: space-between
+
   &_link
     color: $green-2
-    margin-top: 15px
     font-family: $monospace
-    font-size: 14px
+    font-size: 12px
     text-decoration: underline
-    text-align: center
     cursor: pointer
+    flex: 1
+
+    &:last-of-type
+      text-align: right
+
+    &:only-of-type
+      text-align: center
+
 
     &:hover
       text-decoration: none

@@ -53,9 +53,11 @@ ResetPasswordPopup = React.createClass
           <input type="text" className="auth-popup_input m-solo" autoFocus placeholder="Email" valueLink={@linkState 'email'}/>
         </div>
       </Form>
-      <@Login className="auth-popup_link">
-        Войти
-      </@Login>
+      <div className="auth-popup_links">
+        <@Login className="auth-popup_link">
+          Войти
+        </@Login>
+      </div>
     </div>
 
 module.exports = connect()(ResetPasswordPopup)

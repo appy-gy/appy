@@ -23,8 +23,10 @@ AuthPopup = React.createClass
       <SocialButtons/>
       <Or/>
       <AuthForm ref="form" onSubmit={onSubmit}/>
-      {switcher}
-      <ResetPassword className="auth-popup_link"/>
+      <div className="auth-popup_links">
+        {switcher}
+        <ResetPassword className="auth-popup_link"/>
+      </div>
     </div>
 
 module.exports = AuthPopup
