@@ -2,25 +2,35 @@
 
 module Ratings
   class Recommendations
-    def initialize rating_data, ratings
-      @current_rating = rating_data
-      @ratings = ratings
+    const :limit, 3
+
+    class Data
+      attr_reader :id, :words
+
+      def initialize id, words
+        @id = id
+        @words = words.to_set
+      end
     end
 
-    def recommendations
-      @ratings.map do |rating_data|
-        next if rating_data.nil? || @current_rating[0] == rating_data[0]
-        current_rating_words = @current_rating[1]
-        rating_words = rating_data[1]
-
-        intersection = (current_rating_words & rating_words).size
-        union = (current_rating_words | rating_words).size
-
-        rating_data[2] = (intersection.to_f / union.to_f)
-
-        rating_data
-      end.compact.sort_by{ |rating| 1 - rating[2] }
+    def for current_rating
+      current_rating = Data.new *current_rating.slice(:id, :words).values
+      indexes_for(current_rating).sort_by{ |_, index| 1 - index }.first(limit).map(&:first)
     end
 
+    private
+
+    def indexes_for current_rating
+      ratings.each_with_object({}) do |rating, indexes|
+        next if rating.id == current_rating.id
+        intersection = (current_rating.words & rating.words).size
+        union = (current_rating.words | rating.words).size
+        indexes[rating.id] = intersection.to_f / union.to_f
+      end
+    end
+
+    def ratings
+      @ratings ||= Rating.published.pluck(:id, :words).map { |data| Data.new *data }
+    end
   end
 end

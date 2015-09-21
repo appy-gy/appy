@@ -52,14 +52,12 @@ class Rating < ActiveRecord::Base
     self.published_at = Time.current
   end
 
-  # recommendation system
   def set_words
-    self.words = ((title || '').scan(/[a-zA-Zа-яА-Я]{3,}/).to_set | tags.pluck(:name) | Array.wrap(section.try(:name))).map{ |word| word.mb_chars.downcase.to_s }
+    self.words = Ratings::Keywords.for self
   end
 
   def set_recommendations
-    ratings = Rating.published.pluck(:id, :words)
-    self.recommendations = Ratings::Recommendations.new([id, words], ratings).recommendations.first(Rating::recommendations_limit).map(&:first)
+    self.recommendations = Ratings::Recommendations.new.for(self)
   end
 
   def publishing?
