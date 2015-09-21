@@ -3,6 +3,11 @@ class ImageUploader < BaseUploader
   include CarrierWave::Processing::MiniMagick
   include CarrierWave::Mozjpeg
 
+  def filename
+    return unless super.present?
+    @name ||= super.sub File.extname(super), '.jpg'
+  end
+
   # Replace #resize_to_fill to allow pass a background argument
   # Original source:
   # https://github.com/carrierwaveuploader/carrierwave/blob/master/lib/carrierwave/processing/mini_magick.rb#L176

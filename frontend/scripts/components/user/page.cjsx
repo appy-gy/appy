@@ -11,6 +11,7 @@ Loading = require '../mixins/loading'
 Avatar = require './avatar'
 Name = require './name'
 SocialButtons = require './social_buttons'
+BackgroundUploader = require './background_uploader'
 Settings = require './settings'
 Ratings = require './ratings'
 Comments = require './comments'
@@ -87,6 +88,9 @@ User = React.createClass
   resetPage: (query) ->
     _.omit query, 'page'
 
+  backgroundUploader: ->
+    <BackgroundUploader/> if @canEdit()
+
   settings: ->
     <Settings/> if @canEdit()
 
@@ -103,6 +107,7 @@ User = React.createClass
             <Name/>
             <SocialButtons/>
           </div>
+          {@backgroundUploader()}
           {@settings()}
         </header>
         <Tabs defaultTab="ratings" queryModificator={@resetPage}>

@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   friendly_id :slug_candidates
 
   mount_uploader :avatar, Users::AvatarUploader
+  mount_uploader :background, Users::BackgroundUploader
 
   enum role: %w{member admin}
 

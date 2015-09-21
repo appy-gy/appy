@@ -24,7 +24,7 @@ Avatar = React.createClass
     canEdit: PropTypes.bool.isRequired
 
   imageUrlFor: ({context}) ->
-    imageUrl @context.user.avatar, 'normal'
+    imageUrl context.user.avatar, 'normal'
 
   updateAvatar: (files) ->
     {dispatch} = @props
