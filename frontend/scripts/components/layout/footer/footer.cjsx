@@ -1,4 +1,5 @@
 React = require 'react'
+PageLink = require '../../shared/links/page'
 
 Footer = React.createClass
   displayName: 'Footer'
@@ -8,12 +9,12 @@ Footer = React.createClass
       <div className="layout_footer-logo">
       </div>
       <div className="layout_footer-left">
-        <a href="/" className="layout_footer-link">О проекте</a>
-        <a href="/" className="layout_footer-link">Рекламодателям</a>
+        <PageLink slug="about" className="layout_footer-link">О проекте</PageLink>
+        <PageLink slug="ads" className="layout_footer-link">Рекламодателям</PageLink>
       </div>
       <div className="layout_footer-right">
-        <a href="/" className="layout_footer-link">Блог</a>
-        <a href="/" className="layout_footer-link">Поток</a>
+        <PageLink slug="blog" className="layout_footer-link">Блог</PageLink>
+        <PageLink slug="flow" className="layout_footer-link">Поток</PageLink>
       </div>
     </div>
 

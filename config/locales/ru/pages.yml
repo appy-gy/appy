@@ -1,0 +1,11 @@
+ru:
+  activerecord:
+    models:
+      page:
+        one: Страница
+        few: Страницы
+        many: Страниц
+        other: Страницы
+    attributes:
+      page:
+        body: Текст
