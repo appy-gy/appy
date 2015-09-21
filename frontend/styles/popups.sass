@@ -1,8 +1,5 @@
 .popups
   &_popup-wrapper
-    display: flex
-    justify-content: center
-    align-items: center
     position: fixed
     top: 0
     left: 0
@@ -15,6 +12,15 @@
       display: none
 
   &_popup
+    position: absolute
+    top: 0
+    left: 0
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 100%
+    height: 100%
+
     &.m-enter
       animation: increase-from-the-center 0.25s ease-in-out
 
@@ -24,13 +30,11 @@
   &_close
     position: fixed
     top: 3 * $margin
-    right: -3 * $margin
+    right: 3 * $margin
     font-size: 40px
     color: $white-2
     cursor: pointer
-    opacity: 0
     z-index: 3
-    animation: appearance-close 0.2s linear 0.2s forwards
 
     &:before
       +ion-icon("android-close")
