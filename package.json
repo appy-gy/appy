@@ -16,6 +16,7 @@
     "lodash": "^3.7.0",
     "memcached": "3rd-Eden/memcached",
     "moment": "^2.9.0",
+    "newrelic": "^1.22.0",
     "node-uuid": "^1.4.3",
     "normalize.css": "^3.0.2",
     "qs": "^5.1.0",
