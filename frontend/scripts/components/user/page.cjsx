@@ -6,6 +6,7 @@ userRatingActions = require '../../actions/user_ratings'
 userCommentActions = require '../../actions/user_comments'
 canEditUser = require '../../helpers/users/can_edit'
 canSeeRatingDrafts = require '../../helpers/ratings/can_see_drafts'
+imageUrl = require '../../helpers/image_url'
 SyncSlug = require '../mixins/sync_slug'
 Loading = require '../mixins/loading'
 Avatar = require './avatar'
@@ -99,16 +100,20 @@ User = React.createClass
 
     return <Nothing/> if @isLoading()
 
+    headerStyles = backgroundImage: "url(#{imageUrl user.background, 'normal'})"
+
     <Layout>
       <div className="user-profile">
-        <header className="user-profile_header">
+        <header className="user-profile_header" style={headerStyles}>
           <Avatar/>
           <div className="user-profile_info">
             <Name/>
             <SocialButtons/>
           </div>
-          {@backgroundUploader()}
-          {@settings()}
+          <div className="user-profile_action-buttons">
+            {@backgroundUploader()}
+            {@settings()}
+          </div>
         </header>
         <Tabs defaultTab="ratings" queryModificator={@resetPage}>
           <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
