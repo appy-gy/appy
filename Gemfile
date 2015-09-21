@@ -65,6 +65,9 @@ gem 'cocaine'
 # Jobs
 gem 'whenever', require: false
 
+# Monitoring
+gem 'newrelic_rpm'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails'
