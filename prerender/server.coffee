@@ -6,11 +6,8 @@ setup = require '../frontend/scripts/setup'
 dotenv.load()
 setup()
 
-path = require 'path'
-
-process.env.NEW_RELIC_HOME = path.join __dirname, 'helpers'
-
 _ = require 'lodash'
+path = require 'path'
 express = require 'express'
 newrelic = require 'newrelic'
 cookieParser = require 'cookie-parser'
