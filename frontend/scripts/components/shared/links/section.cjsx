@@ -1,16 +1,7 @@
 React = require 'react'
 ModelLink = require '../../mixins/model_link'
 
-{PropTypes} = React
-
 SectionLink = React.createClass
-  displayName: 'SectionLink'
-
-  mixins: [ModelLink]
-
-  propTypes:
-    section: PropTypes.object
-
-  objectName: 'section'
+  mixins: [ModelLink('section')]
 
 module.exports = SectionLink

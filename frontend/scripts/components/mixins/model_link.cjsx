@@ -5,8 +5,11 @@ Router = require 'react-router'
 {PropTypes} = React
 {Link} = Router
 
-ModelLink =
+ModelLink = (name) ->
+  displayName: "#{_.camelCase name}Link"
+
   propTypes:
+    "#{name}": PropTypes.object
     slug: PropTypes.string
     children: PropTypes.node
 
@@ -15,15 +18,15 @@ ModelLink =
 
   slug: ->
     {slug} = @props
-    object = @props[@objectName]
+    object = @props[name]
 
     slug or object?.slug
 
   render: ->
     {children} = @props
 
-    props = _.omit @props, @objectName, 'slug', 'children'
-    to = "/#{@objectName}s/#{@slug()}"
+    props = _.omit @props, name, 'slug', 'children'
+    to = "/#{name}s/#{@slug()}"
     Root = if @slug() then Link else 'span'
 
     <Root to={to} {...props}>
