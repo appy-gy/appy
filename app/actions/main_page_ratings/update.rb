@@ -1,5 +1,5 @@
-module Ratings
-  class UpdateMainPage
+module MainPageRatings
+  class Update
     attr_reader :positions
 
     def initialize positions
