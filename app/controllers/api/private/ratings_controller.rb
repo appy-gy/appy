@@ -33,6 +33,11 @@ module Api
         render json: ratings
       end
 
+      def main_page
+        ratings = ::Rating::FindForMainPage.new.call
+        render json: ratings
+      end
+
       def view
         views_count = ::Ratings::CountView.new(@rating).call
         render json: { views_count: views_count }

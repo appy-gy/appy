@@ -33,6 +33,7 @@ Rails.application.routes.draw do
           end
         end
       end
+      resource :main_page_ratings, only: [:show]
       resources :rating_items, only: [] do
         scope module: :rating_items do
           resources :votes, only: [:create]

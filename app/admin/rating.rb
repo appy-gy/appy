@@ -10,6 +10,13 @@ ActiveAdmin.register Rating do
   filter :user
   filter :section
 
+  collection_action :main_page, method: :get
+  collection_action :update_main_page, method: :put
+
+  action_item :main_page do
+    link_to 'Рейтинги на главной', main_page_admin_ratings_path
+  end
+
   index do
     column :title
     column :status do |rating|
@@ -37,5 +44,24 @@ ActiveAdmin.register Rating do
       f.input :status, as: :select, collection: Rating.statuses_i18n.invert
     end
     f.actions
+  end
+
+  controller do
+    def main_page
+      @ratings = Rating.published.pluck(:title, :id)
+      @current_ratings = Rating.on_main_page.map{ |rating| rating.slice(:main_page_position, :id).values }.to_h
+      @positions = Rating.main_page_positions_i18n
+    end
+
+    def update_main_page
+      MainPageRatings::Update.new(main_page_params).call
+      redirect_to main_page_admin_ratings_path
+    end
+
+    private
+
+    def main_page_params
+      params.require(:positions).permit(*Rating.main_page_positions.keys)
+    end
   end
 end

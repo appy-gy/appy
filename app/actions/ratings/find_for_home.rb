@@ -9,7 +9,13 @@ module Ratings
     end
 
     def call
-      Rating.includes(:user, :section, :tags, :items).published.order(published_at: :desc).page(page).per(per_page)
+      Rating.includes(:user, :section, :tags, :items).published.where.not(id: main_page_ratings).order(published_at: :desc).page(page).per(per_page)
+    end
+
+    private
+
+    def main_page_ratings
+      @main_page_ratings ||= MainPageRatings::Find.new.call.to_a
     end
   end
 end

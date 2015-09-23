@@ -27,11 +27,16 @@ class Rating < ActiveRecord::Base
   accepts_nested_attributes_for :items, allow_destroy: true
 
   enum status: %w{draft published}
+  enum main_page_position: %w{top left right}
+
+  validates :main_page_position, uniqueness: { allow_nil: true }
 
   after_create :generate_slug
   before_save :set_published_at, if: :publishing?
   before_save :set_words, if: :publishing?
   before_save :set_recommendations, if: :publishing?
+
+  scope :on_main_page, -> { where.not main_page_position: nil }
 
   private
 

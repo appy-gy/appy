@@ -1,0 +1,7 @@
+= form_tag update_main_page_admin_ratings_path, method: :put do
+  - @positions.each do |position, name|
+    fieldset
+      = label_tag "[positions][#{position}]", name
+      br
+      = select_tag "[positions][#{position}]", options_for_select(@ratings, @current_ratings[position]), include_blank: true
+  = submit_tag 'Сохранить'

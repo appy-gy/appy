@@ -3,6 +3,7 @@ React = require 'react'
 ReactRedux = require 'react-redux'
 ReduxReactRouter = require 'redux-react-router'
 ratingActions = require '../../actions/ratings'
+mainPageRatingActions = require '../../actions/main_page_ratings'
 Loading = require '../mixins/loading'
 RatingsList = require '../mixins/ratings_list'
 Layout = require '../layout/layout'
@@ -12,6 +13,7 @@ Preview = require '../shared/ratings/preview'
 {connect} = ReactRedux
 {replaceState} = ReduxReactRouter
 {fetchRatings} = ratingActions
+{fetchMainPageRatings} = mainPageRatingActions
 
 Ratings = React.createClass
   displayName: 'Ratings'
@@ -20,16 +22,18 @@ Ratings = React.createClass
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-    fetchingPages: PropTypes.arrayOf(PropTypes.number).isRequired
+    mainPageRatings: PropTypes.object.isRequired
+    isFetched: PropTypes.bool.isRequired
 
   previewEnds:
     superLarge: 1
     large: 3
 
   isLoading: ->
-    not _.isEmpty @props.fetchingPages
+    not @props.isFetched
 
   fetchRatings: (page) ->
+    @props.dispatch fetchMainPageRatings() if page == 1
     @props.dispatch fetchRatings(page)
 
   changePage: (page) ->
@@ -38,9 +42,18 @@ Ratings = React.createClass
   showFirstPage: ->
     @loadPage 1
 
+  showMainPageRatings: ->
+    _.includes @state.visiblePages, 1
+
   previews: ->
-    @ratings().map (rating, index) =>
-      type = _.findKey @previewEnds, (end) -> _.inRange index, end if rating.page == 1
+    {mainPageRatings} = @props
+    {visiblePages} = @state
+
+    ratings = @ratings()
+    ratings = _(mainPageRatings).at('top', 'left', 'right').compact().concat(ratings).value() if @showMainPageRatings()
+    ratings.map (rating, index) =>
+      if @showMainPageRatings()
+        type = _.findKey @previewEnds, (end) -> _.inRange index, end
       type ||= 'normal'
       mod = _.kebabCase type
       imageSize = if type == 'normal' then 'preview' else 'large_preview'
@@ -55,10 +68,11 @@ Ratings = React.createClass
       {@pagination()}
     </Layout>
 
-mapStateToProps = ({router, ratings}) ->
+mapStateToProps = ({router, ratings, mainPageRatings}) ->
   ratings: ratings.items
+  mainPageRatings: mainPageRatings.item
+  isFetched: not _.isEmpty(ratings.fetchingPages) || mainPageRatings.isFetched
   page: parseInt(router.location.query?.page || 1)
-  fetchingPages: ratings.fetchingPages
   pagesCount: ratings.pagesCount
 
 module.exports = connect(mapStateToProps)(Ratings)
