@@ -1,4 +1,4 @@
-module MainPageRatings
+class MainPageRatings
   class Update
     attr_reader :positions
 
