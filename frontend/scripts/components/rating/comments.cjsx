@@ -57,11 +57,12 @@ Comments = React.createClass
     <CommentForm ref="form"/>
 
   render: ->
+    {comments} = @props
     {rating} = @context
 
     <div className="comments">
       <div className="comments_header">
-        Комментарии
+        Комментарии ({comments.length})
       </div>
       <div refCollection="trees" className="comments_trees">
         {@trees()}
