@@ -22,7 +22,7 @@ Footer = React.createClass
     @pages _.take(@props.pages, 2)
 
   rightPages: ->
-    @pages _.takeRight(@props.pages, 2)
+    @pages _.slice(@props.pages, 2, 2)
 
   pages: (pages) ->
     pages.map (page) ->
