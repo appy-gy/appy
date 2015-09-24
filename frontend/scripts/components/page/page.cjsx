@@ -1,5 +1,6 @@
 React = require 'react'
 ReactRedux = require 'react-redux'
+Helmet = require 'react-helmet'
 pageActions = require '../../actions/page'
 Loading = require '../mixins/loading'
 Layout = require '../layout/layout'
@@ -35,6 +36,7 @@ Page = React.createClass
     return <Nothing/> if @isLoading()
 
     <Layout>
+      <Helmet title={page.title}/>
       <div className="page" dangerouslySetInnerHTML={__html: page.body}></div>
     </Layout>
 

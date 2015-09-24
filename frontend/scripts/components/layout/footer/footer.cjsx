@@ -1,21 +1,48 @@
+_ = require 'lodash'
 React = require 'react'
+ReactRedux = require 'react-redux'
+footerPageActions = require '../../../actions/footer_pages'
 PageLink = require '../../shared/links/page'
+
+{PropTypes} = React
+{connect} = ReactRedux
+{fetchFooterPages} = footerPageActions
 
 Footer = React.createClass
   displayName: 'Footer'
+
+  propTypes:
+    dispatch: PropTypes.func.isRequired
+    pages: PropTypes.arrayOf(PropTypes.object).isRequired
+
+  componentWillMount: ->
+    @props.dispatch fetchFooterPages()
+
+  leftPages: ->
+    @pages _.take(@props.pages, 2)
+
+  rightPages: ->
+    @pages _.takeRight(@props.pages, 2)
+
+  pages: (pages) ->
+    pages.map (page) ->
+      <PageLink key={page.id} page={page} className="layout_footer-link">
+        {page.title}
+      </PageLink>
 
   render: ->
     <div className="layout_footer">
       <div className="layout_footer-logo">
       </div>
       <div className="layout_footer-left">
-        <PageLink slug="about" className="layout_footer-link">О проекте</PageLink>
-        <PageLink slug="ads" className="layout_footer-link">Рекламодателям</PageLink>
+        {@leftPages()}
       </div>
       <div className="layout_footer-right">
-        <PageLink slug="blog" className="layout_footer-link">Блог</PageLink>
-        <PageLink slug="flow" className="layout_footer-link">Поток</PageLink>
+        {@rightPages()}
       </div>
     </div>
 
-module.exports = Footer
+mapStateToProps = ({footerPages}) ->
+  pages: footerPages.items
+
+module.exports = connect(mapStateToProps)(Footer)

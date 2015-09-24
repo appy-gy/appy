@@ -43,7 +43,9 @@ Rails.application.routes.draw do
       resources :tags, only: [:index] do
         get :popular, on: :collection
       end
-      resources :pages, only: [:show]
+      resources :pages, only: [:show] do
+        get :footer, on: :collection
+      end
     end
   end
 
