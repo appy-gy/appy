@@ -20,6 +20,8 @@ Layout = React.createClass
     children: PropTypes.node.isRequired
 
   childContextTypes:
+    headerExpanded: PropTypes.bool.isRequired
+    triggerHeader: PropTypes.func.isRequired
     onLogoClick: PropTypes.func.isRequired
 
   headers:
@@ -31,10 +33,17 @@ Layout = React.createClass
     header: 'common'
     onLogoClick: ->
 
+  getInitialState: ->
+    headerExpanded: false
+
   getChildContext: ->
     {onLogoClick} = @props
+    {headerExpanded} = @state
 
-    { onLogoClick }
+    { headerExpanded, @triggerHeader, onLogoClick }
+
+  triggerHeader: ->
+    @setState headerExpanded: not @state.headerExpanded
 
   header: ->
     {header} = @props

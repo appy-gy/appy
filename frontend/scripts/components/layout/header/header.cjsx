@@ -9,22 +9,18 @@ Header = React.createClass
   propTypes:
     children: PropTypes.node.isRequired
 
-  getInitialState: ->
-    expanded: false
-
-  triggerExpand: ->
-    {expanded} = @state
-
-    @setState expanded: not expanded
+  contextTypes:
+    headerExpanded: PropTypes.bool.isRequired
+    triggerHeader: PropTypes.func.isRequired
 
   render: ->
     {children} = @props
-    {expanded} = @state
+    {headerExpanded, triggerHeader} = @context
 
-    classes = classNames 'layout_header', 'header', 'm-active': expanded
+    classes = classNames 'layout_header', 'header', 'm-active': headerExpanded
 
     <header className={classes}>
-      <div className="header_menu-button-wrap" onClick={@triggerExpand}>
+      <div className="header_menu-button-wrap" onClick={triggerHeader}>
         <div className="header_menu-button"></div>
       </div>
       <div className="header_content">
