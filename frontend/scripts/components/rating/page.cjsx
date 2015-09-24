@@ -61,7 +61,7 @@ RatingPage = React.createClass
     {rating} = @props
 
     [
-      { name: 'description', content: rating.description.split('\n')[0] }
+      { name: 'description', content: rating.description?.split('\n')?[0] || '' }
       { name: 'keywords', content: _.map(rating.tags, 'name').join(', ') }
     ]
 
