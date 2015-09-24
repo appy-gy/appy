@@ -9,17 +9,21 @@
   &:not(:empty)
     border-top: 3px solid $grey-3
 
+  &_windows
+    display: flex
+    flex-flow: row nowrap
+
   &_window
     display: flex
     flex-flow: row nowrap
-    list-style: none
 
     &.m-left:after, &.m-right:before
       content: '...'
+      align-self: flex-end
 
   &_link
-    line-height: 40px
-    height: 40px
+    line-height: 30px
+    height: 30px
     font-family: $monospace
     font-weight: 700
     font-size: 16px
