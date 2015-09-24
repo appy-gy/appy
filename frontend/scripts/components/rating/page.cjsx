@@ -48,9 +48,8 @@ RatingPage = React.createClass
     @fetchRatingItems()
 
   componentDidUpdate: ->
-    # That order is important and yes, that sucks
-    @fetchRatingItems()
     @fetchRating()
+    @fetchRatingItems()
 
   getChildContext: ->
     {rating, ratingSlug, ratingItems} = @props
