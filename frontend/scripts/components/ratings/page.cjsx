@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
 ReduxReactRouter = require 'redux-react-router'
+Helmet = require 'react-helmet'
 ratingActions = require '../../actions/ratings'
 mainPageRatingActions = require '../../actions/main_page_ratings'
 Loading = require '../mixins/loading'
@@ -61,6 +62,7 @@ Ratings = React.createClass
 
   render: ->
     <Layout onLogoClick={@showFirstPage}>
+      <Helmet title="информационно-развлекательный портал для творческих людей"/>
       <div className="previews">
         {@previews()}
         {@showMore()}

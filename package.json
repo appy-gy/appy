@@ -28,6 +28,7 @@
     "react-autolink-text": "miraks/react-autolink-text",
     "react-dnd": "^1.1.7",
     "react-dom": "^0.14.0-rc1",
+    "react-helmet": "^1.1.5",
     "react-redux": "^2.1.2",
     "react-router": "^1.0.0-rc1",
     "react-select": "^0.6.8",
