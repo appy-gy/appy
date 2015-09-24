@@ -2,10 +2,8 @@ _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../actions/rating'
-AutolinkText = require 'react-autolink-text'
 RatingUpdater = require '../mixins/rating_updater'
-Textarea = require '../shared/inputs/text'
-removeExtraSpaces = require '../../helpers/remove_extra_spaces'
+Editor = require '../shared/inputs/editor'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -18,49 +16,39 @@ Source = React.createClass
 
   propTypes:
     dispatch: PropTypes.func.isRequired
+    edit: PropTypes.bool.isRequired
 
   contextTypes:
     rating: PropTypes.object.isRequired
     canEdit: PropTypes.bool.isRequired
 
-  placeholder: 'Источник'
+  editorOptions:
+    placeholder:
+      text: 'Введите источник (оставьте поле пустым, если материал является авторским)'
 
-  getInitialState: ->
-    edit: false
-
-  startEdit: ->
-    @setState edit: true if @context.canEdit
-
-  stopEdit: ->
-    @setState edit: false
-
-  changeSource: (event) ->
+  changeSource: (source) ->
     {dispatch} = @props
     {rating} = @context
-
-    source = event.target.value
 
     dispatch changeRating({ source })
     @queueUpdate ->
       dispatch updateRating({ source })
 
   sourceView: ->
-    {edit} = @state
+    {edit} = @props
     {rating} = @context
 
     return if edit
 
-    <div className="rating_description" onClick={@startEdit}>
-      <AutolinkText text={removeExtraSpaces(rating.source) || @placeholder}></AutolinkText>
-    </div>
+    <div className="rating_description" dangerouslySetInnerHTML={__html: rating.source}></div>
 
   sourceEdit: ->
-    {edit} = @state
+    {edit} = @props
     {rating} = @context
 
     return unless edit
 
-    <Textarea autoFocus className="rating_description m-edit" placeholder={@placeholder} value={rating.source} onChange={@changeSource} onBlur={@stopEdit}/>
+    <Editor className="rating_description m-edit" value={rating.source} onChange={@changeSource} options={@editorOptions}/>
 
   render: ->
     <div className="rating_description-wrapper m-bottom">
