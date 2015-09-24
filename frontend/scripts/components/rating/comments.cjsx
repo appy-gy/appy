@@ -60,7 +60,7 @@ Comments = React.createClass
     {comments} = @props
     {rating} = @context
 
-    <div className="comments">
+    <div id="comments" className="comments">
       <div className="comments_header">
         Комментарии ({comments.length})
       </div>

@@ -7,11 +7,18 @@ Item = require './meta_item'
 Meta = React.createClass
   displayName: 'Meta'
 
+  propTypes:
+    commentsAnchor: PropTypes.string
+
   contextTypes:
     block: PropTypes.string.isRequired
     rating: PropTypes.object.isRequired
 
+  getDefaultProps: ->
+    commentsAnchor: null
+
   render: ->
+    {commentsAnchor} = @props
     {block, rating} = @context
 
     timestamp = moment(rating.publishedAt || rating.createdAt)
@@ -20,7 +27,7 @@ Meta = React.createClass
       <Item ref="likesCounter" icon="likes">
         {rating.likesCount}
       </Item>
-      <Item icon="comments">
+      <Item icon="comments" anchor={commentsAnchor}>
         {rating.commentsCount}
       </Item>
       <Item icon="views">
