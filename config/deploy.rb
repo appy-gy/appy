@@ -53,25 +53,19 @@ namespace :prerender do
   desc 'Start prerender'
   task start: :environment do
     queue %{echo "-----> Starting prerender service"}
-    in_directory "#{deploy_to}/#{current_path}" do
-      queue! %{node_modules/.bin/pm2 start prerender/server.coffee -i 2 -n prerender -l log/prerender.log}
-    end
+    queue! %{cd #{deploy_to}/#{current_path} && node_modules/.bin/pm2 start prerender/server.coffee -i 1 -n prerender -l log/prerender.log --interpreter node_modules/.bin/coffee}
   end
 
   desc 'Restart prerender'
   task restart: :environment do
     queue %{echo "-----> Restarting prerender service"}
-    in_directory "#{deploy_to}/#{current_path}" do
-      queue! %{node_modules/.bin/pm2 reload prerender}
-    end
+    queue! %{cd #{deploy_to}/#{current_path} && node_modules/.bin/pm2 startOrRestart prerender}
   end
 
   desc 'Stop prerender'
   task stop: :environment do
     queue %{echo "-----> Stopping prerender service"}
-    in_directory "#{deploy_to}/#{current_path}" do
-      queue! %{node_modules/.bin/pm2 stop prerender}
-    end
+    queue! %{cd #{deploy_to}/#{current_path} && node_modules/.bin/pm2 stop prerender}
   end
 end
 
@@ -100,7 +94,8 @@ task deploy: :environment do
 
     to :launch do
       invoke :'puma:restart'
-      invoke :'prerender:restart'
+      invoke :'prerender:stop'
+      invoke :'prerender:start'
     end
   end
 end
