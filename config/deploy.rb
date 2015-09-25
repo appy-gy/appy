@@ -54,7 +54,7 @@ namespace :prerender do
   task start: :environment do
     queue %{echo "-----> Starting prerender service"}
     in_directory "#{deploy_to}/#{current_path}" do
-      queue! %{node_modules/.bin/forever start -a -l #{deploy_to}/#{current_path}/log/prerender_forever.log -o #{deploy_to}/#{current_path}/log/prerender_out.log -e #{deploy_to}/#{current_path}/log/prerender_err.log -c node_modules/.bin/coffee --uid prerender prerender/server.coffee}
+      queue! %{node_modules/.bin/pm2 start prerender/server.coffee -i 2 -n prerender -l log/prerender.log}
     end
   end
 
@@ -62,7 +62,7 @@ namespace :prerender do
   task restart: :environment do
     queue %{echo "-----> Restarting prerender service"}
     in_directory "#{deploy_to}/#{current_path}" do
-      queue! %{node_modules/.bin/forever restart prerender}
+      queue! %{node_modules/.bin/pm2 reload prerender}
     end
   end
 
@@ -70,7 +70,7 @@ namespace :prerender do
   task stop: :environment do
     queue %{echo "-----> Stopping prerender service"}
     in_directory "#{deploy_to}/#{current_path}" do
-      queue! %{node_modules/.bin/forever stop prerender}
+      queue! %{node_modules/.bin/pm2 stop prerender}
     end
   end
 end
