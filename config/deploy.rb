@@ -53,7 +53,7 @@ namespace :prerender do
   desc 'Start prerender'
   task start: :environment do
     queue %{echo "-----> Starting prerender service"}
-    queue! %{cd #{deploy_to}/#{current_path} && node_modules/.bin/pm2 start prerender/server.coffee -i 1 -n prerender -l log/prerender.log --interpreter node_modules/.bin/coffee}
+    queue! %{cd #{deploy_to}/#{current_path} && NODE_ENV=production node_modules/.bin/pm2 start prerender/server.coffee -i 1 -n prerender -l log/prerender.log --interpreter node_modules/.bin/coffee}
   end
 
   desc 'Restart prerender'
