@@ -96,11 +96,11 @@ task deploy: :environment do
     invoke :'rails:assets_precompile'
     invoke :'webpack:compile'
     invoke :'deploy:cleanup'
+    invoke :'memcached:flush'
 
     to :launch do
       invoke :'puma:restart'
       invoke :'prerender:restart'
-      invoke :'memcached:flush'
     end
   end
 end
