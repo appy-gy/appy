@@ -1,13 +1,15 @@
 _ = require 'lodash'
 React = require 'react'
-ReactDOM = require 'react-dom'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 isClient = require '../../../helpers/is_client'
-MediumEditor = require 'medium-editor' if isClient()
+MediumEditor = if isClient() then require('react-medium-editor') else 'div'
 
 {PropTypes} = React
 
 Editor = React.createClass
   displayName: 'Editor'
+
+  mixins: [PureRenderMixin]
 
   propTypes:
     value: PropTypes.string
@@ -31,35 +33,13 @@ Editor = React.createClass
     onChange: ->
     options: {}
 
-  getInitialState: ->
-    value: @props.value
-
-  componentDidMount: ->
-    {onChange, options} = @props
-
-    return unless isClient()
-
-    el = ReactDOM.findDOMNode @
-    @editor = new MediumEditor el, _.defaultsDeep(options, @defaultOptions)
-    @editor.subscribe 'editableInput', (event) =>
-      @updated = true
-      onChange el.innerHTML
-
-  componentWillUnmount: ->
-    @editor.destroy()
-
-  componentWillReceiveProps: (nextProps) ->
-    {value} = @state
-    {value: nextValue} = nextProps
-
-    @setState value: nextValue if value != nextValue and not @updated
-    @updated = false
-
   render: ->
-    {value} = @state
+    {value, options} = @props
 
-    props = _.omit @props, 'value', 'onChange', 'options'
+    @options ||= _.defaultsDeep options, @defaultOptions
+    props = _.omit @props, 'value', 'options'
 
-    <div dangerouslySetInnerHTML={__html: value} {...props}></div>
+    console.log 'render', value
+    <MediumEditor text={value} options={@options} {...props}/>
 
 module.exports = Editor
