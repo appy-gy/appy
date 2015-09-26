@@ -1,6 +1,5 @@
 _ = require 'lodash'
 React = require 'react'
-tinycolor = require 'tinycolor2'
 RatingItem = require './rating_item'
 
 {PropTypes} = React
@@ -13,21 +12,23 @@ RatingItems = React.createClass
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
   ratingItems: ->
-    {ratingItems} = @context
+    {ratingItems, rating} = @context
+    sum = _.sum ratingItems, (ratingItem) -> ratingItem.mark if ratingItem.mark > 0
 
     _ ratingItems
       .sortBy 'position'
-      .map (ratingItem) ->
-        <RatingItem key={ratingItem.id} ratingItem={ratingItem}/>
+      .map (ratingItem) =>
+        <RatingItem key={ratingItem.id} ratingItem={ratingItem} width={"#{@ratingItemWidth(sum, ratingItem.mark)}%"} sectionColor={rating.section.color}/>
       .value()
+
+  ratingItemWidth: (sum, mark) ->
+    return 0 if mark < 0
+    (mark / sum) * 100
 
   render: ->
     {rating} = @context
 
-    color = rating.section?.color || 'white'
-    sectionColor = tinycolor(color).setAlpha(.5).toString()
-
-    <div className="header_rating-items" style={backgroundColor: sectionColor}>
+    <div className="header_rating-items">
       <a href="#" className="header_rating-title" data-scroll>
         {rating.title}
       </a>

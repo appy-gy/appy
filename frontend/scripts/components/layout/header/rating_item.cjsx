@@ -12,6 +12,8 @@ RatingItem = React.createClass
   propTypes:
     ratingItem: PropTypes.object.isRequired
     visibility: PropTypes.string
+    sectionColor: PropTypes.string
+    width: PropTypes.number
 
   ratingItemAnchor: ->
     {ratingItem} = @props
@@ -19,7 +21,7 @@ RatingItem = React.createClass
     "#item-#{ratingItem.position}"
 
   render: ->
-    {ratingItem, visibility, ratingItemVisibility} = @props
+    {ratingItem, visibility, ratingItemVisibility, sectionColor, width} = @props
     classes = classNames 'header_rating-item', "m-visible-#{ratingItemVisibility}"
 
     <div className={classes}>
@@ -28,6 +30,8 @@ RatingItem = React.createClass
       </a>
       <div className="header_rating-item-options">
         {ratingItem.mark}
+      </div>
+      <div className="header_rating-item-bar" style={backgroundColor: sectionColor, width: width}>
       </div>
     </div>
 
