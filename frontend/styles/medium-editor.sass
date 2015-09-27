@@ -3,3 +3,69 @@ $font-sans-serif: $sans-serif
 
 @import "~medium-editor/src/sass/medium-editor.scss"
 @import "~medium-editor/src/sass/themes/default.scss"
+
+.medium-editor-toolbar
+  box-shadow: none
+  border-radius: 0
+  background-color: $black
+  border: none
+
+  &-anchor-preview
+    border-radius: 0
+    background: $black
+
+    a
+      margin: 10px
+
+  li
+    button
+      background: $black
+      border: none
+      border-radius: 0
+      box-shadow: none
+
+      &:hover
+        color: $green
+
+    .medium-editor-button-first,
+    .medium-editor-button-last
+      border-radius: 0
+
+  &-form
+    background: $black
+
+    a
+      display: inline-flex
+      justify-content: center
+      align-items: center
+      height: 50px
+      width: 50px
+      margin: 0
+      font-size: 18px
+      color: transparent
+
+      &:before
+        color: $white
+
+      &:hover
+        &:before
+          color: $green
+
+      &.medium-editor-toolbar-save
+
+        &:before
+          +ion-icon('android-done')
+
+      &.medium-editor-toolbar-close
+
+        &:before
+          +ion-icon('android-close')
+
+    .medium-editor-toolbar-input,
+    label
+      padding: 12px
+      background: $black
+
+.medium-toolbar-arrow-under:after,
+.medium-toolbar-arrow-over:before
+  border-top-color: $black
