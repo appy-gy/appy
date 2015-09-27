@@ -19,6 +19,8 @@
 
     &.m-left:after, &.m-right:before
       content: '...'
+      font-weight: 600
+      letter-spacing: 1px
       align-self: flex-end
 
   &_link
@@ -42,9 +44,15 @@
       &:before
         +ion-icon("ios-arrow-forward")
 
+      @media screen and (min-width: $small)
+        margin-right: -15px
+
     &.m-prev
       &:before
         +ion-icon("ios-arrow-back")
+
+      @media screen and (min-width: $small)
+        margin-left: -15px
 
     &:hover
       color: $blue
