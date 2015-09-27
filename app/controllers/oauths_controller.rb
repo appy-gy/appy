@@ -9,6 +9,7 @@ class OauthsController < ApplicationController
     provider = auth_params[:provider]
     return if login_from provider
     user = recognize_user(provider) or create_user(provider)
+    return unless user
     reset_session
     auto_login user, true
   ensure
@@ -18,10 +19,23 @@ class OauthsController < ApplicationController
   private
 
   def recognize_user provider
+    recognize_user_by_uid(provider) or recognize_user_by_email(provider)
+  end
+
+  def recognize_user_by_uid provider
     user_hash = sorcery_fetch_user_hash(provider)
     uid = user_hash[:uid]
+    return unless uid
     authentication = Authentication.find_by_uid(uid)
     authentication.try :user
+  end
+
+  def recognize_user_by_email provider
+    user_hash = sorcery_fetch_user_hash(provider)
+    email = user_hash[:user_info]['email']
+    return unless email
+    user = User.find_by_email(email)
+    user
   end
 
   def create_user provider
