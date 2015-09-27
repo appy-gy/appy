@@ -27,7 +27,7 @@ app.set 'views', path.join(__dirname, 'views')
 app.locals.newrelic = newrelic
 
 app.use cookieParser()
-app.use setLoggedIn()
+# app.use setLoggedIn()
 app.use localsMerger()
 app.use maybeSkipPrerender()
 app.use maybeUseCache() if process.env.TOP_ENV == 'production'
