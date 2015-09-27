@@ -14,8 +14,13 @@ ru:
         image: Картинка
         user: Автор
         section: Секция
+        main_page_position: Позиция на главной
   enums:
     rating:
       status:
         draft: Черновик
         published: Опубликован
+      main_page_position:
+        top: Сверху
+        left: Слева
+        right: Справа

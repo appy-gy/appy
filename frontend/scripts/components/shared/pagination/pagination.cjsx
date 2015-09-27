@@ -85,13 +85,15 @@ Pagination = React.createClass
       </Link>
 
   content: ->
-    {pagesCount} = @props
+    {pagesCount, block} = @props
 
     return if pagesCount <= 1
 
     withIndexKeys [
       @prevPageLink()
-      @windows()
+      <div className="#{block}_windows">
+        {@windows()}
+      </div>
       @nextPageLink()
     ]
 

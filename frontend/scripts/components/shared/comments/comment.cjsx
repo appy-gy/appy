@@ -63,6 +63,17 @@ Comment = React.createClass
       </RatingLink>
     </div>
 
+  date: ->
+    {comment} = @props
+
+    createdAt = moment comment.createdAt
+    # User might have incorrect time
+    createdAt = moment() if createdAt.isAfter()
+
+    <div className="comment_date">
+      {createdAt.fromNow()}
+    </div>
+
   render: ->
     {comment, actionTypes} = @props
 
@@ -76,9 +87,7 @@ Comment = React.createClass
         <span className="comment_text">
           {comment.body}
         </span>
-        <div className="comment_date">
-          {moment(comment.createdAt).fromNow()}
-        </div>
+        {@date()}
         <Actions ref="actions" types={actionTypes}/>
       </div>
     </div>

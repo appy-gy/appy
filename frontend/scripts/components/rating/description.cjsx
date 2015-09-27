@@ -3,11 +3,9 @@ React = require 'react'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../actions/rating'
 ratingItemActions = require '../../actions/rating_items'
-AutolinkText = require 'react-autolink-text'
 Classes = require '../mixins/classes'
 RatingUpdater = require '../mixins/rating_updater'
-Textarea = require '../shared/inputs/text'
-removeExtraSpaces = require '../../helpers/remove_extra_spaces'
+Editor = require '../shared/inputs/editor'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -39,10 +37,15 @@ Description = React.createClass
     rating: PropTypes.object.isRequired
     block: PropTypes.string.isRequired
 
-  changeDescription: (event) ->
+  editorOptions: ->
+    {placeholder} = @props
+
+    placeholder:
+      text: placeholder
+
+  changeDescription: (description) ->
     {dispatch, object, objectType, passObjectId} = @props
 
-    description = event.target.value
     payload = [{ description }]
     payload.unshift object.id if passObjectId
 
@@ -56,12 +59,12 @@ Description = React.createClass
 
     if edit
       <div>
-        <Textarea className={@classes("#{block}_description", 'm-edit')} placeholder={placeholder} value={object.description} onChange={@changeDescription}/>
+        <Editor className={@classes("#{block}_description", 'm-edit')} value={object.description} onChange={@changeDescription} options={@editorOptions()}/>
         <div className="prompt">Не игнорируйте это место!</div>
       </div>
     else
       <div className={@classes("#{block}_description")}>
-        <AutolinkText text={removeExtraSpaces(object.description)}></AutolinkText>
+        <div dangerouslySetInnerHTML={__html: object.description}></div>
       </div>
 
   render: ->

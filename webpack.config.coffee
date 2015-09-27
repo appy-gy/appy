@@ -9,7 +9,7 @@ dotenv.load()
 
 app = ['./frontend/app']
 
-env = _.pick process.env, 'NODE_ENV', 'TOP_ENV', 'TOP_INSTAGRAM_KEY'
+env = _.pick process.env, 'NODE_ENV', 'TOP_ENV', 'TOP_ASSETS_HOST', 'TOP_INSTAGRAM_KEY'
 definePluginEnv = _.transform env, (result, value, key) ->
   result["process.env.#{key}"] = JSON.stringify value
 

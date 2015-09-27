@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
+Helmet = require 'react-helmet'
 userActions = require '../../actions/user'
 userRatingActions = require '../../actions/user_ratings'
 userCommentActions = require '../../actions/user_comments'
@@ -103,6 +104,7 @@ User = React.createClass
     headerStyles = backgroundImage: "url(#{imageUrl user.background, 'normal'})"
 
     <Layout>
+      <Helmet title={user.name}/>
       <div className="user-profile">
         <header className="user-profile_header" style={headerStyles}>
           <Avatar/>

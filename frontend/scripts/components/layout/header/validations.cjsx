@@ -11,11 +11,6 @@ Validations = React.createClass
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
-  publishErrors: ->
-    {rating, ratingItems} = @context
-
-    prepublishValidation rating, ratingItems
-
   errors: ->
     {rating, ratingItems} = @context
 

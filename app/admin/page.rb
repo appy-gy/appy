@@ -3,12 +3,10 @@ ActiveAdmin.register Page do
 
   actions :all, except: [:show]
 
-  permit_params :body, :slug
+  permit_params :title, :body, :slug
 
   index do
-    column :body do |page|
-      page.body.first(300)
-    end
+    column :title
     column :slug
     actions
   end
@@ -16,6 +14,7 @@ ActiveAdmin.register Page do
   form do |f|
     f.semantic_errors
     f.inputs do
+      f.input :title, as: :string
       f.input :body
       f.input :slug, as: :string
     end

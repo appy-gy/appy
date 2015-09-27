@@ -3,6 +3,7 @@ React = require 'react'
 ReactRedux = require 'react-redux'
 ReactDnd = require 'react-dnd'
 HTML5Backend = require 'react-dnd/modules/backends/HTML5'
+Helmet = require 'react-helmet'
 currentUserActions = require '../actions/current_user'
 ClearState = require './mixins/clear_state'
 Nothing = require './shared/nothing'
@@ -27,6 +28,17 @@ App = React.createClass
   childContextTypes:
     currentUser: PropTypes.object.isRequired
 
+  title: "Appy.gy - %s"
+
+  link: [
+    href: "#{process.env.TOP_ASSETS_HOST}/files/favicon.png", rel: 'icon', type: 'image/png'
+  ]
+
+  meta: [
+    { name: 'description', content: 'Все самое интересное: технологии, интересные книги, интересное видео, советы о бизнесе и лайфстайле, интересные факты, игры' }
+    { name: 'keywords', content: 'интересное видео, интересные факты, книги, кино, косплей, хобби, путешествия, мода, здоровье, еда, портал' }
+  ]
+
   componentWillMount: ->
     @fetchCurrentUser()
 
@@ -36,12 +48,14 @@ App = React.createClass
   fetchCurrentUser: ->
     @props.dispatch fetchCurrentUser()
 
+  content: ->
+    if @props.isFetched then @props.children else <Nothing/>
+
   render: ->
-    {isFetched, children} = @props
-
-    return <Nothing/> unless isFetched
-
-    children
+    <span>
+      <Helmet titleTemplate={@title} link={@link} meta={@meta}/>
+      {@content()}
+    </span>
 
 mapStateToProps = ({router, currentUser}) ->
   params: router.params

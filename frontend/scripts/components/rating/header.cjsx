@@ -51,7 +51,7 @@ Header = React.createClass
 
     return unless rating.status == 'published'
 
-    <Meta/>
+    <Meta commentsAnchor="comments"/>
 
   ratingImageButton: ->
     {rating} = @context

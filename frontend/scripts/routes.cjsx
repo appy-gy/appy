@@ -6,11 +6,10 @@ Ratings = require './components/ratings/page'
 Rating = require './components/rating/page'
 SectionRatings = require './components/section/page'
 Page = require './components/page/page'
-
 User = require './components/user/page'
 Instagram = require './components/instagram/page'
 
-{Route, IndexRoute, NotFoundRoute} = Router
+{Route, IndexRoute} = Router
 
 routes =
   <Route component={App} path="/">

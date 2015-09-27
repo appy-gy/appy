@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react'
 moment = require 'moment'
 classNames = require 'classnames'
+strip = require 'strip'
 imageUrl = require '../../../helpers/image_url'
 Meta = require './meta'
 Tags = require './tags'
@@ -41,7 +42,7 @@ Preview = React.createClass
   description: ->
     {rating} = @props
 
-    _.trunc rating.description,
+    _.trunc strip(rating.description),
       length: 150
       separator: /,? +/
 

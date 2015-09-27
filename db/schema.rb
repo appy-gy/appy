@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921114907) do
+ActiveRecord::Schema.define(version: 20150924102243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20150921114907) do
     t.text     "slug",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "title",      null: false
   end
 
   add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
@@ -72,24 +73,26 @@ ActiveRecord::Schema.define(version: 20150921114907) do
 
   create_table "ratings", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.text     "title"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.uuid     "section_id"
     t.text     "description"
     t.uuid     "user_id"
-    t.integer  "status",          default: 0,  null: false
-    t.integer  "comments_count",  default: 0,  null: false
-    t.integer  "likes_count",     default: 0,  null: false
+    t.integer  "status",             default: 0,  null: false
+    t.integer  "comments_count",     default: 0,  null: false
+    t.integer  "likes_count",        default: 0,  null: false
     t.text     "slug"
     t.text     "image"
     t.datetime "published_at"
     t.datetime "deleted_at"
     t.text     "source"
-    t.text     "words",           default: [],              array: true
-    t.uuid     "recommendations", default: [],              array: true
+    t.text     "words",              default: [],              array: true
+    t.uuid     "recommendations",    default: [],              array: true
+    t.integer  "main_page_position"
   end
 
   add_index "ratings", ["deleted_at"], name: "index_ratings_on_deleted_at", using: :btree
+  add_index "ratings", ["main_page_position"], name: "index_ratings_on_main_page_position", unique: true, using: :btree
   add_index "ratings", ["section_id"], name: "index_ratings_on_section_id", using: :btree
   add_index "ratings", ["slug"], name: "index_ratings_on_slug", unique: true, using: :btree
   add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree

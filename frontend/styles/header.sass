@@ -143,6 +143,13 @@
     border: 2px solid $black-4
     margin: 4px 0
 
+    &-bar
+      position: absolute
+      left: -2px
+      bottom: -2px
+      width: 100%
+      height: 2px
+
     &.m-visible
       &-hidden
       &-partially
@@ -208,7 +215,7 @@
       animation: enter 0.5s linear
 
     &.m-leave
-      animation: leave 3s linear
+      animation: leave 3s linear forwards
 
       &:before
         display: inline-block

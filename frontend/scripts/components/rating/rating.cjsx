@@ -80,7 +80,9 @@ Rating = React.createClass
   source: ->
     {rating} = @context
 
-    <Source/> unless isBlank(rating.source) and rating.status == 'published'
+    edit = rating.status != 'published'
+
+    <Source edit={edit}/> unless isBlank(rating.source) and not edit
 
   render: ->
     {rating} = @context

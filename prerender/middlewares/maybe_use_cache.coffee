@@ -5,4 +5,4 @@ module.exports = ->
   (req, res, next) ->
     memcached.get req.url, (err, data) ->
       return next() unless data?
-      res.render 'index', _.pick(data, 'body', 'state')
+      res.render 'index', _.pick(data, 'head', 'body', 'state')

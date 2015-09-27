@@ -17,7 +17,6 @@ class OauthsController < ApplicationController
 
     reset_session
     auto_login user, true
-  ensure
     redirect_to '/'
   end
 

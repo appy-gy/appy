@@ -55,6 +55,14 @@ RatingItemImage = React.createClass
     @queueUpdate ->
       dispatch updateRatingItem(ratingItem.id, removeImage: true)
 
+  image: ->
+    {canEdit} = @context
+
+    image = <img className="rating-item_cover-image" src={@imageUrl()}/>
+    unless canEdit
+      image = <a target="_blank" href={@imageUrl()}>{image}</a>
+    image
+
   updateImageButton: ->
     <div className="rating-item_add-image" title="Выберите изображение" onClick={@openSelect}>
 
@@ -73,7 +81,7 @@ RatingItemImage = React.createClass
 
     withIndexKeys [
       @buttons()...
-      <img className="rating-item_cover-image" src={@imageUrl()}/>
+      @image()
     ]
 
   render: ->

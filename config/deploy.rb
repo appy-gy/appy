@@ -53,25 +53,19 @@ namespace :prerender do
   desc 'Start prerender'
   task start: :environment do
     queue %{echo "-----> Starting prerender service"}
-    in_directory "#{deploy_to}/#{current_path}" do
-      queue! %{node_modules/.bin/forever start -a -l #{deploy_to}/#{current_path}/log/prerender_forever.log -o #{deploy_to}/#{current_path}/log/prerender_out.log -e #{deploy_to}/#{current_path}/log/prerender_err.log -c node_modules/.bin/coffee --uid prerender prerender/server.coffee}
-    end
+    queue! %{cd #{deploy_to}/#{current_path} && NODE_ENV=production node_modules/.bin/pm2 start prerender/server.coffee -i 1 -n prerender -l log/prerender.log --interpreter node_modules/.bin/coffee}
   end
 
   desc 'Restart prerender'
   task restart: :environment do
     queue %{echo "-----> Restarting prerender service"}
-    in_directory "#{deploy_to}/#{current_path}" do
-      queue! %{node_modules/.bin/forever restart prerender}
-    end
+    queue! %{cd #{deploy_to}/#{current_path} && node_modules/.bin/pm2 startOrRestart prerender}
   end
 
   desc 'Stop prerender'
   task stop: :environment do
     queue %{echo "-----> Stopping prerender service"}
-    in_directory "#{deploy_to}/#{current_path}" do
-      queue! %{node_modules/.bin/forever stop prerender}
-    end
+    queue! %{cd #{deploy_to}/#{current_path} && node_modules/.bin/pm2 stop prerender}
   end
 end
 
@@ -96,11 +90,12 @@ task deploy: :environment do
     invoke :'rails:assets_precompile'
     invoke :'webpack:compile'
     invoke :'deploy:cleanup'
+    invoke :'memcached:flush'
 
     to :launch do
       invoke :'puma:restart'
-      invoke :'prerender:restart'
-      invoke :'memcached:flush'
+      invoke :'prerender:stop'
+      invoke :'prerender:start'
     end
   end
 end

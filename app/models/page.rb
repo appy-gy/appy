@@ -1,7 +1,7 @@
 class Page < ActiveRecord::Base
   extend FriendlyId
 
-  friendly_id :id
+  friendly_id :title
 
-  validates :body, presence: true
+  validates :title, :body, presence: true
 end

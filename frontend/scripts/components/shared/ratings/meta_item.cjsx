@@ -10,7 +10,12 @@ MetaItem = React.createClass
 
   propTypes: ->
     icon: PropTypes.string
+    anchor: PropTypes.string
     children: PropTypes.node.isRequired
+
+  getDefaultProps: ->
+    icon: null
+    anchor: null
 
   icon: ->
     {icon} = @props
@@ -21,14 +26,16 @@ MetaItem = React.createClass
     <div className="#{block}_icon m-#{icon}"></div>
 
   render: ->
-    {children} = @props
+    {anchor, children} = @props
     {block} = @context
 
-    <div className="#{block}_item">
+    Root = if anchor? then 'a' else 'div'
+
+    <Root href="##{anchor}" className="#{block}_item" data-scroll data-options='{"updateURL": true}'>
       {@icon()}
       <div ref="content" className="#{block}_text">
         {children}
       </div>
-    </div>
+    </Root>
 
 module.exports = MetaItem

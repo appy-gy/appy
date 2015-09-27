@@ -4,6 +4,7 @@ ReactDOM = require 'react-dom/server'
 ReactRedux = require 'react-redux'
 ReduxReactRouter = require 'redux-react-router'
 ReduxReactRouterServer = require 'redux-react-router/server'
+Helmet = require 'react-helmet'
 reducers = require '../helpers/reducers'
 router = require '../helpers/router'
 memcached = require '../helpers/memcached'
@@ -27,17 +28,18 @@ module.exports = ->
         <ReduxRouter/>
       </Provider>
 
-      {result: html, promises} = http.recordRequests ->
+      {result: body, promises} = http.recordRequests ->
         ReactDOM.renderToString element
+      head = Helmet.rewind()
 
       rendersCount += 1
-      return html if _.isEmpty(promises) or rendersCount >= rendersLimit
+      return { head, body } if _.isEmpty(promises) or rendersCount >= rendersLimit
       Promise.all(promises).then(render)
 
     onMatch = ->
       render()
-        .then (html) ->
-          locals = body: html, state: JSON.stringify(store.getState())
+        .then ({head, body}) ->
+          locals = { head, body, state: JSON.stringify(store.getState()) }
           memcached.set req.url, locals, cacheLifetime, ->
             res.render 'index', locals
             next()

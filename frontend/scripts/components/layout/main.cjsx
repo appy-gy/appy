@@ -1,4 +1,5 @@
 React = require 'react'
+classNames = require 'classnames'
 
 {PropTypes} = React
 
@@ -8,10 +9,16 @@ Main = React.createClass
   propTypes:
     children: PropTypes.node.isRequired
 
+  contextTypes:
+    headerExpanded: PropTypes.bool.isRequired
+
   render: ->
     {children} = @props
+    {headerExpanded} = @context
 
-    <main className="layout_main">
+    classes = classNames 'layout_main', 'm-header-expanded': headerExpanded
+
+    <main className={classes}>
       <div className='grid'>
         {children}
       </div>

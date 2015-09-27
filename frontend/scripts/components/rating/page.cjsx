@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
 ReduxReactRouter = require 'redux-react-router'
+Helmet = require 'react-helmet'
 ratingActions = require '../../actions/rating'
 ratingItemActions = require '../../actions/rating_items'
 isClient = require '../../helpers/is_client'
@@ -47,15 +48,22 @@ RatingPage = React.createClass
     @fetchRatingItems()
 
   componentDidUpdate: ->
-    # That order is important and yes, that sucks
-    @fetchRatingItems()
     @fetchRating()
+    @fetchRatingItems()
 
   getChildContext: ->
     {rating, ratingSlug, ratingItems} = @props
     {currentUser} = @context
 
     { rating, ratingSlug, ratingItems, block: 'rating', canEdit: @canEdit() }
+
+  meta: ->
+    {rating} = @props
+
+    [
+      { name: 'description', content: rating.description?.split('\n')?[0] || '' }
+      { name: 'keywords', content: _.map(rating.tags, 'name').join(', ') }
+    ]
 
   isLoading: ->
     not @props.isFetched
@@ -86,11 +94,12 @@ RatingPage = React.createClass
     <Comments/> if @props.rating.status == 'published'
 
   render: ->
-    {ratingSlug} = @props
+    {rating, ratingSlug} = @props
 
     return <Nothing/> if @isLoading()
 
     <Layout header={@header()}>
+      <Helmet title={rating.title} meta={@meta()}/>
       <Rating/>
       {@similar()}
       {@comments()}
