@@ -297,11 +297,14 @@
     white-space: pre-line
     transition: color 0.2s ease
     +word-break
+    cursor: pointer
 
     &.m-edit
       resize: none
 
-    &::placeholder
+    &::placeholder,
+    &::after
+      font-style: normal
       color: $black
 
     &:focus
