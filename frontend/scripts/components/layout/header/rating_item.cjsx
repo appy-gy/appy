@@ -13,7 +13,7 @@ RatingItem = React.createClass
     ratingItem: PropTypes.object.isRequired
     visibility: PropTypes.string
     sectionColor: PropTypes.string
-    width: PropTypes.number
+    width: PropTypes.string
 
   ratingItemAnchor: ->
     {ratingItem} = @props
