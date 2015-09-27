@@ -13,7 +13,8 @@ RatingItems = React.createClass
 
   ratingItems: ->
     {ratingItems, rating} = @context
-    sum = _.sum ratingItems, (ratingItem) -> ratingItem.mark if ratingItem.mark > 0
+
+    sum = _.sum ratingItems, (ratingItem) -> Math.max ratingItem.mark, 0
 
     _ ratingItems
       .sortBy 'position'
