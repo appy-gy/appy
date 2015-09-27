@@ -111,6 +111,7 @@ $tab-title-height: 50px
       padding: 0 0 0 40px
 
   &_name
+
     &-value
       font-size: 40px
       font-family: $monospace
@@ -143,6 +144,10 @@ $tab-title-height: 50px
 
       &.m-cancel
         +cancel(30px)
+
+    &-wrap
+      display: flex
+      justify-content: space-between
 
   &_socials
     display: flex
@@ -211,7 +216,7 @@ $tab-title-height: 50px
   &_action-buttons
     position: absolute
     top: $padding
-    right: 0
+    left: $padding
     display: flex
     flex-flow: row nowrap
 
@@ -219,16 +224,26 @@ $tab-title-height: 50px
     position: relative
     cursor: pointer
     font-size: $icon-button-size
-    color: white
-    margin-right: 1.5 * $margin
+    color: $white-2
+    display: flex
+    justify-content: center
+    align-items: center
+
+    &:hover
+      color: $white
+
+  &_background-uploader
     width: 30px
-    height: 40px
+    height: 30px
+    &:before
+      +ion-icon("ios-camera-outline")
 
-  &_background-uploader:before
-    +ion-icon("ios-camera-outline")
+  &_settings
+    width: 30px
+    height: 50px
 
-  &_settings:before
-    +ion-icon("gear-a")
+    &:before
+      +ion-icon("ios-gear-outline")
 
   &_content
     padding: 30px 60px

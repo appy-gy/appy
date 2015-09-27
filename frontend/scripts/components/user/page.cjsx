@@ -109,12 +109,14 @@ User = React.createClass
         <header className="user-profile_header" style={headerStyles}>
           <Avatar/>
           <div className="user-profile_info">
-            <Name/>
+            <div className="user-profile_name-wrap">
+              <Name/>
+              {@settings()}
+            </div>
             <SocialButtons/>
           </div>
           <div className="user-profile_action-buttons">
             {@backgroundUploader()}
-            {@settings()}
           </div>
         </header>
         <Tabs defaultTab="ratings" queryModificator={@resetPage}>
