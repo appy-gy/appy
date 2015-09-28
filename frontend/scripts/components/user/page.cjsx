@@ -17,8 +17,8 @@ Settings = require './settings'
 Ratings = require './ratings'
 Comments = require './comments'
 Layout = require '../layout/layout'
-Tabs = require '../shared/tabs/tabs'
-Tab = require '../shared/tabs/tab'
+TabButton = require '../shared/tabs/button'
+TabContent = require '../shared/tabs/content'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -51,6 +51,23 @@ User = React.createClass
     isOwnPage: PropTypes.bool.isRequired
     canEdit: PropTypes.bool.isRequired
     block: PropTypes.string.isRequired
+
+  tabs: [
+    {
+      id: 'ratings',
+      isDefault: true
+      button: ({user}) -> "Рейтинги (#{user.ratingsCount})"
+      content: ({ratings, ratingPagesCount, user, page}) ->
+        <Ratings ratings={ratings} count={user.ratingsCount} pagesCount={ratingPagesCount} page={page}/>
+    }
+    {
+      id: 'comments'
+      isDefault: false
+      button: ({user}) -> "Комментарии (#{user.commentsCount})"
+      content: ({comments, commentPagesCount, user, page}) ->
+        <Comments comments={comments} count={user.commentsCount} pagesCount={commentPagesCount} page={page}/>
+    }
+  ]
 
   getChildContext: ->
     {user, userSlug} = @props
@@ -94,6 +111,18 @@ User = React.createClass
   settings: ->
     <Settings/> if @canEdit()
 
+  tabButtons: ->
+    @tabs.map ({id, isDefault, button}) =>
+      <TabButton key={id} id={id} queryKey="tab" isDefault={isDefault} queryModificator={@resetPage}>
+        {button @props}
+      </TabButton>
+
+  tabsContent: ->
+    @tabs.map ({id, isDefault, content}) =>
+      <TabContent key={id} id={id} queryKey="tab" isDefault={isDefault}>
+        {content @props}
+      </TabContent>
+
   render: ->
     {user, page, ratings, ratingPagesCount, comments, commentPagesCount, isFetched} = @props
 
@@ -110,19 +139,13 @@ User = React.createClass
               {@settings()}
             </div>
             <SocialButtons/>
+            {@tabButtons()}
           </div>
           <div className="user-profile_action-buttons">
             {@backgroundUploader()}
           </div>
         </header>
-        <Tabs defaultTab="ratings" queryModificator={@resetPage}>
-          <Tab key="ratings" id="ratings" title="Рейтинги (#{user.ratingsCount})">
-            <Ratings ratings={ratings} pagesCount={ratingPagesCount} page={page}/>
-          </Tab>
-          <Tab key="comments" id="comments" title="Комментарии (#{user.commentsCount})">
-            <Comments comments={comments} pagesCount={commentPagesCount} page={page}/>
-          </Tab>
-        </Tabs>
+        {@tabsContent()}
       </div>
     </Layout>
 
