@@ -14,10 +14,10 @@ ClearState =
   componentWillUpdate: (nextProps) ->
     return unless isClient()
 
-    {dispatch, params} = @props
-    {params: nextParams} = nextProps
+    {dispatch, currentUser, params} = @props
+    {currentUser: nextCurrentUser, params: nextParams} = nextProps
 
-    return if _.isEqual params, nextParams
+    return if currentUser.id == nextCurrentUser.id and _.isEqual(params, nextParams)
     actions.each (action) -> dispatch action
 
 module.exports = ClearState
