@@ -39,7 +39,6 @@ Editor = React.createClass
     @options ||= _.defaultsDeep options, @defaultOptions
     props = _.omit @props, 'value', 'options'
 
-    console.log 'render', value
     <MediumEditor text={value} options={@options} {...props}/>
 
 module.exports = Editor
