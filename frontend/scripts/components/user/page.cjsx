@@ -9,7 +9,6 @@ canEditUser = require '../../helpers/users/can_edit'
 canSeeRatingDrafts = require '../../helpers/ratings/can_see_drafts'
 imageUrl = require '../../helpers/image_url'
 SyncSlug = require '../mixins/sync_slug'
-Loading = require '../mixins/loading'
 Avatar = require './avatar'
 Name = require './name'
 SocialButtons = require './social_buttons'
@@ -20,7 +19,6 @@ Comments = require './comments'
 Layout = require '../layout/layout'
 Tabs = require '../shared/tabs/tabs'
 Tab = require '../shared/tabs/tab'
-Nothing = require '../shared/nothing'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -31,7 +29,7 @@ Nothing = require '../shared/nothing'
 User = React.createClass
   displayName: 'User'
 
-  mixins: [Loading, SyncSlug('user', '/users')]
+  mixins: [SyncSlug('user', '/users')]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
@@ -65,9 +63,9 @@ User = React.createClass
     @fetchComments()
 
   componentDidUpdate: ->
+    @fetchUser()
     @fetchRatings()
     @fetchComments()
-    @fetchUser()
 
   isLoading: ->
     not @props.isFetched
@@ -97,13 +95,11 @@ User = React.createClass
     <Settings/> if @canEdit()
 
   render: ->
-    {user, page, ratings, ratingPagesCount, comments, commentPagesCount} = @props
-
-    return <Nothing/> if @isLoading()
+    {user, page, ratings, ratingPagesCount, comments, commentPagesCount, isFetched} = @props
 
     headerStyles = backgroundImage: "url(#{imageUrl user.background, 'normal'})"
 
-    <Layout>
+    <Layout isLoading={not isFetched}>
       <Helmet title={user.name}/>
       <div className="user-profile">
         <header className="user-profile_header" style={headerStyles}>

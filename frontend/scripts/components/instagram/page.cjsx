@@ -5,9 +5,7 @@ ReactRedux = require 'react-redux'
 ReduxReachRouter = require 'redux-react-router'
 Qs = require 'qs'
 currentUserActions = require '../../actions/current_user'
-Loading = require '../mixins/loading'
 Layout = require '../layout/layout'
-Nothing = require '../shared/nothing'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -16,8 +14,6 @@ Nothing = require '../shared/nothing'
 
 Instagram = React.createClass
   displayName: 'Instagram'
-
-  mixins: [Loading]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
@@ -52,7 +48,6 @@ Instagram = React.createClass
 
   render: ->
     <Layout>
-      <Nothing/>
     </Layout>
 
 module.exports = connect()(Instagram)

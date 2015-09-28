@@ -1,25 +1,9 @@
-_ = require 'lodash'
 React = require 'react'
-ReactRedux = require 'react-redux'
-classNames = require 'classnames'
-
-{PropTypes} = React
-{connect} = ReactRedux
 
 Loader = React.createClass
   displayName: 'Loader'
 
-  propTypes:
-    visible: PropTypes.bool.isRequired
-
   render: ->
-    {visible} = @props
+    <div className="layout_loader"></div>
 
-    classes = classNames 'layout_loader', 'm-hidden': not visible
-
-    <div className={classes}></div>
-
-mapStateToProps = ({loader}) ->
-  _.pick loader, 'visible'
-
-module.exports = connect(mapStateToProps)(Loader)
+module.exports = Loader

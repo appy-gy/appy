@@ -8,7 +8,6 @@ CommentsTree = require './comments_tree'
 NoComments = require './no_comments'
 AuthToComment = require './auth_to_comment'
 CommentForm = require '../shared/comments/form'
-Nothing = require '../shared/nothing'
 CommentTreesBuilder = require '../../helpers/comments/trees_builder'
 
 {PropTypes} = React

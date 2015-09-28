@@ -4,7 +4,6 @@ ReactRedux = require 'react-redux'
 Helmet = require 'react-helmet'
 sectionActions = require '../../actions/section'
 sectionRatingActions = require '../../actions/section_ratings'
-Loading = require '../mixins/loading'
 RatingsList = require '../mixins/ratings_list'
 Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
@@ -17,7 +16,7 @@ Preview = require '../shared/ratings/preview'
 Section = React.createClass
   displayName: 'Section'
 
-  mixins: [Loading, RatingsList]
+  mixins: [RatingsList]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
@@ -65,9 +64,6 @@ Section = React.createClass
       { name: 'keywords', content: @head[sectionSlug].keywords }
     ]
 
-  isLoading: ->
-    not @props.isFetched
-
   fetchSection: ->
     @props.dispatch fetchSection(@props.sectionSlug)
 
@@ -82,9 +78,9 @@ Section = React.createClass
       <Preview key={rating.id} rating={rating} imageSize="preview"/>
 
   render: ->
-    {sectionSlug} = @props
+    {sectionSlug, isFetched} = @props
 
-    <Layout>
+    <Layout isLoading={not isFetched}>
       <Helmet title={@head[sectionSlug].title} meta={@meta()}/>
       <div className="previews">
         {@previews()}

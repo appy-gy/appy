@@ -8,12 +8,10 @@ ratingItemActions = require '../../actions/rating_items'
 isClient = require '../../helpers/is_client'
 canEditRating = require '../../helpers/ratings/can_edit'
 SyncSlug = require '../mixins/sync_slug'
-Loading = require '../mixins/loading'
 Rating = require './rating'
 Similar = require './similar'
 Comments = require './comments'
 Layout = require '../layout/layout'
-Nothing = require '../shared/nothing'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -24,7 +22,7 @@ Nothing = require '../shared/nothing'
 RatingPage = React.createClass
   displayName: 'RatingPage'
 
-  mixins: [SyncSlug('rating', '/ratings'), Loading]
+  mixins: [SyncSlug('rating', '/ratings')]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
@@ -65,9 +63,6 @@ RatingPage = React.createClass
       { name: 'keywords', content: _.map(rating.tags, 'name').join(', ') }
     ]
 
-  isLoading: ->
-    not @props.isFetched
-
   checkAccess: (rating) ->
     {dispatch} = @props
 
@@ -94,11 +89,9 @@ RatingPage = React.createClass
     <Comments/> if @props.rating.status == 'published'
 
   render: ->
-    {rating, ratingSlug} = @props
+    {rating, ratingSlug, isFetched} = @props
 
-    return <Nothing/> if @isLoading()
-
-    <Layout header={@header()}>
+    <Layout header={@header()} isLoading={not isFetched}>
       <Helmet title={rating.title} meta={@meta()}/>
       <Rating/>
       {@similar()}

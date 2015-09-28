@@ -16,8 +16,9 @@ Layout = React.createClass
 
   propTypes:
     header: PropTypes.string
+    isLoading: PropTypes.bool
     onLogoClick: PropTypes.func
-    children: PropTypes.node.isRequired
+    children: PropTypes.node
 
   childContextTypes:
     headerExpanded: PropTypes.bool.isRequired
@@ -28,9 +29,11 @@ Layout = React.createClass
     common: CommonHeader
     editRating: EditRatingHeader
     rating: RatingHeader
+    children: null
 
   getDefaultProps: ->
     header: 'common'
+    isLoading: false
     onLogoClick: ->
 
   getInitialState: ->
@@ -51,18 +54,24 @@ Layout = React.createClass
     Header = @headers[header]
     <Header/>
 
+  loader: ->
+    <Loader/> if @props.isLoading
+
+  content: ->
+    @props.children unless @props.isLoading
+
   render: ->
     {children} = @props
 
     <div className="layout">
       {@header()}
       <Main>
-        {children}
+        {@content()}
       </Main>
       <Footer/>
       <Popups/>
       <Toastr/>
-      <Loader/>
+      {@loader()}
       <FbRoot/>
     </div>
 

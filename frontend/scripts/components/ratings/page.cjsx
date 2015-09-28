@@ -5,7 +5,6 @@ ReduxReactRouter = require 'redux-react-router'
 Helmet = require 'react-helmet'
 ratingActions = require '../../actions/ratings'
 mainPageRatingActions = require '../../actions/main_page_ratings'
-Loading = require '../mixins/loading'
 RatingsList = require '../mixins/ratings_list'
 Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
@@ -19,7 +18,7 @@ Preview = require '../shared/ratings/preview'
 Ratings = React.createClass
   displayName: 'Ratings'
 
-  mixins: [Loading, RatingsList]
+  mixins: [RatingsList]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
@@ -29,9 +28,6 @@ Ratings = React.createClass
   previewEnds:
     superLarge: 1
     large: 3
-
-  isLoading: ->
-    not @props.isFetched
 
   fetchRatings: (page) ->
     @props.dispatch fetchMainPageRatings() if page == 1
@@ -61,7 +57,9 @@ Ratings = React.createClass
       <Preview key={rating.id} rating={rating} mod={mod} imageSize={imageSize}/>
 
   render: ->
-    <Layout onLogoClick={@showFirstPage}>
+    {isFetched} = @props
+
+    <Layout isLoading={not isFetched} onLogoClick={@showFirstPage}>
       <Helmet title="информационно-развлекательный портал для творческих людей"/>
       <div className="previews">
         {@previews()}

@@ -2,9 +2,7 @@ React = require 'react'
 ReactRedux = require 'react-redux'
 Helmet = require 'react-helmet'
 pageActions = require '../../actions/page'
-Loading = require '../mixins/loading'
 Layout = require '../layout/layout'
-Nothing = require '../shared/nothing'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -12,8 +10,6 @@ Nothing = require '../shared/nothing'
 
 Page = React.createClass
   displayName: 'Page'
-
-  mixins: [Loading]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
@@ -24,19 +20,14 @@ Page = React.createClass
   componentWillMount: ->
     @fetchPage()
 
-  isLoading: ->
-    not @props.isFetched
-
   fetchPage: ->
     @props.dispatch fetchPage(@props.pageSlug)
 
   render: ->
-    {page} = @props
+    {page, isFetched} = @props
 
-    return <Nothing/> if @isLoading()
-
-    <Layout>
-      <Helmet title={page.title}/>
+    <Layout isLoading={not isFetched}>
+      <Helmet title={page.title} />
       <div className="page" dangerouslySetInnerHTML={__html: page.body}></div>
     </Layout>
 
