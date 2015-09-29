@@ -21,8 +21,6 @@ Form = React.createClass
   contextTypes:
     currentUser: PropTypes.object.isRequired
 
-  placeholder: 'Нажмите Shift + Enter для отправки комментария. Для перехода на новую строку нажмите Enter'
-
   getDefaultProps: ->
     parent: null
     onSubmit: ->
@@ -38,6 +36,16 @@ Form = React.createClass
 
     event.preventDefault()
     @createComment()
+
+  placeholder: ->
+    {body} = @state
+    placeholderClasses = classNames 'comment-form_placeholder', 'm-disabled': !isBlank(body)
+
+    <div className={placeholderClasses}>
+      <span className="comment-form_placeholder-text">
+        <span className="comment-form_placeholder-shortcut">Shift + Enter</span> - для отправки комментария. <span className="comment-form_placeholder-shortcut">Enter</span> - для перехода на новую строку
+      </span>
+    </div>
 
   createComment: ->
     {dispatch, parent, onSubmit} = @props
@@ -59,7 +67,8 @@ Form = React.createClass
 
     <div className={classes}>
       <img className="comment_userface" src={imageUrl currentUser.avatar, 'small'}/>
-      <Textarea ref="bodyInput" className="comment-form_textarea" placeholder={@placeholder} value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
+      <Textarea ref="bodyInput" className="comment-form_textarea" value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
+      {@placeholder()}
       <div className={buttonClasses} onClick={@createComment}>Написать</div>
     </div>
 
