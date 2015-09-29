@@ -5,7 +5,6 @@ ratingCommentActions = require '../../actions/rating_comments'
 isBlank = require '../../helpers/is_blank'
 canCommentRating = require '../../helpers/ratings/can_comment'
 CommentsTree = require './comments_tree'
-NoComments = require './no_comments'
 AuthToComment = require './auth_to_comment'
 CommentForm = require '../shared/comments/form'
 CommentTreesBuilder = require '../../helpers/comments/trees_builder'
@@ -44,7 +43,7 @@ Comments = React.createClass
   trees: ->
     {comments} = @props
 
-    return <NoComments/> if isBlank comments
+    return if isBlank comments
 
     trees = CommentTreesBuilder.build comments
     trees.map (tree) ->
@@ -55,14 +54,19 @@ Comments = React.createClass
 
     <CommentForm ref="form"/>
 
-  render: ->
+  commentsCounterText: ->
     {comments} = @props
+    if comments.length > 0
+      <span>Комментарии ({comments.length})</span>
+    else
+      # TODO: Get random phrases
+      <span>Полно мыслей в голове? Оставь одну тут!</span>
+
+  render: ->
     {rating} = @context
 
     <div id="comments" className="comments">
-      <div className="comments_header">
-        Комментарии ({comments.length})
-      </div>
+      <div className="comments_header">{@commentsCounterText()}</div>
       <div refCollection="trees" className="comments_trees">
         {@trees()}
       </div>
