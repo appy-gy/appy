@@ -5,6 +5,7 @@ ReactRedux = require 'react-redux'
 ReduxReactRouter = require 'redux-react-router'
 ReduxReactRouterServer = require 'redux-react-router/server'
 Helmet = require 'react-helmet'
+he = require 'he'
 reducers = require '../helpers/reducers'
 router = require '../helpers/router'
 memcached = require '../helpers/memcached'
@@ -39,6 +40,7 @@ module.exports = ->
     onMatch = ->
       render()
         .then ({head, body}) ->
+          head = _.mapValues head, (content) -> he.decode(content).replace(/(content="(?:.*?))"((?:.*?)")/g, '$1&quot;$2')
           locals = { head, body, state: JSON.stringify(store.getState()) }
           memcached.set req.url, locals, cacheLifetime, ->
             res.render 'index', locals
