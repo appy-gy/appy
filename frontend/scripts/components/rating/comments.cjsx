@@ -54,14 +54,19 @@ Comments = React.createClass
 
     <CommentForm ref="form"/>
 
-  render: ->
+  commentsCounterText: ->
     {comments} = @props
+    if comments.length > 0
+      <span>Комментарии ({comments.length})</span>
+    else
+      # TODO: Get random phrases
+      <span>Полно мыслей в голове? Оставь одну тут!</span>
+
+  render: ->
     {rating} = @context
 
     <div id="comments" className="comments">
-      <div className="comments_header">
-        Комментарии ({comments.length})
-      </div>
+      <div className="comments_header">{@commentsCounterText()}</div>
       <div refCollection="trees" className="comments_trees">
         {@trees()}
       </div>
