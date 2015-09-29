@@ -10,10 +10,11 @@ ActiveAdmin.register Rating do
   filter :user
   filter :section
 
+  member_action :unpublish, method: :put
   collection_action :main_page, method: :get
   collection_action :update_main_page, method: :put
 
-  action_item :main_page do
+  action_item :main_page, only: :index do
     link_to 'Рейтинги на главной', main_page_admin_ratings_path
   end
 
@@ -24,7 +25,9 @@ ActiveAdmin.register Rating do
     end
     column :user
     column :section
-    actions
+    actions defaults: true do |rating|
+      link_to 'В черновики', unpublish_admin_rating_path(rating), data: { method: :put, confirm: 'Точно?' } if rating.published?
+    end
   end
 
   form do |f|
@@ -56,6 +59,11 @@ ActiveAdmin.register Rating do
     def update_main_page
       MainPageRatings::Update.new(main_page_params).call
       redirect_to main_page_admin_ratings_path
+    end
+
+    def unpublish
+      Ratings::Unpublish.new(resource).call
+      redirect_to admin_ratings_path
     end
 
     private
