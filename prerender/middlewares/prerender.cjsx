@@ -6,6 +6,7 @@ ReduxReactRouter = require 'redux-react-router'
 ReduxReactRouterServer = require 'redux-react-router/server'
 Helmet = require 'react-helmet'
 he = require 'he'
+parse5 = require 'parse5'
 reducers = require '../helpers/reducers'
 router = require '../helpers/router'
 memcached = require '../helpers/memcached'
@@ -15,6 +16,7 @@ http = require '../../frontend/scripts/helpers/http'
 {Provider} = ReactRedux
 {ReduxRouter} = ReduxReactRouter
 {match} = ReduxReactRouterServer
+{Parser, Serializer} = parse5
 
 rendersLimit = 10
 cacheLifetime = 1 * 60 # 1 minute
@@ -40,7 +42,12 @@ module.exports = ->
     onMatch = ->
       render()
         .then ({head, body}) ->
-          head = _.mapValues head, (content) -> he.decode(content).replace(/(content="(?:.*?))"((?:.*?)")/g, '$1&quot;$2')
+          fragment = new Parser().parseFragment(head.meta)
+          fragment.childNodes
+            .filter (tag) -> tag.attrs?.content?
+            .each (tag) -> tag.attrs.content = _.escape he.decode tag.attrs.content
+          head.meta = new Serializer().serialize(fragment)
+
           locals = { head, body, state: JSON.stringify(store.getState()) }
           memcached.set req.url, locals, cacheLifetime, ->
             res.render 'index', locals
