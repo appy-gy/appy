@@ -46,6 +46,9 @@ Rails.application.routes.draw do
       resources :pages, only: [:show] do
         get :footer, on: :collection
       end
+      resource :search, only: [] do
+        get :global, on: :collection
+      end
     end
   end
 
