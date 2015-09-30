@@ -58,7 +58,7 @@ Ratings = React.createClass
     {page, pagesCount} = @props
     {user} = @context
 
-    <div>
+    <div className="user-profile_content">
       <h2 className="user-profile_tab-header">
         Рейтинги ({user.ratingsCount})
       </h2>

@@ -25,11 +25,13 @@ RatingItem = React.createClass
     classes = classNames 'header_rating-item', "m-visible-#{ratingItemVisibility}"
 
     <div className={classes}>
-      <a title={ratingItem.title} className="header_rating-item-title" href={@ratingItemAnchor()} data-scroll>
-        {ratingItem.title}
-      </a>
-      <div className="header_rating-item-options">
-        {ratingItem.mark}
+      <div className="header_rating-item-content">
+        <a title={ratingItem.title} className="header_rating-item-title" href={@ratingItemAnchor()} data-scroll>
+          {ratingItem.title}
+        </a>
+        <div className="header_rating-item-options">
+          {ratingItem.mark}
+        </div>
       </div>
       <div className="header_rating-item-bar" style={backgroundColor: sectionColor, width: width}>
       </div>
