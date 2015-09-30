@@ -35,7 +35,7 @@
     "react-medium-editor": "miraks/react-medium-editor",
     "react-redux": "^2.1.2",
     "react-router": "^1.0.0-rc1",
-    "react-select": "^0.6.8",
+    "react-select": "^0.6.11",
     "react-textarea-autosize": "^2.5.2",
     "redux": "^2.0.0",
     "redux-actions": "^0.8.0",
