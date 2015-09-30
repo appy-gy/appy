@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
 
   friendly_id :slug_candidates
 
+  update_index 'global#user', :self
+
   mount_uploader :avatar, Users::AvatarUploader
   mount_uploader :background, Users::BackgroundUploader
 
@@ -16,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :votes, dependent: :destroy
 
   after_create :generate_avatar, unless: :avatar?
+
+  scope :with_name, -> { where.not name: nil }
 
   def to_s
     name or id

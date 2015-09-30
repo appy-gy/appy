@@ -3,6 +3,7 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/npm'
 require 'mina/puma'
+require 'mina_sidekiq/tasks'
 
 set :domain, '46.101.238.69'
 set :deploy_to, '/var/www/top'
@@ -18,6 +19,9 @@ set :user, 'top' # Username in the server to SSH to.
 set :forward_agent, true # SSH forward_agent.
 
 set :npm_options, ''
+
+set :sidekiq_pid, -> { "#{deploy_to}/#{current_path}/tmp/pids/sidekiq.pid" }
+set :sidekiq_concurrency, 4
 
 # This task is the environment that is loaded for most commands, such as
 # `mina deploy` or `mina rake`.
@@ -96,6 +100,7 @@ task deploy: :environment do
       invoke :'puma:restart'
       invoke :'prerender:stop'
       invoke :'prerender:start'
+      invoke :'sidekiq:restart'
     end
   end
 end
