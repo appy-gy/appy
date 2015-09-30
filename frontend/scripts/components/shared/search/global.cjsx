@@ -6,7 +6,7 @@ http = require '../../../helpers/http'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{replaceState} = ReduxReactRouter
+{pushState} = ReduxReactRouter
 
 GlobalSearch = React.createClass
   displayName: 'GlobalSearch'
@@ -25,7 +25,7 @@ GlobalSearch = React.createClass
       callback null, options: @toOptions(data.results)
 
   openResult: (newValue, [{result}]) ->
-    @props.dispatch replaceState(null, "/#{result.type}s/#{result.slug}")
+    @props.dispatch pushState(null, "/#{result.type}s/#{result.slug}")
 
   renderOption: ({result}) ->
     <div>
