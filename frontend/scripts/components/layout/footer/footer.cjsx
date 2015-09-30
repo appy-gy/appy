@@ -38,7 +38,8 @@ Footer = React.createClass
         {@leftPages()}
       </div>
       <div className="layout_footer-right">
-        {@rightPages()}
+        <a className="layout_footer-link" href="https://www.facebook.com/appysite" target="_blank">facebook</a>
+        <a className="layout_footer-link" href="https://vk.com/appygy" target="_blank">вконтакте</a>
       </div>
     </div>
 
