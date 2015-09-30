@@ -4,7 +4,6 @@ module Search
 
     const :slop, 20
     const :max_expansions, 10
-    const :analyzer, 'russian'
     const :per_page, 10
 
     def initialize query, page
@@ -19,7 +18,7 @@ module Search
     private
 
     def query
-      { match_phrase_prefix: { _all: { query: @query, slop: slop, max_expansions: max_expansions, analyzer: analyzer } } }
+      { match_phrase_prefix: { _all: { query: @query, slop: slop, max_expansions: max_expansions } } }
     end
   end
 end
