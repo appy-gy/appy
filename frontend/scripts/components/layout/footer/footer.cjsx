@@ -18,13 +18,9 @@ Footer = React.createClass
   componentWillMount: ->
     @props.dispatch fetchFooterPages()
 
-  leftPages: ->
-    @pages _.take(@props.pages, 2)
+  pages: ->
+    {pages} = @props
 
-  rightPages: ->
-    @pages _.slice(@props.pages, 2, 2)
-
-  pages: (pages) ->
     pages.map (page) ->
       <PageLink key={page.id} page={page} className="layout_footer-link">
         {page.title}
@@ -35,7 +31,7 @@ Footer = React.createClass
       <div className="layout_footer-logo">
       </div>
       <div className="layout_footer-left">
-        {@leftPages()}
+        {@pages()}
       </div>
       <div className="layout_footer-right">
         <a className="layout_footer-link" href="https://www.facebook.com/appysite" target="_blank">facebook</a>
