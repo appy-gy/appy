@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react'
 PureRenderMixin = require 'react-addons-pure-render-mixin'
 isClient = require '../../../helpers/is_client'
+Classes = require '../../mixins/classes'
 MediumEditor = if isClient() then require('react-medium-editor') else 'div'
 
 {PropTypes} = React
@@ -9,7 +10,7 @@ MediumEditor = if isClient() then require('react-medium-editor') else 'div'
 Editor = React.createClass
   displayName: 'Editor'
 
-  mixins: [PureRenderMixin]
+  mixins: [PureRenderMixin, Classes]
 
   propTypes:
     value: PropTypes.string
@@ -38,8 +39,8 @@ Editor = React.createClass
     {value, options} = @props
 
     @options ||= _.defaultsDeep options, @defaultOptions
-    props = _.omit @props, 'value', 'options'
+    props = _.omit @props, 'value', 'options', 'className'
 
-    <MediumEditor text={value} options={@options} {...props}/>
+    <MediumEditor className={@classes('medium-editor')} text={value} options={@options} {...props}/>
 
 module.exports = Editor
