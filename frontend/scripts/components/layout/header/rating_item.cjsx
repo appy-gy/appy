@@ -13,7 +13,7 @@ RatingItem = React.createClass
     ratingItem: PropTypes.object.isRequired
     visibility: PropTypes.string
     sectionColor: PropTypes.string
-    width: PropTypes.string
+    width: PropTypes.number
 
   ratingItemAnchor: ->
     {ratingItem} = @props
@@ -33,7 +33,7 @@ RatingItem = React.createClass
           {ratingItem.mark}
         </div>
       </div>
-      <div className="header_rating-item-bar" style={backgroundColor: sectionColor, width: width}>
+      <div className="header_rating-item-bar" style={backgroundColor: sectionColor, width: "#{width}%"}>
       </div>
     </div>
 

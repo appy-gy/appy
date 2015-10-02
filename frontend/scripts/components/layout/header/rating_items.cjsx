@@ -14,17 +14,16 @@ RatingItems = React.createClass
   ratingItems: ->
     {ratingItems, rating} = @context
 
-    sum = _.sum ratingItems, (ratingItem) -> Math.max ratingItem.mark, 0
+    marks = _.map ratingItems, 'mark'
+    min = _.min marks
+    max = _.max marks
 
     _ ratingItems
       .sortBy 'position'
       .map (ratingItem) =>
-        <RatingItem key={ratingItem.id} ratingItem={ratingItem} width={"#{@ratingItemWidth(sum, ratingItem.mark)}%"} sectionColor={rating.section.color}/>
+        width = (ratingItem.mark - min) / (max - min) * 100
+        <RatingItem key={ratingItem.id} ratingItem={ratingItem} width={width} sectionColor={rating.section.color}/>
       .value()
-
-  ratingItemWidth: (sum, mark) ->
-    return 0 if mark < 0
-    (mark / sum) * 100
 
   render: ->
     {rating} = @context
