@@ -24,6 +24,7 @@ Editor = React.createClass
         { name: 'italic', aria: 'Наклонный' }
         { name: 'underline', aria: 'Подчеркнутый' }
         { name: 'anchor', aria: 'Ссылка' }
+        { name: 'quote', aria: 'Цитирование' }
       ]
     autoLink: true
     imageDragging: false

@@ -133,22 +133,16 @@
     height: 100%
 
   &_rating-item
-    display: flex
     color: $black
-    padding: 5px 10px
-    line-height: 20px
     height: 30px
-    transition: background 0.5s, transform 0.5s
     position: relative
-    border: 2px solid $black-4
     margin: 4px 0
 
     &-bar
-      position: absolute
-      left: -2px
-      bottom: -2px
-      width: 100%
-      height: 2px
+      height: 100%
+      background-image: url('../images/texture.png')
+      background-size: cover
+      background-position: 0% 0%
 
     &.m-visible
       &-hidden
@@ -160,15 +154,28 @@
         border-color: transparent
 
     &.m-edit
+      display: block
       cursor: move
+      height: auto
 
       &:hover
         transform: scale(1.05)
 
     &.m-dragging
-      // opacity: 0
       background: $grey-3
       color: transparent
+
+    &-content
+      position: absolute
+      left: 0
+      bottom: 0
+      height: 100%
+      width: 100%
+      display: flex
+      padding: 5px
+      line-height: 20px
+      font-family: $monospace
+      font-weight: 600
 
     &-title
       font-size: 12px
@@ -179,9 +186,11 @@
       text-overflow: ellipsis
       white-space: nowrap
       text-decoration: none
+      z-index: 1
 
     &-options
       font-size: 12px
+      z-index: 1
 
   &_rating-publish-info
     width: 100%

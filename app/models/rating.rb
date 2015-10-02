@@ -13,6 +13,8 @@ class Rating < ActiveRecord::Base
 
   counter :views
 
+  update_index 'global#rating', :self
+
   mount_uploader :image, Ratings::RatingImageUploader
 
   belongs_to :user

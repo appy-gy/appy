@@ -3,6 +3,7 @@ React = require 'react'
 ReactRedux = require 'react-redux'
 ReduxReactRouter = require 'redux-react-router'
 Helmet = require 'react-helmet'
+strip = require 'strip'
 ratingActions = require '../../actions/rating'
 ratingItemActions = require '../../actions/rating_items'
 isClient = require '../../helpers/is_client'
@@ -59,7 +60,7 @@ RatingPage = React.createClass
     {rating} = @props
 
     [
-      { name: 'description', content: rating.description?.split('\n')?[0] || '' }
+      { name: 'description', content: strip(_.unescape(rating.description?.split('\n')?[0] || '')) }
       { name: 'keywords', content: _.map(rating.tags, 'name').join(', ') }
     ]
 

@@ -131,18 +131,24 @@ User = React.createClass
     <Layout isLoading={not isFetched}>
       <Helmet title={user.name}/>
       <div className="user-profile">
-        <header className="user-profile_header" style={headerStyles}>
-          <Avatar/>
-          <div className="user-profile_info">
-            <div className="user-profile_name-wrap">
-              <Name/>
-              {@settings()}
-            </div>
-            <SocialButtons/>
-            {@tabButtons()}
+        <header className="user-profile_header">
+          <div className="user-profile_header-bg" style={headerStyles}>
           </div>
-          <div className="user-profile_action-buttons">
-            {@backgroundUploader()}
+          <div className="user-profile_header-content">
+            <Avatar/>
+            <div className="user-profile_info">
+              <div className="user-profile_name-wrap">
+                <Name/>
+                {@settings()}
+              </div>
+              <SocialButtons/>
+              <div className="user-profile_tab-buttons">
+                {@tabButtons()}
+              </div>
+            </div>
+            <div className="user-profile_action-buttons">
+              {@backgroundUploader()}
+            </div>
           </div>
         </header>
         {@tabsContent()}

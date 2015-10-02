@@ -1,8 +1,8 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
-http = require '../../helpers/http'
 Select = require 'react-select'
+http = require '../../helpers/http'
 ratingActions = require '../../actions/rating'
 Nothing = require '../shared/nothing'
 
@@ -20,8 +20,6 @@ TagsSelect = React.createClass
     rating: PropTypes.object.isRequired
     canEdit: PropTypes.bool.isRequired
 
-  delimiter: '⟅'
-
   toOptions: (tags) ->
     tags.map (tag) ->
       value: tag.name, label: tag.name, ratingsCount: tag.ratingsCount
@@ -29,34 +27,35 @@ TagsSelect = React.createClass
   loadOptions: (query, callback) ->
     # React-select passes current values instead of an empty string when
     # initialized or after adding/removing a value from the values list
-    query = '' if _.includes query, @delimiter
+    query = '' if _.isArray query
 
     url = if _.isEmpty query then 'tags/popular' else 'tags'
     http.get(url, params: { query }).then ({data}) =>
-      {tags} = data
-      tags.unshift name: query unless _.isEmpty(query) or _(tags).map('name').includes(query)
-      callback null, options: @toOptions(tags)
+      callback null, options: @toOptions(data.tags)
 
   value: ->
-    {rating} = @context
+    _.map @context.rating.tags, 'name'
 
-    _.map(rating.tags, 'name').join(@delimiter)
-
-  updateTags: (__, options) ->
+  updateTags: (newValue, options) ->
     {dispatch} = @props
     {rating} = @context
 
-    name = _.xor(_.map(rating.tags, 'name'), _.map(options, 'value'))[0]
+    names = _.xor _.map(rating.tags, 'name'), _.map(options, 'value')
     action = if options.length > rating.tags.length then addTagToRating else removeTagFromRating
-    dispatch action(name)
+    names.each (name) -> dispatch action(name)
+
+  createNewOption: (query) ->
+    label: query, value: query, ratingsCount: 0
 
   renderOption: ({label, ratingsCount}) ->
+    numberOfUses = if ratingsCount == 0 then 'новый' else ratingsCount
+
     <div className="tag-option">
       <div className="tag-option_label">
         {label}
       </div>
       <div className="tag-option_number-of-uses">
-        ({ratingsCount || 'новый'})
+        ({numberOfUses})
       </div>
     </div>
 
@@ -65,6 +64,6 @@ TagsSelect = React.createClass
 
     return <Nothing/> unless canEdit
 
-    <Select placeholder="Укажите теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" autoload={true} multi={true} delimiter={@delimiter} matchProp={'value'} asyncOptions={@loadOptions} value={@value()} optionRenderer={@renderOption} onChange={@updateTags}/>
+    <Select placeholder="Укажите теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" autoload={false} multi={true} allowCreate={true} matchProp="label" asyncOptions={@loadOptions} value={@value()} newOptionCreator={@createNewOption} optionRenderer={@renderOption} onChange={@updateTags}/>
 
 module.exports = connect()(TagsSelect)

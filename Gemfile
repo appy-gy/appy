@@ -7,9 +7,9 @@ gem 'puma'
 
 # Database
 gem 'pg'
-gem 'pg_search'
 gem 'dalli'
 gem 'redis-objects'
+gem 'chewy'
 
 # Configuration
 gem 'dotenv-rails'
@@ -63,6 +63,7 @@ gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'cocaine'
 
 # Jobs
+gem 'sidekiq'
 gem 'whenever', require: false
 
 # Monitoring
@@ -84,6 +85,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'mina', require: false
   gem 'mina-puma', require: false
+  gem 'mina-sidekiq', require: false
 end
 
 group :test do

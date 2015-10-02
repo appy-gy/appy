@@ -290,13 +290,14 @@
         padding: 20px 40px 40px
 
   &_description
+    +word-break
+    +rating-editor-content
     font-size: 16px
     width: 100%
     min-height: 80px
     color: $black-2
     white-space: pre-line
     transition: color 0.2s ease
-    +word-break
     cursor: pointer
 
     &.m-edit
@@ -476,6 +477,7 @@
     justify-content: center
 
   &_source
+    +rating-editor-content
     white-space: pre-wrap
 
   &_add-item
