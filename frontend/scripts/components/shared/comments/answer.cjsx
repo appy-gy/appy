@@ -4,9 +4,11 @@ classNames = require 'classnames'
 shortId = require '../../../helpers/short_id'
 Form = require './form'
 RatingLink = require '../links/rating'
+ratingCommentActions = require '../../../actions/rating_comments'
 
 {PropTypes} = React
 {connect} = ReactRedux
+{changeCommentFormVisibility} = ratingCommentActions
 
 Answer = React.createClass
   displayName: 'CommentAnswer'
@@ -18,19 +20,20 @@ Answer = React.createClass
   contextTypes:
     comment: PropTypes.object.isRequired
 
-  getInitialState: ->
+  componentWillMount: ->
     {query} = @props
     {comment} = @context
 
-    showForm: query.reply and shortId(comment.id) == query.comment
+    @props.dispatch(changeCommentFormVisibility(comment.id)) if query.reply and shortId(comment.id) == query.comment
 
   triggerForm: ->
-    {inline} = @props
-    {showForm} = @state
+    {inline, commentFormVisible} = @props
+    {comment} = @context
 
     return unless inline
 
-    @setState showForm: not showForm
+    value = if comment.id == commentFormVisible then null else comment.id
+    @props.dispatch changeCommentFormVisibility(value)
 
   root: ->
     {inline} = @props
@@ -38,19 +41,19 @@ Answer = React.createClass
     if inline then 'div' else RatingLink
 
   form: ->
-    {showForm} = @state
+    {commentFormVisible} = @props
     {comment} = @context
 
-    return unless showForm
+    return unless comment.id == commentFormVisible
 
     <Form ref="form" parent={comment} onSubmit={@triggerForm}/>
 
   render: ->
-    {showForm} = @state
+    {commentFormVisible} = @props
     {comment} = @context
 
     Root = @root()
-    classes = classNames 'comment_action', 'm-active': showForm
+    classes = classNames 'comment_action', 'm-active': comment.id == commentFormVisible
 
     <Root className={classes} rating={comment.rating} query={comment: shortId(comment.id), reply: true}>
       <div ref="trigger" className="comment_action-link m-answer" onClick={@triggerForm}>
@@ -58,7 +61,8 @@ Answer = React.createClass
       {@form()}
     </Root>
 
-mapStateToProps = ({router}) ->
+mapStateToProps = ({router, ratingComments}) ->
   query: router.location.query || {}
+  commentFormVisible: ratingComments.commentFormVisible
 
 module.exports = connect(mapStateToProps)(Answer)

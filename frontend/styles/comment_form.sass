@@ -18,9 +18,10 @@
     font-size: 16px
     background-color: $grey
     margin-left: 20px
-    max-height: 60px
     color: $black-3
     margin-left: calc(-100% + 175px)
+    display: flex
+    align-items: center
 
     &:hover
       visibility: hidden
@@ -37,6 +38,9 @@
       font-weight: bold
 
   &_textarea:hover + &_placeholder
+    visibility: hidden
+
+  &_textarea:focus + &_placeholder
     visibility: hidden
 
   &_textarea

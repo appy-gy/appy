@@ -8,9 +8,16 @@ cleaner = require '../helpers/reducers/cleaner'
 
 {defaultState, handlers} = itemsReceiver 'ratingComments'
 
+defaultState = _.backflow defaultState, ->
+  commentFormVisible: null
+
 handlers = _.merge handlers, cleaner('ratingComments', defaultState),
   APPEND_RATING_COMMENT: (state, {payload: comment}) ->
     update state, items: { $push: [comment] }
+
+  CHANGE_COMMENT_FORM_VISIBILITY: (state, {payload}) ->
+    {id} = payload
+    update state, commentFormVisible: { $set: id }
 
 reducer = handleActions handlers, defaultState()
 
