@@ -1,0 +1,78 @@
+.page
+  padding: 16px
+  font-size: 16px
+  font-family: $monospace
+
+  @media screen and (min-width: $small)
+    padding: 0 0 20px 0
+
+  @media screen and (min-width: $medium)
+    padding-bottom: 0 0 40px 0
+
+  p
+    margin-bottom: 25px
+
+  h1, h2, h3, h4
+    font-weight: 600
+    color: $black
+    font-family: $sans-serif
+    margin: 10px 0 5px
+    font-size: 16px
+
+  h1
+    font-size: 22px
+    color: #376084
+
+  h2
+    font-size: 20px
+
+  h3
+    font-size: 18px
+
+  h4
+    font-size: 16px
+
+  h1
+    color: #376084
+
+  h2
+    &:nth-of-type(1)
+      color: #228dce
+
+    &:nth-of-type(2)
+      color: #2bb4ea
+
+    &:nth-of-type(3)
+      color: #00d6f1
+
+    &:nth-of-type(4)
+      color: #77cd9c
+
+    &:nth-of-type(5)
+      color: #fecb62
+
+    &:nth-of-type(6)
+      color: #f88866
+
+  a
+    cursor: pointer
+    color: $blue
+    text-decoration: underline
+
+    &:hover
+      color: $green
+      text-decoration: none
+
+  ul, ol
+    margin-bottom: 25px
+    margin-left: 20px
+
+  li
+    margin-bottom: 10px
+
+  b
+    font-weight: 600
+
+  i
+    font-family: $serif
+    font-style: italic
