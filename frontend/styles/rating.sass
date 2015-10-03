@@ -170,13 +170,14 @@
       &:before
         +ion-icon("ios-heart-outline")
         font-size: 90px
-        color: $red
+        color: $black-2
 
       &.m-active
         animation: heart-beat 0.5s ease-out
 
         &:before
           +ion-icon("ios-heart")
+          color: $red
 
     &-content
       position: absolute
@@ -187,7 +188,7 @@
       font-size: 20px
       font-weight: 700
       text-align: center
-      color: $black-3
+      color: $black-2
       display: flex
       justify-content: center
       align-items: center
