@@ -1,3 +1,4 @@
+_ = require 'lodash'
 ReduxReactRouter = require 'redux-react-router'
 
 {replaceState} = ReduxReactRouter
@@ -5,11 +6,13 @@ ReduxReactRouter = require 'redux-react-router'
 SyncSlug = (name, url) ->
   componentWillUpdate: (nextProps) ->
     {dispatch} = @props
-
     {slug} = @props[name]
     {slug: nextSlug} = nextProps[name]
+
     return if not slug? or not nextSlug? or slug == nextSlug
 
-    dispatch replaceState(null, "#{url}/#{nextSlug}")
+    newUrl = if _.isString(url) then "#{url}/#{nextSlug}" else url(nextSlug, nextProps)
+
+    dispatch replaceState(null, newUrl)
 
 module.exports = SyncSlug
