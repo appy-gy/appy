@@ -6,6 +6,7 @@ Ratings = require './components/ratings/page'
 Rating = require './components/rating/page'
 SectionRatings = require './components/section/page'
 Page = require './components/page/page'
+Tag = require './components/tag/page'
 User = require './components/user/page'
 Instagram = require './components/instagram/page'
 
@@ -18,6 +19,7 @@ routes =
     <Route path="sections/:sectionSlug" component={SectionRatings}/>
     <Route path="users/:userSlug" component={User}/>
     <Route path="pages/:pageSlug" component={Page}/>
+    <Route path="tags/:tagSlug" component={Tag}/>
     <Route path="instagram" component={Instagram}/>
     <Route path="*" component={NotFound}/>
   </Route>

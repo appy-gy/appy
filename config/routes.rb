@@ -39,9 +39,12 @@ Rails.application.routes.draw do
           resources :votes, only: [:create]
         end
       end
-      resources :header_sections, only: [:index]
-      resources :tags, only: [:index] do
+      resources :header_sections, only: [:index, :show]
+      resources :tags, only: [:index, :show] do
         get :popular, on: :collection
+        scope module: :tags do
+          resources :ratings, only: [:index]
+        end
       end
       resources :pages, only: [:show] do
         get :footer, on: :collection
