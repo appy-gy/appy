@@ -56,34 +56,44 @@
 
   &_actions
     display: flex
-    padding-top: 3px
+    padding-top: 10px
+    align-items: center
 
   &_action
 
     &-link
-      display: inline
-      font-size: 24px
+      display: block
       margin-right: 10px
       cursor: pointer
       color: $black-3
-      font-family: $monospace
       user-select: none
+      background-size: cover
+
+      &:not(:hover)
+        opacity: 0.6
 
       &.m-show
-
-        &:before
-          +ion-icon('ios-eye-outline')
-
-      &.m-answer
-
-        &::before
-          +ion-icon('ios-arrow-thin-left')
-
-      &:hover
-        color: $blue
+        background-image: url('../images/view.png')
+        width: 21px
+        height: 11px
+      &.m-reply
+        background-image: url('../images/reply.png')
+        width: 16px
+        height: 12px
 
     &.m-active
       width: 100%
+      .comment_action-link.m-reply
+        display: flex
+        align-items: center
+
+        &:before
+          +ion-icon('android-close')
+          font-size: 20px
+        background-image: none
+
+        &:hover
+          color: $black
 
 
   &:hover

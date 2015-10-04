@@ -62,7 +62,7 @@ Preview = React.createClass
     if rating.image
       imageStyles.backgroundImage = "url(#{imageUrl rating.image, imageSize})"
     else
-      imageStyles.backgroundColor = 'rgba(33, 172, 208, 1)'
+      imageStyles.backgroundColor = 'rgba(0, 0, 0, 1)'
 
     sectionNameStyles = _.pick rating.section, 'color'
 

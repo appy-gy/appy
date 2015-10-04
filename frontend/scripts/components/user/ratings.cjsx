@@ -60,7 +60,7 @@ Ratings = React.createClass
 
     <div className="user-profile_content">
       <h2 className="user-profile_tab-header">
-        Рейтинги ({user.ratingsCount})
+        Рейтинги
       </h2>
       <div className="previews">
         {@ratings()}

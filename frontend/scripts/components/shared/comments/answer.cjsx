@@ -56,7 +56,7 @@ Answer = React.createClass
     classes = classNames 'comment_action', 'm-active': comment.id == commentFormVisible
 
     <Root className={classes} rating={comment.rating} query={comment: shortId(comment.id), reply: true}>
-      <div ref="trigger" className="comment_action-link m-answer" onClick={@triggerForm}>
+      <div ref="trigger" className="comment_action-link m-reply" onClick={@triggerForm}>
       </div>
       {@form()}
     </Root>

@@ -41,7 +41,7 @@ Comments = React.createClass
 
     <div className="user-profile_content">
       <h2 className="user-profile_tab-header">
-        Комментарии к рейтингам ({user.commentsCount})
+        Комментарии к рейтингам
       </h2>
       {@noComments()}
       {@comments()}
