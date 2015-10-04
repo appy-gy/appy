@@ -147,6 +147,10 @@ $tab-title-height: 50px
       margin-top: 20px
       display: flex
       flex-flow: row nowrap
+      justify-content: center
+
+      @media screen and (min-width: $small)
+        justify-content: space-between
 
     &-button
       font-size: 16px
@@ -159,7 +163,10 @@ $tab-title-height: 50px
 
     &-wrap
       display: flex
-      justify-content: space-between
+      justify-content: center
+
+      @media screen and (min-width: $small)
+        justify-content: space-between
 
   &_socials
     display: flex
@@ -255,6 +262,7 @@ $tab-title-height: 50px
   &_settings
     width: 30px
     height: 50px
+    margin-left: 10px
 
     &:before
       +ion-icon("ios-gear-outline")
@@ -341,6 +349,10 @@ $tab-title-height: 50px
   &_tab-buttons
     margin-top: 20px
     display: flex
+    justify-content: center
+    
+    @media screen and (min-width: $small)
+      justify-content: flex-start
 
   &_tab-button
     font-family: $monospace
