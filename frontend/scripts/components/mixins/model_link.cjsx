@@ -5,7 +5,12 @@ Router = require 'react-router'
 {PropTypes} = React
 {Link} = Router
 
-ModelLink = (name) ->
+defaultOpts =
+  prefix: true
+
+ModelLink = (name, opts = {}) ->
+  opts = _.defaults {}, opts, defaultOpts
+
   displayName: "#{_.camelCase name}Link"
 
   propTypes:
@@ -26,7 +31,8 @@ ModelLink = (name) ->
     {children} = @props
 
     props = _.omit @props, name, 'slug', 'children'
-    to = "/#{name}s/#{@slug()}"
+    to = "/#{@slug()}"
+    to = "/#{name}s#{to}" if opts.prefix
     Root = if @slug() then Link else 'span'
 
     <Root to={to} {...props}>
