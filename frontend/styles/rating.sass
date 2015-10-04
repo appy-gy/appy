@@ -304,17 +304,16 @@
     &.m-edit
       resize: none
 
-    &::placeholder,
     &::after
       font-style: normal
       color: $black
 
     &:focus
 
-      &::placeholder
+      &::after
         color: $black-3
 
-      + .prompt
+      // + .prompt
         animation: prompt 0.2s linear forwards
 
     @media screen and (min-width: $small)

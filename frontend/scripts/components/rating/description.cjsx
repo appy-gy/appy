@@ -60,7 +60,6 @@ Description = React.createClass
     if edit
       <div>
         <Editor className={@classes("#{block}_description", 'm-edit')} value={object.description} onChange={@changeDescription} options={@editorOptions()}/>
-        <div className="prompt">Не игнорируйте это место!</div>
       </div>
     else
       <div className={@classes("#{block}_description")}>

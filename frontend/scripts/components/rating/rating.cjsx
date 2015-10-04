@@ -91,7 +91,7 @@ Rating = React.createClass
     <article className="rating">
       <UpdateStatus/>
       <Header/>
-      <Description object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Введите описание рейтинга"/>
+      <Description object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Нажмите, чтобы ввести описание рейтинга."/>
       {@authorLink()}
       <RatingItems/>
       {@addRatingItemButton()}
