@@ -24,7 +24,7 @@ CreateRating = React.createClass
     {dispatch} = @props
     {currentUser} = @context
 
-    yaCounter32717200.reachGoal('clickCreateRatingButton')
+    yaCounter32717200?.reachGoal('clickCreateRatingButton')
 
     return unless currentUser.id?
 
