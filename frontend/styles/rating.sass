@@ -18,11 +18,11 @@
     margin-bottom:  40px
 
 
-  a
-    color: $blue
-
-    &:hover
-      color: $green
+  // a
+  //   color: $blue
+  //
+  //   &:hover
+  //     color: $green
 
   &_header
     display: flex
@@ -220,13 +220,14 @@
 
     &.m-edit
       resize: none
+      cursor: pointer
 
       &::placeholder
         color: $white
         transition: color 0.1s
 
       &:focus::placeholder
-        color: $white-2
+        color: $white-3
 
     @media screen and (min-width: $small)
       padding: 0 20px
@@ -424,7 +425,7 @@
     left: 0
     width: 100%
     height: 100%
-    background-color: rgba($color-1, 0.9)
+    background-color: rgba($black, 0.85)
     z-index: 3
     flex-flow: column
     justify-content: center
@@ -454,7 +455,7 @@
         width: 24px
         height: 24px
         background-color: $white
-        border: 2px solid $color-1
+        border: 2px solid $black
 
   &_add-image
     +add-image
@@ -522,3 +523,64 @@
       width: 100%
       height: 0
       z-index: 1
+
+  &_statusbar
+    width: 100%
+    position: fixed
+    bottom: 0
+    right: 0
+    background-color: $black-3
+    display: flex
+    justify-content: flex-end
+    padding: 16px
+    z-index: 1
+
+    @media screen and (min-width: $small)
+      padding: 10px 20px
+
+    @media screen and (min-width: $medium)
+      padding: 10px 40px
+
+    &-buttons
+      display: flex
+      height: 100%
+      align-items: center
+      margin: 0 -10px
+
+    &-link
+      color: $white-2
+      margin: 0 10px
+      font-family: $monospace
+      font-size: 14px
+
+      &:hover
+        color: $white
+
+    &-button
+      +button(40px)
+      background-color: $white
+      color: $black
+      margin: 0 10px
+
+      &:hover
+        color: $blue
+
+    &-more
+      position: relative
+
+      &-icon
+        &:before
+          +ion-icon("arrow-down")
+
+      &-content
+        display: none
+        position: absolute
+        bottom: 0
+        right: 0
+        width: 200px
+        height: 100px
+        background-color: red
+
+      &:hover
+        .rating_statusbar-more-content
+          display: block
