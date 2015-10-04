@@ -22,9 +22,9 @@ Editor = React.createClass
       buttons: [
         { name: 'bold', aria: 'Жирный' }
         { name: 'italic', aria: 'Наклонный' }
-        { name: 'underline', aria: 'Подчеркнутый' }
         { name: 'anchor', aria: 'Ссылка' }
         { name: 'quote', aria: 'Цитирование' }
+        { name: 'removeFormat', aria: 'Очистить форматирование'}
       ]
     autoLink: true
     imageDragging: false

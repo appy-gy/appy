@@ -18,11 +18,24 @@
     margin-bottom:  40px
 
 
-  // a
-  //   color: $blue
-  //
-  //   &:hover
-  //     color: $green
+  p
+    a
+      color: $black
+      text-decoration: none
+
+      &:not(:hover)
+        border-bottom: 1px solid $black
+
+    b, strong
+      font-weight: 600
+
+    i
+      font-style: italic
+      font-family: $serif
+
+    u
+      text-decoration: none
+
 
   &_header
     display: flex
