@@ -16,7 +16,7 @@ Answer = React.createClass
   propTypes:
     inline: PropTypes.bool.isRequired
     query: PropTypes.object.isRequired
-    commentFormVisible: PropTypes.bool.isRequired
+    visibleCommentForm: PropTypes.bool.isRequired
 
   contextTypes:
     comment: PropTypes.object.isRequired
@@ -28,12 +28,12 @@ Answer = React.createClass
     @props.dispatch(changeCommentFormVisibility(comment.id)) if query.reply and shortId(comment.id) == query.comment
 
   triggerForm: ->
-    {inline, commentFormVisible} = @props
+    {inline, visibleCommentForm} = @props
     {comment} = @context
 
     return unless inline
 
-    value = if comment.id == commentFormVisible then null else comment.id
+    value = if comment.id == visibleCommentForm then null else comment.id
     @props.dispatch changeCommentFormVisibility(value)
 
   root: ->
@@ -42,19 +42,19 @@ Answer = React.createClass
     if inline then 'div' else RatingLink
 
   form: ->
-    {commentFormVisible} = @props
+    {visibleCommentForm} = @props
     {comment} = @context
 
-    return unless comment.id == commentFormVisible
+    return unless comment.id == visibleCommentForm
 
     <Form ref="form" parent={comment} onSubmit={@triggerForm}/>
 
   render: ->
-    {commentFormVisible} = @props
+    {visibleCommentForm} = @props
     {comment} = @context
 
     Root = @root()
-    classes = classNames 'comment_action', 'm-active': comment.id == commentFormVisible
+    classes = classNames 'comment_action', 'm-active': comment.id == visibleCommentForm
 
     <Root className={classes} rating={comment.rating} query={comment: shortId(comment.id), reply: true}>
       <div ref="trigger" className="comment_action-link m-answer" onClick={@triggerForm}>
@@ -64,6 +64,6 @@ Answer = React.createClass
 
 mapStateToProps = ({router, ratingComments}) ->
   query: router.location.query || {}
-  commentFormVisible: ratingComments.commentFormVisible
+  visibleCommentForm: ratingComments.visibleCommentForm
 
 module.exports = connect(mapStateToProps)(Answer)
