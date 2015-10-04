@@ -14,10 +14,11 @@ Instagram = require './components/instagram/page'
 routes =
   <Route component={App} path="/">
     <IndexRoute component={Ratings}/>
-    <Route path="ratings/:ratingSlug" component={Rating}/>
-    <Route path="sections/:sectionSlug" component={SectionRatings}/>
+    <Route path=":sectionSlug" component={SectionRatings}/>
     <Route path="users/:userSlug" component={User}/>
     <Route path="pages/:pageSlug" component={Page}/>
+    <Route path=":sectionSlug/:ratingSlug" component={Rating}/>
+    <Route path="ratings/:ratingSlug/edit" component={Rating}/>
     <Route path="instagram" component={Instagram}/>
     <Route path="*" component={NotFound}/>
   </Route>

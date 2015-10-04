@@ -21,6 +21,6 @@ createRatingComment = (body, parentId) ->
       dispatch appendRatingComment(data.comment)
       data
 
-changeCommentFormVisibility = createAction 'CHANGE_COMMENT_FORM_VISIBILITY', ( id ) -> { id }
+changeCommentFormVisibility = createAction 'CHANGE_COMMENT_FORM_VISIBILITY'
 
 module.exports = { fetchRatingComments, createRatingComment, changeCommentFormVisibility }

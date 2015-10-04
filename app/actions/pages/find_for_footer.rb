@@ -1,6 +1,6 @@
 module Pages
   class FindForFooter
-    const :slugs, %w{about ads}
+    const :slugs, %w{about advertising}
 
     def call
       Page.where slug: slugs

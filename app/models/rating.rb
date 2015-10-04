@@ -33,7 +33,6 @@ class Rating < ActiveRecord::Base
 
   validates :main_page_position, uniqueness: { allow_nil: true }
 
-  after_create :generate_slug
   before_save :set_published_at, if: :publishing?
   before_save :set_words, if: :publishing?
   before_save :set_recommendations, if: :publishing?
@@ -47,12 +46,7 @@ class Rating < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    persisted? and (not slug? or publishing?)
-  end
-
-  def generate_slug
-    set_slug
-    save
+    publishing?
   end
 
   def set_published_at

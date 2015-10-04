@@ -56,11 +56,12 @@ Comments = React.createClass
 
   commentsCounterText: ->
     {comments} = @props
+
     if comments.length > 0
-      <span>Комментарии ({comments.length})</span>
+      "Комментарии (#{comments.length})"
     else
       # TODO: Get random phrases
-      <span>Полно мыслей в голове? Оставь одну тут!</span>
+      'Полно мыслей в голове? Оставь одну тут!'
 
   render: ->
     {rating} = @context

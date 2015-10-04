@@ -14,6 +14,7 @@ module IdAsSlug
 
   def set_id_as_slug
     self.slug = id
+    save
   end
 
   def uuid? str

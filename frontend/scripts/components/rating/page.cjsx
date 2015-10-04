@@ -20,10 +20,13 @@ Layout = require '../layout/layout'
 {fetchRating} = ratingActions
 {fetchRatingItems} = ratingItemActions
 
+syncSlugMixin = SyncSlug 'rating', (slug, {rating}) ->
+  "/#{rating.section.slug}/#{slug}"
+
 RatingPage = React.createClass
   displayName: 'RatingPage'
 
-  mixins: [SyncSlug('rating', '/ratings')]
+  mixins: [syncSlugMixin]
 
   propTypes:
     dispatch: PropTypes.func.isRequired

@@ -20,6 +20,9 @@ Page = React.createClass
   componentWillMount: ->
     @fetchPage()
 
+  componentDidUpdate: ->
+    @fetchPage()
+
   fetchPage: ->
     @props.dispatch fetchPage(@props.pageSlug)
 
