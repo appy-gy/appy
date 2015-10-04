@@ -1,11 +1,15 @@
+require 'mkmf'
+
 module Ionicons
   class FontGenerator
+    const :tools, %w{fontforge sfnt2woff}
     const :fonts_path, Rails.root.join('frontend/fonts')
     const :styles_path, Rails.root.join('frontend/styles')
     const :repo_path, Pathname.new(__dir__).join('ionicons')
     const :repo_url, 'git@github.com:driftyco/ionicons.git'
 
     def call
+      check_tools
       with_repo do
         remove_unused_svgs
         build_font
@@ -14,6 +18,12 @@ module Ionicons
     end
 
     private
+
+    def check_tools
+      missing = tools.reject { |tool| find_executable tool }
+      return if missing.empty?
+      raise StandardError.new("One or more of the required tools are missing: #{missing.join(', ')}. Install them first")
+    end
 
     def remove_unused_svgs
       Dir.glob(repo_path.join('src/*.svg'))
