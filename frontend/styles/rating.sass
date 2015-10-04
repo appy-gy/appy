@@ -36,6 +36,17 @@
     u
       text-decoration: none
 
+  blockquote
+    padding: 16px
+    @media screen and (min-width: $small)
+      padding: 20px
+
+    @media screen and (min-width: $small)
+      padding: 40px
+
+    border: 2px solid $black
+    box-shadow: 13px 13px 0 0 white, 15px 15px 0 0 $black, 15px 11px 0 0 $black, 11px 15px 0 0 $black
+
 
   &_header
     display: flex
@@ -306,17 +317,17 @@
 
   &_description
     +word-break
-    +rating-editor-content
+    // +rating-editor-content
     font-size: 16px
     width: 100%
     min-height: 80px
     color: $black-2
     white-space: pre-line
     transition: color 0.2s ease
-    cursor: pointer
 
     &.m-edit
       resize: none
+      cursor: pointer
 
     &::after
       font-style: normal
@@ -491,7 +502,7 @@
     justify-content: center
 
   &_source
-    +rating-editor-content
+    // +rating-editor-content
     white-space: pre-wrap
 
   &_add-item

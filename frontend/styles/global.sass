@@ -27,15 +27,15 @@ h1, h2, h3, h4, h5, h6
 
 a
   text-decoration: none
+  
+  &:not(":hover")
+    border-bottom: 1px solid $black
 
 p
   margin: 0 0 20px 0
   white-space: pre-wrap
   word-break: normal
   word-wrap: break-word
-
-  &:last-of-type
-    margin: 0
 
 input, textarea, select
   background: none
