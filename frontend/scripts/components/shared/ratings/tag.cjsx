@@ -1,6 +1,8 @@
 React = require 'react'
+Router = require 'react-router'
 
 {PropTypes} = React
+{Link} = Router
 
 Tags = React.createClass
   displayName: 'Tags'
@@ -16,7 +18,9 @@ Tags = React.createClass
     {block} = @context
 
     <span className="#{block}_tag tag">
-      {tag.name}
+      <Link to="/tags/#{tag.slug}">
+        {tag.name}
+      </Link>
     </span>
 
 module.exports = Tags
