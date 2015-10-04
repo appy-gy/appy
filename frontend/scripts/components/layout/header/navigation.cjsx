@@ -29,7 +29,15 @@ Navigation = React.createClass
   render: ->
     <nav className="site-nav">
       {@sections()}
+      <div className="site-nav_item m-search">
+        <div className="site-nav_icon">
+        </div>
+        <div className="site-nav_text">
+          Поиск
+        </div>
+      </div>
     </nav>
+
 
 mapStateToProps = ({headerSections}) ->
   sections: headerSections.items

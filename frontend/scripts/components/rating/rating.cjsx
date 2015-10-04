@@ -103,17 +103,19 @@ Rating = React.createClass
           <a href="/" className="rating_statusbar-link">
             Сохранить
           </a>
-          <div className="rating_statusbar-button">
-            Опубликовать
-          </div>
           <div className="rating_statusbar-more">
             <div className="rating_statusbar-more-icon">
             </div>
-            <div className="rating_statusbar-more-content">
-              <div className="rating_statusbar-more-content-link">
-                Удалить
+            <div className="rating_statusbar-more-content-wrap">
+              <div className="rating_statusbar-more-content">
+                <div className="rating_statusbar-more-content-link">
+                  Удалить
+                </div>
               </div>
             </div>
+          </div>
+          <div className="rating_statusbar-button">
+            Опубликовать
           </div>
         </div>
       </div>

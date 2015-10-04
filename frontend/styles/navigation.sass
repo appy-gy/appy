@@ -22,7 +22,7 @@
     display: block
     color: $white
     padding: 10px 20px
-    height: 70px
+    height: 65px
     text-align: center
     position: relative
     flex-shrink: 0
@@ -80,3 +80,9 @@
     &.active
       &:before
         display: block
+
+    &.m-search
+      background-color: #ED475E
+      .site-nav_icon
+        &:before
+          +ion-icon("search")
