@@ -18,11 +18,35 @@
     margin-bottom:  40px
 
 
-  a
-    color: $blue
+  p
+    a
+      color: $black
+      text-decoration: none
 
-    &:hover
-      color: $green
+      &:not(:hover)
+        border-bottom: 1px solid $black
+
+    b, strong
+      font-weight: 600
+
+    i
+      font-style: italic
+      font-family: $serif
+
+    u
+      text-decoration: none
+
+  blockquote
+    padding: 16px
+    @media screen and (min-width: $small)
+      padding: 20px
+
+    @media screen and (min-width: $small)
+      padding: 40px
+
+    border: 2px solid $black
+    box-shadow: 13px 13px 0 0 white, 15px 15px 0 0 $black, 15px 11px 0 0 $black, 11px 15px 0 0 $black
+
 
   &_header
     display: flex
@@ -30,7 +54,7 @@
     justify-content: space-between
     flex-flow: column nowrap
     position: relative
-    background-color: $blue
+    background-color: $black
     width: 100%
     padding: 15px
     min-height: 360px
@@ -170,13 +194,14 @@
       &:before
         +ion-icon("ios-heart-outline")
         font-size: 90px
-        color: $red
+        color: $black-2
 
       &.m-active
         animation: heart-beat 0.5s ease-out
 
         &:before
           +ion-icon("ios-heart")
+          color: $red
 
     &-content
       position: absolute
@@ -187,7 +212,7 @@
       font-size: 20px
       font-weight: 700
       text-align: center
-      color: $black-3
+      color: $black-2
       display: flex
       justify-content: center
       align-items: center
@@ -219,13 +244,14 @@
 
     &.m-edit
       resize: none
+      cursor: pointer
 
       &::placeholder
         color: $white
         transition: color 0.1s
 
       &:focus::placeholder
-        color: $white-2
+        color: $white-3
 
     @media screen and (min-width: $small)
       padding: 0 20px
@@ -291,29 +317,28 @@
 
   &_description
     +word-break
-    +rating-editor-content
+    // +rating-editor-content
     font-size: 16px
     width: 100%
     min-height: 80px
     color: $black-2
     white-space: pre-line
     transition: color 0.2s ease
-    cursor: pointer
 
     &.m-edit
       resize: none
+      cursor: pointer
 
-    &::placeholder,
     &::after
       font-style: normal
       color: $black
 
     &:focus
 
-      &::placeholder
+      &::after
         color: $black-3
 
-      + .prompt
+      // + .prompt
         animation: prompt 0.2s linear forwards
 
     @media screen and (min-width: $small)
@@ -424,7 +449,7 @@
     left: 0
     width: 100%
     height: 100%
-    background-color: rgba($color-1, 0.9)
+    background-color: rgba($black, 0.85)
     z-index: 3
     flex-flow: column
     justify-content: center
@@ -454,7 +479,7 @@
         width: 24px
         height: 24px
         background-color: $white
-        border: 2px solid $color-1
+        border: 2px solid $black
 
   &_add-image
     +add-image
@@ -477,7 +502,7 @@
     justify-content: center
 
   &_source
-    +rating-editor-content
+    // +rating-editor-content
     white-space: pre-wrap
 
   &_add-item
@@ -522,3 +547,85 @@
       width: 100%
       height: 0
       z-index: 1
+
+  &_statusbar
+    width: 100%
+    position: fixed
+    bottom: 0
+    right: 0
+    background-color: $black-3
+    display: flex
+    justify-content: flex-end
+    padding: 16px
+    z-index: 1
+
+    @media screen and (min-width: $small)
+      padding: 10px 20px
+
+    @media screen and (min-width: $medium)
+      padding: 10px 40px
+
+    &-buttons
+      display: flex
+      height: 100%
+      align-items: center
+      margin: 0 -10px
+
+    &-link
+      color: $white-2
+      margin: 0 10px
+      font-family: $monospace
+      font-size: 14px
+
+      &:hover
+        color: $white
+
+    &-button
+      +button(40px)
+      background-color: $white
+      color: $black
+      margin: 0 10px
+
+      &:hover
+        color: $blue
+
+    &-more
+      position: relative
+
+      &-icon
+        color: white
+        width: 30px
+        display: flex
+        position: relative
+        justify-content: center
+        align-items: center
+        &:before
+          +ion-icon("chevron-up")
+
+        &:after
+          +ion-icon("android-arrow-dropdown")
+          position: absolute
+          top: -20px
+          left: 0
+          display: none
+
+      &-content
+        background: white
+        padding: 5px
+
+        &-wrap
+          display: none
+          position: absolute
+          bottom: 0
+          width: 200px
+          margin-right: 15px
+          right: -100px
+          padding-bottom:40px
+
+      &:hover
+        .rating_statusbar-more-content-wrap
+          display: block
+
+        .rating_statusbar-more-icon
+          &:after
+            display: none

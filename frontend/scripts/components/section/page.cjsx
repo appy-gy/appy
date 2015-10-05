@@ -71,7 +71,7 @@ Section = React.createClass
     @props.dispatch fetchSectionRatings(@props.sectionSlug, page)
 
   changePage: (page) ->
-    @props.dispatch replaceState(null, "/sections/#{@props.sectionSlug}", { page })
+    @props.dispatch replaceState(null, "/#{@props.sectionSlug}", { page })
 
   previews: ->
     @ratings().map (rating, index) =>

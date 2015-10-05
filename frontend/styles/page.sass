@@ -1,0 +1,65 @@
+.page
+  padding: 16px
+  font-size: 16px
+  font-family: $monospace
+
+  @media screen and (min-width: $small)
+    padding: 0 0 20px 0
+
+  @media screen and (min-width: $medium)
+    padding-bottom: 0 0 40px 0
+
+  p
+    margin-bottom: 25px
+
+  h1, h2, h3, h4
+    font-weight: 600
+    color: $black
+    font-family: $sans-serif
+    margin: 10px 0 5px
+    font-size: 16px
+
+  h1
+    font-size: 22px
+
+  h2
+    font-size: 20px
+
+  h3
+    font-size: 18px
+
+  h4
+    font-size: 16px
+
+
+  a
+    cursor: pointer
+    border-bottom: 1px solid black
+
+    &:hover
+      border-bottom-color: transparent
+
+  ul, ol
+    margin-bottom: 25px
+    margin-left: 20px
+
+  li
+    margin-bottom: 10px
+
+  b
+    font-weight: 600
+
+  i
+    font-family: $serif
+    font-style: italic
+
+.appy
+  background: linear-gradient(left, #2ACEEB 20%,#3BE29F 28%,#FCC150 64%,#F47254 100%)
+  -webkit-background-clip: text
+  color: transparent
+  font-weight: bold
+
+  &::after
+    content: '.'
+    color: #F25A53
+    margin-left: -2px

@@ -56,14 +56,14 @@ User = React.createClass
     {
       id: 'ratings',
       isDefault: true
-      button: ({user}) -> "Рейтинги (#{user.ratingsCount})"
+      button: ({user}) -> "Рейтинги #{user.ratingsCount}"
       content: ({ratings, ratingPagesCount, user, page}) ->
         <Ratings ratings={ratings} count={user.ratingsCount} pagesCount={ratingPagesCount} page={page}/>
     }
     {
       id: 'comments'
       isDefault: false
-      button: ({user}) -> "Комментарии (#{user.commentsCount})"
+      button: ({user}) -> "Комментарии #{user.commentsCount}"
       content: ({comments, commentPagesCount, user, page}) ->
         <Comments comments={comments} count={user.commentsCount} pagesCount={commentPagesCount} page={page}/>
     }

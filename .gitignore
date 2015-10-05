@@ -13,3 +13,4 @@
 .env
 .env.coffee
 npm-debug.log
+mkmf.log

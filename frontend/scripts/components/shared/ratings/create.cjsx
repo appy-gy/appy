@@ -24,12 +24,12 @@ CreateRating = React.createClass
     {dispatch} = @props
     {currentUser} = @context
 
-    yaCounter32717200.reachGoal('clickCreateRatingButton')
+    yaCounter32717200?.reachGoal('clickCreateRatingButton')
 
     return unless currentUser.id?
 
     dispatch(createRating()).then ({slug}) ->
-      dispatch pushState(null, "/ratings/#{slug}")
+      dispatch pushState(null, "/ratings/#{slug}/edit")
 
   render: ->
     {children} = @props

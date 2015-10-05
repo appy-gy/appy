@@ -8,7 +8,7 @@ $tab-title-height: 50px
   justify-content: center
   font-size: 28px
   background: $white
-  color: $blue
+  color: $black
   cursor: pointer
   text-align: center
   width: $icon-button-size
@@ -36,6 +36,7 @@ $tab-title-height: 50px
 
     &-bg
       background-size: cover
+      background-position: center center
       width: 100%
       height: 100%
       position: absolute
@@ -146,6 +147,10 @@ $tab-title-height: 50px
       margin-top: 20px
       display: flex
       flex-flow: row nowrap
+      justify-content: center
+
+      @media screen and (min-width: $small)
+        justify-content: space-between
 
     &-button
       font-size: 16px
@@ -158,7 +163,10 @@ $tab-title-height: 50px
 
     &-wrap
       display: flex
-      justify-content: space-between
+      justify-content: center
+
+      @media screen and (min-width: $small)
+        justify-content: space-between
 
   &_socials
     display: flex
@@ -192,17 +200,19 @@ $tab-title-height: 50px
     &:last-of-type
       margin-right: 0
 
+    &-content
+      margin-left: 2px
+
     &.m-add
-      background: $white
       line-height: $icon-button-size
-      color: $blue-2
+      color: $black-2
 
       &:hover
-        color: $blue
+        color: $black
 
       .user-profile
         &_social-link
-          border-left: 1px solid $blue-2
+          background: $white
 
     &.m-remove
       display: flex
@@ -252,6 +262,7 @@ $tab-title-height: 50px
   &_settings
     width: 30px
     height: 50px
+    margin-left: 10px
 
     &:before
       +ion-icon("ios-gear-outline")
@@ -326,7 +337,7 @@ $tab-title-height: 50px
     font-size: 20px
     font-family: $monospace
     font-weight: 700
-    color: $blue
+    color: $black
     line-height: 1
     padding: 25px 15px 15px 15px
 
@@ -338,13 +349,17 @@ $tab-title-height: 50px
   &_tab-buttons
     margin-top: 20px
     display: flex
+    justify-content: center
+    
+    @media screen and (min-width: $small)
+      justify-content: flex-start
 
   &_tab-button
     font-family: $monospace
     color: $white-3
     margin-right: 20px
     font-weight: 600
-    border-bottom: 1px solid $white-3
+    border-bottom: 1px solid $white-2
     cursor: pointer
     font-size: 14px
 

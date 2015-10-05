@@ -54,7 +54,7 @@ Ratings = React.createClass
         type = _.findKey @previewEnds, (end) -> _.inRange index, end
       type ||= 'normal'
       mod = _.kebabCase type
-      imageSize = if type == 'normal' then 'preview' else 'large_preview'
+      imageSize = if type == 'normal' then 'preview' else 'normal'
       <Preview key={rating.id} rating={rating} mod={mod} imageSize={imageSize}/>
 
   render: ->

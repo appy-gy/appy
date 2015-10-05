@@ -91,13 +91,34 @@ Rating = React.createClass
     <article className="rating">
       <UpdateStatus/>
       <Header/>
-      <Description object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Введите описание рейтинга"/>
+      <Description object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Нажмите, чтобы ввести описание рейтинга."/>
       {@authorLink()}
       <RatingItems/>
       {@addRatingItemButton()}
       {@source()}
       {@likeButton()}
       {@shareButtons()}
+      <div className="rating_statusbar">
+        <div className="rating_statusbar-buttons">
+          <a href="/" className="rating_statusbar-link">
+            Сохранить
+          </a>
+          <div className="rating_statusbar-more">
+            <div className="rating_statusbar-more-icon">
+            </div>
+            <div className="rating_statusbar-more-content-wrap">
+              <div className="rating_statusbar-more-content">
+                <div className="rating_statusbar-more-content-link">
+                  Удалить
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="rating_statusbar-button">
+            Опубликовать
+          </div>
+        </div>
+      </div>
     </article>
 
 module.exports = connect()(Rating)

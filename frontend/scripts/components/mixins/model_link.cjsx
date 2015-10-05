@@ -5,32 +5,37 @@ Router = require 'react-router'
 {PropTypes} = React
 {Link} = Router
 
-ModelLink = (name) ->
-  displayName: "#{_.camelCase name}Link"
-
+defaultOpts = (name) ->
   propTypes:
     "#{name}": PropTypes.object
     slug: PropTypes.string
     children: PropTypes.node
+  prefix: ->
+    "#{name}s"
+  url: (props, {prefix}) ->
+    slug = props.slug || props[name]?.slug
+    url = "/#{slug}"
+    url = "/#{prefix @props}#{url}" if _.isFunction prefix
+    url
+
+ModelLink = (name, opts = {}) ->
+  opts = _.defaultsDeep opts, defaultOpts(name)
+  {propTypes, url} = opts
+
+  displayName: "#{_.camelCase name}Link"
+
+  propTypes: propTypes
 
   getDefaultProps: ->
     children: null
-
-  slug: ->
-    {slug} = @props
-    object = @props[name]
-
-    slug or object?.slug
 
   render: ->
     {children} = @props
 
     props = _.omit @props, name, 'slug', 'children'
-    to = "/#{name}s/#{@slug()}"
-    Root = if @slug() then Link else 'span'
 
-    <Root to={to} {...props}>
+    <Link to={url @props, opts} {...props}>
       {children}
-    </Root>
+    </Link>
 
 module.exports = ModelLink

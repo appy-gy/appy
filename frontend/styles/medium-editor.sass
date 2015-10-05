@@ -69,3 +69,21 @@ $font-sans-serif: $sans-serif
 .medium-toolbar-arrow-under:after,
 .medium-toolbar-arrow-over:before
   border-top-color: $black
+
+
+.medium-editor-placeholder::after
+  font-style: normal
+  color: $black
+  white-space: normal
+
+.medium-editor-action-removeFormat
+  b
+    color: transparent
+    display: flex
+    justify-content: center
+    align-items: center
+
+    &:before
+      +ion-icon("android-close")
+      font-size: 20px
+      color: $white
