@@ -79,13 +79,9 @@ Preview = React.createClass
         <RatingLink className="preview_title" rating={rating}>
           {@title()}
         </RatingLink>
-        <RatingLink className="preview_description" rating={rating}>
-          {@description()}
-        </RatingLink>
+        {@description()}
         <Tags tags={rating.tags}/>
       </div>
-      <RatingLink className="preview_link" rating={rating}>
-      </RatingLink>
     </div>
 
 module.exports = Preview
