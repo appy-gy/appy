@@ -17,10 +17,8 @@ Tags = React.createClass
     {tag} = @props
     {block} = @context
 
-    <span className="#{block}_tag tag">
-      <Link to="/tags/#{tag.slug}">
-        {tag.name}
-      </Link>
-    </span>
+    <Link className="#{block}_tag tag" to="/tags/#{tag.slug}">
+      {tag.name}
+    </Link>
 
 module.exports = Tags

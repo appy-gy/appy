@@ -85,6 +85,7 @@
 
     &-center
       width: 100%
+      z-index: 2
 
   &_cover
     position: absolute
@@ -261,6 +262,12 @@
       padding: 0 40px
       font-size: 40px
 
+
+  &_sort-switch
+    +switch($white, 150px)
+    &-wrap
+      margin-top: 30px
+
   &_section-name
     display: block
     font-size: 12px
@@ -268,7 +275,7 @@
     letter-spacing: 1px
     text-transform: uppercase
     cursor: pointer
-    z-index: 2
+    z-index: 3
 
     &-wrapper
       width: 100%
@@ -295,6 +302,9 @@
 
   &_tag
     color: $white-2
+
+    &:hover
+      color: $white
 
   &_tags-select
     display: flex

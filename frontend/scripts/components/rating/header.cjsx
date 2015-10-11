@@ -107,6 +107,16 @@ Header = React.createClass
           {@sectionSelect()}
         </div>
         <Title object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Введите заголовок рейтинга"/>
+        <div className="rating_sort-switch-wrap">
+          <div className="rating_sort-switch">
+            <div className="rating_sort-switch-tab m-active">
+              Авторский
+            </div>
+            <div className="rating_sort-switch-tab">
+              Пользовательский
+            </div>
+          </div>
+        </div>
       </div>
       <div className="rating_tags-select">
         <TagsSelect/>
