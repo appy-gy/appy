@@ -31,7 +31,7 @@ Ratings = React.createClass
 
     text = if isOwnPage then 'У вас пока нет рейтингов. Создайте свой первый рейтинг прямо сейчас!' else 'У пользователя нет рейтингов.'
 
-    <div className="user-profile_tab-no-ratings">
+    <div className="user-profile_tab-content-no-ratings">
       {text}
     </div>
 
@@ -40,7 +40,7 @@ Ratings = React.createClass
 
     return if @hasRatings() or not isOwnPage
 
-    <CreateRating className="user-profile_tab-button">
+    <CreateRating className="user-profile_tab-content-button">
       Создать рейтинг
     </CreateRating>
 
@@ -58,7 +58,7 @@ Ratings = React.createClass
     {page, pagesCount} = @props
     {user} = @context
 
-    <div className="user-profile_content">
+    <div className="user-profile_tab-content">
       <h2 className="user-profile_tab-header">
         Рейтинги
       </h2>

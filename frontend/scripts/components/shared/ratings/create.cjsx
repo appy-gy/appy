@@ -39,9 +39,9 @@ CreateRating = React.createClass
     Component = if currentUser.id? then 'div' else Login
 
     <Component {...props} onSuccess={@create}>
-      <div onClick={@create}>
+      <span onClick={@create}>
         {children}
-      </div>
+      </span>
     </Component>
 
 module.exports = connect()(CreateRating)

@@ -45,6 +45,9 @@
     border: 2px solid rgba($white, 0)
     transition: border-color 0.1s ease
 
+  &_user-info
+    width: calc(100% - 60px) // без этого, элементы выходят за пределы внутри флекс-блока
+
   &_user-name
     font-family: $monospace
     font-size: 14px

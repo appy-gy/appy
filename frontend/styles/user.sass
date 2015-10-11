@@ -110,7 +110,7 @@ $tab-title-height: 50px
         margin-bottom: 0
 
   &_info
-    width: 100%
+    width: calc(100% - 254px)
     display: flex
     flex-flow: column
     justify-content: center
@@ -123,6 +123,7 @@ $tab-title-height: 50px
       padding: 0 0 0 40px
 
   &_name
+    width: calc(100% - 40px)
 
     &-value
       font-size: 40px
@@ -350,7 +351,7 @@ $tab-title-height: 50px
     margin-top: 20px
     display: flex
     justify-content: center
-    
+
     @media screen and (min-width: $small)
       justify-content: flex-start
 
@@ -371,10 +372,29 @@ $tab-title-height: 50px
     @media screen and (min-width: $medium)
       font-size: 16px
 
-  &_tab-no-comments,
-  &_tab-no-ratings
+  &_tab-content-no-comments,
+  &_tab-content-no-ratings
+    margin-bottom: 15px
     @media screen and (max-width: $small)
       padding: 0 15px
+
+  &_tab-content-button
+    display: inline-block
+    font-family: $monospace
+    font-weight: 600
+    font-size: 14px
+    border: 2px solid $black
+    color: $black
+    padding: 0 15px
+    height: 40px
+    line-height: 36px
+    cursor: pointer
+    position: relative
+
+    &:hover
+      background-color: $black
+      color: $white
+
 
 
   .preview
