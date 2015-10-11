@@ -2,28 +2,17 @@ _ = require 'lodash'
 React = require 'react'
 CSSTransitionGroup = require 'react-addons-css-transition-group'
 ReactRedux = require 'react-redux'
-popupActions = require '../../../actions/popups'
-OnEsc = require '../../mixins/on_esc'
 Popup = require './popup'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{removePopup} = popupActions
 
 Popups = React.createClass
   displayName: 'Popups'
 
-  mixins: [OnEsc]
-
   propTypes:
     dispatch: PropTypes.func.isRequired
     popups: PropTypes.arrayOf(PropTypes.object).isRequired
-
-  componentWillMount: ->
-    @onEsc @closeLastPopup
-
-  closeLastPopup: ->
-    @props.dispatch removePopup(@popup()) if @popup()?
 
   popup: ->
     {popups} = @props
@@ -41,7 +30,6 @@ Popups = React.createClass
       <CSSTransitionGroup className="popups_popup-wrapper" transitionName="m" transitionEnterTimeout={250} transitionLeaveTimeout={250}>
         {@popupComponent()}
       </CSSTransitionGroup>
-      <div className="popups_close" onClick={@closeLastPopup}></div>
     </div>
 
 mapStateToProps = ({popups}) ->
