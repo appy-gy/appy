@@ -1,8 +1,7 @@
-_ = require 'lodash'
 React = require 'react'
+ReactRedux = require 'react-redux'
 OnEsc = require '../../mixins/on_esc'
 popupActions = require '../../../actions/popups'
-ReactRedux = require 'react-redux'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -14,19 +13,14 @@ Popup = React.createClass
   mixins: [OnEsc]
 
   propTypes:
+    dispatch: PropTypes.func.isRequired
     popup: PropTypes.object.isRequired
 
   componentWillMount: ->
     @onEsc @close
 
   close: ->
-    @props.dispatch removePopup(@popup()) if @popup()?
-
-  popup: ->
-    {popups} = @props
-
-    return if _.isEmpty popups
-    _.last popups
+    @props.dispatch removePopup(@props.popup)
 
   render: ->
     {popup} = @props
@@ -37,7 +31,4 @@ Popup = React.createClass
       <div className="popups_popup_close" onClick={@close}></div>
     </div>
 
-  mapStateToProps = ({popups}) ->
-    { popups }
-
-module.exports = connect(mapStateToProps)(Popup)
+module.exports = connect()(Popup)
