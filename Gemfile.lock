@@ -380,6 +380,3 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   whenever
-
-BUNDLED WITH
-   1.10.5
