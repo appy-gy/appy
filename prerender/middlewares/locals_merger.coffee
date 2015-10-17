@@ -8,7 +8,7 @@ module.exports = ->
     when 'production'
       paths = assetPaths()
       cssPath = path.join __dirname, '../../public', paths.css.replace(process.env.TOP_ASSETS_HOST, '')
-      css = fs.readFileSync cssPath
+      css = fs.readFileSync(cssPath).toString()
       jsPath = paths.js
       fontPaths = paths.fonts
     when 'development'
