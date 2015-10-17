@@ -1,7 +1,7 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
-ReduxReactRouter = require 'redux-react-router'
+ReduxRouter = require 'redux-router'
 Helmet = require 'react-helmet'
 strip = require 'strip'
 ratingActions = require '../../actions/rating'
@@ -16,7 +16,7 @@ Layout = require '../layout/layout'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{replaceState} = ReduxReactRouter
+{replaceState} = ReduxRouter
 {fetchRating} = ratingActions
 {fetchRatingItems} = ratingItemActions
 

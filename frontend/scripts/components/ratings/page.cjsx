@@ -1,7 +1,7 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
-ReduxReactRouter = require 'redux-react-router'
+ReduxRouter = require 'redux-router'
 Helmet = require 'react-helmet'
 ratingActions = require '../../actions/ratings'
 mainPageRatingActions = require '../../actions/main_page_ratings'
@@ -12,7 +12,7 @@ GlobalSearch = require '../shared/search/global'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{replaceState} = ReduxReactRouter
+{replaceState} = ReduxRouter
 {fetchRatings} = ratingActions
 {fetchMainPageRatings} = mainPageRatingActions
 

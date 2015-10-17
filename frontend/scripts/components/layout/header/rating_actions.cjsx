@@ -1,12 +1,12 @@
 React = require 'react'
 ReactRedux = require 'react-redux'
-ReduxReactRouter = require 'redux-react-router'
+ReduxRouter = require 'redux-router'
 Publish = require '../../shared/ratings/publish'
 Delete = require '../../shared/ratings/delete'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{replaceState} = ReduxReactRouter
+{replaceState} = ReduxRouter
 
 RatingActions = React.createClass
   displayName: 'RatingActions'

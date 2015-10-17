@@ -1,12 +1,12 @@
 React = require 'react'
 ReactRedux = require 'react-redux'
-ReduxReactRouter = require 'redux-react-router'
+ReduxRouter = require 'redux-router'
 Select = require 'react-select'
 http = require '../../../helpers/http'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{pushState} = ReduxReactRouter
+{pushState} = ReduxRouter
 
 GlobalSearch = React.createClass
   displayName: 'GlobalSearch'

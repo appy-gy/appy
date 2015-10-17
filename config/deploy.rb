@@ -96,10 +96,10 @@ task deploy: :environment do
     invoke :'memcached:flush'
 
     to :launch do
-      invoke :'puma:restart'
+      invoke :'sidekiq:restart'
       invoke :'prerender:stop'
       invoke :'prerender:start'
-      invoke :'sidekiq:restart'
+      invoke :'puma:restart'
     end
   end
 end
