@@ -8,6 +8,7 @@ SectionRatings = require './components/section/page'
 Page = require './components/page/page'
 Tag = require './components/tag/page'
 User = require './components/user/page'
+Search = require './components/search/page'
 Instagram = require './components/instagram/page'
 
 {Route, IndexRoute} = Router
@@ -15,6 +16,7 @@ Instagram = require './components/instagram/page'
 routes =
   <Route component={App} path="/">
     <IndexRoute component={Ratings}/>
+    <Route path="search(/:query)" component={Search}/>
     <Route path=":sectionSlug" component={SectionRatings}/>
     <Route path="users/:userSlug" component={User}/>
     <Route path="pages/:pageSlug" component={Page}/>

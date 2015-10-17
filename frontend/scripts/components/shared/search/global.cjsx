@@ -21,7 +21,6 @@ GlobalSearch = React.createClass
 
   loadOptions: (query, callback) ->
     http.get('search/global', params: { query }).then ({data}) =>
-      console.log 'load', data
       callback null, options: @toOptions(data.results)
 
   openResult: (newValue, [{result}]) ->

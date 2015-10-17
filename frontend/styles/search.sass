@@ -1,0 +1,35 @@
+.search
+  display: flex
+  flex-flow: column nowrap
+
+  &_input
+    font-size: 40px
+    color: $black
+    text-align: center
+    transition: color 0.25s ease
+
+    &::placeholder
+      color: $black-3
+
+    &:focus::placeholder
+      color: $black-2
+
+  &_results
+    display: flex
+    flex-flow: column nowrap
+
+  &_result
+    display: flex
+    flex-flow: row nowrap
+    margin-bottom: 2 * $margin
+
+    &-image
+      background-size: cover
+      width: 100px
+      height: 100px
+
+    &-title
+      align-self: center
+      font-size: 30px
+      color: $black
+      margin-left: 2 * $margin

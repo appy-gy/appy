@@ -8,7 +8,6 @@ mainPageRatingActions = require '../../actions/main_page_ratings'
 RatingsList = require '../mixins/ratings_list'
 Layout = require '../layout/layout'
 Preview = require '../shared/ratings/preview'
-GlobalSearch = require '../shared/search/global'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -62,7 +61,6 @@ Ratings = React.createClass
 
     <Layout isLoading={not isFetched} onLogoClick={@showFirstPage}>
       <Helmet title="информационно-развлекательный портал для творческих людей"/>
-      <GlobalSearch/>
       <div className="previews">
         {@previews()}
         {@showMore()}

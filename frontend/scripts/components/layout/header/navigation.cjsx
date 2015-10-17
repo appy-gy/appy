@@ -1,10 +1,12 @@
 React = require 'react'
 ReactRedux = require 'react-redux'
+Router = require 'react-router'
 headerSectionActions = require '../../../actions/header_sections'
 Section = require './section'
 
 {PropTypes} = React
 {connect} = ReactRedux
+{Link} = Router
 {fetchHeaderSections} = headerSectionActions
 
 Navigation = React.createClass
@@ -29,15 +31,14 @@ Navigation = React.createClass
   render: ->
     <nav className="site-nav">
       {@sections()}
-      <div className="site-nav_item m-search">
+      <Link className="site-nav_item m-search" to="/search">
         <div className="site-nav_icon">
         </div>
         <div className="site-nav_text">
           Поиск
         </div>
-      </div>
+      </Link>
     </nav>
-
 
 mapStateToProps = ({headerSections}) ->
   sections: headerSections.items
