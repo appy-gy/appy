@@ -12,7 +12,7 @@ Rating = ({rating}) ->
         {rating.title}
       </div>
       <div className="search_result-description">
-        Описание, блаблабла
+        {rating.description}
       </div>
     </div>
   </RatingLink>

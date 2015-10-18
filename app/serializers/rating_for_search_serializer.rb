@@ -1,7 +1,7 @@
 class RatingForSearchSerializer < ActiveModel::Serializer
   self.root = :rating
 
-  attributes :id, :title, :image, :slug
+  attributes :id, :title, :description, :image, :slug
 
   def image
     object.image.url
