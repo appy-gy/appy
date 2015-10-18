@@ -5,6 +5,7 @@ ReduxRouter = require 'redux-router'
 Helmet = require 'react-helmet'
 Select = require 'react-select'
 http = require '../../helpers/http'
+OnEsc = require '../mixins/on_esc'
 Layout = require '../layout/layout'
 Result = require './result'
 
@@ -15,6 +16,8 @@ Result = require './result'
 SearchPage = React.createClass
   displayName: 'SearchPage'
 
+  mixins: [OnEsc]
+
   propTypes:
     dispatch: PropTypes.func.isRequired
     query: PropTypes.string.isRequired
@@ -24,6 +27,7 @@ SearchPage = React.createClass
 
   componentWillMount: ->
     @search @props.query
+    @onEsc -> history.back()
 
   changeQuery: (event) ->
     {dispatch} = @props
