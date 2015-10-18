@@ -20,6 +20,7 @@ RatingItemVideo = React.createClass
 
   contextTypes:
     ratingItem: PropTypes.object.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   getInitialState: ->
     {ratingItem} = @context
@@ -50,11 +51,9 @@ RatingItemVideo = React.createClass
       @queueUpdate ->
         dispatch updateRatingItem(ratingItem.id, videoUrl: url)
 
-  removeVideo: (event) ->
+  removeVideo: ->
     {dispatch} = @props
     {ratingItem} = @context
-
-    event.stopPropagation()
 
     @hideInput()
     dispatch changeRatingItem(ratingItem.id, video: {})
@@ -70,14 +69,23 @@ RatingItemVideo = React.createClass
 
   input: ->
     {showInput} = @state
+    {canEdit} = @context
 
-    return unless showInput
+    return unless canEdit and showInput
+
     <input ref="input" type="text" className="rating-item_video-input" placeholder="Вставьте ссылка на видео на youtube или vimeo" onBlur={@updateVideo}/>
 
-  removeVideoButton: ->
-    {ratingItem} = @context
+  addVideoButton: ->
+    {canEdit} = @context
 
-    return if _.isEmpty ratingItem.video
+    return unless canEdit
+
+    <div className="rating-item_add-video" onClick={@showInput}></div>
+
+  removeVideoButton: ->
+    {ratingItem, canEdit} = @context
+
+    return if not canEdit or _.isEmpty(ratingItem.video)
 
     <div className="rating-item_remove-video" title="Удалить видео" onClick={@removeVideo}>
       Удалить видео
@@ -88,11 +96,11 @@ RatingItemVideo = React.createClass
 
     classes = classNames 'rating-item_attachment-video', 'm-chosen': not _.isEmpty ratingItem.video
 
-    <div className={classes} onClick={@showInput}>
-      <div className="rating-item_add-video"></div>
+    <div className={classes}>
+      {@addVideoButton()}
+      {@removeVideoButton()}
       {@input()}
       {@player()}
-      {@removeVideoButton()}
     </div>
 
 module.exports = connect()(RatingItemVideo)
