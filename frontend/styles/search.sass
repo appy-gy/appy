@@ -42,19 +42,38 @@
     display: flex
     flex-flow: column nowrap
     transition: all 1s
+    width: 100%
 
   &_result
     display: flex
-    flex-flow: row nowrap
     margin-bottom: 2 * $margin
+    padding: 10px
 
     &-image
       background-size: cover
       width: 100px
       height: 100px
+      flex-shrink: 0
+      margin-right: 2 * $margin
+
+      &.m-user
+        border-radius: 50px
+
+    &-content
+      width: auto
 
     &-title
-      align-self: center
       font-size: 30px
       color: $black
-      margin-left: 2 * $margin
+      font-family: $monospace
+
+      &.m-user
+        display: flex
+        align-items: center
+
+    &-description
+      color: $black-2
+      font-size: 12px
+
+    &:hover
+      background-color: $white

@@ -7,8 +7,13 @@ Rating = ({rating}) ->
 
   <RatingLink rating={rating} className="search_result m-rating">
     <div className="search_result-image" style={imageStyles}></div>
-    <div className="search_result-title">
-      {rating.title}
+    <div className="search_result-content">
+      <div className="search_result-title">
+        {rating.title}
+      </div>
+      <div className="search_result-description">
+        Описание, блаблабла
+      </div>
     </div>
   </RatingLink>
 
