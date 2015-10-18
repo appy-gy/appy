@@ -2,8 +2,10 @@ _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
 ReduxRouter = require 'redux-router'
+Helmet = require 'react-helmet'
 Select = require 'react-select'
 http = require '../../helpers/http'
+OnEsc = require '../mixins/on_esc'
 Layout = require '../layout/layout'
 Result = require './result'
 
@@ -14,6 +16,8 @@ Result = require './result'
 SearchPage = React.createClass
   displayName: 'SearchPage'
 
+  mixins: [OnEsc]
+
   propTypes:
     dispatch: PropTypes.func.isRequired
     query: PropTypes.string.isRequired
@@ -23,6 +27,7 @@ SearchPage = React.createClass
 
   componentWillMount: ->
     @search @props.query
+    @onEsc -> history.back()
 
   changeQuery: (event) ->
     {dispatch} = @props
@@ -50,7 +55,8 @@ SearchPage = React.createClass
   render: ->
     {query} = @props
 
-    <Layout>
+    <Layout header={false} showClose={true}>
+      <Helmet title="Поиск"/>
       <div className="search">
         <input type="text" className="search_input" placeholder="Поиск" autoFocus value={query} onChange={@changeQuery}/>
         <div className="search_results">

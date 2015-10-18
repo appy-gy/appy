@@ -17,6 +17,9 @@
     @media screen and (min-width: $big)
       margin-left: $header-width
 
+      &.m-without-header
+        margin-left: 0
+
     &.m-header-expanded
 
       @media screen and (max-width: $big)
@@ -75,3 +78,14 @@
       animation: rotate 1s linear infinite
       color: $red
       font-size: 32px
+
+  &_close
+    position: fixed
+    top: $margin
+    right: $margin
+    z-index: 6
+
+    &:before
+      +ion-icon("android-close")
+      font-size: 20px
+      cursor: pointer
