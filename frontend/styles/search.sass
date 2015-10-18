@@ -1,18 +1,43 @@
 .search
   display: flex
-  flex-flow: column nowrap
+  flex-flow: row wrap
+  justify-content: center
+  align-items: center
+  height: 100%
+  width: 100%
+
+  &_title
+    font-size: 20px
+    font-family: $monospace
+    text-transform: uppercase
+    text-align: center
+    margin-top: 120px
+    width: 100%
+    color: $black
+    margin-bottom: 10px
 
   &_input
+    display: inline-block
     font-size: 40px
     color: $black
+    width: 100%
     text-align: center
     transition: color 0.25s ease
+    // margin-top: 40px
 
     &::placeholder
       color: $black-3
+      &:before
+        display: inline-block
+        font-size: 32px
+        line-height: 1.5
+        +ion-icon("search")
 
-    &:focus::placeholder
-      color: $black-2
+    &-wrap
+      display: flex
+      justify-content: center
+      width: 100%
+
 
   &_results
     display: flex

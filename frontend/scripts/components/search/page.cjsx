@@ -58,7 +58,10 @@ SearchPage = React.createClass
     <Layout header={false} showClose={true}>
       <Helmet title="Поиск"/>
       <div className="search">
-        <input type="text" className="search_input" placeholder="Поиск" autoFocus value={query} onChange={@changeQuery}/>
+        <h1 className="search_title">Поиск</h1>
+        <div className="search_input-wrap">
+          <input type="text" className="search_input" placeholder="Просто начните вводить то, что ищете" autoFocus value={query} onChange={@changeQuery}/>
+        </div>
         <div className="search_results">
           {@results()}
         </div>
