@@ -32,7 +32,6 @@
     "react-dnd": "^1.1.8",
     "react-dom": "^0.14.0",
     "react-helmet": "^2.1.0",
-    "react-medium-editor": "^1.5.0",
     "react-redux": "^4.0.0",
     "react-router": "^1.0.0-rc3",
     "react-select": "^0.7.0",
