@@ -15,7 +15,7 @@ Layout = React.createClass
   displayName: 'Layout'
 
   propTypes:
-    header: PropTypes.string
+    header: PropTypes.oneOf ['common', 'rating', 'editRating', false]
     isLoading: PropTypes.bool
     onLogoClick: PropTypes.func
     children: PropTypes.node
@@ -29,12 +29,12 @@ Layout = React.createClass
     common: CommonHeader
     editRating: EditRatingHeader
     rating: RatingHeader
-    children: null
 
   getDefaultProps: ->
     header: 'common'
     isLoading: false
     onLogoClick: ->
+    children: null
 
   getInitialState: ->
     headerExpanded: false
@@ -51,6 +51,7 @@ Layout = React.createClass
   header: ->
     {header} = @props
 
+    return unless header
     Header = @headers[header]
     <Header/>
 
@@ -61,11 +62,11 @@ Layout = React.createClass
     @props.children unless @props.isLoading
 
   render: ->
-    {children} = @props
+    {header, children} = @props
 
     <div className="layout">
       {@header()}
-      <Main>
+      <Main hasHeader={!!header}>
         {@content()}
       </Main>
       <Footer/>

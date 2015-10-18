@@ -7,16 +7,20 @@ Main = React.createClass
   displayName: 'Main'
 
   propTypes:
-    children: PropTypes.node.isRequired
+    hasHeader: PropTypes.bool.isRequired
+    children: PropTypes.node
 
   contextTypes:
     headerExpanded: PropTypes.bool.isRequired
 
+  getDefaultProps: ->
+    children: null
+
   render: ->
-    {children} = @props
+    {hasHeader, children} = @props
     {headerExpanded} = @context
 
-    classes = classNames 'layout_main', 'm-header-expanded': headerExpanded
+    classes = classNames 'layout_main', 'm-without-header': not hasHeader, 'm-header-expanded': headerExpanded
 
     <main className={classes}>
       <div className='grid'>
