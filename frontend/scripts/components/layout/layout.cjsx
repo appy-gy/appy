@@ -19,6 +19,7 @@ Layout = React.createClass
     header: PropTypes.oneOf ['common', 'rating', 'editRating', false]
     isLoading: PropTypes.bool
     onLogoClick: PropTypes.func
+    showFooter: PropTypes.bool
     showClose: PropTypes.bool
     onClose: PropTypes.func
     children: PropTypes.node
@@ -37,8 +38,9 @@ Layout = React.createClass
     header: 'common'
     isLoading: false
     onLogoClick: ->
+    showFooter: true
     showClose: false
-    onClose: -> history.back()
+    onClose: -> console.log 'TODO: implement default onClose for the layout component'
     children: null
 
   getInitialState: ->
@@ -63,8 +65,11 @@ Layout = React.createClass
   loader: ->
     <Loader/> if @props.isLoading
 
+  footer: ->
+    <Footer/> if @props.showFooter
+
   close: ->
-    <Close onClick={@props.onClose}/> if @props.showClose
+    <Close onClose={@props.onClose}/> if @props.showClose
 
   content: ->
     @props.children unless @props.isLoading
@@ -77,7 +82,7 @@ Layout = React.createClass
       <Main hasHeader={!!header}>
         {@content()}
       </Main>
-      <Footer/>
+      {@footer()}
       {@close()}
       <Popups/>
       <Toastr/>
