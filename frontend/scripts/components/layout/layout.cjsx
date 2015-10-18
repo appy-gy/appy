@@ -1,6 +1,7 @@
 React = require 'react'
 Main = require './main'
 Loader = require './loader'
+Close = require './close'
 CommonHeader = require './header/common'
 RatingHeader = require './header/rating'
 EditRatingHeader = require './header/edit_rating'
@@ -18,6 +19,8 @@ Layout = React.createClass
     header: PropTypes.oneOf ['common', 'rating', 'editRating', false]
     isLoading: PropTypes.bool
     onLogoClick: PropTypes.func
+    showClose: PropTypes.bool
+    onClose: PropTypes.func
     children: PropTypes.node
 
   childContextTypes:
@@ -34,6 +37,8 @@ Layout = React.createClass
     header: 'common'
     isLoading: false
     onLogoClick: ->
+    showClose: false
+    onClose: -> history.back()
     children: null
 
   getInitialState: ->
@@ -58,11 +63,14 @@ Layout = React.createClass
   loader: ->
     <Loader/> if @props.isLoading
 
+  close: ->
+    <Close onClick={@props.onClose}/> if @props.showClose
+
   content: ->
     @props.children unless @props.isLoading
 
   render: ->
-    {header, children} = @props
+    {header, onClose, children} = @props
 
     <div className="layout">
       {@header()}
@@ -70,6 +78,7 @@ Layout = React.createClass
         {@content()}
       </Main>
       <Footer/>
+      {@close()}
       <Popups/>
       <Toastr/>
       {@loader()}

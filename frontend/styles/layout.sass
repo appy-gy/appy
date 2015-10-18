@@ -78,3 +78,14 @@
       animation: rotate 1s linear infinite
       color: $red
       font-size: 32px
+
+  &_close
+    position: fixed
+    top: $margin
+    right: $margin
+    z-index: 2
+
+    &:before
+      +ion-icon("android-close")
+      font-size: 20px
+      cursor: pointer
