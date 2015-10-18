@@ -38,7 +38,7 @@ Layout = React.createClass
     isLoading: false
     onLogoClick: ->
     showClose: false
-    onClose: -> history.back()
+    onClose: -> console.log 'TODO: implement default onClose for the layout component'
     children: null
 
   getInitialState: ->
@@ -64,7 +64,7 @@ Layout = React.createClass
     <Loader/> if @props.isLoading
 
   close: ->
-    <Close onClick={@props.onClose}/> if @props.showClose
+    <Close onClose={@props.onClose}/> if @props.showClose
 
   content: ->
     @props.children unless @props.isLoading
