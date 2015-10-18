@@ -51,7 +51,7 @@ SearchPage = React.createClass
   render: ->
     {query} = @props
 
-    <Layout header={false} showClose={true}>
+    <Layout header={false} showFooter={false} showClose={true}>
       <Helmet title="Поиск"/>
       <div className="search">
         <input type="text" className="search_input" placeholder="Поиск" autoFocus value={query} onChange={@changeQuery}/>
