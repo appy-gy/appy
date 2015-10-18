@@ -22,8 +22,8 @@ EditRatingHeader = React.createClass
       <EditRatingItems/>
       <div className="header_rating-publish-info">
         <Validations/>
-        <RatingActions/>
       </div>
+      <RatingActions/>
     </Header>
 
 module.exports = EditRatingHeader
