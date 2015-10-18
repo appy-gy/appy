@@ -74,37 +74,22 @@
       &.m-cancel
         +alt-cancel
 
-  &_add-image
-    +add-image
-    position: relative
-    color: $black-3
-    width: 40px
-    height: 40px
-    border: 1px solid $black-3
-    border-radius: 20px
-
-  &_cover
+  &_attachment
+    display: flex
+    flex-flow: row nowrap
     position: relative
     width: 100%
 
-    &-wrap
-      display: flex
-      justify-content: center
-      width: 100%
-
-      @media screen and (min-width: $medium)
-        padding: 20px 0 0
-
     &-image
-      display: none
-      margin: 0 auto
-      max-width: 100%
-      max-height: 600px
+      position: relative
 
-    &.m-with-image
+    &-video
+      display: flex
+      flex-flow: row nowrap
 
+    &.m-chosen
       .rating-item
-        &_cover-image
+        &_image
           display: block
 
         &_add-image
@@ -140,8 +125,36 @@
             margin-right: 0
             opacity: 1
 
+  &_image
+    display: none
+    margin: 0 auto
+    max-width: 100%
+    max-height: 600px
+
+  &_video
+    &-input
+      margin-left: $margin
+      width: 500px
+
+      &::placeholder, &:focus::placeholder
+        color: $black-3
+
+  &_add-image
+    +add-image
+
+  &_add-video
+    +add-video
+    margin-left: $margin
+
+  &_add-image, &_add-video
+    position: relative
+    color: $black-3
+    width: 40px
+    height: 40px
+    border: 1px solid $black-3
+    border-radius: 20px
+
   &_description
-    // +rating-editor-content
     margin: 15px 0
     width: 100%
     white-space: pre-wrap

@@ -4,7 +4,7 @@ classNames = require 'classnames'
 ratingItemActions = require '../../actions/rating_items'
 Title = require './title'
 Description = require './description'
-Image = require './rating_item_image'
+Attachment = require './rating_item_attachment'
 Votes = require './votes'
 Waypoint = require '../shared/waypoint'
 
@@ -41,7 +41,6 @@ RatingItem = React.createClass
 
     @props.dispatch removeRatingItem(@props.ratingItem.id)
 
-
   handleWaypointLeave: ->
     @props.dispatch removeRatingItemWaypoint(@props.ratingItem.id)
 
@@ -77,9 +76,7 @@ RatingItem = React.createClass
         <div className="rating-item_description-wrapper">
           <Description object={ratingItem} objectType="ratingItem" passObjectId={true} edit={edit} placeholder="Введите описание пункта"/>
         </div>
-        <div className="rating-item_cover-wrap">
-          <Image/>
-        </div>
+        <Attachment/>
         {@removeButton()}
         {@votes()}
       </section>

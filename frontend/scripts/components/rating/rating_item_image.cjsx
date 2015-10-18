@@ -58,14 +58,13 @@ RatingItemImage = React.createClass
   image: ->
     {canEdit} = @context
 
-    image = <img className="rating-item_cover-image" src={@imageUrl()}/>
+    image = <img className="rating-item_image" src={@imageUrl()}/>
     unless canEdit
       image = <a target="_blank" href={@imageUrl()}>{image}</a>
     image
 
   updateImageButton: ->
     <div className="rating-item_add-image" title="Выберите изображение" onClick={@openSelect}>
-
     </div>
 
   removeImageButton: ->
@@ -87,7 +86,7 @@ RatingItemImage = React.createClass
   render: ->
     {ratingItem, canEdit} = @context
 
-    classes = classNames 'rating-item_cover', 'm-with-image': ratingItem.image?
+    classes = classNames 'rating-item_attachment-image', 'm-chosen': ratingItem.image?
 
     return <div className={classes}>{@children()}</div> unless canEdit
 

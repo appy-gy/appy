@@ -117,7 +117,7 @@
     color: $white
     background-color: $color
 
-=add-image
+=change-attachment
   z-index: 2
   font-size: 32px
   color: $white
@@ -128,30 +128,27 @@
   display: flex
   justify-content: center
   align-items: center
+
+  &:hover
+    transform: scale(1.2)
+
+=add-image
+  +change-attachment
 
   &:before
     +ion-icon("ios-camera-outline")
 
-  &:hover
-    transform: scale(1.2)
-
 =remove-image
-  z-index: 2
-  font-size: 32px
-  color: $white
-  transition: transform 0.1s
-  width: 30px
-  height: 30px
-  cursor: pointer
-  display: flex
-  justify-content: center
-  align-items: center
+  +change-attachment
 
   &:before
     +ion-icon("ios-close-outline")
 
-  &:hover
-    transform: scale(1.2)
+=add-video
+  +change-attachment
+
+  &:before
+    +ion-icon("ios-videocam-outline")
 
 =popup-title
   align-self: center

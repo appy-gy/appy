@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005111758) do
+ActiveRecord::Schema.define(version: 20151018065118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,14 +59,15 @@ ActiveRecord::Schema.define(version: 20151005111758) do
   add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
 
   create_table "rating_items", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.integer  "position",                null: false
-    t.integer  "mark",        default: 0, null: false
+    t.integer  "position",                 null: false
+    t.integer  "mark",        default: 0,  null: false
     t.text     "title"
     t.text     "description"
     t.text     "image"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.uuid     "rating_id",               null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.uuid     "rating_id",                null: false
+    t.json     "video",       default: {}, null: false
   end
 
   add_index "rating_items", ["rating_id"], name: "index_rating_items_on_rating_id", using: :btree
