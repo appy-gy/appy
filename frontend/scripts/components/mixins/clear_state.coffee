@@ -7,7 +7,7 @@ if isClient()
 
 actions = ['rating', 'ratings', 'ratingItems', 'ratingComments',
   'similarRatings', 'mainPageRatings', 'section', 'sectionRatings', 'user',
-  'userRatings', 'userComments', 'page'].map (name) ->
+  'userRatings', 'userComments', 'page', 'tagRatings'].map (name) ->
     type: "CLEAR_#{constantize name}", payload: null
 
 ClearState =
