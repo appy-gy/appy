@@ -77,6 +77,6 @@ TagsSelect = React.createClass
 
     return <Nothing/> unless canEdit
 
-    <Select placeholder="Укажите теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" autoload={false} multi={true} allowCreate={true} matchProp="label" asyncOptions={@loadOptions} value={@value()} newOptionCreator={@createNewOption} optionRenderer={@renderOption} onChange={@updateTags}/>
+    <Select placeholder="Укажите теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" clearable={false} autoload={false} multi={true} allowCreate={true} matchProp="label" asyncOptions={@loadOptions} value={@value()} newOptionCreator={@createNewOption} optionRenderer={@renderOption} onChange={@updateTags}/>
 
 module.exports = connect()(TagsSelect)
