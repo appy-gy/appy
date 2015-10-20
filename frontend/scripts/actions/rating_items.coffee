@@ -73,13 +73,7 @@ updateRatingItemPositions = ->
     http.put(url, { positions }).then ({data}) ->
       dispatch changeRatingItemPositions(data.positions)
 
-changeRatingItemVisibility = createAction 'CHANGE_RATING_ITEM_VISIBILITY', (id, visibility) ->
-  { id, visibility }
-
-addRatingItemWaypoint = createAction 'ADD_RATING_ITEM_WAYPOINT', (id, visibility) ->
-  { id, visibility }
-
-removeRatingItemWaypoint = createAction 'REMOVE_RATING_ITEM_WAYPOINT'
+changeRatingItemWaypoint = createAction 'CHANGE_RATING_ITEM_WAYPOINT'
 
 voteFromRatingItem = (id, kind) ->
   (dispatch, getState) ->
@@ -88,5 +82,4 @@ voteFromRatingItem = (id, kind) ->
 
 module.exports = { fetchRatingItems, createRatingItem, changeRatingItem,
   updateRatingItem, removeRatingItem, changeRatingItemPositions,
-  changeRatingItemPosition, updateRatingItemPositions,
-  changeRatingItemVisibility, voteFromRatingItem, addRatingItemWaypoint, removeRatingItemWaypoint }
+  changeRatingItemPosition, updateRatingItemPositions, voteFromRatingItem, changeRatingItemWaypoint}

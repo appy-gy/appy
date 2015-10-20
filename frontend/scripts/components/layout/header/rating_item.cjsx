@@ -21,8 +21,8 @@ RatingItem = React.createClass
     "#item-#{ratingItem.position}"
 
   render: ->
-    {ratingItem, visibility, ratingItemVisibility, sectionColor, width} = @props
-    classes = classNames 'header_rating-item', "m-visible-#{ratingItemVisibility}"
+    {ratingItem, sectionColor, width, ratingItemVisibleId} = @props
+    classes = classNames 'header_rating-item', "m-visible-full": ratingItemVisibleId == ratingItem.id
 
     <div className={classes}>
       <div className="header_rating-item-content">
@@ -38,7 +38,7 @@ RatingItem = React.createClass
     </div>
 
 mapStateToProps = ({ratingItems}, {ratingItem}) ->
-  ratingItemVisibility =  _.result(_.find(ratingItems.waypoints, ratingItem.id), "#{ratingItem.id}.visibility", "hidden")
-  { ratingItemVisibility }
+  ratingItemVisibleId = ratingItems.waypoint
+  { ratingItemVisibleId }
 
 module.exports = connect(mapStateToProps)(RatingItem)
