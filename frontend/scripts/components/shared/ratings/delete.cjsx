@@ -34,6 +34,6 @@ DeleteRating = React.createClass
   render: ->
     {block} = @context
 
-    <div className="#{block}_delete-rating" onClick={@showDeleteConfirmation}>Удалить</div>
+    <div className="#{block}_delete-rating rating-statusbar_delete-rating" onClick={@showDeleteConfirmation}>Удалить</div>
 
 module.exports = connect()(DeleteRating)

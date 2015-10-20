@@ -48,7 +48,7 @@ Publish = React.createClass
   render: ->
     {block} = @context
 
-    classes = classNames "#{block}_publish-rating", 'm-disabled': @hasPublishErrors()
+    classes = classNames "rating-statusbar_button", 'm-disabled': @hasPublishErrors()
 
     <div className={classes} onClick={@confirmPublish}>
       Опубликовать

@@ -25,20 +25,24 @@ RatingActions = React.createClass
 
   render: ->
     {rating, ratingItems} = @context
+    <div className="rating-statusbar_wrap">
+      <div className="grid">
+        <div className="rating-statusbar">
+          <div className="rating-statusbar_buttons">
+            <Save ref='save' rating={rating} ratingItems={ratingItems}/>
 
-    <div className="rating_statusbar">
-      <div className="rating_statusbar-buttons">
-        <Save ref='save' rating={rating} ratingItems={ratingItems}/>
-        <div className="rating_statusbar-more">
-          <div className="rating_statusbar-more-icon">
-          </div>
-          <div className="rating_statusbar-more-content-wrap">
-            <div className="rating_statusbar-more-content">
-              <Delete ref="delete" rating={rating} onDelete={@redirectToProfile}/>
+            <Publish ref="publish" rating={rating} ratingItems={ratingItems}/>
+            <div className="rating-statusbar_more">
+              <div className="rating-statusbar_more-icon">
+              </div>
+              <div className="rating-statusbar_more-content-wrap">
+                <div className="rating-statusbar_more-content">
+                  <Delete ref="delete" rating={rating} onDelete={@redirectToProfile}/>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <Publish ref="publish" rating={rating} ratingItems={ratingItems}/>
       </div>
     </div>
 

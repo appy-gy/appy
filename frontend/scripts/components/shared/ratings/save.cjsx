@@ -27,7 +27,7 @@ SaveRating = React.createClass
 
     classes = classNames 'm-disabled': status != 'done'
 
-    <div className="#{block}_save-rating #{classes}" onClick={@saveRating}>Сохранить</div>
+    <div className="rating-statusbar_link #{classes}" onClick={@saveRating}>Сохранить</div>
 
 mapStateToProps = ({rating}) ->
   status: rating.updateStatus
