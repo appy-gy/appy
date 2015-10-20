@@ -1,0 +1,110 @@
+.rating-statusbar
+  background-color: $black-2
+  display: flex
+  justify-content: flex-end
+  padding: 10px
+  z-index: 1
+
+  &_wrap
+    width: 100%
+    position: fixed
+    bottom: 0
+    right: 0
+    display: flex
+    justify-content: center
+
+    @media screen and (min-width: $big)
+      padding-left: $header-width
+
+      &.m-without-header
+        padding-left: 0
+
+  &_buttons
+    display: flex
+    height: 100%
+    align-items: center
+
+  &_link
+    color: $white-2
+    margin: 0 10px
+    font-family: $monospace
+    font-size: 14px
+    cursor: pointer
+    font-weight: bold
+
+    &:hover
+      color: $white
+
+  &_button
+    +button(40px)
+    background-color: $white
+    color: $black
+    margin: 0 2px 0 10px
+    z-index: 1
+
+    &:hover
+      color: $blue
+
+
+  &_delete-rating
+    font-family: $monospace
+    font-weight: 600
+    font-size: 14px
+    cursor: pointer
+    line-height: 20px
+    padding: 5px 0
+
+    &:hover
+      color: $blue
+
+  &_more
+    position: relative
+    background-color: $white
+    height: 40px
+    width: 40px
+
+    &-icon
+      color: $black
+      width: 40px
+      line-height: 40px
+      height: 40px
+      display: flex
+      position: relative
+      justify-content: center
+      align-items: center
+      cursor: pointer
+      &:before
+        +ion-icon("chevron-down")
+
+      &:after
+        +ion-icon("android-arrow-dropdown")
+        position: absolute
+        top: -20px
+        left: 0
+        display: none
+
+    &-content
+      background: white
+      padding: 5px 10px
+      box-shadow: 0 0 6px $black-3
+
+      &-wrap
+        display: none
+        position: absolute
+        bottom: 0
+        width: 120px
+        right: 0
+        padding-bottom: 42px
+
+    &:hover
+      .rating-statusbar_more-content-wrap
+        display: block
+
+      .rating-statusbar_more-icon
+        color: $blue
+
+        &:before
+          +ion-icon("chevron-up")
+
+        &:after
+          display: none

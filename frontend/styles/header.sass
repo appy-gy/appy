@@ -119,6 +119,8 @@
     font-family: $monospace
     padding-bottom: 15px
     color: $black-2
+    font-weight: bold
+    font-size: 14px
     word-wrap: break-word
     padding: 0 0px 8px
     width: 100%
@@ -148,9 +150,13 @@
       display: block
       cursor: move
       height: auto
+      background-color: $grey-2
+      padding: 5px
 
       &:hover
-        transform: scale(1.05)
+        // transform: scale(1.05)
+        letter-spacing: 1px
+        font-weight: bold
 
     &.m-dragging
       background: $grey-3
@@ -191,15 +197,6 @@
   &_rating-actions
     display: flex
 
-  &_publish-rating
-    +header-button
-    width: 100%
-
-  &_delete-rating
-    +delete-button
-    margin: 15px 15px 15px 0
-    width: 40px
-    flex-shrink: 0
 
   &_validation-errors
     display: block

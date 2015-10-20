@@ -93,6 +93,9 @@
       display: block
       // border-radius: 5px
 
+      &:hover ~ .preview_content .preview_title
+        color: $green
+
     &:after
       content: ''
       position: absolute
@@ -104,6 +107,7 @@
       height: 40%
       transition: opacity 0.1s ease
       // border-radius: 5px 5px 0 0
+
 
   &_section-name
     display: block
@@ -137,15 +141,19 @@
     line-height: 1.3
     +word-break
 
+    &:hover
+      color: $green
+
   &_description
     display: block
-    line-height: 1.3
+    line-height: 1.5
     font-size: 14px
     font-family: $sans-serif
     +word-break
     color: $black-2
     margin-top: 5px
     max-width: 100%
+    z-index: 1
 
   &:hover
     .preview_meta
@@ -154,9 +162,6 @@
     .preview_image
       &:after
         opacity: 1
-
-    .preview_title
-      color: $green
 
 
   &.m-super-large
@@ -217,7 +222,8 @@
         margin-top: 0
 
       &_title
-        color: $white
+        &:not(:hover)
+          color: $white
 
         @media screen and (min-width: $small)
           font-size: 28px
@@ -227,7 +233,10 @@
 
       &_description
         color: $white
-        margin-top: 20px
+        margin: 20px 0
+        max-width: 80%
+        text-align: center
+
 
       &_tags
         z-index: 1
