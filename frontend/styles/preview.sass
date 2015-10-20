@@ -1,7 +1,7 @@
 .previews
   display: flex
   flex-flow: row wrap
-  
+
   @media screen and (min-width: $small)
     padding: 30px 0 0 0
 
@@ -77,6 +77,7 @@
     display: flex
     padding-top: 5px
     max-width: 100%
+    flex-flow: row wrap
 
   &_image
     position: relative
@@ -236,7 +237,10 @@
         // left: 0
 
         .tag
-          color: white
+          color: $white-2
+          &:hover
+            color: $white
+
 
   &.m-large
 
