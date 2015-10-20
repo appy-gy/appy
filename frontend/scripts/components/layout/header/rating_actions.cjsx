@@ -28,10 +28,10 @@ RatingActions = React.createClass
     {rating, ratingItems} = @context
     <div className="rating-statusbar_wrap">
       <div className="grid">
-        <div className="header_rating-publish-info">
-          <Validations/>
-        </div>
         <div className="rating-statusbar">
+          <div className="header_rating-publish-info">
+            <Validations/>
+          </div>
           <div className="rating-statusbar_buttons">
             <Save ref='save' rating={rating} ratingItems={ratingItems}/>
 
