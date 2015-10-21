@@ -1,4 +1,5 @@
 React = require 'react'
+Router = require 'react-router'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
 ratingCommentActions = require '../../../actions/rating_comments'
@@ -9,6 +10,7 @@ Textarea = require '../inputs/text'
 {PropTypes} = React
 {connect} = ReactRedux
 {createRatingComment} = ratingCommentActions
+{Link} = Router
 
 Form = React.createClass
   displayName: 'CommentForm'
@@ -66,7 +68,9 @@ Form = React.createClass
     buttonClasses = classNames 'comment-form_button', 'm-disabled': isBlank(body)
 
     <div className={classes}>
-      <img className="comment_userface" src={imageUrl currentUser.avatar, 'small'}/>
+      <Link to="/users/#{currentUser.slug}">
+        <img className="comment_userface" src={imageUrl currentUser.avatar, 'small'}/>
+      </Link>
       <Textarea ref="bodyInput" className="comment-form_textarea" value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
       {@placeholder()}
       <div className={buttonClasses} onClick={@createComment}>Написать</div>
