@@ -91,6 +91,8 @@
 
     &-wrap
       display: block
+      position: relative
+
       // border-radius: 5px
 
       &:hover ~ .preview_content .preview_title
@@ -155,6 +157,19 @@
     max-width: 100%
     z-index: 1
 
+  &_delete-rating
+    font-size: 12px
+    font-family: $monospace
+    cursor: pointer
+    display: none
+    position: absolute
+    bottom: 5px
+    right: 5px
+    color: $white-2
+
+    &:hover
+      color: $white
+
   &:hover
     .preview_meta
       opacity: 1
@@ -162,6 +177,9 @@
     .preview_image
       &:after
         opacity: 1
+
+    .preview_delete-rating
+      display: block
 
 
   &.m-super-large
@@ -264,13 +282,30 @@
           font-size: 22px
 
   &.m-draft
-    .preview_title
-      &:before
+    .preview_image-wrap
+      &::before
         +ion-icon("edit")
-        font-size: 12px
-        width: 16px
-        margin-left: -16px
-        color: $black-3
+        position: absolute
+        z-index: 1
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+        color: $black
+        font-size: 24px
+        width: 50px
+        height: 50px
+        border-radius: 25px
+        display: flex
+        justify-content: center
+        align-items: center
+        background-color: $white-3
+    // .preview_title
+    //   &:before
+    //     +ion-icon("edit")
+    //     font-size: 12px
+    //     width: 16px
+    //     margin-left: -16px
+    //     color: $black-3
 
   &:not(.m-super-large)
     .preview

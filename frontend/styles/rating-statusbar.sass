@@ -1,9 +1,13 @@
 .rating-statusbar
   background-color: $black-2
   display: flex
+  flex-flow: row nowrap
   justify-content: flex-end
-  padding: 10px
   z-index: 1
+  padding: 10px
+
+  @media screen and (min-width: $medium)
+    justify-content: space-between
 
   &_wrap
     width: 100%
@@ -23,6 +27,7 @@
     display: flex
     height: 100%
     align-items: center
+    flex-shrink: 0
 
   &_link
     color: $white-2
@@ -41,18 +46,6 @@
     color: $black
     margin: 0 2px 0 10px
     z-index: 1
-
-    &:hover
-      color: $blue
-
-
-  &_delete-rating
-    font-family: $monospace
-    font-weight: 600
-    font-size: 14px
-    cursor: pointer
-    line-height: 20px
-    padding: 5px 0
 
     &:hover
       color: $blue
@@ -108,3 +101,15 @@
 
         &:after
           display: none
+
+
+.header_delete-rating
+  font-family: $monospace
+  font-weight: 600
+  font-size: 14px
+  cursor: pointer
+  line-height: 20px
+  padding: 5px 0
+
+  &:hover
+    color: $blue
