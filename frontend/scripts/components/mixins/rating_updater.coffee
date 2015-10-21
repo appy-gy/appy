@@ -30,6 +30,10 @@ timeoutUpdatesPerform = (dispatch) ->
   dispatch changeRatingUpdateStatus('pending')
 
 RatingUpdater =
+  performSave: ->
+    {dispatch} = @props
+    performUpdates dispatch
+
   queueUpdate: (request) ->
     {dispatch} = @props
 

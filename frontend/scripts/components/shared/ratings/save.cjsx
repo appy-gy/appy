@@ -2,6 +2,7 @@ React = require 'react'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../../actions/rating'
 classNames = require 'classnames'
+RatingUpdater = require '../../mixins/rating_updater'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -9,6 +10,8 @@ classNames = require 'classnames'
 
 SaveRating = React.createClass
   displayName: 'SaveRating'
+
+  mixins: [RatingUpdater]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
@@ -18,8 +21,7 @@ SaveRating = React.createClass
     block: PropTypes.string.isRequired
 
   saveRating: ->
-    {dispatch, rating} = @props
-    console.log 'save'
+    @performSave()
 
   render: ->
     {status} = @props
