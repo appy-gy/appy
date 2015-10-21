@@ -2,6 +2,7 @@ class OauthsController < ApplicationController
   include Sorcery::Controller
 
   def oauth
+    session[:return_to_url] = request.referer
     login_at auth_params[:provider]
   end
 
