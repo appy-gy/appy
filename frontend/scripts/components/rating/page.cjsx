@@ -62,9 +62,14 @@ RatingPage = React.createClass
   meta: ->
     {rating} = @props
 
+    description = strip(_.unescape(rating.description?.split('\n')?[0] || ''))
+
     [
-      { name: 'description', content: strip(_.unescape(rating.description?.split('\n')?[0] || '')) }
+      { name: 'description', content: description }
       { name: 'keywords', content: _.map(rating.tags, 'name').join(', ') }
+      { property: 'og:title', content: rating.title }
+      { property: 'og:description', content: description }
+      { property: 'og:image', content: rating.image }
     ]
 
   checkAccess: (rating) ->
