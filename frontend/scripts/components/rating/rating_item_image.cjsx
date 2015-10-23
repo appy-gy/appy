@@ -58,7 +58,7 @@ RatingItemImage = React.createClass
   image: ->
     {canEdit} = @context
 
-    image = <img className="rating-item_cover-image" src={@imageUrl()}/>
+    image = <img className="rating-item_cover-image" src={@imageUrl()} width=800 height=600 />
     unless canEdit
       image = <a target="_blank" href={@imageUrl()}>{image}</a>
     image
