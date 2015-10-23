@@ -10,18 +10,19 @@ Tag = require './components/tag/page'
 User = require './components/user/page'
 Search = require './components/search/page'
 Instagram = require './components/instagram/page'
+onRouteChanged = require './helpers/on_route_changed'
 
 {Route, IndexRoute} = Router
 
 routes =
   <Route component={App} path="/">
-    <IndexRoute component={Ratings}/>
+    <IndexRoute component={Ratings} onEnter={onRouteChanged.scrollTop}/>
     <Route path="search(/:query)" component={Search}/>
-    <Route path=":sectionSlug" component={SectionRatings}/>
-    <Route path="users/:userSlug" component={User}/>
+    <Route path=":sectionSlug" component={SectionRatings} onEnter={onRouteChanged.scrollTop}/>
+    <Route path="users/:userSlug" component={User} onEnter={onRouteChanged.scrollTop}/>
     <Route path="pages/:pageSlug" component={Page}/>
-    <Route path="tags/:tagSlug" component={Tag}/>
-    <Route path=":sectionSlug/:ratingSlug" component={Rating}/>
+    <Route path="tags/:tagSlug" component={Tag} onEnter={onRouteChanged.scrollTop}/>
+    <Route path=":sectionSlug/:ratingSlug" component={Rating} onEnter={onRouteChanged.scrollTop}/>
     <Route path="ratings/:ratingSlug/edit" component={Rating}/>
     <Route path="instagram" component={Instagram}/>
     <Route path="*" component={NotFound}/>
