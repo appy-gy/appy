@@ -1,4 +1,7 @@
 .search
+  position: fixed
+  top: 0
+  left: 0
   display: flex
   flex-flow: column
   justify-content: center
@@ -6,6 +9,18 @@
   min-height: 100vh
   width: 100%
   padding: 16px
+  z-index: 3
+
+  &_cover
+    position: absolute
+    top: 0
+    left: 0
+    background: $black-2
+    width: 100%
+    height: 100%
+
+  &_content
+    z-index: 1
 
   &_title
     font-size: 20px
@@ -13,19 +28,19 @@
     text-transform: uppercase
     text-align: center
     width: 100%
-    color: $black
+    color: $white
 
   &_input
     display: inline-block
     font-size: 40px
-    color: $black
+    color: $white
     width: 100%
     text-align: center
     transition: color 0.25s ease
     margin: 10px 0 40px
 
     &::placeholder
-      color: $black-3
+      color: $white-3
       &:before
         display: inline-block
         font-size: 32px
@@ -64,7 +79,7 @@
 
     &-title
       font-size: 30px
-      color: $black
+      color: $white
       font-family: $monospace
       transition: letter-spacing 0.2s, font-weight 0.2s
 
@@ -73,7 +88,7 @@
         align-items: center
 
     &-description
-      color: $black-2
+      color: $white-2
       font-size: 12px
 
     &:hover

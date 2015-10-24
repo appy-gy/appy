@@ -12,15 +12,19 @@ Main = React.createClass
 
   contextTypes:
     headerExpanded: PropTypes.bool.isRequired
+    searchVisible: PropTypes.bool.isRequired
 
   getDefaultProps: ->
     children: null
 
   render: ->
     {hasHeader, children} = @props
-    {headerExpanded} = @context
+    {headerExpanded, searchVisible} = @context
 
-    classes = classNames 'layout_main', 'm-without-header': not hasHeader, 'm-header-expanded': headerExpanded
+    classes = classNames 'layout_main',
+      'm-without-header': not hasHeader,
+      'm-header-expanded': headerExpanded,
+      'm-blured': searchVisible
 
     <main className={classes}>
       <div className='grid'>

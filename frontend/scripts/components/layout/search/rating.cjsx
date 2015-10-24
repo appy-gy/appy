@@ -1,6 +1,6 @@
 React = require 'react'
-imageUrl = require '../../helpers/image_url'
-RatingLink = require '../shared/links/rating'
+imageUrl = require '../../../helpers/image_url'
+RatingLink = require '../../shared/links/rating'
 
 Rating = ({rating}) ->
   imageStyles = backgroundImage: "url(#{imageUrl(rating.image, 'preview')})"

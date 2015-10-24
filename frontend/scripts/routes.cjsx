@@ -9,7 +9,6 @@ SectionRatings = require './components/section/page'
 Page = require './components/page/page'
 Tag = require './components/tag/page'
 User = require './components/user/page'
-Search = require './components/search/page'
 Instagram = require './components/instagram/page'
 
 
@@ -21,7 +20,6 @@ scrollTop = ->
 routes =
   <Route component={App} path="/">
     <IndexRoute component={Ratings} onEnter={scrollTop}/>
-    <Route path="search(/:query)" component={Search}/>
     <Route path=":sectionSlug" component={SectionRatings} onEnter={scrollTop}/>
     <Route path="users/:userSlug" component={User}/>
     <Route path="pages/:pageSlug" component={Page}/>
