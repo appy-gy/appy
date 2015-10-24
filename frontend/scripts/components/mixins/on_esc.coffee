@@ -22,7 +22,7 @@ OnEsc =
   onEsc: (listener) ->
     listener = cb: listener if _.isFunction listener
     listener = _.defaults {}, listener,
-      use: true
+      use: -> true
       priority: 0
 
     @escListeners.push listener

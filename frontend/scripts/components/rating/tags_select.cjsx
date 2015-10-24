@@ -38,6 +38,8 @@ TagsSelect = React.createClass
       @popularOptionsCallbacks.each (callback) =>
         callback null, options: @popularOptions
 
+    true
+
   loadOptions: (query, callback) ->
     # React-select passes current values instead of an empty string when
     # initialized or after adding/removing a value from the values list
@@ -45,6 +47,8 @@ TagsSelect = React.createClass
 
     http.get('tags', params: { query }).then ({data}) =>
       callback null, options: @toOptions(data.tags)
+
+    true
 
   value: ->
     _.map @context.rating.tags, 'name'
