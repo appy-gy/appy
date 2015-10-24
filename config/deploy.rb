@@ -70,6 +70,12 @@ namespace :prerender do
     queue %{echo "-----> Stopping prerender service"}
     queue! %{cd #{deploy_to}/#{current_path} && node_modules/.bin/pm2 stop prerender}
   end
+
+  desc 'Kill prerender'
+  task kill: :environment do
+    queue %{echo "-----> Killing prerender service"}
+    queue! %{cd #{deploy_to}/#{current_path} && node_modules/.bin/pm2 kill}
+  end
 end
 
 namespace :memcached do
@@ -97,7 +103,7 @@ task deploy: :environment do
 
     to :launch do
       invoke :'sidekiq:restart'
-      invoke :'prerender:stop'
+      invoke :'prerender:kill'
       invoke :'prerender:start'
       invoke :'puma:restart'
     end
