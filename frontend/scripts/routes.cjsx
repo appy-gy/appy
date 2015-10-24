@@ -1,5 +1,6 @@
 React = require 'react'
 Router = require 'react-router'
+isClient = require './helpers/is_client'
 App = require './components/app'
 NotFound = require './components/not_found/page'
 Ratings = require './components/ratings/page'
@@ -11,19 +12,21 @@ User = require './components/user/page'
 Search = require './components/search/page'
 Instagram = require './components/instagram/page'
 
-onRouteChanged = require './helpers/on_route_changed'
 
 {Route, IndexRoute} = Router
 
+scrollTop = ->
+  scroll 0, 0 if isClient()
+
 routes =
   <Route component={App} path="/">
-    <IndexRoute component={Ratings} onEnter={onRouteChanged.handleEnter}/>
+    <IndexRoute component={Ratings} onEnter={scrollTop}/>
     <Route path="search(/:query)" component={Search}/>
-    <Route path=":sectionSlug" component={SectionRatings} onEnter={onRouteChanged.handleEnter}/>
+    <Route path=":sectionSlug" component={SectionRatings} onEnter={scrollTop}/>
     <Route path="users/:userSlug" component={User}/>
     <Route path="pages/:pageSlug" component={Page}/>
-    <Route path="tags/:tagSlug" component={Tag} onEnter={onRouteChanged.handleEnter}/>
-    <Route path=":sectionSlug/:ratingSlug" component={Rating} onEnter={onRouteChanged.handleEnter}/>
+    <Route path="tags/:tagSlug" component={Tag} onEnter={scrollTop}/>
+    <Route path=":sectionSlug/:ratingSlug" component={Rating} onEnter={scrollTop}/>
     <Route path="ratings/:ratingSlug/edit" component={Rating}/>
     <Route path="instagram" component={Instagram}/>
     <Route path="*" component={NotFound}/>
