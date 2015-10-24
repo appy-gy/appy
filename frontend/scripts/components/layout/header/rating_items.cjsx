@@ -1,7 +1,7 @@
 _ = require 'lodash'
 React = require 'react'
-RatingItem = require './rating_item'
 tinycolor = require 'tinycolor2'
+RatingItem = require './rating_item'
 
 {PropTypes} = React
 
@@ -25,7 +25,7 @@ RatingItems = React.createClass
     _ ratingItems
       .sortBy 'position'
       .map (ratingItem) =>
-        width = (ratingItem.mark - min) / (max - min) * 100
+        width = if min == max then 50 else (ratingItem.mark - min) / (max - min) * 100
         <RatingItem key={ratingItem.id} ratingItem={ratingItem} width={width} invertedSectionColor={invertedSectionColor} sectionColor={sectionColor}/>
       .value()
 
