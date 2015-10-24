@@ -1,4 +1,4 @@
-# If you want to use this component make sure
+# If you want to use this mixin make sure
 # that your component connected to redux
 
 _ = require 'lodash'
@@ -25,11 +25,20 @@ performUpdates = (dispatch) ->
   requests = []
 
 timeoutUpdatesPerform = (dispatch) ->
-  clearTimeout updateTimeoutId if updateTimeoutId?
+  clearUpdatesTimeout()
   updateTimeoutId = setTimeout _.partial(performUpdates, dispatch), updateDelay
   dispatch changeRatingUpdateStatus('pending')
 
+clearUpdatesTimeout = ->
+  clearTimeout updateTimeoutId if updateTimeoutId?
+
 RatingUpdater =
+  performSave: ->
+    {dispatch} = @props
+
+    clearUpdatesTimeout()
+    performUpdates dispatch
+
   queueUpdate: (request) ->
     {dispatch} = @props
 

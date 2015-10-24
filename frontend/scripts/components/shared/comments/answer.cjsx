@@ -16,7 +16,6 @@ Answer = React.createClass
   propTypes:
     inline: PropTypes.bool.isRequired
     query: PropTypes.object.isRequired
-    visibleCommentForm: PropTypes.bool.isRequired
 
   contextTypes:
     comment: PropTypes.object.isRequired

@@ -1,6 +1,7 @@
 React = require 'react'
 Main = require './main'
 Loader = require './loader'
+Close = require './close'
 CommonHeader = require './header/common'
 RatingHeader = require './header/rating'
 EditRatingHeader = require './header/edit_rating'
@@ -15,9 +16,12 @@ Layout = React.createClass
   displayName: 'Layout'
 
   propTypes:
-    header: PropTypes.string
+    header: PropTypes.oneOf ['common', 'rating', 'editRating', false]
     isLoading: PropTypes.bool
     onLogoClick: PropTypes.func
+    showFooter: PropTypes.bool
+    showClose: PropTypes.bool
+    onClose: PropTypes.func
     children: PropTypes.node
 
   childContextTypes:
@@ -29,12 +33,15 @@ Layout = React.createClass
     common: CommonHeader
     editRating: EditRatingHeader
     rating: RatingHeader
-    children: null
 
   getDefaultProps: ->
     header: 'common'
     isLoading: false
     onLogoClick: ->
+    showFooter: true
+    showClose: false
+    onClose: -> console.log 'TODO: implement default onClose for the layout component'
+    children: null
 
   getInitialState: ->
     headerExpanded: false
@@ -51,24 +58,32 @@ Layout = React.createClass
   header: ->
     {header} = @props
 
+    return unless header
     Header = @headers[header]
     <Header/>
 
   loader: ->
     <Loader/> if @props.isLoading
 
+  footer: ->
+    <Footer/> if @props.showFooter
+
+  close: ->
+    <Close onClose={@props.onClose}/> if @props.showClose
+
   content: ->
     @props.children unless @props.isLoading
 
   render: ->
-    {children} = @props
+    {header, onClose, children} = @props
 
     <div className="layout">
       {@header()}
-      <Main>
+      <Main hasHeader={!!header}>
         {@content()}
       </Main>
-      <Footer/>
+      {@footer()}
+      {@close()}
       <Popups/>
       <Toastr/>
       {@loader()}

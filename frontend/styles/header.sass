@@ -119,6 +119,8 @@
     font-family: $monospace
     padding-bottom: 15px
     color: $black-2
+    font-weight: bold
+    font-size: 14px
     word-wrap: break-word
     padding: 0 0px 8px
     width: 100%
@@ -144,21 +146,17 @@
       background-size: cover
       background-position: 0% 0%
 
-    &.m-visible
-      &-full
-        background-color: $grey-2
-        .header_rating-item-bar
-          background-color: $red !important
-        .header_rating-item-options
-          opacity: 1 !important
-
     &.m-edit
       display: block
       cursor: move
       height: auto
+      background-color: $grey-2
+      padding: 5px
 
       &:hover
-        transform: scale(1.05)
+        // transform: scale(1.05)
+        letter-spacing: 1px
+        font-weight: bold
 
     &.m-dragging
       background: $grey-3
@@ -194,37 +192,36 @@
 
   &_rating-publish-info
     width: 100%
-    flex-shrink: 0
+
+    @media screen and (max-width: $medium)
+      display: none
 
   &_rating-actions
     display: flex
 
-  &_publish-rating
-    +header-button
-    width: 100%
-
-  &_delete-rating
-    +delete-button
-    margin: 15px 15px 15px 0
-    width: 40px
-    flex-shrink: 0
 
   &_validation-errors
-    display: block
     font-size: 12px
-    padding: 15px 15px 0 15px
+    display: flex
+    flex-flow: row wrap
 
   &_validation-error
+    width: 50%
+    color: $white
+
     &:before
-      font-size: 24px
-      display: none
-      +ion-icon("ios-checkmark-empty")
+      font-size: 12px
+      margin-right: 5px
+      // display: none
+      +ion-icon("android-radio-button-off")
 
     &.m-enter
       animation: enter 0.5s linear
 
     &.m-leave
       animation: leave 3s linear forwards
+      &:before
+        +ion-icon("android-checkmark-circle")
 
       &:before
         display: inline-block

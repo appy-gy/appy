@@ -11,3 +11,6 @@ ru:
         name: Название
         color: Цвет
         position: Позиция
+        meta_title: Мета title
+        meta_description: Мета description
+        meta_keywords: Мета keywords

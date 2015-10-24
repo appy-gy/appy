@@ -8,14 +8,11 @@
     padding: 0
     min-height: 100vh
 
-    @media screen and (min-width: $small)
-      padding: 30px 0 0 0
-
-    @media screen and (min-width: $medium)
-      padding: 40px 0 0 0
-
     @media screen and (min-width: $big)
       margin-left: $header-width
+
+      &.m-without-header
+        margin-left: 0
 
     &.m-header-expanded
 
@@ -75,3 +72,23 @@
       animation: rotate 1s linear infinite
       color: $red
       font-size: 32px
+
+  &_close
+    position: fixed
+    top: $margin
+    right: $margin
+    font-size: 40px
+    color: $black-2
+    cursor: pointer
+    z-index: 6
+    width: 60px
+    height: 60px
+    display: flex
+    justify-content: center
+    align-items: center
+
+    &:before
+      +ion-icon("android-close")
+
+    &:hover
+      color: $black

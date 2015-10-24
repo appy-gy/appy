@@ -70,16 +70,18 @@ Preview = React.createClass
       <Meta/>
       <RatingLink className="preview_image-wrap" rating={rating}>
         <div className="preview_image" style={imageStyles}></div>
+        {@deleteButton()}
       </RatingLink>
       <div className="preview_content">
-        {@deleteButton()}
         <SectionLink className="preview_section-name" section={rating.section} style={sectionNameStyles}>
           {rating.section?.name}
         </SectionLink>
         <RatingLink className="preview_title" rating={rating}>
           {@title()}
         </RatingLink>
-        {@description()}
+        <div className="preview_description">
+          {@description()}
+        </div>
         <Tags tags={rating.tags}/>
       </div>
     </div>

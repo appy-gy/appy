@@ -1,15 +1,13 @@
 _ = require 'lodash'
 React = require 'react'
-PureRenderMixin = require 'react-addons-pure-render-mixin'
+ReactDOM = require 'react-dom'
 isClient = require '../../../helpers/is_client'
-MediumEditor = if isClient() then require('react-medium-editor') else 'div'
+MediumEditor = require 'medium-editor' if isClient()
 
 {PropTypes} = React
 
 Editor = React.createClass
   displayName: 'Editor'
-
-  mixins: [PureRenderMixin]
 
   propTypes:
     value: PropTypes.string
@@ -34,12 +32,29 @@ Editor = React.createClass
     onChange: ->
     options: {}
 
+  componentDidMount: ->
+    {options, onChange} = @props
+
+    return unless isClient()
+
+    node = ReactDOM.findDOMNode @
+    options = _.defaultsDeep {}, options, @defaultOptions
+
+    @editor = new MediumEditor node, options
+    @editor.subscribe 'editableInput', ->
+      onChange node.innerHTML
+
+  componentWillUnmount: ->
+    @editor.destroy()
+
+  shouldComponentUpdate: ->
+    false
+
   render: ->
-    {value, options} = @props
+    {value} = @props
 
-    @options ||= _.defaultsDeep options, @defaultOptions
-    props = _.omit @props, 'value', 'options'
+    props = _.omit @props, 'value', 'options', 'onChange'
 
-    <MediumEditor text={value} options={@options} {...props}/>
+    <div contentEditable dangerouslySetInnerHTML={__html: value} {...props}></div>
 
 module.exports = Editor

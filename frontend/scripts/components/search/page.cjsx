@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
 ReduxRouter = require 'redux-router'
+Helmet = require 'react-helmet'
 Select = require 'react-select'
 http = require '../../helpers/http'
 Layout = require '../layout/layout'
@@ -50,9 +51,11 @@ SearchPage = React.createClass
   render: ->
     {query} = @props
 
-    <Layout>
+    <Layout header={false} showFooter={false} showClose={true}>
+      <Helmet title="Поиск"/>
       <div className="search">
-        <input type="text" className="search_input" placeholder="Поиск" autoFocus value={query} onChange={@changeQuery}/>
+        <h1 className="search_title">Поиск</h1>
+        <input type="text" className="search_input" placeholder="Просто начните вводить то, что ищете" autoFocus value={query} onChange={@changeQuery}/>
         <div className="search_results">
           {@results()}
         </div>

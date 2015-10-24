@@ -1,6 +1,5 @@
 _ = require 'lodash'
 React = require 'react'
-tinycolor = require 'tinycolor2'
 RatingItem = require './edit_rating_item'
 
 {PropTypes} = React
@@ -24,10 +23,7 @@ EditRatingItems = React.createClass
   render: ->
     {rating} = @context
 
-    color = rating.section?.color || 'white'
-    sectionColor = tinycolor(color).setAlpha(.5).toString()
-
-    <div className="header_rating-items" style={backgroundColor: sectionColor}>
+    <div className="header_rating-items">
       <a href="#" className="header_rating-title">
         {rating.title}
       </a>

@@ -5,6 +5,7 @@ ratingCommentActions = require '../../../actions/rating_comments'
 isBlank = require '../../../helpers/is_blank'
 imageUrl = require '../../../helpers/image_url'
 Textarea = require '../inputs/text'
+UserLink = require '../links/user'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -66,7 +67,9 @@ Form = React.createClass
     buttonClasses = classNames 'comment-form_button', 'm-disabled': isBlank(body)
 
     <div className={classes}>
-      <img className="comment_userface" src={imageUrl currentUser.avatar, 'small'}/>
+      <UserLink user={currentUser}>
+        <img className="comment_userface" src={imageUrl currentUser.avatar, 'small'}/>
+      </UserLink>
       <Textarea ref="bodyInput" className="comment-form_textarea" value={body} onChange={@changeBody} onKeyDown={@onKeyDown}/>
       {@placeholder()}
       <div className={buttonClasses} onClick={@createComment}>Написать</div>

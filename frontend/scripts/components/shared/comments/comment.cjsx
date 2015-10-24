@@ -77,7 +77,7 @@ Comment = React.createClass
   render: ->
     {comment, actionTypes} = @props
 
-    <div className="comment">
+    <div className="comment" id={shortId comment.id}>
       <UserLink className="comment_username" user={comment.user}>
         <img className="comment_userface" src={imageUrl comment.user.avatar, 'small'}/>
       </UserLink>
