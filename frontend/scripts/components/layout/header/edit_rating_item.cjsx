@@ -66,7 +66,7 @@ EditRatingItem = React.createClass
 
     connectDropTarget connectDragSource <a href={@ratingItemAnchor()} className={classes} data-scroll>
       <div className="header_rating-item-title">
-        {index}. {ratingItem.title}
+        #{index}  {ratingItem.title}
       </div>
     </a>
 
