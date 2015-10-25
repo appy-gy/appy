@@ -1,37 +1,22 @@
 _ = require 'lodash'
 React = require 'react'
-ReactRedux = require 'react-redux'
-ReduxRouter = require 'redux-router'
-Helmet = require 'react-helmet'
 Select = require 'react-select'
-http = require '../../helpers/http'
-Layout = require '../layout/layout'
+http = require '../../../helpers/http'
 Result = require './result'
 
 {PropTypes} = React
-{connect} = ReactRedux
-{replaceState} = ReduxRouter
 
-SearchPage = React.createClass
-  displayName: 'SearchPage'
-
-  propTypes:
-    dispatch: PropTypes.func.isRequired
-    query: PropTypes.string.isRequired
+Search = React.createClass
+  displayName: 'Search'
 
   getInitialState: ->
+    query: ''
     results: []
 
-  componentWillMount: ->
-    @search @props.query
-
   changeQuery: (event) ->
-    {dispatch} = @props
     {value: query} = event.target
 
-    newUrl = "/search/#{query}".replace(/\/$/, '')
-    dispatch replaceState(null, newUrl)
-
+    @setState { query }
     @search query
 
   search: (query) ->
@@ -39,7 +24,7 @@ SearchPage = React.createClass
 
     http.get('search/global', params: { query }).then ({data}) =>
       # User has changed the search query during the request
-      return unless query == @props.query
+      return unless query == @state.query
       @setState results: data.results
 
   results: ->
@@ -49,20 +34,17 @@ SearchPage = React.createClass
       <Result key="#{result.type}_#{result.id}" result={result}/>
 
   render: ->
-    {query} = @props
+    {query} = @state
 
-    <Layout header={false} showFooter={false} showClose={true}>
-      <Helmet title="Поиск"/>
-      <div className="search">
+    <div className="search">
+      <div className="search_cover"/>
+      <div className="search_content">
         <h1 className="search_title">Поиск</h1>
         <input type="text" className="search_input" placeholder="Просто начните вводить то, что ищете" autoFocus value={query} onChange={@changeQuery}/>
         <div className="search_results">
           {@results()}
         </div>
       </div>
-    </Layout>
+    </div>
 
-mapStateToProps = ({router}) ->
-  query: router.params.query || ''
-
-module.exports = connect(mapStateToProps)(SearchPage)
+module.exports = Search

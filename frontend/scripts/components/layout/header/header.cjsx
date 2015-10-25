@@ -12,12 +12,13 @@ Header = React.createClass
   contextTypes:
     headerExpanded: PropTypes.bool.isRequired
     triggerHeader: PropTypes.func.isRequired
+    searchVisible: PropTypes.bool.isRequired
 
   render: ->
     {children} = @props
-    {headerExpanded, triggerHeader} = @context
+    {headerExpanded, triggerHeader, searchVisible} = @context
 
-    classes = classNames 'layout_header', 'header', 'm-active': headerExpanded
+    classes = classNames 'layout_header', 'header', 'm-active': headerExpanded, 'm-blured': searchVisible
 
     <header className={classes}>
       <div className="header_menu-button-wrap" onClick={triggerHeader}>

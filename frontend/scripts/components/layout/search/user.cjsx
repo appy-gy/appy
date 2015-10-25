@@ -1,6 +1,6 @@
 React = require 'react'
-imageUrl = require '../../helpers/image_url'
-UserLink = require '../shared/links/user'
+imageUrl = require '../../../helpers/image_url'
+UserLink = require '../../shared/links/user'
 
 User = ({user}) ->
   <UserLink user={user} className="search_result m-rating">
