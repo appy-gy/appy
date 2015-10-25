@@ -56,9 +56,9 @@ RatingItemImage = React.createClass
       dispatch updateRatingItem(ratingItem.id, removeImage: true)
 
   image: ->
-    {canEdit, ratingItem} = @context
+    {canEdit} = @context
 
-    image = <img className="rating-item_image" src={@imageUrl()} height={ratingItem.imageHeight}/>
+    image = <img className="rating-item_image" src={@imageUrl()}/>
     unless canEdit
       image = <a target="_blank" href={@imageUrl()}>{image}</a>
     image
