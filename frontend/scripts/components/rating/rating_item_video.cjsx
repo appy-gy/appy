@@ -65,7 +65,7 @@ RatingItemVideo = React.createClass
 
     return if _.isEmpty ratingItem.video
 
-    <iframe src={ratingItem.video.embed} allowFullScreen frameBorder="0"></iframe>
+    <iframe className="rating-item_video" src={ratingItem.video.embed} allowFullScreen frameBorder="0"></iframe>
 
   input: ->
     {showInput} = @state

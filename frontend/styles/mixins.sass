@@ -119,18 +119,17 @@
 
 =change-attachment
   z-index: 2
-  font-size: 32px
+  font-size: 24px
   color: $white
+  background: $black
   transition: transform 0.1s
-  width: 30px
-  height: 30px
+  width: 40px
+  height: 40px
   cursor: pointer
   display: flex
+  border-radius: 20px
   justify-content: center
   align-items: center
-
-  &:hover
-    transform: scale(1.2)
 
 =add-image
   +change-attachment
@@ -142,7 +141,7 @@
   +change-attachment
 
   &:before
-    +ion-icon("ios-close-outline")
+    +ion-icon("ios-close-empty")
 
 =add-video
   +change-attachment
