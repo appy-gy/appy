@@ -53,14 +53,14 @@ Tag = React.createClass
   pageDescription: ->
     {tag} = @props
 
-    "Материалы по тегу \"#{tag.name}\""
+    "Материалы по тегу ##{tag.name}"
 
   render: ->
     {isFetched} = @props
 
     <Layout isLoading={not isFetched}>
       <Helmet meta={@meta()}/>
-      <div className="page-description">{@pageDescription()}</div>
+      <div className="layout_title">{@pageDescription()}</div>
       <div className="previews">
         {@previews()}
         {@showMore()}
