@@ -88,7 +88,6 @@ RatingItemVideo = React.createClass
     return if not canEdit or _.isEmpty(ratingItem.video)
 
     <div className="rating-item_remove-video" title="Удалить видео" onClick={@removeVideo}>
-      Удалить видео
     </div>
 
   render: ->
