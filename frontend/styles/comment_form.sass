@@ -2,10 +2,14 @@
   display: flex
   border: 1px dashed $black-4
   padding: 10px
+  flex-flow: row wrap
+  justify-content: flex-end
 
 
   @media screen and (min-width: $small)
     margin: 0 -10px
+    flex-flow: row nowrap
+    justify-content: flex-start
 
   &.m-answer
     margin-top: 10px
@@ -48,24 +52,24 @@
     visibility: hidden
 
   &_textarea
-    margin-left: 20px
     font-size: 16px
     width: 100%
     background-color: $white
     min-height: 60px
     padding: 18px
     resize: none
+    @media screen and (min-width: $small)
+      margin-left: 20px
 
   &_button
-    padding: 0 10px
     display: flex
     justify-content: center
     align-items: center
     font-weight: 700
     flex-shrink: 0
     color: $black-3
-    height: 60px
     align-self: flex-end
+    height: 30px
 
     &:not(.m-disabled)
       color: $blue
@@ -73,3 +77,13 @@
 
       &:hover
         color: $green
+
+    @media screen and (min-width: $small)
+      padding: 0 10px
+      height: 60px
+
+
+  .comment_userface
+    display: none
+    @media screen and (min-width: $small)
+      display: block

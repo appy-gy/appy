@@ -10,6 +10,7 @@
   background: white
   width: 100%
   max-width: 960px
+  margin-bottom: 16px
 
   @media screen and (min-width: $small)
     margin-top: 30px
@@ -40,10 +41,11 @@
 
   blockquote
     padding: 16px
+
     @media screen and (min-width: $small)
       padding: 20px
 
-    @media screen and (min-width: $small)
+    @media screen and (min-width: $medium)
       padding: 40px
 
     border: 2px solid $black
@@ -58,13 +60,13 @@
     position: relative
     background-color: $black
     width: 100%
-    padding: 15px
+    padding: 16px
     min-height: 360px
 
     @media screen and (min-width: $small)
       padding: 20px
 
-    @media screen and (min-width: $small)
+    @media screen and (min-width: $medium)
       padding: 40px
 
     &.m-with-image
@@ -231,7 +233,7 @@
     font-family: $monospace
     font-size: 24px
     color: $white
-    padding: 0 16px
+    padding: 0
     line-height: 1.2
     overflow: hidden
     width: 100%
@@ -256,11 +258,9 @@
         color: $white-3
 
     @media screen and (min-width: $small)
-      padding: 0 20px
       font-size: 32px
 
     @media screen and (min-width: $medium)
-      padding: 0 40px
       font-size: 40px
 
   &_section-name
@@ -392,7 +392,13 @@
       width: 100%
       display: flex
       justify-content: center
-      padding-bottom: 20px
+      padding: 0 16px 16px 16px
+
+      @media screen and (min-width: $small)
+        padding: 0 30px 30px 30px
+
+      @media screen and (min-width: $small)
+        padding: 0 40px 40px 40px
 
   &_share
     display: flex

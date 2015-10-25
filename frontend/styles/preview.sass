@@ -240,6 +240,8 @@
         margin-top: 0
 
       &_title
+        text-align: center
+
         &:not(:hover)
           color: $white
 
@@ -252,8 +254,15 @@
       &_description
         color: $white
         margin: 20px 0
-        max-width: 80%
+        max-width: 100%
+        padding: 0 16px
         text-align: center
+
+        @media screen and (min-width: $small)
+          padding: 0 30px
+
+        @media screen and (min-width: $medium)
+          padding: 0 40px
 
 
       &_tags

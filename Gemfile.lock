@@ -400,6 +400,3 @@ DEPENDENCIES
   spring-commands-rspec
   video_info
   whenever
-
-BUNDLED WITH
-   1.10.6
