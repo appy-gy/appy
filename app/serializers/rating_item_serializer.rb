@@ -1,6 +1,6 @@
 class RatingItemSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :created_at, :position, :mark,
-    :image, :rating_id, :rating_slug, :can_edit, :image, :video
+    :image, :rating_id, :rating_slug, :can_edit, :image, :video, :image_height
 
   has_one :vote
 
@@ -14,5 +14,9 @@ class RatingItemSerializer < ActiveModel::Serializer
 
   def image
     object.image.url
+  end
+
+  def image_height
+    ::MiniMagick::Image.open(object.image.normal.path)[:height]
   end
 end
