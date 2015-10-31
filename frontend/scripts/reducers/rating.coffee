@@ -15,7 +15,7 @@ handlers = _.merge handlers, cleaner('rating', defaultState),
   CHANGE_RATING: (state, {payload: changes}) ->
     update state, item: { $merge: changes }
 
-  CHANGE_UPDATE_STATUS: (state, {payload: status}) ->
+  CHANGE_RATING_UPDATE_STATUS: (state, {payload: status}) ->
     update state, updateStatus: { $set: status }
 
   ADD_TAG_TO_RATING: (state, {payload: name}) ->

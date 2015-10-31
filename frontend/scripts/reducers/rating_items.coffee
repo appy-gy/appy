@@ -10,6 +10,7 @@ cleaner = require '../helpers/reducers/cleaner'
 
 defaultState = _.backflow defaultState, ->
   waypoint: null
+  order: 'author'
 
 handlers = _.merge handlers, cleaner('ratingItems', defaultState),
   APPEND_RATING_ITEM: (state, {payload: ratingItem}) ->
@@ -32,6 +33,9 @@ handlers = _.merge handlers, cleaner('ratingItems', defaultState),
 
   CHANGE_RATING_ITEM_WAYPOINT: (state, {payload: id}) ->
     update state, waypoint: { $set: id }
+
+  CHANGE_RATING_ITEMS_ORDER: (state, {payload: order}) ->
+    update state, order: { $set: order }
 
 reducer = handleActions handlers, defaultState()
 

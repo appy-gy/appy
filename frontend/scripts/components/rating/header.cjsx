@@ -7,6 +7,7 @@ WithFileInput = require '../mixins/with_file_input'
 RatingUpdater = require '../mixins/rating_updater'
 Title = require './title'
 SectionSelect = require './section_select'
+SortSwitch = require './sort_switch'
 TagsSelect = require './tags_select'
 Tags = require '../shared/ratings/tags'
 Meta = require '../shared/ratings/meta'
@@ -85,6 +86,13 @@ Header = React.createClass
 
     <SectionSelect/>
 
+  sortSwitch: ->
+    {rating} = @context
+
+    return unless rating.status == 'published'
+
+    <SortSwitch/>
+
   tags: ->
     {rating} = @context
 
@@ -107,16 +115,7 @@ Header = React.createClass
           {@sectionSelect()}
         </div>
         <Title object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Введите заголовок рейтинга"/>
-        <div className="rating_sort-switch-wrap">
-          <div className="rating_sort-switch">
-            <div className="rating_sort-switch-tab m-active">
-              Авторский
-            </div>
-            <div className="rating_sort-switch-tab">
-              Пользовательский
-            </div>
-          </div>
-        </div>
+        {@sortSwitch()}
       </div>
       <div className="rating_tags-select">
         <TagsSelect/>

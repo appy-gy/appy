@@ -8,7 +8,7 @@ deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 {createAction} = ReduxActions
 
 changeRating = createAction 'CHANGE_RATING'
-changeRatingUpdateStatus = createAction 'CHANGE_UPDATE_STATUS'
+changeRatingUpdateStatus = createAction 'CHANGE_RATING_UPDATE_STATUS'
 
 {fetch: fetchRating} = itemFetcher name: 'rating', url: ({args}) -> "ratings/#{args[0]}"
 

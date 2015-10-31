@@ -1,12 +1,18 @@
 _ = require 'lodash'
 React = require 'react'
+ReactRedux = require 'react-redux'
+sortRatingItems = require '../../helpers/rating_items/sort'
 RatingItem = require './rating_item'
 AddRatingItem = require './add_rating_item'
 
 {PropTypes} = React
+{connect} = ReactRedux
 
 RatingItems = React.createClass
   displayName: 'RatingItems'
+
+  propTypes:
+    order: PropTypes.string.isRequired
 
   contextTypes:
     rating: PropTypes.object.isRequired
@@ -34,11 +40,11 @@ RatingItems = React.createClass
     </AddRatingItem>
 
   content: ->
+    {order} = @props
     {hoveredButtonPosition} = @state
     {ratingItems} = @context
 
-    _ ratingItems
-      .sortBy 'position'
+    _ sortRatingItems(ratingItems, order)
       .map (ratingItem, index) =>
         mods = []
         mods.push 'shift-top' if ratingItem.position == hoveredButtonPosition - 1
@@ -56,4 +62,7 @@ RatingItems = React.createClass
       {@content()}
     </div>
 
-module.exports = RatingItems
+mapStateToProps = ({ratingItems}) ->
+  order: ratingItems.order
+
+module.exports = connect(mapStateToProps)(RatingItems)

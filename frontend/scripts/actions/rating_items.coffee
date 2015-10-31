@@ -9,6 +9,7 @@ deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 
 appendRatingItem = createAction 'APPEND_RATING_ITEM'
 changeRatingItemPositions = createAction 'CHANGE_RATING_ITEM_POSITIONS'
+changeRatingItemsOrder = createAction 'CHANGE_RATING_ITEMS_ORDER'
 
 {fetch: fetchRatingItems} = itemsFetcher
   name: 'ratingItems',
@@ -82,4 +83,5 @@ voteFromRatingItem = (id, kind) ->
 
 module.exports = { fetchRatingItems, createRatingItem, changeRatingItem,
   updateRatingItem, removeRatingItem, changeRatingItemPositions,
-  changeRatingItemPosition, updateRatingItemPositions, voteFromRatingItem, changeRatingItemWaypoint}
+  changeRatingItemPosition, updateRatingItemPositions, voteFromRatingItem,
+  changeRatingItemsOrder, changeRatingItemWaypoint}

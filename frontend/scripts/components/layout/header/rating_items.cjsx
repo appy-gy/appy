@@ -1,18 +1,25 @@
 _ = require 'lodash'
 React = require 'react'
+ReactRedux = require 'react-redux'
 tinycolor = require 'tinycolor2'
 RatingItem = require './rating_item'
+sortRatingItems = require '../../../helpers/rating_items/sort'
 
 {PropTypes} = React
+{connect} = ReactRedux
 
 RatingItems = React.createClass
   displayName: 'RatingItems'
+
+  propTypes:
+    order: PropTypes.string.isRequired
 
   contextTypes:
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
   ratingItems: ->
+    {order} = @props
     {ratingItems, rating} = @context
 
     marks = _.map ratingItems, 'mark'
@@ -22,8 +29,7 @@ RatingItems = React.createClass
     sectionColor = _.get rating, 'section.color', 'white'
     invertedSectionColor = @invertColor sectionColor
 
-    _ ratingItems
-      .sortBy 'position'
+    _ sortRatingItems(ratingItems, order)
       .map (ratingItem) =>
         width = if min == max then 50 else (ratingItem.mark - min) / (max - min) * 100
         <RatingItem key={ratingItem.id} ratingItem={ratingItem} width={width} invertedSectionColor={invertedSectionColor} sectionColor={sectionColor}/>
@@ -48,4 +54,7 @@ RatingItems = React.createClass
       {@ratingItems()}
     </div>
 
-module.exports = RatingItems
+mapStateToProps = ({ratingItems}) ->
+  order: ratingItems.order
+
+module.exports = connect(mapStateToProps)(RatingItems)
