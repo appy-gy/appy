@@ -2,8 +2,8 @@ _ = require 'lodash'
 React = require 'react'
 moment = require 'moment'
 classNames = require 'classnames'
-strip = require 'strip'
 imageUrl = require '../../../helpers/image_url'
+ratingShortDescription = require '../../../helpers/ratings/short_description'
 Meta = require './meta'
 Tags = require './tags'
 Delete = require './delete'
@@ -39,13 +39,6 @@ Preview = React.createClass
 
     rating.title or "Ваш рейтинг от #{moment(rating.createdAt).format('HH:MM DD.MM.YYYY')}"
 
-  description: ->
-    {rating} = @props
-
-    _.trunc strip(rating.description),
-      length: 150
-      separator: /,? +/
-
   deleteButton: ->
     {rating, showDelete} = @props
 
@@ -80,7 +73,7 @@ Preview = React.createClass
           {@title()}
         </RatingLink>
         <div className="preview_description">
-          {@description()}
+          {ratingShortDescription rating.description}
         </div>
         <Tags tags={rating.tags}/>
       </div>
