@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react'
 Select = require 'react-select'
+classNames = require 'classnames'
 http = require '../../../helpers/http'
 Result = require './result'
 
@@ -36,7 +37,9 @@ Search = React.createClass
   render: ->
     {query} = @state
 
-    <div className="search">
+    classes = classNames 'search', 'm-filled': not _.isEmpty(query)
+
+    <div className={classes}>
       <div className="search_cover"/>
       <div className="search_content">
         <h1 className="search_title">Поиск</h1>
