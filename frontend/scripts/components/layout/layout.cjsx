@@ -83,6 +83,12 @@ Layout = React.createClass
     clearTimeout @loaderTimeout
     @loaderTimeout = null
 
+  shouldShowClose: ->
+    @props.onClose or @state.searchVisible
+
+  onClose: ->
+    if @state.searchVisible then @triggerSearch() else @props.onClose()
+
   header: ->
     {header} = @props
 
@@ -100,7 +106,7 @@ Layout = React.createClass
     <Footer/> if @props.showFooter
 
   close: ->
-    <Close onClose={@props.onClose}/> if @props.onClose
+    <Close onClose={@onClose}/> if @shouldShowClose()
 
   content: ->
     @props.children unless @props.isLoading
