@@ -3,6 +3,7 @@ React = require 'react'
 Select = require 'react-select'
 classNames = require 'classnames'
 http = require '../../../helpers/http'
+HtmlStyle = require '../../shared/html_style'
 Result = require './result'
 
 {PropTypes} = React
@@ -40,6 +41,7 @@ Search = React.createClass
     classes = classNames 'search', 'm-filled': not _.isEmpty(query)
 
     <div className={classes}>
+      <HtmlStyle style={overflow: 'hidden'}/>
       <div className="search_cover"/>
       <div className="search_content">
         <h1 className="search_title">Поиск</h1>
