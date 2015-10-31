@@ -49,6 +49,7 @@ Layout = React.createClass
   getInitialState: ->
     headerExpanded: false
     searchVisible: false
+    showLoader: false
 
   getChildContext: ->
     {onLogoClick} = @props
@@ -56,11 +57,33 @@ Layout = React.createClass
 
     { headerExpanded, @triggerHeader, searchVisible, @triggerSearch, onLogoClick }
 
+  componentWillMount: ->
+    @setupLoaderTimeout() if @props.isLoading
+
+  componentWillReceiveProps: ({isLoading}) ->
+    {isLoading: prevIsLoading} = @props
+    {showLoader} = @state
+
+    return if isLoading == prevIsLoading
+    return @setupLoaderTimeout() if isLoading
+    @clearLoaderTimeout()
+    @setState showLoader: false if showLoader
+
   triggerHeader: ->
     @setState headerExpanded: not @state.headerExpanded
 
   triggerSearch: ->
     @setState searchVisible: not @state.searchVisible
+
+  setupLoaderTimeout: ->
+    @loaderTimeout = setTimeout =>
+      @setState showLoader: true
+    , 1000
+
+  clearLoaderTimeout: ->
+    return unless @loaderTimeout?
+    clearTimeout @loaderTimeout
+    @loaderTimeout = null
 
   header: ->
     {header} = @props
@@ -73,7 +96,7 @@ Layout = React.createClass
     <Search/> if @state.searchVisible
 
   loader: ->
-    <Loader/> if @props.isLoading
+    <Loader/> if @state.showLoader
 
   footer: ->
     <Footer/> if @props.showFooter
