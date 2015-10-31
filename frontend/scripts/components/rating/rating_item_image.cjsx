@@ -60,7 +60,7 @@ RatingItemImage = React.createClass
 
     image = <img className="rating-item_image" src={@imageUrl()} height={ratingItem.height}/>
     unless canEdit
-      image = <a target="_blank" href={@imageUrl()}>{image}</a>
+      image = <a target="_blank" href={imageUrl ratingItem.image}>{image}</a>
     image
 
   updateImageButton: ->
