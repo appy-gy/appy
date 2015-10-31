@@ -11,7 +11,7 @@ RatingItem = React.createClass
   propTypes:
     ratingItem: PropTypes.object.isRequired
     index: PropTypes.number.isRequired
-    ratingItemVisibleId: PropTypes.string.isRequired
+    visibleRatingItemId: PropTypes.string.isRequired
     width: PropTypes.number
     sectionColor: PropTypes.string
     invertedSectionColor: PropTypes.string
@@ -22,9 +22,9 @@ RatingItem = React.createClass
     "#item-#{ratingItem.position}"
 
   render: ->
-    {ratingItem, index, ratingItemVisibleId, width, sectionColor, invertedSectionColor} = @props
+    {ratingItem, index, visibleRatingItemId, width, sectionColor, invertedSectionColor} = @props
 
-    barColor = if ratingItemVisibleId == ratingItem.id then invertedSectionColor else sectionColor
+    barColor = if visibleRatingItemId == ratingItem.id then invertedSectionColor else sectionColor
     opacity = width / 100
 
     <div className="header_rating-item">
@@ -41,7 +41,7 @@ RatingItem = React.createClass
     </div>
 
 mapStateToProps = ({ratingItems}, {ratingItem}) ->
-  ratingItemVisibleId = ratingItems.waypoint
-  { ratingItemVisibleId }
+  visibleRatingItemId = ratingItems.waypoint
+  { visibleRatingItemId }
 
 module.exports = connect(mapStateToProps)(RatingItem)
