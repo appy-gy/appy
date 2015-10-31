@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
+classNames = require 'classnames'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -24,10 +25,12 @@ RatingItem = React.createClass
   render: ->
     {ratingItem, index, visibleRatingItemId, width, sectionColor, invertedSectionColor} = @props
 
-    barColor = if visibleRatingItemId == ratingItem.id then invertedSectionColor else sectionColor
+    isActive = visibleRatingItemId == ratingItem.id
+    classes = classNames 'header_rating-item', 'm-active': isActive
+    barColor = if isActive then invertedSectionColor else sectionColor
     opacity = width / 100
 
-    <div className="header_rating-item">
+    <div className={classes}>
       <div className="header_rating-item-content">
         <a title={ratingItem.title} className="header_rating-item-title" href={@ratingItemAnchor()} data-scroll>
           {index} {ratingItem.title}
