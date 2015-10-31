@@ -228,6 +228,22 @@
 
   &_meta
     justify-content: center
+    padding: 20px
+
+    @media screen and (max-width: $small)
+      flex-flow: row wrap
+
+      .rating_item:not(a):nth-last-of-type(2)
+        margin-right: 0
+
+      .rating_item:not(a):last-of-type
+        width: 100%
+        display: flex
+        justify-content: center
+        margin-top: 3px
+
+    @media screen and (min-width: $small)
+      padding: 30px
 
 
   &_title
@@ -266,7 +282,7 @@
 
 
   &_sort-switch
-    +switch($white, 150px)
+    +switch($white, 164px)
 
     &-wrap
       margin-top: 30px

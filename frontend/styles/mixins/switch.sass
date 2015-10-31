@@ -8,17 +8,21 @@
     color: $color
     font-family: $monospace
     font-weight: 600
-    font-size: 12px
+    font-size: 10px
     flex: 2
     line-height: 36px
     text-align: center
     width: $width
+    max-width: 50%
     cursor: pointer
 
     &.m-active
       background-color: $color
       color: invert($color)
       cursor: default
+
+    @media screen and (min-width: $small)
+      font-size: 12px
 
   &-wrap
     display: flex
