@@ -1,3 +1,4 @@
+_ = require 'lodash'
 React = require 'react'
 SideEffect = require 'react-side-effect'
 
