@@ -21,7 +21,6 @@ Layout = React.createClass
     isLoading: PropTypes.bool
     onLogoClick: PropTypes.func
     showFooter: PropTypes.bool
-    showClose: PropTypes.bool
     onClose: PropTypes.func
     children: PropTypes.node
 
@@ -42,8 +41,7 @@ Layout = React.createClass
     isLoading: false
     onLogoClick: ->
     showFooter: true
-    showClose: false
-    onClose: -> console.log 'TODO: implement default onClose for the layout component'
+    onClose: null
     children: null
 
   getInitialState: ->
@@ -102,13 +100,13 @@ Layout = React.createClass
     <Footer/> if @props.showFooter
 
   close: ->
-    <Close onClose={@props.onClose}/> if @props.showClose
+    <Close onClose={@props.onClose}/> if @props.onClose
 
   content: ->
     @props.children unless @props.isLoading
 
   render: ->
-    {header, onClose, children} = @props
+    {header, children} = @props
 
     <div className="layout">
       {@header()}

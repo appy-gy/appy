@@ -16,7 +16,7 @@ Layout = require '../layout/layout'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{replaceState} = ReduxRouter
+{goBack, replaceState} = ReduxRouter
 {fetchRating} = ratingActions
 {fetchRatingItems} = ratingItemActions
 
@@ -59,6 +59,11 @@ RatingPage = React.createClass
 
     { rating, ratingSlug, ratingItems, block: 'rating', canEdit: @canEdit() }
 
+  shouldComponentUpdate: ({ratingSlug}) ->
+    # FIXME: ratingSlug becomes undefined when @goBack called, because
+    # page get changed after one more render of previous page
+    ratingSlug?
+
   meta: ->
     {rating} = @props
 
@@ -77,6 +82,11 @@ RatingPage = React.createClass
 
     return if rating.status == 'published' or @canEdit(rating)
     dispatch replaceState(null, '/') if isClient()
+
+  goBack: ->
+    # FIXME: redux-router acts strange
+    # when you try to go back on esc keypress
+    setImmediate => @props.dispatch goBack()
 
   fetchRating: ->
     @props.dispatch(fetchRating(@props.ratingSlug)).then (rating) =>
@@ -100,7 +110,7 @@ RatingPage = React.createClass
   render: ->
     {rating, ratingSlug, isFetched} = @props
 
-    <Layout header={@header()} isLoading={not isFetched} showClose={true}>
+    <Layout header={@header()} isLoading={not isFetched} onClose={@goBack}>
       <Helmet title={rating.title} meta={@meta()}/>
       <Rating/>
       {@similar()}
