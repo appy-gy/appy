@@ -1,7 +1,6 @@
 React = require 'react'
 Header = require './header'
 Logo = require './logo'
-Validations = require './validations'
 RatingActions = require './rating_actions'
 EditRatingItems = require './edit_rating_items'
 
@@ -20,10 +19,7 @@ EditRatingHeader = React.createClass
     <Header>
       <Logo/>
       <EditRatingItems/>
-      <div className="header_rating-publish-info">
-        <Validations/>
-        <RatingActions/>
-      </div>
+      <RatingActions/>
     </Header>
 
 module.exports = EditRatingHeader

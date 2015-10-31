@@ -4,13 +4,13 @@ classNames = require 'classnames'
 ratingItemActions = require '../../actions/rating_items'
 Title = require './title'
 Description = require './description'
-Image = require './rating_item_image'
+Attachment = require './rating_item_attachment'
 Votes = require './votes'
 Waypoint = require '../shared/waypoint'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{removeRatingItem, changeRatingItemVisibility, addRatingItemWaypoint, removeRatingItemWaypoint} = ratingItemActions
+{removeRatingItem, changeRatingItemWaypoint} = ratingItemActions
 
 RatingItem = React.createClass
   displayName: 'RatingItem'
@@ -41,15 +41,8 @@ RatingItem = React.createClass
 
     @props.dispatch removeRatingItem(@props.ratingItem.id)
 
-
-  handleWaypointLeave: ->
-    @props.dispatch removeRatingItemWaypoint(@props.ratingItem.id)
-
-  handleWaypointEnter: (visibility) ->
-    @props.dispatch addRatingItemWaypoint(@props.ratingItem.id, visibility)
-
-  handleWaypointVisibilityChange: (visibility) ->
-    @props.dispatch changeRatingItemVisibility(@props.ratingItem.id, visibility)
+  handleWaypointChange: ->
+    @props.dispatch changeRatingItemWaypoint(@props.ratingItem.id)
 
   removeButton: ->
     {rating} = @context
@@ -68,7 +61,7 @@ RatingItem = React.createClass
     edit = rating.status != 'published'
     classes = classNames 'rating-item', mods.map (mod) -> "m-#{mod}"
 
-    <Waypoint onEnter={@handleWaypointEnter} onLeave={@handleWaypointLeave} onVisibilityChange={@handleWaypointVisibilityChange}>
+    <Waypoint onChange={@handleWaypointChange}>
       <section id="item-#{ratingItem.position}" className={classes}>
         <div className="rating-item_header">
           <span className="rating-item_number">{index}</span>
@@ -77,9 +70,7 @@ RatingItem = React.createClass
         <div className="rating-item_description-wrapper">
           <Description object={ratingItem} objectType="ratingItem" passObjectId={true} edit={edit} placeholder="Введите описание пункта"/>
         </div>
-        <div className="rating-item_cover-wrap">
-          <Image/>
-        </div>
+        <Attachment/>
         {@removeButton()}
         {@votes()}
       </section>

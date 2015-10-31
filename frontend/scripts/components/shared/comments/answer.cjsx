@@ -16,7 +16,6 @@ Answer = React.createClass
   propTypes:
     inline: PropTypes.bool.isRequired
     query: PropTypes.object.isRequired
-    visibleCommentForm: PropTypes.bool.isRequired
 
   contextTypes:
     comment: PropTypes.object.isRequired
@@ -56,7 +55,7 @@ Answer = React.createClass
     Root = @root()
     classes = classNames 'comment_action', 'm-active': comment.id == visibleCommentForm
 
-    <Root className={classes} rating={comment.rating} query={comment: shortId(comment.id), reply: true}>
+    <Root className={classes} title="Ответить" rating={comment.rating} query={comment: shortId(comment.id), reply: true}>
       <div ref="trigger" className="comment_action-link m-reply" onClick={@triggerForm}>
       </div>
       {@form()}

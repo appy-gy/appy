@@ -50,11 +50,17 @@ Tag = React.createClass
     @ratings().map (rating, index) =>
       <Preview key={rating.id} rating={rating} imageSize="preview"/>
 
+  pageDescription: ->
+    {tag} = @props
+
+    "Материалы по тегу ##{tag.name}"
+
   render: ->
     {isFetched} = @props
 
     <Layout isLoading={not isFetched}>
       <Helmet meta={@meta()}/>
+      <div className="layout_title">{@pageDescription()}</div>
       <div className="previews">
         {@previews()}
         {@showMore()}

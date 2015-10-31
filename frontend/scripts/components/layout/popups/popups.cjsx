@@ -20,7 +20,10 @@ Popups = React.createClass
     popups: PropTypes.arrayOf(PropTypes.object).isRequired
 
   componentWillMount: ->
-    @onEsc @closeLastPopup
+    @onEsc
+      cb: @closeLastPopup
+      use: => not _.isEmpty @props.popups
+      priority: 1
 
   closeLastPopup: ->
     @props.dispatch removePopup(@popup()) if @popup()?

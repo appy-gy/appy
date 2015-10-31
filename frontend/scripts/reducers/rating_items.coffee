@@ -9,7 +9,7 @@ cleaner = require '../helpers/reducers/cleaner'
 {defaultState, handlers} = itemsReceiver 'ratingItems'
 
 defaultState = _.backflow defaultState, ->
-  waypoints: []
+  waypoint: null
 
 handlers = _.merge handlers, cleaner('ratingItems', defaultState),
   APPEND_RATING_ITEM: (state, {payload: ratingItem}) ->
@@ -30,18 +30,8 @@ handlers = _.merge handlers, cleaner('ratingItems', defaultState),
       result[index] = $merge: { position }
     update state, items: changes
 
-  CHANGE_RATING_ITEM_VISIBILITY: (state, {payload}) ->
-    {id, visibility} = payload
-    index = _.findIndex state.waypoints, id
-    update state, waypoints: { $merge: { "#{index}": { "#{id}": { visibility } } } }
-
-  ADD_RATING_ITEM_WAYPOINT: (state, {payload}) ->
-    {id, visibility} = payload
-    update state, waypoints: { $push: [{"#{id}": { visibility }}] }
-
-  REMOVE_RATING_ITEM_WAYPOINT: (state, {payload: id}) ->
-    index = _.findIndex state.waypoints, id
-    update state, waypoints: { $splice: [[index, 1]] }
+  CHANGE_RATING_ITEM_WAYPOINT: (state, {payload: id}) ->
+    update state, waypoint: { $set: id }
 
 reducer = handleActions handlers, defaultState()
 

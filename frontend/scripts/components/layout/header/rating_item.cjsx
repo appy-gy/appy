@@ -1,7 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
-classNames = require 'classnames'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -14,6 +13,7 @@ RatingItem = React.createClass
     visibility: PropTypes.string
     sectionColor: PropTypes.string
     width: PropTypes.number
+    invertedSectionColor: PropTypes.string
 
   ratingItemAnchor: ->
     {ratingItem} = @props
@@ -21,10 +21,12 @@ RatingItem = React.createClass
     "#item-#{ratingItem.position}"
 
   render: ->
-    {ratingItem, visibility, ratingItemVisibility, sectionColor, width} = @props
-    classes = classNames 'header_rating-item', "m-visible-#{ratingItemVisibility}"
+    {ratingItem, sectionColor, width, ratingItemVisibleId, invertedSectionColor} = @props
 
-    <div className={classes}>
+    barColor = if ratingItemVisibleId == ratingItem.id then invertedSectionColor else sectionColor
+    opacity = width / 100
+
+    <div className="header_rating-item">
       <div className="header_rating-item-content">
         <a title={ratingItem.title} className="header_rating-item-title" href={@ratingItemAnchor()} data-scroll>
           {ratingItem.title}
@@ -33,12 +35,12 @@ RatingItem = React.createClass
           {ratingItem.mark}
         </div>
       </div>
-      <div className="header_rating-item-bar" style={backgroundColor: sectionColor, width: "#{width}%"}>
+      <div className="header_rating-item-bar" style={backgroundColor: barColor, width: "#{width}%", opacity: opacity}>
       </div>
     </div>
 
 mapStateToProps = ({ratingItems}, {ratingItem}) ->
-  ratingItemVisibility =  _.result(_.find(ratingItems.waypoints, ratingItem.id), "#{ratingItem.id}.visibility", "hidden")
-  { ratingItemVisibility }
+  ratingItemVisibleId = ratingItems.waypoint
+  { ratingItemVisibleId }
 
 module.exports = connect(mapStateToProps)(RatingItem)

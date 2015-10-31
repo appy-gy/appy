@@ -1,13 +1,13 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
-ReduxReactRouter = require 'redux-react-router'
+ReduxRouter = require 'redux-router'
 ratingActions = require '../../../actions/rating'
 Login = require '../auth/login'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{pushState} = ReduxReactRouter
+{pushState} = ReduxRouter
 {createRating} = ratingActions
 
 CreateRating = React.createClass

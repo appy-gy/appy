@@ -1,20 +1,37 @@
+_ = require 'lodash'
+isClient = require '../../helpers/is_client'
+
+escListeners = []
+
+onEsc = (event) ->
+  return unless event.keyCode == 27
+  listeners = escListeners.filter ({use}) -> use event
+  maxPriority = _.max(listeners, 'priority').priority
+  listeners
+    .filter ({priority}) -> priority == maxPriority
+    .each ({cb}) -> cb event
+
+document.body.addEventListener 'keydown', onEsc if isClient()
+
 OnEsc =
   componentWillMount: ->
     @escListeners = []
 
   componentWillUnmount: ->
-    @escListeners.each (listener) -> listener.dispose()
+    @escListeners.each @cancelOnEsc
 
-  onEsc: (cb) ->
-    return unless document?
+  onEsc: (listener) ->
+    listener = cb: listener if _.isFunction listener
+    listener = _.defaults {}, listener,
+      use: -> true
+      priority: 0
 
-    onKeydown = (event) ->
-      return unless event.keyCode == 27
-      cb event
+    @escListeners.push listener
+    escListeners.push listener
 
-    document.body.addEventListener 'keydown', onKeydown
+    => @cancelOnEsc listener
 
-    @escListeners.push dispose: ->
-      document.body.removeEventListener 'keydown', onKeydown
+  cancelOnEsc: (listener) ->
+    _.remove escListeners, listener
 
 module.exports = OnEsc

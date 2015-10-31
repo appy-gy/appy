@@ -14,6 +14,9 @@ Navigation = React.createClass
     dispatch: PropTypes.func.isRequired
     sections: PropTypes.arrayOf(PropTypes.object).isRequired
 
+  contextTypes:
+    triggerSearch: PropTypes.func.isRequired
+
   componentWillMount: ->
     @fetchHeaderSections()
 
@@ -27,9 +30,11 @@ Navigation = React.createClass
       <Section key={section.id} section={section}/>
 
   render: ->
+    {triggerSearch} = @context
+
     <nav className="site-nav">
       {@sections()}
-      <div className="site-nav_item m-search">
+      <div className="site-nav_item m-search" onClick={triggerSearch}>
         <div className="site-nav_icon">
         </div>
         <div className="site-nav_text">
@@ -37,7 +42,6 @@ Navigation = React.createClass
         </div>
       </div>
     </nav>
-
 
 mapStateToProps = ({headerSections}) ->
   sections: headerSections.items

@@ -1,7 +1,7 @@
-ReduxReactRouterServer = require 'redux-react-router/server'
+ReduxRouterServer = require 'redux-router/server'
 routes = require '../../frontend/scripts/routes'
 
-{reduxReactRouter} = ReduxReactRouterServer
+{reduxReactRouter} = ReduxRouterServer
 
 router = reduxReactRouter { routes }
 

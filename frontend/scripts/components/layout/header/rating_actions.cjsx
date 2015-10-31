@@ -1,12 +1,14 @@
 React = require 'react'
 ReactRedux = require 'react-redux'
-ReduxReactRouter = require 'redux-react-router'
+ReduxRouter = require 'redux-router'
 Publish = require '../../shared/ratings/publish'
+Save = require '../../shared/ratings/save'
 Delete = require '../../shared/ratings/delete'
+Validations = require './validations'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{replaceState} = ReduxReactRouter
+{replaceState} = ReduxRouter
 
 RatingActions = React.createClass
   displayName: 'RatingActions'
@@ -24,10 +26,28 @@ RatingActions = React.createClass
 
   render: ->
     {rating, ratingItems} = @context
+    <div className="rating-statusbar_wrap">
+      <div className="grid">
+        <div className="rating-statusbar">
+          <div className="header_rating-publish-info">
+            <Validations/>
+          </div>
+          <div className="rating-statusbar_buttons">
+            <Save ref='save' rating={rating} ratingItems={ratingItems}/>
 
-    <div className="header_rating-actions">
-      <Publish ref="publish" rating={rating} ratingItems={ratingItems}/>
-      <Delete ref="delete" rating={rating} onDelete={@redirectToProfile}/>
+            <Publish ref="publish" rating={rating} ratingItems={ratingItems}/>
+            <div className="rating-statusbar_more">
+              <div className="rating-statusbar_more-icon">
+              </div>
+              <div className="rating-statusbar_more-content-wrap">
+                <div className="rating-statusbar_more-content">
+                  <Delete ref="delete" rating={rating} onDelete={@redirectToProfile}/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
 module.exports = connect()(RatingActions)

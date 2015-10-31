@@ -39,7 +39,7 @@ Comments = React.createClass
     {page, pagesCount} = @props
     {user} = @context
 
-    <div className="user-profile_content">
+    <div className="user-profile_tab-content">
       <h2 className="user-profile_tab-header">
         Комментарии к рейтингам
       </h2>

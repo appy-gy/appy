@@ -1,5 +1,5 @@
-ReduxReactRouter = require 'redux-react-router'
+ReduxRouter = require 'redux-router'
 
-{routerStateReducer} = ReduxReactRouter
+{routerStateReducer} = ReduxRouter
 
 module.exports = routerStateReducer

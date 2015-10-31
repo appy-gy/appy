@@ -1,7 +1,7 @@
 _ = require 'lodash'
-ReduxReactRouter = require 'redux-react-router'
+ReduxRouter = require 'redux-router'
 
-{replaceState} = ReduxReactRouter
+{replaceState} = ReduxRouter
 
 SyncSlug = (name, url) ->
   componentWillUpdate: (nextProps) ->

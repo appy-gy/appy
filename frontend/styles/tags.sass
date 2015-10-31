@@ -1,4 +1,3 @@
-
 .tag
   display: inline-block
   font-size: 12px
@@ -7,9 +6,14 @@
   text-overflow: ellipsis
   overflow: hidden
   font-family: $monospace
+  max-width: 200px
+  white-space: nowrap
 
   &:before
     content: '#'
 
   &:last-of-type
     margin-right: 0
+
+  &:hover
+    color: $black

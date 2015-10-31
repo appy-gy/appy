@@ -1,5 +1,5 @@
 .rating-item
-  padding: 20px
+  padding: 30px 16px
   border-top: 1px dashed $grey-3
   border-bottom: 1px dashed $grey-3
   margin-top: -1px
@@ -7,8 +7,11 @@
   transition: transform 0.2s ease
   background-color: $white
 
+  @media screen and (min-width: $small)
+    padding: 30px 20px
+
   @media screen and (min-width: $medium)
-    padding: 30px 40px
+    padding: 60px 40px
 
   &.m-shift-top
     transform: translateY(-35px)
@@ -21,7 +24,7 @@
     line-height: 1.35
     font-family: $monospace
     font-weight: 700
-    color: $color-1
+    color: $black
     margin-bottom: 20px
     display: flex
     justify-content: center
@@ -55,10 +58,10 @@
       cursor: pointer
 
     &::placeholder
-      color: $color-1
+      color: black
 
     &:focus::placeholder
-      color: $color-3
+      color: $grey-3
 
     &-wrapper
       width: 100%
@@ -74,74 +77,90 @@
       &.m-cancel
         +alt-cancel
 
-  &_add-image
-    +add-image
-    position: relative
-    color: $black-3
-    width: 40px
-    height: 40px
-    border: 1px solid $black-3
-    border-radius: 20px
-
-  &_cover
+  &_attachment
+    display: flex
+    flex-flow: row nowrap
     position: relative
     width: 100%
 
-    &-wrap
-      display: flex
-      justify-content: center
-      width: 100%
+    &-image, &-video
+      position: relative
 
-      @media screen and (min-width: $medium)
-        padding: 20px 0 0
-
-    &-image
-      display: none
-      margin: 0 auto
-      max-width: 100%
-      max-height: 600px
-
-    &.m-with-image
-
-      .rating-item
-        &_cover-image
-          display: block
-
-        &_add-image
-          width: 100%
-          height: 100%
-          position: absolute
-          top: 0
-          left: 0
-          border-radius: 0
-          border: none
-          background-color: $color-3
-          opacity: 0
-          transform: scale(0)
-          color: $white
-          font-size: 48px
-
-        &_remove-image
-          +remove-image
-          position: absolute
-          top: 20px
-          right: 20px
-          margin-right: -60px
-          transition: margin 0.2s ease, opacity 0.2s ease, transform 0.2s ease
-          opacity: 0
-
-      &:hover
+      &.m-chosen
+        width: 100%
         .rating-item
-          &_add-image
-            transform: scale(1)
-            opacity: 1
+          &_image, &_video
+            display: block
 
-          &_remove-image
-            margin-right: 0
-            opacity: 1
+          &_add-image, &_add-video
+            width: 100%
+            height: 100%
+            position: absolute
+            top: 0
+            left: 0
+            border-radius: 0
+            border: none
+            background-color: rgba($black, 0.7)
+            opacity: 0
+            transform: scale(0)
+            color: $white
+            font-size: 48px
+
+          &_remove-image, &_remove-video
+            +remove-image
+            position: absolute
+            top: 20px
+            right: 20px
+            margin-right: -60px
+            transition: margin 0.2s ease, opacity 0.2s ease, transform 0.2s ease
+            opacity: 0
+
+          &_video-input
+            display: none
+
+        &:hover
+          .rating-item
+            &_add-image
+              transform: scale(1)
+              opacity: 1
+
+            &_remove-image, &_remove-video
+              margin-right: 0
+              opacity: 1
+
+    &-video
+      display: flex
+      flex-flow: row nowrap
+
+  &_image
+    display: none
+    max-width: 100%
+    max-height: 600px
+    margin: 0 auto
+
+  &_video
+    margin: 0 auto
+    max-width: 100%
+    max-height: 600px
+    width: 100%
+    height: 350px
+    @media screen and (min-width: $medium)
+      height: 520px
+    &-input
+      margin-left: $margin
+      width: 500px
+
+      &::placeholder, &:focus::placeholder
+        color: $black-3
+
+  &_add-image
+    +add-image
+
+  &_add-video
+    +add-video
+    margin-left: $margin
 
   &_description
-    // +rating-editor-content
     margin: 15px 0
     width: 100%
     white-space: pre-wrap

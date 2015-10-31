@@ -1,12 +1,12 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
-ReduxReactRouter = require 'redux-react-router'
+ReduxRouter = require 'redux-router'
 classNames = require 'classnames'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{replaceState} = ReduxReactRouter
+{replaceState} = ReduxRouter
 
 TabButton = React.createClass
   displayName: 'TabButton'

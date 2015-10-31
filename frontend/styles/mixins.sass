@@ -118,41 +118,38 @@
     color: $white
     background-color: $color
 
-=add-image
+=change-attachment
   z-index: 2
-  font-size: 32px
+  font-size: 24px
   color: $white
+  background: $black
   transition: transform 0.1s
-  width: 30px
-  height: 30px
+  width: 40px
+  height: 40px
   cursor: pointer
   display: flex
+  border-radius: 20px
   justify-content: center
   align-items: center
+
+=add-image
+  +change-attachment
 
   &:before
     +ion-icon("ios-camera-outline")
 
-  &:hover
-    transform: scale(1.2)
-
 =remove-image
-  z-index: 2
-  font-size: 32px
-  color: $white
-  transition: transform 0.1s
-  width: 30px
-  height: 30px
-  cursor: pointer
-  display: flex
-  justify-content: center
-  align-items: center
+  +change-attachment
+  border: 1px solid $white
 
   &:before
-    +ion-icon("ios-close-outline")
+    +ion-icon("ios-close-empty")
 
-  &:hover
-    transform: scale(1.2)
+=add-video
+  +change-attachment
+
+  &:before
+    +ion-icon("ios-videocam-outline")
 
 =popup-title
   align-self: center

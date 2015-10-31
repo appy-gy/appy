@@ -2,8 +2,8 @@ _ = require 'lodash'
 React = require 'react'
 ReactDOM = require 'react-dom/server'
 ReactRedux = require 'react-redux'
-ReduxReactRouter = require 'redux-react-router'
-ReduxReactRouterServer = require 'redux-react-router/server'
+ReduxRouter = require 'redux-router'
+ReduxRouterServer = require 'redux-router/server'
 Helmet = require 'react-helmet'
 he = require 'he'
 parse5 = require 'parse5'
@@ -14,8 +14,8 @@ buildStore = require '../../frontend/scripts/build_store'
 http = require '../../frontend/scripts/helpers/http'
 
 {Provider} = ReactRedux
-{ReduxRouter} = ReduxReactRouter
-{match} = ReduxReactRouterServer
+{ReduxRouter} = ReduxRouter
+{match} = ReduxRouterServer
 {Parser, Serializer} = parse5
 
 rendersLimit = 10
@@ -42,6 +42,8 @@ module.exports = ->
     onMatch = ->
       render()
         .then ({head, body}) ->
+          head = _.mapValues head, (tag) -> tag.toString()
+
           fragment = new Parser().parseFragment(head.meta)
           fragment.childNodes
             .filter (tag) -> tag.attrs?.content?

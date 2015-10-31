@@ -2,6 +2,12 @@
   display: flex
   flex-flow: row wrap
 
+  @media screen and (min-width: $small)
+    padding: 30px 0 0 0
+
+  @media screen and (min-width: $medium)
+    padding: 40px 0 0 0
+
   &_show-more
     background-color: $dark-blue
     color: $white
@@ -70,6 +76,8 @@
   &_tags
     display: flex
     padding-top: 5px
+    max-width: 100%
+    flex-flow: row wrap
 
   &_image
     position: relative
@@ -83,7 +91,12 @@
 
     &-wrap
       display: block
+      position: relative
+
       // border-radius: 5px
+
+      &:hover ~ .preview_content .preview_title
+        color: $green
 
     &:after
       content: ''
@@ -96,6 +109,7 @@
       height: 40%
       transition: opacity 0.1s ease
       // border-radius: 5px 5px 0 0
+
 
   &_section-name
     display: block
@@ -129,15 +143,32 @@
     line-height: 1.3
     +word-break
 
+    &:hover
+      color: $green
+
   &_description
     display: block
-    line-height: 1.3
+    line-height: 1.5
     font-size: 14px
     font-family: $sans-serif
     +word-break
     color: $black-2
     margin-top: 5px
     max-width: 100%
+    z-index: 1
+
+  &_delete-rating
+    font-size: 12px
+    font-family: $monospace
+    cursor: pointer
+    display: none
+    position: absolute
+    bottom: 5px
+    right: 5px
+    color: $white-2
+
+    &:hover
+      color: $white
 
   &:hover
     .preview_meta
@@ -147,8 +178,8 @@
       &:after
         opacity: 1
 
-    .preview_title
-      color: $green
+    .preview_delete-rating
+      display: block
 
 
   &.m-super-large
@@ -209,7 +240,10 @@
         margin-top: 0
 
       &_title
-        color: $white
+        text-align: center
+
+        &:not(:hover)
+          color: $white
 
         @media screen and (min-width: $small)
           font-size: 28px
@@ -219,7 +253,17 @@
 
       &_description
         color: $white
-        margin-top: 20px
+        margin: 20px 0
+        max-width: 100%
+        padding: 0 16px
+        text-align: center
+
+        @media screen and (min-width: $small)
+          padding: 0 30px
+
+        @media screen and (min-width: $medium)
+          padding: 0 40px
+
 
       &_tags
         z-index: 1
@@ -229,7 +273,10 @@
         // left: 0
 
         .tag
-          color: white
+          color: $white-2
+          &:hover
+            color: $white
+
 
   &.m-large
 
@@ -244,13 +291,30 @@
           font-size: 22px
 
   &.m-draft
-    .preview_title
-      &:before
+    .preview_image-wrap
+      &::before
         +ion-icon("edit")
-        font-size: 12px
-        width: 16px
-        margin-left: -16px
-        color: $black-3
+        position: absolute
+        z-index: 1
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+        color: $black
+        font-size: 24px
+        width: 50px
+        height: 50px
+        border-radius: 25px
+        display: flex
+        justify-content: center
+        align-items: center
+        background-color: $white-3
+    // .preview_title
+    //   &:before
+    //     +ion-icon("edit")
+    //     font-size: 12px
+    //     width: 16px
+    //     margin-left: -16px
+    //     color: $black-3
 
   &:not(.m-super-large)
     .preview

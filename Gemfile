@@ -29,6 +29,9 @@ gem 'sorcery'
 gem 'carrierwave'
 gem 'carrierwave-processing'
 
+# Video info
+gem 'video_info'
+
 # Pagination
 gem 'kaminari'
 

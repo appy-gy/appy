@@ -56,16 +56,16 @@ RatingItemImage = React.createClass
       dispatch updateRatingItem(ratingItem.id, removeImage: true)
 
   image: ->
-    {canEdit} = @context
+    {ratingItem, canEdit} = @context
 
-    image = <img className="rating-item_cover-image" src={@imageUrl()}/>
+    height = if canEdit then null else ratingItem.imageHeight
+    image = <img className="rating-item_image" src={@imageUrl()} height={height}/>
     unless canEdit
-      image = <a target="_blank" href={@imageUrl()}>{image}</a>
+      image = <a target="_blank" href={imageUrl ratingItem.image}>{image}</a>
     image
 
   updateImageButton: ->
     <div className="rating-item_add-image" title="Выберите изображение" onClick={@openSelect}>
-
     </div>
 
   removeImageButton: ->
@@ -87,7 +87,7 @@ RatingItemImage = React.createClass
   render: ->
     {ratingItem, canEdit} = @context
 
-    classes = classNames 'rating-item_cover', 'm-with-image': ratingItem.image?
+    classes = classNames 'rating-item_attachment-image', 'm-chosen': ratingItem.image?
 
     return <div className={classes}>{@children()}</div> unless canEdit
 

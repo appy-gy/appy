@@ -21,10 +21,10 @@ $tab-title-height: 50px
   margin-bottom: 0
 
   @media screen and (min-width: $small)
-    margin-bottom: 30px
+    margin: 30px 0
 
   @media screen and (min-width: $medium)
-    margin-bottom: 40px
+    margin: 40px 0
 
   $avatar-margin: 7px
   $padding: 20px
@@ -96,11 +96,13 @@ $tab-title-height: 50px
       background: $black_3
       color: $white
       padding: $margin 2 * $margin 2 * $margin 2 * $margin
-      margin-bottom: -100%
       text-align: center
       width: 100%
       transition: margin 0.3s ease
       cursor: pointer
+
+      @media screen and (min-width: $big)
+        margin-bottom: -100%
 
     &-create
       display: none
@@ -110,7 +112,7 @@ $tab-title-height: 50px
         margin-bottom: 0
 
   &_info
-    width: calc(100% - 254px)
+    width: 100%
     display: flex
     flex-flow: column
     justify-content: center
@@ -118,6 +120,7 @@ $tab-title-height: 50px
 
     @media screen and (min-width: $small)
       padding: 0 0 0 30px
+      width: calc(100% - 254px)
 
     @media screen and (min-width: $medium)
       padding: 0 0 0 40px
@@ -136,19 +139,15 @@ $tab-title-height: 50px
       overflow: hidden
       white-space: nowrap
       text-overflow: ellipsis
-      text-align: center
 
       &::placeholder, &:focus::placeholder
         color: $white-2
-
-      @media screen and (min-width: $small)
-        text-align: left
 
     &-buttons
       margin-top: 20px
       display: flex
       flex-flow: row nowrap
-      justify-content: center
+      justify-content: flex-start
 
       @media screen and (min-width: $small)
         justify-content: space-between
@@ -182,6 +181,10 @@ $tab-title-height: 50px
   &_social
     display: flex
     margin-right: $margin
+    flex: 1
+
+    @media screen and (min-width: $small)
+      flex: 0 1 auto
 
     &-button
       +icon-button
@@ -238,9 +241,13 @@ $tab-title-height: 50px
   &_action-buttons
     position: absolute
     top: $padding
-    left: $padding
     display: flex
     flex-flow: row nowrap
+    right: 16px
+
+    @media screen and (min-width: $medium)
+      right: 40px
+
 
   &_background-uploader, &_settings
     position: relative
@@ -334,13 +341,17 @@ $tab-title-height: 50px
     // @media screen and (max-width: 1240px)
     //   padding: 15px 30px
 
+    .comment
+      @media screen and (max-width: $small)
+        padding: 16px 16px 0 16px
+
   &_tab-header
     font-size: 20px
     font-family: $monospace
     font-weight: 700
     color: $black
     line-height: 1
-    padding: 25px 15px 15px 15px
+    padding: 15px
 
     @media screen and (min-width: $small)
       font-size: 28px
@@ -350,10 +361,7 @@ $tab-title-height: 50px
   &_tab-buttons
     margin-top: 20px
     display: flex
-    justify-content: center
-
-    @media screen and (min-width: $small)
-      justify-content: flex-start
+    justify-content: flex-start
 
   &_tab-button
     font-family: $monospace
@@ -372,11 +380,12 @@ $tab-title-height: 50px
     @media screen and (min-width: $medium)
       font-size: 16px
 
-  &_tab-content-no-comments,
-  &_tab-content-no-ratings
+  &_tab-no-comments,
+  &_tab-no-ratings
     margin-bottom: 15px
+
     @media screen and (max-width: $small)
-      padding: 0 15px
+      padding: 0 16px
 
   &_tab-content-button
     display: inline-block
@@ -410,7 +419,3 @@ $tab-title-height: 50px
 
     @media screen and (min-width: $medium)
       width: calc(33.33% - 30px)
-
-  .comment
-    @media screen and (max-width: $small)
-      margin: 0 15px 15px 15px

@@ -10,7 +10,7 @@ module Ratings
     end
 
     def call
-      tag.ratings.includes(:user, :section, :items, :comments, :likes).published.order(published_at: :desc).page(page).per(per_page)
+      tag.ratings.includes(:user, :section, :tags).published.order(published_at: :desc).page(page).per(per_page)
     end
   end
 end

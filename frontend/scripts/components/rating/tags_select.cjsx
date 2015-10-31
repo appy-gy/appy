@@ -20,18 +20,35 @@ TagsSelect = React.createClass
     rating: PropTypes.object.isRequired
     canEdit: PropTypes.bool.isRequired
 
+  popularOptionsCallbacks: []
+
   toOptions: (tags) ->
     tags.map (tag) ->
       value: tag.name, label: tag.name, ratingsCount: tag.ratingsCount
 
+  getPopularOptions: (callback) ->
+    return callback null, options: @popularOptions if @popularOptions?
+
+    @popularOptionsCallbacks.push callback
+    return if @requestedPopularOptions
+    @requestedPopularOptions = true
+
+    http.get('tags/popular').then ({data}) =>
+      @popularOptions = @toOptions data.tags
+      @popularOptionsCallbacks.each (callback) =>
+        callback null, options: @popularOptions
+
+    true
+
   loadOptions: (query, callback) ->
     # React-select passes current values instead of an empty string when
     # initialized or after adding/removing a value from the values list
-    query = '' if _.isArray query
+    return @getPopularOptions callback if _.isArray query
 
-    url = if _.isEmpty query then 'tags/popular' else 'tags'
-    http.get(url, params: { query }).then ({data}) =>
+    http.get('tags', params: { query }).then ({data}) =>
       callback null, options: @toOptions(data.tags)
+
+    true
 
   value: ->
     _.map @context.rating.tags, 'name'
@@ -64,6 +81,6 @@ TagsSelect = React.createClass
 
     return <Nothing/> unless canEdit
 
-    <Select placeholder="Укажите теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" autoload={false} multi={true} allowCreate={true} matchProp="label" asyncOptions={@loadOptions} value={@value()} newOptionCreator={@createNewOption} optionRenderer={@renderOption} onChange={@updateTags}/>
+    <Select placeholder="Укажите теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" clearable={false} autoload={false} multi={true} allowCreate={true} matchProp="label" asyncOptions={@loadOptions} value={@value()} newOptionCreator={@createNewOption} optionRenderer={@renderOption} onChange={@updateTags}/>
 
 module.exports = connect()(TagsSelect)

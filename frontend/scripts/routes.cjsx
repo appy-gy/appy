@@ -1,5 +1,6 @@
 React = require 'react'
 Router = require 'react-router'
+isClient = require './helpers/is_client'
 App = require './components/app'
 NotFound = require './components/not_found/page'
 Ratings = require './components/ratings/page'
@@ -10,16 +11,20 @@ Tag = require './components/tag/page'
 User = require './components/user/page'
 Instagram = require './components/instagram/page'
 
+
 {Route, IndexRoute} = Router
+
+scrollTop = ->
+  scroll 0, 0 if isClient()
 
 routes =
   <Route component={App} path="/">
-    <IndexRoute component={Ratings}/>
-    <Route path=":sectionSlug" component={SectionRatings}/>
+    <IndexRoute component={Ratings} onEnter={scrollTop}/>
+    <Route path=":sectionSlug" component={SectionRatings} onEnter={scrollTop}/>
     <Route path="users/:userSlug" component={User}/>
     <Route path="pages/:pageSlug" component={Page}/>
-    <Route path="tags/:tagSlug" component={Tag}/>
-    <Route path=":sectionSlug/:ratingSlug" component={Rating}/>
+    <Route path="tags/:tagSlug" component={Tag} onEnter={scrollTop}/>
+    <Route path=":sectionSlug/:ratingSlug" component={Rating} onEnter={scrollTop}/>
     <Route path="ratings/:ratingSlug/edit" component={Rating}/>
     <Route path="instagram" component={Instagram}/>
     <Route path="*" component={NotFound}/>
