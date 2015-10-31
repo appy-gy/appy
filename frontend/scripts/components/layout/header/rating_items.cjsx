@@ -1,9 +1,10 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 tinycolor = require 'tinycolor2'
-RatingItem = require './rating_item'
 sortRatingItems = require '../../../helpers/rating_items/sort'
+RatingItem = require './rating_item'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -11,16 +12,15 @@ sortRatingItems = require '../../../helpers/rating_items/sort'
 RatingItems = React.createClass
   displayName: 'RatingItems'
 
-  propTypes:
-    order: PropTypes.string.isRequired
+  mixins: [PureRendexMixin]
 
-  contextTypes:
+  propTypes:
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
+    order: PropTypes.string.isRequired
 
   ratingItems: ->
-    {order} = @props
-    {ratingItems, rating} = @context
+    {ratingItems, rating, order} = @props
 
     marks = _.map ratingItems, 'mark'
     min = _.min marks
@@ -45,7 +45,7 @@ RatingItems = React.createClass
     tinycolor(invertedColor).toRgbString()
 
   render: ->
-    {rating} = @context
+    {rating} = @props
 
     <div className="header_rating-items">
       <a href="#" className="header_rating-title" data-scroll>
@@ -54,7 +54,9 @@ RatingItems = React.createClass
       {@ratingItems()}
     </div>
 
-mapStateToProps = ({ratingItems}) ->
+mapStateToProps = ({rating, ratingItems}) ->
+  rating: rating.item
+  ratingItems: ratingItems.items
   order: ratingItems.order
 
 module.exports = connect(mapStateToProps)(RatingItems)

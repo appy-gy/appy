@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 ratingCommentActions = require '../../actions/rating_comments'
 isBlank = require '../../helpers/is_blank'
@@ -16,29 +17,28 @@ CommentTreesBuilder = require '../../helpers/comments/trees_builder'
 Comments = React.createClass
   displayName: 'Comments'
 
+  mixins: [PureRenderMixin]
+
   propTypes:
     dispatch: PropTypes.func.isRequired
-    comments: PropTypes.arrayOf(PropTypes.object).isRequired
-
-  contextTypes:
     currentUser: PropTypes.object.isRequired
+    comments: PropTypes.arrayOf(PropTypes.object).isRequired
     rating: PropTypes.object.isRequired
 
   childContextTypes:
-    canComment: PropTypes.bool.isRequired
     block: PropTypes.string.isRequired
 
   getChildContext: ->
-    canComment: @canComment(), block: 'comments'
+    block: 'comments'
 
   componentWillMount: ->
     @fetchComments()
 
   canComment: ->
-    canCommentRating @context.currentUser, @context.rating
+    canCommentRating @props.currentUser, @props.rating
 
   fetchComments: ->
-    @props.dispatch fetchRatingComments(@context.rating.slug)
+    @props.dispatch fetchRatingComments(@props.rating.slug)
 
   trees: ->
     {comments} = @props
@@ -46,8 +46,8 @@ Comments = React.createClass
     return if isBlank comments
 
     trees = CommentTreesBuilder.build comments
-    trees.map (tree) ->
-      <CommentsTree key={tree.root.id} tree={tree} level={1}/>
+    trees.map (tree) =>
+      <CommentsTree key={tree.root.id} tree={tree} level={1} canComment={@canComment()}/>
 
   commentForm: ->
     return <AuthToComment/> unless @canComment()
@@ -64,7 +64,7 @@ Comments = React.createClass
       'Полно мыслей в голове? Оставь одну тут!'
 
   render: ->
-    {rating} = @context
+    {rating} = @props
 
     <div id="comments" className="comments">
       <div className="comments_header">{@commentsCounterText()}</div>
@@ -74,7 +74,8 @@ Comments = React.createClass
       {@commentForm()}
     </div>
 
-mapStateToProps = ({ratingComments}) ->
+mapStateToProps = ({currentUser, ratingComments}) ->
+  currentUser: currentUser.item
   comments: ratingComments.items
 
 module.exports = connect(mapStateToProps)(Comments)

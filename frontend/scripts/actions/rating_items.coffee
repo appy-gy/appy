@@ -71,8 +71,8 @@ updateRatingItemPositions = ->
       result[id] = position
     , {}
 
-    http.put(url, { positions }).then ({data}) ->
-      dispatch changeRatingItemPositions(data.positions)
+    http.put(url, { positions }).then ({originalData}) ->
+      dispatch changeRatingItemPositions(originalData.positions)
 
 changeRatingItemWaypoint = createAction 'CHANGE_RATING_ITEM_WAYPOINT'
 

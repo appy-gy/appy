@@ -30,20 +30,14 @@ RatingPage = React.createClass
 
   propTypes:
     dispatch: PropTypes.func.isRequired
+    currentUser: PropTypes.object.isRequired
     rating: PropTypes.object.isRequired
     ratingSlug: PropTypes.string.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
     isFetched: PropTypes.bool.isRequired
 
-  contextTypes:
-    currentUser: PropTypes.object.isRequired
-
   childContextTypes:
-    rating: PropTypes.object.isRequired
-    ratingSlug: PropTypes.string.isRequired
-    ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
     block: PropTypes.string.isRequired
-    canEdit: PropTypes.bool.isRequired
 
   componentWillMount: ->
     @fetchRating()
@@ -54,10 +48,7 @@ RatingPage = React.createClass
     @fetchRatingItems()
 
   getChildContext: ->
-    {rating, ratingSlug, ratingItems} = @props
-    {currentUser} = @context
-
-    { rating, ratingSlug, ratingItems, block: 'rating', canEdit: @canEdit() }
+    block: 'rating'
 
   shouldComponentUpdate: ({ratingSlug}) ->
     # FIXME: ratingSlug becomes undefined when @goBack called, because
@@ -96,28 +87,33 @@ RatingPage = React.createClass
     @props.dispatch fetchRatingItems(@props.ratingSlug)
 
   canEdit: (rating = @props.rating) ->
-    canEditRating @context.currentUser, rating
+    canEditRating @props.currentUser, rating
 
   header: ->
     if @canEdit() then 'editRating' else 'rating'
 
   similar: ->
-    <Similar/> if @props.rating.status == 'published'
+    {rating} = @props
+
+    <Similar rating={rating}/> if rating.status == 'published'
 
   comments: ->
-    <Comments/> if @props.rating.status == 'published'
+    {rating} = @props
+
+    <Comments rating={rating}/> if rating.status == 'published'
 
   render: ->
-    {rating, ratingSlug, isFetched} = @props
+    {rating, ratingItems, isFetched} = @props
 
     <Layout header={@header()} isLoading={not isFetched} onClose={@goBack}>
       <Helmet title={rating.title} meta={@meta()}/>
-      <Rating/>
+      <Rating rating={rating} ratingItems={ratingItems} canEdit={@canEdit()}/>
       {@similar()}
       {@comments()}
     </Layout>
 
-mapStateToProps = ({router, rating, ratingItems}) ->
+mapStateToProps = ({currentUser, router, rating, ratingItems}) ->
+  currentUser: currentUser.item
   rating: rating.item
   ratingItems: ratingItems.items
   ratingSlug: router.params.ratingSlug

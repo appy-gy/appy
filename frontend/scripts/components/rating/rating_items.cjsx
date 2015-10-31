@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 sortRatingItems = require '../../helpers/rating_items/sort'
 RatingItem = require './rating_item'
@@ -11,12 +12,13 @@ AddRatingItem = require './add_rating_item'
 RatingItems = React.createClass
   displayName: 'RatingItems'
 
-  propTypes:
-    order: PropTypes.string.isRequired
+  mixins: [PureRendexMixin]
 
-  contextTypes:
+  propTypes:
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
+    order: PropTypes.string.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   getInitialState: ->
     hoveredButtonPosition: null
@@ -25,14 +27,14 @@ RatingItems = React.createClass
     @setState hoveredButtonPosition: position
 
   addRatingItemButton: (ratingItem) ->
-    {rating} = @context
+    {rating, ratingItems} = @props
 
     return if rating.status == 'published'
 
     onEnter = _.partial @changeHoveredButtonPosition, ratingItem.position
     onLeave = _.partial @changeHoveredButtonPosition, null
 
-    <AddRatingItem key="add-item-#{ratingItem.id}" className="rating_add-item-wrap" position={ratingItem.position} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+    <AddRatingItem key="add-item-#{ratingItem.id}" className="rating_add-item-wrap" ratingItems={ratingItems} position={ratingItem.position} onMouseEnter={onEnter} onMouseLeave={onLeave}>
       <div className="rating_add-item">
         <div className="rating_add-item-icon"></div>
         <div className="rating_add-item-text">Добавить новый пункт рейтинга между двумя пунктами</div>
@@ -40,9 +42,8 @@ RatingItems = React.createClass
     </AddRatingItem>
 
   content: ->
-    {order} = @props
+    {rating, ratingItems, order, canEdit} = @props
     {hoveredButtonPosition} = @state
-    {ratingItems} = @context
 
     _ sortRatingItems(ratingItems, order)
       .map (ratingItem, index) =>
@@ -52,7 +53,7 @@ RatingItems = React.createClass
 
         [
           @addRatingItemButton ratingItem
-          <RatingItem key={ratingItem.id} ratingItem={ratingItem} index={index + 1} mods={mods}/>
+          <RatingItem key={ratingItem.id} rating={rating} ratingItem={ratingItem} canEdit={canEdit} index={index + 1} mods={mods}/>
         ]
       .flatten()
       .value()

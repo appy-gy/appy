@@ -1,4 +1,5 @@
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
 ratingCommentActions = require '../../../actions/rating_comments'
@@ -14,13 +15,13 @@ UserLink = require '../links/user'
 Form = React.createClass
   displayName: 'CommentForm'
 
+  mixins: [PureRenderMixin]
+
   propTypes:
     dispatch: PropTypes.func.isRequired
+    currentUser: PropTypes.object.isRequired
     parent: PropTypes.object
     onSubmit: PropTypes.func
-
-  contextTypes:
-    currentUser: PropTypes.object.isRequired
 
   getDefaultProps: ->
     parent: null
@@ -59,9 +60,8 @@ Form = React.createClass
     dispatch createRatingComment(body, parent?.id)
 
   render: ->
-    {parent} = @props
+    {currentUser, parent} = @props
     {body} = @state
-    {currentUser} = @context
 
     classes = classNames 'comment-form', 'm-answer': parent?
     buttonClasses = classNames 'comment-form_button', 'm-disabled': isBlank(body)
@@ -75,4 +75,7 @@ Form = React.createClass
       <div className={buttonClasses} onClick={@createComment}>Написать</div>
     </div>
 
-module.exports = connect()(Form)
+mapStateToProps = ({currentUser}) ->
+  currentUser: currentUser.item
+
+module.exports = connect(mapStateToProps)(Form)

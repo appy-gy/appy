@@ -1,6 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
-Form = require './form'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 Open = require './open'
 Answer = require './answer'
 
@@ -9,7 +9,10 @@ Answer = require './answer'
 Actions = React.createClass
   displayName: 'CommentActions'
 
+  mixins: [PureRenderMixin]
+
   propTypes:
+    comment: PropTypes.object.isRequired
     types: PropTypes.object.isRequired
 
   types:
@@ -17,12 +20,12 @@ Actions = React.createClass
     answer: Answer
 
   actions: ->
-    {types} = @props
+    {comment, types} = @props
 
     _.map types, (props, type) =>
       Comp = @types[type]
 
-      <Comp key={type} ref={type} {...props}/>
+      <Comp key={type} comment={comment} {...props}/>
 
   render: ->
     <div className="comment_actions">

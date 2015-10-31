@@ -1,4 +1,5 @@
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 similarRatingActions = require '../../actions/similar_ratings'
 Preview = require '../shared/ratings/preview'
@@ -10,18 +11,18 @@ Preview = require '../shared/ratings/preview'
 Similar = React.createClass
   displayName: 'Similar'
 
+  mixins: [PureRenderMixin]
+
   propTypes:
     dispatch: PropTypes.func.isRequired
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
-
-  contextTypes:
-    ratingSlug: PropTypes.string.isRequired
+    rating: PropTypes.object.isRequired
 
   componentWillMount: ->
     @fetchSimilarRatings()
 
   fetchSimilarRatings: ->
-    @props.dispatch fetchSimilarRatings(@context.ratingSlug)
+    @props.dispatch fetchSimilarRatings(@props.rating.slug)
 
   ratings: ->
     {ratings} = @props

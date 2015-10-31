@@ -1,4 +1,5 @@
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 moment = require 'moment'
 shortId = require '../../../helpers/short_id'
@@ -15,7 +16,7 @@ SectionLink = require '../links/section'
 Comment = React.createClass
   displayName: 'Comment'
 
-  mixins: [ScrollTo]
+  mixins: [PureRenderMixin, ScrollTo]
 
   propTypes:
     comment: PropTypes.object.isRequired
@@ -23,14 +24,6 @@ Comment = React.createClass
     showRatingInfo: PropTypes.bool.isRequired
     actionTypes: PropTypes.object.isRequired
     query: PropTypes.object.isRequired
-
-  childContextTypes:
-    comment: PropTypes.object.isRequired
-
-  getChildContext: ->
-    {comment} = @props
-
-    { comment }
 
   componentDidMount: ->
     {comment, query} = @props
@@ -67,7 +60,7 @@ Comment = React.createClass
     {comment} = @props
 
     createdAt = moment comment.createdAt
-    # User might have incorrect time
+    # User may have incorrect time
     createdAt = moment() if createdAt.isAfter()
 
     <div className="comment_date">
@@ -88,7 +81,7 @@ Comment = React.createClass
           {comment.body}
         </span>
         {@date()}
-        <Actions ref="actions" types={actionTypes}/>
+        <Actions comment={comment} types={actionTypes}/>
       </div>
     </div>
 

@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react'
 ReactDOM = require 'react-dom'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
 ScrollTo = require '../../mixins/scroll_to'
@@ -11,7 +12,7 @@ ScrollTo = require '../../mixins/scroll_to'
 RatingItem = React.createClass
   displayName: 'RatingItem'
 
-  mixins: [ScrollTo]
+  mixins: [PureRendexMixin, ScrollTo]
 
   propTypes:
     ratingItem: PropTypes.object.isRequired

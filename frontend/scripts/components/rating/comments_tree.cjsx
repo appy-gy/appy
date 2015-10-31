@@ -1,4 +1,5 @@
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 classNames = require 'classnames'
 Comment = require '../shared/comments/comment'
 
@@ -7,25 +8,25 @@ Comment = require '../shared/comments/comment'
 CommentsTree = React.createClass
   displayName: 'CommentsTree'
 
+  mixins: [PureRenderMixin]
+
   propTypes:
     tree: PropTypes.object.isRequired
     level: PropTypes.number.isRequired
-
-  contextTypes:
     canComment: PropTypes.bool.isRequired
 
   actionTypes: ->
-    {canComment} = @context
+    {canComment} = @props
 
     if canComment then { answer: { inline: true } } else {}
 
   subtrees: ->
-    {tree, level} = @props
+    {tree, level, canComment} = @props
 
     return if tree.isLeaf()
 
     tree.children.map (subtree) ->
-      <CommentsTree key={subtree.root.id} tree={subtree} level={level + 1}/>
+      <CommentsTree key={subtree.root.id} tree={subtree} level={level + 1} canComment={canComment}/>
 
   render: ->
     {tree, level} = @props

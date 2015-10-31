@@ -15,26 +15,24 @@ RatingActions = React.createClass
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-
-  contextTypes:
     currentUser: PropTypes.object.isRequired
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
   redirectToProfile: ->
-    @props.dispatch replaceState(null, "/users/#{@context.currentUser.slug}")
+    @props.dispatch replaceState(null, "/users/#{@props.currentUser.slug}")
 
   render: ->
-    {rating, ratingItems} = @context
+    {rating, ratingItems} = @props
+
     <div className="rating-statusbar_wrap">
       <div className="grid">
         <div className="rating-statusbar">
           <div className="header_rating-publish-info">
-            <Validations/>
+            <Validations rating={rating} ratingItems={ratingItems}/>
           </div>
           <div className="rating-statusbar_buttons">
             <Save ref='save' rating={rating} ratingItems={ratingItems}/>
-
             <Publish ref="publish" rating={rating} ratingItems={ratingItems}/>
             <div className="rating-statusbar_more">
               <div className="rating-statusbar_more-icon">
@@ -50,4 +48,9 @@ RatingActions = React.createClass
       </div>
     </div>
 
-module.exports = connect()(RatingActions)
+mapStateToProps = ({currentUser, rating, ratingItems}) ->
+  currentUser: currentUser.item
+  rating: rating.item
+  ratingItems: ratingItems.items
+
+module.exports = connect(mapStateToProps)(RatingActions)

@@ -1,8 +1,11 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 
 ShareButtons = React.createClass
   displayName: 'ShareButtons'
+
+  mixins: [PureRendexMixin]
 
   componentDidMount: ->
     script = document.createElement 'script'

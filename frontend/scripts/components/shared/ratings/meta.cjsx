@@ -1,5 +1,6 @@
-React = require 'react'
 moment = require 'moment'
+React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 Item = require './meta_item'
 
 {PropTypes} = React
@@ -7,19 +8,21 @@ Item = require './meta_item'
 Meta = React.createClass
   displayName: 'Meta'
 
+  mixins: [PureRendexMixin]
+
   propTypes:
+    rating: PropTypes.object.isRequired
     commentsAnchor: PropTypes.string
 
   contextTypes:
     block: PropTypes.string.isRequired
-    rating: PropTypes.object.isRequired
 
   getDefaultProps: ->
     commentsAnchor: null
 
   render: ->
-    {commentsAnchor} = @props
-    {block, rating} = @context
+    {rating, commentsAnchor} = @props
+    {block} = @context
 
     timestamp = moment(rating.publishedAt || rating.createdAt)
 

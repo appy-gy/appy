@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../actions/rating'
 classNames = require 'classnames'
@@ -23,22 +24,17 @@ imageUrl = require '../../helpers/image_url'
 Header = React.createClass
   displayName: 'Header'
 
-  mixins: [WithFileInput, RatingUpdater]
+  mixins: [PureRendexMixin, WithFileInput, RatingUpdater]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-
-  contextTypes:
     rating: PropTypes.object.isRequired
 
-  imageUrlFor: ({context}) ->
-    {rating} = context
-
-    imageUrl rating.image, 'normal'
+  imageUrlFor: ({props}) ->
+    imageUrl props.rating.image, 'normal'
 
   updateImage: (files) ->
-    {dispatch} = @props
-    {rating} = @context
+    {dispatch, rating} = @props
 
     image = files[0]
     return unless image?
@@ -48,14 +44,14 @@ Header = React.createClass
       dispatch updateRating({ image })
 
   meta: ->
-    {rating} = @context
+    {rating} = @props
 
     return unless rating.status == 'published'
 
-    <Meta commentsAnchor="comments"/>
+    <Meta rating={rating} commentsAnchor="comments"/>
 
   ratingImageButton: ->
-    {rating} = @context
+    {rating} = @props
 
     return if rating.status == 'published'
 
@@ -70,7 +66,7 @@ Header = React.createClass
     </div>
 
   sectionLink: ->
-    {rating} = @context
+    {rating} = @props
 
     return unless rating.status == 'published'
 
@@ -80,28 +76,25 @@ Header = React.createClass
     </SectionLink>
 
   sectionSelect: ->
-    {rating} = @context
+    {rating} = @props
 
-    return if rating.status == 'published'
-
-    <SectionSelect/>
+    <SectionSelect rating={rating}/> unless rating.status == 'published'
 
   sortSwitch: ->
-    {rating} = @context
+    <SortSwitch/> if @props.rating.status == 'published'
 
-    return unless rating.status == 'published'
+  tagsSelect: ->
+    {rating} = @props
 
-    <SortSwitch/>
+    <TagsSelect rating={rating}/> unless rating.status == 'published'
 
   tags: ->
-    {rating} = @context
+    {rating} = @props
 
-    return unless rating.status == 'published'
-
-    <Tags/>
+    <Tags rating={rating}/> if rating.status == 'published'
 
   children: ->
-    {rating} = @context
+    {rating} = @props
 
     edit = rating.status != 'published'
 
@@ -117,14 +110,12 @@ Header = React.createClass
         <Title object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Введите заголовок рейтинга"/>
         {@sortSwitch()}
       </div>
-      <div className="rating_tags-select">
-        <TagsSelect/>
-      </div>
+      @tagsSelect()
       @tags()
     ]
 
   render: ->
-    {rating} = @context
+    {rating} = @props
 
     classes = classNames 'rating_header', 'm-with-image': rating.image?
 

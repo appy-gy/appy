@@ -1,9 +1,12 @@
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 
 {PropTypes} = React
 
 MetaItem = React.createClass
   displayName: 'MetaItem'
+
+  mixins: [PureRendexMixin]
 
   contextTypes:
     block: PropTypes.string.isRequired

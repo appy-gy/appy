@@ -1,6 +1,7 @@
 _ = require 'lodash'
-React = require 'react'
 moment = require 'moment'
+React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 classNames = require 'classnames'
 imageUrl = require '../../../helpers/image_url'
 ratingShortDescription = require '../../../helpers/ratings/short_description'
@@ -15,6 +16,8 @@ SectionLink = require '../links/section'
 Preview = React.createClass
   displayName: 'Preview'
 
+  mixins: [PureRendexMixin]
+
   propTypes:
     rating: PropTypes.object.isRequired
     imageSize: PropTypes.string.isRequired
@@ -22,13 +25,10 @@ Preview = React.createClass
     mod: PropTypes.string
 
   childContextTypes:
-    rating: PropTypes.object.isRequired
     block: PropTypes.string.isRequired
 
   getChildContext: ->
-    {rating} = @props
-
-    { rating, block: 'preview' }
+    block: 'preview'
 
   getDefaultProps: ->
     showDelete: false
@@ -60,7 +60,7 @@ Preview = React.createClass
     sectionNameStyles = _.pick rating.section, 'color'
 
     <div className={classes}>
-      <Meta/>
+      <Meta rating={rating}/>
       <RatingLink className="preview_image-wrap" rating={rating}>
         <div className="preview_image" style={imageStyles}></div>
         {@deleteButton()}
@@ -75,7 +75,7 @@ Preview = React.createClass
         <div className="preview_description">
           {ratingShortDescription rating.description}
         </div>
-        <Tags tags={rating.tags}/>
+        <Tags rating={rating}/>
       </div>
     </div>
 

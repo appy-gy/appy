@@ -1,10 +1,10 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 Select = require 'react-select'
 http = require '../../helpers/http'
 ratingActions = require '../../actions/rating'
-Nothing = require '../shared/nothing'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -15,10 +15,7 @@ TagsSelect = React.createClass
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-
-  contextTypes:
     rating: PropTypes.object.isRequired
-    canEdit: PropTypes.bool.isRequired
 
   popularOptionsCallbacks: []
 
@@ -51,11 +48,10 @@ TagsSelect = React.createClass
     true
 
   value: ->
-    _.map @context.rating.tags, 'name'
+    _.map @props.rating.tags, 'name'
 
   updateTags: (newValue, options) ->
-    {dispatch} = @props
-    {rating} = @context
+    {dispatch, rating} = @props
 
     names = _.xor _.map(rating.tags, 'name'), _.map(options, 'value')
     action = if options.length > rating.tags.length then addTagToRating else removeTagFromRating
@@ -77,10 +73,8 @@ TagsSelect = React.createClass
     </div>
 
   render: ->
-    {canEdit} = @context
-
-    return <Nothing/> unless canEdit
-
-    <Select placeholder="Укажите теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" clearable={false} autoload={false} multi={true} allowCreate={true} matchProp="label" asyncOptions={@loadOptions} value={@value()} newOptionCreator={@createNewOption} optionRenderer={@renderOption} onChange={@updateTags}/>
+    <div className="rating_tags-select">
+      <Select placeholder="Укажите теги" noResultsText="Ничего такого нет" searchPromptText="Начните вводить" clearValueText="Удалить тег" clearAllText="Удалить все теги" clearable={false} autoload={false} multi={true} allowCreate={true} matchProp="label" asyncOptions={@loadOptions} value={@value()} newOptionCreator={@createNewOption} optionRenderer={@renderOption} onChange={@updateTags}/>
+    </div>
 
 module.exports = connect()(TagsSelect)

@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 Select = require 'react-select'
 sectionActions = require '../../actions/sections'
@@ -15,14 +16,12 @@ RatingUpdater = require '../mixins/rating_updater'
 SectionSelect = React.createClass
   displayName: 'SectionSelect'
 
-  mixins: [RatingUpdater]
+  mixins: [PureRendexMixin, RatingUpdater]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-    sections: PropTypes.arrayOf(PropTypes.object).isRequired
-
-  contextTypes:
     rating: PropTypes.object.isRequired
+    sections: PropTypes.arrayOf(PropTypes.object).isRequired
 
   componentWillMount: ->
     @fetchSections()
@@ -51,7 +50,7 @@ SectionSelect = React.createClass
     </div>
 
   render: ->
-    {rating} = @context
+    {rating} = @props
 
     <Select placeholder="Выберите рубрику" value={rating.section?.id} options={@options()} searchable={false} clearable={false} valueRenderer={@renderOption} optionRenderer={@renderOption} onChange={@changeSection}/>
 

@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
 ratingItemActions = require '../../actions/rating_items'
@@ -13,17 +14,15 @@ RatingUpdater = require '../mixins/rating_updater'
 RatingItemVideo = React.createClass
   displayName: RatingItemVideo
 
-  mixins: [RatingUpdater]
+  mixins: [PureRendexMixin, RatingUpdater]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-
-  contextTypes:
     ratingItem: PropTypes.object.isRequired
     canEdit: PropTypes.bool.isRequired
 
   getInitialState: ->
-    {ratingItem} = @context
+    {ratingItem} = @props
 
     showInput: not _.isEmpty(ratingItem.video)
 
@@ -39,8 +38,7 @@ RatingItemVideo = React.createClass
     http.get 'rating_items/video_info', params: { url }
 
   updateVideo: (event) ->
-    {dispatch} = @props
-    {ratingItem} = @context
+    {dispatch, ratingItem} = @props
     {value: url} = event.target
 
     return if _.isEmpty url
@@ -52,8 +50,7 @@ RatingItemVideo = React.createClass
         dispatch updateRatingItem(ratingItem.id, videoUrl: url)
 
   removeVideo: ->
-    {dispatch} = @props
-    {ratingItem} = @context
+    {dispatch, ratingItem} = @props
 
     @hideInput()
     dispatch changeRatingItem(ratingItem.id, video: {})
@@ -61,29 +58,29 @@ RatingItemVideo = React.createClass
       dispatch updateRatingItem(ratingItem.id, videoUrl: '')
 
   player: ->
-    {ratingItem} = @context
+    {ratingItem} = @props
 
     return if _.isEmpty ratingItem.video
 
     <iframe className="rating-item_video" src={ratingItem.video.embed} allowFullScreen frameBorder="0"></iframe>
 
   input: ->
+    {canEdit} = @props
     {showInput} = @state
-    {canEdit} = @context
 
     return unless canEdit and showInput
 
     <input ref="input" type="text" className="rating-item_video-input" placeholder="Вставьте ссылка на видео на youtube или vimeo" onBlur={@updateVideo}/>
 
   addVideoButton: ->
-    {canEdit} = @context
+    {canEdit} = @props
 
     return unless canEdit
 
     <div className="rating-item_add-video" onClick={@showInput}></div>
 
   removeVideoButton: ->
-    {ratingItem, canEdit} = @context
+    {ratingItem, canEdit} = @props
 
     return if not canEdit or _.isEmpty(ratingItem.video)
 
@@ -91,7 +88,7 @@ RatingItemVideo = React.createClass
     </div>
 
   render: ->
-    {ratingItem} = @context
+    {ratingItem} = @props
 
     classes = classNames 'rating-item_attachment-video', 'm-chosen': not _.isEmpty ratingItem.video
 
