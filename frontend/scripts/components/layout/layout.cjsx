@@ -1,4 +1,5 @@
 React = require 'react'
+isClient = require '../../helpers/is_client'
 Main = require './main'
 Loader = require './loader'
 Close = require './close'
@@ -74,6 +75,7 @@ Layout = React.createClass
     @setState searchVisible: not @state.searchVisible
 
   setupLoaderTimeout: ->
+    return unless isClient()
     @loaderTimeout = setTimeout =>
       @setState showLoader: true
     , 1000
