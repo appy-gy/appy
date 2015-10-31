@@ -53,7 +53,7 @@ SectionSelect = React.createClass
   render: ->
     {rating} = @context
 
-    <Select placeholder="Выберите рубрику" value={rating.section?.id} options={@options()} searchable={false} valueRenderer={@renderOption} optionRenderer={@renderOption} onChange={@changeSection}/>
+    <Select placeholder="Выберите рубрику" value={rating.section?.id} options={@options()} searchable={false} clearable={false} valueRenderer={@renderOption} optionRenderer={@renderOption} onChange={@changeSection}/>
 
 mapStateToProps = ({sections}) ->
   sections: sections.items
