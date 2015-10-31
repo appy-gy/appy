@@ -30,9 +30,9 @@ RatingItems = React.createClass
     invertedSectionColor = @invertColor sectionColor
 
     _ sortRatingItems(ratingItems, order)
-      .map (ratingItem) =>
+      .map (ratingItem, index) =>
         width = if min == max then 50 else (ratingItem.mark - min) / (max - min) * 100
-        <RatingItem key={ratingItem.id} ratingItem={ratingItem} width={width} invertedSectionColor={invertedSectionColor} sectionColor={sectionColor}/>
+        <RatingItem key={ratingItem.id} ratingItem={ratingItem} index={index + 1} width={width} invertedSectionColor={invertedSectionColor} sectionColor={sectionColor}/>
       .value()
 
   invertColor: (color) ->

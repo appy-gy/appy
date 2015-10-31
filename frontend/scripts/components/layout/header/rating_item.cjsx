@@ -10,9 +10,10 @@ RatingItem = React.createClass
 
   propTypes:
     ratingItem: PropTypes.object.isRequired
-    visibility: PropTypes.string
-    sectionColor: PropTypes.string
+    index: PropTypes.number.isRequired
+    ratingItemVisibleId: PropTypes.string.isRequired
     width: PropTypes.number
+    sectionColor: PropTypes.string
     invertedSectionColor: PropTypes.string
 
   ratingItemAnchor: ->
@@ -21,7 +22,7 @@ RatingItem = React.createClass
     "#item-#{ratingItem.position}"
 
   render: ->
-    {ratingItem, sectionColor, width, ratingItemVisibleId, invertedSectionColor} = @props
+    {ratingItem, index, ratingItemVisibleId, width, sectionColor, invertedSectionColor} = @props
 
     barColor = if ratingItemVisibleId == ratingItem.id then invertedSectionColor else sectionColor
     opacity = width / 100
@@ -29,7 +30,7 @@ RatingItem = React.createClass
     <div className="header_rating-item">
       <div className="header_rating-item-content">
         <a title={ratingItem.title} className="header_rating-item-title" href={@ratingItemAnchor()} data-scroll>
-          {ratingItem.title}
+          {index} {ratingItem.title}
         </a>
         <div className="header_rating-item-options">
           {ratingItem.mark}
