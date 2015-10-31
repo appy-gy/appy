@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 Image = require './rating_item_image'
 Video = require './rating_item_video'
 
@@ -8,14 +9,21 @@ Video = require './rating_item_video'
 RatingItemAttachment = React.createClass
   displayName: 'RatingItemAttachment'
 
-  contextTypes:
+  mixins: [PureRendexMixin]
+
+  propTypes:
     ratingItem: PropTypes.object.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   image: ->
-    <Image/> if _.isEmpty @context.ratingItem.video
+    {ratingItem, canEdit} = @props
+
+    <Image ratingItem={ratingItem} canEdit={canEdit}/> if _.isEmpty ratingItem.video
 
   video: ->
-    <Video/> unless @context.ratingItem.image?
+    {ratingItem, canEdit} = @props
+
+    <Video ratingItem={ratingItem} canEdit={canEdit}/> unless ratingItem.image?
 
   render: ->
     <div className="rating-item_attachment">

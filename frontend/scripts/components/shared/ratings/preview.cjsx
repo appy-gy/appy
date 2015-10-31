@@ -1,9 +1,10 @@
 _ = require 'lodash'
-React = require 'react'
 moment = require 'moment'
+React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 classNames = require 'classnames'
-strip = require 'strip'
 imageUrl = require '../../../helpers/image_url'
+ratingShortDescription = require '../../../helpers/ratings/short_description'
 Meta = require './meta'
 Tags = require './tags'
 Delete = require './delete'
@@ -15,6 +16,8 @@ SectionLink = require '../links/section'
 Preview = React.createClass
   displayName: 'Preview'
 
+  mixins: [PureRendexMixin]
+
   propTypes:
     rating: PropTypes.object.isRequired
     imageSize: PropTypes.string.isRequired
@@ -22,13 +25,10 @@ Preview = React.createClass
     mod: PropTypes.string
 
   childContextTypes:
-    rating: PropTypes.object.isRequired
     block: PropTypes.string.isRequired
 
   getChildContext: ->
-    {rating} = @props
-
-    { rating, block: 'preview' }
+    block: 'preview'
 
   getDefaultProps: ->
     showDelete: false
@@ -38,13 +38,6 @@ Preview = React.createClass
     {rating} = @props
 
     rating.title or "Ваш рейтинг от #{moment(rating.createdAt).format('HH:MM DD.MM.YYYY')}"
-
-  description: ->
-    {rating} = @props
-
-    _.trunc strip(rating.description),
-      length: 150
-      separator: /,? +/
 
   deleteButton: ->
     {rating, showDelete} = @props
@@ -67,7 +60,7 @@ Preview = React.createClass
     sectionNameStyles = _.pick rating.section, 'color'
 
     <div className={classes}>
-      <Meta/>
+      <Meta rating={rating}/>
       <RatingLink className="preview_image-wrap" rating={rating}>
         <div className="preview_image" style={imageStyles}></div>
         {@deleteButton()}
@@ -80,9 +73,9 @@ Preview = React.createClass
           {@title()}
         </RatingLink>
         <div className="preview_description">
-          {@description()}
+          {ratingShortDescription rating.description}
         </div>
-        <Tags tags={rating.tags}/>
+        <Tags rating={rating}/>
       </div>
     </div>
 

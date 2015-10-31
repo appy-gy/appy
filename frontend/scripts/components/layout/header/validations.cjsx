@@ -1,4 +1,5 @@
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 CSSTransitionGroup = require 'react-addons-css-transition-group'
 prepublishValidation = require '../../../helpers/ratings/prepublish_validation'
 
@@ -7,12 +8,14 @@ prepublishValidation = require '../../../helpers/ratings/prepublish_validation'
 Validations = React.createClass
   displayName: 'Validations'
 
-  contextTypes:
+  mixins: [PureRendexMixin]
+
+  propTypes:
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
   errors: ->
-    {rating, ratingItems} = @context
+    {rating, ratingItems} = @props
 
     prepublishValidation(rating, ratingItems).map (error) ->
       <div key={error} className="header_validation-error">

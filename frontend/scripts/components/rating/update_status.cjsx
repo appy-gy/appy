@@ -1,4 +1,5 @@
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 
 {PropTypes} = React
@@ -6,6 +7,8 @@ ReactRedux = require 'react-redux'
 
 UpdateStatus = React.createClass
   displayName: 'UpdateStatus'
+
+  mixins: [PureRendexMixin]
 
   propTypes:
     status: PropTypes.string.isRequired

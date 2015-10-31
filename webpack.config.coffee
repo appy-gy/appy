@@ -18,9 +18,8 @@ plugins = [
 ]
 
 cssLoaders = ['css', 'autoprefixer']
-lessLoaders = cssLoaders.concat 'less'
 sassLoaders = cssLoaders.concat 'sass'
-[cssLoader, lessLoader, sassLoader] = [cssLoaders, lessLoaders, sassLoaders].map (loaders) ->
+[cssLoader, sassLoader] = [cssLoaders, sassLoaders].map (loaders) ->
   ExtractTextPlugin.extract 'style', loaders.join('!')
 cjsxLoaders = ['coffee', 'cjsx']
 
@@ -71,7 +70,6 @@ module.exports =
       { test: /\.woff|ttf|otf|eot((\?|#).*)?|svg((\?|#).*)$/, loader: 'file' }
       { test: /\.(jpe?g|gif|png|svg)$/, loader: 'file' }
       { test: /\.css$/, loader: cssLoader }
-      { test: /\.less$/, loader: lessLoader }
       { test: /\.sass$/, loader: sassLoader + '?indentedSyntax' }
       { test: /\.scss$/, loader: sassLoader }
       { test: /\.coffee$/, exclude: /node_modules/, loader: 'coffee' }

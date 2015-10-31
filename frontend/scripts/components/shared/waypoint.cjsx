@@ -1,10 +1,13 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 
 {PropTypes} = React
 
 Waypoint = React.createClass
   displayName: 'Waypoint'
+
+  mixins: [PureRendexMixin]
 
   propTypes:
     onChange: PropTypes.func

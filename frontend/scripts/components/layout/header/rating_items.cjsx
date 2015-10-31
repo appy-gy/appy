@@ -1,19 +1,26 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
+ReactRedux = require 'react-redux'
 tinycolor = require 'tinycolor2'
+sortRatingItems = require '../../../helpers/rating_items/sort'
 RatingItem = require './rating_item'
 
 {PropTypes} = React
+{connect} = ReactRedux
 
 RatingItems = React.createClass
   displayName: 'RatingItems'
 
-  contextTypes:
+  mixins: [PureRendexMixin]
+
+  propTypes:
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
+    order: PropTypes.string.isRequired
 
   ratingItems: ->
-    {ratingItems, rating} = @context
+    {ratingItems, rating, order} = @props
 
     marks = _.map ratingItems, 'mark'
     min = _.min marks
@@ -22,11 +29,10 @@ RatingItems = React.createClass
     sectionColor = _.get rating, 'section.color', 'white'
     invertedSectionColor = @invertColor sectionColor
 
-    _ ratingItems
-      .sortBy 'position'
-      .map (ratingItem) =>
+    _ sortRatingItems(ratingItems, order)
+      .map (ratingItem, index) =>
         width = if min == max then 50 else (ratingItem.mark - min) / (max - min) * 100
-        <RatingItem key={ratingItem.id} ratingItem={ratingItem} width={width} invertedSectionColor={invertedSectionColor} sectionColor={sectionColor}/>
+        <RatingItem key={ratingItem.id} ratingItem={ratingItem} index={index + 1} width={width} invertedSectionColor={invertedSectionColor} sectionColor={sectionColor}/>
       .value()
 
   invertColor: (color) ->
@@ -39,7 +45,7 @@ RatingItems = React.createClass
     tinycolor(invertedColor).toRgbString()
 
   render: ->
-    {rating} = @context
+    {rating} = @props
 
     <div className="header_rating-items">
       <a href="#" className="header_rating-title" data-scroll>
@@ -48,4 +54,9 @@ RatingItems = React.createClass
       {@ratingItems()}
     </div>
 
-module.exports = RatingItems
+mapStateToProps = ({rating, ratingItems}) ->
+  rating: rating.item
+  ratingItems: ratingItems.items
+  order: ratingItems.order
+
+module.exports = connect(mapStateToProps)(RatingItems)

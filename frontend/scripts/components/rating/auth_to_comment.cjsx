@@ -1,8 +1,11 @@
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 Login = require '../shared/auth/login'
 
 AuthToComment = React.createClass
   displayName: 'AuthToComment'
+
+  mixins: [PureRenderMixin]
 
   render: ->
     <div className="comments_auth-to-comment">

@@ -12,11 +12,12 @@ Close = React.createClass
     onClose: PropTypes.func.isRequired
 
   componentWillMount: ->
-    @onEsc @props.onClose
+    @onEsc @onClose
+
+  onClose: ->
+    @props.onClose()
 
   render: ->
-    {onClose} = @props
-
-    <div className="layout_close" onClick={onClose}></div>
+    <div className="layout_close" onClick={@onClose}></div>
 
 module.exports = Close

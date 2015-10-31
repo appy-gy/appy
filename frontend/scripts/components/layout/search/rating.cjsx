@@ -1,5 +1,6 @@
 React = require 'react'
 imageUrl = require '../../../helpers/image_url'
+ratingShortDescription = require '../../../helpers/ratings/short_description'
 RatingLink = require '../../shared/links/rating'
 
 Rating = ({rating}) ->
@@ -12,7 +13,7 @@ Rating = ({rating}) ->
         {rating.title}
       </div>
       <div className="search_result-description">
-        {rating.description}
+        {ratingShortDescription rating.description}
       </div>
     </div>
   </RatingLink>

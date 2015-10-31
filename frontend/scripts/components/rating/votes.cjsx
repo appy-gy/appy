@@ -1,4 +1,5 @@
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 VoteButton = require './vote_button'
 
 {PropTypes} = React
@@ -6,16 +7,18 @@ VoteButton = require './vote_button'
 Votes = React.createClass
   displayName: 'Votes'
 
-  contextTypes:
+  mixins: [PureRendexMixin]
+
+  propTypes:
     ratingItem: PropTypes.object.isRequired
 
   render: ->
-    {ratingItem} = @context
+    {ratingItem} = @props
 
     <div className="rating-item_actions">
-      <VoteButton kind="down"/>
+      <VoteButton ratingItem={ratingItem} kind="down"/>
       <div className="rating-item_mark">{ratingItem.mark}</div>
-      <VoteButton kind="up"/>
+      <VoteButton ratingItem={ratingItem} kind="up"/>
     </div>
 
 module.exports = Votes

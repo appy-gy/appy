@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 ratingItemActions = require '../../actions/rating_items'
 Classes = require '../mixins/classes'
@@ -11,23 +12,19 @@ Classes = require '../mixins/classes'
 AddRatingItem = React.createClass
   displayName: 'AddRatingItem'
 
-  mixins: [Classes]
+  mixins: [PureRendexMixin, Classes]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
+    ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
     position: PropTypes.number.isRequired
     children: PropTypes.node
-
-  contextTypes:
-    rating: PropTypes.object.isRequired
-    ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
   getDefaultProps: ->
     children: null
 
   newPositions: ->
-    {position} = @props
-    {ratingItems} = @context
+    {ratingItems, position} = @props
 
     _.transform ratingItems, (result, {id, position: pos}) ->
       result[id] = if pos >= position then pos + 1 else pos

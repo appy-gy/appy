@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 ReactDnd = require 'react-dnd'
 classNames = require 'classnames'
@@ -40,6 +41,8 @@ collectTarget = (connect) ->
 EditRatingItem = React.createClass
   displayName: 'EditRatingItem'
 
+  mixins: [PureRenderMixin]
+
   propTypes:
     dispatch: PropTypes.func.isRequired
     ratingItem: PropTypes.object.isRequired
@@ -66,7 +69,7 @@ EditRatingItem = React.createClass
 
     connectDropTarget connectDragSource <a href={@ratingItemAnchor()} className={classes} data-scroll>
       <div className="header_rating-item-title">
-        #{index}  {ratingItem.title}
+        {index} {ratingItem.title}
       </div>
     </a>
 

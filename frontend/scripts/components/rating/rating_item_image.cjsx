@@ -1,4 +1,5 @@
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
 ratingItemActions = require '../../actions/rating_items'
@@ -15,30 +16,27 @@ imageUrl = require '../../helpers/image_url'
 RatingItemImage = React.createClass
   displayName: 'RatingItemImage'
 
-  mixins: [WithFileInput, RatingUpdater]
+  mixins: [PureRendexMixin, WithFileInput, RatingUpdater]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-
-  contextTypes:
     ratingItem: PropTypes.object.isRequired
     canEdit: PropTypes.bool.isRequired
 
   buttonTypes: ['updateImage', 'removeImage']
 
   buttons: ->
-    {canEdit} = @context
+    {canEdit} = @props
 
     return [] unless canEdit
 
     @buttonTypes.map (type) => @["#{type}Button"]()
 
-  imageUrlFor: ({context}) ->
-    imageUrl context.ratingItem.image, 'normal'
+  imageUrlFor: ({props}) ->
+    imageUrl props.ratingItem.image, 'normal'
 
   updateImage: (files) ->
-    {dispatch} = @props
-    {ratingItem} = @context
+    {dispatch, ratingItem} = @props
 
     image = files[0]
     return unless image?
@@ -48,19 +46,19 @@ RatingItemImage = React.createClass
       dispatch updateRatingItem(ratingItem.id, { image })
 
   removeImage: ->
-    {dispatch} = @props
-    {ratingItem} = @context
+    {dispatch, ratingItem} = @props
 
     dispatch changeRatingItem(ratingItem.id, image: null)
     @queueUpdate ->
       dispatch updateRatingItem(ratingItem.id, removeImage: true)
 
   image: ->
-    {canEdit} = @context
+    {ratingItem, canEdit} = @props
 
-    image = <img className="rating-item_image" src={@imageUrl()}/>
+    height = if canEdit then null else ratingItem.imageHeight
+    image = <img className="rating-item_image" src={@imageUrl()} height={height}/>
     unless canEdit
-      image = <a target="_blank" href={@imageUrl()}>{image}</a>
+      image = <a target="_blank" href={imageUrl ratingItem.image}>{image}</a>
     image
 
   updateImageButton: ->
@@ -68,7 +66,7 @@ RatingItemImage = React.createClass
     </div>
 
   removeImageButton: ->
-    {ratingItem} = @context
+    {ratingItem} = @props
 
     return unless ratingItem.image?
 
@@ -76,7 +74,7 @@ RatingItemImage = React.createClass
     </div>
 
   children: ->
-    {ratingItem} = @context
+    {ratingItem} = @props
 
     withIndexKeys [
       @buttons()...
@@ -84,7 +82,7 @@ RatingItemImage = React.createClass
     ]
 
   render: ->
-    {ratingItem, canEdit} = @context
+    {ratingItem, canEdit} = @props
 
     classes = classNames 'rating-item_attachment-image', 'm-chosen': ratingItem.image?
 

@@ -1,4 +1,5 @@
 React = require 'react'
+isClient = require '../../helpers/is_client'
 Main = require './main'
 Loader = require './loader'
 Close = require './close'
@@ -21,7 +22,6 @@ Layout = React.createClass
     isLoading: PropTypes.bool
     onLogoClick: PropTypes.func
     showFooter: PropTypes.bool
-    showClose: PropTypes.bool
     onClose: PropTypes.func
     children: PropTypes.node
 
@@ -42,13 +42,13 @@ Layout = React.createClass
     isLoading: false
     onLogoClick: ->
     showFooter: true
-    showClose: false
-    onClose: -> console.log 'TODO: implement default onClose for the layout component'
+    onClose: null
     children: null
 
   getInitialState: ->
     headerExpanded: false
     searchVisible: false
+    showLoader: false
 
   getChildContext: ->
     {onLogoClick} = @props
@@ -56,11 +56,40 @@ Layout = React.createClass
 
     { headerExpanded, @triggerHeader, searchVisible, @triggerSearch, onLogoClick }
 
+  componentWillMount: ->
+    @setupLoaderTimeout() if @props.isLoading
+
+  componentWillReceiveProps: ({isLoading}) ->
+    {isLoading: prevIsLoading} = @props
+    {showLoader} = @state
+
+    return if isLoading == prevIsLoading
+    return @setupLoaderTimeout() if isLoading
+    @clearLoaderTimeout()
+    @setState showLoader: false if showLoader
+
   triggerHeader: ->
     @setState headerExpanded: not @state.headerExpanded
 
   triggerSearch: ->
     @setState searchVisible: not @state.searchVisible
+
+  setupLoaderTimeout: ->
+    return unless isClient()
+    @loaderTimeout = setTimeout =>
+      @setState showLoader: true
+    , 1000
+
+  clearLoaderTimeout: ->
+    return unless @loaderTimeout?
+    clearTimeout @loaderTimeout
+    @loaderTimeout = null
+
+  shouldShowClose: ->
+    @props.onClose or @state.searchVisible
+
+  onClose: ->
+    if @state.searchVisible then @triggerSearch() else @props.onClose()
 
   header: ->
     {header} = @props
@@ -73,19 +102,19 @@ Layout = React.createClass
     <Search/> if @state.searchVisible
 
   loader: ->
-    <Loader/> if @props.isLoading
+    <Loader/> if @state.showLoader
 
   footer: ->
     <Footer/> if @props.showFooter
 
   close: ->
-    <Close onClose={@props.onClose}/> if @props.showClose
+    <Close onClose={@onClose}/> if @shouldShowClose()
 
   content: ->
     @props.children unless @props.isLoading
 
   render: ->
-    {header, onClose, children} = @props
+    {header, children} = @props
 
     <div className="layout">
       {@header()}

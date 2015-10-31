@@ -12,7 +12,7 @@ buildStore = require './build_store'
 
 run = ->
   state = JSON.parse(document.querySelector('#state').getAttribute('data-state') || '{}')
-  # TODO: this is a temp hack to workaround bug in redux-router,
+  # FIXME: this is a temp hack to workaround bug in redux-router,
   # also there are some checks for the query presence in mapStateToProps funcs
   # remove them too
   state = _.omit state, 'router'

@@ -1,6 +1,10 @@
 _ = require 'lodash'
 React = require 'react'
+ReactDOM = require 'react-dom'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
+classNames = require 'classnames'
+ScrollTo = require '../../mixins/scroll_to'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -8,12 +12,27 @@ ReactRedux = require 'react-redux'
 RatingItem = React.createClass
   displayName: 'RatingItem'
 
+  mixins: [PureRendexMixin, ScrollTo]
+
   propTypes:
     ratingItem: PropTypes.object.isRequired
-    visibility: PropTypes.string
-    sectionColor: PropTypes.string
+    index: PropTypes.number.isRequired
+    visibleRatingItemId: PropTypes.string.isRequired
     width: PropTypes.number
+    sectionColor: PropTypes.string
     invertedSectionColor: PropTypes.string
+
+  componentDidUpdate: (prevProps) ->
+    return if @props.visibleRatingItemId == prevProps.visibleRatingItemId or not @isActive() or @isVisible()
+    @scrollTo()
+
+  isActive: ->
+    @props.visibleRatingItemId == @props.ratingItem.id
+
+  isVisible: ->
+    node = ReactDOM.findDOMNode @
+    parent = node.parentNode
+    parent.scrollTop <= node.offsetTop <= parent.scrollTop + parent.offsetHeight
 
   ratingItemAnchor: ->
     {ratingItem} = @props
@@ -21,15 +40,16 @@ RatingItem = React.createClass
     "#item-#{ratingItem.position}"
 
   render: ->
-    {ratingItem, sectionColor, width, ratingItemVisibleId, invertedSectionColor} = @props
+    {ratingItem, index, visibleRatingItemId, width, sectionColor, invertedSectionColor} = @props
 
-    barColor = if ratingItemVisibleId == ratingItem.id then invertedSectionColor else sectionColor
+    classes = classNames 'header_rating-item', 'm-active': @isActive()
+    barColor = if @isActive() then invertedSectionColor else sectionColor
     opacity = width / 100
 
-    <div className="header_rating-item">
+    <div className={classes}>
       <div className="header_rating-item-content">
         <a title={ratingItem.title} className="header_rating-item-title" href={@ratingItemAnchor()} data-scroll>
-          {ratingItem.title}
+          {index} {ratingItem.title}
         </a>
         <div className="header_rating-item-options">
           {ratingItem.mark}
@@ -40,7 +60,7 @@ RatingItem = React.createClass
     </div>
 
 mapStateToProps = ({ratingItems}, {ratingItem}) ->
-  ratingItemVisibleId = ratingItems.waypoint
-  { ratingItemVisibleId }
+  visibleRatingItemId = ratingItems.waypoint
+  { visibleRatingItemId }
 
 module.exports = connect(mapStateToProps)(RatingItem)

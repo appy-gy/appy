@@ -1,8 +1,11 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../actions/rating'
 ratingItemActions = require '../../actions/rating_items'
+isBlank = require '../../helpers/is_blank'
+isClient = require '../../helpers/is_client'
 UpdateStatus = require './update_status'
 Header = require './header'
 Description = require './description'
@@ -12,8 +15,6 @@ Source = require './source'
 Like = require './like'
 ShareButtons = require './share_buttons'
 UserLink = require '../shared/links/user'
-isBlank = require '../../helpers/is_blank'
-isClient = require '../../helpers/is_client'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -23,10 +24,10 @@ isClient = require '../../helpers/is_client'
 Rating = React.createClass
   displayName: 'Rating'
 
+  mixins: [PureRendexMixin]
+
   propTypes:
     dispatch: PropTypes.func.isRequired
-
-  contextTypes:
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
     canEdit: PropTypes.bool.isRequired
@@ -38,13 +39,13 @@ Rating = React.createClass
     @props.dispatch createRatingItem()
 
   addRatingItemButton: ->
-    {ratingItems, canEdit} = @context
+    {ratingItems, canEdit} = @props
 
     return unless canEdit
 
     position = (_.max(ratingItems, 'position')?.position || 0) + 1
 
-    <AddRatingItem className="rating_new-item-button-wrapper" position={position}>
+    <AddRatingItem className="rating_new-item-button-wrapper" ratingItems={ratingItems} position={position}>
       <div className="rating_new-item-button" >
         <div className="rating_new-item-button-icon"></div>
         <div className="rating_new-item-button-text">Добавить новый пункт в рейтинг</div>
@@ -52,7 +53,7 @@ Rating = React.createClass
     </AddRatingItem>
 
   authorLink: ->
-    {rating} = @context
+    {rating} = @props
 
     return unless rating.status == 'published'
 
@@ -63,37 +64,37 @@ Rating = React.createClass
     </div>
 
   likeButton: ->
-    {rating} = @context
+    {rating} = @props
 
     return unless rating.status == 'published'
 
-    <Like ref="likeButton"/>
+    <Like rating={rating}/>
 
   shareButtons: ->
-    {rating} = @context
+    {rating} = @props
 
     return unless rating.status == 'published'
 
-    <ShareButtons ref="shareButtons"/>
+    <ShareButtons/>
 
   source: ->
-    {rating} = @context
+    {rating} = @props
 
-    edit = rating.status != 'published'
+    return if isBlank(rating.source) and rating.status == 'published'
 
-    <Source edit={edit}/> unless isBlank(rating.source) and not edit
+    <Source rating={rating}/>
 
   render: ->
-    {rating} = @context
+    {rating, ratingItems, canEdit} = @props
 
     edit = rating.status != 'published'
 
     <article className="rating">
       <UpdateStatus/>
-      <Header/>
+      <Header rating={rating}/>
       <Description object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Нажмите, чтобы ввести описание рейтинга."/>
       {@authorLink()}
-      <RatingItems/>
+      <RatingItems rating={rating} ratingItems={ratingItems} canEdit={canEdit}/>
       {@addRatingItemButton()}
       {@source()}
       {@likeButton()}

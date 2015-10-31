@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../actions/rating'
 ratingItemActions = require '../../actions/rating_items'
@@ -23,7 +24,7 @@ actions =
 Description = React.createClass
   displayName: 'Description'
 
-  mixins: [Classes, RatingUpdater]
+  mixins: [PureRendexMixin, Classes, RatingUpdater]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
@@ -34,7 +35,6 @@ Description = React.createClass
     placeholder: PropTypes.string.isRequired
 
   contextTypes:
-    rating: PropTypes.object.isRequired
     block: PropTypes.string.isRequired
 
   editorOptions: ->

@@ -1,0 +1,25 @@
+=switch($color: $white, $width: auto)
+  display: inline-flex
+
+  &-button
+    padding: 0 15px
+    height: 40px
+    border: 2px solid $color
+    color: $color
+    font-family: $monospace
+    font-weight: 600
+    font-size: 12px
+    flex: 2
+    line-height: 36px
+    text-align: center
+    width: $width
+    cursor: pointer
+
+    &.m-active
+      background-color: $color
+      color: invert($color)
+      cursor: default
+
+  &-wrap
+    display: flex
+    justify-content: center

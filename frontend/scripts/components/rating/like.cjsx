@@ -1,4 +1,5 @@
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
 ratingActions = require '../../actions/rating'
@@ -11,21 +12,20 @@ Login = require '../shared/auth/login'
 Like = React.createClass
   displayName: 'Like'
 
+  mixins: [PureRenderMixin]
+
   propTypes:
     dispatch: PropTypes.func.isRequired
-
-  contextTypes:
     currentUser: PropTypes.object.isRequired
     rating: PropTypes.object.isRequired
 
   childClasses: (klass) ->
-    {rating} = @context
+    {rating} = @props
 
     classNames klass, 'm-active': rating.like?
 
   triggerLike: ->
-    {dispatch} = @props
-    {currentUser, rating} = @context
+    {dispatch, currentUser, rating} = @props
 
     return unless currentUser.id?
 
@@ -33,13 +33,13 @@ Like = React.createClass
     dispatch action()
 
   subbursts: ->
-    {rating} = @context
+    {rating} = @props
 
     [1, 2].map (index) =>
       <div key={index} className={@childClasses("rating_like-burst-#{index}")}/>
 
   render: ->
-    {currentUser, rating} = @context
+    {currentUser, rating} = @props
 
     Component = if currentUser.id? then 'div' else Login
 
@@ -50,4 +50,7 @@ Like = React.createClass
       </div>
     </Component>
 
-module.exports = connect()(Like)
+mapStateToProps = ({currentUser}) ->
+  currentUser: currentUser.item
+
+module.exports = connect(mapStateToProps)(Like)

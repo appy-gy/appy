@@ -1,4 +1,5 @@
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
 ratingItemActions = require '../../actions/rating_items'
@@ -15,14 +16,15 @@ Waypoint = require '../shared/waypoint'
 RatingItem = React.createClass
   displayName: 'RatingItem'
 
+  mixins: [PureRendexMixin]
+
   propTypes:
     dispatch: PropTypes.func.isRequired
+    rating: PropTypes.object.isRequired
     ratingItem: PropTypes.object.isRequired
+    canEdit: PropTypes.bool.isRequired
     index: PropTypes.number.isRequired
     mods: PropTypes.arrayOf(PropTypes.string)
-
-  contextTypes:
-    rating: PropTypes.object.isRequired
 
   childContextTypes:
     ratingItem: PropTypes.object.isRequired
@@ -45,18 +47,19 @@ RatingItem = React.createClass
     @props.dispatch changeRatingItemWaypoint(@props.ratingItem.id)
 
   removeButton: ->
-    {rating} = @context
+    {rating} = @props
 
     return if rating.status == 'published'
 
     <div className="rating-item_remove" onClick={@removeItem}></div>
 
   votes: ->
-    <Votes/> if @context.rating.status == 'published'
+    {rating, ratingItem} = @props
+
+    <Votes ratingItem={ratingItem}/> if rating.status == 'published'
 
   render: ->
-    {ratingItem, index, mods} = @props
-    {rating} = @context
+    {rating, ratingItem, canEdit, index, mods} = @props
 
     edit = rating.status != 'published'
     classes = classNames 'rating-item', mods.map (mod) -> "m-#{mod}"
@@ -70,7 +73,7 @@ RatingItem = React.createClass
         <div className="rating-item_description-wrapper">
           <Description object={ratingItem} objectType="ratingItem" passObjectId={true} edit={edit} placeholder="Введите описание пункта"/>
         </div>
-        <Attachment/>
+        <Attachment ratingItem={ratingItem} canEdit={canEdit}/>
         {@removeButton()}
         {@votes()}
       </section>

@@ -1,4 +1,5 @@
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 Tag = require './tag'
 
 {PropTypes} = React
@@ -6,12 +7,16 @@ Tag = require './tag'
 Tags = React.createClass
   displayName: 'Tags'
 
-  contextTypes:
+  mixins: [PureRendexMixin]
+
+  propTypes:
     rating: PropTypes.object.isRequired
+
+  contextTypes:
     block: PropTypes.string.isRequired
 
   tags: ->
-    {rating} = @context
+    {rating} = @props
 
     rating.tags.map (tag) ->
       <Tag key={tag.id} tag={tag}/>

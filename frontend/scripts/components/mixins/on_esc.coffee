@@ -5,9 +5,10 @@ escListeners = []
 
 onEsc = (event) ->
   return unless event.keyCode == 27
-  maxPriority = _(escListeners).filter(({use}) -> use event).map('priority').max()
-  escListeners
-    .filter ({use, priority}) -> priority == maxPriority and use(event)
+  listeners = escListeners.filter ({use}) -> use event
+  maxPriority = _.max(listeners, 'priority').priority
+  listeners
+    .filter ({priority}) -> priority == maxPriority
     .each ({cb}) -> cb event
 
 document.body.addEventListener 'keydown', onEsc if isClient()
@@ -17,7 +18,7 @@ OnEsc =
     @escListeners = []
 
   componentWillUnmount: ->
-    @escListeners.each (listener) -> _.remove escListeners, listener
+    @escListeners.each @cancelOnEsc
 
   onEsc: (listener) ->
     listener = cb: listener if _.isFunction listener
@@ -27,5 +28,10 @@ OnEsc =
 
     @escListeners.push listener
     escListeners.push listener
+
+    => @cancelOnEsc listener
+
+  cancelOnEsc: (listener) ->
+    _.remove escListeners, listener
 
 module.exports = OnEsc

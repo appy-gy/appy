@@ -1,4 +1,5 @@
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
 shortId = require '../../../helpers/short_id'
@@ -13,22 +14,20 @@ ratingCommentActions = require '../../../actions/rating_comments'
 Answer = React.createClass
   displayName: 'CommentAnswer'
 
+  mixins: [PureRenderMixin]
+
   propTypes:
+    comment: PropTypes.object.isRequired
     inline: PropTypes.bool.isRequired
     query: PropTypes.object.isRequired
 
-  contextTypes:
-    comment: PropTypes.object.isRequired
-
   componentWillMount: ->
-    {query} = @props
-    {comment} = @context
+    {comment, query} = @props
 
     @props.dispatch(changeCommentFormVisibility(comment.id)) if query.reply and shortId(comment.id) == query.comment
 
   triggerForm: ->
-    {inline, visibleCommentForm} = @props
-    {comment} = @context
+    {comment, inline, visibleCommentForm} = @props
 
     return unless inline
 
@@ -41,21 +40,19 @@ Answer = React.createClass
     if inline then 'div' else RatingLink
 
   form: ->
-    {visibleCommentForm} = @props
-    {comment} = @context
+    {comment, visibleCommentForm} = @props
 
     return unless comment.id == visibleCommentForm
 
     <Form ref="form" parent={comment} onSubmit={@triggerForm}/>
 
   render: ->
-    {visibleCommentForm} = @props
-    {comment} = @context
+    {comment, visibleCommentForm} = @props
 
     Root = @root()
     classes = classNames 'comment_action', 'm-active': comment.id == visibleCommentForm
 
-    <Root className={classes} rating={comment.rating} query={comment: shortId(comment.id), reply: true}>
+    <Root className={classes} title="Ответить" rating={comment.rating} query={comment: shortId(comment.id), reply: true}>
       <div ref="trigger" className="comment_action-link m-reply" onClick={@triggerForm}>
       </div>
       {@form()}

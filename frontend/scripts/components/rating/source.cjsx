@@ -1,5 +1,6 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../actions/rating'
 RatingUpdater = require '../mixins/rating_updater'
@@ -12,41 +13,34 @@ Editor = require '../shared/inputs/editor'
 Source = React.createClass
   displayName: 'Source'
 
-  mixins: [RatingUpdater]
+  mixins: [PureRendexMixin, RatingUpdater]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-    edit: PropTypes.bool.isRequired
-
-  contextTypes:
     rating: PropTypes.object.isRequired
-    canEdit: PropTypes.bool.isRequired
 
   editorOptions:
     placeholder:
       text: 'Введите источник (оставьте поле пустым, если материал является авторским)'
 
   changeSource: (source) ->
-    {dispatch} = @props
-    {rating} = @context
+    {dispatch, rating} = @props
 
     dispatch changeRating({ source })
     @queueUpdate ->
       dispatch updateRating({ source })
 
   sourceView: ->
-    {edit} = @props
-    {rating} = @context
+    {rating} = @props
 
-    return if edit
+    return unless rating.status == 'published'
 
     <div className="rating_description" dangerouslySetInnerHTML={__html: rating.source}></div>
 
   sourceEdit: ->
-    {edit} = @props
-    {rating} = @context
+    {rating} = @props
 
-    return unless edit
+    return if rating.status == 'published'
 
     <Editor className="rating_description m-edit" value={rating.source} onChange={@changeSource} options={@editorOptions}/>
 

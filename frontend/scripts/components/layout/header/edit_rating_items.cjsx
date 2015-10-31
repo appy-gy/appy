@@ -1,18 +1,23 @@
 _ = require 'lodash'
 React = require 'react'
+PureRendexMixin = require 'react-addons-pure-render-mixin'
+ReactRedux = require 'react-redux'
 RatingItem = require './edit_rating_item'
 
 {PropTypes} = React
+{connect} = ReactRedux
 
 EditRatingItems = React.createClass
   displayName: 'EditRatingItems'
 
-  contextTypes:
+  mixins: [PureRendexMixin]
+
+  propTypes:
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
   ratingItems: ->
-    {ratingItems} = @context
+    {ratingItems} = @props
 
     _ ratingItems
       .sortBy 'position'
@@ -21,7 +26,7 @@ EditRatingItems = React.createClass
       .value()
 
   render: ->
-    {rating} = @context
+    {rating} = @props
 
     <div className="header_rating-items">
       <a href="#" className="header_rating-title">
@@ -30,4 +35,8 @@ EditRatingItems = React.createClass
       {@ratingItems()}
     </div>
 
-module.exports = EditRatingItems
+mapStateToProps = ({rating, ratingItems}) ->
+  rating: rating.item
+  ratingItems: ratingItems.items
+
+module.exports = connect(mapStateToProps)(EditRatingItems)
