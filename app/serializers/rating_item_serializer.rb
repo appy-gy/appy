@@ -15,8 +15,4 @@ class RatingItemSerializer < ActiveModel::Serializer
   def image
     object.image.url
   end
-
-  def image_height
-    ::MiniMagick::Image.open(object.image.normal.path)[:height]
-  end
 end
