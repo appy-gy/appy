@@ -1,13 +1,17 @@
 _ = require 'lodash'
 React = require 'react'
+ReactDOM = require 'react-dom'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
+ScrollTo = require '../../mixins/scroll_to'
 
 {PropTypes} = React
 {connect} = ReactRedux
 
 RatingItem = React.createClass
   displayName: 'RatingItem'
+
+  mixins: [ScrollTo]
 
   propTypes:
     ratingItem: PropTypes.object.isRequired
@@ -17,6 +21,18 @@ RatingItem = React.createClass
     sectionColor: PropTypes.string
     invertedSectionColor: PropTypes.string
 
+  componentDidUpdate: (prevProps) ->
+    return if @props.visibleRatingItemId == prevProps.visibleRatingItemId or not @isActive() or @isVisible()
+    @scrollTo()
+
+  isActive: ->
+    @props.visibleRatingItemId == @props.ratingItem.id
+
+  isVisible: ->
+    node = ReactDOM.findDOMNode @
+    parent = node.parentNode
+    parent.scrollTop <= node.offsetTop <= parent.scrollTop + parent.offsetHeight
+
   ratingItemAnchor: ->
     {ratingItem} = @props
 
@@ -25,9 +41,8 @@ RatingItem = React.createClass
   render: ->
     {ratingItem, index, visibleRatingItemId, width, sectionColor, invertedSectionColor} = @props
 
-    isActive = visibleRatingItemId == ratingItem.id
-    classes = classNames 'header_rating-item', 'm-active': isActive
-    barColor = if isActive then invertedSectionColor else sectionColor
+    classes = classNames 'header_rating-item', 'm-active': @isActive()
+    barColor = if @isActive() then invertedSectionColor else sectionColor
     opacity = width / 100
 
     <div className={classes}>
