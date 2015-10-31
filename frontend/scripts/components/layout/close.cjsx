@@ -12,10 +12,7 @@ Close = React.createClass
     onClose: PropTypes.func.isRequired
 
   componentWillMount: ->
-    @cancel = @onEsc @onClose
-
-  componentWillReceiveProps: ({onClose}) ->
-    @cancel() unless onClose == @props.onClose
+    @onEsc @onClose
 
   onClose: ->
     @props.onClose()
