@@ -70,8 +70,9 @@
     position: absolute
     top: 0
     left: 0
-    opacity: 0
     transition: opacity 0.1s ease
+    @media screen and (min-width: $small)
+      opacity: 0
 
   &_tags
     display: flex
@@ -194,9 +195,21 @@
 
       &_meta
         justify-content: center
+        padding: 20px
 
         @media screen and (max-width: $small)
-          top: 15px
+          flex-flow: row wrap
+          .preview_item:nth-last-of-type(2)
+            margin-right: 0
+
+          .preview_item:last-of-type
+            width: 100%
+            display: flex
+            justify-content: center
+            margin-top: 3px
+
+        @media screen and (min-width: $small)
+          padding: 30px
 
       &_image
         height: $large-preview-height
