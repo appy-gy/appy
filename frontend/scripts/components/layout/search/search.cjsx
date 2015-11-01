@@ -44,10 +44,8 @@ Search = React.createClass
       <HtmlStyle style={overflow: 'hidden'}/>
       <div className="search_cover"/>
       <div className="search_content">
-        <div className="search_header">
-          <h1 className="search_title">Поиск</h1>
-          <input type="text" className="search_input" placeholder="Просто начните вводить то, что ищете" autoFocus value={query} onChange={@changeQuery}/>
-        </div>
+        <h1 className="search_title">Поиск</h1>
+        <input type="text" className="search_input" placeholder="Просто начните вводить то, что ищете" autoFocus value={query} onChange={@changeQuery}/>
         <div className="search_results">
           {@results()}
         </div>

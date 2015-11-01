@@ -25,14 +25,11 @@
     left: 0
     width: 100%
     height: 100%
-
-
-  &_header
-    position: absolute
-    top: 300px
-    width: 100%
-    transition: all .3s .2s
-    z-index: 101
+    padding-top: 300px
+    align-items: center
+    overflow-x: hidden
+    overflow-y: auto
+    transition: all .5s
 
   &_title
     font-size: 20px
@@ -41,6 +38,7 @@
     text-align: center
     width: 100%
     color: $white
+    transition: all .5s
 
   &_input
     display: inline-block
@@ -48,7 +46,7 @@
     color: $white
     width: 100%
     text-align: center
-    transition: color 0.25s ease
+    transition: all .5s
     margin: 10px 0
     height: 60px
 
@@ -74,13 +72,8 @@
     opacity: 0
     top: 0px
     left: 0
-    height: 100%
-    position: absolute
-    padding-top: 300px
     align-items: center
-    height: 100%
-    overflow-x: hidden
-    overflow-y: auto
+
 
   &_result
     display: flex
@@ -88,6 +81,7 @@
     padding: 10px 16px
     width: 100%
     max-width: 660px
+    flex-shrink: 0
 
     &-image
       background-size: cover
@@ -104,6 +98,7 @@
 
     &-title
       font-size: 30px
+      line-height: 1.35
       color: $white
       font-family: $monospace
       transition: letter-spacing 0.2s, font-weight 0.2s
@@ -122,10 +117,12 @@
 
   &.m-filled
     .search
-      &_header
-        top: 100px
+
       &_title
         display: none
 
       &_results
         opacity: 1
+
+      &_content
+        padding-top: 40px
