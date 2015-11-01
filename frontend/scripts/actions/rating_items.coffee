@@ -34,7 +34,7 @@ updateRatingItem = (id, changes, notSync) ->
 
     http.put("ratings/#{rating.item.id}/rating_items/#{id}", data).then ({data}) ->
       changes = _.omit data.ratingItem, notSync
-      dispatch createRatingItem(id, changes)
+      dispatch changeRatingItem(id, changes)
 
 removeRatingItem = (id) ->
   (dispatch, getState) ->
