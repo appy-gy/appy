@@ -21,13 +21,13 @@ routes =
   <Route component={App} path="/">
     <IndexRoute component={Ratings} onEnter={scrollTop}/>
     <Route path=":sectionSlug" component={SectionRatings} onEnter={scrollTop}/>
-    <Route path="users/:userSlug" component={User}/>
-    <Route path="pages/:pageSlug" component={Page}/>
+    <Route path="users/:userSlug" component={User} onEnter={scrollTop}/>
+    <Route path="pages/:pageSlug" component={Page} onEnter={scrollTop}/>
     <Route path="tags/:tagSlug" component={Tag} onEnter={scrollTop}/>
     <Route path=":sectionSlug/:ratingSlug" component={Rating} onEnter={scrollTop}/>
-    <Route path="ratings/:ratingSlug/edit" component={Rating}/>
+    <Route path="ratings/:ratingSlug/edit" component={Rating} onEnter={scrollTop}/>
     <Route path="instagram" component={Instagram}/>
-    <Route path="*" component={NotFound}/>
+    <Route path="*" component={NotFound} onEnter={scrollTop}/>
   </Route>
 
 module.exports = routes
