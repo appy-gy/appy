@@ -6,6 +6,7 @@ initSmoothScroll = require './setup/init_smooth_scroll'
 notPureConnect = require './setup/not_pure_connect'
 httpPrependBaseUrl = require './setup/http_prepend_base_url'
 httpCamelcaseData = require './setup/http_camelcase_data'
+setPixelRatio = require './setup/set_pixel_ratio'
 
 setup = ->
   polyfillSetImmediate()
@@ -16,5 +17,6 @@ setup = ->
   notPureConnect()
   httpPrependBaseUrl()
   httpCamelcaseData()
+  setPixelRatio()
 
 module.exports = setup

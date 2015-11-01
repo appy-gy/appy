@@ -6,6 +6,7 @@
     "axios": "^0.7.0",
     "classnames": "^2.1.5",
     "coffee-react": "^4.0.0",
+    "cookie": "^0.2.3",
     "cookie-parser": "^1.4.0",
     "es6-collections": "^0.5.5",
     "express": "^4.12.3",
