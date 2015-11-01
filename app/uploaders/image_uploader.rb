@@ -38,20 +38,27 @@ class ImageUploader < BaseUploader
     end
   end
 
-  def self.image name, resize_params, resize: :resize_to_fill, quality: 80, format: 'jpg'
-    version name do
-      process :strip
-      process resize => resize_params
-      process convert: format
-
-      if format == 'jpg'
-        quality_key = ENV['TOP_USE_MOZJPEG'] == 'true' ? :mozjpeg : :quality
-        process quality_key => quality
+  def self.image name, resize_params, resize: :resize_to_fill, quality: 80, format: 'jpg', sizes: [1, 2]
+    sizes.each do |size|
+      version_name = "#{name}_#{size}x"
+      version_resize_params = resize_params.map do |param|
+        param.kind_of?(Numeric) ? param * size : param
       end
 
-      define_method :full_filename do |for_file|
-        name = super for_file
-        "#{name.chomp File.extname(name)}.#{format}"
+      version version_name do
+        process :strip
+        process resize => version_resize_params
+        process convert: format
+
+        if format == 'jpg'
+          quality_key = ENV['TOP_USE_MOZJPEG'] == 'true' ? :mozjpeg : :quality
+          process quality_key => quality
+        end
+
+        define_method :full_filename do |for_file|
+          name = super for_file
+          "#{File.basename(name, '.*')}.#{format}"
+        end
       end
     end
   end

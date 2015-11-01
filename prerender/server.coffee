@@ -11,6 +11,7 @@ path = require 'path'
 express = require 'express'
 newrelic = require 'newrelic'
 cookieParser = require 'cookie-parser'
+setPixelRatio = require './middlewares/set_pixel_ratio'
 setLoggedIn = require './middlewares/set_logged_in'
 localsMerger = require './middlewares/locals_merger'
 maybeSkipPrerender = require './middlewares/maybe_skip_prerender'
@@ -28,6 +29,7 @@ app.locals.newrelic = newrelic
 
 app.use cookieParser()
 app.use setLoggedIn()
+app.use setPixelRatio()
 app.use localsMerger()
 app.use maybeSkipPrerender()
 app.use maybeUseCache() if process.env.TOP_ENV == 'production'
