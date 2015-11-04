@@ -16,7 +16,7 @@ Layout = require '../layout/layout'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{goBack, replaceState} = ReduxRouter
+{replaceState} = ReduxRouter
 {fetchRating} = ratingActions
 {fetchRatingItems} = ratingItemActions
 
@@ -51,7 +51,7 @@ RatingPage = React.createClass
     block: 'rating'
 
   shouldComponentUpdate: ({ratingSlug}) ->
-    # FIXME: ratingSlug becomes undefined when @goBack called, because
+    # FIXME: ratingSlug becomes undefined when goBack called, because
     # page get changed after one more render of previous page
     ratingSlug?
 
@@ -73,11 +73,6 @@ RatingPage = React.createClass
 
     return if rating.status == 'published' or @canEdit(rating)
     dispatch replaceState(null, '/') if isClient()
-
-  goBack: ->
-    # FIXME: redux-router acts strange
-    # when you try to go back on esc keypress
-    setImmediate => @props.dispatch goBack()
 
   fetchRating: ->
     @props.dispatch(fetchRating(@props.ratingSlug)).then (rating) =>

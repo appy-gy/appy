@@ -7,6 +7,7 @@ classNames = require 'classnames'
 WithFileInput = require '../mixins/with_file_input'
 RatingUpdater = require '../mixins/rating_updater'
 Title = require './title'
+Close = require './close'
 SectionSelect = require './section_select'
 SortSwitch = require './sort_switch'
 TagsSelect = require './tags_select'
@@ -100,6 +101,7 @@ Header = React.createClass
 
     withIndexKeys [
       <div className="rating_cover" style={backgroundImage: "url(#{@imageUrl()})"}></div>
+      <Close/>
       @meta()
       @ratingImageButton()
       <div className="rating_header-center">
