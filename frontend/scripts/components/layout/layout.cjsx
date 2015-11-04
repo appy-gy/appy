@@ -4,7 +4,6 @@ ReactRedux = require 'react-redux'
 isClient = require '../../helpers/is_client'
 Main = require './main'
 Loader = require './loader'
-Close = require './close'
 CommonHeader = require './header/common'
 RatingHeader = require './header/rating'
 EditRatingHeader = require './header/edit_rating'
@@ -26,7 +25,6 @@ Layout = React.createClass
     isLoading: PropTypes.bool
     onLogoClick: PropTypes.func
     showFooter: PropTypes.bool
-    onClose: PropTypes.func
     children: PropTypes.node
 
   childContextTypes:
@@ -45,7 +43,6 @@ Layout = React.createClass
     isLoading: false
     onLogoClick: ->
     showFooter: true
-    onClose: null
     children: null
 
   getInitialState: ->
@@ -88,14 +85,8 @@ Layout = React.createClass
     clearTimeout @loaderTimeout
     @loaderTimeout = null
 
-  shouldShowClose: ->
-    @props.onClose or @state.searchVisible
-
   shouldBlur: ->
     @state.searchVisible or not _.isEmpty(@props.popups)
-
-  onClose: ->
-    if @state.searchVisible then @triggerSearch() else @props.onClose()
 
   header: ->
     {header} = @props
@@ -105,16 +96,13 @@ Layout = React.createClass
     <Header isBlured={@shouldBlur()}/>
 
   search: ->
-    <Search/> if @state.searchVisible
+    <Search onClose={@triggerSearch}/> if @state.searchVisible
 
   loader: ->
     <Loader/> if @state.showLoader
 
   footer: ->
     <Footer isBlured={@shouldBlur()}/> if @props.showFooter
-
-  close: ->
-    <Close onClose={@onClose}/> if @shouldShowClose()
 
   content: ->
     @props.children unless @props.isLoading
@@ -128,7 +116,6 @@ Layout = React.createClass
         {@content()}
       </Main>
       {@footer()}
-      {@close()}
       {@search()}
       <Popups popups={popups}/>
       <Toastr/>

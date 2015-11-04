@@ -105,7 +105,7 @@ RatingPage = React.createClass
   render: ->
     {rating, ratingItems, isFetched} = @props
 
-    <Layout header={@header()} isLoading={not isFetched} onClose={@goBack}>
+    <Layout header={@header()} isLoading={not isFetched}>
       <Helmet title={rating.title} meta={@meta()}/>
       <Rating rating={rating} ratingItems={ratingItems} canEdit={@canEdit()}/>
       {@similar()}

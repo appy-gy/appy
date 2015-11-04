@@ -11,6 +11,9 @@ Result = require './result'
 Search = React.createClass
   displayName: 'Search'
 
+  propTypes:
+    onClose: PropTypes.func.isRequired
+
   getInitialState: ->
     query: ''
     onGoing: false
@@ -46,6 +49,7 @@ Search = React.createClass
       <Result key="#{result.type}_#{result.id}" result={result}/>
 
   render: ->
+    {onClose} = @props
     {query} = @state
 
     classes = classNames 'search', 'm-filled': not _.isEmpty(query)
@@ -53,6 +57,7 @@ Search = React.createClass
     <div className={classes}>
       <HtmlStyle style={overflow: 'hidden'}/>
       <div className="search_cover"/>
+      <div className="search_close" onClick={onClose}/>
       <div className="search_content">
         <h1 className="search_title">Поиск</h1>
         <input type="text" className="search_input" placeholder="Просто начните вводить то, что ищете" autoFocus value={query} onChange={@changeQuery}/>
