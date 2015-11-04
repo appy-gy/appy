@@ -41,9 +41,8 @@ FileInput = React.createClass
   open: ->
     {input} = @refs
 
-    inputEl = input.getDOMNode()
-    inputEl.value = null
-    inputEl.click()
+    input.value = null
+    input.click()
 
   onChange: (event) ->
     event.preventDefault()
