@@ -10,6 +10,7 @@ ru:
       section:
         name: Название
         color: Цвет
+        inverted_color: Обратный цвет
         position: Позиция
         meta_title: Мета title
         meta_description: Мета description

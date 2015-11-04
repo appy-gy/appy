@@ -46,8 +46,7 @@
     "redux-thunk": "^1.0.0",
     "setimmediate": "^1.0.3",
     "smooth-scroll": "cferdinandi/smooth-scroll",
-    "strip": "0.0.7",
-    "tinycolor2": "^1.1.2"
+    "strip": "0.0.7"
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.0.0",
