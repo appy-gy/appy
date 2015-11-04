@@ -1,4 +1,6 @@
+_ = require 'lodash'
 React = require 'react'
+ReactRedux = require 'react-redux'
 isClient = require '../../helpers/is_client'
 Main = require './main'
 Loader = require './loader'
@@ -13,11 +15,13 @@ FbRoot = require './fb_root'
 Footer = require './footer/footer'
 
 {PropTypes} = React
+{connect} = ReactRedux
 
 Layout = React.createClass
   displayName: 'Layout'
 
   propTypes:
+    popups: PropTypes.arrayOf(PropTypes.object).isRequired
     header: PropTypes.oneOf ['common', 'rating', 'editRating', false]
     isLoading: PropTypes.bool
     onLogoClick: PropTypes.func
@@ -28,7 +32,6 @@ Layout = React.createClass
   childContextTypes:
     headerExpanded: PropTypes.bool.isRequired
     triggerHeader: PropTypes.func.isRequired
-    searchVisible: PropTypes.bool.isRequired
     triggerSearch: PropTypes.func.isRequired
     onLogoClick: PropTypes.func.isRequired
 
@@ -52,9 +55,9 @@ Layout = React.createClass
 
   getChildContext: ->
     {onLogoClick} = @props
-    {headerExpanded, searchVisible} = @state
+    {headerExpanded} = @state
 
-    { headerExpanded, @triggerHeader, searchVisible, @triggerSearch, onLogoClick }
+    { headerExpanded, @triggerHeader, @triggerSearch, onLogoClick }
 
   componentWillMount: ->
     @setupLoaderTimeout() if @props.isLoading
@@ -88,6 +91,9 @@ Layout = React.createClass
   shouldShowClose: ->
     @props.onClose or @state.searchVisible
 
+  shouldBlur: ->
+    @state.searchVisible or not _.isEmpty(@props.popups)
+
   onClose: ->
     if @state.searchVisible then @triggerSearch() else @props.onClose()
 
@@ -96,7 +102,7 @@ Layout = React.createClass
 
     return unless header
     Header = @headers[header]
-    <Header/>
+    <Header isBlured={@shouldBlur()}/>
 
   search: ->
     <Search/> if @state.searchVisible
@@ -105,7 +111,7 @@ Layout = React.createClass
     <Loader/> if @state.showLoader
 
   footer: ->
-    <Footer/> if @props.showFooter
+    <Footer isBlured={@shouldBlur()}/> if @props.showFooter
 
   close: ->
     <Close onClose={@onClose}/> if @shouldShowClose()
@@ -114,20 +120,23 @@ Layout = React.createClass
     @props.children unless @props.isLoading
 
   render: ->
-    {header, children} = @props
+    {popups, header, children} = @props
 
     <div className="layout">
       {@header()}
-      <Main hasHeader={!!header}>
+      <Main hasHeader={!!header} isBlured={@shouldBlur()}>
         {@content()}
       </Main>
       {@footer()}
       {@close()}
       {@search()}
-      <Popups/>
+      <Popups popups={popups}/>
       <Toastr/>
       {@loader()}
       <FbRoot/>
     </div>
 
-module.exports = Layout
+mapStateToProps = ({popups}) ->
+  { popups }
+
+module.exports = connect(mapStateToProps)(Layout)

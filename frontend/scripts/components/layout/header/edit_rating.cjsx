@@ -16,7 +16,7 @@ EditRatingHeader = React.createClass
     block: 'header'
 
   render: ->
-    <Header>
+    <Header {...@props}>
       <Logo/>
       <EditRatingItems/>
       <RatingActions/>

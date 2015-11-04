@@ -47,7 +47,4 @@ Popups = React.createClass
       <div className="popups_close" onClick={@closeLastPopup}></div>
     </div>
 
-mapStateToProps = ({popups}) ->
-  { popups }
-
-module.exports = connect(mapStateToProps)(Popups)
+module.exports = connect()(Popups)

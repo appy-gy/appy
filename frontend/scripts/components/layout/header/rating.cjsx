@@ -10,7 +10,7 @@ RatingHeader = React.createClass
   displayName: 'RatingHeader'
 
   render: ->
-    <Header>
+    <Header {...@props}>
       <Logo/>
       <RatingItems/>
     </Header>

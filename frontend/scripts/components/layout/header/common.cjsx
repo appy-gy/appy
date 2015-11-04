@@ -9,7 +9,7 @@ CommonHeader = React.createClass
   displayName: 'CommonHeader'
 
   render: ->
-    <Header>
+    <Header {...@props}>
       <Logo/>
       <Navigation/>
       <Auth/>

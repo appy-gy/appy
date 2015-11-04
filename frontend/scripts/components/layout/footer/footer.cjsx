@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
+classNames = require 'classnames'
 footerPageActions = require '../../../actions/footer_pages'
 PageLink = require '../../shared/links/page'
 
@@ -14,6 +15,7 @@ Footer = React.createClass
   propTypes:
     dispatch: PropTypes.func.isRequired
     pages: PropTypes.arrayOf(PropTypes.object).isRequired
+    isBlured: PropTypes.bool.isRequired
 
   componentWillMount: ->
     @props.dispatch fetchFooterPages()
@@ -27,7 +29,11 @@ Footer = React.createClass
       </PageLink>
 
   render: ->
-    <div className="layout_footer">
+    {isBlured} = @props
+
+    classes = classNames 'layout_footer', 'm-blured': isBlured
+
+    <div className={classes}>
       <div className="layout_footer-logo">
       </div>
       <div className="layout_footer-left">
