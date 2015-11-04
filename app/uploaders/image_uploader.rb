@@ -33,7 +33,18 @@ class ImageUploader < BaseUploader
         cmd.background background
         cmd.extent "#{width}x#{height}" if cols != width || rows != height
       end
-      img = yield(img) if block_given?
+      img = yield img if block_given?
+      img
+    end
+  end
+
+  def resize_to_limit width, height
+    manipulate! do |img|
+      img.combine_options do |cmd|
+        cmd.alpha 'remove'
+        cmd.resize "#{width}x#{height}>"
+      end
+      img = yield img if block_given?
       img
     end
   end

@@ -56,7 +56,7 @@ RatingItemImage = React.createClass
     {ratingItem, canEdit} = @props
 
     height = if canEdit then null else ratingItem.imageHeight
-    image = <img className="rating-item_image" src={@imageUrl()}/>
+    image = <img className="rating-item_image" src={@imageUrl()} height={height}/>
     unless canEdit
       image = <a target="_blank" href={imageUrl ratingItem.image}>{image}</a>
     image
