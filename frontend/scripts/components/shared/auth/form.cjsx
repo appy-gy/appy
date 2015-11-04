@@ -15,7 +15,7 @@ Form = React.createClass
     <form className="auth-popup_form" onSubmit={onSubmit}>
       {children}
       <div className="auth-popup_submit" onClick={onSubmit}></div>
-      <input type="submit" value="" className="g-hidden"/>
+      <input type="submit" value="" className="m-hidden"/>
     </form>
 
 module.exports = Form
