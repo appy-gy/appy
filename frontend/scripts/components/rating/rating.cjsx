@@ -6,7 +6,6 @@ ratingActions = require '../../actions/rating'
 ratingItemActions = require '../../actions/rating_items'
 isBlank = require '../../helpers/is_blank'
 isClient = require '../../helpers/is_client'
-UpdateStatus = require './update_status'
 Header = require './header'
 Description = require './description'
 RatingItems = require './rating_items'
@@ -90,7 +89,6 @@ Rating = React.createClass
     edit = rating.status != 'published'
 
     <article className="rating">
-      <UpdateStatus/>
       <Header rating={rating}/>
       <Description object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Нажмите, чтобы ввести описание рейтинга."/>
       {@authorLink()}
