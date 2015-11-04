@@ -15,7 +15,8 @@ module Api
       end
 
       def create
-        render json: current_user.ratings.create
+        rating = ::Ratings::Create.new(current_user).call
+        render json: rating
       end
 
       def update
