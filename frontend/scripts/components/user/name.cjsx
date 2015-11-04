@@ -50,6 +50,10 @@ Name = React.createClass
     @setState edit: false
     dispatch changeUser(name: @prevName)
 
+  onKeyDown: (event) ->
+    return @cancelEdit() if event.keyCode == 27
+    return @saveName() if event.key == 'Enter'
+
   contentView: ->
     {edit} = @state
     {user} = @context
@@ -67,14 +71,7 @@ Name = React.createClass
     return unless edit
 
     withIndexKeys [
-      <input className="user-profile_name-value" type="text" autoFocus placeholder={@placeholder} value={user.name} onChange={@changeName}/>
-      <div className="user-profile_name-buttons">
-        <div className="user-profile_name-button m-accept" onClick={@saveName}>
-          Cохранить
-        </div>
-        <div className="user-profile_name-button m-cancel" onClick={@cancelEdit}>
-        </div>
-      </div>
+      <input className="user-profile_name-value" type="text" autoFocus placeholder={@placeholder} value={user.name} onChange={@changeName} onKeyDown={@onKeyDown}/>
     ]
 
   render: ->
