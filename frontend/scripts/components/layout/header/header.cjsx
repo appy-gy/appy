@@ -20,8 +20,8 @@ Header = React.createClass
 
     classes = classNames 'layout_header', 'header', 'm-active': headerExpanded, 'm-blured': isBlured
 
-    <header className={classes}>
-      <div className="header_menu-button-wrap" onClick={triggerHeader}>
+    <header className={classes} onClick={triggerHeader}>
+      <div className="header_menu-button-wrap">
         <div className="header_menu-button"></div>
       </div>
       <div className="header_content">

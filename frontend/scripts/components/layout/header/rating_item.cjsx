@@ -17,7 +17,6 @@ RatingItem = React.createClass
   propTypes:
     ratingItem: PropTypes.object.isRequired
     index: PropTypes.number.isRequired
-    visibleRatingItemId: PropTypes.string.isRequired
     width: PropTypes.number
     sectionColor: PropTypes.string
     invertedSectionColor: PropTypes.string
