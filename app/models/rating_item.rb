@@ -20,6 +20,6 @@ class RatingItem < ActiveRecord::Base
   end
 
   def set_image_height
-    self.image_height = MiniMagick::Image.open(image.normal.path)[:height]
+    self.image_height = MiniMagick::Image.open(image.normal_1x.path)[:height]
   end
 end
