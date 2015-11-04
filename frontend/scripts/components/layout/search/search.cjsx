@@ -13,12 +13,13 @@ Search = React.createClass
 
   getInitialState: ->
     query: ''
+    onGoing: false
     results: []
 
   changeQuery: (event) ->
     {value: query} = event.target
 
-    @setState { query }
+    @setState { query, onGoing: true }
     @search query
 
   search: (query) ->
@@ -27,7 +28,16 @@ Search = React.createClass
     http.get('search/global', params: { query }).then ({data}) =>
       # User has changed the search query during the request
       return unless query == @state.query
-      @setState results: data.results
+      @setState onGoing: false, results: data.results
+
+  nothingFound: ->
+    {query, onGoing, results} = @state
+
+    return if _.isEmpty(query) or onGoing or not _.isEmpty(results)
+
+    <div className="search_nothing-found">
+      Ничего не найдено
+    </div>
 
   results: ->
     {results} = @state
@@ -46,6 +56,7 @@ Search = React.createClass
       <div className="search_content">
         <h1 className="search_title">Поиск</h1>
         <input type="text" className="search_input" placeholder="Просто начните вводить то, что ищете" autoFocus value={query} onChange={@changeQuery}/>
+        {@nothingFound()}
         <div className="search_results">
           {@results()}
         </div>
