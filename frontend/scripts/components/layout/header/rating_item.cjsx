@@ -48,7 +48,7 @@ RatingItem = React.createClass
     <div className={classes}>
       <div className="header_rating-item-content">
         <a title={ratingItem.title} className="header_rating-item-title" href={@ratingItemAnchor()} data-scroll>
-          {index} {ratingItem.title}
+          #{index} {ratingItem.title}
         </a>
         <div className="header_rating-item-options">
           {ratingItem.mark}
