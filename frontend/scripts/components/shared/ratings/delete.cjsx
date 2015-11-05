@@ -2,38 +2,46 @@ React = require 'react'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../../actions/rating'
 showConfirm = require '../../../helpers/popups/confirm'
+ReduxRouter = require 'redux-router'
 
 {PropTypes} = React
 {connect} = ReactRedux
 {removeRating} = ratingActions
+{replaceState} = ReduxRouter
 
 DeleteRating = React.createClass
   displayName: 'DeleteRating'
 
   propTypes:
     dispatch: PropTypes.func.isRequired
-    rating: PropTypes.object.isRequired
-    onDelete: PropTypes.func
 
   contextTypes:
     block: PropTypes.string.isRequired
 
-  getDefaultProps: ->
-    onDelete: ->
+  redirectToProfile: ->
+    {dispatch, currentUser} = @props
 
-  showDeleteConfirmation: (event) ->
-    {dispatch, rating, onDelete} = @props
+    dispatch replaceState(null, "/users/#{currentUser.slug}")
 
-    event.preventDefault()
+  confirmDelete: ->
+    {dispatch} = @props
 
     showConfirm dispatch,
       text: 'Вы уверены, что хотите удалить этот рейтинг?'
-      onConfirm: -> dispatch(removeRating()).then(onDelete)
+      onConfirm: @deleteRating
       cancelText: 'Не удалять'
+
+  deleteRating: ->
+    {dispatch} = @props
+
+    dispatch(removeRating()).then @redirectToProfile()
 
   render: ->
     {block} = @context
 
-    <div className="#{block}_delete-rating" onClick={@showDeleteConfirmation}>Удалить</div>
+    <div className="#{block}_delete-rating" onClick={@confirmDelete}>Удалить</div>
 
-module.exports = connect()(DeleteRating)
+mapStateToProps = ({currentUser}) ->
+  currentUser: currentUser.item
+
+module.exports = connect(mapStateToProps)(DeleteRating)
