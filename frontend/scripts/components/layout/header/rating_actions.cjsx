@@ -26,16 +26,6 @@ RatingActions = React.createClass
           </div>
           <div className="rating-statusbar_buttons">
             <Save ref='save' rating={rating} ratingItems={ratingItems}/>
-            <Publish ref="publish" rating={rating} ratingItems={ratingItems}/>
-            <div className="rating-statusbar_more">
-              <div className="rating-statusbar_more-icon">
-              </div>
-              <div className="rating-statusbar_more-content-wrap">
-                <div className="rating-statusbar_more-content">
-                  <Delete ref="delete" rating={rating}/>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

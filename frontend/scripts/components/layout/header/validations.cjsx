@@ -1,7 +1,8 @@
+_ = require 'lodash'
 React = require 'react'
 PureRendexMixin = require 'react-addons-pure-render-mixin'
-CSSTransitionGroup = require 'react-addons-css-transition-group'
 prepublishValidation = require '../../../helpers/ratings/prepublish_validation'
+Publish = require '../../shared/ratings/publish'
 
 {PropTypes} = React
 
@@ -14,17 +15,18 @@ Validations = React.createClass
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
-  errors: ->
+  render: ->
     {rating, ratingItems} = @props
 
-    prepublishValidation(rating, ratingItems).map (error) ->
-      <div key={error} className="header_validation-error">
-        {error}
-      </div>
+    firstError = _.first prepublishValidation(rating, ratingItems)
 
-  render: ->
-    <CSSTransitionGroup className="header_validation-errors" transitionName="m" transitionEnterTimeout={500} transitionLeaveTimeout={3000}>
-      {@errors()}
-    </CSSTransitionGroup>
+    if firstError
+      errorText = <div dangerouslySetInnerHTML={{__html: "Что бы опубликовать рейтинг #{firstError}"}}></div>
+    else
+      errorText = <Publish ref="publish" rating={rating} ratingItems={ratingItems}/>
+
+    <div className="header_validation-error">
+      {errorText}
+    </div>
 
 module.exports = Validations
