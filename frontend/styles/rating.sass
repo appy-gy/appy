@@ -114,31 +114,45 @@
       transition: opacity 0.2s
 
   &_close
-    position: absolute
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
+    +close
+    font-size: 40px
+    color: $grey-3
+    width: 40px
+    height: 40px
+    font-size: 24px
 
-    &-wrapper
-      +close
-      position: absolute
-      top: $margin
-      right: $margin
-      font-size: 32px
-      width: 40px
-      height: 40px
-      background: $black
-      border-radius: 50%
+    &:hover
+      color: $black
 
-      &.m-sticky
-        position: fixed
-        top: $margin
+    @media screen and (min-width: $small)
+      width: 60px
+      height: 60px
+      font-size: 40px
 
-      @media screen and (max-width: $big)
-        position: fixed
-        top: $margin
-        right: $margin
+    &-wrap
+      position: fixed
+      top: 0
+      right: 0
+      width: 60px
+      height: 60px
+      padding: 10px
+      z-index: 1
+
+      @media screen and (min-width: $small)
+        position: absolute
+        padding: 0
+
+        &.m-sticky
+          position: fixed
+          right: calc((100% - 630px) / 2)
+
+          @media screen and (min-width: $medium)
+            right: calc((100% - 960px) / 2)
+
+          @media screen and (min-width: $big)
+            right: calc((100% - (240px + 960px)) / 2)
+
+
 
   &_center
     z-index: 1
