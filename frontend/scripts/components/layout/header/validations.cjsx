@@ -20,13 +20,13 @@ Validations = React.createClass
 
     firstError = _.first prepublishValidation(rating, ratingItems)
 
-    if firstError
-      errorText = <div dangerouslySetInnerHTML={{__html: "Что бы опубликовать рейтинг #{firstError}"}}></div>
+    Component = if firstError
+      firstError
     else
-      errorText = <Publish ref="publish" rating={rating} ratingItems={ratingItems}/>
+      <Publish ref="publish" rating={rating} ratingItems={ratingItems}/>
 
     <div className="header_validation-error">
-      {errorText}
+      {Component}
     </div>
 
 module.exports = Validations
