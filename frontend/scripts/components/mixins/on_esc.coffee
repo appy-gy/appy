@@ -21,6 +21,8 @@ OnEsc =
     @escListeners.each @cancelOnEsc
 
   onEsc: (listener) ->
+    return unless isClient()
+
     listener = cb: listener if _.isFunction listener
     listener = _.defaults {}, listener,
       use: -> true
