@@ -1,5 +1,6 @@
 React = require 'react'
 ReactRedux = require 'react-redux'
+ReduxRouter = require 'redux-router'
 Publish = require '../../shared/ratings/publish'
 Save = require '../../shared/ratings/save'
 Delete = require '../../shared/ratings/delete'
@@ -7,13 +8,20 @@ Validations = require './validations'
 
 {PropTypes} = React
 {connect} = ReactRedux
+{replaceState} = ReduxRouter
 
 RatingActions = React.createClass
   displayName: 'RatingActions'
 
   propTypes:
+    currentUser: PropTypes.object.isRequired
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
+
+  redirectToProfile: ->
+    {dispatch, currentUser} = @props
+
+    dispatch replaceState(null, "/users/#{currentUser.slug}")
 
   render: ->
     {rating, ratingItems} = @props
@@ -32,7 +40,7 @@ RatingActions = React.createClass
               </div>
               <div className="rating-statusbar_more-content-wrap">
                 <div className="rating-statusbar_more-content">
-                  <Delete ref="delete" rating={rating}/>
+                  <Delete ref="delete" rating={rating} onDelete={@redirectToProfile}/>
                 </div>
               </div>
             </div>
@@ -41,7 +49,8 @@ RatingActions = React.createClass
       </div>
     </div>
 
-mapStateToProps = ({rating, ratingItems}) ->
+mapStateToProps = ({currentUser, rating, ratingItems}) ->
+  currentUser: currentUser.item
   rating: rating.item
   ratingItems: ratingItems.items
 

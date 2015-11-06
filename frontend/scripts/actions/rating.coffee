@@ -36,11 +36,11 @@ updateRating = (changes, notSync) ->
       changes = _.omit data.rating, notSync
       dispatch changeRating(changes)
 
-removeRating = ->
+removeRating = (id) ->
   (dispatch, getState) ->
-    {rating} = getState()
+    id ||= getState().rating.id
 
-    http.delete "ratings/#{rating.item.id}"
+    http.delete "ratings/#{id}"
 
 addTagToRating = (name) ->
   (dispatch, getState) ->

@@ -1,30 +1,33 @@
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../../actions/rating'
 showConfirm = require '../../../helpers/popups/confirm'
-ReduxRouter = require 'redux-router'
 
 {PropTypes} = React
 {connect} = ReactRedux
 {removeRating} = ratingActions
-{replaceState} = ReduxRouter
 
 DeleteRating = React.createClass
   displayName: 'DeleteRating'
 
+  mixins: [PureRenderMixin]
+
   propTypes:
     dispatch: PropTypes.func.isRequired
+    rating: PropTypes.object.isRequired
+    onDelete: PropTypes.func
 
   contextTypes:
     block: PropTypes.string.isRequired
 
-  redirectToProfile: ->
-    {dispatch, currentUser} = @props
+  getDefaultProps: ->
+    onDelete: ->
 
-    dispatch replaceState(null, "/users/#{currentUser.slug}")
-
-  confirmDelete: ->
+  confirmDelete: (event) ->
     {dispatch} = @props
+
+    event.preventDefault()
 
     showConfirm dispatch,
       text: 'Вы уверены, что хотите удалить этот рейтинг?'
@@ -32,16 +35,13 @@ DeleteRating = React.createClass
       cancelText: 'Не удалять'
 
   deleteRating: ->
-    {dispatch} = @props
+    {dispatch, rating, onDelete} = @props
 
-    dispatch(removeRating()).then @redirectToProfile()
+    dispatch(removeRating(rating.id)).then(onDelete)
 
   render: ->
     {block} = @context
 
     <div className="#{block}_delete-rating" onClick={@confirmDelete}>Удалить</div>
 
-mapStateToProps = ({currentUser}) ->
-  currentUser: currentUser.item
-
-module.exports = connect(mapStateToProps)(DeleteRating)
+module.exports = connect()(DeleteRating)
