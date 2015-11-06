@@ -3,7 +3,6 @@ React = require 'react'
 ReactRedux = require 'react-redux'
 userActions = require '../../actions/user'
 isBlank = require '../../helpers/is_blank'
-withIndexKeys = require '../../helpers/react/with_index_keys'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -52,7 +51,7 @@ Name = React.createClass
 
   onKeyDown: (event) ->
     return @cancelEdit() if event.keyCode == 27
-    return @saveName() if event.key == 'Enter'
+    return event.target.blur() if event.keyCode == 13
 
   contentView: ->
     {edit} = @state
@@ -70,9 +69,7 @@ Name = React.createClass
 
     return unless edit
 
-    withIndexKeys [
-      <input className="user-profile_name-value" type="text" autoFocus placeholder={@placeholder} value={user.name} onChange={@changeName} onKeyDown={@onKeyDown}/>
-    ]
+    <input className="user-profile_name-value" type="text" autoFocus placeholder={@placeholder} value={user.name} onChange={@changeName} onBlur={@saveName} onKeyDown={@onKeyDown}/>
 
   render: ->
     <div className="user-profile_name">
