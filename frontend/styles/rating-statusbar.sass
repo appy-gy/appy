@@ -26,8 +26,9 @@
   &_buttons
     display: flex
     height: 100%
-    width: 200px
+    width: 300px
     justify-content: space-between
+    margin-left: 10px
 
   &_link
     cursor: pointer
@@ -46,12 +47,20 @@
     &:hover
       color: $red
 
-  &_button
+  &_save-button
     +button(40px)
+    width: 175px
     background-color: $white
     color: $black
-    margin: 0 2px 0 10px
     z-index: 1
+    background-image: url('../images/loader.png')
+    background-repeat: repeat-x;
+    background-size: 100%;
+    background-position: 0 top
 
-    &:hover
-      color: $blue
+    &.m-disabled
+      background-color: $grey
+      cursor: default
+
+    &.m-pending, &.m-saving
+      animation: save-button-loader 1s linear infinite
