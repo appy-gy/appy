@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107093321) do
+ActiveRecord::Schema.define(version: 20151107121906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 20151107093321) do
     t.text     "meta_title",                   null: false
     t.text     "meta_description",             null: false
     t.text     "meta_keywords",                null: false
-    t.text     "inverted_color"
+    t.text     "inverted_color",               null: false
   end
 
   add_index "sections", ["slug"], name: "index_sections_on_slug", unique: true, using: :btree

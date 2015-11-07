@@ -6,8 +6,6 @@ class AddInvertedColorToSections < ActiveRecord::Migration
       inverted_color = section.color.scan(/\h\h/).map{ |str| (255 - str.to_i(16)).to_s(16).rjust(2, '0') }.join.prepend('#')
       section.update inverted_color: inverted_color
     end
-
-    change_column_null :sections, :inverted_color, null: false
   end
 
   def down

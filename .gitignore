@@ -1,5 +1,12 @@
 /.bundle
 /.sass-cache
+/api/_build
+/api/db
+/api/deps
+/api/*.ez
+/api/erl_crash.dump
+/api/config/dev.secret.exs
+/api/config/prod.secret.exs
 /log
 /tmp
 /node_modules

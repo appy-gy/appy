@@ -8,7 +8,12 @@ server = http.createServer()
 proxy = httpProxy.createProxyServer()
 
 server.on 'request', (req, res) ->
-  target = if req.url.match /^\/(api|oauth|admin|assets|static|files|system|__better_errors)/ then process.env.TOP_API_HOST else process.env.TOP_PRERENDER_HOST
+  target = if req.url.match /^\/api\/private\/sections/
+      process.env.TOP_NEW_API_HOST
+    else if req.url.match /^\/(api|oauth|admin|assets|static|files|system|__better_errors)/
+      process.env.TOP_API_HOST
+    else
+      process.env.TOP_PRERENDER_HOST
   proxy.web req, res, { target }
 
 proxy.on 'error', (error, req, res) ->
