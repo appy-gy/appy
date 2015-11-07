@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         get :check, on: :collection
       end
       resource :reset_passwords, only: [:create]
-      resources :sections, only: [:index, :show] do
+      resources :sections, only: [] do
         scope module: :sections do
           resources :ratings, only: [:index]
         end
@@ -40,7 +40,6 @@ Rails.application.routes.draw do
           resources :votes, only: [:create]
         end
       end
-      resources :header_sections, only: [:index, :show]
       resources :tags, only: [:index, :show] do
         get :popular, on: :collection
         scope module: :tags do

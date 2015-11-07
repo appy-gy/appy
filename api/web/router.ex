@@ -5,11 +5,12 @@ defmodule Top.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", Top do
+  scope "/api", Top, as: :api do
     pipe_through :api
 
     scope "/private", Private, as: :private do
-      resources "/sections", SectionController
+      resources "/sections", SectionController, only: [:index, :show]
+      resources "/header_sections", HeaderSectionController, only: [:index]
     end
   end
 end

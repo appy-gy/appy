@@ -5,6 +5,10 @@ defmodule Top.Private.SectionView do
     %{sections: render_many(sections, Top.Private.SectionView, "section.json")}
   end
 
+  def render("show.json", %{section: section}) do
+    %{section: render_one(section, Top.Private.SectionView, "section.json")}
+  end
+
   def render("section.json", %{section: section}) do
     %{id: section.id,
       name: section.name,

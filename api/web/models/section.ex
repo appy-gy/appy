@@ -15,9 +15,9 @@ defmodule Top.Section do
     timestamps inserted_at: :created_at
   end
 
-  @required_fields ~w(name color inverted_color position slug meta_title
+  @required_fields ~W(name color inverted_color position slug meta_title
     meta_description meta_keywords)
-  @optional_fields ~w()
+  @optional_fields ~W()
 
   def changeset(model, params \\ :empty) do
     model
