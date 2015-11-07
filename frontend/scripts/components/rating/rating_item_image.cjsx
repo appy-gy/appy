@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
@@ -8,6 +9,7 @@ RatingUpdater = require '../mixins/rating_updater'
 FileInput = require '../shared/inputs/file'
 withIndexKeys = require '../../helpers/react/with_index_keys'
 imageUrl = require '../../helpers/image_url'
+isClient = require '../../helpers/is_client'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -24,6 +26,14 @@ RatingItemImage = React.createClass
     canEdit: PropTypes.bool.isRequired
 
   buttonTypes: ['updateImage', 'removeImage']
+
+  getInitialState: ->
+    width: null
+
+  componentDidMount: ->
+    return unless isClient()
+    width = ReactDOM.findDOMNode(@).offsetWidth
+    @setState { width }
 
   buttons: ->
     {canEdit} = @props
@@ -54,9 +64,12 @@ RatingItemImage = React.createClass
 
   image: ->
     {ratingItem, canEdit} = @props
+    {width} = @state
 
-    height = if canEdit then null else ratingItem.imageHeight
-    image = <img className="rating-item_image" src={@imageUrl()} height={height}/>
+    styles = if not canEdit and width?
+      height: Math.round ratingItem.imageHeight * width / ratingItem.imageWidth
+
+    image = <img className="rating-item_image" src={@imageUrl()} style={styles}/>
     unless canEdit
       image = <a target="_blank" href={imageUrl ratingItem.image}>{image}</a>
     image

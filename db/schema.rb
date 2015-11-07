@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151104110830) do
+ActiveRecord::Schema.define(version: 20151107093321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20151104110830) do
     t.uuid     "rating_id",                 null: false
     t.json     "video",        default: {}, null: false
     t.integer  "image_height"
+    t.integer  "image_width"
   end
 
   add_index "rating_items", ["rating_id"], name: "index_rating_items_on_rating_id", using: :btree
