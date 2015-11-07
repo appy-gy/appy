@@ -33,7 +33,7 @@ Publish = React.createClass
 
   render: ->
     <div>
-      Ура! Теперь вы можете <span className="rating-statusbar_link" onClick={@confirmPublish}>опубликовать</span> свой рейтинг!
+      Ура! Теперь вы можете <span className="rating-statusbar_publish-button" onClick={@confirmPublish}>опубликовать</span> свой рейтинг!
     </div>
 
 module.exports = connect()(Publish)
