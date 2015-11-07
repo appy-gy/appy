@@ -26,12 +26,25 @@
   &_buttons
     display: flex
     height: 100%
-    align-items: center
-    flex-shrink: 0
+    width: 200px
+    justify-content: space-between
 
   &_link
     cursor: pointer
     border-bottom: 1px dashed $white
+
+  &_delete-rating
+    height: 40px
+    color: $red-2
+    border: 1px solid
+    cursor: pointer
+    width: 40px
+    display: flex
+    justify-content: center
+    font-size: 30px
+    line-height: 32px
+    &:hover
+      color: $red
 
   &_button
     +button(40px)

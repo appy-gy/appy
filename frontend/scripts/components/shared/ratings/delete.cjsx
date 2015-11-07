@@ -14,6 +14,7 @@ DeleteRating = React.createClass
 
   propTypes:
     dispatch: PropTypes.func.isRequired
+    children: PropTypes.node.isRequired
 
   contextTypes:
     block: PropTypes.string.isRequired
@@ -37,9 +38,12 @@ DeleteRating = React.createClass
     dispatch(removeRating()).then @redirectToProfile()
 
   render: ->
+    {children} = @props
     {block} = @context
 
-    <div className="#{block}_delete-rating" onClick={@confirmDelete}>Удалить</div>
+    <div className="#{block}_delete-rating" onClick={@confirmDelete}>
+      {children}
+    </div>
 
 mapStateToProps = ({currentUser}) ->
   currentUser: currentUser.item

@@ -15,6 +15,12 @@ RatingActions = React.createClass
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
+  childContextTypes:
+    block: PropTypes.string.isRequired
+
+  getChildContext: ->
+    block: 'rating-statusbar'
+
   render: ->
     {rating, ratingItems} = @props
 
@@ -26,6 +32,7 @@ RatingActions = React.createClass
           </div>
           <div className="rating-statusbar_buttons">
             <Save ref='save' rating={rating} ratingItems={ratingItems}/>
+            <Delete ref='delete'>&times;</Delete>
           </div>
         </div>
       </div>
