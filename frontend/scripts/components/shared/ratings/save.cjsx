@@ -22,8 +22,9 @@ SaveRating = React.createClass
 
   statusNames:
     done: 'Сохранить'
-    pending: 'Сохраняется...'
+    pending: 'Ожидает сохранения...'
     saving: 'Сохраняется...'
+    rejected: 'Ошибка'
 
   saveRating: ->
     @performSave()
