@@ -10,8 +10,8 @@ defmodule Top.Comment do
 
     belongs_to :user, Top.User
     belongs_to :rating, Top.Rating
-    belongs_to :parent, Top.Comment
-    has_many :children, Top.Comment, foreign_key: :parent_id, on_delete: :fetch_and_delete
+    belongs_to :parent, __MODULE__
+    has_many :children, __MODULE__, foreign_key: :parent_id, on_delete: :fetch_and_delete
   end
 
   import Top.CounterCache

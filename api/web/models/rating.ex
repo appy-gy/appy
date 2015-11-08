@@ -33,6 +33,12 @@ defmodule Top.Rating do
     has_many :likes, Top.Like, on_delete: :delete_all
   end
 
+  import Top.RedisCounter
+  counter :views
+
+  import Top.ImageUploader
+  image :image
+
   @required_fields ~W(status comments_count likes_count words recommendations
     user_id)
   @optional_fields ~W(title description source main_page_position image slug
@@ -45,5 +51,9 @@ defmodule Top.Rating do
     |> foreign_key_constraint(:section_id)
     |> unique_constraint(:slug)
     |> unique_constraint(:main_page_position)
+  end
+
+  def on_main_page do
+    from r in __MODULE__, where: not is_nil r.main_page_position
   end
 end

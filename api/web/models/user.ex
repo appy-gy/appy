@@ -26,6 +26,10 @@ defmodule Top.User do
     timestamps inserted_at: :created_at
   end
 
+  import Top.ImageUploader
+  image :avatar
+  image :background
+
   @required_fields ~W(role slug)
   @optional_fields ~W(name email crypted_password salt remember_me_token
     remember_me_token_expires_at reset_password_token

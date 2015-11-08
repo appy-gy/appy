@@ -1,3 +1,6 @@
+# FIXME: like should be loaded with separate request now
+# not accessed as part of a rating
+
 React = require 'react'
 PureRenderMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'

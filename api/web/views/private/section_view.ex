@@ -2,11 +2,11 @@ defmodule Top.Private.SectionView do
   use Top.Web, :view
 
   def render("index.json", %{sections: sections}) do
-    %{sections: render_many(sections, Top.Private.SectionView, "section.json")}
+    %{sections: render_many(sections, __MODULE__, "section.json")}
   end
 
   def render("show.json", %{section: section}) do
-    %{section: render_one(section, Top.Private.SectionView, "section.json")}
+    %{section: render_one(section, __MODULE__, "section.json")}
   end
 
   def render("section.json", %{section: section}) do

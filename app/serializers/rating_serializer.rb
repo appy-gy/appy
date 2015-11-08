@@ -5,7 +5,6 @@ class RatingSerializer < ActiveModel::Serializer
 
   has_one :user
   has_one :section
-  has_one :like
   has_many :tags
 
   def views_count
