@@ -11,6 +11,9 @@ defmodule Top.Like do
     belongs_to :rating, Top.Rating
   end
 
+  import Top.CounterCache
+  counter_cache :rating, :likes_count
+
   @required_fields ~W(user_id rating_id)
   @optional_fields ~W()
 

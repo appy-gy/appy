@@ -14,6 +14,9 @@ defmodule Top.Comment do
     has_many :children, Top.Comment, foreign_key: :parent_id, on_delete: :fetch_and_delete
   end
 
+  import Top.CounterCache
+  counter_cache :rating, :comments_count
+
   @required_fields ~W(body user_id rating_id)
   @optional_fields ~W(parent_id)
 

@@ -12,6 +12,9 @@ defmodule Top.RatingsTag do
     belongs_to :tag, Tag
   end
 
+  import Top.CounterCache
+  counter_cache :tag, :ratings_count
+
   @required_fields ~W(rating_id tag_id)
   @optional_fields ~W()
 
@@ -20,15 +23,5 @@ defmodule Top.RatingsTag do
     |> cast(params, @required_fields, @optional_fields)
     |> foreign_key_constraint(:rating_id)
     |> foreign_key_constraint(:tag_id)
-  end
-
-  after_insert :update_ratings_counter, [1]
-  after_delete :update_ratings_counter, [-1]
-
-  def update_ratings_counter(changeset, by) do
-    tag = Repo.get! Tag, get_field(changeset, :tag_id)
-    tag = Tag.changeset tag, %{ratings_count: tag.ratings_count + by}
-    Repo.update! tag
-    changeset
   end
 end
