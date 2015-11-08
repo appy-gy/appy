@@ -1,7 +1,8 @@
 defmodule Top.Section do
   use Top.Web, :model
 
-  @primary_key {:id, :binary_id, autogenerate: true}
+  @primary_key {:id, Ecto.UUID, autogenerate: true}
+  @foreign_key_type Ecto.UUID
 
   schema "sections" do
     field :name, :string
@@ -13,6 +14,8 @@ defmodule Top.Section do
     field :meta_description, :string
     field :meta_keywords, :string
     timestamps inserted_at: :created_at
+
+    has_many :ratings, Top.Rating
   end
 
   @required_fields ~W(name color inverted_color position slug meta_title
@@ -22,5 +25,6 @@ defmodule Top.Section do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> unique_constraint(:slug)
   end
 end

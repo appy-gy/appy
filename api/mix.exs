@@ -34,7 +34,8 @@ defmodule Top.Mixfile do
      {:phoenix_ecto, "~> 1.1"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:ecto_enum, "~> 0.3"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
