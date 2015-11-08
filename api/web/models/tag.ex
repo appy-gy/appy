@@ -7,7 +7,7 @@ defmodule Top.Tag do
   schema "tags" do
     field :name, :string
     field :ratings_count, :integer, default: 0
-    field :slug, :string
+    field :slug, Top.Slug
     timestamps inserted_at: :created_at
 
     has_many :ratings_tags, Top.RatingsTag, on_delete: :fetch_and_delete

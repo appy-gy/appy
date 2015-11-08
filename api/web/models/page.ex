@@ -7,7 +7,7 @@ defmodule Top.Page do
   schema "pages" do
     field :title, :string
     field :body, :string
-    field :slug, :string
+    field :slug, Top.Slug
     timestamps inserted_at: :created_at
   end
 

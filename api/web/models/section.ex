@@ -9,7 +9,7 @@ defmodule Top.Section do
     field :color, :string
     field :inverted_color, :string
     field :position, :integer, default: 0
-    field :slug, :string
+    field :slug, Top.Slug
     field :meta_title, :string
     field :meta_description, :string
     field :meta_keywords, :string

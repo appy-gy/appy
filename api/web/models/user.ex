@@ -22,7 +22,7 @@ defmodule Top.User do
     field :background, :string
     field :instagram_link, :string
     field :facebook_link, :string
-    field :slug, :string
+    field :slug, Top.Slug
     timestamps inserted_at: :created_at
   end
 

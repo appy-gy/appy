@@ -17,7 +17,7 @@ defmodule Top.Rating do
     field :image, :string
     field :comments_count, :integer, default: 0
     field :likes_count, :integer, default: 0
-    field :slug, :string
+    field :slug, Top.Slug
     field :published_at, Ecto.DateTime
     field :deleted_at, Ecto.DateTime
     field :words, {:array, :string}
