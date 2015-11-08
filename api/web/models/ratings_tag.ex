@@ -1,15 +1,12 @@
 defmodule Top.RatingsTag do
   use Top.Web, :model
 
-  alias Top.Repo
-  alias Top.Tag
-
   @primary_key {:id, Ecto.UUID, autogenerate: true}
   @foreign_key_type Ecto.UUID
 
   schema "ratings_tags" do
     belongs_to :rating, Top.Rating
-    belongs_to :tag, Tag
+    belongs_to :tag, Top.Tag
   end
 
   import Top.CounterCache
