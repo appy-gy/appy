@@ -40,7 +40,8 @@ removeRating = (id) ->
   (dispatch, getState) ->
     id ||= getState().rating.id
 
-    http.delete "ratings/#{id}"
+    http.delete("ratings/#{id}").then ->
+      dispatch { type: 'REMOVE_RATING', payload: id }
 
 addTagToRating = (name) ->
   (dispatch, getState) ->
