@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
 ratingActions = require '../../../actions/rating'
+classNames = require 'classnames'
 showConfirm = require '../../../helpers/popups/confirm'
 showToast = require '../../../helpers/toasts/show'
 
@@ -32,8 +33,15 @@ Publish = React.createClass
       cancelText: 'Не публиковать'
 
   render: ->
+    {status} = @props
+
+    classes = classNames 'm-disabled': status != 'done'
+
     <span>
-      Ура! Теперь вы можете <span className="rating-statusbar_publish-button" onClick={@confirmPublish}>опубликовать</span> свой рейтинг!
+      Ура! Теперь вы можете <span className="rating-statusbar_publish-button #{classes}" onClick={@confirmPublish}>опубликовать</span> свой рейтинг!
     </span>
 
-module.exports = connect()(Publish)
+mapStateToProps = ({rating}) ->
+  status: rating.updateStatus
+
+module.exports = connect(mapStateToProps)(Publish)

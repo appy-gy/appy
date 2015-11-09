@@ -39,6 +39,12 @@
     background-color: $green
     padding: 0 5px
 
+    &.m-disabled
+      background-color: $grey-3
+      cursor: default
+      pointer-events: none
+      color: $black
+
   &_delete-rating
     height: 40px
     color: $red-2
@@ -66,6 +72,7 @@
     &.m-disabled
       background-color: $grey
       cursor: default
+      pointer-events: none
 
     &.m-pending, &.m-saving
       animation: save-button-loader 1s linear infinite
