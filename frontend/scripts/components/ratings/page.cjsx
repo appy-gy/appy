@@ -60,7 +60,7 @@ Ratings = React.createClass
     {isFetched} = @props
 
     <Layout isLoading={not isFetched} onLogoClick={@showFirstPage}>
-      <Helmet title="информационно-развлекательный портал для творческих людей"/>
+      <Helmet title="интерактивно обо всем на свете"/>
       <div className="previews">
         {@previews()}
         {@showMore()}
