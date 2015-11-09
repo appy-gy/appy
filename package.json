@@ -46,7 +46,8 @@
     "redux-thunk": "^1.0.0",
     "setimmediate": "^1.0.3",
     "smooth-scroll": "cferdinandi/smooth-scroll",
-    "strip": "0.0.7"
+    "strip": "0.0.7",
+    "bluebird": "3.0.5"
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.0.0",

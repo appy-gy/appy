@@ -2,6 +2,7 @@
 # that your component connected to redux
 
 _ = require 'lodash'
+Promise = require 'bluebird'
 ratingActions = require '../../actions/rating'
 RequestQueue = require '../../helpers/request_queue'
 
@@ -19,13 +20,12 @@ performUpdates = (dispatch) ->
   prevRequests = requests
   batchQueue.add =>
     promises = prevRequests.map (request) -> queue.add request
-    Promise.all(promises).then(
-      (value) ->
+    Promise.all(promises)
+      .then ->
         dispatch changeRatingUpdateStatus('done')
         requests = []
-      , (error) ->
+      .catch ->
         dispatch changeRatingUpdateStatus('rejected')
-    )
 
 timeoutUpdatesPerform = (dispatch) ->
   clearUpdatesTimeout()

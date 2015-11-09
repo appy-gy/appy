@@ -24,7 +24,7 @@ SaveRating = React.createClass
     done: 'Сохранить'
     pending: 'Сохраняем...'
     saving: 'Сохраняем...'
-    rejected: 'Ошибка'
+    rejected: 'Нет соединения'
 
   saveRating: ->
     @performSave()

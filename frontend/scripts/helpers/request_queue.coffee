@@ -1,4 +1,5 @@
 _ = require 'lodash'
+Promise = require 'bluebird'
 
 class RequestQueue
   constructor: ->
