@@ -12,7 +12,7 @@ Form = React.createClass
   render: ->
     {onSubmit, children} = @props
 
-    <form className="auth-popup_form" onSubmit={onSubmit}>
+    <form noValidate className="auth-popup_form" onSubmit={onSubmit}>
       {children}
       <div className="auth-popup_submit" onClick={onSubmit}></div>
       <input type="submit" value="" className="m-hidden"/>

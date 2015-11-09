@@ -10,7 +10,7 @@ class RatingItem < ActiveRecord::Base
   validates :position, uniqueness: { scope: :rating }
 
   before_validation :get_video_info, if: -> { not video_url.nil? }
-  before_validation :set_image_height, if: :image_changed?
+  before_validation :set_image_size, if: :image_changed?
 
   private
 
@@ -19,7 +19,9 @@ class RatingItem < ActiveRecord::Base
     self.video_url = nil
   end
 
-  def set_image_height
-    self.image_height = MiniMagick::Image.open(image.normal_1x.path)[:height]
+  def set_image_size
+    meta = MiniMagick::Image.open image.normal_1x.path
+    self.image_width = meta[:width]
+    self.image_height = meta[:height]
   end
 end

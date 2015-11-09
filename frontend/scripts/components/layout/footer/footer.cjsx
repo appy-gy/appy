@@ -1,12 +1,14 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
+Router = require 'react-router'
 classNames = require 'classnames'
 footerPageActions = require '../../../actions/footer_pages'
 PageLink = require '../../shared/links/page'
 
 {PropTypes} = React
 {connect} = ReactRedux
+{Link} = Router
 {fetchFooterPages} = footerPageActions
 
 Footer = React.createClass
@@ -34,8 +36,8 @@ Footer = React.createClass
     classes = classNames 'layout_footer', 'm-blured': isBlured
 
     <div className={classes}>
-      <div className="layout_footer-logo">
-      </div>
+      <Link to="/" className="layout_footer-logo">
+      </Link>
       <div className="layout_footer-left">
         {@pages()}
       </div>

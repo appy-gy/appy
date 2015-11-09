@@ -31,7 +31,7 @@ AuthForm = React.createClass
   render: ->
     <Form onSubmit={@onSubmit}>
       <div className="auth-popup_input-wrapper">
-        <input type="text" className="auth-popup_input" autoFocus placeholder="Email" valueLink={@linkState 'email'}/>
+        <input type="email" className="auth-popup_input" autoFocus placeholder="Email" valueLink={@linkState 'email'}/>
       </div>
       <PasswordInput placeholder="Пароль" valueLink={@linkState 'password'}/>
     </Form>

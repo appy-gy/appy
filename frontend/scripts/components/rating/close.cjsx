@@ -19,7 +19,7 @@ Close = React.createClass
     setImmediate => @props.dispatch goBack()
 
   render: ->
-    <Sticky className="rating_close-wrapper" stickyClass="m-sticky" stickyStyle={{}}>
+    <Sticky className="rating_close-wrap" stickyClass="m-sticky" stickyStyle={{}}>
       <div className="rating_close" onClick={@goBack}></div>
     </Sticky>
 

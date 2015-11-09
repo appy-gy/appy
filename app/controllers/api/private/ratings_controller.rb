@@ -40,7 +40,7 @@ module Api
       end
 
       def view
-        views_count = ::Ratings::CountView.new(@rating).call
+        views_count = ::Ratings::CountView.new(@rating, request.ip).call
         render json: { views_count: views_count }
       end
 
