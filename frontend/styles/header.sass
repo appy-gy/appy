@@ -211,16 +211,13 @@
   &_rating-actions
     display: flex
 
-  &_validation-error
+  &_validation
     color: $white
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    width: 95%
 
-    &.m-enter
-      animation: enter 0.5s linear
-
-    &.m-leave
-      animation: leave 3s linear forwards
-      &:before
-        +ion-icon("android-checkmark-circle")
-
-      &:before
-        display: inline-block
+    &-error
+      flex-grow: 1
+      text-align: center

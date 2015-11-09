@@ -32,8 +32,8 @@ Publish = React.createClass
       cancelText: 'Не публиковать'
 
   render: ->
-    <div>
+    <span>
       Ура! Теперь вы можете <span className="rating-statusbar_publish-button" onClick={@confirmPublish}>опубликовать</span> свой рейтинг!
-    </div>
+    </span>
 
 module.exports = connect()(Publish)

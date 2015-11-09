@@ -3,14 +3,29 @@ React = require 'react'
 strip = require 'strip'
 
 prepublishValidation = (rating, ratingItems = rating.items) ->
-  errors = []
+  errors = [
+    {
+      text: <span>Что бы опубликовать рейтинг добавьте <span className="rating-statusbar_link">заголовок</span></span>
+      condition: _.isEmpty(rating.title)
+    }
+    {
+      text: <span>Что бы опубликовать рейтинг выберите <span className="rating-statusbar_link">рубрику</span></span>
+      condition: !rating.section
+    }
+    {
+      text: <span>Что бы опубликовать рейтинг добавьте <span className="rating-statusbar_link">описание</span></span>
+      condition: _.isEmpty(strip(rating.description))
+    }
+    {
+      text: <span>Что бы опубликовать рейтинг добавьте <span className="rating-statusbar_link">картинку</span> для рейтинга</span>
+      condition: !rating.image
+    }
+    {
+      text: <span>Что бы опубликовать рейтинг добавьте хотя бы <span className="rating-statusbar_link">два пункта</span></span>
+      condition: ratingItems.length < 2
+    }
+  ]
 
-  errors.push(<span>Что бы опубликовать рейтинг добавьте <span className="rating-statusbar_link">заголовок</span></span>) if _.isEmpty rating.title
-  errors.push(<span>Что бы опубликовать рейтинг выберите <span className="rating-statusbar_link">рубрику</span></span>) unless rating.section
-  errors.push(<span>Что бы опубликовать рейтинг добавьте <span className="rating-statusbar_link">описание</span></span>) if _.isEmpty strip(rating.description)
-  errors.push(<span>Что бы опубликовать рейтинг добавьте <span className="rating-statusbar_link">картинку</span> для рейтинга</span>) unless rating.image
-  errors.push(<span>Что бы опубликовать рейтинг добавьте хотя бы <span className="rating-statusbar_link">два пункта</span></span>) if ratingItems.length < 2
-
-  errors
+  { errors: _.map(_.filter(errors, 'condition', true), 'text'), errorsTotal: errors.length }
 
 module.exports = prepublishValidation

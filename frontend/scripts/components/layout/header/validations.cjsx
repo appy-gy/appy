@@ -18,15 +18,23 @@ Validations = React.createClass
   render: ->
     {rating, ratingItems} = @props
 
-    firstError = _.first prepublishValidation(rating, ratingItems)
+    validations = prepublishValidation(rating, ratingItems)
+
+    firstError = _.first validations.errors
+    counterText = "#{validations.errorsTotal - validations.errors.length} / #{validations.errorsTotal}"
 
     Component = if firstError
       firstError
     else
       <Publish ref="publish" rating={rating} ratingItems={ratingItems}/>
 
-    <div className="header_validation-error">
-      {Component}
+    <div className="header_validation">
+      <span className="header_validation-error">
+        {Component}
+      </span>
+      <span className="header_validation-counter">
+        {counterText}
+      </span>
     </div>
 
 module.exports = Validations
