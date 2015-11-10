@@ -15,6 +15,6 @@ ShareButtons = React.createClass
     ReactDOM.findDOMNode(@).appendChild script
 
   render: ->
-    <div dangerouslySetInnerHTML={{__html: "<div class='yashare-auto-init' data-yashareL10n='ru' data-yashareType='small' data-yashareQuickServices='vkontakte,facebook,twitter' data-yashareTheme='counter'></div>"}} />
+    <div className="rating_b-share" dangerouslySetInnerHTML={{__html: "<div class='yashare-auto-init' data-yashareL10n='ru' data-yashareType='small' data-yashareQuickServices='vkontakte,facebook,twitter' data-yashareTheme='counter'></div>"}} />
 
 module.exports = ShareButtons
