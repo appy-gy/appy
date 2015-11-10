@@ -1,5 +1,3 @@
-isClient = require '../../helpers/is_client'
-Likely = require('ilyabirman-likely') if isClient()
 React = require 'react'
 ReactDOM = require 'react-dom'
 PureRendexMixin = require 'react-addons-pure-render-mixin'
@@ -10,13 +8,13 @@ ShareButtons = React.createClass
   mixins: [PureRendexMixin]
 
   componentDidMount: ->
-    Likely ReactDOM.findDOMNode(@)
+    script = document.createElement 'script'
+    script.type = 'text/javascript'
+    script.src = "//yastatic.net/share/share.js"
+    script.async = true
+    ReactDOM.findDOMNode(@).appendChild script
 
   render: ->
-    <div className="likely likely-big">
-      <div className="twitter">Твитнуть</div>
-      <div className="facebook">Поделиться</div>
-      <div className="vkontakte">Поделиться</div>
-    </div>
+    <div dangerouslySetInnerHTML={{__html: "<div class='yashare-auto-init' data-yashareL10n='ru' data-yashareType='small' data-yashareQuickServices='vkontakte,facebook,twitter' data-yashareTheme='counter'></div>"}} />
 
 module.exports = ShareButtons

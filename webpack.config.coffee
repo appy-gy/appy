@@ -69,7 +69,6 @@ module.exports =
     loaders: [
       { test: /\.woff|ttf|otf|eot((\?|#).*)?|svg((\?|#).*)$/, loader: 'file' }
       { test: /\.(jpe?g|gif|png|svg)$/, loader: 'file' }
-      { test: /\.json$/, loader: 'json' }
       { test: /\.css$/, loader: cssLoader }
       { test: /\.sass$/, loader: sassLoader + '?indentedSyntax' }
       { test: /\.scss$/, loader: sassLoader }
