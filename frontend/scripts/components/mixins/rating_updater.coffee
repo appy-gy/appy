@@ -2,7 +2,6 @@
 # that your component connected to redux
 
 _ = require 'lodash'
-Promise = require 'bluebird'
 ratingActions = require '../../actions/rating'
 RequestQueue = require '../../helpers/request_queue'
 
