@@ -1,18 +1,19 @@
 React = require 'react'
-PureRendexMixin = require 'react-addons-pure-render-mixin'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
 ratingItemActions = require '../../actions/rating_items'
+OnLogin = require '../mixins/on_login'
 Login = require '../shared/auth/login'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{voteFromRatingItem} = ratingItemActions
+{voteForRatingItem} = ratingItemActions
 
 VoteButton = React.createClass
   displayName: 'VoteButton'
 
-  mixins: [PureRendexMixin]
+  mixins: [PureRenderMixin, OnLogin]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
@@ -20,12 +21,15 @@ VoteButton = React.createClass
     ratingItem: PropTypes.object.isRequired
     kind: PropTypes.string.isRequired
 
+  onLoginKey: 'voteButton'
+
   vote: ->
-    {dispatch, currentUser, ratingItem, kind} = @props
+    {currentUser, ratingItem, kind} = @props
 
-    return unless currentUser.id?
+    if currentUser.id? then @dispatchVote(ratingItem.id, kind) else @onLogin('dispatchVote', ratingItem.id, kind)
 
-    dispatch voteFromRatingItem(ratingItem.id, kind)
+  dispatchVote: (ratingItemId, kind) ->
+    @props.dispatch voteForRatingItem(ratingItemId, kind)
 
   render: ->
     {currentUser, ratingItem, kind} = @props
@@ -33,7 +37,7 @@ VoteButton = React.createClass
     classes = classNames 'rating-item_button', "m-#{kind}", 'm-active': ratingItem.vote?.kind == kind
     Component = if currentUser.id? then 'div' else Login
 
-    <Component onSuccess={@vote}>
+    <Component>
       <div className={classes} onClick={@vote}></div>
     </Component>
 

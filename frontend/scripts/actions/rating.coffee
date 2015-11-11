@@ -57,18 +57,18 @@ removeTagFromRating = (name) ->
     dispatch type: 'REMOVE_TAG_FROM_RATING', payload: name
     http.delete "ratings/#{rating.item.id}/tags", data: { name }
 
-likeRating = ->
+likeRating = (ratingId) ->
   (dispatch, getState) ->
-    {rating} = getState()
+    ratingId ||= getState().rating.id
 
-    http.post("ratings/#{rating.item.id}/likes").then ({data}) ->
+    http.post("ratings/#{ratingId}/likes").then ({data}) ->
       dispatch changeRating(like: data.like, likesCount: data.meta.likesCount)
 
-unlikeRating = ->
+unlikeRating = (ratingId) ->
   (dispatch, getState) ->
-    {rating} = getState()
+    ratingId ||= getState().rating.id
 
-    http.delete("ratings/#{rating.item.id}/likes").then ({data}) ->
+    http.delete("ratings/#{ratingId}/likes").then ({data}) ->
       dispatch changeRating(like: null, likesCount: data.meta.likesCount)
 
 module.exports = { fetchRating, viewRating, changeRating, createRating,

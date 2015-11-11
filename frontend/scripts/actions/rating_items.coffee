@@ -76,12 +76,12 @@ updateRatingItemPositions = ->
 
 changeRatingItemWaypoint = createAction 'CHANGE_RATING_ITEM_WAYPOINT'
 
-voteFromRatingItem = (id, kind) ->
+voteForRatingItem = (id, kind) ->
   (dispatch, getState) ->
     http.post("rating_items/#{id}/votes", vote: { kind }).then ({data}) ->
       dispatch changeRatingItem(id, vote: data.vote, mark: data.meta.mark)
 
 module.exports = { fetchRatingItems, createRatingItem, changeRatingItem,
   updateRatingItem, removeRatingItem, changeRatingItemPositions,
-  changeRatingItemPosition, updateRatingItemPositions, voteFromRatingItem,
+  changeRatingItemPosition, updateRatingItemPositions, voteForRatingItem,
   changeRatingItemsOrder, changeRatingItemWaypoint}
