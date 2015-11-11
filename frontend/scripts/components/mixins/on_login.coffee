@@ -21,7 +21,11 @@ OnLogin =
     addLoginCallback: PropTypes.func.isRequired
 
   componentWillMount: ->
-    @context.addLoginCallback @runLoginCallbacks
+    return unless isClient()
+    @removeLoginCallback = @context.addLoginCallback @runLoginCallbacks
+
+  componentWillUnmount: ->
+    @removeLoginCallback?()
 
   onLogin: (name, args...) ->
     callbacks = loadCallbacks()

@@ -1,3 +1,4 @@
+_ = require 'lodash'
 React = require 'react'
 
 {PropTypes} = React
@@ -18,9 +19,9 @@ LoginNotifier =
     return if prevCurrentUser.id? or currentUser.id == prevCurrentUser.id
 
     @loginCallbacks.each (cb) -> cb currentUser
-    @loginCallbacks = []
 
   addLoginCallback: (cb) ->
     if @props.currentUser.id? then cb() else @loginCallbacks.push(cb)
+    => _.remove @loginCallbacks, cb
 
 module.exports = LoginNotifier
