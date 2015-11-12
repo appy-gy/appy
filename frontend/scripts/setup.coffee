@@ -1,4 +1,4 @@
-replacePromise = require './setup/replace_promise'
+# replacePromise = require './setup/replace_promise'
 polyfillSetImmediate = require './setup/polyfill_set_immediate'
 polyfillSet = require './setup/polyfill_set'
 arrayEach = require './setup/array_each'
@@ -10,7 +10,7 @@ httpCamelcaseData = require './setup/http_camelcase_data'
 setPixelRatio = require './setup/set_pixel_ratio'
 
 setup = ->
-  replacePromise()
+  # replacePromise()
   polyfillSetImmediate()
   polyfillSet()
   arrayEach()
