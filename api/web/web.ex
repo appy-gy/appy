@@ -19,6 +19,7 @@ defmodule Top.Web do
   def model do
     quote do
       use Ecto.Model
+      use Top.ModelName
 
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
