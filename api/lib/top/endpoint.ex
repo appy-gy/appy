@@ -19,9 +19,17 @@ defmodule Top.Endpoint do
   plug Plug.Head
 
   plug Plug.Session,
-    store: :cookie,
-    key: "_top_key",
-    signing_salt: "qBjpz1Bq"
+    store: PlugRailsCookieSessionStore,
+    key: Application.get_env(:top, Top.Session)[:key],
+    domain: "appy.gy",
+    secure: true,
+    signing_salt: Application.get_env(:top, Top.Session)[:signing_salt],
+    encrypt: true,
+    encryption_salt: Application.get_env(:top, Top.Session)[:encryption_salt],
+    key_iterations: 1000,
+    key_length: 64,
+    key_digest: :sha,
+    serializer: Poison
 
   plug Top.Router
 end

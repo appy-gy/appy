@@ -1,1 +1,3 @@
 Rails.application.config.session_store :cookie_store, key: '_top_session'
+Rails.application.config.action_dispatch.encrypted_cookie_salt = '307a74d1178a1e088695135486106905ac9e4b2f87a6d083e35d0ed46cacc62765a37e7a518efeed'
+Rails.application.config.action_dispatch.encrypted_signed_cookie_salt = '259cae65154fd21fa9f9e3ce7dd5724abb5b5b52b9b599778eb441fdd4f22dc8b54fdddb55cdfcc8'

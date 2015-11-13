@@ -9,10 +9,15 @@ use Mix.Config
 config :top, Top.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
-  secret_key_base: "PLJzT+A4Sl/FGMY9YGa8R3tcCmPJKCCrKHbHebCdmm2P4FVWIIg0b5fjgWHVrlLl",
+  secret_key_base: "66ffcebe42b919fa6d3c12aa5aeaaeac3f1eaddf3d7c516a67a0772b26690c44767398e13408d5de1dd1332c7a0f49e0f354d63bb6dda5d8e9eeb5e7b7278330",
   render_errors: [accepts: ~w(json)],
   pubsub: [name: Top.PubSub,
            adapter: Phoenix.PubSub.PG2]
+
+config :top, Top.Session,
+  key: "_top_key",
+  signing_salt: "307a74d1178a1e088695135486106905ac9e4b2f87a6d083e35d0ed46cacc62765a37e7a518efeed",
+  encryption_salt: "259cae65154fd21fa9f9e3ce7dd5724abb5b5b52b9b599778eb441fdd4f22dc8b54fdddb55cdfcc8"
 
 # Configures Elixir's Logger
 config :logger, :console,
