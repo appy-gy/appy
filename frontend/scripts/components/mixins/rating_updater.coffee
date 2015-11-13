@@ -19,10 +19,12 @@ performUpdates = (dispatch) ->
   prevRequests = requests
   batchQueue.add =>
     promises = prevRequests.map (request) -> queue.add request
-    Promise.all(promises).then ->
-      dispatch changeRatingUpdateStatus('done')
-
-  requests = []
+    Promise.all(promises)
+      .then ->
+        dispatch changeRatingUpdateStatus('done')
+        requests = []
+      .catch ->
+        dispatch changeRatingUpdateStatus('rejected')
 
 timeoutUpdatesPerform = (dispatch) ->
   clearUpdatesTimeout()
@@ -36,8 +38,7 @@ RatingUpdater =
   performSave: ->
     {dispatch} = @props
 
-    clearUpdatesTimeout()
-    performUpdates dispatch
+    timeoutUpdatesPerform dispatch
 
   queueUpdate: (request) ->
     {dispatch} = @props

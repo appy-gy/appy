@@ -44,7 +44,7 @@ Preview = React.createClass
 
     return unless showDelete
 
-    <Delete rating={rating}/>
+    <Delete rating={rating}>Удалить</Delete>
 
   render: ->
     {rating, imageSize, mod} = @props

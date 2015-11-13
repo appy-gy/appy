@@ -60,7 +60,7 @@ Ratings = React.createClass
     {isFetched} = @props
 
     <Layout isLoading={not isFetched} onLogoClick={@showFirstPage}>
-      <Helmet title="информационно-развлекательный портал для творческих людей"/>
+      <Helmet title="интерактивно обо всем на свете"/>
       <div className="previews">
         {@previews()}
         {@showMore()}
@@ -71,7 +71,7 @@ Ratings = React.createClass
 mapStateToProps = ({router, ratings, mainPageRatings}) ->
   ratings: ratings.items
   mainPageRatings: mainPageRatings.item
-  isFetched: not _.isEmpty(ratings.fetchingPages) || mainPageRatings.isFetched
+  isFetched: _.isEmpty(ratings.fetchingPages) || mainPageRatings.isFetched
   page: parseInt(router.location.query?.page || 1)
   pagesCount: ratings.pagesCount
 

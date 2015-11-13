@@ -1,9 +1,8 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
-classNames = require 'classnames'
 ratingActions = require '../../../actions/rating'
-prepublishValidation = require '../../../helpers/ratings/prepublish_validation'
+classNames = require 'classnames'
 showConfirm = require '../../../helpers/popups/confirm'
 showToast = require '../../../helpers/toasts/show'
 
@@ -19,18 +18,8 @@ Publish = React.createClass
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
-  contextTypes:
-    block: PropTypes.string.isRequired
-
-  hasPublishErrors: ->
-    {rating, ratingItems} = @props
-
-    not _.isEmpty prepublishValidation(rating, ratingItems)
-
   publish: ->
-    {dispatch, rating} = @props
-
-    return if @hasPublishErrors()
+    {dispatch} = @props
 
     dispatch(updateRating(status: 'published')).then ->
       showToast dispatch, 'Рейтинг опубликован', 'success'
@@ -38,20 +27,21 @@ Publish = React.createClass
   confirmPublish: ->
     {dispatch} = @props
 
-    return if @hasPublishErrors()
-
     showConfirm dispatch,
       text: 'Внимание! После публикации рейтинга вы не сможете больше его редактировать. Вы уверены, что хотите опубликовать этот рейтинг?'
       onConfirm: @publish
       cancelText: 'Не публиковать'
 
   render: ->
-    {block} = @context
+    {status} = @props
 
-    classes = classNames "rating-statusbar_button", 'm-disabled': @hasPublishErrors()
+    classes = classNames 'm-disabled': status != 'done'
 
-    <div className={classes} onClick={@confirmPublish}>
-      Опубликовать
-    </div>
+    <span>
+      Ура! Теперь вы можете <span className="rating-statusbar_publish-button #{classes}" onClick={@confirmPublish}>опубликовать</span> свой рейтинг!
+    </span>
 
-module.exports = connect()(Publish)
+mapStateToProps = ({rating}) ->
+  status: rating.updateStatus
+
+module.exports = connect(mapStateToProps)(Publish)

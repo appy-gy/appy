@@ -1,0 +1,78 @@
+.rating_b-share
+  padding: 40px 16px !important
+  @media screen and (min-width: $small)
+    padding: 40px 30px !important
+  @media screen and (min-width: $medium)
+    padding: 40px !important
+
+.b-share
+  width: 100% !important
+
+.b-share-btn__wrap
+  width: 33% !important
+  margin: 0 !important
+
+.b-share__handle
+  width: 100% !important
+  display: flex !important
+  align-items: center
+  border-radius: 0 !important
+
+.b-share-icon
+  height: 50px  !important
+  width: 100% !important
+  background-image: none !important
+  display: flex !important
+  background-repeat: no-repeat !important
+  background-position: 10px center !important
+  background-size: 40px 40px !important
+
+  &:before
+    width: 50px
+    height: 50px
+    line-height: 50px !important
+    padding: 0 10px
+    flex-shrink: 0
+    font-size: 40px
+    color: white
+    display: flex
+    justify-content: center
+    align-items: center
+
+  &:after
+    width: 100%
+    display: block
+    height: 100%
+    color: white
+    font-size: 18px
+    line-height: 50px
+    text-align: center
+    // padding-right: 50px
+    font-family: $monospace
+
+    @media screen and (min-width: $medium)
+      content: 'Поделиться'
+
+
+  &.b-share-icon_vkontakte
+    background-image: url('../images/vk_white.svg') !important
+
+
+
+  &.b-share-icon_twitter
+    background-image: url('../images/twitter_white.svg') !important
+
+    @media screen and (min-width: $medium)
+      &::after
+        content: 'Твитнуть'
+
+  &.b-share-icon_facebook
+    background-image: url('../images/facebook_white.svg') !important
+
+.b-share-counter
+  flex-shrink: 0
+  height: 40px !important
+  padding: 0 10px !important
+  line-height: 40px !important
+  font-size: 18px !important
+  font-family: $monospace

@@ -21,24 +21,17 @@ AuthPopupButton =
   propTypes:
     dispatch: PropTypes.func.isRequired
     children: PropTypes.node.isRequired
-    onSuccess: PropTypes.func
 
   switcherComponents:
     login: Login
     registration: Registration
 
-  getDefaultProps: ->
-    onSuccess: ->
-
   submit: (data) ->
-    {dispatch, onSuccess} = @props
+    {dispatch} = @props
 
     dispatch currentUserActions[@submitAction](data)
-      .then =>
-        @closeAuthPopups()
-        onSuccess()
-      .catch (error) =>
-        @showFailToast error
+      .then => @closeAuthPopups()
+      .catch (error) => @showFailToast error
 
   showFailToast: (error) ->
     showToast @props.dispatch, @failToastContent(error), 'error'

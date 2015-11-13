@@ -6,6 +6,7 @@ HTML5Backend = require 'react-dnd/modules/backends/HTML5'
 Helmet = require 'react-helmet'
 currentUserActions = require '../actions/current_user'
 ClearState = require './mixins/clear_state'
+LoginNotifier = require './mixins/login_notifier'
 Nothing = require './shared/nothing'
 
 {PropTypes} = React
@@ -16,7 +17,7 @@ Nothing = require './shared/nothing'
 App = React.createClass
   displayName: 'App'
 
-  mixins: [ClearState]
+  mixins: [ClearState, LoginNotifier]
 
   propTypes:
     dispatch: PropTypes.func.isRequired

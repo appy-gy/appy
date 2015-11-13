@@ -18,6 +18,12 @@ RatingActions = React.createClass
     rating: PropTypes.object.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
 
+  childContextTypes:
+    block: PropTypes.string.isRequired
+
+  getChildContext: ->
+    block: 'rating-statusbar'
+
   redirectToProfile: ->
     {dispatch, currentUser} = @props
 
@@ -34,16 +40,7 @@ RatingActions = React.createClass
           </div>
           <div className="rating-statusbar_buttons">
             <Save ref='save' rating={rating} ratingItems={ratingItems}/>
-            <Publish ref="publish" rating={rating} ratingItems={ratingItems}/>
-            <div className="rating-statusbar_more">
-              <div className="rating-statusbar_more-icon">
-              </div>
-              <div className="rating-statusbar_more-content-wrap">
-                <div className="rating-statusbar_more-content">
-                  <Delete ref="delete" rating={rating} onDelete={@redirectToProfile}/>
-                </div>
-              </div>
-            </div>
+            <Delete ref='delete' rating={rating} onDelete={@redirectToProfile}>&times;</Delete>
           </div>
         </div>
       </div>

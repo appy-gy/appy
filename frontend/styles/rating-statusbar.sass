@@ -26,90 +26,53 @@
   &_buttons
     display: flex
     height: 100%
-    align-items: center
-    flex-shrink: 0
+    width: 300px
+    justify-content: space-between
+    margin-left: 10px
 
   &_link
-    color: $white-2
-    margin: 0 10px
-    font-family: $monospace
-    font-size: 14px
     cursor: pointer
-    font-weight: bold
+    border-bottom: 1px dashed $white
 
+  &_publish-button
+    +button(25px)
+    background-color: $green
+    padding: 0 5px
+
+    &.m-disabled
+      background-color: $grey-3
+      cursor: default
+      pointer-events: none
+      color: $black
+
+  &_delete-rating
+    height: 40px
+    color: $red-2
+    border: 1px solid
+    cursor: pointer
+    width: 40px
+    display: flex
+    justify-content: center
+    font-size: 30px
+    line-height: 32px
     &:hover
-      color: $white
+      color: $red
 
-  &_button
+  &_save-button
     +button(40px)
+    width: 175px
     background-color: $white
     color: $black
-    margin: 0 2px 0 10px
     z-index: 1
+    background-repeat: repeat-x
+    background-size: 100% 15%
+    background-position: 0 t10
+    background-image: linear-gradient(135deg, rgba(252,181,64,1) 10%, rgba(253,222,100,1) 20%, rgba(63,221,143,1) 30%, rgba(39,209,222,1) 40%, rgba(41,172,204,1) 50%, rgba(38,109,157,1) 60%, rgba(218,78,153,1) 70%, rgba(226,48,78,1) 80%, rgba(238,90,66,1) 90%, rgba(252,181,64,1) 100%)
 
-    &:hover
-      color: $blue
+    &.m-disabled
+      background-color: $grey
+      cursor: default
+      pointer-events: none
 
-  &_more
-    position: relative
-    background-color: $white
-    height: 40px
-    width: 40px
-
-    &-icon
-      color: $black
-      width: 40px
-      line-height: 40px
-      height: 40px
-      display: flex
-      position: relative
-      justify-content: center
-      align-items: center
-      cursor: pointer
-      &:before
-        +ion-icon("chevron-down")
-
-      &:after
-        +ion-icon("android-arrow-dropdown")
-        position: absolute
-        top: -20px
-        left: 0
-        display: none
-
-    &-content
-      background: white
-      padding: 5px 10px
-      box-shadow: 0 0 6px $black-3
-
-      &-wrap
-        display: none
-        position: absolute
-        bottom: 0
-        width: 120px
-        right: 0
-        padding-bottom: 42px
-
-    &:hover
-      .rating-statusbar_more-content-wrap
-        display: block
-
-      .rating-statusbar_more-icon
-        color: $blue
-
-        &:before
-          +ion-icon("chevron-up")
-
-        &:after
-          display: none
-
-
-.header_delete-rating
-  font-family: $monospace
-  font-weight: 600
-  font-size: 14px
-  cursor: pointer
-  line-height: 20px
-  padding: 5px 0
-
-  &:hover
-    color: $blue
+    &.m-pending, &.m-saving
+      animation: save-button-loader 1s linear infinite

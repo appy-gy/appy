@@ -200,6 +200,10 @@
 
   &_rating-publish-info
     width: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    border: 1px dashed $white-3
 
     @media screen and (max-width: $medium)
       display: none
@@ -207,29 +211,16 @@
   &_rating-actions
     display: flex
 
-
-  &_validation-errors
-    font-size: 12px
-    display: flex
-    flex-flow: row wrap
-
-  &_validation-error
-    width: calc(100% / 3)
+  &_validation
     color: $white
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    width: 95%
 
-    &:before
-      font-size: 12px
-      margin-right: 5px
-      // display: none
-      +ion-icon("android-radio-button-off")
+    &-error
+      flex-grow: 1
+      text-align: center
 
-    &.m-enter
-      animation: enter 0.5s linear
-
-    &.m-leave
-      animation: leave 3s linear forwards
-      &:before
-        +ion-icon("android-checkmark-circle")
-
-      &:before
-        display: inline-block
+    &-counter
+      color: $white-3

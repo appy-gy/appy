@@ -3,6 +3,7 @@ React = require 'react'
 Select = require 'react-select'
 classNames = require 'classnames'
 http = require '../../../helpers/http'
+OnEsc = require '../../mixins/on_esc'
 HtmlStyle = require '../../shared/html_style'
 Result = require './result'
 
@@ -11,6 +12,8 @@ Result = require './result'
 Search = React.createClass
   displayName: 'Search'
 
+  mixins: [OnEsc]
+
   propTypes:
     onClose: PropTypes.func.isRequired
 
@@ -18,6 +21,9 @@ Search = React.createClass
     query: ''
     onGoing: false
     results: []
+
+  componentWillMount: ->
+    @onEsc @props.onClose
 
   changeQuery: (event) ->
     {value: query} = event.target

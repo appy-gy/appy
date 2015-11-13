@@ -6,8 +6,8 @@ class RequestQueue
     @busy = false
 
   add: (request) ->
-    new Promise (resolve) =>
-      @queue.push { request, resolve }
+    new Promise (resolve, reject) =>
+      @queue.push { request, resolve, reject }
       @performNext()
 
   cancel: (req) ->
@@ -20,15 +20,18 @@ class RequestQueue
     return if @busy or _.isEmpty(@queue)
     @perform @queue.shift()
 
-  perform: ({request, resolve}) ->
+  perform: ({request, resolve, reject}) ->
     @busy = true
-    @always request(), (result) =>
-      @busy = false
-      resolve()
-      @performNext()
-      result
+    request()
+      .then (result) =>
+        @ensure resolve
+        result
+      .catch (error) =>
+        @ensure reject
 
-  always: (promise, fn) ->
-    promise.then fn, fn
+  ensure: (fn) =>
+    @busy = false
+    fn?()
+    @performNext()
 
 module.exports = RequestQueue

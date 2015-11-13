@@ -3,6 +3,7 @@ React = require 'react'
 ReactRedux = require 'react-redux'
 ReduxRouter = require 'redux-router'
 ratingActions = require '../../../actions/rating'
+OnLogin = require '../../mixins/on_login'
 Login = require '../auth/login'
 
 {PropTypes} = React
@@ -13,6 +14,8 @@ Login = require '../auth/login'
 CreateRating = React.createClass
   displayName: 'CreateRating'
 
+  mixins: [OnLogin]
+
   propTypes:
     dispatch: PropTypes.func.isRequired
     children: PropTypes.node.isRequired
@@ -20,13 +23,17 @@ CreateRating = React.createClass
   contextTypes:
     currentUser: PropTypes.object.isRequired
 
+  onLoginKey: 'createRating'
+
   create: ->
-    {dispatch} = @props
     {currentUser} = @context
 
     yaCounter32717200?.reachGoal('clickCreateRatingButton')
 
-    return unless currentUser.id?
+    if currentUser.id? then @dispatchCreate() else @onLogin('dispatchCreate')
+
+  dispatchCreate: ->
+    {dispatch} = @props
 
     dispatch(createRating()).then ({slug}) ->
       dispatch pushState(null, "/ratings/#{slug}/edit")
@@ -38,10 +45,10 @@ CreateRating = React.createClass
     props = _.omit @props, 'children'
     Component = if currentUser.id? then 'div' else Login
 
-    <Component {...props} onSuccess={@create}>
-      <span onClick={@create}>
+    <Component {...props}>
+      <div onClick={@create}>
         {children}
-      </span>
+      </div>
     </Component>
 
 module.exports = connect()(CreateRating)

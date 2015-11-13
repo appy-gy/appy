@@ -1,7 +1,7 @@
 KeepScroll =
   keepScroll: (fn) ->
-    {scrollTop} = document.body
+    {scrollX, scrollY} = window
     fn()
-    document.body.scrollTop = scrollTop
+    window.scrollTo scrollX, scrollY
 
 module.exports = KeepScroll

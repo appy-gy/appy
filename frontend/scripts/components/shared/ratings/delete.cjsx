@@ -15,6 +15,7 @@ DeleteRating = React.createClass
 
   propTypes:
     dispatch: PropTypes.func.isRequired
+    children: PropTypes.node.isRequired
     rating: PropTypes.object.isRequired
     onDelete: PropTypes.func
 
@@ -40,8 +41,11 @@ DeleteRating = React.createClass
     dispatch(removeRating(rating.id)).then(onDelete)
 
   render: ->
+    {children} = @props
     {block} = @context
 
-    <div className="#{block}_delete-rating" onClick={@confirmDelete}>Удалить</div>
+    <div className="#{block}_delete-rating" onClick={@confirmDelete}>
+      {children}
+    </div>
 
 module.exports = connect()(DeleteRating)
