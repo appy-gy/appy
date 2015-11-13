@@ -37,8 +37,7 @@ defmodule Top.Mixfile do
      {:cowboy, "~> 1.0"},
      {:ecto_enum, "~> 0.3"},
      {:slugger, "~> 0.0"},
-     {:exredis, "~> 0.2"},
-     {:plug_rails_cookie_session_store, "~> 0.1"}]
+     {:exredis, "~> 0.2"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
