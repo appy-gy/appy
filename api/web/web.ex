@@ -34,6 +34,7 @@ defmodule Top.Web do
       import Ecto.Query, only: [from: 1, from: 2]
 
       import Top.Router.Helpers
+      import Top.FetchCurrentUser
     end
   end
 
