@@ -5,8 +5,8 @@ defmodule Top.Private.RatingController do
 
   plug :fetch_current_user
 
-  def show(conn, %{"id" => slug}) do
-    rating = Repo.get_by!(Rating, slug: slug) |> Repo.preload([:user, :section, :tags])
+  def show(conn, %{"id" => id}) do
+    rating = Repo.find!(Rating, id) |> Repo.preload([:user, :section, :tags])
     like = like_for conn, rating
     render conn, "show.json", rating: rating, like: like
   end

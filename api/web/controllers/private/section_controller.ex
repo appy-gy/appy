@@ -8,8 +8,8 @@ defmodule Top.Private.SectionController do
     render conn, "index.json", sections: sections
   end
 
-  def show(conn, %{"id" => slug}) do
-    section = Repo.get_by! Section, slug: slug
+  def show(conn, %{"id" => id}) do
+    section = Repo.find! Section, id
     render conn, "show.json", section: section
   end
 end
