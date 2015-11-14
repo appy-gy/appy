@@ -112,6 +112,6 @@ mapStateToProps = ({currentUser, router, rating, ratingItems}) ->
   rating: rating.item
   ratingItems: ratingItems.items
   ratingSlug: router.params.ratingSlug
-  isFetched: _.any [rating, ratingItems], 'isFetched'
+  isFetched: _.all [rating, ratingItems], 'isFetched'
 
 module.exports = connect(mapStateToProps)(RatingPage)
