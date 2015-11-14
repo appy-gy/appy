@@ -19,15 +19,14 @@ Rails.application.routes.draw do
           resources :comments, only: [:index]
         end
       end
-      resources :ratings, only: [:index, :create, :update, :destroy] do
-        get :similar
+      resources :ratings, only: [:create, :update, :destroy] do
         put :view
         scope module: :ratings do
           resource :tags, only: [:create, :destroy]
-          resources :rating_items, only: [:index, :create, :update, :destroy] do
+          resources :rating_items, only: [:create, :update, :destroy] do
             put :positions, on: :collection
           end
-          resources :comments, only: [:index, :create]
+          resources :comments, only: [:create]
           resources :likes, only: [:create] do
             delete :destroy, on: :collection
           end

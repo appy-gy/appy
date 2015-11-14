@@ -1,17 +1,28 @@
 defmodule Top.FriendlyFind do
   import Ecto.Query, only: [from: 2]
 
-  alias Top.Repo
+  defmacro __using__(_) do
+    quote do
+      def find(model, id) do
+        __MODULE__.one unquote(__MODULE__).build_query(model, id)
+      end
 
-  def find(model, id) do
-    Repo.one build_query(model, id)
+      def find!(model, id) do
+        __MODULE__.one! unquote(__MODULE__).build_query(model, id)
+      end
+    end
   end
 
-  def find!(model, id) do
-    Repo.one! build_query(model, id)
+  def build_query(model, id) do
+    query = if uuid? id do
+      from r in model, where: r.id == ^id or r.slug == ^id
+    else
+      from r in model, where: r.slug == ^id
+    end
+    from r in query, limit: 1
   end
 
-  defp build_query(model, id) do
-    from r in model, where: r.id == ^id or r.slug == ^id, limit: 1
+  defp uuid?(id) do
+    Regex.match? ~r/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/, id
   end
 end

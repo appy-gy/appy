@@ -5,7 +5,8 @@ defmodule Top.Private.MainPageRatingController do
   alias Top.Private.RatingView
 
   def index(conn, _params) do
-    ratings = Rating.on_main_page |> Repo.all |> Repo.preload([:user, :section, :tags])
+    query = from r in Rating.on_main_page, preload: [:user, :section, :tags]
+    ratings = Repo.all query
     render conn, RatingView, "main_page.json", ratings: ratings
   end
 end

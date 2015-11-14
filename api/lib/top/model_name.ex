@@ -1,6 +1,6 @@
 defmodule Top.ModelName do
   def model_name(module) do
-    module |> Atom.to_string |> String.split(".") |> List.last |> String.downcase |> String.to_atom
+    module |> Mix.Utils.underscore |> String.split("/") |> List.last |> String.to_atom
   end
 
   defmacro __using__(_) do

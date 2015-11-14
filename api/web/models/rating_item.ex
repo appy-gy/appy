@@ -18,6 +18,9 @@ defmodule Top.RatingItem do
     belongs_to :rating, Top.Rating
   end
 
+  import Top.ImageUploader
+  image :image
+
   @required_fields ~W(rating_id position mark video)
   @optional_fields ~W(title description image image_width image_height)
 

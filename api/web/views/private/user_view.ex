@@ -13,4 +13,12 @@ defmodule Top.Private.UserView do
       created_at: user.created_at,
       slug: user.slug}
   end
+
+  def render("user_for_comment.json", %{user: user}) do
+    %{id: user.id,
+      name: user.name,
+      email: user.email,
+      avatar: User.avatar_url(user),
+      slug: user.slug}
+  end
 end

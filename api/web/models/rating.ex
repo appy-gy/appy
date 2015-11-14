@@ -53,7 +53,15 @@ defmodule Top.Rating do
     |> unique_constraint(:main_page_position)
   end
 
-  def on_main_page do
-    from r in __MODULE__, where: not is_nil r.main_page_position
+  def on_main_page(query \\ __MODULE__) do
+    from r in query, where: not is_nil r.main_page_position
+  end
+
+  def not_on_main_page(query \\ __MODULE__) do
+    from r in query, where: is_nil r.main_page_position
+  end
+
+  def published(query \\ __MODULE__) do
+    from r in query, where: r.status == "published"
   end
 end

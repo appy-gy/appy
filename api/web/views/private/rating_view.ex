@@ -6,13 +6,21 @@ defmodule Top.Private.RatingView do
   def render("main_page.json", %{ratings: ratings}) do
     positions = Top.Rating.MainPagePositionEnum.__enum_map__
       |> Dict.keys
-      |> Enum.reduce %{}, fn(position, result) ->
+      |> Enum.reduce %{}, fn position, result ->
         case Enum.find ratings, &(&1.main_page_position == position) do
           nil -> result
-          rating -> Dict.put result, position, render_existing(__MODULE__, "rating.json", rating: rating)
+          rating -> Dict.put result, position, render_one(rating, __MODULE__, "rating.json")
         end
       end
     %{ratings: positions}
+  end
+
+  def render("index.json", %{ratings: ratings, pages_count: pages_count}) do
+    Dict.put render("index.json", ratings: ratings), :meta, %{pages_count: pages_count}
+  end
+
+  def render("index.json", %{ratings: ratings}) do
+    %{ratings: render_many(ratings, __MODULE__, "rating.json")}
   end
 
   def render("show.json", %{rating: rating, like: like}) do
@@ -38,5 +46,11 @@ defmodule Top.Private.RatingView do
       user: render_one(rating.user, Top.Private.UserView, "user.json"),
       section: render_one(rating.section, Top.Private.SectionView, "section.json"),
       tags: render_many(rating.tags, Top.Private.TagView, "tag.json")}
+  end
+
+  def render("rating_for_comment.json", %{rating: rating}) do
+    %{id: rating.id,
+      slug: rating.slug,
+      section: render_one(rating.section, Top.Private.SectionView, "section.json")}
   end
 end

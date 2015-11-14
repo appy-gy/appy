@@ -5,11 +5,6 @@ module Api
         find :rating
         check 'Ratings::CanComment', :@rating, only: [:create]
 
-        def index
-          comments = ::Comments::FindForRating.new(@rating).call
-          render json: comments
-        end
-
         def create
           params = comment_params.merge user: current_user
           comment = ::Comments::Create.new(@rating, params).call
