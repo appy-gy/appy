@@ -19,7 +19,7 @@ Rails.application.routes.draw do
           resources :comments, only: [:index]
         end
       end
-      resources :ratings, only: [:index, :show, :create, :update, :destroy] do
+      resources :ratings, only: [:index, :create, :update, :destroy] do
         get :similar
         put :view
         scope module: :ratings do

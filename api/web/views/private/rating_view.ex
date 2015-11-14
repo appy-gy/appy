@@ -15,6 +15,12 @@ defmodule Top.Private.RatingView do
     %{ratings: positions}
   end
 
+  def render("show.json", %{rating: rating, like: like}) do
+    rating = render_one rating, __MODULE__, "rating.json"
+    like = render_one like, Top.Private.LikeView, "like.json"
+    %{rating: Dict.put(rating, :like, like)}
+  end
+
   def render("rating.json", %{rating: rating}) do
     %{id: rating.id,
       title: rating.title,

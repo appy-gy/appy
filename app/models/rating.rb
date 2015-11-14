@@ -5,8 +5,6 @@ class Rating < ActiveRecord::Base
 
   const :recommendations_limit, 3
 
-  attr_accessor :like
-
   acts_as_paranoid
 
   friendly_id :slug_candidates

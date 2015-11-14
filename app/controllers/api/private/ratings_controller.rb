@@ -9,11 +9,6 @@ module Api
         render json: ratings, meta: { pages_count: ratings.total_pages }
       end
 
-      def show
-        ::Ratings::SetLike.new(@rating, current_user).call
-        render json: @rating
-      end
-
       def create
         rating = ::Ratings::Create.new(current_user).call
         render json: rating

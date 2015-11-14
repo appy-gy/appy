@@ -9,6 +9,7 @@ defmodule Top.Router do
     pipe_through :api
 
     scope "/private", Private, as: :private do
+      resources "/ratings", RatingController, only: [:show]
       resources "/sections", SectionController, only: [:index, :show]
       resources "/header_sections", HeaderSectionController, only: [:index]
       resources "/main_page_ratings", MainPageRatingController, only: [:index]

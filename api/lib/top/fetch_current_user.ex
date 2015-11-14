@@ -1,7 +1,7 @@
 defmodule Top.FetchCurrentUser do
   import Plug.Conn, only: [assign: 3, fetch_cookies: 1]
 
-  def fetch_current_user(conn) do
+  def fetch_current_user(conn, _) do
     conn
     |> fetch_cookies
     |> Map.get(:cookies)

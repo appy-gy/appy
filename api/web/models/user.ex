@@ -24,6 +24,8 @@ defmodule Top.User do
     field :facebook_link, :string
     field :slug, Top.Slug
     timestamps inserted_at: :created_at
+
+    has_many :likes, Top.Like, on_delete: :fetch_and_delete
   end
 
   import Top.ImageUploader
