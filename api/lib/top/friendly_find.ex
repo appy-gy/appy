@@ -4,11 +4,11 @@ defmodule Top.FriendlyFind do
   defmacro __using__(_) do
     quote do
       def find(model, id) do
-        __MODULE__.one unquote(__MODULE__).build_query(model, id)
+        one unquote(__MODULE__).build_query(model, id)
       end
 
       def find!(model, id) do
-        __MODULE__.one! unquote(__MODULE__).build_query(model, id)
+        one! unquote(__MODULE__).build_query(model, id)
       end
     end
   end
