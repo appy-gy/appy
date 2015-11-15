@@ -1,5 +1,6 @@
 defmodule Top.Private.Rating.RatingItemController do
   use Top.Web, :controller
+  import Ecto.Model, only: [assoc: 2]
 
   alias Top.Rating
   alias Top.Private.RatingItemView
@@ -17,7 +18,7 @@ defmodule Top.Private.Rating.RatingItemController do
       nil -> []
       user ->
         ids = Enum.map items, &(&1.id)
-        query = from v in Top.Vote, where: v.user_id == ^user.id and v.rating_item_id in ^ids
+        query = from v in assoc(user, :votes), where: v.rating_item_id in ^ids
         Repo.all query
     end
   end

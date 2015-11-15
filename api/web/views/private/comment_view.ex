@@ -1,6 +1,10 @@
 defmodule Top.Private.CommentView do
   use Top.Web, :view
 
+  def render("index.json", %{comments: comments, pages_count: pages_count}) do
+    Dict.put render("index.json", comments: comments), :meta, %{pages_count: pages_count}
+  end
+
   def render("index.json", %{comments: comments}) do
     %{comments: render_many(comments, __MODULE__, "comment.json")}
   end

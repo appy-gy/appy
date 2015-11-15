@@ -12,12 +12,8 @@ Rails.application.routes.draw do
           resources :ratings, only: [:index]
         end
       end
-      resources :users, only: [:show, :create, :update] do
+      resources :users, only: [:create, :update] do
         put :change_password
-        scope module: :users do
-          resources :ratings, only: [:index]
-          resources :comments, only: [:index]
-        end
       end
       resources :ratings, only: [:create, :update, :destroy] do
         put :view

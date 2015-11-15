@@ -64,4 +64,12 @@ defmodule Top.Rating do
   def published(query \\ __MODULE__) do
     from r in query, where: r.status == "published"
   end
+
+  def of(current_user, user) do
+    query = from r in assoc(user, :ratings)
+    cond do
+      Top.UserPolicy.see_drafts?(current_user, user) -> query
+      true -> published query
+    end
+  end
 end

@@ -1,12 +1,8 @@
 module Api
   module Private
     class UsersController < BaseController
-      find :user, only: [:show, :update, :change_password]
+      find :user, only: [:update, :change_password]
       check 'Users::CanEdit', :@user, only: [:update, :change_password]
-
-      def show
-        render json: @user, serializer: UserForProfileSerializer
-      end
 
       def create
         user = ::Users::Create.new(user_params).call

@@ -25,7 +25,10 @@ defmodule Top.User do
     field :slug, Top.Slug
     timestamps inserted_at: :created_at
 
+    has_many :ratings, Top.Rating, on_delete: :fetch_and_delete
+    has_many :comments, Top.Comment, on_delete: :fetch_and_delete
     has_many :likes, Top.Like, on_delete: :fetch_and_delete
+    has_many :votes, Top.Vote, on_delete: :fetch_and_delete
   end
 
   import Top.ImageUploader
