@@ -6,6 +6,8 @@ defmodule Top do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
+    __DIR__ |> Path.join("../../tmp/pids/phoenix.pid") |> Path.expand |> File.write!(System.get_pid)
+
     children = [
       # Start the endpoint when the application starts
       supervisor(Top.Endpoint, []),

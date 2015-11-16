@@ -7,6 +7,7 @@
 /api/erl_crash.dump
 /api/config/dev.secret.exs
 /api/config/prod.secret.exs
+/api/priv/static/manifest.json
 /log
 /tmp
 /node_modules
