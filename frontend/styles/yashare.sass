@@ -12,14 +12,20 @@
   width: 33% !important
   margin: 0 !important
 
-.b-share__handle
-  width: 100% !important
-  display: flex !important
-  align-items: center
-  border-radius: 0 !important
+.b-share
+  &__handle
+    width: 100% !important
+    display: flex !important
+    align-items: center
+    border-radius: 0 !important
+
+  &__link
+    border-top: none !important
+    height: auto !important
 
 .b-share-icon
-  height: 50px  !important
+  top: 0 !important
+  height: 50px !important
   width: 100% !important
   background-image: none !important
   display: flex !important
@@ -53,11 +59,8 @@
     @media screen and (min-width: $medium)
       content: 'Поделиться'
 
-
   &.b-share-icon_vkontakte
     background-image: url('../images/vk_white.svg') !important
-
-
 
   &.b-share-icon_twitter
     background-image: url('../images/twitter_white.svg') !important
