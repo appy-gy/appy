@@ -7,11 +7,6 @@ Rails.application.routes.draw do
         get :check, on: :collection
       end
       resource :reset_passwords, only: [:create]
-      resources :sections, only: [] do
-        scope module: :sections do
-          resources :ratings, only: [:index]
-        end
-      end
       resources :users, only: [:create, :update] do
         put :change_password
       end
