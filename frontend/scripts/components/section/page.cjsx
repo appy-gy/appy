@@ -1,6 +1,7 @@
 _ = require 'lodash'
 React = require 'react'
 ReactRedux = require 'react-redux'
+ReduxRouter = require 'redux-router'
 Helmet = require 'react-helmet'
 sectionActions = require '../../actions/section'
 sectionRatingActions = require '../../actions/section_ratings'
@@ -10,6 +11,7 @@ Preview = require '../shared/ratings/preview'
 
 {PropTypes} = React
 {connect} = ReactRedux
+{replaceState} = ReduxRouter
 {fetchSection} = sectionActions
 {fetchSectionRatings} = sectionRatingActions
 

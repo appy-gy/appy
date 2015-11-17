@@ -22,7 +22,11 @@ defmodule Top.Router do
           resources "/comments", CommentController, only: [:index]
         end
       end
-      resources "/sections", SectionController, only: [:index, :show]
+      resources "/sections", SectionController, only: [:index, :show] do
+        scope "/", Section, as: :section do
+          resources "/ratings", RatingController, only: [:index]
+        end
+      end
       resources "/header_sections", HeaderSectionController, only: [:index]
       resources "/main_page_ratings", MainPageRatingController, only: [:index]
     end
