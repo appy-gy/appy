@@ -99,14 +99,13 @@ Header = React.createClass
 
   tagsList: ->
     {rating} = @props
-    
+
     <Tags rating={rating}/>
 
   tags: ->
     {canEdit} = @props
 
-    component = if canEdit then @tagsSelect() else @tagsList()
-    component
+    if canEdit then @tagsSelect() else @tagsList()
 
   children: ->
     {rating, canEdit} = @props

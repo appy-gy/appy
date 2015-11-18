@@ -75,8 +75,8 @@ RatingPage = React.createClass
   fetchRatingItems: ->
     @props.dispatch fetchRatingItems(@props.ratingSlug)
 
-  canEdit: (rating = @props.rating) ->
-    canEditRating @props.currentUser, rating
+  canEdit: ->
+    canEditRating @props.currentUser, @props.rating
 
   header: ->
     if @canEdit() then 'editRating' else 'rating'

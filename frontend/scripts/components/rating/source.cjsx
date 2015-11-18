@@ -44,8 +44,7 @@ Source = React.createClass
   source: ->
     {edit} = @props
 
-    component = if edit then @sourceEdit() else @sourceView()
-    component
+    if edit then @sourceEdit() else @sourceView()
 
   render: ->
     <div className="rating_description-wrapper m-bottom">
