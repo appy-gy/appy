@@ -23,6 +23,7 @@ Tag = React.createClass
     tag: PropTypes.object.isRequired
     tagSlug: PropTypes.string.isRequired
     isFetched: PropTypes.bool.isRequired
+    isFailed: PropTypes.bool.isRequired
 
   componentWillMount: ->
     @fetchTag()
@@ -56,9 +57,9 @@ Tag = React.createClass
     "Материалы по тегу ##{tag.name}"
 
   render: ->
-    {isFetched} = @props
+    {isFetched, isFailed} = @props
 
-    <Layout isLoading={not isFetched}>
+    <Layout isLoading={not isFetched} isFound={not isFailed}>
       <Helmet meta={@meta()}/>
       <div className="layout_title">{@pageDescription()}</div>
       <div className="previews">
@@ -75,5 +76,6 @@ mapStateToProps = ({router, tagRatings, tag}, {tagSlug}) ->
   page: parseInt(router.location.query?.page || 1)
   pagesCount: tagRatings.pagesCount
   isFetched: _.any [tagRatings, tag], 'isFetched'
+  isFailed: _.any [tagRatings, tag], 'isFailed'
 
 module.exports = connect(mapStateToProps)(Tag)

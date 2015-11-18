@@ -2,7 +2,7 @@ module Api
   module Private
     class SessionsController < BaseController
       def show
-        render json: current_user, serializer: UserSerializer
+        render json: current_user, serializer: CurrentUserSerializer
       end
 
       def create

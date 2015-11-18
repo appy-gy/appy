@@ -11,7 +11,6 @@ imageUrl = require '../../helpers/image_url'
 SyncSlug = require '../mixins/sync_slug'
 Avatar = require './avatar'
 Name = require './name'
-SocialButtons = require './social_buttons'
 BackgroundUploader = require './background_uploader'
 Settings = require './settings'
 Ratings = require './ratings'
@@ -35,7 +34,8 @@ User = React.createClass
     dispatch: PropTypes.func.isRequired
     user: PropTypes.object.isRequired
     userSlug: PropTypes.string.isRequired
-    isFetched: PropTypes.bool.isRequired
+    isFetching: PropTypes.bool.isRequired
+    isFailed: PropTypes.bool.isRequired
     page: PropTypes.number.isRequired
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
     ratingPagesCount: PropTypes.number.isRequired
@@ -84,9 +84,6 @@ User = React.createClass
     @fetchRatings()
     @fetchComments()
 
-  isLoading: ->
-    not @props.isFetched
-
   isOwnPage: ->
     @context.currentUser.id == @props.user.id
 
@@ -124,11 +121,11 @@ User = React.createClass
       </TabContent>
 
   render: ->
-    {user, page, ratings, ratingPagesCount, comments, commentPagesCount, isFetched} = @props
+    {user, page, ratings, ratingPagesCount, comments, commentPagesCount, isFetching, isFailed} = @props
 
     headerStyles = backgroundImage: "url(#{imageUrl user.background, 'normal'})"
 
-    <Layout isLoading={not isFetched}>
+    <Layout isLoading={isFetching} isFound={not isFailed}>
       <Helmet title={user.name}/>
       <div className="user-profile">
         <header className="user-profile_header">
@@ -141,7 +138,6 @@ User = React.createClass
                 <Name/>
                 {@settings()}
               </div>
-              <SocialButtons/>
               <div className="user-profile_tab-buttons">
                 {@tabButtons()}
               </div>
@@ -158,7 +154,8 @@ User = React.createClass
 mapStateToProps = ({router, user, userRatings, userComments}) ->
   user: user.item
   userSlug: router.params.userSlug
-  isFetched: user.isFetched
+  isFailed: user.isFailed
+  isFetching: user.isFetching
   page: parseInt(router.location.query?.page || 1)
   ratings: userRatings.items
   ratingPagesCount: userRatings.pagesCount

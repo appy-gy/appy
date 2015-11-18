@@ -16,6 +16,7 @@ Page = React.createClass
     page: PropTypes.object.isRequired
     pageSlug: PropTypes.string.isRequired
     isFetched: PropTypes.bool.isRequired
+    isFailed: PropTypes.bool.isRequired
 
   componentWillMount: ->
     @fetchPage()
@@ -27,9 +28,9 @@ Page = React.createClass
     @props.dispatch fetchPage(@props.pageSlug)
 
   render: ->
-    {page, isFetched} = @props
+    {page, isFetched, isFailed} = @props
 
-    <Layout isLoading={not isFetched}>
+    <Layout isLoading={not isFetched} isFound={not isFailed}>
       <Helmet title={page.title} />
       <div className="page" dangerouslySetInnerHTML={__html: page.body}></div>
     </Layout>
@@ -38,5 +39,6 @@ mapStateToProps = ({router, page}) ->
   page: page.item
   pageSlug: router.params.pageSlug
   isFetched: page.isFetched
+  isFailed: page.isFailed
 
 module.exports = connect(mapStateToProps)(Page)

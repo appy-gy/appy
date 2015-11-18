@@ -18,6 +18,7 @@ Source = React.createClass
   propTypes:
     dispatch: PropTypes.func.isRequired
     rating: PropTypes.object.isRequired
+    edit: PropTypes.bool.isRequired
 
   editorOptions:
     placeholder:
@@ -33,21 +34,21 @@ Source = React.createClass
   sourceView: ->
     {rating} = @props
 
-    return unless rating.status == 'published'
-
     <div className="rating_description" dangerouslySetInnerHTML={__html: rating.source}></div>
 
   sourceEdit: ->
     {rating} = @props
 
-    return if rating.status == 'published'
-
     <Editor className="rating_description m-edit" value={rating.source} onChange={@changeSource} options={@editorOptions}/>
+
+  source: ->
+    {edit} = @props
+
+    if edit then @sourceEdit() else @sourceView()
 
   render: ->
     <div className="rating_description-wrapper m-bottom">
-      {@sourceView()}
-      {@sourceEdit()}
+      {@source()}
     </div>
 
 module.exports = connect()(Source)

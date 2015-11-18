@@ -25,8 +25,7 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:email, :password, :name, :avatar,
-          :background, :facebook_link, :instagram_link)
+        params.require(:user).permit(:email, :password, :name, :avatar, :background)
       end
     end
   end
