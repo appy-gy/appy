@@ -11,7 +11,6 @@ imageUrl = require '../../helpers/image_url'
 SyncSlug = require '../mixins/sync_slug'
 Avatar = require './avatar'
 Name = require './name'
-SocialButtons = require './social_buttons'
 BackgroundUploader = require './background_uploader'
 Settings = require './settings'
 Ratings = require './ratings'
@@ -141,7 +140,6 @@ User = React.createClass
                 <Name/>
                 {@settings()}
               </div>
-              <SocialButtons/>
               <div className="user-profile_tab-buttons">
                 {@tabButtons()}
               </div>
