@@ -35,6 +35,7 @@ RatingPage = React.createClass
     ratingSlug: PropTypes.string.isRequired
     ratingItems: PropTypes.arrayOf(PropTypes.object).isRequired
     isFetched: PropTypes.bool.isRequired
+    isFailed: PropTypes.bool.isRequired
 
   childContextTypes:
     block: PropTypes.string.isRequired
@@ -98,9 +99,9 @@ RatingPage = React.createClass
     <Comments rating={rating}/> if rating.status == 'published'
 
   render: ->
-    {rating, ratingItems, isFetched} = @props
+    {rating, ratingItems, isFetched, isFailed} = @props
 
-    <Layout header={@header()} isLoading={not isFetched}>
+    <Layout header={@header()} isLoading={not isFetched} isFound={not isFailed}>
       <Helmet title={rating.title} meta={@meta()}/>
       <Rating rating={rating} ratingItems={ratingItems} canEdit={@canEdit()}/>
       {@similar()}
@@ -113,5 +114,6 @@ mapStateToProps = ({currentUser, router, rating, ratingItems}) ->
   ratingItems: ratingItems.items
   ratingSlug: router.params.ratingSlug
   isFetched: _.all [rating, ratingItems], 'isFetched'
+  isFailed: _.all [rating, ratingItems], 'isFailed'
 
 module.exports = connect(mapStateToProps)(RatingPage)

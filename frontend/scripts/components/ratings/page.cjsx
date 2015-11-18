@@ -1,4 +1,5 @@
 _ = require 'lodash'
+isBlank = require '../../helpers/is_blank'
 React = require 'react'
 ReactRedux = require 'react-redux'
 ReduxRouter = require 'redux-router'
@@ -23,7 +24,8 @@ Ratings = React.createClass
   propTypes:
     dispatch: PropTypes.func.isRequired
     mainPageRatings: PropTypes.object.isRequired
-    isFetched: PropTypes.bool.isRequired
+    isFetching: PropTypes.bool.isRequired
+    isFailed: PropTypes.bool.isRequired
 
   previewEnds:
     superLarge: 1
@@ -57,9 +59,9 @@ Ratings = React.createClass
       <Preview key={rating.id} rating={rating} mod={mod} imageSize={imageSize}/>
 
   render: ->
-    {isFetched} = @props
+    {isFetched, isFailed, ratings} = @props
 
-    <Layout isLoading={not isFetched} onLogoClick={@showFirstPage}>
+    <Layout isLoading={not isFetched} onLogoClick={@showFirstPage} isFound={not isFailed}>
       <Helmet title="интерактивно обо всем на свете"/>
       <div className="previews">
         {@previews()}
@@ -72,6 +74,7 @@ mapStateToProps = ({router, ratings, mainPageRatings}) ->
   ratings: ratings.items
   mainPageRatings: mainPageRatings.item
   isFetched: _.isEmpty(ratings.fetchingPages) || mainPageRatings.isFetched
+  isFailed: mainPageRatings.isFailed
   page: parseInt(router.location.query?.page || 1)
   pagesCount: ratings.pagesCount
 
