@@ -20,8 +20,6 @@ defmodule Top.User do
     field :reset_password_email_sent_at, Ecto.DateTime
     field :avatar, :string
     field :background, :string
-    field :instagram_link, :string
-    field :facebook_link, :string
     field :slug, Top.Slug
     timestamps inserted_at: :created_at
 
@@ -39,7 +37,7 @@ defmodule Top.User do
   @optional_fields ~W(name email crypted_password salt remember_me_token
     remember_me_token_expires_at reset_password_token
     reset_password_token_expires_at reset_password_email_sent_at
-    avatar background instagram_link facebook_link)
+    avatar background)
 
   def changeset(model, params \\ :empty) do
     model

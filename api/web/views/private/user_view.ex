@@ -12,8 +12,6 @@ defmodule Top.Private.UserView do
       name: user.name,
       email: user.email,
       avatar: User.avatar_url(user),
-      facebook_link: user.facebook_link,
-      instagram_link: user.instagram_link,
       created_at: user.created_at,
       slug: user.slug}
   end
