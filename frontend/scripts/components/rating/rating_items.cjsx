@@ -27,9 +27,9 @@ RatingItems = React.createClass
     @setState hoveredButtonPosition: position
 
   addRatingItemButton: (ratingItem) ->
-    {rating, ratingItems} = @props
+    {rating, ratingItems, canEdit} = @props
 
-    return if rating.status == 'published'
+    return unless canEdit
 
     onEnter = _.partial @changeHoveredButtonPosition, ratingItem.position
     onLeave = _.partial @changeHoveredButtonPosition, null

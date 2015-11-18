@@ -30,6 +30,7 @@ Header = React.createClass
   propTypes:
     dispatch: PropTypes.func.isRequired
     rating: PropTypes.object.isRequired
+    canEdit: PropTypes.bool.isRequired
 
   imageUrlFor: ({props}) ->
     imageUrl props.rating.image, 'normal'
@@ -52,9 +53,9 @@ Header = React.createClass
     <Meta rating={rating} commentsAnchor="comments"/>
 
   ratingImageButton: ->
-    {rating} = @props
+    {canEdit} = @props
 
-    return if rating.status == 'published'
+    return unless canEdit
 
     <div className="rating_add-image-wrap">
       <div className="rating_add-image" title="Выберите фото обложки" onClick={@openSelect}></div>
@@ -66,10 +67,17 @@ Header = React.createClass
       </div>
     </div>
 
+  section: ->
+    {canEdit} = @props
+
+    component = if canEdit then @sectionSelect() else @sectionLink()
+
+    <div className="rating_section-name-wrapper">
+      {component}
+    </div>
+
   sectionLink: ->
     {rating} = @props
-
-    return unless rating.status == 'published'
 
     sectionNameStyles = _.pick rating.section, 'color'
     <SectionLink className="rating_section-name" section={rating.section} style={sectionNameStyles}>
@@ -87,17 +95,21 @@ Header = React.createClass
   tagsSelect: ->
     {rating} = @props
 
-    <TagsSelect rating={rating}/> unless rating.status == 'published'
+    <TagsSelect rating={rating}/>
+
+  tagsList: ->
+    {rating} = @props
+    
+    <Tags rating={rating}/>
 
   tags: ->
-    {rating} = @props
+    {canEdit} = @props
 
-    <Tags rating={rating}/> if rating.status == 'published'
+    component = if canEdit then @tagsSelect() else @tagsList()
+    component
 
   children: ->
-    {rating} = @props
-
-    edit = rating.status != 'published'
+    {rating, canEdit} = @props
 
     withIndexKeys [
       <div className="rating_cover" style={backgroundImage: "url(#{@imageUrl()})"}></div>
@@ -105,14 +117,10 @@ Header = React.createClass
       @meta()
       @ratingImageButton()
       <div className="rating_header-center">
-        <div className="rating_section-name-wrapper">
-          {@sectionLink()}
-          {@sectionSelect()}
-        </div>
-        <Title object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Введите заголовок рейтинга"/>
+        {@section()}
+        <Title object={rating} objectType="rating" passObjectId={false} edit={canEdit} placeholder="Введите заголовок рейтинга"/>
         {@sortSwitch()}
       </div>
-      @tagsSelect()
       @tags()
     ]
 
