@@ -29,12 +29,6 @@ Rails.application.routes.draw do
           resources :votes, only: [:create]
         end
       end
-      resources :tags, only: [:index, :show] do
-        get :popular, on: :collection
-        scope module: :tags do
-          resources :ratings, only: [:index]
-        end
-      end
       resources :pages, only: [:show] do
         get :footer, on: :collection
       end

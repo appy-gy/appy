@@ -40,7 +40,8 @@ defmodule Top.Mixfile do
      {:exredis, "~> 0.2"},
      {:poison, "~> 1.5"},
      {:httpoison, "~> 0.8"},
-     {:scrivener, "~> 1.1"}]
+     {:scrivener, "~> 1.1"},
+     {:tirexs, "~> 0.7"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

@@ -5,11 +5,13 @@
   "ecto": {:hex, :ecto, "1.0.6"},
   "ecto_enum": {:hex, :ecto_enum, "0.3.0"},
   "eredis": {:hex, :eredis, "1.0.8"},
+  "exjsx": {:hex, :exjsx, "3.1.0"},
   "exredis": {:hex, :exredis, "0.2.2"},
   "fs": {:hex, :fs, "0.9.2"},
   "hackney": {:hex, :hackney, "1.4.4"},
   "httpoison": {:hex, :httpoison, "0.8.0"},
   "idna": {:hex, :idna, "1.0.2"},
+  "jsx": {:hex, :jsx, "2.4.0"},
   "mimerl": {:hex, :mimerl, "1.0.0"},
   "phoenix": {:hex, :phoenix, "1.0.3"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "1.2.0"},
@@ -21,4 +23,5 @@
   "ranch": {:hex, :ranch, "1.1.0"},
   "scrivener": {:hex, :scrivener, "1.1.0"},
   "slugger": {:hex, :slugger, "0.0.1"},
-  "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"}}
+  "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
+  "tirexs": {:hex, :tirexs, "0.7.2"}}

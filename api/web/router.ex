@@ -29,6 +29,14 @@ defmodule Top.Router do
       end
       resources "/header_sections", HeaderSectionController, only: [:index]
       resources "/main_page_ratings", MainPageRatingController, only: [:index]
+      scope "/tags", Tag, as: :tag do
+        resources "/popular", PopularController, only: [:index]
+      end
+      resources "/tags", TagController, only: [:index, :show] do
+        scope "/", Tag, as: :tag do
+          resources "/ratings", RatingController, only: [:index]
+        end
+      end
     end
   end
 end

@@ -66,6 +66,15 @@ defmodule Top.Web do
     end
   end
 
+  def index do
+    quote do
+      use Top.Index
+
+      alias Tirexs.Query
+      import Tirexs.Search
+    end
+  end
+
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
   """

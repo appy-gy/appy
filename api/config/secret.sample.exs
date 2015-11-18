@@ -1,6 +1,5 @@
 use Mix.Config
 
-# Configure your database
 config :top, Top.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "top",
@@ -8,3 +7,6 @@ config :top, Top.Repo,
   database: "top",
   hostname: "localhost",
   pool_size: 10
+
+config :top, Top.Index,
+  prefix: "top"
