@@ -47,9 +47,9 @@ RatingItem = React.createClass
     @props.dispatch changeRatingItemWaypoint(@props.ratingItem.id)
 
   removeButton: ->
-    {rating} = @props
+    {rating, canEdit} = @props
 
-    return if rating.status == 'published'
+    return unless canEdit
 
     <div className="rating-item_remove" onClick={@removeItem}></div>
 
@@ -61,17 +61,16 @@ RatingItem = React.createClass
   render: ->
     {rating, ratingItem, canEdit, index, mods} = @props
 
-    edit = rating.status != 'published'
     classes = classNames 'rating-item', mods.map (mod) -> "m-#{mod}"
 
     <Waypoint onChange={@handleWaypointChange}>
       <section id="item-#{ratingItem.position}" className={classes}>
         <div className="rating-item_header">
           <span className="rating-item_number">{index}</span>
-          <Title object={ratingItem} objectType="ratingItem" passObjectId={true} edit={edit} placeholder="Введите заголовок пункта"/>
+          <Title object={ratingItem} objectType="ratingItem" passObjectId={true} edit={canEdit} placeholder="Введите заголовок пункта"/>
         </div>
         <div className="rating-item_description-wrapper">
-          <Description object={ratingItem} objectType="ratingItem" passObjectId={true} edit={edit} placeholder="Введите описание пункта"/>
+          <Description object={ratingItem} objectType="ratingItem" passObjectId={true} edit={canEdit} placeholder="Введите описание пункта"/>
         </div>
         <Attachment ratingItem={ratingItem} canEdit={canEdit}/>
         {@removeButton()}

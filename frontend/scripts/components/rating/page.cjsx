@@ -69,21 +69,14 @@ RatingPage = React.createClass
       { property: 'og:image', content: rating.image }
     ]
 
-  checkAccess: (rating) ->
-    {dispatch} = @props
-
-    return if rating.status == 'published' or @canEdit(rating)
-    dispatch replaceState(null, '/') if isClient()
-
   fetchRating: ->
-    @props.dispatch(fetchRating(@props.ratingSlug)).then (rating) =>
-      @checkAccess rating if rating.id?
+    @props.dispatch fetchRating(@props.ratingSlug)
 
   fetchRatingItems: ->
     @props.dispatch fetchRatingItems(@props.ratingSlug)
 
-  canEdit: (rating = @props.rating) ->
-    canEditRating @props.currentUser, rating
+  canEdit: ->
+    canEditRating @props.currentUser, @props.rating
 
   header: ->
     if @canEdit() then 'editRating' else 'rating'

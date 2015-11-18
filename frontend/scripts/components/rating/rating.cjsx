@@ -52,9 +52,9 @@ Rating = React.createClass
     </AddRatingItem>
 
   authorLink: ->
-    {rating} = @props
+    {rating, canEdit} = @props
 
-    return unless rating.status == 'published'
+    return if canEdit
 
     <div className="rating_author-wrap">
       <UserLink ref="authorLink" user={rating.user} className="rating_author">
@@ -77,20 +77,18 @@ Rating = React.createClass
     <ShareButtons/>
 
   source: ->
-    {rating} = @props
+    {rating, canEdit} = @props
 
-    return if isBlank(rating.source) and rating.status == 'published'
+    return if isBlank(rating.source)
 
-    <Source rating={rating}/>
+    <Source rating={rating} edit={canEdit}/>
 
   render: ->
     {rating, ratingItems, canEdit} = @props
 
-    edit = rating.status != 'published'
-
     <article className="rating">
-      <Header rating={rating}/>
-      <Description object={rating} objectType="rating" passObjectId={false} edit={edit} placeholder="Нажмите, чтобы ввести описание рейтинга."/>
+      <Header rating={rating} canEdit={canEdit} />
+      <Description object={rating} objectType="rating" passObjectId={false} edit={canEdit} placeholder="Нажмите, чтобы ввести описание рейтинга."/>
       {@authorLink()}
       <RatingItems rating={rating} ratingItems={ratingItems} canEdit={canEdit}/>
       {@addRatingItemButton()}
