@@ -168,76 +168,6 @@ $tab-title-height: 50px
       @media screen and (min-width: $small)
         justify-content: space-between
 
-  &_socials
-    display: flex
-    margin-top: 2 * $margin
-    flow-flow: row nowrap
-    justify-content: center
-
-    @media screen and (min-width: $small)
-
-      justify-content: flex-start
-
-  &_social
-    display: flex
-    margin-right: $margin
-    flex: 1
-
-    @media screen and (min-width: $small)
-      flex: 0 1 auto
-
-    &-button
-      +icon-button
-
-      &.m-facebook:before
-        +ion-icon("social-facebook-outline")
-
-      &.m-instagram:before
-        +ion-icon("social-instagram-outline")
-
-    &-link
-      cursor: pointer
-      padding: 0 10px
-      font-size: 14px
-      font-family: $monospace
-
-    &:last-of-type
-      margin-right: 0
-
-    &-content
-      margin-left: 2px
-
-    &.m-add
-      line-height: $icon-button-size
-      color: $black-2
-
-      &:hover
-        color: $black
-
-      .user-profile
-        &_social-link
-          background: $white
-
-    &.m-remove
-      display: flex
-      height: 40px
-
-      .user-profile
-        &_social-link
-          font-size: 12px
-          color: $white-2
-          line-height: 14px
-
-          &:hover
-            color: $white
-
-        &_social-caption
-          margin-top: 2px
-          font-size: 14px
-          color: $white
-          line-height: 22px
-          padding: 0 10px
-
   &_action-buttons
     position: absolute
     top: $padding
@@ -247,7 +177,6 @@ $tab-title-height: 50px
 
     @media screen and (min-width: $medium)
       right: 40px
-
 
   &_background-uploader, &_settings
     position: relative

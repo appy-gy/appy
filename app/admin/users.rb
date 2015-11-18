@@ -3,8 +3,7 @@ ActiveAdmin.register User do
 
   actions :all, except: [:show]
 
-  permit_params :email, :password, :name, :avatar, :facebook_link,
-    :instagram_link, :slug, :role
+  permit_params :email, :password, :name, :avatar, :slug, :role
 
   filter :name
   filter :email
@@ -28,8 +27,6 @@ ActiveAdmin.register User do
       f.input :email, as: :email
       f.input :password
       f.input :avatar
-      f.input :facebook_link, as: :string
-      f.input :instagram_link, as: :string
       f.input :slug, as: :string
       f.input :role, as: :select, collection: User.roles_i18n.invert
     end

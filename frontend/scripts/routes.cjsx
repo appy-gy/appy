@@ -8,8 +8,6 @@ SectionRatings = require './components/section/page'
 Page = require './components/page/page'
 Tag = require './components/tag/page'
 User = require './components/user/page'
-Instagram = require './components/instagram/page'
-
 
 {Route, IndexRoute} = Router
 
@@ -25,7 +23,6 @@ routes =
     <Route path="tags/:tagSlug" component={Tag} onEnter={scrollTop}/>
     <Route path=":sectionSlug/:ratingSlug" component={Rating} onEnter={scrollTop}/>
     <Route path="ratings/:ratingSlug/edit" component={Rating} onEnter={scrollTop}/>
-    <Route path="instagram" component={Instagram}/>
   </Route>
 
 module.exports = routes

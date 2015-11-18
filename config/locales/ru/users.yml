@@ -12,8 +12,6 @@ ru:
         password: Пароль
         name: Имя
         avatar: Аватар
-        facebook_link: Профиль в Facebook
-        instagram_link: Профиль в Instagram
         role: Роль
   enums:
     user:
