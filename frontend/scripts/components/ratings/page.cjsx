@@ -1,5 +1,4 @@
 _ = require 'lodash'
-isBlank = require '../../helpers/is_blank'
 React = require 'react'
 ReactRedux = require 'react-redux'
 ReduxRouter = require 'redux-router'
@@ -74,7 +73,7 @@ mapStateToProps = ({router, ratings, mainPageRatings}) ->
   ratings: ratings.items
   mainPageRatings: mainPageRatings.item
   isFetched: _.isEmpty(ratings.fetchingPages) || mainPageRatings.isFetched
-  isFailed: mainPageRatings.isFailed
+  isFailed: _.any [mainPageRatings, ratings], 'isFailed'
   page: parseInt(router.location.query?.page || 1)
   pagesCount: ratings.pagesCount
 
