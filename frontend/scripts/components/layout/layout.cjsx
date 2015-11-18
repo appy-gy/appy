@@ -12,6 +12,7 @@ Popups = require './popups/popups'
 Toastr = require './toastr/toastr'
 FbRoot = require './fb_root'
 Footer = require './footer/footer'
+NotFound = require '../not_found/page'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -26,6 +27,7 @@ Layout = React.createClass
     onLogoClick: PropTypes.func
     showFooter: PropTypes.bool
     children: PropTypes.node
+    isFound: PropTypes.bool.isRequired
 
   childContextTypes:
     headerExpanded: PropTypes.bool.isRequired
@@ -44,6 +46,7 @@ Layout = React.createClass
     onLogoClick: ->
     showFooter: true
     children: null
+    isFound: true
 
   getInitialState: ->
     headerExpanded: false
@@ -92,6 +95,7 @@ Layout = React.createClass
     {header} = @props
 
     return unless header
+
     Header = @headers[header]
     <Header isBlured={@shouldBlur()}/>
 
@@ -102,13 +106,12 @@ Layout = React.createClass
     <Loader/> if @state.showLoader
 
   footer: ->
-    <Footer isBlured={@shouldBlur()}/> if @props.showFooter
+    {showFooter} = @props
 
-  content: ->
-    @props.children unless @props.isLoading
+    <Footer isBlured={@shouldBlur()}/> if showFooter
 
-  render: ->
-    {popups, header, children} = @props
+  page: ->
+    {popups, header} = @props
 
     <div className="layout">
       {@header()}
@@ -122,6 +125,19 @@ Layout = React.createClass
       {@loader()}
       <FbRoot/>
     </div>
+
+  content: ->
+    {children, isLoading} = @props
+
+    children unless isLoading
+
+  render: ->
+    {isFound} = @props
+
+    return <NotFound/> unless isFound
+
+    @page()
+
 
 mapStateToProps = ({popups}) ->
   { popups }

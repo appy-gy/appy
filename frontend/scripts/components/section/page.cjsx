@@ -22,7 +22,8 @@ Section = React.createClass
     dispatch: PropTypes.func.isRequired
     section: PropTypes.object.isRequired
     sectionSlug: PropTypes.string.isRequired
-    isFetched: PropTypes.bool.isRequired
+    isFetching: PropTypes.bool.isRequired
+    isFailed: PropTypes.bool.isRequired
 
   componentWillMount: ->
     @fetchSection()
@@ -54,9 +55,9 @@ Section = React.createClass
       <Preview key={rating.id} rating={rating} imageSize="preview"/>
 
   render: ->
-    {section, sectionSlug, isFetched} = @props
+    {section, sectionSlug, isFetching, isFailed} = @props
 
-    <Layout isLoading={not isFetched}>
+    <Layout isLoading={isFetching} isFound={not isFailed}>
       {@helmet()}
       <div className="previews">
         {@previews()}
@@ -71,6 +72,7 @@ mapStateToProps = ({router, sectionRatings, section}, {sectionSlug}) ->
   sectionSlug: router.params.sectionSlug
   page: parseInt(router.location.query?.page || 1)
   pagesCount: sectionRatings.pagesCount
-  isFetched: _.any [sectionRatings, section], 'isFetched'
+  isFetching: _.any [sectionRatings, section], 'isFetching'
+  isFailed: _.any [sectionRatings, section], 'isFailed'
 
 module.exports = connect(mapStateToProps)(Section)

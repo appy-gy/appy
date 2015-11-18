@@ -8,6 +8,7 @@ receiver = ({name, key, defaultValue}) ->
       "#{key}": defaultValue
       isFetching: false
       isFetched: false
+      isFailed: false
 
   handlers =
     "REQUEST_#{constantize name}": (state) ->
@@ -20,6 +21,11 @@ receiver = ({name, key, defaultValue}) ->
         "#{key}": { $set: value }
         isFetching: { $set: false }
         isFetched: { $set: true }
+
+    "FAILED_#{constantize name}": (state) ->
+      update state,
+        isFailed: { $set: true }
+        isFetching: { $set: false }
 
   { defaultState, handlers }
 
