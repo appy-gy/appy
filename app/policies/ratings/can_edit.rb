@@ -3,7 +3,7 @@ module Ratings
     arguments :rating
 
     def call
-      current_user == rating.user or current_user.admin?
+      current_user == rating.user or current_user.try(:admin?)
     end
   end
 end
