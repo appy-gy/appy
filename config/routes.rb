@@ -24,7 +24,6 @@ Rails.application.routes.draw do
         end
       end
       resources :rating_items, only: [] do
-        get :video_info, on: :collection
         scope module: :rating_items do
           resources :votes, only: [:create]
         end

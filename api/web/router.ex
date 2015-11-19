@@ -16,6 +16,9 @@ defmodule Top.Router do
           resources "/comments", CommentController, only: [:index]
         end
       end
+      scope "/rating_items", RatingItem do
+        resources "/video_info", VideoInfoController, only: [:index]
+      end
       resources "/users", UserController, only: [:show] do
         scope "/", User, as: :user do
           resources "/ratings", RatingController, only: [:index]

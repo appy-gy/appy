@@ -10,3 +10,6 @@ config :top, Top.Repo,
 
 config :top, Top.Index,
   prefix: "top"
+
+config :top, Top.VideoInfo,
+  vimeo_api_key: ""
