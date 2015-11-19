@@ -37,6 +37,10 @@ defmodule Top.Router do
           resources "/ratings", RatingController, only: [:index]
         end
       end
+      scope "/pages", Page, as: :page do
+        resources "/footer", FooterController, only: [:index]
+      end
+      resources "/pages", PageController, only: [:show]
     end
   end
 end
