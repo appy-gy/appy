@@ -14,7 +14,6 @@ defmodule Top.TagIndex do
       end
     end
 
-    records = Query.create_resource tags
-    load Top.Tag, records
+    tags |> Query.create_resource |> load
   end
 end

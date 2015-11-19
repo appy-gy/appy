@@ -4,7 +4,7 @@ defmodule Top.Private.TagController do
   alias Top.Tag
 
   def index(conn, %{"query" => query}) do
-    tags = Top.TagIndex.query(query) |> Repo.all
+    tags = Top.TagIndex.query query
     render conn, "index.json", tags: tags
   end
 
