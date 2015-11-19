@@ -41,6 +41,9 @@ defmodule Top.Router do
         resources "/footer", FooterController, only: [:index]
       end
       resources "/pages", PageController, only: [:show]
+      scope "/search" do
+        get "/global", SearchController, :global
+      end
     end
   end
 end

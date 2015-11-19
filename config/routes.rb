@@ -29,9 +29,6 @@ Rails.application.routes.draw do
           resources :votes, only: [:create]
         end
       end
-      resource :search, only: [] do
-        get :global, on: :collection
-      end
     end
   end
 
