@@ -79,7 +79,7 @@ Rating = React.createClass
   source: ->
     {rating, canEdit} = @props
 
-    return if isBlank(rating.source)
+    return if isBlank(rating.source) and not canEdit
 
     <Source rating={rating} edit={canEdit}/>
 
