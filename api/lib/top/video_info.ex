@@ -38,9 +38,9 @@ defmodule Top.VideoInfo do
   end
 
   defp thumbnail_for(:vimeo, id) do
-    response = "https://api.vimeo.com/videos/#{id}/pictures"
+    "https://api.vimeo.com/videos/#{id}/pictures"
     |> HTTPoison.get!(%{"Authorization" => "bearer #{@vimeo_api_key}"})
-    response.body
+    |> Map.get(:body)
     |> Poison.decode!
     |> get_in(["data"])
     |> List.first
