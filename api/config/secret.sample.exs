@@ -13,3 +13,6 @@ config :top, Top.Index,
 
 config :top, Top.VideoInfo,
   vimeo_api_key: ""
+
+config :top, Top.FetchCurrentUser,
+  secret_key: ""
