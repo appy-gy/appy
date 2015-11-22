@@ -16,11 +16,13 @@ module.exports = ->
       jsPath = "#{process.env.TOP_WEBPACK_HOST}/app.js"
       fontPaths = []
 
+  faviconPath = "#{process.env.TOP_ASSETS_HOST}/files/favicon.png"
+
   (req, res, next) ->
     prevRender = res.render
 
     res.render = (view, locals = {}) ->
-      _.merge locals, { css, jsPath, fontPaths, env: process.env.TOP_ENV, facebookAppId: process.env.TOP_FACEBOOK_APP_ID }
+      _.merge locals, { css, jsPath, fontPaths, faviconPath, env: process.env.TOP_ENV, facebookAppId: process.env.TOP_FACEBOOK_APP_ID }
       prevRender.call res, view, locals
 
     next()

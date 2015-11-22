@@ -31,10 +31,6 @@ App = React.createClass
 
   title: "Appy.gy - %s"
 
-  link: [
-    href: "#{process.env.TOP_ASSETS_HOST}/files/favicon.png", rel: 'icon', type: 'image/png'
-  ]
-
   meta: [
     { name: 'description', content: 'Все самое интересное: технологии, интересные книги, интересное видео, советы о бизнесе и лайфстайле, интересные факты, игры' }
     { name: 'keywords', content: 'интересное видео, интересные факты, книги, кино, косплей, хобби, путешествия, мода, здоровье, еда, портал' }
@@ -54,7 +50,7 @@ App = React.createClass
 
   render: ->
     <span>
-      <Helmet titleTemplate={@title} link={@link} meta={@meta}/>
+      <Helmet titleTemplate={@title} meta={@meta}/>
       {@content()}
     </span>
 
