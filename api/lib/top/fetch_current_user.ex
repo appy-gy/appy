@@ -56,7 +56,6 @@ defmodule Top.FetchCurrentUser do
   defp query_user_by_token(token), do: Repo.get_by(User, remember_me_token: token)
 
   defp decrypt(cookie) do
-    cookie = URI.decode_www_form cookie
     secret = generate @salt
     sign_secret = generate @signed_salt
 
