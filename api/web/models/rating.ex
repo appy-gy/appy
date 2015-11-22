@@ -53,6 +53,10 @@ defmodule Top.Rating do
     |> unique_constraint(:main_page_position)
   end
 
+  def not_deleted(query \\ __MODULE__) do
+    from r in query, where: is_nil r.deleted_at
+  end
+
   def on_main_page(query \\ __MODULE__) do
     from r in query, where: not is_nil r.main_page_position
   end

@@ -8,7 +8,7 @@ defmodule Top.Private.RatingController do
   plug :fetch_current_user when action in [:show]
 
   def index(conn, params) do
-    query = Rating.not_on_main_page |> Rating.published
+    query = Rating.not_on_main_page |> Rating.published |> Rating.not_deleted
     query = from r in query, order_by: [desc: r.published_at], preload: [:user, :section, :tags]
     page = Repo.paginate query, page: params["page"], page_size: @page_size
     render conn, "index.json", ratings: page.entries, pages_count: page.total_pages

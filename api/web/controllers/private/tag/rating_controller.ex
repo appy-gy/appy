@@ -10,6 +10,7 @@ defmodule Top.Private.Tag.RatingController do
   def index(conn, params) do
     tag = Repo.find! Top.Tag, params["tag_id"]
     query = from r in assoc(tag, :ratings), order_by: [desc: r.published_at], preload: [:user, :section, :tags]
+    query = Rating.not_deleted query
     page = Repo.paginate query, page: params["page"], page_size: @page_size
     render conn, RatingView, "index.json", ratings: page.entries, pages_count: page.total_pages
   end
