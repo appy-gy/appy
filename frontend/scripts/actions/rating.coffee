@@ -60,17 +60,36 @@ removeTagFromRating = (name) ->
 
 likeRating = (ratingId) ->
   (dispatch, getState) ->
-    ratingId ||= getState().rating.id
+    rating = getState().rating.item
+    ratingId ||= rating.id
 
-    http.post("ratings/#{ratingId}/likes").then ({data}) ->
-      dispatch changeRating(like: data.like, likesCount: data.meta.likesCount)
+    if rating.id == ratingId
+      prevLikesCount = rating.likesCount
+      dispatch changeRating(like: {}, likesCount: rating.likesCount + 1)
+
+    http.post "ratings/#{ratingId}/likes"
+      .then ({data}) ->
+        dispatch changeRating(like: data.like, likesCount: data.meta.likesCount)
+      .catch ->
+        return unless rating.id == ratingId
+        dispatch changeRating(like: null, likesCount: prevLikesCount)
 
 unlikeRating = (ratingId) ->
   (dispatch, getState) ->
-    ratingId ||= getState().rating.id
+    rating = getState().rating.item
+    ratingId ||= rating.id
 
-    http.delete("ratings/#{ratingId}/likes").then ({data}) ->
-      dispatch changeRating(like: null, likesCount: data.meta.likesCount)
+    if rating.id == ratingId
+      prevLike = rating?.like
+      prevLikesCount = rating?.likesCount
+      dispatch changeRating(like: null, likesCount: rating.likesCount - 1)
+
+    http.delete "ratings/#{ratingId}/likes"
+      .then ({data}) ->
+        dispatch changeRating(like: null, likesCount: data.meta.likesCount)
+      .catch ->
+        return unless rating.id == ratingId
+        dispatch changeRating(like: prevLike, likesCount: prevLikesCount)
 
 module.exports = { fetchRating, viewRating, changeRating, createRating,
   updateRating, removeRating, changeRatingUpdateStatus, addTagToRating,
