@@ -3,6 +3,7 @@ ReactDOM = require 'react-dom'
 PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
 classNames = require 'classnames'
+uuid = require 'node-uuid'
 ratingItemActions = require '../../actions/rating_items'
 WithFileInput = require '../mixins/with_file_input'
 RatingUpdater = require '../mixins/rating_updater'
@@ -52,8 +53,10 @@ RatingItemImage = React.createClass
     return unless image?
 
     dispatch changeRatingItem(ratingItem.id, image: image.preview)
+    @lastUpdateId = updateId = uuid.v4()
+    notSync = => @lastUpdateId != updateId
     @queueUpdate ->
-      dispatch updateRatingItem(ratingItem.id, { image })
+      dispatch updateRatingItem(ratingItem.id, { image }, notSync)
 
   removeImage: ->
     {dispatch, ratingItem} = @props

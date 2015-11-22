@@ -1,3 +1,4 @@
+_ = require 'lodash'
 update = require 'react-addons-update'
 ReduxActions = require 'redux-actions'
 itemsFetcher = require '../helpers/actions/items_fetcher'
@@ -33,6 +34,8 @@ updateRatingItem = (id, changes, notSync) ->
     data = toFormData deepSnakecaseKeys(ratingItem: changes)
 
     http.put("ratings/#{rating.item.id}/rating_items/#{id}", data).then ({data}) ->
+      notSync = notSync() if _.isFunction notSync
+      notSync = _.keys changes if notSync == true
       changes = _.omit data.ratingItem, notSync
       dispatch changeRatingItem(id, changes)
 

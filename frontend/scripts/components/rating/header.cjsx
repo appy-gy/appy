@@ -2,8 +2,9 @@ _ = require 'lodash'
 React = require 'react'
 PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
-ratingActions = require '../../actions/rating'
 classNames = require 'classnames'
+uuid = require 'node-uuid'
+ratingActions = require '../../actions/rating'
 WithFileInput = require '../mixins/with_file_input'
 RatingUpdater = require '../mixins/rating_updater'
 Title = require './title'
@@ -42,8 +43,10 @@ Header = React.createClass
     return unless image?
 
     dispatch changeRating(image: image.preview)
+    @lastUpdateId = updateId = uuid.v4()
+    notSync = => @lastUpdateId != updateId
     @queueUpdate ->
-      dispatch updateRating({ image })
+      dispatch updateRating({ image }, notSync)
 
   meta: ->
     {rating} = @props

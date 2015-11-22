@@ -29,10 +29,11 @@ createRating = ->
 updateRating = (changes, notSync) ->
   (dispatch, getState) ->
     {rating} = getState()
-    notSync = _.keys changes if notSync == true
     data = toFormData rating: deepSnakecaseKeys(changes)
 
     http.put("ratings/#{rating.item.id}", data).then ({data}) ->
+      notSync = notSync() if _.isFunction notSync
+      notSync = _.keys changes if notSync == true
       changes = _.omit data.rating, notSync
       dispatch changeRating(changes)
 
