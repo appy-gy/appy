@@ -91,7 +91,12 @@ end
 namespace :mix do
   desc 'Install mix deps'
   task get_deps: :environment do
-    queue! %{cd #{deploy_to}/#{current_path}/api && mix deps.get --only prod}
+    queue! %{cd api && MIX_ENV=prod mix deps.get --only prod}
+  end
+
+  desc 'Digests and compress phoenix static files'
+  task digest: :environment do
+    queue! %{cd api && MIX_ENV=prod mix phoenix.digest}
   end
 end
 
@@ -103,7 +108,7 @@ namespace :phoenix do
 
   desc 'Kill phoenix process'
   task kill: :environment do
-    queue! %{kill -9 `cat #{fetch :phoenid_pid}`}
+    queue! %{kill -9 `cat #{phoenid_pid}`}
   end
 end
 
@@ -116,11 +121,12 @@ task deploy: :environment do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
-    invoke :'mix:get_deps'
     invoke :'npm:install'
+    invoke :'mix:get_deps'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
     invoke :'webpack:compile'
+    invoke :'mix:digest'
     invoke :'deploy:cleanup'
     invoke :'memcached:flush'
 
