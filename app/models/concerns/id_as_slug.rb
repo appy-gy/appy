@@ -9,10 +9,12 @@ module IdAsSlug
   private
 
   def set_fake_slug
+    return if slug?
     self.slug = SecureRandom.uuid
   end
 
   def set_id_as_slug
+    return unless uuid? slug
     self.slug = id
     save
   end

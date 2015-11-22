@@ -7,45 +7,22 @@ class OauthsController < ApplicationController
   end
 
   def callback
+    return_to_url = session[:return_to_url]
     provider = auth_params[:provider]
     return if login_from provider
-    user = recognize_user(provider) || create_user(provider)
-    return unless user
+    user = create_from provider do |user|
+      user.send :set_fake_slug
+      user.generate_email
+      user.generate_password
+    end
     reset_session
     auto_login user, true
   ensure
+    session[:return_to_url] = return_to_url
     redirect_back_or_to '/'
   end
 
   private
-
-  def recognize_user provider
-    recognize_user_by_uid(provider) or recognize_user_by_email(provider)
-  end
-
-  def recognize_user_by_uid provider
-    user_hash = sorcery_fetch_user_hash(provider)
-    uid = user_hash[:uid]
-    return unless uid
-    authentication = Authentication.find_by_uid(uid)
-    authentication.try :user
-  end
-
-  def recognize_user_by_email provider
-    user_hash = sorcery_fetch_user_hash(provider)
-    email = user_hash[:user_info]['email']
-    return unless email
-    user = User.find_by_email(email)
-    user
-  end
-
-  def create_user provider
-    user = create_and_validate_from provider
-    user.generate_password
-    user.generate_email
-    user.save
-    user
-  end
 
   def auth_params
     params.permit :code, :provider

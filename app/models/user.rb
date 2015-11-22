@@ -31,6 +31,11 @@ class User < ActiveRecord::Base
     [:name, :id]
   end
 
+  def set_fake_slug
+    super
+    set_slug if name?
+  end
+
   def should_generate_new_friendly_id?
     name? and name_changed? and uuid? slug
   end
