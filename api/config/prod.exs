@@ -22,11 +22,11 @@ config :logger,
              {LoggerFileBackend, :error}]
 
 config :logger, :info,
-  level: :info
-  path: Path.join(__DIR__, "../../log/phoenix_info.log"),
+  level: :info,
+  path: Path.join(__DIR__, "../../log/phoenix_info.log")
 
 config :logger, :error,
-  level: :error
-  path: Path.join(__DIR__, "../../log/phoenix_error.log"),
+  level: :error,
+  path: Path.join(__DIR__, "../../log/phoenix_error.log")
 
 import_config "prod.secret.exs"
