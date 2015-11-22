@@ -81,8 +81,20 @@ changeRatingItemWaypoint = createAction 'CHANGE_RATING_ITEM_WAYPOINT'
 
 voteForRatingItem = (id, kind) ->
   (dispatch, getState) ->
-    http.post("rating_items/#{id}/votes", vote: { kind }).then ({data}) ->
-      dispatch changeRatingItem(id, vote: data.vote, mark: data.meta.mark)
+    {ratingItems} = getState()
+
+    item = _.find ratingItems.items, (item) -> item.id == id
+    prevVote = item.vote
+    prevMark = item.mark
+    change = if kind == 'up' then 1 else -1
+    change *= 2 if prevVote
+    dispatch changeRatingItem(id, vote: { ratingItemId: id, kind }, mark: item.mark + change)
+
+    http.post "rating_items/#{id}/votes", vote: { kind }
+      .then ({data}) ->
+        dispatch changeRatingItem(id, vote: data.vote, mark: data.meta.mark)
+      .catch ->
+        dispatch changeRatingItem(id, vote: prevVote, mark: prevMark)
 
 module.exports = { fetchRatingItems, createRatingItem, changeRatingItem,
   updateRatingItem, removeRatingItem, changeRatingItemPositions,
