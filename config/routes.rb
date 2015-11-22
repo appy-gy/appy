@@ -3,9 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :private do
-      resource :sessions, only: [:show, :create, :destroy] do
-        get :check, on: :collection
-      end
+      resource :sessions, only: [:create, :destroy]
       resource :reset_passwords, only: [:create]
       resources :users, only: [:create, :update] do
         put :change_password

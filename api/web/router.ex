@@ -9,6 +9,9 @@ defmodule Top.Router do
     pipe_through :api
 
     scope "/private", Private, as: :private do
+      resources "/sessions", SessionController, only: [:show], singleton: true do
+        get "/check", SessionController, :check
+      end
       resources "/ratings", RatingController, only: [:index, :show] do
         scope "/", Rating, as: :rating do
           resources "/similar", SimilarController, only: [:index]

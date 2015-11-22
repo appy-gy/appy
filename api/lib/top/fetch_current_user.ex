@@ -15,12 +15,12 @@ defmodule Top.FetchCurrentUser do
     conn
     |> fetch_cookies
     |> Map.get(:cookies)
-    |> fetch_from_cookies
+    |> fetch_user_from_cookies
     |> assign_user_info(conn)
   end
 
-  defp fetch_from_cookies(cookies) do
-    fetch_from_session(cookies) || fetch_from_remember_me(cookies)
+  def fetch_user_from_cookies(cookies) do
+    fetch_user_from_session(cookies) || fetch_user_from_remember_me(cookies)
   end
 
   defp assign_user_info(user, conn) do
@@ -29,16 +29,16 @@ defmodule Top.FetchCurrentUser do
     |> assign(:logged_in?, not is_nil(user))
   end
 
-  defp fetch_from_session(%{@session_key => cookie}) do
+  defp fetch_user_from_session(%{@session_key => cookie}) do
     case decrypt(cookie) do
       {:ok, session} ->
         session |> Poison.decode! |> Dict.get("user_id") |> query_user_by_id
       :error -> nil
     end
   end
-  defp fetch_from_session(_cookies), do: nil
+  defp fetch_user_from_session(_cookies), do: nil
 
-  defp fetch_from_remember_me(%{"remember_me_token" => token}) do
+  defp fetch_user_from_remember_me(%{"remember_me_token" => token}) do
     token
     |> URI.decode
     |> String.split("--")
@@ -47,7 +47,7 @@ defmodule Top.FetchCurrentUser do
     |> String.strip(?")
     |> query_user_by_token
   end
-  defp fetch_from_remember_me(_cookies), do: nil
+  defp fetch_user_from_remember_me(_cookies), do: nil
 
   defp query_user_by_id(id) when is_nil(id), do: nil
   defp query_user_by_id(id), do: Repo.get(User, id)
