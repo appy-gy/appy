@@ -21,7 +21,7 @@ set :forward_agent, true # SSH forward_agent.
 
 set :npm_options, ''
 
-set :sidekiq_pid, -> { "#{deploy_to}/#{current_path}/tmp/pids/sidekiq.pid" }
+set :sidekiq_pid, -> { "#{deploy_to}/#{shared_path}/tmp/pids/sidekiq.pid" }
 
 set :phoenid_pid, -> { "#{deploy_to}/#{shared_path}/tmp/pids/phoenix.pid" }
 
@@ -59,25 +59,25 @@ namespace :prerender do
   desc 'Start prerender'
   task start: :environment do
     queue %{echo "-----> Starting prerender service"}
-    queue! %{cd #{deploy_to}/#{current_path} && NODE_ENV=production node_modules/.bin/pm2 start prerender/server.coffee -i 1 -n prerender -l log/prerender.log --interpreter node_modules/.bin/coffee}
+    queue! %{NODE_ENV=production node_modules/.bin/pm2 start prerender/server.coffee -i 1 -n prerender -l log/prerender.log --interpreter node_modules/.bin/coffee}
   end
 
   desc 'Restart prerender'
   task restart: :environment do
     queue %{echo "-----> Restarting prerender service"}
-    queue! %{cd #{deploy_to}/#{current_path} && node_modules/.bin/pm2 startOrRestart prerender}
+    queue! %{node_modules/.bin/pm2 startOrRestart prerender}
   end
 
   desc 'Stop prerender'
   task stop: :environment do
     queue %{echo "-----> Stopping prerender service"}
-    queue! %{cd #{deploy_to}/#{current_path} && node_modules/.bin/pm2 stop prerender}
+    queue! %{node_modules/.bin/pm2 stop prerender}
   end
 
   desc 'Kill prerender'
   task kill: :environment do
     queue %{echo "-----> Killing prerender service"}
-    queue! %{cd #{deploy_to}/#{current_path} && node_modules/.bin/pm2 kill}
+    queue! %{node_modules/.bin/pm2 kill}
   end
 end
 
@@ -103,7 +103,7 @@ end
 namespace :phoenix do
   desc 'Start phoenix process'
   task start: :environment do
-    queue! %{cd #{deploy_to}/#{current_path}/api && MIX_ENV=prod PORT=4001 elixir --detached -S mix do compile, phoenix.server}
+    queue! %{cd api && MIX_ENV=prod PORT=4001 elixir --detached -S mix do compile, phoenix.server}
   end
 
   desc 'Kill phoenix process'
