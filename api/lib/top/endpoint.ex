@@ -7,6 +7,8 @@ defmodule Top.Endpoint do
     plug Phoenix.CodeReloader
   end
 
+  plug PlugForwardedPeer
+
   plug Plug.RequestId
   plug Plug.Logger
 

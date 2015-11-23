@@ -18,6 +18,7 @@ defmodule Top.Router do
           resources "/rating_items", RatingItemController, only: [:index]
           resources "/comments", CommentController, only: [:index]
           resources "/likes", LikeController, only: [:create, :delete], singleton: true
+          resources "/view", ViewController, only: [:update], singleton: true
         end
       end
       scope "/rating_items", RatingItem do

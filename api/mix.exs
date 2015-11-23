@@ -42,7 +42,8 @@ defmodule Top.Mixfile do
      {:httpoison, "~> 0.8"},
      {:scrivener, "~> 1.1"},
      {:tirexs, "~> 0.7"},
-     {:logger_file_backend, "~> 0.0"}]
+     {:logger_file_backend, "~> 0.0"},
+     {:plug_forwarded_peer, "~> 0.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

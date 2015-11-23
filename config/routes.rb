@@ -9,7 +9,6 @@ Rails.application.routes.draw do
         put :change_password
       end
       resources :ratings, only: [:create, :update, :destroy] do
-        put :view
         scope module: :ratings do
           resource :tags, only: [:create, :destroy]
           resources :rating_items, only: [:create, :update, :destroy] do

@@ -19,11 +19,6 @@ module Api
         render json: { success: rating.deleted? }
       end
 
-      def view
-        views_count = ::Ratings::CountView.new(@rating, request.ip).call
-        render json: { views_count: views_count }
-      end
-
       private
 
       def rating_params
