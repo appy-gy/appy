@@ -16,9 +16,6 @@ Rails.application.routes.draw do
             put :positions, on: :collection
           end
           resources :comments, only: [:create]
-          resources :likes, only: [:create] do
-            delete :destroy, on: :collection
-          end
         end
       end
       resources :rating_items, only: [] do

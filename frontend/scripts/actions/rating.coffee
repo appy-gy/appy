@@ -64,6 +64,7 @@ likeRating = (ratingId) ->
     ratingId ||= rating.id
 
     if rating.id == ratingId
+      prevLike = rating.like
       prevLikesCount = rating.likesCount
       dispatch changeRating(like: {}, likesCount: rating.likesCount + 1)
 
@@ -72,7 +73,7 @@ likeRating = (ratingId) ->
         dispatch changeRating(like: data.like, likesCount: data.meta.likesCount)
       .catch ->
         return unless rating.id == ratingId
-        dispatch changeRating(like: null, likesCount: prevLikesCount)
+        dispatch changeRating(like: prevLike, likesCount: prevLikesCount)
 
 unlikeRating = (ratingId) ->
   (dispatch, getState) ->
@@ -80,8 +81,8 @@ unlikeRating = (ratingId) ->
     ratingId ||= rating.id
 
     if rating.id == ratingId
-      prevLike = rating?.like
-      prevLikesCount = rating?.likesCount
+      prevLike = rating.like
+      prevLikesCount = rating.likesCount
       dispatch changeRating(like: null, likesCount: rating.likesCount - 1)
 
     http.delete "ratings/#{ratingId}/likes"
