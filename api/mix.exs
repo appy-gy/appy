@@ -43,7 +43,8 @@ defmodule Top.Mixfile do
      {:scrivener, "~> 1.1"},
      {:tirexs, "~> 0.7"},
      {:logger_file_backend, "~> 0.0"},
-     {:plug_forwarded_peer, "~> 0.0"}]
+     {:plug_forwarded_peer, "~> 0.0"},
+     {:mogrify, github: "miraks/mogrify"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

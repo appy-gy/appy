@@ -16,3 +16,7 @@ config :top, Top.VideoInfo,
 
 config :top, Top.FetchCurrentUser,
   secret_key: ""
+
+config :top, Top.ImageProcessor,
+  use_mozjpeg: true,
+  cjpeg_path: ""

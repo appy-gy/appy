@@ -9,7 +9,7 @@ defmodule Top.FetchCurrentUser do
   @salt "encrypted cookie"
   @signed_salt "signed encrypted cookie"
   @session_key "_top_session"
-  @secret_key Application.get_env(:top, Top.FetchCurrentUser)[:secret_key]
+  @secret_key Application.get_env(:top, __MODULE__)[:secret_key]
 
   def fetch_current_user(conn, _) do
     conn

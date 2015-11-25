@@ -1,10 +1,41 @@
 defmodule Top.ImageUploader do
-  defmacro image(field) do
+  import Ecto.Changeset, only: [fetch_change: 2, put_change: 3, delete_change: 2]
+
+  def url_for(record, field) do
+    public_dir_for(record, field) |> Path.join(Map.get(record, field))
+  end
+
+  def process(changeset, field, opts) do
+    case do_process(fetch_change(changeset, field), changeset, field, opts) do
+      path when is_binary(path) -> put_change(changeset, field, path)
+      _ -> delete_change(changeset, field)
+    end
+  end
+
+  defp do_process({:ok, %{path: path, filename: filename}}, changeset, field, opts) do
+    record = changeset.model
+    dest = ["../../../public", public_dir_for(record, field)] |> Path.join |> Path.expand(__DIR__)
+    Top.ImageProcessor.process path, dest, filename, opts
+    filename
+  end
+  defp do_process(_, _, _, _), do: nil
+
+  defp public_dir_for(record, field) do
+    id = String.replace record.id, "-", "/"
+    "/system/#{record.__struct__.model_name}/#{field}/#{id}"
+  end
+
+  defmacro image(field, opts \\ []) do
     quote do
+      before_update :"process_#{unquote(field)}"
+
       def unquote(:"#{field}_url")(%{unquote(field) => nil}), do: nil
       def unquote(:"#{field}_url")(record) do
-        id = String.replace record.id, "-", "/"
-        "/system/#{model_name}/#{unquote(field)}/#{id}/#{record.unquote(field)}"
+        unquote(__MODULE__).url_for(record, unquote(field))
+      end
+
+      def unquote(:"process_#{field}")(changeset) do
+        unquote(__MODULE__).process(changeset, unquote(field), unquote(opts))
       end
     end
   end

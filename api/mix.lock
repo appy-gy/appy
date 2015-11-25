@@ -14,6 +14,7 @@
   "jsx": {:hex, :jsx, "2.4.0"},
   "logger_file_backend": {:hex, :logger_file_backend, "0.0.5"},
   "mimerl": {:hex, :mimerl, "1.0.0"},
+  "mogrify": {:git, "https://github.com/miraks/mogrify.git", "051e61e9fcde57c1d50183cd47d112083d2ea722", []},
   "phoenix": {:hex, :phoenix, "1.0.3"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "1.2.0"},
   "phoenix_live_reload": {:hex, :phoenix_live_reload, "1.0.1"},

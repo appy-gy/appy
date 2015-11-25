@@ -18,8 +18,8 @@ defmodule Top.User do
     field :reset_password_token, :string
     field :reset_password_token_expires_at, Ecto.DateTime
     field :reset_password_email_sent_at, Ecto.DateTime
-    field :avatar, :string
-    field :background, :string
+    field :avatar, Top.Image
+    field :background, Top.Image
     field :slug, Top.Slug
     timestamps inserted_at: :created_at
 
@@ -30,8 +30,8 @@ defmodule Top.User do
   end
 
   import Top.ImageUploader
-  image :avatar
-  image :background
+  image :avatar, versions: [normal: {480, 480}, small: {100, 100}]
+  image :background, versions: [normal: {960, 334}], pad_color: "black"
 
   before_update Top.Sluggable, :update_slug, [:name]
 

@@ -1,6 +1,6 @@
 defmodule Top.VideoInfo do
   @providers [{:youtube, "youtu"}, {:vimeo, "vimeo"}]
-  @vimeo_api_key Application.get_env(:top, Top.VideoInfo)[:vimeo_api_key]
+  @vimeo_api_key Application.get_env(:top, __MODULE__)[:vimeo_api_key]
 
   def load(url) do
     info = parse url

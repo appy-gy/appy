@@ -4,7 +4,7 @@ defmodule Top.Index do
   import Tirexs.Mapping
 
   def index_name(index) do
-    "#{Application.get_env(:top, Top.Index)[:prefix]}_#{index}"
+    "#{Application.get_env(:top, __MODULE__)[:prefix]}_#{index}"
   end
 
   defmacro __using__(_) do

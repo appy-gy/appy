@@ -13,7 +13,7 @@ defmodule Top.Private.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Repo.find! User, id
-    user_params = Dict.take user_params, ~W{name}
+    user_params = Dict.take user_params, ~W{name avatar background}
     changeset = User.changeset user, user_params
     case Repo.update(changeset) do
       {:ok, user} ->
