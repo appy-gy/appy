@@ -33,6 +33,8 @@ defmodule Top.User do
   image :avatar
   image :background
 
+  before_update Top.Sluggable, :update_slug, [:name]
+
   @required_fields ~W(role slug)
   @optional_fields ~W(name email crypted_password salt remember_me_token
     remember_me_token_expires_at reset_password_token

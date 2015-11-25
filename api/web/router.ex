@@ -12,6 +12,7 @@ defmodule Top.Router do
       resources "/sessions", SessionController, only: [:show], singleton: true do
         get "/check", SessionController, :check
       end
+      resources "/users", UserController, only: [:update]
       resources "/ratings", RatingController, only: [:index, :show] do
         scope "/", Rating, as: :rating do
           resources "/similar", SimilarController, only: [:index]

@@ -8,9 +8,25 @@ defmodule Top.Private.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Repo.find! User, id
+    render conn, "show.json", user: user, counts: counts_for(conn, user)
+  end
+
+  def update(conn, %{"id" => id, "user" => user_params}) do
+    user = Repo.find! User, id
+    user_params = Dict.take user_params, ~W{name}
+    changeset = User.changeset user, user_params
+    case Repo.update(changeset) do
+      {:ok, user} ->
+        render conn, "show.json", user: user, counts: counts_for(conn, user)
+      {:error, _} ->
+        conn |> put_status(400) |> json(%{})
+    end
+  end
+
+  defp counts_for(conn, user) do
     ratings_count = ratings_count_for conn, user
     comments_count = comments_count_for user
-    render conn, "show.json", user: user, counts: %{ratings: ratings_count, comments: comments_count}
+    %{ratings: ratings_count, comments: comments_count}
   end
 
   defp ratings_count_for(conn, user) do
