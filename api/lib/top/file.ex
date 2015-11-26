@@ -1,4 +1,4 @@
-defmodule Top.Image do
+defmodule Top.File do
   @behaviour Ecto.Type
 
   def type, do: :string

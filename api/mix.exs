@@ -19,7 +19,7 @@ defmodule Top.Mixfile do
   def application do
     [mod: {Top, []},
      applications: [:phoenix, :cowboy, :logger, :phoenix_ecto, :postgrex,
-      :exredis, :httpoison]]
+      :exredis, :httpoison, :comeonin]]
   end
 
   # Specifies which paths to compile per environment.
@@ -44,7 +44,8 @@ defmodule Top.Mixfile do
      {:tirexs, "~> 0.7"},
      {:logger_file_backend, "~> 0.0"},
      {:plug_forwarded_peer, "~> 0.0"},
-     {:mogrify, github: "miraks/mogrify"}]
+     {:mogrify, github: "miraks/mogrify"},
+     {:comeonin, "~> 1.6"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

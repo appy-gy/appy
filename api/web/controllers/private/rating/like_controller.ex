@@ -16,7 +16,7 @@ defmodule Top.Private.Rating.LikeController do
       {:ok, like} ->
         render conn, LikeView, "show.json", like: like, likes_count: rating.likes_count + 1
       {:error, _} ->
-        conn |> put_status(400) |> json(%{})
+        send_error conn
     end
   end
 

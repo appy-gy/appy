@@ -36,6 +36,7 @@ defmodule Top.Web do
 
       import Top.Router.Helpers
       import Top.FetchCurrentUser
+      import Top.SendError
     end
   end
 

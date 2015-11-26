@@ -18,8 +18,20 @@ defmodule Top.Private.UserController do
     case Repo.update(changeset) do
       {:ok, user} ->
         render conn, "show.json", user: user, counts: counts_for(conn, user)
-      {:error, _} ->
-        conn |> put_status(400) |> json(%{})
+      {:error, _} -> send_error conn
+    end
+  end
+
+  def change_password(conn, %{"user_id" => id, "old_password" => old_password, "new_password" => new_password}) do
+    user = Repo.find! User, id
+    if Top.Password.valid?(old_password, user.crypted_password, user.salt) do
+      changeset = User.changeset user, %{password: new_password}
+      case Repo.update(changeset) do
+        {:ok, user} -> json conn, %{success: true}
+        {:error, _} -> send_error conn
+      end
+    else
+      send_error conn
     end
   end
 

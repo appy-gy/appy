@@ -1,6 +1,8 @@
 defmodule Top.User do
   use Top.Web, :model
 
+  import Top.Password, only: [update_password: 1]
+
   import EctoEnum
   defenum RoleEnum, member: 0, admin: 1
 
@@ -18,9 +20,10 @@ defmodule Top.User do
     field :reset_password_token, :string
     field :reset_password_token_expires_at, Ecto.DateTime
     field :reset_password_email_sent_at, Ecto.DateTime
-    field :avatar, Top.Image
-    field :background, Top.Image
+    field :avatar, Top.File
+    field :background, Top.File
     field :slug, Top.Slug
+    field :password, :string, virtual: true
     timestamps inserted_at: :created_at
 
     has_many :ratings, Top.Rating, on_delete: :fetch_and_delete
@@ -39,12 +42,13 @@ defmodule Top.User do
   @optional_fields ~W(name email crypted_password salt remember_me_token
     remember_me_token_expires_at reset_password_token
     reset_password_token_expires_at reset_password_email_sent_at
-    avatar background)
+    avatar background password)
 
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> unique_constraint(:email)
     |> unique_constraint(:slug)
+    |> update_password
   end
 end
