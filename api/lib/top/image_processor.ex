@@ -15,12 +15,16 @@ defmodule Top.ImageProcessor do
   def process(source, dest, filename, opts) do
     opts = Dict.merge @default_opts, opts
 
-    Enum.each opts[:versions], fn {name, {width, height}} ->
-      Enum.each opts[:sizes], fn size ->
+    tasks = Enum.flat_map opts[:versions], fn {name, {width, height}} ->
+      Enum.map opts[:sizes], fn size ->
         version_name = "#{name}_#{size}x"
-        process_version source, Path.join(dest, "#{version_name}_#{filename}"), width, height, opts
+        Task.async fn ->
+          process_version source, Path.join(dest, "#{version_name}_#{filename}"), width, height, opts
+        end
       end
     end
+
+    Enum.each tasks, &Task.await/1
   end
 
   defp process_version(source, dest, width, height, opts) do
