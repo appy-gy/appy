@@ -5,9 +5,7 @@ Rails.application.routes.draw do
     namespace :private do
       resource :sessions, only: [:create, :destroy]
       resource :reset_passwords, only: [:create]
-      resources :users, only: [:create, :update] do
-        put :change_password
-      end
+      resources :users, only: [:create]
       resources :ratings, only: [:create, :update, :destroy] do
         scope module: :ratings do
           resource :tags, only: [:create, :destroy]

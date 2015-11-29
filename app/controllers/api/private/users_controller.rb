@@ -11,17 +11,6 @@ module Api
         render json: user
       end
 
-      def update
-        user = ::Users::Update.new(@user, user_params).call
-        render json: user, serializer: UserForProfileSerializer
-      end
-
-      def change_password
-        success = ::Users::ChangePassword.new(@user, *params.values_at(:old_password, :new_password)).call
-        return render_error unless success
-        render json: { success: true }
-      end
-
       private
 
       def user_params
