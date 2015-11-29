@@ -45,15 +45,17 @@ Comment = React.createClass
 
     return unless showRatingInfo
 
-    sectionStyles = color: comment.rating.section.color
+    linkStyles = color: comment.rating.section.color
 
     <div className="comment_rating-info">
-      <SectionLink className="comment_rating-info-section" section={comment.rating.section} style={sectionStyles}>
-        {comment.rating.section.name}:
+      <SectionLink className="comment_rating-info-section" section={comment.rating.section} style={linkStyles}>
+        {comment.rating.section.name}
       </SectionLink>
-      <RatingLink className="comment_rating-info-rating" rating={comment.rating}>
+      -
+      <RatingLink className="comment_rating-info-rating" rating={comment.rating} style={linkStyles}>
         {comment.rating.title}
       </RatingLink>
+      :
     </div>
 
   date: ->

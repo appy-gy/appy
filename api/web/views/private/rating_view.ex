@@ -50,6 +50,8 @@ defmodule Top.Private.RatingView do
 
   def render("rating_for_comment.json", %{rating: rating}) do
     %{id: rating.id,
+      title: rating.title,
+      status: rating.status,
       slug: rating.slug,
       section: render_one(rating.section, Top.Private.SectionView, "section.json")}
   end
