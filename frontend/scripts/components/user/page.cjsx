@@ -34,7 +34,7 @@ User = React.createClass
     dispatch: PropTypes.func.isRequired
     user: PropTypes.object.isRequired
     userSlug: PropTypes.string.isRequired
-    isFetching: PropTypes.bool.isRequired
+    isFetched: PropTypes.bool.isRequired
     isFailed: PropTypes.bool.isRequired
     page: PropTypes.number.isRequired
     ratings: PropTypes.arrayOf(PropTypes.object).isRequired
@@ -121,11 +121,11 @@ User = React.createClass
       </TabContent>
 
   render: ->
-    {user, page, ratings, ratingPagesCount, comments, commentPagesCount, isFetching, isFailed} = @props
+    {user, page, ratings, ratingPagesCount, comments, commentPagesCount, isFetched, isFailed} = @props
 
     headerStyles = backgroundImage: "url(#{imageUrl user.background, 'normal'})"
 
-    <Layout isLoading={isFetching} isFound={not isFailed}>
+    <Layout isLoading={not isFetched} isFound={not isFailed}>
       <Helmet title={user.name}/>
       <div className="user-profile">
         <header className="user-profile_header">
@@ -155,7 +155,7 @@ mapStateToProps = ({router, user, userRatings, userComments}) ->
   user: user.item
   userSlug: router.params.userSlug
   isFailed: user.isFailed
-  isFetching: user.isFetching
+  isFetched: user.isFetched
   page: parseInt(router.location.query?.page || 1)
   ratings: userRatings.items
   ratingPagesCount: userRatings.pagesCount

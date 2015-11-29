@@ -23,7 +23,7 @@ Ratings = React.createClass
   propTypes:
     dispatch: PropTypes.func.isRequired
     mainPageRatings: PropTypes.object.isRequired
-    isFetching: PropTypes.bool.isRequired
+    isFetched: PropTypes.bool.isRequired
     isFailed: PropTypes.bool.isRequired
 
   previewEnds:
