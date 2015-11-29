@@ -1,6 +1,8 @@
 defmodule Top.Like do
   use Top.Web, :model
 
+  import Top.CounterCache
+
   @primary_key {:id, Ecto.UUID, autogenerate: true}
   @foreign_key_type Ecto.UUID
 
@@ -11,7 +13,6 @@ defmodule Top.Like do
     belongs_to :rating, Top.Rating
   end
 
-  import Top.CounterCache
   counter_cache :rating, :likes_count
 
   @required_fields ~W(user_id rating_id)

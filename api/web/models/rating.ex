@@ -2,6 +2,9 @@ defmodule Top.Rating do
   use Top.Web, :model
 
   import EctoEnum
+  import Top.RedisCounter
+  import Top.ImageUploader
+
   defenum StatusEnum, draft: 0, published: 1
   defenum MainPagePositionEnum, top: 0, left: 1, right: 2
 
@@ -33,10 +36,8 @@ defmodule Top.Rating do
     has_many :likes, Top.Like, on_delete: :delete_all
   end
 
-  import Top.RedisCounter
   counter :views
 
-  import Top.ImageUploader
   image :image
 
   @required_fields ~W(status comments_count likes_count words recommendations

@@ -1,4 +1,13 @@
 defmodule Top.FriendlyFind do
+  @moduledoc """
+  Adds two methods to the Repo module `find` and `find!`. Which attempts to
+  find a record by both id and slug fields
+
+  ## Example
+
+      Repo.find User, id_or_slug
+  """
+
   import Ecto.Query, only: [from: 2]
 
   defmacro __using__(_) do

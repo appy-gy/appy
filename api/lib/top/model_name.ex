@@ -1,4 +1,17 @@
 defmodule Top.ModelName do
+  @moduledoc """
+  Adds `model_name` method to model module. Already used whe you
+  `use Top.Web, :model`
+
+  ## Example
+
+      defmodule Top.RatingItem do
+        use Top.Web, :model
+      end
+
+      Top.RatingItem.model_name # => :rating_item
+  """
+
   def model_name(module) do
     module |> Mix.Utils.underscore |> String.split("/") |> List.last |> String.to_atom
   end

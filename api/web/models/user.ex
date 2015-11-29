@@ -1,9 +1,11 @@
 defmodule Top.User do
   use Top.Web, :model
 
+  import EctoEnum
+  import Top.ImageUploader
+  import Top.Sluggable
   import Top.Password, only: [update_password: 1]
 
-  import EctoEnum
   defenum RoleEnum, member: 0, admin: 1
 
   @primary_key {:id, Ecto.UUID, autogenerate: true}
@@ -32,11 +34,10 @@ defmodule Top.User do
     has_many :votes, Top.Vote, on_delete: :fetch_and_delete
   end
 
-  import Top.ImageUploader
+  slug :name
+
   image :avatar, versions: [normal: {480, 480}, small: {100, 100}]
   image :background, versions: [normal: {960, 334}], pad_color: "black"
-
-  before_update Top.Sluggable, :update_slug, [:name]
 
   @required_fields ~W(role slug)
   @optional_fields ~W(name email crypted_password salt remember_me_token

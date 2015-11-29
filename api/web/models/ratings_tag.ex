@@ -1,6 +1,8 @@
 defmodule Top.RatingsTag do
   use Top.Web, :model
 
+  import Top.CounterCache
+
   @primary_key {:id, Ecto.UUID, autogenerate: true}
   @foreign_key_type Ecto.UUID
 
@@ -9,7 +11,6 @@ defmodule Top.RatingsTag do
     belongs_to :tag, Top.Tag
   end
 
-  import Top.CounterCache
   counter_cache :tag, :ratings_count
 
   @required_fields ~W(rating_id tag_id)

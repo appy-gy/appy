@@ -10,4 +10,11 @@ defmodule Top.Sluggable do
       _ -> changeset
     end
   end
+
+  defmacro slug(field) do
+    quote do
+      before_insert unquote(__MODULE__), :update_slug, [unquote(field)]
+      before_update unquote(__MODULE__), :update_slug, [unquote(field)]
+    end
+  end
 end

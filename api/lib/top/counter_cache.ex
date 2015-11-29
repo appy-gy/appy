@@ -1,4 +1,17 @@
 defmodule Top.CounterCache do
+  @moduledoc """
+  Import this module and call `counter_cache` with an association name and
+  a field to store count
+
+  ### Example
+
+      defmodule Like do
+        import Top.CounterCache
+
+        counter_cache :rating, :likes_count
+      end
+  """
+
   alias Top.Repo
 
   defmacro counter_cache(assoc, field) do

@@ -1,4 +1,22 @@
 defmodule Top.ImageUploader do
+  @moduledoc """
+  Adds image `image` macro to the importing module. When this macro called it
+  defines two methods. One for image processing on the record save to the
+  database and second for url generation. Image field type should be `Top.File`
+
+  ## Example
+
+      defmodule Foo do
+        import Top.ImageUploader
+
+        schema "foos" do
+          field :image, Top.File
+        end
+
+        image :image, versions: [normal: {100, 100}]
+      end
+  """
+
   import Ecto.Changeset, only: [fetch_change: 2, put_change: 3, delete_change: 2]
 
   def url_for(record, field) do
@@ -27,6 +45,7 @@ defmodule Top.ImageUploader do
 
   defmacro image(field, opts \\ []) do
     quote do
+      before_insert :"process_#{unquote(field)}"
       before_update :"process_#{unquote(field)}"
 
       def unquote(:"#{field}_url")(%{unquote(field) => nil}), do: nil

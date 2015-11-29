@@ -1,4 +1,9 @@
 defmodule Top.File do
+  @moduledoc """
+  Allows to store `Plug.Upload` structs in some model field for future
+  processing
+  """
+
   @behaviour Ecto.Type
 
   def type, do: :string

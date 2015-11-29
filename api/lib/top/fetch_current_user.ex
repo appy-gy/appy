@@ -1,4 +1,20 @@
 defmodule Top.FetchCurrentUser do
+  @moduledoc """
+  Use this module as a plug. It'll add two properties to the assigns:
+  `current_user` and `logged_in?`
+
+  ## Example
+
+      defmodule FooController do
+        plug :fetch_current_user when action in [:index]
+
+        def index(conn, params) do
+          IO.inspect conn.assigns[:current_user]
+          IO.inspect conn.assigns[:logged_in?]
+        end
+      end
+  """
+
   import Plug.Conn, only: [assign: 3, fetch_cookies: 1]
 
   alias Top.Repo

@@ -1,6 +1,8 @@
 defmodule Top.Comment do
   use Top.Web, :model
 
+  import Top.CounterCache
+
   @primary_key {:id, Ecto.UUID, autogenerate: true}
   @foreign_key_type Ecto.UUID
 
@@ -14,7 +16,6 @@ defmodule Top.Comment do
     has_many :children, __MODULE__, foreign_key: :parent_id, on_delete: :fetch_and_delete
   end
 
-  import Top.CounterCache
   counter_cache :rating, :comments_count
 
   @required_fields ~W(body user_id rating_id)

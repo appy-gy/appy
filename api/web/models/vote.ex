@@ -2,6 +2,7 @@ defmodule Top.Vote do
   use Top.Web, :model
 
   import EctoEnum
+
   defenum KindEnum, up: 0, down: 1
 
   @primary_key {:id, Ecto.UUID, autogenerate: true}

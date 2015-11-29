@@ -1,6 +1,8 @@
 defmodule Top.RatingItem do
   use Top.Web, :model
 
+  import Top.ImageUploader
+
   @primary_key {:id, Ecto.UUID, autogenerate: true}
   @foreign_key_type Ecto.UUID
 
@@ -18,7 +20,6 @@ defmodule Top.RatingItem do
     belongs_to :rating, Top.Rating
   end
 
-  import Top.ImageUploader
   image :image
 
   @required_fields ~W(rating_id position mark video)
