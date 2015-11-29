@@ -15,7 +15,7 @@ defmodule Top.GlobalIndex do
   end
 
   def query(term) do
-    items = [index: index_name, search: [query: [match_phrase_prefix: [_all: [query: term, slop: 20, max_expansions: 10]]]]]
-    items |> Query.create_resource |> load
+    items = [index: index_name, search: [query: [match_phrase_prefix: [_all: [query: term, slop: @slop, max_expansions: @max_expansions]]]]]
+    load items
   end
 end

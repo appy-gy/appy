@@ -5,6 +5,7 @@ defmodule Top.User do
   import Top.ImageUploader
   import Top.Sluggable
   import Top.Password, only: [update_password: 1]
+  import Top.ModelIndex
 
   defenum RoleEnum, member: 0, admin: 1
 
@@ -38,6 +39,8 @@ defmodule Top.User do
 
   image :avatar, versions: [normal: {480, 480}, small: {100, 100}]
   image :background, versions: [normal: {960, 334}], pad_color: "black"
+
+  index Top.GlobalIndex
 
   @required_fields ~W(role slug)
   @optional_fields ~W(name email crypted_password salt remember_me_token

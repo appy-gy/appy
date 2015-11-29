@@ -71,7 +71,6 @@ defmodule Top.Web do
     quote do
       use Top.Index
 
-      alias Tirexs.Query
       import Tirexs.Search
     end
   end

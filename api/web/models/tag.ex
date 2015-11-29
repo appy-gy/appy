@@ -1,6 +1,8 @@
 defmodule Top.Tag do
   use Top.Web, :model
 
+  import Top.ModelIndex
+
   @primary_key {:id, Ecto.UUID, autogenerate: true}
   @foreign_key_type Ecto.UUID
 
@@ -13,6 +15,8 @@ defmodule Top.Tag do
     has_many :ratings_tags, Top.RatingsTag, on_delete: :fetch_and_delete
     has_many :ratings, through: [:ratings_tags, :rating]
   end
+
+  index Top.TagIndex
 
   @required_fields ~W(name ratings_count slug)
   @optional_fields ~W()

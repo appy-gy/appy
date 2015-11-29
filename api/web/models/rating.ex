@@ -4,6 +4,7 @@ defmodule Top.Rating do
   import EctoEnum
   import Top.RedisCounter
   import Top.ImageUploader
+  import Top.ModelIndex
 
   defenum StatusEnum, draft: 0, published: 1
   defenum MainPagePositionEnum, top: 0, left: 1, right: 2
@@ -39,6 +40,8 @@ defmodule Top.Rating do
   counter :views
 
   image :image
+
+  index Top.GlobalIndex
 
   @required_fields ~W(status comments_count likes_count words recommendations
     user_id)
