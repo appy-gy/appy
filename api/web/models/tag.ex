@@ -25,5 +25,13 @@ defmodule Top.Tag do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> unique_constraint(:slug)
+    |> downcase_name
+  end
+
+  defp downcase_name(changeset) do
+    case fetch_change(changeset, :name) do
+      {:ok, name} -> put_change changeset, :name, String.downcase
+    _ -> changeset
+    end
   end
 end

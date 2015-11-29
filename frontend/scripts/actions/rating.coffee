@@ -48,6 +48,7 @@ addTagToRating = (name) ->
   (dispatch, getState) ->
     {rating} = getState()
 
+    name = name.toLowerCase()
     dispatch type: 'ADD_TAG_TO_RATING', payload: name
     http.post "ratings/#{rating.item.id}/tags", { name }
 
