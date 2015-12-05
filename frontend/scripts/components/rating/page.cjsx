@@ -12,6 +12,7 @@ SyncSlug = require '../mixins/sync_slug'
 Rating = require './rating'
 Similar = require './similar'
 Comments = require './comments'
+EditModeSwitcher = require './edit_mode_switcher'
 Layout = require '../layout/layout'
 
 {PropTypes} = React
@@ -40,6 +41,12 @@ RatingPage = React.createClass
   childContextTypes:
     block: PropTypes.string.isRequired
 
+  getInitialState: ->
+    editMode: false
+
+  getChildContext: ->
+    block: 'rating'
+
   componentWillMount: ->
     @fetchRating()
     @fetchRatingItems()
@@ -47,9 +54,6 @@ RatingPage = React.createClass
   componentDidUpdate: ->
     @fetchRating()
     @fetchRatingItems()
-
-  getChildContext: ->
-    block: 'rating'
 
   shouldComponentUpdate: ({ratingSlug}) ->
     # FIXME: ratingSlug becomes undefined when goBack called, because
@@ -76,10 +80,16 @@ RatingPage = React.createClass
     @props.dispatch fetchRatingItems(@props.ratingSlug)
 
   canEdit: ->
-    canEditRating @props.currentUser, @props.rating
+    canEditRating(@props.currentUser, @props.rating) and (not @canTriggerEditMode() or @state.editMode)
+
+  canTriggerEditMode: ->
+    @props.rating.status == 'published' and @props.currentUser.role == 'admin'
 
   header: ->
     if @canEdit() then 'editRating' else 'rating'
+
+  triggerEditMode: ->
+    @setState editMode: not @state.editMode
 
   similar: ->
     {rating} = @props
@@ -91,6 +101,13 @@ RatingPage = React.createClass
 
     <Comments rating={rating}/> if rating.status == 'published'
 
+  editModeSwitcher: ->
+    {editMode} = @state
+
+    return unless @canTriggerEditMode()
+
+    <EditModeSwitcher isActive={editMode} onClick={@triggerEditMode}/>
+
   render: ->
     {rating, ratingItems, isFetched, isFailed} = @props
 
@@ -99,6 +116,7 @@ RatingPage = React.createClass
       <Rating rating={rating} ratingItems={ratingItems} canEdit={@canEdit()}/>
       {@similar()}
       {@comments()}
+      {@editModeSwitcher()}
     </Layout>
 
 mapStateToProps = ({currentUser, router, rating, ratingItems}) ->
