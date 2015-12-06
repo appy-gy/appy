@@ -8,7 +8,7 @@ server = http.createServer()
 proxy = httpProxy.createProxyServer()
 
 server.on 'request', (req, res) ->
-  target = if (req.method == 'GET' and req.url.match(/^\/api\/private\/(.*?)$/)) or req.url.match(/^\/api\/private\/(ratings\/[^\/]+\/(view|likes)|users\/(.+))$/)
+  target = if (req.method == 'GET' and req.url.match(/^\/api\/private\/(.*?)$/)) or req.url.match(/^\/api\/private\/(ratings\/[^\/]+\/(view|likes|tags)|users\/(.+))$/)
     process.env.TOP_NEW_API_HOST
   else if req.url.match /^\/(api|oauth|admin|assets|static|files|system|__better_errors)/
     process.env.TOP_API_HOST

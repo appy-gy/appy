@@ -42,11 +42,11 @@ defmodule Top.User do
 
   index Top.GlobalIndex
 
-  @required_fields ~W(role slug)
+  @required_fields ~W(role)
   @optional_fields ~W(name email crypted_password salt remember_me_token
     remember_me_token_expires_at reset_password_token
     reset_password_token_expires_at reset_password_email_sent_at
-    avatar background password)
+    avatar background password slug)
 
   def changeset(model, params \\ :empty) do
     model

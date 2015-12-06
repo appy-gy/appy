@@ -8,7 +8,6 @@ Rails.application.routes.draw do
       resources :users, only: [:create]
       resources :ratings, only: [:create, :update, :destroy] do
         scope module: :ratings do
-          resource :tags, only: [:create, :destroy]
           resources :rating_items, only: [:create, :update, :destroy] do
             put :positions, on: :collection
           end

@@ -1,6 +1,9 @@
 defmodule Top.Tag do
   use Top.Web, :model
 
+  alias Top.Repo
+
+  import Top.Sluggable
   import Top.ModelIndex
 
   @primary_key {:id, Ecto.UUID, autogenerate: true}
@@ -16,10 +19,14 @@ defmodule Top.Tag do
     has_many :ratings, through: [:ratings_tags, :rating]
   end
 
+  slug :name
+
   index Top.TagIndex
 
-  @required_fields ~W(name ratings_count slug)
-  @optional_fields ~W()
+  after_update :delete_if_unused
+
+  @required_fields ~W(name ratings_count)
+  @optional_fields ~W(slug)
 
   def changeset(model, params \\ :empty) do
     model
@@ -30,8 +37,17 @@ defmodule Top.Tag do
 
   defp downcase_name(changeset) do
     case fetch_change(changeset, :name) do
-      {:ok, name} -> put_change changeset, :name, String.downcase
-    _ -> changeset
+      {:ok, name} -> put_change changeset, :name, String.downcase(name)
+      _ -> changeset
+    end
+  end
+
+  defp delete_if_unused(changeset) do
+    case fetch_change(changeset, :ratings_count) do
+      {:ok, count} when count == 0 ->
+        Repo.delete changeset.model
+        changeset
+      _ -> changeset
     end
   end
 end
