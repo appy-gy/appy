@@ -11,7 +11,6 @@ Rails.application.routes.draw do
           resources :rating_items, only: [:create, :update, :destroy] do
             put :positions, on: :collection
           end
-          resources :comments, only: [:create]
         end
       end
       resources :rating_items, only: [] do

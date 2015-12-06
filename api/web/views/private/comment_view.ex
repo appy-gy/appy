@@ -9,6 +9,10 @@ defmodule Top.Private.CommentView do
     %{comments: render_many(comments, __MODULE__, "comment.json")}
   end
 
+  def render("show.json", %{comment: comment}) do
+    %{comment: render_one(comment, __MODULE__, "comment.json")}
+  end
+
   def render("comment.json", %{comment: comment}) do
     %{id: comment.id,
       body: comment.body,

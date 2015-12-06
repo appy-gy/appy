@@ -15,6 +15,7 @@ defmodule Top.Private.UserController do
     user = Repo.find! User, id
     user_params = Dict.take user_params, ~W{name avatar background}
     changeset = User.changeset user, user_params
+
     case Repo.update(changeset) do
       {:ok, user} ->
         render conn, "show.json", user: user, counts: counts_for(conn, user)

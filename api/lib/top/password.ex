@@ -8,7 +8,7 @@ defmodule Top.Password do
       {:ok, password} ->
         {hash, salt} = hash password
         changeset |> put_change(:crypted_password, hash) |> put_change(:salt, salt)
-      :error -> delete_change changeset, :password
+      _ -> delete_change changeset, :password
     end
   end
 
