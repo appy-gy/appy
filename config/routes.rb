@@ -13,11 +13,6 @@ Rails.application.routes.draw do
           end
         end
       end
-      resources :rating_items, only: [] do
-        scope module: :rating_items do
-          resources :votes, only: [:create]
-        end
-      end
     end
   end
 

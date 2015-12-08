@@ -18,6 +18,7 @@ defmodule Top.RatingItem do
     timestamps inserted_at: :created_at
 
     belongs_to :rating, Top.Rating
+    has_many :votes, Top.Vote
   end
 
   image :image
