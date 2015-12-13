@@ -28,6 +28,11 @@ defmodule Top.Router do
       scope "/rating_items", RatingItem do
         resources "/video_info", VideoInfoController, only: [:index]
       end
+      resources "/rating_items", RatingItemController, only: [] do
+        scope "/", RatingItem, as: :rating_item do
+          resources "/votes", VoteController, only: [:create]
+        end
+      end
       resources "/users", UserController, only: [:show] do
         scope "/", User, as: :user do
           resources "/ratings", RatingController, only: [:index]
