@@ -61,6 +61,7 @@ defmodule Top.Router do
       scope "/search" do
         get "/global", SearchController, :global
       end
+      resources "/client_errors", ClientErrorController, only: [:create]
     end
   end
 end
