@@ -3,9 +3,6 @@ defmodule Top.Like do
 
   import Top.CounterCache
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-  @foreign_key_type Ecto.UUID
-
   schema "likes" do
     timestamps inserted_at: :created_at
 

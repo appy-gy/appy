@@ -3,9 +3,6 @@ defmodule Top.RatingsTag do
 
   import Top.CounterCache
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-  @foreign_key_type Ecto.UUID
-
   schema "ratings_tags" do
     belongs_to :rating, Top.Rating
     belongs_to :tag, Top.Tag

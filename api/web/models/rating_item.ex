@@ -3,9 +3,6 @@ defmodule Top.RatingItem do
 
   import Top.ImageUploader
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-  @foreign_key_type Ecto.UUID
-
   schema "rating_items" do
     field :title, :string
     field :description, :string

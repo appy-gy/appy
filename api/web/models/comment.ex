@@ -3,9 +3,6 @@ defmodule Top.Comment do
 
   import Top.CounterCache
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-  @foreign_key_type Ecto.UUID
-
   schema "comments" do
     field :body, :string
     timestamps inserted_at: :created_at

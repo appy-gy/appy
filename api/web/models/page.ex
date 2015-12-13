@@ -1,9 +1,6 @@
 defmodule Top.Page do
   use Top.Web, :model
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-  @foreign_key_type Ecto.UUID
-
   schema "pages" do
     field :title, :string
     field :body, :string

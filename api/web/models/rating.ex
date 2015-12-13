@@ -9,9 +9,6 @@ defmodule Top.Rating do
   defenum StatusEnum, draft: 0, published: 1
   defenum MainPagePositionEnum, top: 0, left: 1, right: 2
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-  @foreign_key_type Ecto.UUID
-
   schema "ratings" do
     field :title, :string
     field :description, :string

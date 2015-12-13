@@ -1,9 +1,6 @@
 defmodule Top.Section do
   use Top.Web, :model
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-  @foreign_key_type Ecto.UUID
-
   schema "sections" do
     field :name, :string
     field :color, :string

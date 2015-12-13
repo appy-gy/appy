@@ -9,9 +9,6 @@ defmodule Top.User do
 
   defenum RoleEnum, member: 0, admin: 1
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-  @foreign_key_type Ecto.UUID
-
   schema "users" do
     field :name, :string
     field :email, :string

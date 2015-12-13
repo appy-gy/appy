@@ -7,9 +7,6 @@ defmodule Top.Vote do
 
   defenum KindEnum, up: 0, down: 1
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-  @foreign_key_type Ecto.UUID
-
   schema "votes" do
     field :kind, KindEnum
     timestamps inserted_at: :created_at
