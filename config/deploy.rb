@@ -98,17 +98,12 @@ namespace :mix do
   task digest: :environment do
     queue! %{cd api && MIX_ENV=prod mix phoenix.digest}
   end
-
-  desc 'Compile application'
-  task compile: :environment do
-    queue %{cd api && MIX_ENV=prod mix compile}
-  end
 end
 
 namespace :phoenix do
   desc 'Start phoenix process'
   task start: :environment do
-    queue! %{cd api && MIX_ENV=prod PORT=4001 elixir --detached -S mix phoenix.server}
+    queue! %{cd api && MIX_ENV=prod PORT=4001 elixir --detached -S mix do compile, phoenix.server}
   end
 
   desc 'Kill phoenix process'
@@ -132,7 +127,6 @@ task deploy: :environment do
     invoke :'rails:assets_precompile'
     invoke :'webpack:compile'
     invoke :'mix:digest'
-    invoke :'mix:compile'
     invoke :'deploy:cleanup'
     invoke :'memcached:flush'
 
