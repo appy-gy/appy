@@ -99,7 +99,8 @@ namespace :mix do
     queue! %{cd api && MIX_ENV=prod mix phoenix.digest}
   end
 
-  desc 'Compile application' do
+  desc 'Compile application'
+  task compile: :environment do
     queue %{cd api && MIX_ENV=prod mix compile}
   end
 end
