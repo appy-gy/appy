@@ -42,7 +42,6 @@ defmodule Top.Private.RatingView do
       image: Rating.image_url(rating),
       comments_count: rating.comments_count,
       likes_count: rating.likes_count,
-      views_count: Rating.views_count(rating),
       user: render_one(rating.user, Top.Private.UserView, "user.json"),
       section: render_one(rating.section, Top.Private.SectionView, "section.json"),
       tags: render_many(rating.tags, Top.Private.TagView, "tag.json")}

@@ -18,8 +18,7 @@ viewRating = ->
 
     return unless rating.item.status == 'published'
 
-    http.put("ratings/#{rating.item.id}/view").then ({data}) ->
-      dispatch changeRating(data)
+    http.put("ratings/#{rating.item.id}/view")
 
 createRating = ->
   (dispatch, getState) ->

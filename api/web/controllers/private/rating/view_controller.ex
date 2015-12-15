@@ -16,6 +16,6 @@ defmodule Top.Private.Rating.ViewController do
       Rating.views_increment rating
     end
 
-    json conn, %{views_count: Rating.views_count(rating)}
+    json conn, %{success: true}
   end
 end

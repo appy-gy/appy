@@ -33,9 +33,6 @@ Meta = React.createClass
       <Item icon="comments" anchor={commentsAnchor}>
         {rating.commentsCount}
       </Item>
-      <Item icon="views">
-        {rating.viewsCount}
-      </Item>
       <Item>
         {timestamp.format('D MMMM YYYY')}
       </Item>
