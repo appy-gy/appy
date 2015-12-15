@@ -6,9 +6,6 @@ defmodule Top.Tag do
   import Top.Sluggable
   import Top.ModelIndex
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-  @foreign_key_type Ecto.UUID
-
   schema "tags" do
     field :name, :string
     field :ratings_count, :integer, default: 0

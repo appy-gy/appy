@@ -2,6 +2,7 @@ React = require 'react'
 PureRenderMixin = require 'react-addons-pure-render-mixin'
 classNames = require 'classnames'
 Comment = require '../shared/comments/comment'
+sortTrees = require '../../helpers/comments/sort_trees'
 
 {PropTypes} = React
 
@@ -25,7 +26,7 @@ CommentsTree = React.createClass
 
     return if tree.isLeaf()
 
-    tree.children.map (subtree) ->
+    sortTrees(tree.children).map (subtree) ->
       <CommentsTree key={subtree.root.id} tree={subtree} level={level + 1} canComment={canComment}/>
 
   render: ->

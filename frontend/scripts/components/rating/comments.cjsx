@@ -9,6 +9,7 @@ CommentsTree = require './comments_tree'
 AuthToComment = require './auth_to_comment'
 CommentForm = require '../shared/comments/form'
 CommentTreesBuilder = require '../../helpers/comments/trees_builder'
+sortTrees = require '../../helpers/comments/sort_trees'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -46,7 +47,7 @@ Comments = React.createClass
     return if isBlank comments
 
     trees = CommentTreesBuilder.build comments
-    trees.map (tree) =>
+    sortTrees(trees).map (tree) =>
       <CommentsTree key={tree.root.id} tree={tree} level={1} canComment={@canComment()}/>
 
   commentForm: ->
