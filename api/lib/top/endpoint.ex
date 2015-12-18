@@ -4,7 +4,8 @@ defmodule Top.Endpoint do
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
-    plug Phoenix.CodeReloader
+    plug Phoenix.CodeReloader,
+      reloadable_paths: ["web", "lib"]
   end
 
   plug PlugForwardedPeer
