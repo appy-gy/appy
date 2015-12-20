@@ -6,7 +6,7 @@ defmodule Top.Private.SearchResultView do
   end
 
   def render("result.json", %{result: result}) do
-    type = result.__struct__.model_name |> Atom.to_string |> Mix.Utils.underscore
+    type = result.__struct__.model_name |> Atom.to_string |> Phoenix.Naming.underscore
     data = render_one result, __MODULE__, "#{type}.json", as: String.to_atom(type)
     Dict.put data, :type, type
   end

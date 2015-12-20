@@ -64,7 +64,7 @@ defmodule Top.Index do
   end
 
   defp fetch({name, records}) do
-    model = Module.concat Top, Mix.Utils.camelize(name)
+    model = Module.concat Top, Phoenix.Naming.camelize(name)
     ids = Enum.map records, &(&1._id)
     scores = Enum.reduce(records, %{}, &(Dict.put &2, &1._id, &1._score))
     query = from r in model, where: r.id in ^ids
