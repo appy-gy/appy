@@ -18,8 +18,7 @@ defmodule Top.Vote do
   @required_fields ~W(kind user_id rating_item_id)
   @optional_fields ~W()
 
-  after_insert :update_rating_item_mark
-  after_update :update_rating_item_mark
+  after_save :update_rating_item_mark
   after_delete :update_rating_item_mark
 
   def changeset(model, params \\ :empty) do

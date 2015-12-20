@@ -45,8 +45,7 @@ defmodule Top.ImageUploader do
 
   defmacro image(field, opts \\ []) do
     quote do
-      before_insert :"process_#{unquote(field)}"
-      before_update :"process_#{unquote(field)}"
+      before_save :"process_#{unquote(field)}"
 
       def unquote(:"#{field}_url")(%{unquote(field) => nil}), do: nil
       def unquote(:"#{field}_url")(record) do

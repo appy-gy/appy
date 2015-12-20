@@ -23,6 +23,7 @@ defmodule Top.Web do
 
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
+      import Top.SaveCallback
 
       @primary_key {:id, Ecto.UUID, autogenerate: true}
       @foreign_key_type Ecto.UUID
