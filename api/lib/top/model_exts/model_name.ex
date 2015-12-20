@@ -13,7 +13,7 @@ defmodule Top.ModelName do
   """
 
   def model_name(module) do
-    module |> Phoenix.Naming.underscore |> String.split("/") |> List.last |> String.to_atom
+    module |> Atom.to_string |> Phoenix.Naming.underscore |> String.split("/") |> List.last |> String.to_atom
   end
 
   defmacro __using__(_) do

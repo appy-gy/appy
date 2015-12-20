@@ -6,13 +6,7 @@ Rails.application.routes.draw do
       resource :sessions, only: [:create, :destroy]
       resource :reset_passwords, only: [:create]
       resources :users, only: [:create]
-      resources :ratings, only: [:create, :update, :destroy] do
-        scope module: :ratings do
-          resources :rating_items, only: [:create, :update, :destroy] do
-            put :positions, on: :collection
-          end
-        end
-      end
+      resources :ratings, only: [:create, :update, :destroy]
     end
   end
 

@@ -23,16 +23,21 @@ defmodule Top.ImageUploader do
     public_dir_for(record, field) |> Path.join(Map.get(record, field))
   end
 
+  def path_for(record, field) do
+    ["../../../../public", public_dir_for(record, field)] |> Path.join |> Path.expand(__DIR__)
+  end
+
   def process(changeset, field, opts) do
     case do_process(fetch_change(changeset, field), changeset, field, opts) do
       path when is_binary(path) -> put_change(changeset, field, path)
+      nil -> changeset
       _ -> delete_change(changeset, field)
     end
   end
 
   defp do_process({:ok, %{path: path, filename: filename}}, changeset, field, opts) do
     record = changeset.model
-    dest = ["../../../public", public_dir_for(record, field)] |> Path.join |> Path.expand(__DIR__)
+    dest = path_for record, field
     Top.ImageProcessor.process path, dest, filename, opts
     filename
   end

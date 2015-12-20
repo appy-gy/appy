@@ -18,7 +18,11 @@ defmodule Top.Router do
       resources "/ratings", RatingController, only: [:index, :show] do
         scope "/", Rating, as: :rating do
           resources "/similar", SimilarController, only: [:index]
-          resources "/rating_items", RatingItemController, only: [:index]
+          scope "/rating_items" do
+            put "/positions", RatingItemController, :positions
+          end
+          resources "/rating_items", RatingItemController, only: [:index, :create, :update, :delete] do
+          end
           resources "/comments", CommentController, only: [:index, :create]
           resources "/tags", TagController, only: [:create, :delete], singleton: true
           resources "/likes", LikeController, only: [:create, :delete], singleton: true

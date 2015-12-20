@@ -14,6 +14,7 @@ defmodule Top.ImageProcessor do
 
   def process(source, dest, filename, opts) do
     opts = Dict.merge @default_opts, opts
+    File.mkdir_p! dest
 
     tasks = Enum.flat_map opts[:versions], fn {name, {width, height}} ->
       Enum.map opts[:sizes], fn size ->
@@ -28,9 +29,14 @@ defmodule Top.ImageProcessor do
   end
 
   defp process_version(source, dest, width, height, opts) do
-    image = source |> open |> copy |> background(opts[:pad_color])
-    image = apply Mogrify, opts[:resize], [image, "#{width}x#{height} -gravity Center"]
-    image |> format("jpg") |> mozjpeg(opts[:quality]) |> save(dest)
+    image = source
+    |> open
+    |> copy
+    |> background(opts[:pad_color])
+    |> resize(opts[:resize], "#{width}x#{height}")
+    |> format("jpg")
+    |> mozjpeg(opts[:quality])
+    |> save(dest)
   end
 
   defp strip(image) do
@@ -41,6 +47,14 @@ defmodule Top.ImageProcessor do
   defp background(image, pad_color) do
     {_, 0} = run image.path, "background", pad_color
     image |> verbose
+  end
+
+  def resize(image, :resize_to_fill, size) do
+    resize_to_fill image, "#{size} -gravity Center"
+  end
+
+  def resize(image, :resize_to_limit, size) do
+    resize image, "#{size}> -gravity Center"
   end
 
   defp mozjpeg(image, quality) when @use_mozjpeg do
