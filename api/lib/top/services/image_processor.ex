@@ -63,5 +63,5 @@ defmodule Top.ImageProcessor do
     System.cmd @cjpeg_path, ~w{-quality #{quality} -outfile #{image.path} #{tmp_path}}, stderr_to_stdout: true
     image |> verbose
   end
-  defp mozjpeg(image), do: image
+  defp mozjpeg(image, _), do: image
 end
