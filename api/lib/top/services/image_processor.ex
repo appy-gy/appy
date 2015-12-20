@@ -25,7 +25,7 @@ defmodule Top.ImageProcessor do
       end
     end
 
-    Enum.each tasks, &Task.await/1
+    Enum.each tasks, &(Task.await(&1, 30000))
   end
 
   defp process_version(source, dest, width, height, opts) do
