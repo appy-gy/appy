@@ -14,7 +14,6 @@ defmodule Top.ImageProcessor do
 
   def process(source, dest, filename, opts) do
     opts = Dict.merge @default_opts, opts
-    File.mkdir_p! dest
 
     tasks = Enum.flat_map opts[:versions], fn {name, {width, height}} ->
       Enum.map opts[:sizes], fn size ->

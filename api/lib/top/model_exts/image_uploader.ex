@@ -38,6 +38,8 @@ defmodule Top.ImageUploader do
   defp do_process({:ok, %{path: path, filename: filename}}, changeset, field, opts) do
     record = changeset.model
     dest = path_for record, field
+    File.mkdir_p! dest
+    File.cp! path, Path.join(dest, filename)
     Top.ImageProcessor.process path, dest, filename, opts
     filename
   end
