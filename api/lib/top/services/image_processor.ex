@@ -1,6 +1,4 @@
 defmodule Top.ImageProcessor do
-  import Mogrify
-
   @default_opts [
     versions: [],
     sizes: [1, 2],
@@ -31,36 +29,61 @@ defmodule Top.ImageProcessor do
     image = source
     |> open
     |> copy
-    |> background(opts[:pad_color])
-    |> resize(opts[:resize], "#{width}x#{height}")
-    |> format("jpg")
+    |> convert(width: width, height: height, resize: opts[:resize], pad_color: opts[:pad_color])
     |> mozjpeg(opts[:quality])
-    |> save(dest)
+    |> move(dest)
   end
 
-  defp strip(image) do
-    {_, 0} = run image.path, "strip"
-    image |> verbose
+  def open(path) do
+    {info, 0} = System.cmd "identify", [path]
+    [width, height] = ~r/(\d+)x(\d+)/
+    |> Regex.run(info, capture: :all_but_first)
+    |> Enum.map(&(&1 |> Integer.parse |> elem(0)))
+    %{path: path, width: width, height: height}
   end
 
-  defp background(image, pad_color) do
-    {_, 0} = run image.path, "background", pad_color
-    image |> verbose
+  defp copy(image) do
+    name = Path.basename image.path
+    number = :crypto.rand_uniform 100000, 999999
+    new_path = Path.join System.tmp_dir, "#{number}-#{name}"
+    File.cp! image.path, new_path
+    %{image | path: new_path}
   end
 
-  def resize(image, :resize_to_fill, size) do
-    resize_to_fill image, "#{size} -gravity Center"
+  defp move(image, dest) do
+    File.cp! image.path, dest
+    File.rm! image.path
+    %{image | path: dest}
   end
 
-  def resize(image, :resize_to_limit, size) do
-    resize image, "#{size}> -gravity Center"
+  defp convert(image, width: width, height: height, resize: resize, pad_color: pad_color) do
+    new_path = String.replace_suffix image.path, Path.extname(image.path), ".jpg"
+    args = ~w(-strip -format jpg -quality 100 -background #{pad_color} -alpha remove -resize #{resize_arg image, resize, width, height} -gravity Center #{image.path} #{new_path})
+    System.cmd "convert", args
+    if image.path <> new_path, do: File.rm!(image.path)
+    %{image | path: new_path}
   end
 
   defp mozjpeg(image, quality) when @use_mozjpeg do
-    tmp_path = image.path <> "tmp"
-    File.cp! image.path, tmp_path
-    System.cmd @cjpeg_path, ~w{-quality #{quality} -outfile #{image.path} #{tmp_path}}, stderr_to_stdout: true
-    image |> verbose
+    image_copy = copy image
+    System.cmd @cjpeg_path, ~w(-quality #{quality} -outfile #{image.path} #{image_copy.path})
+    File.rm! image_copy.path
+    image
   end
   defp mozjpeg(image, _), do: image
+
+  defp resize_arg(_, :resize_to_limit, width, height) do
+    arg = [width, height] |> Enum.reject(&is_nil/1) |> Enum.join("x")
+    arg <> ">"
+  end
+
+  defp resize_arg(image, :resize_to_fill, width, height) do
+    scale_x = width / image.width
+    scale_y = height / image.height
+    if scale_x >= scale_y do
+      "#{(scale_x * (image.width + 0.5)) |> Float.round}"
+    else
+      "x#{(scale_y * (image.height + 0.5)) |> Float.round}"
+    end
+  end
 end
