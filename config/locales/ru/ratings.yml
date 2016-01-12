@@ -16,6 +16,7 @@ ru:
         section: Секция
         main_page_position: Позиция на главной
         views: Число просмотров
+        published_at: Дата публикации
   enums:
     rating:
       status:

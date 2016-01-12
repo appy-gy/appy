@@ -25,6 +25,7 @@ ActiveAdmin.register Rating do
     end
     column :user
     column :section
+    column :published_at
     column :views do |rating|
       rating.views.value
     end
