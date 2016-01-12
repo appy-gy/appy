@@ -15,6 +15,7 @@ ru:
         user: Автор
         section: Секция
         main_page_position: Позиция на главной
+        views: Число просмотров
   enums:
     rating:
       status:
