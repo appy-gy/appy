@@ -44,7 +44,6 @@ defmodule Top.Mixfile do
      {:tirexs, "~> 0.7"},
      {:logger_file_backend, "~> 0.0"},
      {:plug_forwarded_peer, "~> 0.0"},
-     {:mogrify, github: "miraks/mogrify"},
      {:comeonin, "~> 1.6"}]
   end
 

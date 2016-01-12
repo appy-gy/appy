@@ -48,9 +48,7 @@ defmodule Top.RatingItem do
   defp set_image_size(changeset) do
     case fetch_change(changeset, :image) do
       {:ok, %{path: path}} ->
-        %{width: width, height: height} = Mogrify.open(path) |> Mogrify.verbose
-        {width, ""} = Integer.parse width
-        {height, ""} = Integer.parse height
+        %{width: width, height: height} = Top.ImageProcessor.open(path)
         changeset |> put_change(:image_width, width) |> put_change(:image_height, height)
       _ -> changeset
     end
