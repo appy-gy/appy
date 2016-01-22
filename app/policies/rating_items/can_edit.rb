@@ -3,7 +3,7 @@ module RatingItems
     arguments :rating_item
 
     def call
-      Ratings::CanEdit.new(current_user, rating_item.rating).call
+      current_user == rating_item.rating.user
     end
   end
 end

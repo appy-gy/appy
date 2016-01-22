@@ -25,10 +25,6 @@ ActiveAdmin.register Rating do
     end
     column :user
     column :section
-    column :published_at
-    column :views do |rating|
-      rating.views.value
-    end
     actions defaults: true do |rating|
       link_to 'В черновики', unpublish_admin_rating_path(rating), data: { method: :put, confirm: 'Точно?' } if rating.published?
     end

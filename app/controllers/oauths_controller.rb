@@ -7,7 +7,6 @@ class OauthsController < ApplicationController
   end
 
   def callback
-    return_to_url = session[:return_to_url]
     provider = auth_params[:provider]
     return if login_from provider
     user = recognize_user(provider) || create_user(provider)
@@ -15,7 +14,6 @@ class OauthsController < ApplicationController
     reset_session
     auto_login user, true
   ensure
-    session[:return_to_url] = return_to_url
     redirect_back_or_to '/'
   end
 

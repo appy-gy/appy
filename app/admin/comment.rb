@@ -13,7 +13,6 @@ ActiveAdmin.register ::Comment do
     column :body
     column :user
     column :rating
-    column :created_at
     actions
   end
 

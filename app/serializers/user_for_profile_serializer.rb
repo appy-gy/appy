@@ -1,7 +1,7 @@
 class UserForProfileSerializer < UserSerializer
   self.root = :user
 
-  attributes :background, :ratings_count, :comments_count
+  attributes :background, :ratings_count, :comments_count, :can_edit
 
   def background
     object.background.url
@@ -13,5 +13,9 @@ class UserForProfileSerializer < UserSerializer
 
   def comments_count
     object.comments.count
+  end
+
+  def can_edit
+    Users::CanEdit.new(scope, object).call
   end
 end

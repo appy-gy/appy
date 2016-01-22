@@ -10,17 +10,12 @@ class Tag < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
-  before_validation :downcase_name
   before_destroy :delete_ratings_tags
 
   private
 
   def slug_candidates
     [:name]
-  end
-
-  def downcase_name
-    self.name = name.mb_chars.downcase.to_s
   end
 
   def delete_ratings_tags
