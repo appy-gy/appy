@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 20151213091257) do
 
   add_index "authentications", ["provider", "uid"], name: "index_authentications_on_provider_and_uid", using: :btree
 
+  create_table "browser_notification_subscriptions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.text     "browser",                 null: false
+    t.json     "info",       default: {}, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.uuid     "user_id",                 null: false
+  end
+
+  add_index "browser_notification_subscriptions", ["user_id"], name: "index_browser_notification_subscriptions_on_user_id", unique: true, using: :btree
+
   create_table "client_errors", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.json     "info",       default: {}, null: false
     t.datetime "created_at",              null: false
@@ -174,6 +184,7 @@ ActiveRecord::Schema.define(version: 20151213091257) do
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
   add_foreign_key "authentications", "users"
+  add_foreign_key "browser_notification_subscriptions", "users"
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "ratings"
   add_foreign_key "comments", "users"
