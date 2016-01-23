@@ -1,4 +1,4 @@
-axios = require 'axios'
+http = require './http'
 isClient = require './is_client'
 
 subscribe = (registration) ->
