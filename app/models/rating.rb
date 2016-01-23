@@ -39,6 +39,16 @@ class Rating < ActiveRecord::Base
 
   scope :on_main_page, -> { where.not main_page_position: nil }
 
+  def browser_notification_payload
+    {
+      title: 'Новый рейтинг',
+      body: ActionView::Base.full_sanitizer.sanitize([title, description].join(' - ')),
+      icon: '/files/favicon.png',
+      tag: "rating-#{id}",
+      url: "#{ENV['TOP_HOST']}/#{section.slug}/#{slug}"
+    }
+  end
+
   private
 
   def slug_candidates
