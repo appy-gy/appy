@@ -1,4 +1,4 @@
-http = require './http'
+axios = require 'axios'
 isClient = require './is_client'
 
 subscribe = (registration) ->
@@ -10,12 +10,12 @@ subscribe = (registration) ->
 saveSubscription = ({endpoint}) ->
   browser = getBrowser endpoint
   return unless browser?
-  http.patch '/api/private/browser_notification_subscription', subscription: { browser, info: { endpoint } }
+  http.patch '/api/private/browser_notification_subscriptions', subscription: { browser, info: { endpoint } }
 
 getBrowser = (endpoint) ->
-  if _.has(endpoint, 'googleapis.com')
+  if _.includes(endpoint, 'googleapis.com')
     'chrome'
-  else if _.has(endpoint, 'mozilla.com')
+  else if _.includes(endpoint, 'mozilla.com')
     'firefox'
 
 init = ->
