@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       resource :search, only: [] do
         get :global, on: :collection
       end
+      resources :client_errors, only: [:create]
     end
   end
 
