@@ -12,8 +12,8 @@ set :branch, 'master'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, %w{.env api/config/prod.secret.exs api/deps config/puma.rb
-  config/secrets.yml log public/system tmp/pids tmp/sockets}
+set :shared_paths, %w{.env api/deps config/puma.rb
+  config/secrets.yml log public/system tmp/pids tmp/sockets} #api/config/prod.secret.exs
 
 # Optional settings:
 set :user, 'top' # Username in the server to SSH to.
@@ -88,29 +88,29 @@ namespace :memcached do
   end
 end
 
-namespace :mix do
-  desc 'Install mix deps'
-  task get_deps: :environment do
-    queue! %{cd api && MIX_ENV=prod mix deps.get --only prod}
-  end
+# namespace :mix do
+#   desc 'Install mix deps'
+#   task get_deps: :environment do
+#     queue! %{cd api && MIX_ENV=prod mix deps.get --only prod}
+#   end
+#
+#   desc 'Digests and compress phoenix static files'
+#   task digest: :environment do
+#     queue! %{cd api && MIX_ENV=prod mix phoenix.digest}
+#   end
+# end
 
-  desc 'Digests and compress phoenix static files'
-  task digest: :environment do
-    queue! %{cd api && MIX_ENV=prod mix phoenix.digest}
-  end
-end
-
-namespace :phoenix do
-  desc 'Start phoenix process'
-  task start: :environment do
-    queue! %{cd api && MIX_ENV=prod PORT=4001 elixir --detached -S mix do compile, phoenix.server}
-  end
-
-  desc 'Kill phoenix process'
-  task kill: :environment do
-    queue! %{kill -9 `cat #{phoenid_pid}`}
-  end
-end
+# namespace :phoenix do
+#   desc 'Start phoenix process'
+#   task start: :environment do
+#     queue! %{cd api && MIX_ENV=prod PORT=4001 elixir --detached -S mix do compile, phoenix.server}
+#   end
+#
+#   desc 'Kill phoenix process'
+#   task kill: :environment do
+#     queue! %{kill -9 `cat #{phoenid_pid}`}
+#   end
+# end
 
 desc 'Deploys the current version to the server.'
 task deploy: :environment do
@@ -122,18 +122,18 @@ task deploy: :environment do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'npm:install'
-    invoke :'mix:get_deps'
+    # invoke :'mix:get_deps'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
     invoke :'webpack:compile'
-    invoke :'mix:digest'
+    # invoke :'mix:digest'
     invoke :'deploy:cleanup'
     invoke :'memcached:flush'
 
     to :launch do
       invoke :'sidekiq:restart'
-      invoke :'phoenix:kill'
-      invoke :'phoenix:start'
+      # invoke :'phoenix:kill'
+      # invoke :'phoenix:start'
       invoke :'prerender:kill'
       invoke :'prerender:start'
       invoke :'puma:restart'
