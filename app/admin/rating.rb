@@ -28,7 +28,7 @@ ActiveAdmin.register Rating do
     column :section
     actions defaults: true do |rating|
       a link_to 'В черновики', unpublish_admin_rating_path(rating), data: { method: :put, confirm: 'Точно?' } if rating.published?
-      a link_to 'Пуш уведомлениея', browser_notification_admin_rating_path(rating), data: { method: :post, confirm: 'Точно?' } if rating.published?
+      a link_to 'Пуш уведомления', browser_notification_admin_rating_path(rating), data: { method: :post, confirm: 'Точно?' } if rating.published?
     end
   end
 
