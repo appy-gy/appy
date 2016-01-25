@@ -42,8 +42,8 @@ class Rating < ActiveRecord::Base
   def browser_notification_payload
     {
       title: 'Новый рейтинг',
-      body: ActionView::Base.full_sanitizer.sanitize([title, description].join(' - ')),
-      icon: '/files/favicon.png',
+      body: ActionView::Base.full_sanitizer.sanitize([title, description].map(&:chomp).join(' - ')),
+      icon: "#{ENV['TOP_ASSETS_HOST']}/files/favicon.png",
       tag: "rating-#{id}",
       url: "#{ENV['TOP_HOST']}/#{section.slug}/#{slug}"
     }

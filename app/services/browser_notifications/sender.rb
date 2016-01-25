@@ -11,16 +11,20 @@ module BrowserNotifications
     end
 
     def send
-      statuses = []
       create_notifications_of item
 
       BrowserNotificationSubscription.find_in_batches(batch_size: 100) do |subscriptions|
         Array.wrap(subscriptions).group_by(&:browser).each do |browser, subscriptions|
-          statuses.push __send__ "send_to_#{browser}", subscriptions
+          __send__ "send_to_#{browser}", subscriptions
         end
       end
+    end
 
-      statuses
+    def message user
+      subscription = BrowserNotificationSubscription.find_by user: user
+      return unless subscription
+      BrowserNotification.create user: subscription.user, payload: item.browser_notification_payload
+      __send__ "send_to_#{subscription.browser}", Array.wrap(subscription)
     end
 
     private

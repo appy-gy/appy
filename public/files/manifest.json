@@ -2,7 +2,7 @@
   "name": "Appy",
   "short_name": "Appy",
   "icons": [{
-    "src": "favicon.png",
+    "src": "files/favicon.png",
     "sizes": "128x128",
     "type": "image/png"
   }],
