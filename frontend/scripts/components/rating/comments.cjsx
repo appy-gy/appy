@@ -62,7 +62,7 @@ Comments = React.createClass
       "Комментарии (#{comments.length})"
     else
       # TODO: Get random phrases
-      'Полно мыслей в голове? Оставь одну тут!'
+      'Много мыслей в голове? Оставьте одну здесь'
 
   render: ->
     {rating} = @props

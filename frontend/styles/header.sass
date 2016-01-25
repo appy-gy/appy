@@ -204,9 +204,7 @@
     align-items: center
     justify-content: center
     border: 1px dashed $white-3
-
-    @media screen and (max-width: $medium)
-      display: none
+    padding: 5px
 
   &_rating-actions
     display: flex
@@ -221,6 +219,13 @@
     &-error
       flex-grow: 1
       text-align: center
+      line-height: 1.2
+
+      @media screen and (max-width: $medium)
+        text-align: left
 
     &-counter
       color: $white-3
+      display: flex
+      flex-shrink: 0
+      align-items: center

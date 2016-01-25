@@ -1,10 +1,13 @@
 .rating-statusbar
   background-color: $black-2
   display: flex
-  flex-flow: row nowrap
+  flex-flow: row wrap
   justify-content: flex-end
   z-index: 1
   padding: 10px
+
+  @media screen and (min-width: $small)
+    flex-flow: row nowrap
 
   @media screen and (min-width: $medium)
     justify-content: space-between
@@ -25,10 +28,16 @@
 
   &_buttons
     display: flex
-    height: 100%
-    width: 300px
     justify-content: space-between
-    margin-left: 10px
+    width: 100%
+
+    @media screen and (max-width: $small)
+      height: 50px
+
+    @media screen and (min-width: $small)
+      width: 300px
+      margin-left: 10px
+
 
   &_link
     cursor: pointer
@@ -46,26 +55,26 @@
       color: $black
 
   &_delete-rating
-    height: 40px
     color: $red-2
     border: 1px solid
     cursor: pointer
-    width: 40px
+    width: 50px
     display: flex
     justify-content: center
     font-size: 30px
-    line-height: 32px
+    flex-shrink: 0
     &:hover
       color: $red
 
   &_save-button
-    +button(40px)
-    width: 175px
+    +button(auto)
     background-color: $white
     color: $black
     z-index: 1
+    width: 100%
     background-repeat: repeat-x
     background-size: 100% 15%
+    line-height: 50px
     background-position: 0 t10
     background-image: linear-gradient(135deg, rgba(252,181,64,1) 10%, rgba(253,222,100,1) 20%, rgba(63,221,143,1) 30%, rgba(39,209,222,1) 40%, rgba(41,172,204,1) 50%, rgba(38,109,157,1) 60%, rgba(218,78,153,1) 70%, rgba(226,48,78,1) 80%, rgba(238,90,66,1) 90%, rgba(252,181,64,1) 100%)
 
@@ -76,3 +85,9 @@
 
     &.m-pending, &.m-saving
       animation: save-button-loader 1s linear infinite
+
+
+
+
+    @media screen and (min-width: $small)
+      width: 175px
