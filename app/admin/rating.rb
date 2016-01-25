@@ -28,6 +28,9 @@ ActiveAdmin.register Rating do
     column :status do |rating|
       rating.status_i18n
     end
+    column :views do |rating|
+      rating.views.value
+    end
     column :user
     column :section
     column :published_at
