@@ -5,6 +5,8 @@ ActiveAdmin.register ::Comment do
 
   permit_params :body, :user_id
 
+  config.sort_order = 'created_at_desc'
+
   filter :body
   filter :user
   filter :rating
@@ -13,6 +15,7 @@ ActiveAdmin.register ::Comment do
     column :body
     column :user
     column :rating
+    column :created_at
     actions
   end
 
