@@ -204,7 +204,8 @@
     align-items: center
     justify-content: center
     border: 1px dashed $white-3
-    padding: 5px
+    @media screen and (max-width: $small)
+      height: 50px
 
   &_rating-actions
     display: flex
