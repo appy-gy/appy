@@ -1,3 +1,5 @@
 class CurrentUserSerializer < UserSerializer
-  self.root = :current_user
+  self.root = :user
+
+  attributes :role
 end

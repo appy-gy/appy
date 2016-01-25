@@ -10,6 +10,10 @@ ActiveAdmin.register Rating do
   filter :user
   filter :section
 
+  scope "Отсортированные", default: true do |ratings|
+    ratings.reorder(status: :desc, published_at: :desc, created_at: :desc)
+  end
+
   member_action :unpublish, method: :put
   member_action :browser_notification, method: :post
   collection_action :main_page, method: :get
@@ -24,8 +28,13 @@ ActiveAdmin.register Rating do
     column :status do |rating|
       rating.status_i18n
     end
+    column :views do |rating|
+      rating.views.value
+    end
     column :user
     column :section
+    column :published_at
+    column :created_at
     actions defaults: true do |rating|
       a link_to 'В черновики', unpublish_admin_rating_path(rating), data: { method: :put, confirm: 'Точно?' } if rating.published?
       a link_to 'Пуш уведомления', browser_notification_admin_rating_path(rating), data: { method: :post, confirm: 'Точно?' } if rating.published?

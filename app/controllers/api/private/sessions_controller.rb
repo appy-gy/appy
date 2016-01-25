@@ -2,13 +2,13 @@ module Api
   module Private
     class SessionsController < BaseController
       def show
-        render json: current_user, serializer: UserSerializer
+        render json: current_user, serializer: CurrentUserSerializer
       end
 
       def create
         user = login *params[:session].values_at(:email, :password), true
         return render_error unless user
-        render json: user, serializer: UserSerializer
+        render json: user, serializer: CurrentUserSerializer
       end
 
       def destroy
