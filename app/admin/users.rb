@@ -21,7 +21,7 @@ ActiveAdmin.register User do
 
   form do |f|
     f.semantic_errors
-    img src: f.object.avatar.url(:small)
+    img src: f.object.avatar.url
     f.inputs do
       f.input :name, as: :string
       f.input :email, as: :email
