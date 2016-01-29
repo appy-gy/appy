@@ -11,7 +11,7 @@ module Ratings
 
     def call
       key = "ratingview:#{rating.id}:#{ip}"
-      return unless client.exists key
+      return if client.exists key
       client.set key, 1
       client.expire key, expire
       rating.views.increment
