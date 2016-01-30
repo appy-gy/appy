@@ -72,6 +72,9 @@ gem 'whenever', require: false
 # Monitoring
 gem 'newrelic_rpm'
 
+# Assets
+gem 'uglifier'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-rails'
