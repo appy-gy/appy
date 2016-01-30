@@ -9,6 +9,7 @@ notPureConnect = require './setup/not_pure_connect'
 httpPrependBaseUrl = require './setup/http_prepend_base_url'
 httpCamelcaseData = require './setup/http_camelcase_data'
 setPixelRatio = require './setup/set_pixel_ratio'
+initServiceWorker = require './setup/init_service_worker'
 
 setup = ->
   initErrorsReporter()
@@ -22,5 +23,6 @@ setup = ->
   httpPrependBaseUrl()
   httpCamelcaseData()
   setPixelRatio()
+  initServiceWorker()
 
 module.exports = setup

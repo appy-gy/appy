@@ -1,8 +1,38 @@
 class BrowserNotification < ActiveRecord::Base
-  belongs_to :user
+  include Redis::Objects
 
-  validates :user, presence: true
+  set :fetcher_ids
+  set :clicker_ids
+
+  store_accessor :payload, :title, :body, :icon, :tag, :url
+
+  validates :title, :body, :icon, :tag, :url, presence: true
 
   scope :recent, -> { where 'created_at > ?', 30.minutes.ago }
-  scope :of, -> user { where user: user }
+  scope :for, -> user { where 'user_ids @> ARRAY[?]::uuid[]', user.id }
+
+  before_validation :set_icon, on: :create
+  before_validation :set_tag, on: :create
+
+  def users
+    User.where id: user_ids
+  end
+
+  def fetchers
+    User.where id: fetcher_ids.get
+  end
+
+  def clickers
+    User.where id: clicker_ids.get
+  end
+
+  private
+
+  def set_icon
+    self.icon = "#{ENV['TOP_ASSETS_HOST']}/files/favicon.png"
+  end
+
+  def set_tag
+    self.tag = SecureRandom.uuid
+  end
 end

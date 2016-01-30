@@ -1,0 +1,19 @@
+ru:
+  activerecord:
+    models:
+      browser_notification:
+        one: Браузерное уведомление
+        few: Браузерных уведомления
+        many: Браузерных уведомлений
+        other: Браузерные уведомления
+    attributes:
+      browser_notification:
+        title: Заголовок
+        body: Текст
+        url: Ссылка
+        users: Получатели
+        fetchers: Увидевшие
+        clickers: Кликнувшие
+        users_count: Количество получателей
+        fetchers_count: Количество увидивших
+        clickers_count: Количество кликнувших

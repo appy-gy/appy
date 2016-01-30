@@ -8,7 +8,6 @@ currentUserActions = require '../actions/current_user'
 ClearState = require './mixins/clear_state'
 LoginNotifier = require './mixins/login_notifier'
 Nothing = require './shared/nothing'
-startServiceWorker = require '../helpers/start_service_worker'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -38,9 +37,7 @@ App = React.createClass
   ]
 
   componentWillMount: ->
-    @fetchCurrentUser().then (user) ->
-      return unless user?
-      startServiceWorker()
+    @fetchCurrentUser()
 
   getChildContext: ->
     _.pick @props, 'currentUser'

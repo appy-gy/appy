@@ -1,5 +1,5 @@
 ActiveAdmin.register_page 'Login' do
-  menu label: 'Войти как', priority: 6
+  menu label: 'Войти как', priority: 7
 
   page_action :as, method: :post
 

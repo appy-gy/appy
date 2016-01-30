@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :private do
-      resource :browser_notifications, only: [:show]
+      resources :browser_notifications, only: [:index] do
+        put :click
+      end
       resource :browser_notification_subscriptions, only: [:update]
       resource :sessions, only: [:show, :create, :destroy] do
         get :check, on: :collection

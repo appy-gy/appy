@@ -4,36 +4,30 @@ module BrowserNotifications
     const :chrome_endpoint, 'https://android.googleapis.com/gcm/send'
     const :chrome_headers, { 'Authorization' => chrome_key, 'Content-Type' => 'application/json' }
 
-    attr_reader :item
+    attr_reader :notification
 
-    def initialize item
-      @item = item
+    def initialize notification
+      @notification = notification
     end
 
     def send
-      create_notifications_of item
+      notification.update user_ids: subscriptions.map(&:user_id)
 
-      BrowserNotificationSubscription.find_in_batches(batch_size: 100) do |subscriptions|
-        Array.wrap(subscriptions).group_by(&:browser).each do |browser, subscriptions|
-          __send__ "send_to_#{browser}", subscriptions
-        end
+      subscriptions.group_by(&:browser).each do |browser, subscriptions|
+        __send__ "send_to_#{browser}", subscriptions
       end
     end
 
-    def message user
+    def send_to user
       subscription = BrowserNotificationSubscription.find_by user: user
       return unless subscription
-      BrowserNotification.create user: subscription.user, payload: item.browser_notification_payload
       __send__ "send_to_#{subscription.browser}", Array.wrap(subscription)
     end
 
     private
 
-    def create_notifications_of item
-      BrowserNotificationSubscription.includes(:user).find_each do |subscription|
-        notification = BrowserNotification.create user: subscription.user
-        notification.update payload: item.browser_notification_payload
-      end
+    def subscriptions
+      @subscriptions ||= BrowserNotificationSubscription.all.to_a
     end
 
     def send_to_chrome subscriptions

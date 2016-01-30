@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160123090838) do
+ActiveRecord::Schema.define(version: 20160130113741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,10 +41,10 @@ ActiveRecord::Schema.define(version: 20160123090838) do
     t.json     "payload",    default: {}, null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.uuid     "user_id",                 null: false
+    t.uuid     "user_ids",   default: [], null: false, array: true
   end
 
-  add_index "browser_notifications", ["user_id"], name: "index_browser_notifications_on_user_id", using: :btree
+  add_index "browser_notifications", ["user_ids"], name: "index_browser_notifications_on_user_ids", using: :gin
 
   create_table "client_errors", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.json     "info",       default: {}, null: false
@@ -194,7 +194,6 @@ ActiveRecord::Schema.define(version: 20160123090838) do
 
   add_foreign_key "authentications", "users"
   add_foreign_key "browser_notification_subscriptions", "users"
-  add_foreign_key "browser_notifications", "users"
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "ratings"
   add_foreign_key "comments", "users"

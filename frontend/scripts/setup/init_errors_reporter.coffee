@@ -4,16 +4,19 @@ http = require '../helpers/http'
 deepSnakecaseKeys = require '../helpers/deep_snakecase_keys'
 
 reportError = (info) ->
-  data = deepSnakecaseKeys { info: addCommonInfo(info) }
-  http.post "client_errors", data
+  addCommonInfo(info).then (info) ->
+    data = deepSnakecaseKeys { info }
+    http.post "client_errors", data
 
 addCommonInfo = (info) ->
   canGetStore = _.includes ['interactive', 'complete'], document.readyState
-  getStore = if canGetStore then require('../get_store') else null
-  _.merge {}, info,
-    userId: getStore()?.getState()?.currentUser?.item?.id
-    url: location.toString()
-    userAgent: navigator.userAgent
+  info = _.merge {}, info, url: location.toString(), userAgent: navigator.userAgent
+
+  return Promise.resolve info unless canGetStore
+
+  getStore = require '../get_store'
+  getStore().then (store) ->
+    _.merge info, userId: getStore()?.getState()?.currentUser?.item?.id
 
 module.exports = ->
   return unless isClient()

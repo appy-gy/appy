@@ -9,12 +9,11 @@ getStore = require './get_store'
 {ReduxRouter} = ReduxRouter
 
 run = ->
-  element = <Provider store={getStore()}>
-    <ReduxRouter/>
-  </Provider>
+  getStore().then (store) ->
+    element = <Provider store={store}>
+      <ReduxRouter/>
+    </Provider>
 
-  ReactDOM.render element, document.querySelector('#page')
+    ReactDOM.render element, document.querySelector('#page')
 
-module.exports = ->
-  return run() if _.includes ['interactive', 'complete'], document.readyState
-  document.addEventListener 'DOMContentLoaded', run
+module.exports = run

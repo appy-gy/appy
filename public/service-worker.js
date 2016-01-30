@@ -4,14 +4,19 @@ self.addEventListener('push', function(event) {
     credentials: 'include'
   }).then(function(response) {
     return response.json().then(function(arg) {
-      var body, icon, notification, ref, tag, title, url;
+      var body, icon, id, notification, ref, tag, title, url;
       notification = arg.notification;
+      if (notification.payload.url == null) {
+        return;
+      }
+      id = notification.id;
       ref = notification.payload, title = ref.title, body = ref.body, icon = ref.icon, tag = ref.tag, url = ref.url;
       return self.registration.showNotification(title, {
         body: body,
         icon: icon,
         tag: tag,
         data: {
+          id: id,
           url: url
         }
       });
@@ -20,9 +25,15 @@ self.addEventListener('push', function(event) {
 });
 
 self.addEventListener('notificationclick', function(event) {
+  var id, ref, url;
   event.notification.close();
   if (clients.openWindow == null) {
     return;
   }
-  return clients.openWindow(event.notification.data.url);
+  ref = event.notification.data, id = ref.id, url = ref.url;
+  clients.openWindow(url);
+  return event.waitUntil(fetch("/api/private/browser_notifications/" + id + "/click", {
+    method: 'put',
+    credentials: 'include'
+  }));
 });

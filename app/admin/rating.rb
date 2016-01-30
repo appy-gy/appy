@@ -15,7 +15,6 @@ ActiveAdmin.register Rating do
   end
 
   member_action :unpublish, method: :put
-  member_action :browser_notification, method: :post
   collection_action :main_page, method: :get
   collection_action :update_main_page, method: :put
 
@@ -37,7 +36,6 @@ ActiveAdmin.register Rating do
     column :created_at
     actions defaults: true do |rating|
       a link_to 'В черновики', unpublish_admin_rating_path(rating), data: { method: :put, confirm: 'Точно?' } if rating.published?
-      a link_to 'Пуш уведомления', browser_notification_admin_rating_path(rating), data: { method: :post, confirm: 'Точно?' } if rating.published?
     end
   end
 
@@ -74,11 +72,6 @@ ActiveAdmin.register Rating do
 
     def unpublish
       Ratings::Unpublish.new(resource).call
-      redirect_to admin_ratings_path
-    end
-
-    def browser_notification
-      BrowserNotifications::Sender.new(resource).send
       redirect_to admin_ratings_path
     end
 
