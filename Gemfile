@@ -63,7 +63,7 @@ gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'cocaine', '~> 0.5.7'
 
 # Jobs
-gem 'sidekiq', '~> 3.5.3'
+gem 'sidekiq', '~> 4.1.0'
 gem 'whenever', '~> 0.9.4', require: false
 
 # Monitoring
