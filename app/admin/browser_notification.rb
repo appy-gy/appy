@@ -41,9 +41,10 @@ ActiveAdmin.register BrowserNotification do
   show do
     users_list = -> subscriptions do
       users = User.where id: subscriptions.where.not(user_id: nil).select(:user_id)
+      unregistred_count = subscriptions.where(user_id: nil).count
       list = users.map{ |user| link_to user.name, "/users/#{user.slug}", target: '_blank' }.join(', ')
-      list += ' + ' if users.present?
-      list += "#{subscriptions.where(user_id: nil).count} незарегистрированных"
+      list += ' + ' if users.present? and unregistred_count > 0
+      list += "#{unregistred_count} незарегистрированных" if unregistred_count > 0
       list.html_safe
     end
 
