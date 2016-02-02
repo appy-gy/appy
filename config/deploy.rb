@@ -23,8 +23,6 @@ set :npm_options, ''
 
 set :sidekiq_pid, -> { "#{deploy_to}/#{shared_path}/tmp/pids/sidekiq.pid" }
 
-set :phoenid_pid, -> { "#{deploy_to}/#{shared_path}/tmp/pids/phoenix.pid" }
-
 # This task is the environment that is loaded for most commands, such as
 # `mina deploy` or `mina rake`.
 task :environment do
