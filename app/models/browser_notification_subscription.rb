@@ -3,6 +3,6 @@ class BrowserNotificationSubscription < ActiveRecord::Base
 
   enum browser: %w{chrome firefox}
 
-  validates :browser, :user, presence: true
-  validates :user_id, uniqueness: true
+  validates :browser, :endpoint, presence: true
+  validates :endpoint, uniqueness: { scope: :browser }
 end

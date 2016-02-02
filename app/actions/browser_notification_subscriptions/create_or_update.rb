@@ -8,8 +8,9 @@ module BrowserNotificationSubscriptions
     end
 
     def call
-      subscription = BrowserNotificationSubscription.find_or_initialize_by user: user
-      subscription.update params
+      subscription = BrowserNotificationSubscription.find_or_initialize_by params
+      subscription.user = user if user
+      subscription.save
       subscription
     end
   end

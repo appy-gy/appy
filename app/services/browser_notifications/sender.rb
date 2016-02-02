@@ -11,7 +11,7 @@ module BrowserNotifications
     end
 
     def send
-      notification.update user_ids: subscriptions.map(&:user_id)
+      notification.update subscription_ids: subscriptions.map(&:id)
 
       subscriptions.group_by(&:browser).each do |browser, subscriptions|
         __send__ "send_to_#{browser}", subscriptions
@@ -31,14 +31,14 @@ module BrowserNotifications
     end
 
     def send_to_chrome subscriptions
-      reg_ids = subscriptions.map { |subscription| subscription.info['endpoint'].split('/').last }
+      reg_ids = subscriptions.map { |subscription| subscription.endpoint.split('/').last }
       body = { registration_ids: reg_ids }.to_json
       HTTParty.post chrome_endpoint, body: body, headers: chrome_headers
     end
 
     def send_to_firefox subscriptions
       subscriptions.each do |subscription|
-        HTTParty.post subscription.info['endpoint']
+        HTTParty.post subscription.endpoint
       end
     end
   end

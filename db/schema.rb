@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130113741) do
+ActiveRecord::Schema.define(version: 20160202201003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,23 +28,23 @@ ActiveRecord::Schema.define(version: 20160130113741) do
   add_index "authentications", ["provider", "uid"], name: "index_authentications_on_provider_and_uid", using: :btree
 
   create_table "browser_notification_subscriptions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.integer  "browser",                 null: false
-    t.json     "info",       default: {}, null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.uuid     "user_id",                 null: false
+    t.integer  "browser",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid     "user_id"
+    t.text     "endpoint",   null: false
   end
 
-  add_index "browser_notification_subscriptions", ["user_id"], name: "index_browser_notification_subscriptions_on_user_id", unique: true, using: :btree
+  add_index "browser_notification_subscriptions", ["endpoint", "browser"], name: "index_bns_on_endpoint_and_browser", unique: true, using: :btree
 
   create_table "browser_notifications", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.json     "payload",    default: {}, null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.uuid     "user_ids",   default: [], null: false, array: true
+    t.json     "payload",          default: {}, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.uuid     "subscription_ids", default: [], null: false, array: true
   end
 
-  add_index "browser_notifications", ["user_ids"], name: "index_browser_notifications_on_user_ids", using: :gin
+  add_index "browser_notifications", ["subscription_ids"], name: "index_browser_notifications_on_subscription_ids", using: :gin
 
   create_table "client_errors", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.json     "info",       default: {}, null: false

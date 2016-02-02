@@ -9,21 +9,21 @@ class BrowserNotification < ActiveRecord::Base
   validates :title, :body, :icon, :tag, :url, presence: true
 
   scope :recent, -> { where 'created_at > ?', 30.minutes.ago }
-  scope :for, -> user { where 'user_ids @> ARRAY[?]::uuid[]', user.id }
+  scope :for, -> subscription { where 'subscription_ids @> ARRAY[?]::uuid[]', subscription.id }
 
   before_validation :set_icon, on: :create
   before_validation :set_tag, on: :create
 
-  def users
-    User.where id: user_ids
+  def recipients
+    BrowserNotificationSubscription.where id: subscription_ids
   end
 
   def fetchers
-    User.where id: fetcher_ids.get
+    BrowserNotificationSubscription.where id: fetcher_ids.get
   end
 
   def clickers
-    User.where id: clicker_ids.get
+    BrowserNotificationSubscription.where id: clicker_ids.get
   end
 
   private

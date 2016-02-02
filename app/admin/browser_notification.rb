@@ -15,7 +15,7 @@ ActiveAdmin.register BrowserNotification do
       link_to notification.url, notification.url, target: '_blank'
     end
     column :users_count do |notification|
-      notification.user_ids.count
+      notification.subscription_ids.count
     end
     column :fetchers_count do |notification|
       notification.fetcher_ids.count
@@ -39,8 +39,12 @@ ActiveAdmin.register BrowserNotification do
   end
 
   show do
-    users_list = -> users do
-      users.map{ |user| link_to user.name, "/users/#{user.slug}", target: '_blank' }.join(', ').html_safe
+    users_list = -> subscriptions do
+      users = User.where id: subscriptions.where.not(user_id: nil).select(:user_id)
+      list = users.map{ |user| link_to user.name, "/users/#{user.slug}", target: '_blank' }.join(', ')
+      list += ' + ' if users.present?
+      list += "#{subscriptions.where(user_id: nil).count} незарегистрированных"
+      list.html_safe
     end
 
     attributes_table do
@@ -50,7 +54,7 @@ ActiveAdmin.register BrowserNotification do
         link_to notification.url, notification.url, target: '_blank'
       end
       row :users do |notification|
-        users_list.call notification.users
+        users_list.call notification.recipients
       end
       row :fetchers do |notification|
         users_list.call notification.fetchers
