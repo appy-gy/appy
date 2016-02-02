@@ -3,77 +3,74 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5.1'
 
 # Server
-gem 'puma'
+gem 'puma', '~> 2.15.2'
 
 # Database
-gem 'pg'
-gem 'dalli'
-gem 'redis-objects'
-gem 'chewy'
+gem 'pg', '~> 0.18.3'
+gem 'dalli', '~> 2.7.4'
+gem 'redis-objects', '~> 1.2.1'
+gem 'chewy', '~> 0.8.2'
 
 # Configuration
-gem 'dotenv-rails'
+gem 'dotenv-rails', '~> 2.0.2'
 
 # Serialization
 gem 'active_model_serializers', '~> 0.8.3'
-gem 'oj'
-gem 'oj_mimic_json'
+gem 'oj', '~> 2.13.0'
+gem 'oj_mimic_json', '~> 1.0.1'
 
 # Ruby extensions
-gem 'handy_const'
+gem 'handy_const', '~> 0.1.1'
 
 # Authentication
-gem 'sorcery'
+gem 'sorcery', '~> 0.9.1'
 
 # Files upload
-gem 'carrierwave'
-gem 'carrierwave-processing'
+gem 'carrierwave', '~> 0.10.0'
+gem 'carrierwave-processing', '~> 1.1.0'
 
 # Video info
-gem 'video_info'
+gem 'video_info', '~> 2.5.0'
 
 # Pagination
-gem 'kaminari'
+gem 'kaminari', '~> 0.16.3'
 
 # Soft delete
-gem 'paranoia'
+gem 'paranoia', '~> 2.1.4'
 
 # Image processing
-gem 'mini_magick'
+gem 'mini_magick', '~> 4.3.6'
 
 # HTTP requests
-gem 'httparty'
-
-# Procfile managment
-gem 'foreman'
+gem 'httparty', '~> 0.13.7'
 
 # I18n
-gem 'russian'
-gem 'enum_help'
+gem 'russian', '~> 0.6.0'
+gem 'enum_help', '~> 0.0.14'
 
 # Friendly urls
-gem 'babosa'
-gem 'friendly_id'
+gem 'babosa', '~> 1.0.2'
+gem 'friendly_id', '~> 5.1.0'
 
 # Mailing
-gem 'mandrill-api'
-gem 'slim'
+gem 'mandrill-api', '~> 1.0.53'
+gem 'slim', '~> 3.0.6'
 
 # Administration
 gem 'activeadmin', '~> 1.0.0.pre1'
 
 # Command line
-gem 'cocaine'
+gem 'cocaine', '~> 0.5.7'
 
 # Jobs
-gem 'sidekiq'
-gem 'whenever', require: false
+gem 'sidekiq', '~> 3.5.3'
+gem 'whenever', '~> 0.9.4', require: false
 
 # Monitoring
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', '~> 3.14.0.305'
 
 # Assets
-gem 'uglifier'
+gem 'uglifier', '~> 2.7.2'
 
 group :development, :test do
   gem 'awesome_print'
@@ -83,6 +80,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'foreman', '~> 0.78.0', require: false
   gem 'guard'
   gem 'guard-rspec'
   gem 'spring'
