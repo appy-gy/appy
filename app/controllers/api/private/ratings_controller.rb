@@ -1,7 +1,7 @@
 module Api
   module Private
     class RatingsController < BaseController
-      find :rating, only: [:show, :update, :destroy, :similar, :view]
+      find :rating, only: [:show, :update, :destroy, :similar, :prev_next, :view]
       check 'Ratings::CanEdit', :@rating, only: [:update, :destroy]
 
       def index
@@ -31,6 +31,11 @@ module Api
 
       def similar
         ratings = ::Ratings::FindSimilar.new(@rating).call
+        render json: ratings
+      end
+
+      def prev_next
+        ratings = ::Ratings::FindPrevNext.new(@rating).call
         render json: ratings
       end
 

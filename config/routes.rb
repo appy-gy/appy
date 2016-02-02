@@ -24,7 +24,7 @@ Rails.application.routes.draw do
         end
       end
       resources :ratings, only: [:index, :show, :create, :update, :destroy] do
-        get :similar
+        get :similar, :prev_next
         put :view
         scope module: :ratings do
           resource :tags, only: [:create, :destroy]
