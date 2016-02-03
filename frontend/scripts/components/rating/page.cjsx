@@ -121,8 +121,8 @@ RatingPage = React.createClass
       <Helmet title={rating.title} meta={@meta()}/>
       <Rating rating={rating} ratingItems={ratingItems} canEdit={@canEdit()}/>
       {@similar()}
-      {@prevNext()}
       {@comments()}
+      {@prevNext()}
       {@editModeSwitcher()}
     </Layout>
 

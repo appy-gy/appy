@@ -24,8 +24,20 @@ PrevNext = React.createClass
     @props.dispatch fetchPrevNextRatings(@props.rating.slug)
 
   render: ->
-    <div>
-      {@props.ratings.map((rating) -> rating.id)}
+    <div className="prev-next">
+      <div className="prev-next_item">
+        <div className="prev-next_content">
+          <div className="prev-next_arrow m-prev"></div>
+          <div className="prev-next_title">Шесть советов начинающим косплеерам</div>
+
+        </div>
+      </div>
+      <div className="prev-next_item">
+        <div className="prev-next_content">
+          <div className="prev-next_arrow m-next"></div>
+          <div className="prev-next_title">Шесть советов начинающим косплеерам</div>
+        </div>
+      </div>
     </div>
 
 mapStateToProps = ({prevNextRatings}) ->
