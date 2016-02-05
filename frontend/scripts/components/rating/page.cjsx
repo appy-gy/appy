@@ -11,6 +11,7 @@ canEditRating = require '../../helpers/ratings/can_edit'
 SyncSlug = require '../mixins/sync_slug'
 Rating = require './rating'
 Similar = require './similar'
+PrevNext = require './prev_next'
 Comments = require './comments'
 EditModeSwitcher = require './edit_mode_switcher'
 Layout = require '../layout/layout'
@@ -96,6 +97,11 @@ RatingPage = React.createClass
 
     <Similar rating={rating}/> if rating.status == 'published'
 
+  prevNext: ->
+    {rating} = @props
+
+    <PrevNext rating={rating}/> if rating.status == 'published'
+
   comments: ->
     {rating} = @props
 
@@ -116,6 +122,7 @@ RatingPage = React.createClass
       <Rating rating={rating} ratingItems={ratingItems} canEdit={@canEdit()}/>
       {@similar()}
       {@comments()}
+      {@prevNext()}
       {@editModeSwitcher()}
     </Layout>
 
