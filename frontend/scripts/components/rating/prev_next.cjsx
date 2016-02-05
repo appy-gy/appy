@@ -1,7 +1,10 @@
+_ = require 'lodash'
 React = require 'react'
 PureRendexMixin = require 'react-addons-pure-render-mixin'
 ReactRedux = require 'react-redux'
+imageUrl = require '../../helpers/image_url'
 prevNextRatingActions = require '../../actions/prev_next_ratings'
+RatingLink = require '../shared/links/rating'
 
 {PropTypes} = React
 {connect} = ReactRedux
@@ -23,21 +26,28 @@ PrevNext = React.createClass
   fetchPrevNextRatings: ->
     @props.dispatch fetchPrevNextRatings(@props.rating.slug)
 
+  ratings: ->
+    {ratings} = @props
+
+    return if _.isEmpty ratings
+
+    ['prev', 'next'].map (mod, index) =>
+      rating = ratings[index]
+      @rating rating, mod
+
+  rating: (rating, mod) ->
+    styles = backgroundImage: "url(#{imageUrl(rating.image, 'normal')})"
+
+    <RatingLink key={mod} className="prev-next_item" rating={rating} style={styles}>
+      <div className="prev-next_content">
+        <div className="prev-next_arrow m-#{mod}"></div>
+        <div className="prev-next_title">{rating.title}</div>
+      </div>
+    </RatingLink>
+
   render: ->
     <div className="prev-next">
-      <div className="prev-next_item">
-        <div className="prev-next_content">
-          <div className="prev-next_arrow m-prev"></div>
-          <div className="prev-next_title">Шесть советов начинающим косплеерам</div>
-
-        </div>
-      </div>
-      <div className="prev-next_item">
-        <div className="prev-next_content">
-          <div className="prev-next_arrow m-next"></div>
-          <div className="prev-next_title">Шесть советов начинающим косплеерам</div>
-        </div>
-      </div>
+      {@ratings()}
     </div>
 
 mapStateToProps = ({prevNextRatings}) ->

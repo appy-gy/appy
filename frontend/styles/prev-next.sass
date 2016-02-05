@@ -1,15 +1,18 @@
 .prev-next
   width: 100%
   display: flex
+
   @media screen and (min-width: $small)
     margin: -15px -15px 0 -15px
     width: calc(100% + 30px)
     padding: 10px 0 30px 0
+
   &_item
     width: 50%
     height: 200px
-    background-image: url("http://localhost:9292/system/rating/image/7c8fe748/3bf4/400a/b9ed/d4a7af09143b/normal_2x_10338464_1398162190468725_4681740199563324724_o.jpg")
     margin: 15px
+    background-position: center
+    background-size: contain
     position: relative
 
     &::after
@@ -25,10 +28,8 @@
 
     &:hover
       .prev-next
-        &_title,
-        &_arrow
+        &_title, &_arrow
           color: $green
-
 
   &_content
     z-index: 1
@@ -42,6 +43,7 @@
     flex-flow: column
     justify-content: center
     align-items: center
+
     @media screen and (min-width: $small)
       padding: 20px
 
@@ -65,12 +67,11 @@
     font-size: 48px
     color: $white
     line-height: 1
-    &.m-prev
 
+    &.m-prev
       &:before
         +ion-icon('ios-arrow-thin-left')
 
     &.m-next
-
       &:before
         +ion-icon('ios-arrow-thin-right')

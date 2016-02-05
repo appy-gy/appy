@@ -115,8 +115,7 @@ GEM
     dalli (2.7.4)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
-    did_you_mean (0.10.0)
-      interception
+    did_you_mean (1.0.0)
     diff-lcs (1.2.5)
     dotenv (2.0.2)
     dotenv-rails (2.0.2)
@@ -181,7 +180,6 @@ GEM
       has_scope (~> 0.6.0.rc)
       railties (>= 3.2, < 5)
       responders
-    interception (0.5)
     iso8601 (0.8.7)
     jquery-rails (4.0.5)
       rails-dom-testing (~> 1.0)
@@ -429,3 +427,6 @@ DEPENDENCIES
   uglifier
   video_info
   whenever
+
+BUNDLED WITH
+   1.11.2
