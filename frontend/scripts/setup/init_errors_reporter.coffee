@@ -16,7 +16,8 @@ addCommonInfo = (info) ->
 
   getStore = require '../get_store'
   getStore().then (store) ->
-    _.merge info, userId: getStore()?.getState()?.currentUser?.item?.id
+    userId = store.getState().currentUser.item.id
+    _.merge info, { userId }
 
 module.exports = ->
   return unless isClient()
