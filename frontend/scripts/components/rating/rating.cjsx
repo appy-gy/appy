@@ -42,7 +42,7 @@ Rating = React.createClass
 
     return unless canEdit
 
-    position = (_.max(ratingItems, 'position')?.position || 0) + 1
+    position = (_.maxBy(ratingItems, 'position')?.position || 0) + 1
 
     <AddRatingItem className="rating_new-item-button-wrapper" ratingItems={ratingItems} position={position}>
       <div className="rating_new-item-button" >

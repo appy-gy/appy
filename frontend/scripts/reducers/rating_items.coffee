@@ -8,7 +8,7 @@ cleaner = require '../helpers/reducers/cleaner'
 
 {defaultState, handlers} = itemsReceiver 'ratingItems'
 
-defaultState = _.backflow defaultState, ->
+defaultState = _.flowRight defaultState, ->
   waypoint: null
   order: 'author'
 

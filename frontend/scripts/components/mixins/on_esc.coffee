@@ -6,7 +6,7 @@ escListeners = []
 onEsc = (event) ->
   return unless event.keyCode == 27
   listeners = escListeners.filter ({use}) -> use event
-  maxPriority = _.max(listeners, 'priority').priority
+  maxPriority = _.maxBy(listeners, 'priority').priority
   listeners
     .filter ({priority}) -> priority == maxPriority
     .each ({cb}) -> cb event

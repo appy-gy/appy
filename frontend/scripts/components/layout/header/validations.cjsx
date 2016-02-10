@@ -20,7 +20,7 @@ Validations = React.createClass
 
     validations = prepublishValidation(rating, ratingItems)
 
-    firstError = _.first validations.errors
+    firstError = _.head validations.errors
     counterText = "#{validations.errorsTotal - validations.errors.length} / #{validations.errorsTotal}"
 
     Component = if firstError

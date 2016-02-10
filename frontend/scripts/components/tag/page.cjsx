@@ -75,7 +75,7 @@ mapStateToProps = ({router, tagRatings, tag}, {tagSlug}) ->
   tagSlug: router.params.tagSlug
   page: parseInt(router.location.query?.page || 1)
   pagesCount: tagRatings.pagesCount
-  isFetched: _.any [tagRatings, tag], 'isFetched'
-  isFailed: _.any [tagRatings, tag], 'isFailed'
+  isFetched: _.some [tagRatings, tag], 'isFetched'
+  isFailed: _.some [tagRatings, tag], 'isFailed'
 
 module.exports = connect(mapStateToProps)(Tag)

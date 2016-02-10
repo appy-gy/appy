@@ -74,7 +74,7 @@ mapStateToProps = ({router, sectionRatings, section}, {sectionSlug}) ->
   sectionSlug: router.params.sectionSlug
   page: parseInt(router.location.query?.page || 1)
   pagesCount: sectionRatings.pagesCount
-  isFetching: _.any [sectionRatings, section], 'isFetching'
-  isFailed: _.any [sectionRatings, section], 'isFailed'
+  isFetching: _.some [sectionRatings, section], 'isFetching'
+  isFailed: _.some [sectionRatings, section], 'isFailed'
 
 module.exports = connect(mapStateToProps)(Section)

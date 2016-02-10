@@ -8,7 +8,7 @@ cleaner = require '../helpers/reducers/cleaner'
 
 {defaultState, handlers} = itemsReceiver 'ratingComments'
 
-defaultState = _.backflow defaultState, ->
+defaultState = _.flowRight defaultState, ->
   visibleCommentForm: null
 
 handlers = _.merge handlers, cleaner('ratingComments', defaultState),

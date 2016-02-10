@@ -14,7 +14,7 @@
     "history": "^1.17.0",
     "iconfonts": "^0.7.0",
     "jade": "^1.11.0",
-    "lodash": "^3.10.1",
+    "lodash": "^4.3.0",
     "medium-editor": "^5.8.3",
     "memcached": "^2.2.0",
     "moment": "^2.10.6",

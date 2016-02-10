@@ -73,7 +73,7 @@ mapStateToProps = ({router, ratings, mainPageRatings}) ->
   ratings: ratings.items
   mainPageRatings: mainPageRatings.item
   isFetched: _.isEmpty(ratings.fetchingPages) || mainPageRatings.isFetched
-  isFailed: _.any [mainPageRatings, ratings], 'isFailed'
+  isFailed: _.some [mainPageRatings, ratings], 'isFailed'
   page: parseInt(router.location.query?.page || 1)
   pagesCount: ratings.pagesCount
 

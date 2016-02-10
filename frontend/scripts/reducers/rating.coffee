@@ -8,7 +8,7 @@ cleaner = require '../helpers/reducers/cleaner'
 
 {defaultState, handlers} = itemReceiver 'rating'
 
-defaultState = _.backflow defaultState, ->
+defaultState = _.flowRight defaultState, ->
   updateStatus: 'done'
 
 handlers = _.merge handlers, cleaner('rating', defaultState),
