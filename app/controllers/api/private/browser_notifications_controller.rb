@@ -6,7 +6,7 @@ module Api
       before_action :find_subscription
 
       def index
-        notification = BrowserNotification.recent.for(@subscription).order(:created_at).last
+        notification = BrowserNotification.for(@subscription).order(:created_at).last
         return render json: {} unless notification
         notification.fetcher_ids.add @subscription.id
         render json: notification

@@ -8,7 +8,6 @@ class BrowserNotification < ActiveRecord::Base
 
   validates :title, :body, :icon, :tag, :url, presence: true
 
-  scope :recent, -> { where 'created_at > ?', 30.minutes.ago }
   scope :for, -> subscription { where 'subscription_ids @> ARRAY[?]::uuid[]', subscription.id }
 
   before_validation :set_icon, on: :create
