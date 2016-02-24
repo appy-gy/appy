@@ -13,6 +13,8 @@ class OauthsController < ApplicationController
     return unless user
     reset_session
     auto_login user, true
+  rescue => e
+    Rails.logger.error("Oauth fail. #{e.inspect}. #{e.backtrace.join("\n")}")
   ensure
     redirect_back_or_to '/'
   end
