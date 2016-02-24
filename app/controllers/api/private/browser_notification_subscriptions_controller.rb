@@ -3,7 +3,7 @@ module Api
     class BrowserNotificationSubscriptionsController < BaseController
       def update
         subscription = ::BrowserNotificationSubscriptions::CreateOrUpdate.new(current_user, subscription_params).call
-        session[:browser_notification_subscription_id] = subscription.id
+        cookies[:browser_notification_subscription_id] = { value: subscription.id, expires: 10.years.from_now, httponly: true }
         render json: { success: true }
       end
 

@@ -6,21 +6,23 @@ module Api
       before_action :find_subscription
 
       def index
-        notification = BrowserNotification.for(@subscription).order(:created_at).last
+        notifications = BrowserNotification.order(:created_at)
+        notifications = notifications.for(@subscription) if @subscription
+        notification = notifications.last
         return render json: {} unless notification
-        notification.fetcher_ids.add @subscription.id
+        notification.fetcher_ids.add @subscription.id if @subscription
         render json: notification
       end
 
       def click
-        @browser_notification.clicker_ids.add @subscription.id
+        @browser_notification.clicker_ids.add @subscription.id if @subscription
         render json: { success: true }
       end
 
       private
 
       def find_subscription
-        @subscription = BrowserNotificationSubscription.find session[:browser_notification_subscription_id]
+        @subscription = BrowserNotificationSubscription.find cookies[:browser_notification_subscription_id]
       end
     end
   end

@@ -1,5 +1,6 @@
 initErrorsReporter = require './setup/init_errors_reporter'
 replacePromise = require './setup/replace_promise'
+polyfillLocalStorage = require './setup/polyfill_local_storage'
 polyfillSetImmediate = require './setup/polyfill_set_immediate'
 polyfillSet = require './setup/polyfill_set'
 arrayEach = require './setup/array_each'
@@ -14,6 +15,7 @@ initServiceWorker = require './setup/init_service_worker'
 setup = ->
   initErrorsReporter()
   replacePromise()
+  polyfillLocalStorage()
   polyfillSetImmediate()
   polyfillSet()
   arrayEach()
