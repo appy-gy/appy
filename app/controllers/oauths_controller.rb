@@ -8,8 +8,7 @@ class OauthsController < ApplicationController
 
   def callback
     provider = auth_params[:provider]
-    return if login_from provider
-    user = recognize_user(provider) || create_user(provider)
+    user = login_from(provider) || recognize_user(provider) || create_user(provider)
     return unless user
     reset_session
     auto_login user, true
