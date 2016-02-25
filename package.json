@@ -14,7 +14,6 @@
     "history": "^1.17.0",
     "iconfonts": "^0.7.0",
     "jade": "^1.11.0",
-    "localStorage": "^1.0.3",
     "lodash": "^4.3.0",
     "medium-editor": "^5.8.3",
     "memcached": "^2.2.0",
