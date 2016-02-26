@@ -114,7 +114,6 @@ GEM
       multi_json
     enum_help (0.0.14)
     erubis (2.7.0)
-    excon (0.45.4)
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -182,9 +181,6 @@ GEM
     lumberjack (1.0.10)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mandrill-api (1.0.53)
-      excon (>= 0.16.0, < 1.0)
-      json (>= 1.7.7, < 2.0)
     method_source (0.8.2)
     mime-types (2.99)
     mina (0.3.8)
@@ -378,7 +374,6 @@ DEPENDENCIES
   handy_const (~> 0.1.1)
   httparty (~> 0.13.7)
   kaminari (~> 0.16.3)
-  mandrill-api (~> 1.0.53)
   mina
   mina-puma
   mina-sidekiq

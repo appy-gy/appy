@@ -53,7 +53,6 @@ gem 'babosa', '~> 1.0.2'
 gem 'friendly_id', '~> 5.1.0'
 
 # Mailing
-gem 'mandrill-api', '~> 1.0.53'
 gem 'slim', '~> 3.0.6'
 
 # Administration

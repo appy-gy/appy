@@ -61,12 +61,12 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'smtp.mandrillapp.com',
+    address: 'smtp.sendgrid.net',
     port: 587,
     domain: config.host,
     authentication: :login,
-    user_name: ENV['TOP_MANDRILL_LOGIN'],
-    password: ENV['TOP_MANDRILL_PASSWORD'],
+    user_name: ENV['TOP_SENDGRID_LOGIN'],
+    password: ENV['TOP_SENDGRID_PASSWORD'],
     enable_starttls_auto: true
   }
 
