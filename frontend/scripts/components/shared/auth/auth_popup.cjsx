@@ -3,7 +3,7 @@ Title = require './title'
 SocialButtons = require './social_buttons'
 Or = require './or'
 AuthForm = require './auth_form'
-ResetPassword = require './reset_password'
+SendResetPassword = require './send_reset_password'
 
 {PropTypes} = React
 
@@ -25,7 +25,7 @@ AuthPopup = React.createClass
       <AuthForm ref="form" onSubmit={onSubmit}/>
       <div className="auth-popup_links">
         {switcher}
-        <ResetPassword className="auth-popup_link"/>
+        <SendResetPassword className="auth-popup_link"/>
       </div>
     </div>
 

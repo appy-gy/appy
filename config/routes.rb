@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       resource :sessions, only: [:show, :create, :destroy] do
         get :check, on: :collection
       end
-      resource :reset_passwords, only: [:create]
+      resource :reset_passwords, only: [:create, :update]
       resources :sections, only: [:index, :show] do
         scope module: :sections do
           resources :ratings, only: [:index]

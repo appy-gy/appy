@@ -50,9 +50,16 @@ changePassword = (oldPassword, newPassword) ->
     data = deepSnakecaseKeys { oldPassword, newPassword }
     http.put "users/#{currentUser.item.id}/change_password", data
 
-resetPassword = (email) ->
+sendResetPassword = (email) ->
   (dispatch, getState) ->
     http.post 'reset_passwords', { email }
 
+resetPassword = ({token, password}) ->
+  (dispatch, getState) ->
+    http.put 'reset_passwords', { token, password }
+      .then ({data}) ->
+        dispatch receiveCurrentUser(data.user)
+        data
+
 module.exports = { fetchCurrentUser, changeCurrentUser, updateCurrentUser,
-  logIn, logOut, register, changePassword, resetPassword }
+  logIn, logOut, register, changePassword, sendResetPassword, resetPassword }

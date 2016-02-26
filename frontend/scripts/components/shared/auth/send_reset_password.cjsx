@@ -3,34 +3,34 @@ ReactRedux = require 'react-redux'
 popupActions = require '../../../actions/popups'
 buildPopup = require '../../../helpers/popups/build'
 Classes = require '../../mixins/classes'
-ResetPasswordPopup = require './reset_password_popup'
+SendResetPasswordPopup = require './send_reset_password_popup'
 
 {PropTypes} = React
 {connect} = ReactRedux
 {appendPopup, removePopupsWithType} = popupActions
 
-ResetPassword = React.createClass
-  displayName: 'ResetPassword'
+SendResetPassword = React.createClass
+  displayName: 'SendResetPassword'
 
   mixins: [Classes]
 
   propTypes:
     dispatch: PropTypes.func.isRequired
 
-  showResetPasswordPopup: ->
+  showSendResetPasswordPopup: ->
     {dispatch} = @props
 
     dispatch removePopupsWithType('auth')
 
     popup = buildPopup
       type: 'auth'
-      content: -> <ResetPasswordPopup/>
+      content: -> <SendResetPasswordPopup/>
 
     dispatch appendPopup(popup)
 
   render: ->
-    <div className={@classes()} onClick={@showResetPasswordPopup}>
+    <div className={@classes()} onClick={@showSendResetPasswordPopup}>
       Забыли пароль?
     </div>
 
-module.exports = connect()(ResetPassword)
+module.exports = connect()(SendResetPassword)

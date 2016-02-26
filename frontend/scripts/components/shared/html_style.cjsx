@@ -13,8 +13,8 @@ HtmlStyle = React.createClass
   render: ->
     null
 
-reducePropsToState = (propsList) ->
-  _.transform propsList, (result, {style}) ->
+reducePropsToState = (props) ->
+  _.transform props, (result, {style}) ->
     _.merge result, style
   , {}
 

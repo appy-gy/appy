@@ -1,15 +1,16 @@
 module Users
   class ResetPassword
-    attr_reader :email
+    attr_reader :token, :password
 
-    def initialize email
-      @email = email
+    def initialize token, password
+      @token = token
+      @password = password
     end
 
     def call
-      user = User.find_by email: email
-      return false unless user
-      user.deliver_reset_password_instructions!
+      user = User.load_from_reset_password_token(token)
+      return false unless user and user.change_password!(password)
+      user
     end
   end
 end

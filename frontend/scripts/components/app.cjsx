@@ -7,6 +7,7 @@ Helmet = require 'react-helmet'
 currentUserActions = require '../actions/current_user'
 ClearState = require './mixins/clear_state'
 LoginNotifier = require './mixins/login_notifier'
+ResetPasswordPopupDisplayer = require './shared/reset_password_popup_displayer'
 Nothing = require './shared/nothing'
 
 {PropTypes} = React
@@ -51,6 +52,7 @@ App = React.createClass
   render: ->
     <span>
       <Helmet titleTemplate={@title} meta={@meta}/>
+      <ResetPasswordPopupDisplayer/>
       {@content()}
     </span>
 

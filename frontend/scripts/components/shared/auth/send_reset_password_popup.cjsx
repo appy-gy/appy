@@ -10,11 +10,11 @@ Form = require './form'
 
 {PropTypes} = React
 {connect} = ReactRedux
-{resetPassword} = currentUserActions
+{sendResetPassword} = currentUserActions
 {removePopupsWithType} = popupActions
 
-ResetPasswordPopup = React.createClass
-  displayName: 'ResetPasswordPopup'
+SendResetPasswordPopup = React.createClass
+  displayName: 'SendResetPasswordPopup'
 
   mixins: [LinkedStateMixin]
 
@@ -27,13 +27,13 @@ ResetPasswordPopup = React.createClass
   getInitialState: ->
     email: ''
 
-  resetPassword: (event) ->
+  sendResetPassword: (event) ->
     {dispatch} = @props
     {email} = @state
 
     event.preventDefault()
 
-    dispatch resetPassword(email)
+    dispatch sendResetPassword(email)
       .then =>
         @showSuccessToast()
         dispatch removePopupsWithType('auth')
@@ -48,7 +48,7 @@ ResetPasswordPopup = React.createClass
   render: ->
     <div className="auth-popup">
       <Title text="Восстановление пароля"/>
-      <Form className="auth-popup_form" onSubmit={@resetPassword}>
+      <Form className="auth-popup_form" onSubmit={@sendResetPassword}>
         <div className="auth-popup_input-wrapper">
           <input type="text" className="auth-popup_input m-solo" autoFocus placeholder="Email" valueLink={@linkState 'email'}/>
         </div>
@@ -60,4 +60,4 @@ ResetPasswordPopup = React.createClass
       </div>
     </div>
 
-module.exports = connect()(ResetPasswordPopup)
+module.exports = connect()(SendResetPasswordPopup)

@@ -4,6 +4,6 @@ Nothing = React.createClass
   displayName: 'Nothing'
 
   render: ->
-    <span className="g-hidden"></span>
+    <noscript className="g-hidden"></noscript>
 
 module.exports = Nothing
