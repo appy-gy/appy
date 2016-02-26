@@ -5,9 +5,9 @@ require 'mina/npm'
 require 'mina/puma'
 require 'mina_sidekiq/tasks'
 
-set :domain, '46.101.238.69'
+set :domain, 'appy.gy'
 set :deploy_to, '/var/www/top'
-set :repository, 'git@github.com:kotovsky/top.git'
+set :repository, 'git@gitlab.com:appy.gy/appy.git'
 set :branch, 'master'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
