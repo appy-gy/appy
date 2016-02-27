@@ -89,7 +89,8 @@ Layout = React.createClass
     @loaderTimeout = null
 
   shouldBlur: ->
-    @state.searchVisible or not _.isEmpty(@props.popups)
+    return unless isClient()
+    not Modernizr.touchevents and (@state.searchVisible or not _.isEmpty(@props.popups))
 
   header: ->
     {header} = @props

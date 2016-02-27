@@ -4,6 +4,7 @@ path = require 'path'
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 AssetsPlugin = require 'assets-webpack-plugin'
+ModernizrPlugin = require 'modernizr-webpack-plugin'
 
 dotenv.load()
 
@@ -23,12 +24,17 @@ sassLoaders = cssLoaders.concat 'sass'
   ExtractTextPlugin.extract 'style', loaders.join('!')
 cjsxLoaders = ['coffee', 'cjsx']
 
+modernizrConfig =
+  filename: 'modernizr.js'
+  'feature-detects': ['touchevents']
+
 switch process.env.TOP_ENV
   when 'production'
     debug = false
     devtool = null
     filename = '[name].[hash].js'
     publicPath = "#{process.env.TOP_ASSETS_HOST}/static/"
+    modernizrConfig.minify = true
 
     plugins.push \
       new webpack.optimize.OccurenceOrderPlugin(),
@@ -40,6 +46,7 @@ switch process.env.TOP_ENV
     devtool = 'eval'
     filename = '[name].js'
     publicPath = "#{process.env.TOP_WEBPACK_HOST}/"
+    modernizrConfig.minify = false
 
     app.unshift \
       "webpack-dev-server/client?#{process.env.TOP_WEBPACK_HOST}",
@@ -50,6 +57,7 @@ switch process.env.TOP_ENV
     cjsxLoaders.unshift 'react-hot'
 
 plugins.push \
+  new ModernizrPlugin(modernizrConfig),
   new webpack.DefinePlugin(definePluginEnv),
   new webpack.NoErrorsPlugin()
 

@@ -45,7 +45,6 @@ Popups = React.createClass
         {@popupComponent()}
       </CSSTransitionGroup>
       <div className="popups_close" onClick={@closeLastPopup}></div>
-      <div className="popups_background"></div>
     </div>
 
 module.exports = connect()(Popups)

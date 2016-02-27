@@ -10,20 +10,23 @@ module.exports = ->
       cssPath = path.join __dirname, '../../public', paths.css.replace(process.env.TOP_ASSETS_HOST, '')
       css = fs.readFileSync(cssPath).toString()
       jsPath = paths.js
+      modernizrPath = "#{process.env.TOP_ASSETS_HOST}/static/modernizr.js"
       fontPaths = paths.fonts
     when 'development'
       css = ''
       jsPath = "#{process.env.TOP_WEBPACK_HOST}/app.js"
+      modernizrPath = "#{process.env.TOP_WEBPACK_HOST}/modernizr.js"
       fontPaths = []
 
   faviconPath = "#{process.env.TOP_ASSETS_HOST}/files/favicon.png"
   manifestPath = "#{process.env.TOP_ASSETS_HOST}/files/manifest.json"
 
+
   (req, res, next) ->
     prevRender = res.render
 
     res.render = (view, locals = {}) ->
-      _.merge locals, { css, jsPath, fontPaths, faviconPath, manifestPath, env: process.env.TOP_ENV, facebookAppId: process.env.TOP_FACEBOOK_APP_ID }
+      _.merge locals, { css, jsPath, modernizrPath, fontPaths, faviconPath, manifestPath, env: process.env.TOP_ENV, facebookAppId: process.env.TOP_FACEBOOK_APP_ID }
       prevRender.call res, view, locals
 
     next()
