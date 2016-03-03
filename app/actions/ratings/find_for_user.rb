@@ -11,7 +11,7 @@ module Ratings
     end
 
     def call
-      ratings = user.ratings.includes(:tags).order(created_at: :desc)
+      ratings = user.ratings.includes(:tags).order('LEAST(ratings.updated_at, ratings.published_at) desc')
       ratings = ratings.published unless Users::CanSeeDrafts.new(current_user, user).call
       ratings.page(page).per(per_page)
     end
