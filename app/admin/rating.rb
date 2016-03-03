@@ -60,7 +60,7 @@ ActiveAdmin.register Rating do
 
   controller do
     def main_page
-      @ratings = Rating.published.pluck(:title, :id)
+      @ratings = Rating.published.order(created_at: :desc).pluck(:title, :id)
       @current_ratings = Rating.on_main_page.map{ |rating| rating.slice(:main_page_position, :id).values }.to_h
       @positions = Rating.main_page_positions_i18n
     end
