@@ -42,7 +42,7 @@ Pagination = React.createClass
       centralWindow = _.union centralWindow, rightWindow
       rightWindow = null
 
-    _.pick left: leftWindow, central: centralWindow, right: rightWindow, _.isArray
+    _.pickBy left: leftWindow, central: centralWindow, right: rightWindow, _.isArray
 
   windows: ->
     {block, pagesCount} = @props
