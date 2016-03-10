@@ -18,7 +18,7 @@ module.exports = ->
       modernizrPath = "#{process.env.TOP_WEBPACK_HOST}/modernizr.js"
       fontPaths = []
 
-  faviconPath = "#{process.env.TOP_ASSETS_HOST}/files/favicon.png"
+  faviconPath = "#{process.env.TOP_PROXY_HOST}/favicon.ico"
   manifestPath = "#{process.env.TOP_ASSETS_HOST}/files/manifest.json"
 
 
