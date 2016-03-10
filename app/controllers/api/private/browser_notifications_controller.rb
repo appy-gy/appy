@@ -22,7 +22,7 @@ module Api
       private
 
       def find_subscription
-        @subscription = BrowserNotificationSubscription.find cookies[:browser_notification_subscription_id]
+        @subscription = BrowserNotificationSubscription.find_by id: cookies[:browser_notification_subscription_id]
       end
     end
   end
