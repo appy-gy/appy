@@ -8,6 +8,9 @@ style(type="text/css")
 each path in fontPaths
   link(rel="prefetch" href=path)
 link(href=faviconPath rel="icon" type="image/png")
+link(rel="apple-touch-icon-precomposed" href=appleTouchIconPath)
+meta(name="msapplication-TileColor" content="#FFFFFF")
+meta(name="msapplication-TileImage" content=msTileImagePath)
 link(href=manifestPath rel="manifest")
 != head.link
 != head.meta

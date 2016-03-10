@@ -19,8 +19,9 @@ module.exports = ->
       fontPaths = []
 
   faviconPath = "#{process.env.TOP_PROXY_HOST}/favicon.ico"
+  appleTouchIconPath = "#{process.env.TOP_PROXY_HOST}/files/favicon-152.png"
+  msTileImagePath = "#{process.env.TOP_PROXY_HOST}/files/favicon-144.png"
   manifestPath = "#{process.env.TOP_ASSETS_HOST}/files/manifest.json"
-
 
   (req, res, next) ->
     prevRender = res.render
