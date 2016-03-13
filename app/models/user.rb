@@ -2,13 +2,14 @@ class User < ActiveRecord::Base
   extend FriendlyId
   include IdAsSlug
   include Users::Auth
+  include Imagination::Field
 
   friendly_id :slug_candidates
 
   update_index 'global#user', :self
 
-  mount_uploader :avatar, Users::AvatarUploader
-  mount_uploader :background, Users::BackgroundUploader
+  image :avatar, versions: { normal: [480, 480], small: [100, 100] }
+  image :background, versions: { normal: [960, 334] }, pad_color: '#21acd0'
 
   enum role: %w{member admin}
 

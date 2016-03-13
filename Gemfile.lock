@@ -70,13 +70,6 @@ GEM
       sass (~> 3.4)
       thor (~> 0.19)
     builder (3.2.2)
-    carrierwave (0.10.0)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-      json (>= 1.7)
-      mime-types (>= 1.16)
-    carrierwave-processing (1.1.0)
-      carrierwave
     chewy (0.8.3)
       activesupport (>= 3.2)
       elasticsearch (>= 1.0.0)
@@ -190,7 +183,6 @@ GEM
       mina
     mina-sidekiq (0.3.1)
       mina
-    mini_magick (4.3.6)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
@@ -357,8 +349,6 @@ DEPENDENCIES
   babosa (~> 1.0.2)
   better_errors
   binding_of_caller
-  carrierwave (~> 0.10.0)
-  carrierwave-processing (~> 1.1.0)
   chewy (~> 0.8.2)
   cocaine (~> 0.5.7)
   dalli (~> 2.7.4)
@@ -377,7 +367,6 @@ DEPENDENCIES
   mina
   mina-puma
   mina-sidekiq
-  mini_magick (~> 4.3.6)
   newrelic_rpm (~> 3.14.0.305)
   oj (~> 2.13.0)
   oj_mimic_json (~> 1.0.1)

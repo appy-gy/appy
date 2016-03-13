@@ -4,7 +4,7 @@ class UserForProfileSerializer < UserSerializer
   attributes :background, :ratings_count, :comments_count, :can_edit
 
   def background
-    object.background.url
+    object.background_url
   end
 
   def ratings_count

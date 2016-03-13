@@ -4,6 +4,6 @@ class RatingForSearchSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :image, :slug
 
   def image
-    object.image.url
+    object.image_url
   end
 end

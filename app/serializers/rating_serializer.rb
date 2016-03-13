@@ -8,6 +8,6 @@ class RatingSerializer < ActiveModel::Serializer
   has_many :tags
 
   def image
-    object.image.url
+    object.image_url
   end
 end

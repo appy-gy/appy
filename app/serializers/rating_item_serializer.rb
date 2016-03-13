@@ -14,6 +14,6 @@ class RatingItemSerializer < ActiveModel::Serializer
   end
 
   def image
-    object.image.url
+    object.image_url
   end
 end

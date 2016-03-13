@@ -4,6 +4,6 @@ class UserForSearchSerializer < ActiveModel::Serializer
   attributes :id, :name, :avatar, :slug
 
   def avatar
-    object.avatar.url
+    object.avatar_url
   end
 end

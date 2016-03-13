@@ -1,7 +1,9 @@
 class RatingItem < ActiveRecord::Base
+  include Imagination::Field
+
   attr_accessor :vote, :video_url
 
-  mount_uploader :image, RatingItems::RatingItemImageUploader
+  image :image, versions: { normal: [880, nil] }, resize: :resize_to_limit
 
   belongs_to :rating
   has_many :votes, dependent: :destroy
@@ -20,8 +22,9 @@ class RatingItem < ActiveRecord::Base
   end
 
   def set_image_size
-    meta = MiniMagick::Image.open image.normal_1x.path
-    self.image_width = meta[:width]
-    self.image_height = meta[:height]
+    return unless self.image?
+    image = Imagination::Image.new image_path(:normal_1x)
+    self.image_width = image.width
+    self.image_height = image.height
   end
 end

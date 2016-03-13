@@ -25,10 +25,6 @@ gem 'handy_const', '~> 0.1.1'
 # Authentication
 gem 'sorcery', '~> 0.9.1'
 
-# Files upload
-gem 'carrierwave', '~> 0.10.0'
-gem 'carrierwave-processing', '~> 1.1.0'
-
 # Video info
 gem 'video_info', '~> 2.5.0'
 
@@ -37,9 +33,6 @@ gem 'kaminari', '~> 0.16.3'
 
 # Soft delete
 gem 'paranoia', '~> 2.1.4'
-
-# Image processing
-gem 'mini_magick', '~> 4.3.6'
 
 # HTTP requests
 gem 'httparty', '~> 0.13.7'

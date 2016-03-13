@@ -1,7 +1,8 @@
 class Rating < ActiveRecord::Base
   extend FriendlyId
-  include Redis::Objects
   include IdAsSlug
+  include Imagination::Field
+  include Redis::Objects
 
   const :recommendations_limit, 3
 
@@ -15,7 +16,7 @@ class Rating < ActiveRecord::Base
 
   update_index 'global#rating', :self
 
-  mount_uploader :image, Ratings::RatingImageUploader
+  image :image, versions: { normal: [960, 500], preview: [300, 200] }, pad_color: '#21acd0'
 
   belongs_to :user
   belongs_to :section

@@ -4,6 +4,6 @@ class UserForCommentSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :avatar, :slug
 
   def avatar
-    object.avatar.url
+    object.avatar_url
   end
 end
