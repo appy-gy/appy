@@ -4,13 +4,13 @@ module Imagination
 
     def dir record, field
       id = record.id.gsub('-', '/')
-      File.join public_dir, 'system', record.class.name.underscore, field.to_s, id
+      ::File.join public_dir, 'system', record.class.name.underscore, field.to_s, id
     end
 
     def path record, field, version = nil
       name = record.public_send field
       name = "#{version}_#{name}" if version
-      File.join dir(record, field), name
+      ::File.join dir(record, field), name
     end
 
     def url record, field, version = nil

@@ -7,18 +7,18 @@ module Imagination
         const :"#{field}_options", opts
 
         class_eval <<~RUBY, __FILE__, __LINE__ + 1
-          attr_accessor :#{field}_upload, :remove_#{field}
+          attr_accessor :#{field}_file, :remove_#{field}
 
           before_save :process_#{field}
           before_save :clear_#{field}
 
           def #{field}= value
-            return self.#{field}_upload = value if Imagination::Processor.processable? value
+            return self.#{field}_file = value if Imagination::Processor.processable? value
             super value
           end
 
           def process_#{field}
-            return unless #{field}_upload
+            return unless #{field}_file
             Imagination::Processor.new(self, :#{field}, #{field}_options).process
           end
 

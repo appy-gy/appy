@@ -9,11 +9,11 @@ module Imagination
     end
 
     def name
-      File.basename path
+      ::File.basename path
     end
 
     def copy
-      new_path = File.join Dir.tmpdir, "#{SecureRandom.uuid}-#{name}"
+      new_path = ::File.join Dir.tmpdir, "#{SecureRandom.uuid}-#{name}"
       FileUtils.cp path, new_path
       merge path: new_path
     end

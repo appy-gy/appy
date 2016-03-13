@@ -1,5 +1,5 @@
 module Imagination
-  class Upload
+  class File
     attr_reader :file
 
     def initialize file
@@ -11,7 +11,10 @@ module Imagination
     end
 
     def filename
-      @filename ||= file.original_filename || SecureRandom.uuid
+      case file
+      when ::File then ::File.basename file
+      when ActionDispatch::Http::UploadedFile then file.original_filename
+      end
     end
   end
 end

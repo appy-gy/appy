@@ -12,7 +12,7 @@ module Imagination
       pad_color: 'white'
     }
 
-    const :processable_classes, [File, ActionDispatch::Http::UploadedFile]
+    const :processable_classes, [::File, ActionDispatch::Http::UploadedFile]
 
     def initialize record, field, **opts
       raise ArgumentError.new('Record should have id') unless record.id?
@@ -22,9 +22,9 @@ module Imagination
     end
 
     def process
-      record.public_send "#{field}=", upload.filename
+      record.public_send "#{field}=", file.filename
       FileUtils.mkdir_p dir
-      FileUtils.cp upload.path, path
+      FileUtils.cp file.path, path
       process_versions
     end
 
@@ -38,7 +38,7 @@ module Imagination
       threads = opts[:versions].map do |name, (width, height)|
         opts[:sizes].map do |size|
           Thread.new do
-            dest = File.join dir, "#{name}_#{size}x_#{upload.filename}"
+            dest = ::File.join dir, "#{name}_#{size}x_#{file.filename}"
             process_version dest, width, height
           end
         end
@@ -82,8 +82,8 @@ module Imagination
       end
     end
 
-    def upload
-      @upload ||= Upload.new record.public_send("#{field}_upload")
+    def file
+      @file ||= Imagination::File.new record.public_send("#{field}_file")
     end
 
     def dir
