@@ -25,6 +25,7 @@ module Imagination
       record.public_send "#{field}=", file.filename
       FileUtils.mkdir_p dir
       FileUtils.cp file.path, path
+      set_permission path
       process_versions
     end
 
@@ -40,6 +41,7 @@ module Imagination
           Thread.new do
             dest = ::File.join dir, "#{name}_#{size}x_#{file.filename}"
             process_version dest, width, height
+            set_permission dest
           end
         end
       end
@@ -80,6 +82,10 @@ module Imagination
       else
         "x#{(scale_y * (image.height + 0.5)).round}"
       end
+    end
+
+    def set_permission path
+      FileUtils.chmod 0755, path
     end
 
     def file
