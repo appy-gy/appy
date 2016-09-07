@@ -24,17 +24,12 @@ Meta = React.createClass
     {rating, commentsAnchor} = @props
     {block} = @context
 
-    timestamp = moment(rating.publishedAt || rating.createdAt)
-
     <div className="#{block}_meta">
       <Item ref="likesCounter" icon="likes">
         {rating.likesCount}
       </Item>
       <Item icon="comments" anchor={commentsAnchor}>
         {rating.commentsCount}
-      </Item>
-      <Item>
-        {timestamp.format('D MMMM YYYY')}
       </Item>
     </div>
 
