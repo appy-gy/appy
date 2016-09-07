@@ -7,13 +7,13 @@ module Search
     end
 
     def call
-      TagsIndex.query(query).load.to_a
+      Tag.where('LOWER(name) LIKE ?', "%#{query}%").limit(10)
     end
 
     private
 
     def query
-      { prefix: { name: @query } }
+      @query.mb_chars.downcase.to_s
     end
   end
 end

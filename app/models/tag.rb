@@ -1,8 +1,6 @@
 class Tag < ActiveRecord::Base
   extend FriendlyId
 
-  update_index 'tags', :self
-
   friendly_id :slug_candidates
 
   has_many :ratings_tags

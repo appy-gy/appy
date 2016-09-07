@@ -6,8 +6,6 @@ class User < ActiveRecord::Base
 
   friendly_id :slug_candidates
 
-  update_index 'global#user', :self
-
   image :avatar, versions: { normal: [480, 480], small: [100, 100] }
   image :background, versions: { normal: [960, 334] }, pad_color: '#21acd0'
 

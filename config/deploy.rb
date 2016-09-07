@@ -3,7 +3,6 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/npm'
 require 'mina/puma'
-require 'mina_sidekiq/tasks'
 
 set :domain, 'appy.gy'
 set :deploy_to, '/var/www/top'
@@ -20,8 +19,6 @@ set :user, 'top' # Username in the server to SSH to.
 set :forward_agent, true # SSH forward_agent.
 
 set :npm_options, ''
-
-set :sidekiq_pid, -> { "#{deploy_to}/#{shared_path}/tmp/pids/sidekiq.pid" }
 
 # This task is the environment that is loaded for most commands, such as
 # `mina deploy` or `mina rake`.
@@ -103,7 +100,6 @@ task deploy: :environment do
     invoke :'memcached:flush'
 
     to :launch do
-      invoke :'sidekiq:restart'
       invoke :'prerender:kill'
       invoke :'prerender:start'
       invoke :'puma:restart'

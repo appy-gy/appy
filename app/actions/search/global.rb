@@ -12,13 +12,15 @@ module Search
     end
 
     def call
-      GlobalIndex.query(query).page(page).per(per_page).load.to_a
+      users = User.where('LOWER(name) LIKE ?', "%#{query}%").page(page).per(per_page).to_a
+      ratings = Rating.where('LOWER(title) LIKE ?', "%#{query}%").page(page).per(per_page).to_a
+      (users + ratings).sort_by(&:created_at).reverse
     end
 
     private
 
     def query
-      { match_phrase_prefix: { _all: { query: @query, slop: slop, max_expansions: max_expansions } } }
+      @query.mb_chars.downcase.to_s
     end
   end
 end

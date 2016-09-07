@@ -9,7 +9,6 @@ gem 'puma', '~> 2.15.2'
 gem 'pg', '~> 0.18.3'
 gem 'dalli', '~> 2.7.4'
 gem 'redis-objects', '~> 1.2.1'
-gem 'chewy', '~> 0.8.2'
 
 # Configuration
 gem 'dotenv-rails', '~> 2.0.2'
@@ -55,7 +54,6 @@ gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'cocaine', '~> 0.5.7'
 
 # Jobs
-gem 'sidekiq', '~> 4.1.0'
 gem 'whenever', '~> 0.9.4', require: false
 
 # Monitoring
@@ -81,7 +79,6 @@ group :development do
   gem 'binding_of_caller'
   gem 'mina', require: false
   gem 'mina-puma', require: false
-  gem 'mina-sidekiq', require: false
 end
 
 group :test do

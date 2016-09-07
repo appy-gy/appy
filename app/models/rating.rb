@@ -14,8 +14,6 @@ class Rating < ActiveRecord::Base
 
   counter :views
 
-  update_index 'global#rating', :self
-
   image :image, versions: { normal: [960, 500], preview: [300, 200] }, pad_color: '#21acd0'
 
   belongs_to :user
