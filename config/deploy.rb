@@ -6,7 +6,7 @@ require 'mina/puma'
 
 set :domain, 'appy.gy'
 set :deploy_to, '/var/www/top'
-set :repository, 'git@gitlab.com:appy.gy/appy.git'
+set :repository, 'git@github.com:appy-gy/appy.git'
 set :branch, 'master'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
