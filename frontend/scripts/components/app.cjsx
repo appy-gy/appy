@@ -62,7 +62,7 @@ App = React.createClass
     </span>
 
 mapStateToProps = ({router, currentUser}) ->
-  path: router.pathname
+  path: router.location.pathname
   params: router.params
   currentUser: currentUser.item,
   isFetched: currentUser.isFetched
