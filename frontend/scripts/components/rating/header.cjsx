@@ -127,11 +127,11 @@ Header = React.createClass
     ]
 
   render: ->
-    {rating} = @props
+    {rating, canEdit} = @props
 
     classes = classNames 'rating_header', 'm-with-image': rating.image?
 
-    return <div className={classes}>{@children()}</div> if rating.status == 'published'
+    return <div className={classes}>{@children()}</div> unless canEdit
 
     <FileInput className={classes} onSelect={@updateImage} {...@fileInputProps()}>
       {@children()}
