@@ -7,6 +7,7 @@ strip = require 'strip'
 ratingActions = require '../../actions/rating'
 ratingItemActions = require '../../actions/rating_items'
 isClient = require '../../helpers/is_client'
+imageUrl = require '../../helpers/image_url'
 canEditRating = require '../../helpers/ratings/can_edit'
 SyncSlug = require '../mixins/sync_slug'
 Rating = require './rating'
@@ -71,7 +72,7 @@ RatingPage = React.createClass
       { name: 'keywords', content: _.map(rating.tags, 'name').join(', ') }
       { property: 'og:title', content: rating.title }
       { property: 'og:description', content: description }
-      { property: 'og:image', content: rating.image }
+      { property: 'og:image', content: imageUrl(rating.image) }
     ]
 
   fetchRating: ->
