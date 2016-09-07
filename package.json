@@ -21,7 +21,6 @@
     "newrelic": "^1.22.2",
     "node-uuid": "^1.4.3",
     "normalize.css": "^3.0.3",
-    "pm2": "^0.15.7",
     "qs": "^5.2.0",
     "react": "^0.14.7",
     "react-addons-create-fragment": "^0.14.7",

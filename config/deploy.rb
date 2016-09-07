@@ -54,25 +54,25 @@ namespace :prerender do
   desc 'Start prerender'
   task start: :environment do
     queue %{echo "-----> Starting prerender service"}
-    queue! %{NODE_ENV=production node_modules/.bin/pm2 start prerender/server.coffee -i 1 -n prerender -l log/prerender.log --interpreter node_modules/.bin/coffee}
+    queue! %{NODE_ENV=production pm2 start prerender/server.coffee -i 1 -n prerender -l log/prerender.log --interpreter node_modules/.bin/coffee}
   end
 
   desc 'Restart prerender'
   task restart: :environment do
     queue %{echo "-----> Restarting prerender service"}
-    queue! %{node_modules/.bin/pm2 startOrRestart prerender}
+    queue! %{pm2 startOrRestart prerender}
   end
 
   desc 'Stop prerender'
   task stop: :environment do
     queue %{echo "-----> Stopping prerender service"}
-    queue! %{node_modules/.bin/pm2 stop prerender}
+    queue! %{pm2 stop prerender}
   end
 
   desc 'Kill prerender'
   task kill: :environment do
     queue %{echo "-----> Killing prerender service"}
-    queue! %{node_modules/.bin/pm2 kill}
+    queue! %{pm2 kill}
   end
 end
 
